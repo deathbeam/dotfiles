@@ -53,8 +53,8 @@ export VISUAL="$EDITOR"
 # For a full list of active aliases, run `alias`.
 
 # Aliases to config files
-alias zshconfig="nvim ~/.zshrc && cp ~/.zshrc ~/GitHub/devenv/.zshrc && echo 'zsh config updated succesfully'"
-alias nvimconfig="nvim ~/.config/nvim/init.vim && cp ~/.config/nvim/init.vim ~/GitHub/devenv/.config/nvim/init.vim && echo 'nvim config updated succesfully'"
+alias zshconfig="nvim ~/.zshrc"
+alias nvimconfig="nvim ~/.config/nvim/init.vim"
 
 # Fish-like syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
