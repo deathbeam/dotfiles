@@ -44,7 +44,7 @@ source $ZSH/oh-my-zsh.sh
 # export LANG=en_US.UTF-8
 
 # Preferred editor for local and remote sessions
-export EDITOR="nvim"
+export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Set personal aliases, overriding those provided by oh-my-zsh libs,
@@ -53,8 +53,9 @@ export VISUAL="$EDITOR"
 # For a full list of active aliases, run `alias`.
 
 # Aliases to config files
-alias zshconfig="nvim ~/.zshrc"
-alias nvimconfig="nvim ~/.config/nvim/init.vim"
+alias zshconfig="$EDITOR ~/.zshrc"
+alias vimconfig="$EDITOR ~/.vimrc"
+alias nvimconfig="$EDITOR ~/.config/nvim/init.vim"
 
 # Fish-like syntax highlighting
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
