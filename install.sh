@@ -9,30 +9,25 @@ then
 fi
 
 # Vim stuff
-read -p "Install Vim stuff? " -n 1 -r
-echo
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-  # Check for Vim installation
-  echo "Checking for Vim installation..."
-  command -v vim >/dev/null 2>&1 || { echo >&2 "Vim is not installed. Visit http://www.vim.org."; exit 1; }
+# Check for Vim installation
+echo "Checking for Vim installation..."
+command -v vim >/dev/null 2>&1 || { echo >&2 "Vim is not installed. Visit http://www.vim.org."; exit 1; }
 
-  # Install Plug for NeoVim
-  echo "Installing Plug for Vim..."
-  PLUG_PATH=~/.vim/autoload/plug.vim
-  if [ ! -f $PLUG_PATH ]; then
-    curl -fLo $PLUG_PATH --create-dirs \
-    https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  fi
-
-  # Copy config files
-  echo "Copying config files for Vim..."
-  cp .vimrc ~/.vimrc
-
-  # Install all Plug plugins
-  echo "Installing Vim plugins..."
-  vim +PlugInstall +qall
+# Install Plug for NeoVim
+echo "Installing Plug for Vim..."
+PLUG_PATH=~/.vim/autoload/plug.vim
+if [ ! -f $PLUG_PATH ]; then
+  curl -fLo $PLUG_PATH --create-dirs \
+  https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 fi
+
+# Copy config files
+echo "Copying config files for Vim..."
+cp .vimrc ~/.vimrc
+
+# Install all Plug plugins
+echo "Installing Vim plugins..."
+vim +PlugInstall +qall
 
 # NeoVim stuff
 read -p "Install NeoVim stuff? " -n 1 -r
@@ -54,7 +49,8 @@ then
 
   # Copy config files
   echo "Copying config files for NeoVim..."
-  cp .config/nvim/init.vim ~/.config/nvim/init.vim
+  mkdir -p ~/.config/nvim
+  ln -s ~/.vimrc ~/.config/nvim/init.vim
 
   # Install all Plug plugins
   echo "Installing NeoVim plugins..."
