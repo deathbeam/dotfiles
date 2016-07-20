@@ -61,4 +61,4 @@ then
   nvim +PlugInstall +qall
 fi
 
-echo "Installation done."
+echo "Installation done. Vim cheatsheet: http://vim.rtorr.com"
