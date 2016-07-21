@@ -147,14 +147,10 @@ let g:nerdtree_tabs_open_on_gui_startup=0
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 
 " Make Startify work with NERDTree
+let wmuse_nt = 0
+autocmd StdinReadPost * let wmuse_nt = 1
 let NERDTreeHijackNetrw = 0
-autocmd VimEnter *
-                \   if !argc()
-                \ |   Startify
-                \ |   NERDTree
-                \ |   wincmd w
-                \ | endif
-
+autocmd VimEnter * call WelcomeScreen(wmuse_nt)
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -290,7 +286,7 @@ nnoremap <leader>b :CtrlPBuffer<CR>
 nnoremap <leader>f :CtrlPMRUFiles<CR>
 
 " Open NERDTree
-map <leader>un :NERDTreeTabsToggle<CR>
+map <leader>un :NERDTreeToggle<CR>
 nmap <leader>uc :NERDTreeCWD<CR>
 
 " Open vimshell
@@ -493,6 +489,12 @@ autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Helper functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+func! WelcomeScreen(std_in)
+  if !argc() && a:std_in == 0
+    Startify | NERDTree | wincmd w
+  endif
+endfunc
+
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
