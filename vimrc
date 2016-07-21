@@ -5,7 +5,7 @@
 if !has("win16") && !has("win32") && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC 
+  autocmd VimEnter * PlugInstall | source $MYVIMRC
 endif
 
 " Change default Plug directory based on OS
@@ -25,12 +25,14 @@ Plug 'itchyny/lightline.vim'
 Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
+Plug 'airblade/vim-gitgutter'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
 Plug 'mhinz/vim-startify'
+Plug 'editorconfig/editorconfig-vim'
 
 " If not on windows, install shell emulator
 if !has("win16") && !has("win32")
@@ -151,6 +153,9 @@ let wmuse_nt = 0
 autocmd StdinReadPost * let wmuse_nt = 1
 let NERDTreeHijackNetrw = 0
 autocmd VimEnter * call WelcomeScreen(wmuse_nt)
+
+" Fix EditorConfig for fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -338,7 +343,7 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
 " Open Ag and put the cursor in the right position
-map <leader>g :Ag 
+map <leader>g :Ag
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
@@ -394,21 +399,21 @@ map <leader>pp :setlocal paste!<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Set font according to system
 if has("mac") || has("macunix")
-    set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
+  set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
 elseif has("win16") || has("win32")
-    set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+  set gfn=Hack:h14,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
 elseif has("gui_gtk2")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+  set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
 elseif has("linux")
-    set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+  set gfn=Hack\ 14,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
 elseif has("unix")
-    set gfn=Monospace\ 11
+  set gfn=Monospace\ 11
 endif
 
 " Open MacVim in fullscreen mode
 if has("gui_macvim")
-    set fuoptions=maxvert,maxhorz
-    au GUIEnter * set fullscreen
+  set fuoptions=maxvert,maxhorz
+  au GUIEnter * set fullscreen
 endif
 
 " Disable scrollbars (real hackers don't use scrollbars for navigation!)
@@ -418,12 +423,12 @@ set guioptions-=l
 set guioptions-=L
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on 
+" => Turn persistent undo on
 "    means that you can undo even when you close a buffer/VIM
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 try
-    set undodir=~/.vim_runtime/temp_dirs/undodir
-    set undofile
+  set undodir=~/.vim_runtime/temp_dirs/undodir
+  set undofile
 catch
 endtry
 
@@ -438,7 +443,7 @@ cno $j e ./
 cno $c e <C-\>eCurrentFileDir("e")<cr>
 
 " $q is super useful when browsing on the command line
-" it deletes everything until the last slash 
+" it deletes everything until the last slash
 cno $q <C-\>eDeleteTillSlash()<cr>
 
 " Bash like keys for the command line
@@ -502,78 +507,78 @@ func! DeleteTrailingWS()
 endfunc
 
 function! CmdLine(str)
-    exe "menu Foo.Bar :" . a:str
-    emenu Foo.Bar
-    unmenu Foo
+  exe "menu Foo.Bar :" . a:str
+  emenu Foo.Bar
+  unmenu Foo
 endfunction
 
 function! VisualSelection(direction, extra_filter) range
-    let l:saved_reg = @"
-    execute "normal! vgvy"
+  let l:saved_reg = @"
+  execute "normal! vgvy"
 
-    let l:pattern = escape(@", '\\/.*$^~[]')
-    let l:pattern = substitute(l:pattern, "\n$", "", "")
+  let l:pattern = escape(@", '\\/.*$^~[]')
+  let l:pattern = substitute(l:pattern, "\n$", "", "")
 
-    if a:direction == 'gv'
-        call CmdLine("Ack \"" . l:pattern . "\" " )
-    elseif a:direction == 'replace'
-        call CmdLine("%s" . '/'. l:pattern . '/')
-    endif
+  if a:direction == 'gv'
+    call CmdLine("Ack \"" . l:pattern . "\" " )
+  elseif a:direction == 'replace'
+    call CmdLine("%s" . '/'. l:pattern . '/')
+  endif
 
-    let @/ = l:pattern
-    let @" = l:saved_reg
+  let @/ = l:pattern
+  let @" = l:saved_reg
 endfunction
 
 
 " Returns true if paste mode is enabled
 function! HasPaste()
-    if &paste
-        return 'PASTE MODE  '
-    endif
-    return ''
+  if &paste
+    return 'PASTE MODE  '
+  endif
+  return ''
 endfunction
 
 " Don't close window, when deleting a buffer
 command! Bclose call <SID>BufcloseCloseIt()
 function! <SID>BufcloseCloseIt()
-   let l:currentBufNum = bufnr("%")
-   let l:alternateBufNum = bufnr("#")
+  let l:currentBufNum = bufnr("%")
+  let l:alternateBufNum = bufnr("#")
 
-   if buflisted(l:alternateBufNum)
-     buffer #
-   else
-     bnext
-   endif
+  if buflisted(l:alternateBufNum)
+    buffer #
+  else
+    bnext
+  endif
 
-   if bufnr("%") == l:currentBufNum
-     new
-   endif
+  if bufnr("%") == l:currentBufNum
+    new
+  endif
 
-   if buflisted(l:currentBufNum)
-     execute("bdelete! ".l:currentBufNum)
-   endif
+  if buflisted(l:currentBufNum)
+    execute("bdelete! ".l:currentBufNum)
+  endif
 endfunction
 
 func! DeleteTillSlash()
-    let g:cmd = getcmdline()
+  let g:cmd = getcmdline()
 
+  if has("win16") || has("win32")
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+  else
+    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+  endif
+
+  if g:cmd == g:cmd_edited
     if has("win16") || has("win32")
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
     else
-        let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
     endif
+  endif
 
-    if g:cmd == g:cmd_edited
-        if has("win16") || has("win32")
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-        else
-            let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
-        endif
-    endif   
-
-    return g:cmd_edited
+  return g:cmd_edited
 endfunc
 
 func! CurrentFileDir(cmd)
-    return a:cmd . " " . expand("%:p:h") . "/"
+  return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
