@@ -8,7 +8,7 @@ DEFAULT_USER=`whoami`
 # Look in ~/.oh-my-zsh/themes/
 # Optionally, if you set this to "random", it'll load a random theme each
 # time that oh-my-zsh is loaded.
-ZSH_THEME="agnoster"
+ZSH_THEME="pure"
 
 # Uncomment the following line to use case-sensitive completion.
 # CASE_SENSITIVE="true"
@@ -37,7 +37,8 @@ export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
 source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+autoload -U promptinit && promptinit
+prompt pure
 
 # Set custom color for zsh autocompletion
 # ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
@@ -52,5 +53,4 @@ export VISUAL="$EDITOR"
 # Aliases to config files
 alias zshconfig="$EDITOR ~/.zshrc"
 alias vimconfig="$EDITOR ~/.vimrc"
-alias gvimconfig="$EDITOR ~/.gvimrc"
 

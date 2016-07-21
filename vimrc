@@ -21,8 +21,6 @@ Plug 'flazz/vim-colorschemes'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'jistr/vim-nerdtree-tabs'
-Plug 'itchyny/lightline.vim'
-Plug 'shinchu/lightline-gruvbox.vim'
 Plug 'easymotion/vim-easymotion'
 Plug 'scrooloose/nerdcommenter'
 Plug 'airblade/vim-gitgutter'
@@ -31,6 +29,8 @@ Plug 'tpope/vim-surround'
 Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
 Plug 'editorconfig/editorconfig-vim'
 
@@ -165,7 +165,7 @@ syntax enable
 
 " Set theme if possible
 try
-  colorscheme gruvbox
+  colorscheme Tomorrow-Night
 catch
 endtry
 
@@ -301,8 +301,8 @@ map <leader>sh <Plug>(vimshell_split_switch)
 """"""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
-" Set theme for lightine
-let g:lightline = { 'colorscheme': 'gruvbox' }
+" Set theme for status line
+let g:airline_theme='tomorrow'
 
 " Always show the status line
 set laststatus=2
