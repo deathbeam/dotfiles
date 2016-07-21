@@ -10,9 +10,9 @@ endif
 
 " Change default Plug directory based on OS
 if has("win16") || has("win32")
-	call plug#begin('~/vimfiles/plugged')
+  call plug#begin('~/vimfiles/plugged')
 else
-	call plug#begin('~/.vim/plugged')
+  call plug#begin('~/.vim/plugged')
 endif
 
 Plug 'kien/ctrlp.vim'
@@ -256,7 +256,6 @@ map <leader>t<leader> :tabnext
 let g:lasttab = 1
 nmap <Leader>tl :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
-
 
 " Opens a new tab with the current buffer's path
 " Super useful when editing files in the same directory
