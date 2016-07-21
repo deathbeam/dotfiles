@@ -40,7 +40,7 @@ source ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting/zsh-syntax-highlighti
 # source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Set custom color for zsh autocompletion
-ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
+# ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=0'
 
 # You may need to manually set your language environment
 export LANG=en_US.UTF-8

@@ -138,6 +138,16 @@ set foldcolumn=1
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 
+" Make Startify work with NERDTree
+let NERDTreeHijackNetrw = 0
+autocmd VimEnter *
+                \   if !argc()
+                \ |   Startify
+                \ |   NERDTree
+                \ |   wincmd w
+                \ | endif
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
