@@ -1,16 +1,14 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Automatic Plug install
+" => Plugs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Automatic Plug installation if missing
 if !has("win16") && !has("win32") && empty(glob('~/.vim/autoload/plug.vim'))
   silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
     \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  autocmd VimEnter * PlugInstall | source $MYVIMRC 
 endif
 
-autocmd VimEnter * PlugInstall | source $MYVIMRC
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Change default Plug directory based on OS
 if has("win16") || has("win32")
 	call plug#begin('~/vimfiles/plugged')
 else
@@ -33,8 +31,12 @@ Plug 'scrooloose/syntastic'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
 Plug 'mhinz/vim-startify'
-Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-Plug 'Shougo/vimshell.vim'
+
+" If not on windows, install shell emulator
+if !has("win16") && !has("win32")
+  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
+  Plug 'Shougo/vimshell.vim'
+end
 
 call plug#end()
 
@@ -62,10 +64,7 @@ nmap <leader>w :w!<cr>
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-if !has("win16") && !has("win32")
-    command W w !sudo tee % > /dev/null
-endif
-
+command W w !sudo tee % > /dev/null
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -74,7 +73,7 @@ endif
 set so=7
 
 " Avoid garbled characters in Chinese language windows OS
-let $LANG='en'
+let $LANG='en_US.utf8'
 set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
@@ -85,9 +84,9 @@ set wildmenu
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
 if has("win16") || has("win32")
-    set wildignore+=.git\*,.hg\*,.svn\*
+  set wildignore+=.git\*,.hg\*,.svn\*
 else
-    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
 "Always show current position
@@ -135,11 +134,9 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
-" NERDTree
+" Open new silent tab on right mouse click in NERDTree
 let g:nerdtree_tabs_open_on_gui_startup=0
 let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-let g:NERDTreeWinSize = 50
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -147,8 +144,9 @@ let g:NERDTreeWinSize = 50
 " Enable syntax highlighting
 syntax enable
 
+" Set theme if possible
 try
-    colorscheme gruvbox
+  colorscheme gruvbox
 catch
 endtry
 
@@ -156,10 +154,10 @@ set background=dark
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guioptions-=T
-    set guioptions-=e
-    set t_Co=256
-    set guitablabel=%M\ %t
+  set guioptions-=T
+  set guioptions-=e
+  set t_Co=256
+  set guitablabel=%M\ %t
 endif
 
 " Set utf8 as standard encoding and en_US as the standard language
@@ -187,9 +185,12 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
+" Show line numbers
+set number
+
 " 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 500 characters
 set lbr
@@ -264,19 +265,18 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" CtrlP
 " Open file menu
-nnoremap <Leader>o :CtrlP<CR>
+nnoremap <leader>o :CtrlP<CR>
 " Open buffer menu
-nnoremap <Leader>b :CtrlPBuffer<CR>
+nnoremap <leader>b :CtrlPBuffer<CR>
 " Open most recently used files
-nnoremap <Leader>f :CtrlPMRUFiles<CR>
+nnoremap <leader>f :CtrlPMRUFiles<CR>
 
-" NERDTree
-map <leader>nn :NERDTreeTabsToggle<CR>
-nmap <leader>nc :NERDTreeCWD<CR>
+" Open NERDTree
+map <leader>un :NERDTreeTabsToggle<CR>
+nmap <leader>uc :NERDTreeCWD<CR>
 
-" VimShell
+" Open vimshell
 map <leader>sh <Plug>(vimshell_split_switch)
 
 
@@ -323,21 +323,21 @@ autocmd BufWrite *.coffee :call DeleteTrailingWS()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ack searching and cope displaying
-"    requires ack.vim - it's much better than vimgrep/grep
+" => Ag searching and cope displaying
+"    requires ag.vim - it's much better than vimgrep/grep
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you Ack after the selected text
+" When you press gv you Ag after the selected text
 vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
 
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack
+" Open Ag and put the cursor in the right position
+map <leader>g :Ag 
 
 " When you press <leader>r you can search and replace the selected text
 vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 " Do :help cope if you are unsure what cope is. It's super useful!
 "
-" When you search with Ack, display your results in cope by doing:
+" When you search with Ag, display your results in cope by doing:
 "   <leader>cc
 "
 " To go to the next search result do:
@@ -408,14 +408,6 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Fast editing and reloading of vimrc configs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-map <leader>e :e! ~/.vim_runtime/my_configs.vim<cr>
-autocmd! bufwritepost vimrc source ~/.vim_runtime/my_configs.vim
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on 
