@@ -5,11 +5,9 @@ echo "Copying config files..."
 rm -rf ~/.config/nvim
 cp zshrc ~/.zshrc
 cp vimrc ~/.vimrc
+cp zpreztorc ~/.zpreztorc
 mkdir -p ~/.config/nvim
 ln -s ~/.vim/autoload ~/.config/nvim/autoload
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 
-# Source new configuration
-echo "Sourcing new configuration..."
-source ~/.zshrc
 echo "Installation done. Vim cheatsheet: http://vim.rtorr.com"
