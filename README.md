@@ -6,6 +6,14 @@ This is my Vim, ZSH and Prezto configuration. It is still work in progress, so e
 
 ![Terminal](/screenshots/terminal.png?raw=true "Terminal")
 
+## requirements
+
+* cowsay
+* powerline fonts
+* zsh
+* vim
+* git
+
 ## installation
 
 I made small automated installation script, what will update your `.zshrc`, `.zshpreztorc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
