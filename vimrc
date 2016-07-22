@@ -15,37 +15,89 @@ else
   call plug#begin('~/.vim/plugged')
 endif
 
-Plug 'kien/ctrlp.vim'
-Plug 'mileszs/ack.vim'
+" Fancy stuff
 Plug 'flazz/vim-colorschemes'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'easymotion/vim-easymotion'
-Plug 'scrooloose/nerdcommenter'
-Plug 'airblade/vim-gitgutter'
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/syntastic'
-Plug 'majutsushi/tagbar'
-Plug 'craigemery/vim-autotag'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'mhinz/vim-startify'
+Plug 'weynhamz/vim-plugin-minibufexpl'
+Plug 'mbbill/undotree'
+
+" Awesome stuff, cannot live without it
+Plug 'kien/ctrlp.vim'
+Plug 'fisadev/vim-ctrlp-cmdpalette'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'tpope/vim-fugitive'
+Plug 'airblade/vim-gitgutter'
+Plug 'scrooloose/syntastic'
 Plug 'editorconfig/editorconfig-vim'
 
-" If not on windows, install shell emulator
-if !has("win16") && !has("win32")
-  Plug 'Shougo/vimproc.vim', {'do' : 'make'}
-  Plug 'Shougo/vimshell.vim'
-end
+" Average stuff
+Plug 'tpope/vim-surround'
+Plug 'tpope/vim-repeat'
+Plug 'scrooloose/nerdcommenter'
+
+" Meh, I don't even know if I need it (or how to use it)
+Plug 'mileszs/ack.vim'
+Plug 'majutsushi/tagbar'
+Plug 'craigemery/vim-autotag'
 
 call plug#end()
 
 
+""""""""""""""""""""""""""""""
+" => Plugins config
+""""""""""""""""""""""""""""""
+" mbufexplore
+map <leader>o :MBEToggle<cr>
+
+" CTRL-P
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_map = '<c-f>'
+map <leader>j :CtrlP<cr>
+map <leader>t :CtrlPCmdPalette<cr>
+map <c-b> :CtrlPBuffer<cr>
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
+
+" NERDTree
+let g:NERDTreeWinPos = "right"
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark
+map <leader>nf :NERDTreeFind<cr>
+
+" Open new silent tab on right mouse click in NERDTree
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+
+" Make Startify work with NERDTree
+let wmuse_nt = 0
+autocmd StdinReadPost * let wmuse_nt = 1
+let NERDTreeHijackNetrw = 0
+autocmd VimEnter * call WelcomeScreen(wmuse_nt)
+
+" Fix EditorConfig for fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+" surround.vim
+vmap Si S(i_<esc>f)
+au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" Reload vimrc after it was changed
+autocmd BufWritePost .vimrc source $MYVIMRC
+
+" Fast way to edit .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Fast way to reload .vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -74,7 +126,7 @@ vmap <leader>P "+P
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
-command W w !sudo tee % > /dev/null
+command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -104,7 +156,7 @@ endif
 set ruler
 
 " Height of the command bar
-set cmdheight=2
+set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
 set hid
@@ -144,19 +196,6 @@ set tm=500
 
 " Add a bit extra margin to the left
 set foldcolumn=1
-
-" Open new silent tab on right mouse click in NERDTree
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-
-" Make Startify work with NERDTree
-let wmuse_nt = 0
-autocmd StdinReadPost * let wmuse_nt = 1
-let NERDTreeHijackNetrw = 0
-autocmd VimEnter * call WelcomeScreen(wmuse_nt)
-
-" Fix EditorConfig for fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -253,6 +292,7 @@ map <leader>bd :Bclose<cr>:tabclose<cr>gT
 " Close all the buffers
 map <leader>ba :bufdo bd<cr>
 
+" Move between buffers
 map <leader>l :bnext<cr>
 map <leader>h :bprevious<cr>
 
@@ -287,32 +327,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 
 
 """"""""""""""""""""""""""""""
-" => Plugins
-""""""""""""""""""""""""""""""
-" CTRL-P
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
-
-" NERDTree
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark
-map <leader>nf :NERDTreeFind<cr>
-
-" surround.vim
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
-
-" Vimshell
-map <leader>sh <Plug>(vimshell_split_switch)
-
-
-""""""""""""""""""""""""""""""
 " => Status line
 """"""""""""""""""""""""""""""
 " Set theme for status line
@@ -343,40 +357,6 @@ if has("mac") || has("macunix")
   vmap <D-j> <M-j>
   vmap <D-k> <M-k>
 endif
-
-" Delete trailing white space on save, useful for Python and CoffeeScript ;)
-autocmd BufWrite *.py :call DeleteTrailingWS()
-autocmd BufWrite *.coffee :call DeleteTrailingWS()
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Ag searching and cope displaying
-"    requires ag.vim - it's much better than vimgrep/grep
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" When you press gv you Ag after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ag and put the cursor in the right position
-map <leader>g :Ag
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Do :help cope if you are unsure what cope is. It's super useful!
-"
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-"
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -513,12 +493,6 @@ func! WelcomeScreen(std_in)
   if !argc() && a:std_in == 0
     Startify | NERDTree | wincmd w
   endif
-endfunc
-
-func! DeleteTrailingWS()
-  exe "normal mz"
-  %s/\s\+$//ge
-  exe "normal `z"
 endfunc
 
 function! CmdLine(str)
