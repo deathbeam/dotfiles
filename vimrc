@@ -76,6 +76,7 @@ vmap <leader>P "+P
 " (useful for handling the permission-denied error)
 command W w !sudo tee % > /dev/null
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -156,6 +157,7 @@ autocmd VimEnter * call WelcomeScreen(wmuse_nt)
 
 " Fix EditorConfig for fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -283,18 +285,30 @@ endtry
 " Return to last edit position when opening files (You want this!)
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Open file menu
-nnoremap <leader>o :CtrlP<CR>
-" Open buffer menu
-nnoremap <leader>b :CtrlPBuffer<CR>
-" Open most recently used files
-nnoremap <leader>f :CtrlPMRUFiles<CR>
 
-" Open NERDTree
-map <leader>un :NERDTreeToggle<CR>
-nmap <leader>uc :NERDTreeCWD<CR>
+""""""""""""""""""""""""""""""
+" => Plugins
+""""""""""""""""""""""""""""""
+" CTRL-P
+let g:ctrlp_working_path_mode = 0
+let g:ctrlp_map = '<c-f>'
+map <leader>j :CtrlP<cr>
+map <c-b> :CtrlPBuffer<cr>
+let g:ctrlp_max_height = 20
+let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
 
-" Open vimshell
+" NERDTree
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>nn :NERDTreeToggle<cr>
+map <leader>nb :NERDTreeFromBookmark
+map <leader>nf :NERDTreeFind<cr>
+
+" surround.vim
+vmap Si S(i_<esc>f)
+au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+
+" Vimshell
 map <leader>sh <Plug>(vimshell_split_switch)
 
 
@@ -421,6 +435,7 @@ set guioptions-=r
 set guioptions-=R
 set guioptions-=l
 set guioptions-=L
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
