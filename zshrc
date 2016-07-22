@@ -30,8 +30,12 @@ alias config-zsh="$EDITOR ~/.zshrc"
 alias config-prezto="$EDITOR ~/.zpreztorc"
 alias config-vim="$EDITOR ~/.vimrc"
 
+# Awesome Star Wars alias
+alias star-wars="telnet towel.blinkenlights.nl"
+
 # Awesome Star Wars MOTD
-motd[1]=$(echo "$USER, I am your father!" | cowsay -f vader-koala)
-motd[2]=$(echo "He told me enough! He told me you killed him!" | cowsay -f luke-koala)
+motd[1]=$(echo "$USER, I am your father." | cowsay -f vader-koala)
+motd[2]=$(echo "$USER told me enough! $USER told me you killed him!" | cowsay -f luke-koala)
 rand=$[$RANDOM % 2 + 1]
-echo $motd[$rand]
+echo "\e[33m$motd[$rand]\e[0m"
+echo "\nRun \e[33mstar-wars\e[0m to watch some Star Wars!"
