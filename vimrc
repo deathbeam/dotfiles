@@ -46,6 +46,50 @@ Plug 'craigemery/vim-autotag'
 call plug#end()
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" With a map leader it's possible to do extra key combinations
+" like <leader>w saves the current file
+let mapleader = ","
+let maplocalleader = ","
+let g:mapleader = ","
+
+" Reload vimrc after it was changed
+autocmd BufWritePost .vimrc source $MYVIMRC
+
+" Sets how many lines of history VIM has to remember
+set history=500
+
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
+
+" Set to auto read when a file is changed from the outside
+set autoread
+
+" Fast saving
+nmap <leader>w :w!<cr>
+
+" Fast way to edit .vimrc
+nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+
+" Fast way to reload .vimrc
+nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
+
+"Copy and paste from system clipboard
+vmap <leader>y "+y
+vmap <leader>d "+d
+nmap <leader>p "+p
+nmap <leader>P "+P
+vmap <leader>p "+p
+vmap <leader>P "+P
+
+" :W sudo saves the file
+" (useful for handling the permission-denied error)
+command! W w !sudo tee % > /dev/null
+
+
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
@@ -85,48 +129,6 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 " surround.vim
 vmap Si S(i_<esc>f)
 au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Reload vimrc after it was changed
-autocmd BufWritePost .vimrc source $MYVIMRC
-
-" Fast way to edit .vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
-" Fast way to reload .vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
-
-" Sets how many lines of history VIM has to remember
-set history=500
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving
-nmap <leader>w :w!<cr>
-
-"Copy and paste from system clipboard
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>p "+p
-vmap <leader>P "+P
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W w !sudo tee % > /dev/null
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -211,14 +213,6 @@ catch
 endtry
 
 set background=dark
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-  set guioptions-=T
-  set guioptions-=e
-  set t_Co=256
-  set guitablabel=%M\ %t
-endif
 
 " Set utf8 as standard encoding and en_US as the standard language
 set encoding=utf8
@@ -407,7 +401,13 @@ endif
 " Open MacVim in fullscreen mode
 if has("gui_macvim")
   set fuoptions=maxvert,maxhorz
-  au GUIEnter * set fullscreen
+  au GUIEnter * set fullscreen | set guioptions-=e
+endif
+
+" Set extra options when running in GUI mode
+if has("gui_running")
+  set t_Co=256
+  set guitablabel=%M\ %t
 endif
 
 " Disable scrollbars (real hackers don't use scrollbars for navigation!)
@@ -416,6 +416,9 @@ set guioptions-=R
 set guioptions-=l
 set guioptions-=L
 
+" Disable tabs from gui
+set guioptions-=e
+set guioptions-=T
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Turn persistent undo on
