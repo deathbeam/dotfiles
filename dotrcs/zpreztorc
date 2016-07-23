@@ -1,15 +1,8 @@
-#############################
-# => General
-#############################
-
-# Color output (auto set to 'no' on dumb terminals).
+# Color output.
 zstyle ':prezto:*:*' color 'yes'
 
-# Set the Zsh modules to load (man zshmodules).
-zstyle ':prezto:load' zmodule 'attr' 'stat'
-
-# Set the Zsh functions to load (man zshcontrib).
-zstyle ':prezto:load' zfunction 'zargs' 'zmv'
+# Set the prompt theme to load.
+zstyle ':prezto:module:prompt' theme 'sorin'
 
 # Set the Prezto modules to load (browse modules).
 # The order matters.
@@ -17,27 +10,20 @@ zstyle ':prezto:load' pmodule \
   'environment' \
   'terminal' \
   'editor' \
+  'ssh' \
   'history' \
   'directory' \
   'spectrum' \
   'utility' \
   'completion' \
+  'osx' \
+  'ruby' \
   'git' \
-  'prompt' \
+  'homebrew' \
   'syntax-highlighting' \
   'history-substring-search' \
-  'autosuggestions'
-
-#############################
-# => Autosuggestions
-#############################
-
-# Set the query found color.
-zstyle ':prezto:module:autosuggestions:color' found 'fg=0'
-
-#############################
-# => Editor
-#############################
+  'autosuggestions' \
+  'prompt' \
 
 # Set the key mapping style to 'emacs' or 'vi'.
 zstyle ':prezto:module:editor' key-bindings 'vi'
@@ -45,48 +31,10 @@ zstyle ':prezto:module:editor' key-bindings 'vi'
 # Auto convert .... to ../..
 zstyle ':prezto:module:editor' dot-expansion 'yes'
 
-#############################
-# => Git
-#############################
-
-# Ignore submodules when they are 'dirty', 'untracked', 'all', or 'none'.
-zstyle ':prezto:module:git:status:ignore' submodules 'all'
-
-#############################
-# => GNU Utility
-#############################
-
-# Set the command prefix on non-GNU systems.
-zstyle ':prezto:module:gnu-utility' prefix 'g'
-
-#############################
-# => History Substring Search
-#############################
-
-# Set the query found color.
-zstyle ':prezto:module:history-substring-search:color' found ''
-
-# Set the query not found color.
-zstyle ':prezto:module:history-substring-search:color' not-found ''
-
-# Set the search globbing flags.
-zstyle ':prezto:module:history-substring-search' globbing-flags ''
-
-#############################
-# => Prompt
-#############################
-
-# Set the prompt theme to load.
-# Setting it to 'random' loads a random theme.
-# Auto set to 'off' on dumb terminals.
-zstyle ':prezto:module:prompt' theme 'sorin'
-
-#############################
-# => Syntax Highlighting
-#############################
+# Set the autosuggestions query found color.
+zstyle ':prezto:module:autosuggestions:color' found 'fg=0'
 
 # Set syntax highlighters.
-# By default, only the main highlighter is enabled.
 zstyle ':prezto:module:syntax-highlighting' highlighters \
   'main' \
   'brackets' \
@@ -94,16 +42,3 @@ zstyle ':prezto:module:syntax-highlighting' highlighters \
   'line' \
   'cursor' \
   'root'
-
-#############################
-# => Terminal
-#############################
-
-# Auto set the tab and window titles.
-zstyle ':prezto:module:terminal' auto-title 'yes'
-
-# Set the window title format.
-zstyle ':prezto:module:terminal:window-title' format '%n@%m: %s'
-
-# Set the tab title format.
-zstyle ':prezto:module:terminal:tab-title' format '%m: %s'
