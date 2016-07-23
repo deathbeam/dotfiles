@@ -1,4 +1,4 @@
-# dotrc
+# awesomedotrc
 
 This is my Vim, ZSH and Prezto configuration. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable.
 
