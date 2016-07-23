@@ -28,12 +28,17 @@ Plug 'kien/ctrlp.vim'
 Plug 'fisadev/vim-ctrlp-cmdpalette'
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
 Plug 'tpope/vim-fugitive'
 Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/syntastic'
-Plug 'editorconfig/editorconfig-vim'
+Plug 'MarcWeber/vim-addon-mw-utils'
+Plug 'tomtom/tlib_vim'
+Plug 'garbas/vim-snipmate'
+Plug 'honza/vim-snippets'
 
 " Average stuff
+Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-surround'
 Plug 'tpope/vim-repeat'
 Plug 'scrooloose/nerdcommenter'
@@ -42,6 +47,12 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
+
+" Load custom vim plugins
+try
+source ~/.awesomedotrc/custom/plug.vim
+catch
+endtry
 
 call plug#end()
 

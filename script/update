@@ -1,5 +1,0 @@
-#!/bin/bash
-
-cp ~/.zshrc zshrc && echo 'ZSH config updated succesfully'
-cp ~/.zpreztorc zpreztorc && echo 'Prezto config updated succesfully'
-cp ~/.vimrc vimrc && echo 'Vim config updated succesfully'
