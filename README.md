@@ -19,10 +19,11 @@ This is my Vim, ZSH and Prezto configuration. It is still work in progress, so e
 I made small automated installation script, what will update your `.zshrc`, `.zshpreztorc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
 
 ```shell
-./script/install
+git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc
+sh ~/.awesomedotrc/install
 ```
 
-I reccomend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in ZSH theme we are using here and Vim config is also configured to try to use it when available.
+I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in ZSH theme we are using here and Vim config is also configured to try to use it when available.
 
 Also, it is preferred to use [Tomorrow Night](https://github.com/chriskempson/tomorrow-theme) color scheme for your favorite terminal. It will look a lot better, because Vim is also using this color scheme.
 
