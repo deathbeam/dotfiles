@@ -45,7 +45,7 @@ Plug 'craigemery/vim-autotag'
 
 " Load custom vim plugins
 try
-source ~/.awesomedotrc/custom/plug.vim
+source ~/.awesomedotrc/user/plug.vim
 catch
 endtry
 

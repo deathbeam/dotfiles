@@ -26,10 +26,10 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Aliases to config files
-alias config-zsh="$EDITOR ~/.awesomedotrc/custom/zshrc"
-alias config-zsh-prezto="$EDITOR ~/.awesomedotrc/custom/prezto.zsh"
-alias config-vim="$EDITOR ~/.awesomedotrc/custom/vimrc"
-alias config-vim-plug="$EDITOR ~/.awesomedotrc/custom/plug.vim"
+alias config-zsh="$EDITOR ~/.awesomedotrc/user/zshrc"
+alias config-zsh-prezto="$EDITOR ~/.awesomedotrc/user/prezto.zsh"
+alias config-vim="$EDITOR ~/.awesomedotrc/user/vimrc"
+alias config-vim-plug="$EDITOR ~/.awesomedotrc/user/plug.vim"
 
 # Awesome Star Wars alias
 alias star-wars="telnet towel.blinkenlights.nl"

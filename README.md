@@ -37,10 +37,10 @@ git -C ~/.awesomedotrc pull --rebase && zsh
 
 ## How to inlude your own stuff?
 
-After you have installed awesomedotrc, you can create `custom` directory and start including your own stuff:
+After you have installed awesomedotrc, you can create `user` directory and start including your own stuff:
 
 ```shell
-mkdir `~/.awesomedotrc/custom && cd  ~/.awesomedotrc/custom
+mkdir `~/.awesomedotrc/user && cd  ~/.awesomedotrc/user
 ```
 
 Here, you can create:
