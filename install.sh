@@ -26,7 +26,10 @@ catch
 endtry
 " > ~/.vimrc
 
-# Make NeoVIM use same config as VIM
+# Fix MacVim fullscreen mode
+command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
+
+# Make NeoVim use same config as Vim
 rm -rf ~/.config/nvim
 mkdir -p ~/.config/nvim
 mkdir -p $ADTRC_LIB/autoload
