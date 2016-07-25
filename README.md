@@ -20,7 +20,7 @@ I made small automated installation script, what will update your `.zshrc`, `.zs
 
 ```shell
 git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc
-sh ~/.awesomedotrc/install
+~/.awesomedotrc/install.sh
 ```
 
 I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in ZSH theme we are using here and Vim config is also configured to try to use it when available.
