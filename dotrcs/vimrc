@@ -1,14 +1,7 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Automatic Plug installation if missing
-if !has("win16") && !has("win32") && empty(glob('~/.awesomedotrc/.lib/autoload/plug.vim'))
-  silent !curl -fLo ~/.awesomedotrc/.lib/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall | source $MYVIMRC
-endif
-
-call plug#begin('~/.awesomedotrc/.lib/plugged')
+call plug#begin()
 
 " Fancy stuff
 Plug 'flazz/vim-colorschemes'
@@ -42,12 +35,6 @@ Plug 'scrooloose/nerdcommenter'
 Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
-
-" Load custom vim plugins
-try
-source ~/.awesomedotrc/user/plug.vim
-catch
-endtry
 
 call plug#end()
 

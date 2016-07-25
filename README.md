@@ -44,10 +44,9 @@ mkdir `~/.awesomedotrc/user && cd  ~/.awesomedotrc/user
 ```
 
 Here, you can create:
- * `main.zsh` - Custom ZSH configuration
- * `prezto.zsh` - Custom Prezto configuration
- * `main.vim` - Custom VIM configuration
- * `plug.vim` - Custom Plug configuration (called between plug#begin() and plug#end, so add here custom VIM plugins)
+ * `zshrc` - Custom ZSH configuration
+ * `zpreztorc` - Custom Prezto configuration
+ * `vimrc` - Custom VIM configuration
 
 ## Included stuff
 

@@ -1,14 +1,6 @@
-# Install z.sh if not installed
-[[ ! -d ~/.awesomedotrc/.lib/z ]] &&
-  git clone https://github.com/rupa/z ~/.awesomedotrc/.lib/z
-
 # Load z.sh
 [[ -s ~/.awesomedotrc/.lib/z/z.sh ]] &&
   source ~/.awesomedotrc/.lib/z/z.sh
-
-# Install Prezto if not installed
-[[ ! -d ~/.awesomedotrc/.lib/zprezto ]] &&
-  git clone --recursive https://github.com/sorin-ionescu/prezto.git ~/.awesomedotrc/.lib/zprezto
 
 # Load Prezto
 [[ -s ~/.awesomedotrc/.lib/zprezto/init.zsh ]] &&
