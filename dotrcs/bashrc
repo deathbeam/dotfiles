@@ -2,10 +2,6 @@
 [[ -s ~/.awesomedotrc/.lib/z/z.sh ]] &&
   source ~/.awesomedotrc/.lib/z/z.sh
 
-# Load Prezto
-[[ -s ~/.awesomedotrc/.lib/zprezto/init.zsh ]] &&
-  source ~/.awesomedotrc/.lib/zprezto/init.zsh
-
 # Fix paths
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
@@ -18,10 +14,8 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Aliases to config files
-alias config-zsh="$EDITOR ~/.awesomedotrc/user/zshrc"
-alias config-zsh-prezto="$EDITOR ~/.awesomedotrc/user/prezto.zsh"
+alias config-bash="$EDITOR ~/.awesomedotrc/user/zshrc"
 alias config-vim="$EDITOR ~/.awesomedotrc/user/vimrc"
-alias config-vim-plug="$EDITOR ~/.awesomedotrc/user/plug.vim"
 
 # Awesome Star Wars alias
 alias star-wars="telnet towel.blinkenlights.nl"
@@ -30,5 +24,5 @@ alias star-wars="telnet towel.blinkenlights.nl"
 motd[1]=$(echo "$USER, I am your father." | cowsay -f vader-koala)
 motd[2]=$(echo "$USER told me enough! $USER told me you killed him!" | cowsay -f luke-koala)
 rand=$[$RANDOM % 2 + 1]
-echo "\e[33m$motd[$rand]\e[0m"
-echo "\nRun \e[33mstar-wars\e[0m to watch some Star Wars!"
+echo -e "\033[33m${motd[$rand]}\033[0m"
+echo -e "\nRun \033[33mstar-wars\033[0m to watch some Star Wars!"

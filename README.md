@@ -1,6 +1,6 @@
 # awesomedotrc
 
-This is my Vim, ZSH and Prezto configuration. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable.
+This is my Bash and Vim configuration. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable.
 
 ![Vim](/screenshots/vim.png?raw=true "Vim")
 
@@ -8,7 +8,7 @@ This is my Vim, ZSH and Prezto configuration. It is still work in progress, so e
 
 ## Requirements
 
-* zsh - This is ZSH and Vim config anyway, duh
+* bash - This is Bash and Vim config anyway, duh
 * vim - Same as above
 * git - Needed to setup Pretzo and z.sh, and also for Vim Plug
 * python - Needed for some Vim plugins
@@ -16,14 +16,14 @@ This is my Vim, ZSH and Prezto configuration. It is still work in progress, so e
 
 ## How to install?
 
-I made small automated installation script, what will update your `.zshrc`, `.zshpreztorc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
+I made small automated installation script, what will update your `.bashrc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
 
 ```shell
 git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc
 ~/.awesomedotrc/install.sh
 ```
 
-I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in ZSH theme we are using here and Vim config is also configured to try to use it when available.
+I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
 
 Also, it is preferred to use [Tomorrow Night](https://github.com/chriskempson/tomorrow-theme) color scheme for your favorite terminal. It will look a lot better, because Vim is also using this color scheme.
 
@@ -32,7 +32,7 @@ Also, it is preferred to use [Tomorrow Night](https://github.com/chriskempson/to
 There is nothing simplier, just use git :)
 
 ```shell
-git -C ~/.awesomedotrc pull --rebase && zsh
+git -C ~/.awesomedotrc pull --rebase && bash
 ```
 
 ## How to inlude your own stuff?
@@ -44,9 +44,8 @@ mkdir `~/.awesomedotrc/user && cd  ~/.awesomedotrc/user
 ```
 
 Here, you can create:
- * `zshrc` - Custom ZSH configuration
- * `zpreztorc` - Custom Prezto configuration
- * `vimrc` - Custom VIM configuration
+ * `bashrc` - Custom Bash configuration
+ * `vimrc` - Custom Vim configuration
 
 ## Included stuff
 
