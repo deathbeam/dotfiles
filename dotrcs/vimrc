@@ -36,6 +36,11 @@ Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
 
+try
+  source $ARC_USER/plug.vim
+catch
+endtry
+
 call plug#end()
 
 

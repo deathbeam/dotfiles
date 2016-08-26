@@ -2,39 +2,47 @@
 
 echo "Starting installation. Patience you must have my young padawan."
 
-ADTRC_HOME=~/.awesomedotrc
-ADTRC_RCS="$ADTRC_HOME/dotrcs"
-ADTRC_USER="$ADTRC_HOME/user"
-ADTRC_LIB="$ADTRC_HOME/.lib"
-cd $ADTRC_HOME
+ARC_HOME=~/.awesomedotrc
+ARC_RCS="$ARC_HOME/dotrcs"
+ARC_USER="$ARC_HOME/user"
+ARC_LIB="$ARC_HOME/.lib"
+mkdir -p $ARC_LIB
+mkdir -p $ARC_USER
+
+cd $ARC_HOME
 
 # Install bash-it if not installed
-[[ ! -d $ADTRC_LIB/bashit ]] &&
-  git clone --depth=1 https://github.com/Bash-it/bash-it.git $ADTRC_LIB/bashit &&
-  echo y | bash $ADTRC_LIB/bashit/install.sh
+[[ ! -d $ARC_LIB/bashit ]] &&
+  git clone --depth=1 https://github.com/Bash-it/bash-it.git $ARC_LIB/bashit &&
+  echo y | bash $ARC_LIB/bashit/install.sh
 
 # Install z.sh if not installed
-[[ ! -d $ADTRC_LIB/z ]] &&
-  git clone https://github.com/rupa/z $ADTRC_LIB/z
+[[ ! -d $ARC_LIB/z ]] &&
+  git clone https://github.com/rupa/z $ARC_LIB/z
 
 # Install Plug
-[[ ! -d $ADTRC_LIB/autoload ]] &&
-  git clone https://github.com/junegunn/vim-plug $ADTRC_LIB/autoload
+[[ ! -d $ARC_LIB/autoload ]] &&
+  git clone https://github.com/junegunn/vim-plug $ARC_LIB/autoload
 
 # Install Bash config
-echo "source $ADTRC_RCS/bashrc
-[[ -f $ADTRC_USER/bashrc ]] && source $ADTRC_USER/bashrc
+echo "source $HOME/.bashrc" >> ~/.bash_profile
+echo "ARC_HOME=$ARC_HOME
+ARC_USER=$ARC_USER
+ARC_LIB=$ARC_LIB
+source $ARC_RCS/bashrc
+[[ -f $ARC_USER/bashrc ]] && source $ARC_USER/bashrc
 " >> ~/.bashrc
 
 # Install Vim config
-echo "set runtimepath+=$ADTRC_LIB
-let g:plug_home=fnamemodify(expand('$ADTRC_LIB/plugged'), ':p')
-source $ADTRC_RCS/vimrc
+echo "set runtimepath+=$ARC_LIB
+let \$ARC_USER='$ARC_USER'
+let g:plug_home=fnamemodify(expand('$ARC_LIB/plugged'), ':p')
+source $ARC_RCS/vimrc
 try
-source $ADTRC_USER/vimrc
+source $ARC_USER/vimrc
 catch
 endtry
-" > ~/.vimrc
+" >> ~/.vimrc
 
 # Install Vim plugins
 vim +PlugInstall +qall
@@ -45,7 +53,7 @@ command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScr
 # Make NeoVim use same config as Vim
 rm -rf ~/.config/nvim
 mkdir -p ~/.config/nvim
-mkdir -p $ADTRC_LIB/autoload
+mkdir -p $ARC_LIB/autoload
 ln -s ~/.vimrc ~/.config/nvim/init.vim
 
 [[ ! $TERM == "dumb" ]] && bash

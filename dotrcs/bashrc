@@ -1,5 +1,5 @@
 # Load z.sh
-[[ -s ~/.awesomedotrc/.lib/z/z.sh ]] &&
+[[ -s $ARC_LIB/z/z.sh ]] &&
   source ~/.awesomedotrc/.lib/z/z.sh
 
 # Fix paths
@@ -14,8 +14,9 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Aliases to config files
-alias config-bash="$EDITOR ~/.awesomedotrc/user/zshrc"
-alias config-vim="$EDITOR ~/.awesomedotrc/user/vimrc"
+alias config-bash="$EDITOR $ARC_USER/zshrc"
+alias config-vim="$EDITOR $ARC_USER/vimrc"
+alias config-plug="$EDITOR $ARC_USER/plug.vim"
 
 # Awesome Star Wars alias
 alias star-wars="telnet towel.blinkenlights.nl"
