@@ -1,6 +1,10 @@
 # Load z.sh
 [[ -s $ARC_LIB/z/z.sh ]] &&
-  source ~/.awesomedotrc/.lib/z/z.sh
+  source $ARC_LIB/z/z.sh
+
+# Load The Fuck if present
+command -v thefuck >/dev/null 2>&1 &&
+  eval "$(thefuck --alias)"
 
 # Fix paths
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
@@ -14,9 +18,10 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Aliases to config files
-alias config-bash="$EDITOR $ARC_USER/zshrc"
+alias config-bash="$EDITOR $ARC_USER/bashrc"
+alias config-bashit="$EDITOR $ARC_USER/bashitrc"
 alias config-vim="$EDITOR $ARC_USER/vimrc"
-alias config-plug="$EDITOR $ARC_USER/plug.vim"
+alias config-plug="$EDITOR $ARC_USER/plugrc"
 
 # Awesome Star Wars alias
 alias star-wars="telnet towel.blinkenlights.nl"

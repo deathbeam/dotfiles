@@ -37,7 +37,7 @@ Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
 
 try
-  source $ARC_USER/plug.vim
+  source $ARC_USER/plugrc
 catch
 endtry
 
