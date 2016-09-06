@@ -34,3 +34,15 @@ rc() {
 
 # Awesome Star Wars alias
 alias starwars="telnet towel.blinkenlights.nl"
+
+# Load user config
+[[ -f "$ARC_USER/bashrc" ]] &&
+  source "$ARC_USER/bashrc"
+
+# Source fzf last to prevent autocomplete conflicts
+source $HOME/.fzf.bash
+
+# If tmux is present, start tmux
+if command -v tmux>/dev/null; then
+  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
+fi

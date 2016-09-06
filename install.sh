@@ -64,9 +64,6 @@ ARC_USER=$ARC_USER
 ARC_LIB=$ARC_LIB
 
 source \"$ARC_RCS/bashrc\"
-[[ -f \"$ARC_USER/bashrc\" ]] &&
-  source \"$ARC_USER/bashrc\"
-source $HOME/.fzf.bash
 "
 
 # Create Vim config
@@ -76,10 +73,6 @@ let \$ARC_USER='$ARC_USER'
 let g:plug_home=fnamemodify(expand('$ARC_LIB/plugged'), ':p')
 
 source $ARC_RCS/vimrc
-try
-source $ARC_USER/vimrc
-catch
-endtry
 "
 
 # Install Vim plugins

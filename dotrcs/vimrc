@@ -36,6 +36,7 @@ Plug 'mileszs/ack.vim'
 Plug 'majutsushi/tagbar'
 Plug 'craigemery/vim-autotag'
 
+" Load another plugins if needed
 try
   source $ARC_USER/plugrc
 catch
@@ -572,3 +573,9 @@ endfunc
 func! CurrentFileDir(cmd)
   return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
+
+" Load user configuration
+try
+source $ARC_USER/vimrc
+catch
+endtry
