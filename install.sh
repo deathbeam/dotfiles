@@ -2,7 +2,7 @@
 
 echo "Starting installation. Patience you must have my young padawan."
 
-ARC_HOME=$HOME/.awesomedotrc
+ARC_HOME="$HOME/.awesomedotrc"
 ARC_RCS="$ARC_HOME/dotrcs"
 ARC_USER="$ARC_HOME/user"
 ARC_LIB="$ARC_HOME/.lib"
@@ -11,12 +11,16 @@ mkdir -p $ARC_USER
 
 cd $ARC_HOME
 
-# Install bash-it if not installed
+# Install bash-it
 [[ ! -d $ARC_LIB/bashit ]] &&
   git clone --depth=1 https://github.com/Bash-it/bash-it.git $ARC_LIB/bashit &&
   echo y | bash $ARC_LIB/bashit/install.sh
 
-# Install z.sh if not installed
+# Install qfc
+[[ ! -d $ARC_LIB/qfc ]] &&
+  git clone https://github.com/pindexis/qfc $ARC_LIB/qfc
+
+# Install z.sh
 [[ ! -d $ARC_LIB/z ]] &&
   git clone https://github.com/rupa/z $ARC_LIB/z
 
@@ -26,8 +30,8 @@ cd $ARC_HOME
 
 # Install Bash config
 echo "
-[[ -f $ARC_USER/bashitrc ]] &&
-  source $ARC_USER/bashitrc
+[[ -f \"$ARC_USER/bashitrc\" ]] &&
+  source \"$ARC_USER/bashitrc\"
 
 [[ -z \"\$BASH_IT\" ]] &&
   export BASH_IT=\"$ARC_LIB/bashit\"
@@ -36,8 +40,8 @@ echo "
 [[ -z \"\$SCM_CHECK\" ]] &&
   export SCM_CHECK=true
 
-source \$BASH_IT/bash_it.sh
-source $HOME/.bashrc
+source \"\$BASH_IT/bash_it.sh\"
+source \"$HOME/.bashrc\"
 " > $HOME/.bash_profile
 
 echo "
@@ -45,9 +49,9 @@ ARC_HOME=$ARC_HOME
 ARC_USER=$ARC_USER
 ARC_LIB=$ARC_LIB
 
-source $ARC_RCS/bashrc
-[[ -f $ARC_USER/bashrc ]] &&
-  source $ARC_USER/bashrc
+source \"$ARC_RCS/bashrc\"
+[[ -f \"$ARC_USER/bashrc\" ]] &&
+  source \"$ARC_USER/bashrc\"
 " > $HOME/.bashrc
 
 # Install Vim config
