@@ -9,8 +9,7 @@ export BASH_IT="$ARC_LIB/bashit"
 
 source "$BASH_IT/bash_it.sh"
 
-# Load libraries
-source "$ARC_LIB/qfc/bin/qfc.sh"
+# Load z.sh
 source "$ARC_LIB/z/z.sh"
 
 # Load The Fuck if present

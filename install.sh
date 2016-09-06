@@ -29,9 +29,10 @@ cd $ARC_HOME
   git clone --depth=1 https://github.com/Bash-it/bash-it.git $ARC_LIB/bashit &&
   bash $ARC_LIB/bashit/install.sh -s
 
-# Install qfc
-[[ ! -d $ARC_LIB/qfc ]] &&
-  git clone https://github.com/pindexis/qfc $ARC_LIB/qfc
+# Install fzf
+[[ ! -d $ARC_LIB/fzf ]] &&
+  git clone --depth 1 https://github.com/junegunn/fzf.git $ARC_LIB/fzf &&
+  bash $ARC_LIB/fzf/install --all --no-update-rc
 
 # Install z.sh
 [[ ! -d $ARC_LIB/z ]] &&
@@ -65,6 +66,7 @@ ARC_LIB=$ARC_LIB
 source \"$ARC_RCS/bashrc\"
 [[ -f \"$ARC_USER/bashrc\" ]] &&
   source \"$ARC_USER/bashrc\"
+source $HOME/.fzf.bash
 "
 
 # Create Vim config
