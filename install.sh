@@ -14,7 +14,7 @@ process_rc() {
 }
 
 # Some helper variables
-ARC_HOME="$HOME/.awesomedotrc"
+ARC_HOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 ARC_RCS="$ARC_HOME/dotrcs"
 ARC_USER="$ARC_HOME/user"
 ARC_LIB="$ARC_HOME/.lib"
