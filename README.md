@@ -1,10 +1,6 @@
-# awesomedotrc
+# awesome.rc
 
 This is my Bash and Vim configuration. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable.
-
-![Vim](/screenshots/vim.png?raw=true "Vim")
-
-![Terminal](/screenshots/terminal.png?raw=true "Terminal")
 
 ## Requirements
 
@@ -16,11 +12,11 @@ This is my Bash and Vim configuration. It is still work in progress, so expect a
 
 ## How to install?
 
-I made small automated installation script, what will update your `.bashrc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
+I made small automated installation script, what will update your `.bash_profile`, `.bashrc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
 
 ```shell
-git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc
-~/.awesomedotrc/install.sh
+git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
+    ~/.awesomedotrc/install.sh
 ```
 
 I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
@@ -37,17 +33,24 @@ git -C ~/.awesomedotrc pull --rebase && bash
 
 ## How to inlude your own stuff?
 
-After you have installed awesomedotrc, you can create `user` directory and start including your own stuff:
+After you have installed awesomedotrc, you can start including your own stuff by using the `rc` command:
 
 ```shell
-mkdir `~/.awesomedotrc/user && cd  ~/.awesomedotrc/user
+# Custom bash configuration
+rc bash
+
+# Custom bash-it configuration
+rc bashit
+
+# Custom Vim configuration
+rc vim
+
+# Custom Plug configuration (Vim plugins)
+rc plug
 ```
 
-Here, you can create:
- * `bashrc` - Custom Bash configuration
- * `vimrc` - Custom Vim configuration
-
 ## Included stuff
+TODO: Finish included stuff list
 
 ### VIM
  * [NERD Tree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
@@ -56,3 +59,4 @@ Here, you can create:
  * [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Fuzzy file, buffer, mru and tag finder
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ack.vim](https://github.com/mileszs/ack.vim): Vim plugin for the Perl module / CLI script 'ack'
+ * ...

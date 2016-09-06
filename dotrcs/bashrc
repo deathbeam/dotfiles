@@ -1,3 +1,16 @@
+# Load bash-it with some sane defaults
+export BASH_IT="$ARC_LIB/bashit"
+
+[[ -f "$ARC_USER/bashitrc" ]] &&
+  source "$ARC_USER/bashitrc"
+
+[[ -z "$BASH_IT_THEME" ]] &&
+  export BASH_IT_THEME='minimal'
+[[ -z "$SCM_CHECK" ]] &&
+  export SCM_CHECK=true
+
+source "$BASH_IT/bash_it.sh"
+
 # Load libraries
 source "$ARC_LIB/qfc/bin/qfc.sh"
 source "$ARC_LIB/z/z.sh"
@@ -5,10 +18,6 @@ source "$ARC_LIB/z/z.sh"
 # Load The Fuck if present
 command -v thefuck >/dev/null 2>&1 &&
   eval "$(thefuck --alias)"
-
-# Add some more qfc commands
-qfc_quick_command 'cd' '\C-b' 'cd $0'
-qfc_quick_command "$EDITOR" '\C-p' '$EDITOR $0'
 
 # Fix paths
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$ARC_LIB/qfc/bin:$PATH"
@@ -21,18 +30,10 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-# Aliases to config files
-alias config-bash="$EDITOR $ARC_USER/bashrc"
-alias config-bashit="$EDITOR $ARC_USER/bashitrc"
-alias config-vim="$EDITOR $ARC_USER/vimrc"
-alias config-plug="$EDITOR $ARC_USER/plugrc"
+# Fast edit rc files
+rc() {
+  eval "$EDITOR $ARC_USER/$1rc"
+}
 
 # Awesome Star Wars alias
-alias star-wars="telnet towel.blinkenlights.nl"
-
-# Awesome Star Wars MOTD
-motd[1]=$(echo "$USER, I am your father." | cowsay -f vader-koala)
-motd[2]=$(echo "$USER told me enough! $USER told me you killed him!" | cowsay -f luke-koala)
-rand=$[$RANDOM % 2 + 1]
-echo -e "\033[33m${motd[$rand]}\033[0m"
-echo -e "\nRun \033[33mstar-wars\033[0m to watch some Star Wars!"
+alias starwars="telnet towel.blinkenlights.nl"
