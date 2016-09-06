@@ -6,8 +6,6 @@ export BASH_IT="$ARC_LIB/bashit"
 
 [[ -z "$BASH_IT_THEME" ]] &&
   export BASH_IT_THEME='minimal'
-[[ -z "$SCM_CHECK" ]] &&
-  export SCM_CHECK=true
 
 source "$BASH_IT/bash_it.sh"
 
