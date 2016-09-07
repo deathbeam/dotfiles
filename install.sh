@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 echo "Starting installation. Patience you must have my young padawan."
 
@@ -29,14 +29,14 @@ cd $ARC_HOME
   git clone --depth=1 https://github.com/Bash-it/bash-it.git $ARC_LIB/bashit &&
   bash $ARC_LIB/bashit/install.sh -s
 
+# Install fasd
+[[ ! -d $ARC_LIB/fasd ]] &&
+  git clone https://github.com/clvv/fasd $ARC_LIB/fasd
+
 # Install fzf
 [[ ! -d $ARC_LIB/fzf ]] &&
   git clone --depth 1 https://github.com/junegunn/fzf.git $ARC_LIB/fzf &&
   bash $ARC_LIB/fzf/install --all --no-update-rc
-
-# Install z.sh
-[[ ! -d $ARC_LIB/z ]] &&
-  git clone https://github.com/rupa/z $ARC_LIB/z
 
 # Install Plug
 [[ ! -d $ARC_LIB/autoload ]] &&
@@ -44,6 +44,7 @@ cd $ARC_HOME
 
 # Create bash config
 process_rc .bash_profile "
+#!/usr/bin/env bash
 source \"$HOME/.bashrc\"
 
 # Awesome Star Wars MOTD
@@ -88,6 +89,9 @@ mkdir -p $HOME/.config/nvim
 mkdir -p $ARC_LIB/autoload
 ln -s $HOME/.vimrc $HOME/.config/nvim/init.vim
 
+# Install bash-it plugins
+source ~/.bashrc
+bash-it enable plugin fasd
+bash-it enable plugin fzf
+
 echo "Installation complete. May the Force be with you."
-# Reload terminal after installation
-[[ ! $TERM == "dumb" ]] && bash

@@ -1,3 +1,16 @@
+#!/usr/bin/env bash
+
+# Fix paths
+export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
+export MANPATH="/usr/local/man:$MANPATH"
+
+# Manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR="vim"
+export VISUAL="$EDITOR"
+
 # Load bash-it with some sane defaults
 export BASH_IT="$ARC_LIB/bashit"
 
@@ -7,25 +20,9 @@ export BASH_IT="$ARC_LIB/bashit"
 [[ -z "$BASH_IT_THEME" ]] &&
   export BASH_IT_THEME='minimal'
 
+source "$ARC_LIB/fasd/fasd" > /dev/null
+command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 source "$BASH_IT/bash_it.sh"
-
-# Load z.sh
-source "$ARC_LIB/z/z.sh"
-
-# Load The Fuck if present
-command -v thefuck >/dev/null 2>&1 &&
-  eval "$(thefuck --alias)"
-
-# Fix paths
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$ARC_LIB/qfc/bin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
-
-# Manually set your language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-export EDITOR="vim"
-export VISUAL="$EDITOR"
 
 # Fast edit rc files
 rc() {
@@ -38,11 +35,3 @@ alias starwars="telnet towel.blinkenlights.nl"
 # Load user config
 [[ -f "$ARC_USER/bashrc" ]] &&
   source "$ARC_USER/bashrc"
-
-# Source fzf last to prevent autocomplete conflicts
-source $HOME/.fzf.bash
-
-# If tmux is present, start tmux
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux
-fi
