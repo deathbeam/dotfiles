@@ -45,7 +45,6 @@ cd $ARC_HOME
 # Create bash config
 process_rc .bash_profile "
 #!/usr/bin/env bash
-source \"$HOME/.bashrc\"
 
 # Awesome Star Wars MOTD
 motd() {
@@ -58,6 +57,10 @@ motd() {
 }
 
 motd
+
+if [ -f ~/.bashrc ]; then
+  source ~/.bashrc
+fi
 "
 process_rc .bashrc "
 ARC_HOME=$ARC_HOME
