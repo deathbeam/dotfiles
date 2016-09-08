@@ -1,0 +1,39 @@
+- defaults:
+    link:
+        relink: true
+    shell:
+        stdin: true
+        stdout: true
+        stderr: true
+
+- clean: 
+    - '~'
+    - '.'
+
+- shell:
+    - 
+        - git submodule update --init --recursive
+        - Installing submodules
+    -
+        - mkdir -p user && mkdir -p plugged
+        - Creating directory structure
+    -
+        - command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
+        - Fixing MacVim fullscreen mode if on Mac
+    -
+        - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
+        - Setting up initial configuration
+    -
+        - lib/fzf/install --all --no-update-rc
+        - Installing fzf
+    - 
+        - rm -f ~/.bash_profile & rm -f ~/.bashrc & lib/bashit/install.sh -s & rm -f ~/.bash_profile & rm -f ~/.bashrc
+        - Installing Bash-it
+
+- link:
+    ./autoload: lib/vim-plug/
+    ~/.adrc: user/adrc
+    ~/.dotfiles: dotfiles
+    ~/.bash_profile: dotfiles/bash_profile
+    ~/.bashrc: dotfiles/bashrc
+    ~/.vimrc: dotfiles/vimrc

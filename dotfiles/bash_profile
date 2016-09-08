@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+# Awesome Star Wars MOTD
+motd() {
+  local motd[1]=$(echo "$USER, I am your father." | cowsay -f vader-koala)
+  local motd[2]=$(echo "$USER told me enough! $USER told me you killed him!" | cowsay -f luke-koala)
+  local rand=$[$RANDOM % 2 + 1]
+  echo -e "\033[33m${motd[$rand]}\033[0m\n"
+  echo -e "Run \033[33mmotd\033[0m to show this MOTD!"
+  echo -e "Run \033[33mstarwars\033[0m to watch some Star Wars!"
+}
+
+motd
+
+if [ -f ~/.bashrc ]; then
+  source ~/.bashrc
+fi

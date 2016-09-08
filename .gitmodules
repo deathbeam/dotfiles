@@ -1,0 +1,15 @@
+[submodule "lib/bash-it"]
+	path = lib/bash-it
+	url = https://github.com/Bash-it/bash-it
+[submodule "lib/fasd"]
+	path = lib/fasd
+	url = https://github.com/clvv/fasd
+[submodule "lib/fzf"]
+	path = lib/fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "lib/vim-plug"]
+	path = lib/vim-plug
+	url = https://github.com/junegunn/vim-plug
+[submodule "dotbot"]
+	path = dotbot
+	url = https://github.com/anishathalye/dotbot/

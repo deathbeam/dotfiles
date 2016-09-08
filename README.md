@@ -12,11 +12,11 @@ This is my Bash and Vim configuration. It is still work in progress, so expect a
 
 ## How to install?
 
-I made small automated installation script, what will update your `.bash_profile`, `.bashrc` and `.vimrc` and make NeoVim to use same configuration and plugins as Vim.
+It is simple, just use integrated dotbot installer
 
 ```shell
 git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
-    ~/.awesomedotrc/install.sh
+    ~/.awesomedotrc/install
 ```
 
 I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
@@ -28,7 +28,7 @@ Also, it is preferred to use [Tomorrow Night](https://github.com/chriskempson/to
 There is nothing simplier, just use git :)
 
 ```shell
-git -C ~/.awesomedotrc pull --rebase && bash
+git -C ~/.awesomedotrc pull --rebase
 ```
 
 ## How to inlude your own stuff?
@@ -37,16 +37,16 @@ After you have installed awesomedotrc, you can start including your own stuff by
 
 ```shell
 # Custom bash configuration
-rc bash
+rc bashrc
 
 # Custom bash-it configuration
-rc bashit
+rc bashitrc
 
 # Custom Vim configuration
-rc vim
+rc vimrc
 
 # Custom Plug configuration (Vim plugins)
-rc plug
+rc plugrc
 ```
 
 ## Included stuff

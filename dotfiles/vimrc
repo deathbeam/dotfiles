@@ -1,3 +1,7 @@
+" Modify runtime path
+set runtimepath+=$ARC
+let g:plug_home=fnamemodify(expand('$ARC/plugged'), ':p')
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugs
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -38,7 +42,7 @@ Plug 'craigemery/vim-autotag'
 
 " Load another plugins if needed
 try
-  source $ARC_USER/plugrc
+  source $ARC/user/plugrc
 catch
 endtry
 
@@ -576,6 +580,6 @@ endfunc
 
 " Load user configuration
 try
-source $ARC_USER/vimrc
+source $ARC/user/vimrc
 catch
 endtry

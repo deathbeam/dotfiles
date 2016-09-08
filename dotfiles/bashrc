@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Load ARC path
+source ~/.adrc
+
 # Fix paths
 export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
 export MANPATH="/usr/local/man:$MANPATH"
@@ -12,26 +15,34 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Load bash-it with some sane defaults
-export BASH_IT="$ARC_LIB/bashit"
+export BASH_IT="$ARC/lib/bash-it"
 
-[[ -f "$ARC_USER/bashitrc" ]] &&
-  source "$ARC_USER/bashitrc"
+[[ -f "$ARC/user/bashitrc" ]] &&
+  source "$ARC/user/bashitrc"
 
 [[ -z "$BASH_IT_THEME" ]] &&
   export BASH_IT_THEME='minimal'
 
-source "$ARC_LIB/fasd/fasd" > /dev/null
+source "$ARC/lib/fasd/fasd" > /dev/null
 command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 source "$BASH_IT/bash_it.sh"
 
+# Finish installation if not installed
+if [ ! -d "$ARC/installed/" ]; then
+  bash-it enable plugin fasd
+  bash-it enable plugin fzf
+  vim +PlugInstall +qall
+  mkdir -p "$ARC/installed/"
+fi
+
 # Fast edit rc files
 rc() {
-  eval "$EDITOR $ARC_USER/$1rc"
+  eval "$EDITOR $ARC/user/$1"
 }
 
 # Awesome Star Wars alias
 alias starwars="telnet towel.blinkenlights.nl"
 
 # Load user config
-[[ -f "$ARC_USER/bashrc" ]] &&
-  source "$ARC_USER/bashrc"
+[[ -f "$ARC/user/bashrc" ]] &&
+  source "$ARC/user/bashrc"
