@@ -28,11 +28,11 @@ command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 source "$BASH_IT/bash_it.sh"
 
 # Finish installation if not installed
-if [ ! -d "$ARC/installed/" ]; then
+if [ ! -d "$ARC/user/installed/" ]; then
   bash-it enable plugin fasd
   bash-it enable plugin fzf
   vim +PlugInstall +qall
-  mkdir -p "$ARC/installed/"
+  mkdir -p "$ARC/user/installed/"
 fi
 
 # Fast edit rc files

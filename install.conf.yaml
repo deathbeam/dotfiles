@@ -8,14 +8,13 @@
 
 - clean: 
     - '~'
-    - '.'
 
 - shell:
     - 
         - git submodule update --init --recursive
         - Installing submodules
     -
-        - mkdir -p user && mkdir -p plugged
+        - mkdir -p user/plugged/
         - Creating directory structure
     -
         - command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
@@ -31,7 +30,7 @@
         - Installing Bash-it
 
 - link:
-    ./autoload: lib/vim-plug/
+    ./user/autoload: lib/vim-plug/
     ~/.adrc: user/adrc
     ~/.dotfiles: dotfiles
     ~/.bash_profile: dotfiles/bash_profile

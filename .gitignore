@@ -1,6 +1,4 @@
 *.swp
 *~
 .DS_Store
-/autoload
-/plugged/
 /user/

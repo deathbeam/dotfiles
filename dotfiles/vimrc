@@ -1,6 +1,6 @@
 " Modify runtime path
-set runtimepath+=$ARC
-let g:plug_home=fnamemodify(expand('$ARC/plugged'), ':p')
+set runtimepath+=$ARC/user
+let g:plug_home=fnamemodify(expand('$ARC/user/plugged'), ':p')
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugs
