@@ -16,9 +16,6 @@
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
         - Setting up ARC home directory
     -
-        - command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
-        - Fixing MacVim fullscreen mode
-    -
         - lib/fzf/install --all --no-update-rc
         - Installing fzf
     - 
