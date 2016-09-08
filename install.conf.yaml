@@ -1,10 +1,6 @@
 - defaults:
     link:
         relink: true
-    shell:
-        stdin: true
-        stdout: true
-        stderr: true
 
 - clean: 
     - '~'
@@ -17,16 +13,16 @@
         - mkdir -p user/plugged/
         - Creating directory structure
     -
-        - command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
-        - Fixing MacVim fullscreen mode if on Mac
-    -
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
-        - Setting up initial configuration
+        - Setting up ARC home directory
+    -
+        - command -v mvim >/dev/null 2>&1 && defaults write org.vim.MacVim MMNativeFullScreen 0
+        - Fixing MacVim fullscreen mode
     -
         - lib/fzf/install --all --no-update-rc
         - Installing fzf
     - 
-        - rm -f ~/.bash_profile & rm -f ~/.bashrc & lib/bashit/install.sh -s & rm -f ~/.bash_profile & rm -f ~/.bashrc
+        - rm -f ~/.bash_profile ~/.bashrc & lib/bashit/install.sh -s & rm -f ~/.bash_profile ~/.bashrc
         - Installing Bash-it
 
 - link:

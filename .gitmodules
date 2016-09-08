@@ -10,6 +10,6 @@
 [submodule "lib/vim-plug"]
 	path = lib/vim-plug
 	url = https://github.com/junegunn/vim-plug
-[submodule "dotbot"]
-	path = dotbot
-	url = https://github.com/anishathalye/dotbot/
+[submodule "lib/dotbot"]
+	path = lib/dotbot
+	url = https://github.com/anishathalye/dotbot
