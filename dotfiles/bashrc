@@ -21,11 +21,11 @@ export BASH_IT="$ARC/lib/bash-it"
   source "$ARC/user/bashitrc"
 
 [[ -z "$BASH_IT_THEME" ]] &&
-  export BASH_IT_THEME='minimal'
+  export BASH_IT_THEME='simple'
 
 source "$ARC/lib/fasd/fasd" > /dev/null
-command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 source "$BASH_IT/bash_it.sh"
+command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 
 # Finish installation if not installed
 if [ ! -d "$ARC/user/installed/" ]; then
