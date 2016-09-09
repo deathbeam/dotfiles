@@ -14,23 +14,36 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-# Load bash-it with some sane defaults
+# Load custom theme from Bash-it (yea..)
 export BASH_IT="$ARC/lib/bash-it"
+source "$BASH_IT/themes/colors.theme.bash"
+source "$BASH_IT/themes/base.theme.bash"
+SCM_THEME_PROMPT_PREFIX="${cyan}(${green}"
+SCM_THEME_PROMPT_SUFFIX="${cyan})"
+SCM_THEME_PROMPT_DIRTY=" ${red}✗"
+SCM_THEME_PROMPT_CLEAN=" ${green}✓"
+export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND"
 
-[[ -f "$ARC/user/bashitrc" ]] &&
-  source "$ARC/user/bashitrc"
+function prompt_command() {
+  PS1="\n${purple}\h ${reset_color}in ${green}\w\n${green}$(scm_prompt_info) ${green}λ${reset_color} "
+}
 
-[[ -z "$BASH_IT_THEME" ]] &&
-  export BASH_IT_THEME='simple'
+safe_append_prompt_command prompt_command
 
+# Load libraries
 source "$ARC/lib/fasd/fasd" > /dev/null
-source "$BASH_IT/bash_it.sh"
+fasd_cache="$ARC/user/.fasd-init-bash"
+if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+fi
+source "$fasd_cache"
+unset fasd_cache
+
+source ~/.fzf.bash
 command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
 
 # Finish installation if not installed
 if [ ! -d "$ARC/user/installed/" ]; then
-  bash-it enable plugin fasd
-  bash-it enable plugin fzf
   vim +PlugInstall +qall
   mkdir -p "$ARC/user/installed/"
 fi
