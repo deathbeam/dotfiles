@@ -14,15 +14,16 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-# Load custom theme from Bash-it (yea..)
-export BASH_IT="$ARC/lib/bash-it"
-source "$BASH_IT/themes/colors.theme.bash"
-source "$BASH_IT/themes/base.theme.bash"
+# Set tab title to show only current directory and not full path
+export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND"
+
+# Set custom prompt (using Bash-it helpers)
+source "$ARC/lib/bash-it/themes/colors.theme.bash"
+source "$ARC/lib/bash-it/themes/base.theme.bash"
 SCM_THEME_PROMPT_PREFIX="${cyan}(${green}"
 SCM_THEME_PROMPT_SUFFIX="${cyan})"
 SCM_THEME_PROMPT_DIRTY=" ${red}✗"
 SCM_THEME_PROMPT_CLEAN=" ${green}✓"
-export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND"
 
 function prompt_command() {
   PS1="\n${purple}\h ${reset_color}in ${green}\w\n${green}$(scm_prompt_info) ${green}λ${reset_color} "
@@ -30,7 +31,7 @@ function prompt_command() {
 
 safe_append_prompt_command prompt_command
 
-# Load libraries
+# Init fasd with cache to speed up startup
 source "$ARC/lib/fasd/fasd" > /dev/null
 fasd_cache="$ARC/user/.fasd-init-bash"
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
@@ -39,8 +40,9 @@ fi
 source "$fasd_cache"
 unset fasd_cache
 
-source ~/.fzf.bash
+# Load rest of libraries
 command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
+command -v hub >/dev/null 2>&1 eval "$(hub alias -s)"
 
 # Finish installation if not installed
 if [ ! -d "$ARC/user/installed/" ]; then
@@ -49,7 +51,7 @@ if [ ! -d "$ARC/user/installed/" ]; then
 fi
 
 # Fast edit rc files
-rc() {
+arc() {
   eval "$EDITOR $ARC/user/$1"
 }
 
@@ -59,3 +61,6 @@ alias starwars="telnet towel.blinkenlights.nl"
 # Load user config
 [[ -f "$ARC/user/bashrc" ]] &&
   source "$ARC/user/bashrc"
+
+# Load fzf last to override possible bash-completion
+source ~/.fzf.bash

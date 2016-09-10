@@ -34,20 +34,17 @@ git -C ~/.awesomedotrc pull --rebase
 
 ## How to inlude your own stuff?
 
-After you have installed awesomedotrc, you can start including your own stuff by using the `rc` command:
+After you have installed awesomedotrc, you can start including your own stuff by using the `arc` command:
 
 ```shell
 # Custom bash configuration
-rc bashrc
-
-# Custom bash-it configuration
-rc bashitrc
+arc bashrc
 
 # Custom Vim configuration
-rc vimrc
+arc vimrc
 
 # Custom Plug configuration (Vim plugins)
-rc plugrc
+arc plugrc
 ```
 
 ## Included stuff
