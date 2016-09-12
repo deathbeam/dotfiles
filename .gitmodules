@@ -91,3 +91,6 @@
 [submodule "vim/todo.txt-vim"]
 	path = vim/todo.txt-vim
 	url = https://github.com/freitass/todo.txt-vim
+[submodule "vim/syntastic"]
+	path = vim/syntastic
+	url = https://github.com/scrooloose/syntastic
