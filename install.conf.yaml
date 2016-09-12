@@ -19,11 +19,10 @@
         - lib/fzf/install --all --no-update-rc
         - Installing fzf
     -
-        - cd lib/todo.txt-cli && sudo make install
-        - Installing Todo.txt CLI
-
+        - vim/YouCompleteMe/install.py
+        - Installing YouCompleteMe
+    
 - link:
-    ./user/autoload: lib/vim-plug/
     ~/.adrc: user/adrc
     ~/.dotfiles: dotfiles
     ~/.bash_profile: dotfiles/bash_profile

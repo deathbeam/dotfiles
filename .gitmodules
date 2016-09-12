@@ -16,3 +16,81 @@
 [submodule "lib/todo.txt-cli"]
 	path = lib/todo.txt-cli
 	url = https://github.com/ginatrapani/todo.txt-cli
+[submodule "lib/vim-pathogen"]
+	path = lib/vim-pathogen
+	url = https://github.com/tpope/vim-pathogen
+[submodule "vim/vim-colorschemes"]
+	path = vim/vim-colorschemes
+	url = git://github.com/flazz/vim-colorschemes.git
+[submodule "vim/vim-airline"]
+	path = vim/vim-airline
+	url = git://github.com/vim-airline/vim-airline.git
+[submodule "vim/vim-airline-themes"]
+	path = vim/vim-airline-themes
+	url = git://github.com/vim-airline/vim-airline-themes.git
+[submodule "vim/vim-startify"]
+	path = vim/vim-startify
+	url = git://github.com/mhinz/vim-startify.git
+[submodule "vim/vim-plugin-minibufexpl"]
+	path = vim/vim-plugin-minibufexpl
+	url = git://github.com/weynhamz/vim-plugin-minibufexpl.git
+[submodule "vim/undotree"]
+	path = vim/undotree
+	url = git://github.com/mbbill/undotree.git
+[submodule "vim/ctrlp.vim"]
+	path = vim/ctrlp.vim
+	url = git://github.com/kien/ctrlp.vim.git
+[submodule "vim/vim-ctrlp-cmdpalette"]
+	path = vim/vim-ctrlp-cmdpalette
+	url = git://github.com/fisadev/vim-ctrlp-cmdpalette.git
+[submodule "vim/nerdtree"]
+	path = vim/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
+[submodule "vim/nerdtree-git-plugin"]
+	path = vim/nerdtree-git-plugin
+	url = git://github.com/Xuyuanp/nerdtree-git-plugin.git
+[submodule "vim/YouCompleteMe"]
+	path = vim/YouCompleteMe
+	url = git://github.com/Valloric/YouCompleteMe.git
+[submodule "vim/vim-fugitive"]
+	path = vim/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "vim/vim-gitgutter"]
+	path = vim/vim-gitgutter
+	url = git://github.com/airblade/vim-gitgutter.git
+[submodule "vim/vim-addon-mw-utils"]
+	path = vim/vim-addon-mw-utils
+	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
+[submodule "vim/tlib_vim"]
+	path = vim/tlib_vim
+	url = git://github.com/tomtom/tlib_vim.git
+[submodule "vim/vim-snipmate"]
+	path = vim/vim-snipmate
+	url = git://github.com/garbas/vim-snipmate.git
+[submodule "vim/vim-snippets"]
+	path = vim/vim-snippets
+	url = git://github.com/honza/vim-snippets.git
+[submodule "vim/editorconfig-vim"]
+	path = vim/editorconfig-vim
+	url = git://github.com/editorconfig/editorconfig-vim.git
+[submodule "vim/vim-surround"]
+	path = vim/vim-surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "vim/vim-repeat"]
+	path = vim/vim-repeat
+	url = git://github.com/tpope/vim-repeat.git
+[submodule "vim/nerdcommenter"]
+	path = vim/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule "vim/ack.vim"]
+	path = vim/ack.vim
+	url = git://github.com/mileszs/ack.vim.git
+[submodule "vim/tagbar"]
+	path = vim/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule "vim/vim-autotag"]
+	path = vim/vim-autotag
+	url = git://github.com/craigemery/vim-autotag.git
+[submodule "vim/todo.txt-vim"]
+	path = vim/todo.txt-vim
+	url = https://github.com/freitass/todo.txt-vim

@@ -3,10 +3,6 @@
 # Load ARC path
 source ~/.adrc
 
-# Fix paths
-export PATH="/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-export MANPATH="/usr/local/man:$MANPATH"
-
 # Manually set your language environment
 export LANG=en_US.UTF-8
 
@@ -41,6 +37,8 @@ source "$fasd_cache"
 unset fasd_cache
 
 # Load rest of libraries
+source $ARC/lib/todo.txt-cli/todo_completion
+alias todo.sh='$ARC/lib/todo.txt-cli/todo.sh'
 command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 

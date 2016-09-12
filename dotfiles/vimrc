@@ -1,53 +1,8 @@
 " Modify runtime path
-set runtimepath+=$ARC/user
-let g:plug_home=fnamemodify(expand('$ARC/user/plugged'), ':p')
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugs
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-call plug#begin()
-
-" Fancy stuff
-Plug 'flazz/vim-colorschemes'
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-Plug 'mhinz/vim-startify'
-Plug 'weynhamz/vim-plugin-minibufexpl'
-Plug 'mbbill/undotree'
-
-" Awesome stuff, cannot live without it
-Plug 'kien/ctrlp.vim'
-Plug 'fisadev/vim-ctrlp-cmdpalette'
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'Valloric/YouCompleteMe', { 'do': './install.py' }
-Plug 'tpope/vim-fugitive'
-Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/syntastic'
-Plug 'MarcWeber/vim-addon-mw-utils'
-Plug 'tomtom/tlib_vim'
-Plug 'garbas/vim-snipmate'
-Plug 'honza/vim-snippets'
-
-" Average stuff
-Plug 'editorconfig/editorconfig-vim'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-repeat'
-Plug 'scrooloose/nerdcommenter'
-
-" Meh, I don't even know if I need it (or how to use it)
-Plug 'mileszs/ack.vim'
-Plug 'majutsushi/tagbar'
-Plug 'craigemery/vim-autotag'
-
-" Load another plugins if needed
-try
-  source $ARC/user/plugrc
-catch
-endtry
-
-call plug#end()
-
+source $ARC/lib/vim-pathogen/autoload/pathogen.vim
+call pathogen#infect('$ARC/vim/{}')
+call pathogen#infect('$ARC/user/vim{}')
+call pathogen#helptags()
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
