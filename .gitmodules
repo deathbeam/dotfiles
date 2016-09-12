@@ -7,9 +7,6 @@
 [submodule "lib/fzf"]
 	path = lib/fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "lib/vim-plug"]
-	path = lib/vim-plug
-	url = https://github.com/junegunn/vim-plug
 [submodule "lib/dotbot"]
 	path = lib/dotbot
 	url = https://github.com/anishathalye/dotbot
