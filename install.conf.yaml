@@ -18,6 +18,9 @@
     -
         - lib/fzf/install --all --no-update-rc
         - Installing fzf
+    -
+        - cd lib/todo.txt-cli && sudo make install
+        - Installing Todo.txt CLI
 
 - link:
     ./user/autoload: lib/vim-plug/
