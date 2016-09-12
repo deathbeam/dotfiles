@@ -15,7 +15,7 @@ export EDITOR="vim"
 export VISUAL="$EDITOR"
 
 # Set tab title to show only current directory and not full path
-export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"; ':"$PROMPT_COMMAND"
+export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
 
 # Set custom prompt (using Bash-it helpers)
 source "$ARC/lib/bash-it/themes/colors.theme.bash"
@@ -25,11 +25,11 @@ SCM_THEME_PROMPT_SUFFIX="${cyan})"
 SCM_THEME_PROMPT_DIRTY=" ${red}✗"
 SCM_THEME_PROMPT_CLEAN=" ${green}✓"
 
-function prompt_command() {
+custom_prompt_command() {
   PS1="\n${purple}\h ${reset_color}in ${green}\w\n${green}$(scm_prompt_info) ${green}λ${reset_color} "
 }
 
-safe_append_prompt_command prompt_command
+safe_append_prompt_command custom_prompt_command
 
 # Init fasd with cache to speed up startup
 source "$ARC/lib/fasd/fasd" > /dev/null
@@ -41,8 +41,8 @@ source "$fasd_cache"
 unset fasd_cache
 
 # Load rest of libraries
-command -v thefuck >/dev/null 2>&1 eval "$(thefuck --alias)"
-command -v hub >/dev/null 2>&1 eval "$(hub alias -s)"
+command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
+command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
 # Finish installation if not installed
 if [ ! -d "$ARC/user/installed/" ]; then
