@@ -51,14 +51,11 @@ command! W w !sudo tee % > /dev/null
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
-" mbufexplore
-map <leader>o :MBEToggle<cr>
 
 " CTRL-P
 let g:ctrlp_working_path_mode = 0
 let g:ctrlp_map = '<c-f>'
-map <leader>j :CtrlP<cr>
-map <leader>t :CtrlPCmdPalette<cr>
+map <c-p> :CtrlPCmdPalette<cr>
 map <c-b> :CtrlPBuffer<cr>
 let g:ctrlp_max_height = 20
 let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
@@ -67,9 +64,7 @@ let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
 let g:NERDTreeWinPos = "right"
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
-map <leader>nn :NERDTreeToggle<cr>
-map <leader>nb :NERDTreeFromBookmark
-map <leader>nf :NERDTreeFind<cr>
+map <leader>n :NERDTreeToggle<cr>
 
 " Open new silent tab on right mouse click in NERDTree
 let g:nerdtree_tabs_open_on_gui_startup=0
@@ -84,9 +79,32 @@ autocmd VimEnter * call WelcomeScreen(wmuse_nt)
 " Fix EditorConfig for fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-" surround.vim
-vmap Si S(i_<esc>f)
-au FileType mako vmap Si S"i${ _(<esc>2f"a) }<esc>
+" When you press gv you Ack after the selected text
+vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
+
+" Open Ack and put the cursor in the right position
+map <leader>g :Ack
+
+" When you search with Ag, display your results in cope by doing:
+"   <leader>cc
+"
+" To go to the next search result do:
+"   <leader>n
+"
+" To go to the previous search results do:
+"   <leader>p
+map <leader>cc :botright cope<cr>
+map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
+map <leader>n :cn<cr>
+map <leader>p :cp<cr>
+
+" Use ag instead of ack when available
+if executable('ag')
+  let g:ackprg = 'ag --vimgrep'
+endif
+
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

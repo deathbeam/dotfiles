@@ -28,9 +28,6 @@
 [submodule "vim/vim-startify"]
 	path = vim/vim-startify
 	url = git://github.com/mhinz/vim-startify.git
-[submodule "vim/vim-plugin-minibufexpl"]
-	path = vim/vim-plugin-minibufexpl
-	url = git://github.com/weynhamz/vim-plugin-minibufexpl.git
 [submodule "vim/undotree"]
 	path = vim/undotree
 	url = git://github.com/mbbill/undotree.git
@@ -70,9 +67,6 @@
 [submodule "vim/editorconfig-vim"]
 	path = vim/editorconfig-vim
 	url = git://github.com/editorconfig/editorconfig-vim.git
-[submodule "vim/vim-surround"]
-	path = vim/vim-surround
-	url = git://github.com/tpope/vim-surround.git
 [submodule "vim/vim-repeat"]
 	path = vim/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
@@ -94,3 +88,12 @@
 [submodule "vim/syntastic"]
 	path = vim/syntastic
 	url = https://github.com/scrooloose/syntastic
+[submodule "vim/gist-vim"]
+	path = vim/gist-vim
+	url = https://github.com/mattn/gist-vim
+[submodule "vim/webapi-vim"]
+	path = vim/webapi-vim
+	url = https://github.com/mattn/webapi-vim
+[submodule "vim/vim-multiple-cursors"]
+	path = vim/vim-multiple-cursors
+	url = https://github.com/terryma/vim-multiple-cursors
