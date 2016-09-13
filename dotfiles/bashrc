@@ -41,14 +41,15 @@ custom_prompt_command() {
 
 safe_append_prompt_command custom_prompt_command
 
-# Share history between terminals
-export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
-export HISTSIZE=100000                   # big big history
-export HISTFILESIZE=100000               # big big history
-shopt -s histappend                      # append to history, don't overwrite it
-
-# Save and reload the history after each command finishes
-export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+# Better history
+shopt -s histappend
+shopt -s cmdhist
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE='ls:bg:fg:history'
+export HISTTIMEFORMAT='%F %T '
+export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Init fasd with cache to speed up startup
 source "$ARC/lib/fasd/fasd" > /dev/null
