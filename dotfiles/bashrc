@@ -41,6 +41,15 @@ custom_prompt_command() {
 
 safe_append_prompt_command custom_prompt_command
 
+# Share history between terminals
+export HISTCONTROL=ignoredups:erasedups  # no duplicate entries
+export HISTSIZE=100000                   # big big history
+export HISTFILESIZE=100000               # big big history
+shopt -s histappend                      # append to history, don't overwrite it
+
+# Save and reload the history after each command finishes
+export PROMPT_COMMAND="history -a; history -c; history -r; $PROMPT_COMMAND"
+
 # Init fasd with cache to speed up startup
 source "$ARC/lib/fasd/fasd" > /dev/null
 fasd_cache="$ARC/user/.fasd-init-bash"
@@ -55,6 +64,7 @@ source $ARC/lib/todo.txt-cli/todo_completion
 alias todo.sh='$ARC/lib/todo.txt-cli/todo.sh'
 command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
+alias zi="fasd -e cd -i"
 
 # Finish installation if not installed
 if [ ! -d "$ARC/user/installed/" ]; then
