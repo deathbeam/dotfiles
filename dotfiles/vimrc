@@ -16,6 +16,9 @@ let g:mapleader = ","
 " Reload vimrc after it was changed
 autocmd BufWritePost .vimrc source $MYVIMRC
 
+" Use system clipboard
+set clipboard=unnamed
+
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -34,14 +37,6 @@ nnoremap <leader>ev :vsplit $MYVIMRC<cr>
 
 " Fast way to reload .vimrc
 nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
-
-"Copy and paste from system clipboard
-vmap <leader>y "+y
-vmap <leader>d "+d
-nmap <leader>p "+p
-nmap <leader>P "+P
-vmap <leader>p "+p
-vmap <leader>P "+P
 
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
