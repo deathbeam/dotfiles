@@ -10,6 +10,20 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
+# Enable 256 color mode
+if [ -e /usr/share/terminfo/x/xterm-256color ]; then
+  export TERM='xterm-256color'
+else
+  export TERM='xterm-color'
+fi
+
+# Add nice ls mods
+alias ls="ls -CF"
+alias ll="ls -lhA"
+
+# Adjust path to use bin in user/bin
+export PATH="$ARC/user/bin:$PATH"
+
 # Set tab title to show only current directory and not full path
 export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
 
@@ -52,6 +66,14 @@ fi
 arc() {
   eval "$EDITOR $ARC/user/$1"
 }
+
+# Add link to binary to $ARC/user/bin path
+arclink() {
+  local name=`basename $1`
+  local curpath="$PWD/$1"
+  ln -s $curpath "$ARC/user/bin/$name"
+}
+
 
 # Awesome Star Wars alias
 alias starwars="telnet towel.blinkenlights.nl"

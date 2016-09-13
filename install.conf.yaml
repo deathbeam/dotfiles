@@ -4,13 +4,14 @@
 
 - clean:
     - '~'
+    - 'user/bin'
 
 - shell:
     -
         - git submodule update --init --recursive
         - Installing submodules
     -
-        - mkdir -p user/plugged/
+        - mkdir -p user/plugged/ & mkdir -p user/bin
         - Creating directory structure
     -
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
@@ -21,7 +22,7 @@
     -
         - vim/YouCompleteMe/install.py
         - Installing YouCompleteMe
-    
+
 - link:
     ~/.adrc: user/adrc
     ~/.dotfiles: dotfiles

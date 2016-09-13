@@ -164,6 +164,9 @@ set foldcolumn=1
 " Enable syntax highlighting
 syntax enable
 
+" Enable 256 color mode
+set t_Co=256
+
 " Set theme if possible
 try
   colorscheme Tomorrow-Night
@@ -364,7 +367,6 @@ endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-  set t_Co=256
   set guitablabel=%M\ %t
 endif
 
