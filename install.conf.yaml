@@ -15,15 +15,13 @@
         - Creating directory structure
     -
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
-        - Setting up ARC home directory
+        - Setting up home directory
     -
         - lib/fzf/install --all --no-update-rc
-        - Installing fzf
+        - Installing fuzzy finder for bash
     -
         - cd vim/vimproc.vim && make
-    -
-        - vim/YouCompleteMe/install.py
-        - Installing YouCompleteMe
+        - Installing interactive command execution for Vim
 
 - link:
     ~/.adrc: user/adrc

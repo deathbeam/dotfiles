@@ -6,9 +6,9 @@ This is my Bash and Vim configuration. It is still work in progress, so expect a
 ## Requirements
 
 * bash - This is Bash and Vim config anyway, duh
-* vim - Same as above
-* git - Needed to setup Pretzo and z.sh, and also for Vim Plug
-* python - Needed for some Vim plugins
+* vim - Same as above. Vim with Lua support is required for everything to work correctly.
+* git - Most of the installation process is managed via Git
+* lua - Needed for some Vim plugins
 * cowsay - Just for fancy MOTD (the most important thing in this entire setup, of course)
 
 ## How to install?
@@ -42,19 +42,17 @@ arc bashrc
 
 # Custom Vim configuration
 arc vimrc
-
-# Custom Plug configuration (Vim plugins)
-arc plugrc
 ```
 
 ## Included stuff
 TODO: Finish included stuff list
 
-### VIM
- * [NERD Tree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
- * [snipMate.vim](https://github.com/garbas/vim-snipmate): snipMate.vim aims to be a concise vim script that implements some of TextMate's snippets features in Vim
- * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
- * [ctrlp.vim](https://github.com/ctrlpvim/ctrlp.vim): Fuzzy file, buffer, mru and tag finder
+### Vim
+ * [nerdtree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
+ * [unite](https://github.com/Shougo/unite.vim): Unite and create user interfaces
+ * [fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
- * [ack.vim](https://github.com/mileszs/ack.vim): Vim plugin for the Perl module / CLI script 'ack'
- * ...
+ * [airline](https://github.com/vim-airline/vim-airline): lean & mean status/tabline for vim that's light as air
+ * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
+ * [tagbar](https://github.com/majutsushi/tagbar): Vim plugin that displays tags in a window, ordered by scope
+ * ..
