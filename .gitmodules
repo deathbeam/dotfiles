@@ -31,12 +31,6 @@
 [submodule "vim/undotree"]
 	path = vim/undotree
 	url = git://github.com/mbbill/undotree.git
-[submodule "vim/ctrlp.vim"]
-	path = vim/ctrlp.vim
-	url = git://github.com/kien/ctrlp.vim.git
-[submodule "vim/vim-ctrlp-cmdpalette"]
-	path = vim/vim-ctrlp-cmdpalette
-	url = git://github.com/fisadev/vim-ctrlp-cmdpalette.git
 [submodule "vim/nerdtree"]
 	path = vim/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
@@ -109,3 +103,9 @@
 [submodule "vim/neocomplete.vim"]
 	path = vim/neocomplete.vim
 	url = https://github.com/Shougo/neocomplete.vim
+[submodule "vim/neosnippet.vim"]
+	path = vim/neosnippet.vim
+	url = https://github.com/Shougo/neosnippet.vim
+[submodule "vim/neosnippet-snippets"]
+	path = vim/neosnippet-snippets
+	url = https://github.com/Shougo/neosnippet-snippets
