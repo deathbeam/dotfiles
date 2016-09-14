@@ -43,9 +43,6 @@
 [submodule "vim/nerdtree-git-plugin"]
 	path = vim/nerdtree-git-plugin
 	url = git://github.com/Xuyuanp/nerdtree-git-plugin.git
-[submodule "vim/YouCompleteMe"]
-	path = vim/YouCompleteMe
-	url = git://github.com/Valloric/YouCompleteMe.git
 [submodule "vim/vim-fugitive"]
 	path = vim/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -97,3 +94,18 @@
 [submodule "vim/vim-multiple-cursors"]
 	path = vim/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
+[submodule "vim/unite.vim"]
+	path = vim/unite.vim
+	url = https://github.com/shougo/unite.vim
+[submodule "vim/vimproc.vim"]
+	path = vim/vimproc.vim
+	url = https://github.com/Shougo/vimproc.vim
+[submodule "vim/neoyank.vim"]
+	path = vim/neoyank.vim
+	url = https://github.com/Shougo/neoyank.vim
+[submodule "vim/neomru.vim"]
+	path = vim/neomru.vim
+	url = https://github.com/Shougo/neomru.vim
+[submodule "vim/neocomplete.vim"]
+	path = vim/neocomplete.vim
+	url = https://github.com/Shougo/neocomplete.vim

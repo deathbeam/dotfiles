@@ -1,12 +1,14 @@
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set nocompatible
+
 " Modify runtime path
 source $ARC/lib/vim-pathogen/autoload/pathogen.vim
 call pathogen#infect('$ARC/vim/{}')
 call pathogen#infect('$ARC/user/vim{}')
 call pathogen#helptags()
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " With a map leader it's possible to do extra key combinations
 " like <leader>w saves the current file
 let mapleader = ","
@@ -18,6 +20,12 @@ autocmd BufWritePost .vimrc source $MYVIMRC
 
 " Use system clipboard
 set clipboard=unnamed
+
+" Show what command we are writing
+set showcmd
+
+" Enable mouse
+set mouse=a
 
 " Sets how many lines of history VIM has to remember
 set history=500
@@ -41,65 +49,6 @@ nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
-
-
-""""""""""""""""""""""""""""""
-" => Plugins config
-""""""""""""""""""""""""""""""
-
-" CTRL-P
-let g:ctrlp_working_path_mode = 0
-let g:ctrlp_map = '<c-f>'
-map <c-p> :CtrlPCmdPalette<cr>
-map <c-b> :CtrlPBuffer<cr>
-let g:ctrlp_max_height = 20
-let g:ctrlp_custom_ignore = 'node_modules\|^\.DS_Store\|^\.git\'
-
-" NERDTree
-let g:NERDTreeWinPos = "right"
-let NERDTreeIgnore = ['\.pyc$', '__pycache__']
-let g:NERDTreeWinSize=35
-map <leader>n :NERDTreeToggle<cr>
-
-" Open new silent tab on right mouse click in NERDTree
-let g:nerdtree_tabs_open_on_gui_startup=0
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
-
-" Make Startify work with NERDTree
-let wmuse_nt = 0
-autocmd StdinReadPost * let wmuse_nt = 1
-let NERDTreeHijackNetrw = 0
-autocmd VimEnter * call WelcomeScreen(wmuse_nt)
-
-" Fix EditorConfig for fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" When you press gv you Ack after the selected text
-vnoremap <silent> gv :call VisualSelection('gv', '')<CR>
-
-" Open Ack and put the cursor in the right position
-map <leader>g :Ack
-
-" When you search with Ag, display your results in cope by doing:
-"   <leader>cc
-"
-" To go to the next search result do:
-"   <leader>n
-"
-" To go to the previous search results do:
-"   <leader>p
-map <leader>cc :botright cope<cr>
-map <leader>co ggVGy:tabnew<cr>:set syntax=qf<cr>pgg
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
-" Use ag instead of ack when available
-if executable('ag')
-  let g:ackprg = 'ag --vimgrep'
-endif
-
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -170,6 +119,12 @@ set tm=500
 " Add a bit extra margin to the left
 set foldcolumn=1
 
+" Always show the status line
+set laststatus=2
+
+" Format the status line
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
@@ -232,6 +187,9 @@ set wrap "Wrap lines
 """"""""""""""""""""""""""""""
 " => Visual mode related
 """"""""""""""""""""""""""""""
+" When you press <leader>r you can search and replace the selected text
+vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
+
 " Visual mode pressing * or # searches for the current selection
 " Super useful! From an idea by Michael Naumann
 vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
@@ -241,10 +199,6 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
-
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
@@ -294,19 +248,6 @@ endtry
 au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 
-""""""""""""""""""""""""""""""
-" => Status line
-""""""""""""""""""""""""""""""
-" Set theme for status line
-let g:airline_theme='tomorrow'
-
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Editing mappings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -354,6 +295,106 @@ map <leader>x :e ~/buffer.md<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+
+""""""""""""""""""""""""""""""
+" => Plugins config
+""""""""""""""""""""""""""""""
+
+" Fugitive
+nnoremap <silent> <leader>gs :Gstatus<CR>
+nnoremap <silent> <leader>gd :Gdiff<CR>
+nnoremap <silent> <leader>gc :Gcommit<CR>
+nnoremap <silent> <leader>gb :Gblame<CR>
+nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gp :Git push<CR>
+nnoremap <silent> <leader>gw :Gwrite<CR>
+nnoremap <silent> <leader>gr :Gremove<CR>
+autocmd BufReadPost fugitive://* set bufhidden=delete
+
+" Neocomplete
+let g:neocomplete#enable_at_startup=1
+let g:neocomplcache_enable_fuzzy_completion=1
+
+" Airline
+let g:airline_theme='tomorrow'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
+
+" NERDTree
+let g:NERDTreeWinPos = "right"
+let NERDTreeIgnore = ['\.pyc$', '__pycache__']
+let g:NERDTreeWinSize=35
+map <leader>n :NERDTreeToggle<cr>
+
+" Open new silent tab on right mouse click in NERDTree
+let g:nerdtree_tabs_open_on_gui_startup=0
+let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
+
+" Make Startify work with NERDTree
+let wmuse_nt = 0
+autocmd StdinReadPost * let wmuse_nt = 1
+let NERDTreeHijackNetrw = 0
+autocmd VimEnter * call WelcomeScreen(wmuse_nt)
+
+" Fix EditorConfig for fugitive
+let g:EditorConfig_exclude_patterns = ['fugitive://.*']
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Unite
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+function! s:EscapeUnite()
+    augroup CloseUniteBuffer
+        autocmd!
+        autocmd InsertEnter <buffer>
+            \ let b:close = 0 |
+            \ let g:udt = &updatetime |
+            \ set updatetime=3
+
+        autocmd InsertLeave <buffer>
+            \ let b:close = 1
+
+        autocmd BufLeave,CursorHold <buffer>
+            \ let &updatetime = g:udt |
+            \ unlet g:udt
+
+        autocmd CursorHold <buffer>
+            \ if b:close | close | endif
+    augroup END
+endfunction
+
+augroup EscapeUnite
+    autocmd!
+    autocmd FileType unite call s:EscapeUnite()
+augroup END
+
+call unite#custom#profile('default', 'context', { 'start_insert': 1 })
+call unite#filters#matcher_default#use(['matcher_fuzzy'])
+call unite#filters#sorter_default#use(['sorter_rank'])
+let g:unite_source_history_yank_enable = 1
+let g:unite_prompt = 'λ '
+nmap <space> [unite]
+nnoremap [unite] <nop>
+nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
+nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
+nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
+nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
+nnoremap <silent> [unite]p :<C-u>Unite -auto-resize -buffer-name=commands command<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

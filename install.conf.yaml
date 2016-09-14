@@ -20,6 +20,8 @@
         - lib/fzf/install --all --no-update-rc
         - Installing fzf
     -
+        - cd vim/vimproc.vim && make
+    -
         - vim/YouCompleteMe/install.py
         - Installing YouCompleteMe
 
