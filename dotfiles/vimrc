@@ -205,6 +205,7 @@ vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs, windows and buffers
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
 " Disable highlight when <leader><cr> is pressed
 map <silent> <leader><cr> :noh<cr>
 
@@ -215,10 +216,10 @@ map <C-h> <C-W>h
 map <C-l> <C-W>l
 
 " Close the current buffer
-map <leader>bd :Bclose<cr>:tabclose<cr>gT
+map <leader>bc :Bclose<cr>:tabclose<cr>gT
 
 " Close all the buffers
-map <leader>ba :bufdo bd<cr>
+map <leader>ba :bufdo bc<cr>
 
 " Move between buffers
 map <leader>l :bnext<cr>
@@ -260,17 +261,25 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Move a line of text using ALT+[jk] or Command+[jk] on mac
-nmap <M-j> mz:m+<cr>`z
-nmap <M-k> mz:m-2<cr>`z
-vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
-vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+" Make use of arrow keys by making them to move text
+nmap <M-h> <<
+nmap <M-l> >>
+vmap <M-h> <gv
+vmap <M-l> >gv
+nmap <M-k> :m-2<CR>
+nmap <M-j> :m+<CR>
+vmap <M-k> :m-2<CR>gv
+vmap <M-j> :m+<CR>gv
 
 if has("mac") || has("macunix")
-  nmap <D-j> <M-j>
+  nmap <D-h> <M-h>
+  nmap <D-l> <M-l>
+  vmap <D-h> <M-h>
+  vmap <D-l> <M-l>
   nmap <D-k> <M-k>
-  vmap <D-j> <M-j>
+  nmap <D-j> <M-j>
   vmap <D-k> <M-k>
+  vmap <D-j> <M-j>
 endif
 
 
@@ -303,6 +312,13 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
+" HARD MODE BABY - disable arrows..
+let g:HardMode_level='wannabe'
+
+map /  <Plug>(incsearch-forward)
+map ?  <Plug>(incsearch-backward)
+map g/ <Plug>(incsearch-stay)
+
 " Undotree
 nnoremap <leader>u :UndotreeToggle<cr>
 
@@ -373,8 +389,6 @@ inoremap <expr><C-l>     neocomplete#complete_common_string()
 inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
 function! s:my_cr_function()
   return (pumvisible() ? "\<C-y>" : "" ) . "\<CR>"
-  " For no inserting <CR> key.
-  "return pumvisible() ? "\<C-y>" : "\<CR>"
 endfunction
 " <TAB>: completion.
 inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
@@ -382,8 +396,7 @@ inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
 inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
 inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
 " Close popup by <Space>.
-inoremap <expr><Space> pumvisible() ? "\<C-y>\<Space>" : "\<Space>"
-
+inoremap <expr><Space> (pumvisible() ? "\<C-y>" : "") . "\<Space>"
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Unite
