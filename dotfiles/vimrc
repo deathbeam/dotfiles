@@ -124,7 +124,6 @@ set noerrorbells
 set novisualbell
 set t_vb=
 set tm=500
-
 " Add a bit extra margin to the left
 set foldcolumn=1
 
@@ -314,6 +313,7 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " HARD MODE BABY - disable arrows..
 let g:HardMode_level='wannabe'
+autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
@@ -463,9 +463,10 @@ elseif has("unix")
   set gfn=Monospace\ 11
 endif
 
-" Open MacVim in fullscreen mode
+" Fix some issues with MacVim
 if has("gui_macvim")
   set fuoptions=maxvert,maxhorz
+  autocmd! GUIEnter * set vb t_vb=
   au GUIEnter * set fullscreen | set guioptions-=e
 endif
 
