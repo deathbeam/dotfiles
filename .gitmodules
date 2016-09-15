@@ -109,3 +109,6 @@
 [submodule "vim/neosnippet-snippets"]
 	path = vim/neosnippet-snippets
 	url = https://github.com/Shougo/neosnippet-snippets
+[submodule "vim/unite-outline"]
+	path = vim/unite-outline
+	url = https://github.com/Shougo/unite-outline

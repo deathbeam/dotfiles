@@ -37,8 +37,10 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
-" Fast saving
+" Fast operations
 nmap <leader>w :w!<cr>
+nmap <leader>q :q!<cr>
+nmap <leader>x :x!<cr>
 
 " Fast way to edit .vimrc
 nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -63,8 +65,9 @@ set langmenu=en
 source $VIMRUNTIME/delmenu.vim
 source $VIMRUNTIME/menu.vim
 
-" Turn on the WiLd menu
+" Turn on the Wild menu
 set wildmenu
+set wildmode=longest:full,full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc
@@ -73,6 +76,12 @@ if has("win16") || has("win32")
 else
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
+
+" Show line numbers
+set number
+
+" Less annoying error messages
+set shortmess=at
 
 "Always show current position
 set ruler
@@ -167,9 +176,6 @@ set expandtab
 
 " Be smart when using tabs ;)
 set smarttab
-
-" Show line numbers
-set number
 
 " 1 tab == 4 spaces
 set shiftwidth=2
@@ -288,10 +294,7 @@ map <leader>s? z=
 noremap <Leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>q :e ~/buffer<cr>
-
-" Quickly open a markdown buffer for scribble
-map <leader>x :e ~/buffer.md<cr>
+map <leader>b :e $ARC/user/buffer<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -300,6 +303,8 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
+" Undotree
+nnoremap <leader>u :UndotreeToggle<cr>
 
 " Fugitive
 nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -383,9 +388,11 @@ call unite#filters#matcher_default#use(['matcher_fuzzy'])
 call unite#filters#sorter_default#use(['sorter_rank'])
 let g:unite_source_history_yank_enable = 1
 let g:unite_prompt = 'λ '
+let g:unite_marked_icon = '✗'
 nmap <space> [unite]
 nnoremap [unite] <nop>
 nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
+nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline outline<cr>
 nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
 nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
 nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>

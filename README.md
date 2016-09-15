@@ -47,12 +47,17 @@ arc vimrc
 ## Included stuff
 TODO: Finish included stuff list
 
+### Bash
+ * [fasd](https://github.com/clvv/fasd): Command-line productivity booster, offers quick access to files and directories, inspired by autojump, z and v.
+ * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
+ * ...
+
 ### Vim
- * [nerdtree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
- * [unite](https://github.com/Shougo/unite.vim): Unite and create user interfaces
- * [fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
+ * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
+ * [NERDTree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
+ * [unite.vim](https://github.com/Shougo/unite.vim): Unite and create user interfaces
+ * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
- * [airline](https://github.com/vim-airline/vim-airline): lean & mean status/tabline for vim that's light as air
+ * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
  * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
- * [tagbar](https://github.com/majutsushi/tagbar): Vim plugin that displays tags in a window, ordered by scope
- * ..
+ * ...
