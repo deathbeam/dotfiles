@@ -1,4 +1,5 @@
 language: bash
 
 script:
+    - rm -rf ~/.bashrc
     - bash install
