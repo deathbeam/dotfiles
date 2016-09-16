@@ -1,5 +1,4 @@
 language: bash
 
 script:
-    - export $HOME=$PWD
     - bash install
