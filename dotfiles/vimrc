@@ -466,12 +466,12 @@ endif
 " Fix some issues with MacVim
 if has("gui_macvim")
   set fuoptions=maxvert,maxhorz
-  autocmd! GUIEnter * set vb t_vb=
-  au GUIEnter * set fullscreen | set guioptions-=e
+  autocmd GUIEnter * set fullscreen | set guioptions-=e
 endif
 
 " Set extra options when running in GUI mode
 if has("gui_running")
+  autocmd GUIEnter * set vb t_vb=
   set guitablabel=%M\ %t
 endif
 
