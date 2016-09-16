@@ -1,5 +1,5 @@
 language: bash
 
 script:
-    - rm -rf ~/.bashrc
+    - export $HOME=$PWD
     - bash install

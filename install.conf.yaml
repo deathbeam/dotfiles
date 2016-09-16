@@ -20,12 +20,12 @@
         - lib/fzf/install --all --no-update-rc
         - Installing fuzzy finder for bash
     -
-        - cd vim/vimproc.vim && make
+        - make -C vim/vimproc.vim
         - Installing interactive command execution for Vim
 
 - link:
-    ~/.adrc: user/adrc
-    ~/.dotfiles: dotfiles
-    ~/.bash_profile: dotfiles/bash_profile
-    ~/.bashrc: dotfiles/bashrc
-    ~/.vimrc: dotfiles/vimrc
+    $HOME/.adrc: user/adrc
+    $HOME/.dotfiles: dotfiles
+    $HOME/.bash_profile: dotfiles/bash_profile
+    $HOME/.bashrc: dotfiles/bashrc
+    $HOME/.vimrc: dotfiles/vimrc
