@@ -22,14 +22,14 @@ alias ls="ls -CF"
 alias ll="ls -lhA"
 
 # Adjust path to use bin in user/bin
-export PATH="$ARC/user/bin:$PATH"
+export PATH="$ARC/usr/bin:$PATH"
 
 # Set tab title to show only current directory and not full path
 export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
 
 # Set custom prompt (using Bash-it helpers)
-source "$ARC/lib/bash-it/themes/colors.theme.bash"
-source "$ARC/lib/bash-it/themes/base.theme.bash"
+source "$ARC/lib/bash/bash-it/themes/colors.theme.bash"
+source "$ARC/lib/bash/bash-it/themes/base.theme.bash"
 SCM_THEME_PROMPT_PREFIX="${cyan}(${green}"
 SCM_THEME_PROMPT_SUFFIX="${cyan})"
 SCM_THEME_PROMPT_DIRTY=" ${red}✗"
@@ -52,8 +52,8 @@ export HISTTIMEFORMAT='%F %T '
 export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Init fasd with cache to speed up startup
-source "$ARC/lib/fasd/fasd" > /dev/null
-fasd_cache="$ARC/user/.fasd-init-bash"
+source "$ARC/lib/bash/fasd/fasd" > /dev/null
+fasd_cache=~/.fasd-init-cache
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
   fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
 fi
@@ -61,37 +61,30 @@ source "$fasd_cache"
 unset fasd_cache
 
 # Load rest of libraries
-source $ARC/lib/todo.txt-cli/todo_completion
-alias todo.sh='$ARC/lib/todo.txt-cli/todo.sh'
+source $ARC/lib/bash/todo.txt-cli/todo_completion
+alias todo.sh='$ARC/lib/bash/todo.txt-cli/todo.sh'
 command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 alias zi="fasd -e cd -i"
 
-# Finish installation if not installed
-if [ ! -d "$ARC/user/installed/" ]; then
-  vim +PlugInstall +qall
-  mkdir -p "$ARC/user/installed/"
-fi
-
 # Fast edit rc files
 arc() {
-  eval "$EDITOR $ARC/user/$1"
+  eval "$EDITOR $ARC/usr/$1"
 }
 
 # Add link to binary to $ARC/user/bin path
 arclink() {
   local name=`basename $1`
   local curpath="$PWD/$1"
-  ln -s $curpath "$ARC/user/bin/$name"
+  ln -s $curpath "$ARC/usr/bin/$name"
 }
-
 
 # Awesome Star Wars alias
 alias starwars="telnet towel.blinkenlights.nl"
 
 # Load user config
-[[ -f "$ARC/user/bashrc" ]] &&
-  source "$ARC/user/bashrc"
+[[ -f "$ARC/usr/bashrc" ]] &&
+  source "$ARC/usr/bashrc"
 
 # Load fzf last to override possible bash-completion
 source ~/.fzf.bash

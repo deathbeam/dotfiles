@@ -4,9 +4,10 @@
 set nocompatible
 
 " Modify runtime path
-source $ARC/lib/vim-pathogen/autoload/pathogen.vim
-call pathogen#infect('$ARC/vim/{}')
-call pathogen#infect('$ARC/user/vim{}')
+source $ARC/lib/vim/vim-pathogen/autoload/pathogen.vim
+let g:pathogen_blacklist=['vim-pathogen']
+call pathogen#infect('$ARC/lib/vim/{}')
+call pathogen#infect('$ARC/usr/vim/{}')
 call pathogen#helptags()
 
 " With a map leader it's possible to do extra key combinations
@@ -642,6 +643,6 @@ endfunc
 
 " Load user configuration
 try
-source $ARC/user/vimrc
+source $ARC/usr/vimrc
 catch
 endtry

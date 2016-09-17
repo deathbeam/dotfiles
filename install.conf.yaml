@@ -5,27 +5,27 @@
 
 - clean:
     - '~'
-    - 'user/bin'
+    - 'usr/bin'
 
 - shell:
     -
         - git submodule update --init --recursive
         - Installing submodules
     -
-        - mkdir -p user/bin
+        - mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
-        - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > user/adrc'
+        - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc'
         - Setting up home directory
     -
-        - lib/fzf/install --all --no-update-rc
+        - lib/bash/fzf/install --all --no-update-rc
         - Installing fuzzy finder for bash
     -
-        - make -C vim/vimproc.vim
+        - make -C lib/vim/vimproc.vim
         - Installing interactive command execution for Vim
 
 - link:
-    $HOME/.adrc: user/adrc
+    $HOME/.adrc: usr/adrc
     $HOME/.dotfiles: dotfiles
     $HOME/.bash_profile: dotfiles/bash_profile
     $HOME/.bashrc: dotfiles/bashrc
