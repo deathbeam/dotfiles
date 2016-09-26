@@ -30,3 +30,4 @@
     $HOME/.bash_profile: dotfiles/bash_profile
     $HOME/.bashrc: dotfiles/bashrc
     $HOME/.vimrc: dotfiles/vimrc
+    $HOME/.tmux.conf: dotfiles/tmux.conf
