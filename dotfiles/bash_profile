@@ -7,7 +7,7 @@ motd() {
   local rand=$[$RANDOM % 2 + 1]
   echo -e "\033[33m${motd[$rand]}\033[0m\n"
   echo -e "Run \033[33mmotd\033[0m to show this MOTD!"
-  echo -e "Run \033[33mstarwars\033[0m to watch some Star Wars!"
+  echo -e "Run \033[33mstarwars\033[0m to watch some Star Wars!\n"
 }
 
 motd

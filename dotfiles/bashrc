@@ -31,19 +31,8 @@ export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 # Set tab title to show only current directory and not full path
 export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
 
-# Set custom prompt (using Bash-it helpers)
-source "$ARC/lib/bash/bash-it/themes/colors.theme.bash"
-source "$ARC/lib/bash/bash-it/themes/base.theme.bash"
-SCM_THEME_PROMPT_PREFIX="${cyan}(${green}"
-SCM_THEME_PROMPT_SUFFIX="${cyan})"
-SCM_THEME_PROMPT_DIRTY=" ${red}✗"
-SCM_THEME_PROMPT_CLEAN=" ${green}✓"
-
-custom_prompt_command() {
-  PS1="$(scm_prompt_info) ${purple}λ${reset_color} "
-}
-
-safe_append_prompt_command custom_prompt_command
+# Set custom prompt
+export PS1=" \e[1mλ\e[0m "
 
 # Better history
 shopt -s histappend
