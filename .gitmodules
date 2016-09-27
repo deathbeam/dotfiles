@@ -100,9 +100,6 @@
 [submodule "lib/vim/neomru.vim"]
 	path = lib/vim/neomru.vim
 	url = https://github.com/Shougo/neomru.vim
-[submodule "lib/vim/neocomplete.vim"]
-	path = lib/vim/neocomplete.vim
-	url = https://github.com/Shougo/neocomplete.vim
 [submodule "lib/vim/neosnippet.vim"]
 	path = lib/vim/neosnippet.vim
 	url = https://github.com/Shougo/neosnippet.vim

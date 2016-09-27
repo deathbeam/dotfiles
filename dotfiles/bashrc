@@ -4,9 +4,9 @@
 source ~/.adrc
 
 # AAAAAND... run Tmux if we can
-if command -v tmux>/dev/null; then
-  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
-fi
+# if command -v tmux>/dev/null; then
+#  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
+# fi
 
 # Manually set your language environment
 export LANG=en_US.UTF-8
