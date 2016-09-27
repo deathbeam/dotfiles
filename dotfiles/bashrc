@@ -3,11 +3,6 @@
 # Load ARC path
 source ~/.adrc
 
-# AAAAAND... run Tmux if we can
-# if command -v tmux>/dev/null; then
-#  [[ ! $TERM =~ screen ]] && [ -z $TMUX ] && exec tmux -2
-# fi
-
 # Manually set your language environment
 export LANG=en_US.UTF-8
 
@@ -19,7 +14,7 @@ export VISUAL="$EDITOR"
 [ -z "$TMUX" ] && export TERM="xterm-256color"
 
 # Tmux in full color mode
-alias tmux="tmux -2"
+# alias tmux="tmux -2"
 
 # Add nice ls mods
 alias ls="ls -CF"
@@ -29,10 +24,14 @@ alias ll="ls -lhA"
 export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 
 # Set tab title to show only current directory and not full path
-export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
+# export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
 
 # Set custom prompt
-export PS1=" \e[1mλ\e[0m "
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+  export PS1=' \[\e[1m\]>\[\e[0m\[\] '
+else
+  export PS1=' \[\e[1m\]λ\[\e[0m\[\] '
+fi
 
 # Better history
 shopt -s histappend
