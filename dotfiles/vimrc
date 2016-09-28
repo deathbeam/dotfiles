@@ -60,6 +60,11 @@ command! W w !sudo tee % > /dev/null
 " Set 7 lines to the cursor - when moving vertically using j/k
 set so=7
 
+if filereadable(expand("~/.vimrc_background"))
+  let base16colorspace=256
+  source ~/.vimrc_background
+endif
+
 " Avoid garbled characters in Chinese language windows OS
 let $LANG='en_US.utf8'
 set langmenu=en
@@ -146,7 +151,7 @@ set t_Co=256
 
 " Set theme if possible
 try
-  colorscheme Tomorrow-Night
+  colorscheme base16-tomorrow-night
 catch
 endtry
 
@@ -339,7 +344,7 @@ nnoremap <silent> <leader>gr :Gremove<CR>
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
 " Airline
-let g:airline_theme='tomorrow'
+let g:airline_theme='base16'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_idx_mode = 1
 nmap <leader>1 <Plug>AirlineSelectTab1

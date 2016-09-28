@@ -10,12 +10,6 @@ export LANG=en_US.UTF-8
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-# Enable 256 color mode
-[ -z "$TMUX" ] && export TERM="xterm-256color"
-
-# Tmux in full color mode
-# alias tmux="tmux -2"
-
 # Add nice ls mods
 alias ls="ls -CF"
 alias ll="ls -lhA"
@@ -24,14 +18,26 @@ alias ll="ls -lhA"
 export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 
 # Set tab title to show only current directory and not full path
-# export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
+export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
+
+if [ $TMUX ]; then
+  source $ARC/lib/bash/tmux-git/tmux-git.sh
+else
+  # Enable 256 color mode
+  export TERM="xterm-256color"
+fi
 
 # Set custom prompt
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  export PS1=' \[\e[1m\]>\[\e[0m\[\] '
+  export PS1=' > '
 else
-  export PS1=' \[\e[1m\]λ\[\e[0m\[\] '
+  export PS1=' \[\e[1m\]λ\[\e[0m\] '
 fi
+
+# Base 16
+BASE16_SHELL=$ARC/lib/bash/base16-shell/
+[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+base16_tomorrow-night
 
 # Better history
 shopt -s histappend

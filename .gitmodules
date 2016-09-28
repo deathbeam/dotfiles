@@ -121,3 +121,12 @@
 [submodule "lib/vim/hardmode"]
 	path = lib/vim/hardmode
 	url = https://github.com/wikitopian/hardmode
+[submodule "lib/vim/base16-vim"]
+	path = lib/vim/base16-vim
+	url = https://github.com/chriskempson/base16-vim
+[submodule "lib/bash/base16-shell"]
+	path = lib/bash/base16-shell
+	url = https://github.com/chriskempson/base16-shell
+[submodule "lib/bash/tmux-git"]
+	path = lib/bash/tmux-git
+	url = https://github.com/drmad/tmux-git
