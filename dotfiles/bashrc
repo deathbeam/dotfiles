@@ -29,7 +29,7 @@ fi
 if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
   export PS1=' > '
 else
-  export PS1=' \[\e[1m\]λ\[\e[0m\] '
+  export PS1=' \[\e[32;1m\]λ\[\e[0m\] '
 fi
 
 # Base 16
