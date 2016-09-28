@@ -266,27 +266,6 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Make use of arrow keys by making them to move text
-nmap <M-h> <<
-nmap <M-l> >>
-vmap <M-h> <gv
-vmap <M-l> >gv
-nmap <M-k> :m-2<CR>
-nmap <M-j> :m+<CR>
-vmap <M-k> :m-2<CR>gv
-vmap <M-j> :m+<CR>gv
-
-if has("mac") || has("macunix")
-  nmap <D-h> <M-h>
-  nmap <D-l> <M-l>
-  vmap <D-h> <M-h>
-  vmap <D-l> <M-l>
-  nmap <D-k> <M-k>
-  nmap <D-j> <M-j>
-  vmap <D-k> <M-k>
-  vmap <D-j> <M-j>
-endif
-
 " Change cursor shape based on mode in Tmux
 let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
 let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
