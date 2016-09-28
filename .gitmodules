@@ -127,6 +127,6 @@
 [submodule "lib/bash/base16-shell"]
 	path = lib/bash/base16-shell
 	url = https://github.com/chriskempson/base16-shell
-[submodule "lib/bash/tmux-git"]
-	path = lib/bash/tmux-git
-	url = https://github.com/drmad/tmux-git
+[submodule "lib/bash/tmux-gitbar"]
+	path = lib/bash/tmux-gitbar
+	url = https://github.com/aurelien-rainone/tmux-gitbar.git

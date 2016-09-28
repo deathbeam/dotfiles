@@ -18,11 +18,9 @@ alias ll="ls -lhA"
 export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 
 # Set tab title to show only current directory and not full path
-export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007"'
+# export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
 
-if [ $TMUX ]; then
-  source $ARC/lib/bash/tmux-git/tmux-git.sh
-else
+if [ -z $TMUX ]; then
   # Enable 256 color mode
   export TERM="xterm-256color"
 fi
