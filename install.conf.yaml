@@ -31,3 +31,4 @@
     $HOME/.bashrc: dotfiles/bashrc
     $HOME/.vimrc: dotfiles/vimrc
     $HOME/.tmux.conf: dotfiles/tmux.conf
+    $HOME/.ideavimrc: dotfiles/ideavimrc

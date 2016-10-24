@@ -266,10 +266,14 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " Remap VIM 0 to first non-blank character
 map 0 ^
 
-" Change cursor shape based on mode in Tmux
-let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-let &t_SR = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=2\x7\<Esc>\\"
-let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+" allows cursor change in tmux mode
+if exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+else
+  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -300,6 +304,8 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
+nmap ; <Plug>(easymotion-overwin-f)
+
 " HARD MODE BABY - disable arrows..
 let g:HardMode_level='wannabe'
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
