@@ -2,7 +2,8 @@ nmap / :action Find<CR>
 nmap n :action FindNext<CR>
 nmap N :action FindPrevious<CR>
 nmap <c-o> :action Back<cr>
-nmap <c-i> :action Forward<cr>nmap ; :action AceJumpAction<CR>
+nmap <c-i> :action Forward<cr>
+nmap ; :action emacsIDEAs.AceJumpWord<CR>
 nmap ,u :action LocalHistory.ShowHistory<CR>
 nmap <space>y :action PasteMultiple<CR>
 nmap <space>c :action GotoClass<CR>
