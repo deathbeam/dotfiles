@@ -12,6 +12,9 @@
         - git submodule update --init --recursive
         - Installing submodules
     -
+        - git submodule foreach git pull origin master
+        - Updating submodules
+    -
         - mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
