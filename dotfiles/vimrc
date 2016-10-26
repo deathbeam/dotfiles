@@ -3,6 +3,9 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 
+unlet! skip_defaults_vim
+source $VIMRUNTIME/defaults.vim
+
 " Modify runtime path
 source $ARC/lib/vim/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_blacklist=['vim-pathogen']
