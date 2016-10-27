@@ -28,9 +28,6 @@ set clipboard=unnamed
 " Show what command we are writing
 set showcmd
 
-" Enable mouse
-set mouse=a
-
 " Sets how many lines of history VIM has to remember
 set history=500
 
@@ -84,6 +81,12 @@ if has("win16") || has("win32")
   set wildignore+=.git\*,.hg\*,.svn\*
 else
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
+endif
+
+if has("gui_running")
+  set mouse=a
+else
+  set mouse=
 endif
 
 " Show line numbers
@@ -350,10 +353,7 @@ let g:NERDTreeWinPos = "right"
 let NERDTreeIgnore = ['\.pyc$', '__pycache__']
 let g:NERDTreeWinSize=35
 map <leader>n :NERDTreeToggle<cr>
-
-" Open new silent tab on right mouse click in NERDTree
 let g:nerdtree_tabs_open_on_gui_startup=0
-let g:NERDTreeMapOpenInTabSilent = '<RightMouse>'
 
 " Make Startify work with NERDTree
 let wmuse_nt = 0
