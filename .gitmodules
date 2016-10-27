@@ -145,3 +145,6 @@
 [submodule "lib/tmux/tmux-copycat"]
 	path = lib/tmux/tmux-copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
+[submodule "lib/tmux/tmux-continuum"]
+	path = lib/tmux/tmux-continuum
+	url = https://github.com/tmux-plugins/tmux-continuum
