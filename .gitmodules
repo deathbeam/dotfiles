@@ -148,3 +148,6 @@
 [submodule "lib/tmux/tmux-continuum"]
 	path = lib/tmux/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
+[submodule "lib/vifm/vifm-colors"]
+	path = lib/vifm/vifm-colors
+	url = https://github.com/vifm/vifm-colors

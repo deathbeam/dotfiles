@@ -14,6 +14,9 @@ export VISUAL="$EDITOR"
 alias ls="ls -CF"
 alias ll="ls -lhA"
 
+# Add binaries in opt to PATH (for MacPorts etc)
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
 # Adjust path to use bin in user/bin
 export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 

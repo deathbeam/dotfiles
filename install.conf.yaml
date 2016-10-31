@@ -35,3 +35,5 @@
     $HOME/.vimrc: dotfiles/vimrc
     $HOME/.tmux.conf: dotfiles/tmux.conf
     $HOME/.ideavimrc: dotfiles/ideavimrc
+    $HOME/.vifm/vifmrc: dotfiles/vifmrc
+    $HOME/.vifm/colors/solarized-dark.vifm: lib/vifm/vifm-colors/solarized-dark.vifm
