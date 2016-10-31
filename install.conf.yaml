@@ -26,6 +26,9 @@
     -
         - make -C lib/vim/vimproc.vim
         - Installing interactive command execution for Vim
+    -
+        - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget"
+        - Installing Ubersicht widget
 
 - link:
     $HOME/.adrc: usr/adrc
@@ -37,3 +40,5 @@
     $HOME/.ideavimrc: dotfiles/ideavimrc
     $HOME/.vifm/vifmrc: dotfiles/vifmrc
     $HOME/.vifm/colors/solarized-dark.vifm: lib/vifm/vifm-colors/solarized-dark.vifm
+    $HOME/.kwm/kwmrc: dotfiles/kwmrc
+    $HOME/.khdrc: dotfiles/khdrc
