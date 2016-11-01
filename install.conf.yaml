@@ -41,6 +41,6 @@
     $HOME/.vifm/vifmrc: dotfiles/vifmrc
     $HOME/.vifm/colors/solarized-dark.vifm: lib/vifm/vifm-colors/solarized-dark.vifm
     $HOME/.vimperatorrc: dotfiles/vimperatorrc
-    $HOME/.vimperator/colors: lib/vimperator/vimperator-colors
+    $HOME/.vimperator/colors: lib/firefox/vimperator/colors
     $HOME/.kwm/kwmrc: dotfiles/kwmrc
     $HOME/.khdrc: dotfiles/khdrc

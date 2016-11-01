@@ -1,8 +1,10 @@
-colorscheme zenburn
-set wildmode autocomplete
+colorscheme tomorrow-night
 
-" autocomplete with smart Firefox stuff and open tabs
-set complete=h
+" I don't like beeps
+set visualbell
+" useful for command-line completion
+set autocomplete
+set wildmode=list:longest,full
 
 " J and K for tab movement
 nnoremap J gt
@@ -114,6 +116,3 @@ set! datareporting.healthreport.uploadEnabled=false
 
 " vimperator
 set! extensions.vimperator.firsttime=false
-
-" currentsong
-set! extensions.jid1-tXcW0tgdE3YBSQ@jetpack.saveFolder=~/.currentsong
