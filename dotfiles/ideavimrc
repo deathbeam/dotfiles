@@ -13,3 +13,4 @@ nmap <space>/ :action SearchEverywhere<CR>
 nmap <space>e :action RecentFiles<CR>
 nmap <space>o :action FileStructurePopup<CR>
 
+" vim: set filetype=vim:

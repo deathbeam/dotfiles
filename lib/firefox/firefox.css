@@ -43,16 +43,7 @@
 
     * { box-sizing: border-box !important; }
 
-    /* --- Comment out the section below to remove the newtab button --- */
-    /*
-    .tabs-newtab-button { display: block !important; background: transparent !important; margin: 0 8px 0 0 !important; width: 24px !important; }
-    .tabs-newtab-button::before { content: "+" !important; }
-    /**/
-
     .tab-drop-indicator { margin-bottom: 0 !important; }
-
-
-    /*#browser { margin-bottom: var(--url-height) !important; }/**/ /* Uncomment to enable bottom margin */
 
     #navigator-toolbox { background: var(--url-background) !important; }
     #navigator-toolbox * { clip: auto !important; clip-path: none !important; }
@@ -73,26 +64,29 @@
         z-index: 100 !important;
         /**/
     }
-        #nav-bar-customization-target, #urlbar-container, #urlbar {
-            margin: 0 !important; padding: 0 !important;
-            width: 100% !important; height: 100% !important;
-            border-radius: 0 !important;
-        }
-            #nav-bar-customization-target {
-                position: absolute !important; top: -1px !important; left: 0 !important; height: calc(100% - 1px) !important; /* (bottom margin - height switch +/- to fix line) */
-            }
-                #urlbar {
-                    border: none !important; padding: 0 2px 0 8px !important;
-                    background: var(--url-background) !important; color: var(--url-color) !important;
-                    font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;
-                    text-align: var(--url-text-align) !important;
-                    height: 100% !important;
-                }
-                /*#urlbar * { -moz-appearance: none !important; }*/
 
-                .urlbar-textbox-container .urlbar-input-box .textbox-input {
-                    height: var(--url-height) !important;
-                }
+    #nav-bar-customization-target, #urlbar-container, #urlbar {
+        margin: 0 !important; padding: 0 !important;
+        width: 100% !important; height: 100% !important;
+        border-radius: 0 !important;
+    }
+
+    #nav-bar-customization-target {
+        position: absolute !important; top: -1px !important; left: 0 !important; height: calc(100% - 1px) !important; /* (bottom margin - height switch +/- to fix line) */
+    }
+
+    #urlbar {
+        border: none !important; padding: 0 2px 0 8px !important;
+        background: var(--url-background) !important; color: var(--url-color) !important;
+        font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;
+        text-align: var(--url-text-align) !important;
+        height: 100% !important;
+    }
+    /*#urlbar * { -moz-appearance: none !important; }*/
+
+    .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        height: var(--url-height) !important;
+    }
 
 
     /* --- Uncomment the section below to enable the back/forward buttons [EXPERIMENTAL] (Requires url-bar) --- */
@@ -110,7 +104,6 @@
 
 
     /* --- Comment out the section below to make the url-bar visible --- */
-
     #nav-bar {
         width: 0 !important; height: 0 !important;
         position: fixed !important; left: -1px !important; top: -1px !important;
@@ -157,7 +150,6 @@
     .tabbrowser-tab[selected="true"] .tab-stack {
         background: var(--bg-active) !important; color: var(--fg-active) !important;
         border-radius: 0px !important; position: relative !important;
-        /*border-top: 1px solid #dc52a5 !important;/**/
     }
 
     #TabsToolbar, #tabbrowser-tabs {
@@ -172,17 +164,17 @@
     #TabsToolbar::after { display: none !important; }
     .tabbrowser-tab::before, .tabbrowser-tab::after { background: none !important; opacity: 1 !important; visibility: visible !important; }
 
-    /*browser, #navigator-toolbox { -moz-appearance: none !important; background: transparent !important; }*/
+    browser, #navigator-toolbox { -moz-appearance: none !important; background: transparent !important; }
 
     #navigator-toolbox::after { height: 0px !important; background: var(--bg-light) !important; }
 
     /* MENUS */
     menuitem + menuseparator, menu + menuseparator/*, .menu-iconic-left*/ { display: none !important; }
-    /*menuitem > label { margin-left: var(--tab-height) !important; }*/
-    /*menubar, menubutton, menulist, menu, menuitem {
+    menuitem > label { margin-left: var(--tab-height) !important; }
+    menubar, menubutton, menulist, menu, menuitem {
         font-family: var(--tab-fonts) !important; font-size: var(--tab-font-size);
         height: var(--tab-height) !important;
-    }*/
+    }
 
     /* HIDE ORANGE MENU BUTTON */
     #appmenu-toolbar-button, #appmenu-button-container { display: none !important; }
@@ -197,21 +189,17 @@
     /* Vimperator icon style */
     #liberator-statusline:not([customizing="true"]) { margin: 0 !important; padding: 0 0 !important; height: var(--tab-height) !important; }
     #liberator-statusline:not([customizing="true"]) :-moz-any(toolbarbutton) { height: 100% !important; }
-    #tabview-button {
-        list-style-image: url(http://twily.info/img/tabview-button.png?v=2) /* 16x16 px image */ !important;
-        -moz-image-region: rect(0, 0, 0, 0) !important;
-    }
 
     /* Tabgroup margin top fix */
-    #tab-view-deck #tab-view { margin: 24px 12px 12px 12px !important; }
+    #tab-view-deck #tab-view { margin: var(--tab-height) 12px 12px 12px !important; }
     #tab-view-deck { background: var(--bg-light) !important; }
 
     window[sizemode="fullscreen"] #liberator-statusline { display: none !important; }
     window[sizemode="fullscreen"] #liberator-bottombar  {
-        margin-top: -24px !important;
+        margin-top: -20px !important;
         transition: 1s ease !important; transition-delay: .3s !important;
     }
-    /*window[sizemode="fullscreen"] #browser-panel        { margin-top: -1px !important; }*/
+    window[sizemode="fullscreen"] #browser-panel        { margin-top: -1px !important; }
 }
 
 
@@ -250,8 +238,7 @@
     }
 
     /*
-       Uncomment section below to apply style
-
+       Comment out section below to disable style
        (width/height is controlled by the margin)
     */
 
@@ -299,17 +286,8 @@
 @-moz-document regexp("about:stylish-edit.*") {
     #main-area, textbox { background: var(--bg-light) !important; }
     textbox, grid, columns, rows, separator { border: 0 !important; }
-
     .devtools-toolbarbutton { background: var(--bg-dark) !important; color: var(--fg-light) !important; }
 }
 
 /*----- Fix for white flash on new tab -----*/
 tabbrowser tabpanels, #appcontent > #content { background: var(--bg-light) !important; }
-
-
-/* Set dark text in light textareas */
-/*
-@-moz-document regexp("https?://(?!(localhost|twily.info|.*.4chan.org|.*.youtube.com)).*") {
-    input, textarea { color: #222628 !important; -moz-appearance: none !important; }
-}
-/**/

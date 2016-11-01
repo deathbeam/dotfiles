@@ -343,3 +343,5 @@ nnoremap <left> <nop>
 nnoremap <right> <nop>
 nnoremap <up> <nop>
 nnoremap <down> <nop>
+
+" vim: set filetype=vim:

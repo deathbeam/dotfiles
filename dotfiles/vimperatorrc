@@ -1,5 +1,20 @@
 colorscheme tomorrow-night
 
+" Map , to be leader
+map , <leader>
+
+" Move between tabs with numbers
+map <silent> <leader>1 :tabn<Space>1<Return>
+map <silent> <leader>2 :tabn<Space>2<Return>
+map <silent> <leader>3 :tabn<Space>3<Return>
+map <silent> <leader>4 :tabn<Space>4<Return>
+map <silent> <leader>5 :tabn<Space>5<Return>
+map <silent> <leader>6 :tabn<Space>6<Return>
+map <silent> <leader>7 :tabn<Space>7<Return>
+map <silent> <leader>8 :tabn<Space>8<Return>
+map <silent> <leader>9 :tabn<Space>9<Return>
+map <silent> <leader>0 :tabn<Space>10<Return>
+
 " Set default editor to gvim (including environment setup)
 set editor='bash -lc "gvim -f $*" gvim '
 
@@ -9,10 +24,37 @@ set visualbell
 " useful for command-line completion
 set autocomplete
 set wildmode=list:longest,full
+set complete=lS
 
-" J and K for tab movement
-nnoremap J gt
-nnoremap K gT
+" h and l for tab movement
+nnoremap h gt
+nnoremap l gT
+
+" faster scrolling
+noremap j 5j
+noremap k 5k
+
+" Display
+
+"" show only the tab bar
+set gui=tabs
+
+" Find
+"" perform incremental searching
+set incsearch
+"" highlight search results
+set hlsearch
+"" typically (see below) ignore case
+set ignorecase
+"" only consider case if an upper case char is used
+set smartcase
+
+" set default search to duckduckgo
+set defsearch=duckduckgo
+set suggestengines=duckduckgo
+
+" use also characters for hints
+set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
 " disable some browser features
 " -----------------------------
@@ -120,3 +162,5 @@ set! datareporting.healthreport.uploadEnabled=false
 
 " vimperator
 set! extensions.vimperator.firsttime=false
+
+" vim: set filetype=vim:
