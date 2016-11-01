@@ -151,3 +151,6 @@
 [submodule "lib/vifm/vifm-colors"]
 	path = lib/vifm/vifm-colors
 	url = https://github.com/vifm/vifm-colors
+[submodule "lib/vimperator/vimperator-colors"]
+	path = lib/vimperator/vimperator-colors
+	url = https://github.com/vimpr/vimperator-colors

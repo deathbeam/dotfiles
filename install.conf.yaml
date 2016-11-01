@@ -15,7 +15,7 @@
         - git submodule foreach git pull origin master
         - Updating submodules
     -
-        - mkdir -p usr/bin & mkdir -p usr/vim
+        - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc'
@@ -40,5 +40,6 @@
     $HOME/.ideavimrc: dotfiles/ideavimrc
     $HOME/.vifm/vifmrc: dotfiles/vifmrc
     $HOME/.vifm/colors/solarized-dark.vifm: lib/vifm/vifm-colors/solarized-dark.vifm
+    $HOME/.vimperator/colors: lib/vimperator/vimperator-colors
     $HOME/.kwm/kwmrc: dotfiles/kwmrc
     $HOME/.khdrc: dotfiles/khdrc
