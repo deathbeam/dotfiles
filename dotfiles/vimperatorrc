@@ -1,7 +1,11 @@
 colorscheme tomorrow-night
 
+" Set default editor to gvim (including environment setup)
+set editor='bash -lc "gvim -f $*" gvim '
+
 " I don't like beeps
 set visualbell
+
 " useful for command-line completion
 set autocomplete
 set wildmode=list:longest,full

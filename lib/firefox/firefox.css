@@ -1,3 +1,4 @@
+
 @namespace html url(http://www.w3.org/1999/xhtml);
 @namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
 /*
@@ -289,6 +290,11 @@
     html,body { background: var(--bg-light) !important; }
 }
 
+/* About:NewTab background */
+@-moz-document url(about:newtab) {
+    html,body,#newtab-customize-overlay { background-color: var(--bg-light) !important; color: var(--fg-light) !important; }
+}
+
 /* about:stylish-edit toolbar style */
 @-moz-document regexp("about:stylish-edit.*") {
     #main-area, textbox { background: var(--bg-light) !important; }
@@ -307,4 +313,3 @@ tabbrowser tabpanels, #appcontent > #content { background: var(--bg-light) !impo
     input, textarea { color: #222628 !important; -moz-appearance: none !important; }
 }
 /**/
-

@@ -433,8 +433,7 @@ endif
 
 " Fix some issues with MacVim
 if has("gui_macvim")
-  set fuoptions=maxvert,maxhorz
-  autocmd GUIEnter * set fullscreen | set guioptions-=e
+  autocmd GUIEnter * set guioptions-=e
 endif
 
 " Set extra options when running in GUI mode
