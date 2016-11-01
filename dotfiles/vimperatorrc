@@ -1,0 +1,119 @@
+colorscheme zenburn
+set wildmode autocomplete
+
+" autocomplete with smart Firefox stuff and open tabs
+set complete=h
+
+" J and K for tab movement
+nnoremap J gt
+nnoremap K gT
+
+" disable some browser features
+" -----------------------------
+
+" smooth scrolling
+set! general.smoothScroll=false
+
+" browser tab animation
+set! browser.tabs.animate=false
+
+" multiprocess
+" ------------
+
+set! browser.tabs.remote.autostart=false
+set! browser.tabs.remote.force-enable=false
+set! extensions.e10sBlockedByAddons=true
+set! extensions.e10sBlocksEnabling=true
+
+" urls
+" ----
+
+" don't submit mistyped URLs to Google
+set! keyword.enabled=false
+
+" http://example should not try http://example.com
+set! browser.fixup.alternate.enabled=false
+
+" javascript: URLs are evil
+set! browser.urlbar.filter.javascript=true
+
+" show me the full URL
+set! browser.urlbar.trimURLs=false
+
+" new tab page
+" ------------
+
+" don't preload the new tab page
+set! browser.newtab.preload=false
+
+" old new tab page
+set! browser.newtabpage.enabled=false
+set! browser.newtabpage.enhanced=false
+
+" homepage
+" ----------
+
+" homepage is about:blank
+set! browser.startup.homepage='about:blank'
+
+" disable about:home tips
+set! browser.aboutHomeSnippets.updateUrl=''
+
+" warnings and things to show
+" ---------------------------
+
+" disable warnings
+set! browser.tabs.warnOnClose=false
+set! browser.tabs.warnOnCloseOtherTabs=false
+set! browser.tabs.warnOnOpen=false
+set! browser.warnOnQuit=false
+set! general.warnOnAboutConfig=false
+set! network.warnOnAboutNetworking=false
+
+" okay, i've already seen these things
+set! browser.newtabpage.introShown=true
+set! signon.importedFromSqlite=true
+set! privacy.trackingprotection.introCount=20
+
+
+" privacy
+" =======
+
+" tracking protection
+set! privacy.trackingprotection.enabled=true
+set! privacy.trackingprotection.pbmode.enabled=true
+
+" clear things on shutdown
+set! privacy.clearOnShutdown.cache=false
+set! privacy.clearOnShutdown.cookies=true
+set! privacy.clearOnShutdown.downloads=true
+set! privacy.clearOnShutdown.formdata=true
+set! privacy.clearOnShutdown.history=false
+set! privacy.clearOnShutdown.offlineApps=true
+set! privacy.clearOnShutdown.openWindows=true
+set! privacy.clearOnShutdown.sessions=true
+set! privacy.clearOnShutdown.siteSettings=true
+
+" disable "safe browsing" so that Google might not know everything i see
+set! browser.safebrowsing.enabled=false
+set! browser.safebrowsing.downloads.enabled=false
+set! browser.safebrowsing.malware.enabled=false
+
+" DNT header
+set! privacy.donottrackheader.enabled=true
+set! privacy.donottrackheader.value=1
+
+" not sure what this is exactly, but i am disabling it
+set! camera.control.face_detection.enabled=false
+
+" no data reporting
+set! datareporting.healthreport.uploadEnabled=false
+
+" extensions
+" ==========
+
+" vimperator
+set! extensions.vimperator.firsttime=false
+
+" currentsong
+set! extensions.jid1-tXcW0tgdE3YBSQ@jetpack.saveFolder=~/.currentsong
