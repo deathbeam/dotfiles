@@ -60,8 +60,6 @@ source "$fasd_cache"
 unset fasd_cache
 
 # Load rest of libraries
-source $ARC/lib/bash/todo.txt-cli/todo_completion
-alias todo.sh='$ARC/lib/bash/todo.txt-cli/todo.sh'
 command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 alias zi="fasd -e cd -i"

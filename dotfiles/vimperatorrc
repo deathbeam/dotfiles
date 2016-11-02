@@ -30,12 +30,12 @@ set complete=lS
 set tabnumbers
 
 " h and l for tab movement
-nnoremap h gt
-nnoremap l gT
+nnoremap h gT
+nnoremap l gt
 
 " faster scrolling
-noremap j 5j
-noremap k 5k
+noremap j 3j
+noremap k 3k
 
 " Display
 

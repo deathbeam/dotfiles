@@ -10,9 +10,6 @@
 [submodule "lib/bash/fzf"]
 	path = lib/bash/fzf
 	url = https://github.com/junegunn/fzf.git
-[submodule "lib/bash/todo.txt-cli"]
-	path = lib/bash/todo.txt-cli
-	url = https://github.com/ginatrapani/todo.txt-cli
 [submodule "lib/vim-pathogen"]
 	path = lib/vim/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
@@ -73,9 +70,6 @@
 [submodule "lib/vim/vim-autotag"]
 	path = lib/vim/vim-autotag
 	url = git://github.com/craigemery/vim-autotag.git
-[submodule "lib/vim/todo.txt-vim"]
-	path = lib/vim/todo.txt-vim
-	url = https://github.com/freitass/todo.txt-vim
 [submodule "lib/vim/syntastic"]
 	path = lib/vim/syntastic
 	url = https://github.com/scrooloose/syntastic
@@ -151,3 +145,6 @@
 [submodule "lib/vifm/vifm-colors"]
 	path = lib/vifm/vifm-colors
 	url = https://github.com/vifm/vifm-colors
+[submodule "lib/vim/vimwiki"]
+	path = lib/vim/vimwiki
+	url = https://github.com/vimwiki/vimwiki
