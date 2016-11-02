@@ -26,6 +26,9 @@ set autocomplete
 set wildmode=list:longest,full
 set complete=lS
 
+" show tab numbers
+set tabnumbers
+
 " h and l for tab movement
 nnoremap h gt
 nnoremap l gT

@@ -1,10 +1,9 @@
-
 @namespace html url(http://www.w3.org/1999/xhtml);
 @namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
 /*
     Author: Twily, deathbeam
     Description: Vim-like base16-tomorrow-night styled tabs for Australis
-    Compatibility: -- Firefox 51.02a --
+    Compatibility: -- Firefox 49.02a --
 
     Useful search tags within this css:
     "url-bar visible", "bottom margin", "attach url-bar", "newtab button", "back/forward", "enable scrollbar"
@@ -19,14 +18,14 @@
     --fg-light: #e8e8e8; --fg-dark: #e8e8e8;
     --tab-triangle-correction: -1px;
     --tab-height: 20px; --tab-icon-size: 16px; --tab-strip-margin: 0px -15px 0 -11px; --tab-overlap: -5px;
-    --tab-fonts: "Hack", "Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
+    --tab-fonts: "Hack","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
     --tab-text-align: left; /* left | center | right */
     --tab-triangle: block;  /* block | none */
 
     /* URL VARIABLES */
     --url-background: var(--bg-light); --url-color: var(--fg-dark);
     --url-height: 20px; --url-right-margin: 6px;
-    --url-fonts: "Hack", "Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
+    --url-fonts: "Hack","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
     --url-text-align: center; /* left | center | right */
     --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */
 }
@@ -123,7 +122,7 @@
     .tabbrowser-tab label { padding: 0 10px 0 10px !important; }
 
     #tabbrowser-tabs .tabbrowser-tab[pinned]            { width: 48px !important; }
-    #tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }
+    /*#tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }/**/
 
     #tabbrowser-tabs .tabbrowser-tab .tab-icon-image {
         margin: 0 -10px 0 16px !important;
@@ -147,9 +146,23 @@
 
     #tabbrowser-tabs[overflow]:not([positionpinnedtabs]) { -moz-padding-start: 20px !important; }
 
-    .tabbrowser-tab[selected="true"] .tab-stack {
-        background: var(--bg-active) !important; color: var(--fg-active) !important;
+    .tabbrowser-tab .tab-stack, #TabsToolbar tab::after {
+        background: var(--bg-dark) !important; color: var(--fg-dark) !important;
         border-radius: 0px !important; position: relative !important;
+    }
+
+    #TabsToolbar tab::after {
+        display: block!important;
+        opacity: 1!important;
+        visibility: visible!important;
+        -moz-appearance: none !important;
+        padding: 6px;
+        height: var(--tab-height)!important;
+        width:var(--tab-height)!important;
+    }
+
+    .tabbrowser-tab[selected="true"] .tab-stack, #TabsToolbar tab[selected="true"]::after {
+        background: var(--bg-active) !important; color: var(--fg-active) !important;
     }
 
     #TabsToolbar, #tabbrowser-tabs {
@@ -161,6 +174,7 @@
         /* --- Uncomment section below to attach url-bar to the tab-bar [EXPERIMENTAL] (Require a line in "#nav-bar" above) --- */
         /*margin-left: 147px !important;/**/
     }
+
     #TabsToolbar::after { display: none !important; }
     .tabbrowser-tab::before, .tabbrowser-tab::after { background: none !important; opacity: 1 !important; visibility: visible !important; }
 
@@ -169,7 +183,7 @@
     #navigator-toolbox::after { height: 0px !important; background: var(--bg-light) !important; }
 
     /* MENUS */
-    menuitem + menuseparator, menu + menuseparator/*, .menu-iconic-left*/ { display: none !important; }
+    menuitem + menuseparator, menu + menuseparator, .menu-iconic-left { display: none !important; }
     menuitem > label { margin-left: var(--tab-height) !important; }
     menubar, menubutton, menulist, menu, menuitem {
         font-family: var(--tab-fonts) !important; font-size: var(--tab-font-size);
