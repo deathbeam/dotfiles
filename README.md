@@ -42,6 +42,15 @@ arc bashrc
 
 # Custom Vim configuration
 arc vimrc
+
+# Custom Tmux configuration
+arc tmux.conf
+```
+
+To add your owm Vim plugin, just clone it to `$ARC/usr/vim` directory. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
+
+```shell
+git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
 ```
 
 ## Included stuff
@@ -50,7 +59,7 @@ TODO: Finish included stuff list
 ### Bash
  * [fasd](https://github.com/clvv/fasd): Command-line productivity booster, offers quick access to files and directories, inspired by autojump, z and v.
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
- * ...
+ * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
 
 ### Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
@@ -61,3 +70,12 @@ TODO: Finish included stuff list
  * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
  * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
  * ...
+
+### Tmux
+ * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux settings everyone can agree on
+ * [tmux-gitbar](https://github.com/aurelien-rainone/tmux-gitbar): Git in your tmux status bar
+ * [tmux-prefix-highlight](https://github.com/tmux-plugins/tmux-prefix-highlight): Visually shows different tmux modes (prefix, copy)
+ * [tmux-yank](https://github.com/tmux-plugins/tmux-yank): Plugin for copying to system clipboard
+ * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
+ * [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect): Persists tmux environment across system restarts
+ * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.

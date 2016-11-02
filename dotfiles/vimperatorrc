@@ -37,6 +37,9 @@ nnoremap l gt
 noremap j 3j
 noremap k 3k
 
+" fast open private window
+noremap wp :wopen -private<Space>
+
 " Display
 
 "" show only the tab bar
@@ -79,13 +82,13 @@ set! extensions.e10sBlocksEnabling=true
 " urls
 " ----
 
-" don't submit mistyped URLs to Google
+" don't submit mistyped URLs to search engine
 set! keyword.enabled=false
 
 " http://example should not try http://example.com
 set! browser.fixup.alternate.enabled=false
 
-" javascript: URLs are evil
+" javascript URLs are evil
 set! browser.urlbar.filter.javascript=true
 
 " show me the full URL

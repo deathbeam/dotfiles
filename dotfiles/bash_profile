@@ -1,14 +1,24 @@
 #!/usr/bin/env bash
 
-# Awesome Star Wars MOTD
-motd() {
-  local motd[1]=$(echo "$USER, I am your father." | cowsay -f vader-koala)
-  local motd[2]=$(echo "$USER told me enough! $USER told me you killed him!" | cowsay -f luke-koala)
-  local rand=$[$RANDOM % 2 + 1]
-  echo -e "\033[33m${motd[$rand]}\033[0m\n"
-  echo -e "Run \033[33mmotd\033[0m to show this MOTD!"
-  echo -e "Run \033[33mstarwars\033[0m to watch some Star Wars!\n"
-}
+if [ -f ~/.profile ]; then
+  source ~/.profile
+fi
+
+# Load ARC path
+source ~/.adrc
+
+# Manually set your language environment
+export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+export EDITOR="vim"
+export VISUAL="$EDITOR"
+
+# Add binaries in opt to PATH (for MacPorts etc)
+export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
+
+# Adjust path to use bin in user/bin
+export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
 
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc

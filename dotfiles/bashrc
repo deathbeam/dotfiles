@@ -1,37 +1,61 @@
 #!/usr/bin/env bash
 
-# Load ARC path
-source ~/.adrc
+# If not running interactively, don't do anything
+[ -z "$PS1" ] && return
 
-# Manually set your language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-export EDITOR="vim"
-export VISUAL="$EDITOR"
-
-# Add nice ls mods
-alias ls="ls -CF"
-alias ll="ls -lhA"
-
-# Add binaries in opt to PATH (for MacPorts etc)
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
-# Adjust path to use bin in user/bin
-export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
-
-# Set tab title to show only current directory and not full path
-# export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
-
-if [ -z $TMUX ]; then
-  # Enable 256 color mode
-  export TERM="xterm-256color"
+if [ -f /etc/bashrc ]; then
+  . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
-# Set custom prompt
-if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-  export PS1=' > '
+# Enable colors
+export CLICOLOR=1
+
+# Pretty-print of PATH variables
+alias path='echo -e ${PATH//:/\\n}'
+
+# Some sane aliases
+alias mkdir='mkdir -p'
+alias ..='cd ..'
+
+# Add colors for filetype and  human-readable sizes by default on 'ls':
+alias ls='ls -h'
+alias lk='ls -lSr'         #  Sort by size, biggest last.
+alias lt='ls -ltr'         #  Sort by date, most recent last.
+alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+
+# The ubiquitous 'll'
+alias ll="ls -lG"
+alias lm='ll | more'       #  Pipe through 'more'
+alias lr='ll -R'           #  Recursive ls.
+alias la='ll -A'           #  Show hidden files.
+alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
+if [ -z $TMUX ]; then
+  # Set tab title to show only current directory and not full path
+  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
+
+  # Enable 256 color mode
+  export TERM="xterm-256color"
+
+  # Set custom prompt with git info included when available
+  source ~/.git-prompt.sh
+  _PS1 ()
+  {
+    local PRE= NAME="$1" LENGTH="$2";
+    [[ "$NAME" != "${NAME#$HOME/}" || -z "${NAME#$HOME}" ]] &&
+        PRE+='~' NAME="${NAME#$HOME}" LENGTH=$[LENGTH-1];
+    ((${#NAME}>$LENGTH)) && NAME="/...${NAME:$[${#NAME}-LENGTH+4]}";
+    echo "$PRE$NAME"
+  }
+
+  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
+    export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) > '
+  else
+    export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) \[\e[32;1m\]λ\[\e[0m\] '
+  fi
 else
+  # We are in Tmux, so we have everything in bar, so set prompt to minimal one
   export PS1=' \[\e[32;1m\]λ\[\e[0m\] '
 fi
 
@@ -39,16 +63,6 @@ fi
 BASE16_SHELL=$ARC/lib/bash/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 base16_tomorrow-night
-
-# Better history
-shopt -s histappend
-shopt -s cmdhist
-export HISTFILESIZE=1000000
-export HISTSIZE=1000000
-export HISTCONTROL=ignoreboth
-export HISTIGNORE='ls:bg:fg:history'
-export HISTTIMEFORMAT='%F %T '
-export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # Init fasd with cache to speed up startup
 source "$ARC/lib/bash/fasd/fasd" > /dev/null
@@ -64,6 +78,47 @@ command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 alias zi="fasd -e cd -i"
 
+# Better history
+shopt -s histappend
+shopt -s cmdhist
+export HISTFILESIZE=1000000
+export HISTSIZE=1000000
+export HISTCONTROL=ignoreboth
+export HISTIGNORE='ls:bg:fg:history'
+export HISTTIMEFORMAT='%F %T '
+[[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
+
+# Handy Extract Program
+function extract() {
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xvjf $1     ;;
+      *.tar.gz)    tar xvzf $1     ;;
+      *.bz2)       bunzip2 $1      ;;
+      *.rar)       unrar x $1      ;;
+      *.gz)        gunzip $1       ;;
+      *.tar)       tar xvf $1      ;;
+      *.tbz2)      tar xvjf $1     ;;
+      *.tgz)       tar xvzf $1     ;;
+      *.zip)       unzip $1        ;;
+      *.Z)         uncompress $1   ;;
+      *.7z)        7z x $1         ;;
+      *)           echo "'$1' cannot be extracted via >extract<" ;;
+    esac
+  else
+    echo "'$1' is not a valid file!"
+  fi
+}
+
+# Creates an archive (*.tar.gz) from given directory.
+function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+# Create a ZIP archive of a file or folder.
+function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+# Make your directories and files access rights sane.
+function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+
 # Fast edit rc files
 arc() {
   eval "$EDITOR $ARC/usr/$1"
@@ -75,28 +130,6 @@ arclink() {
   local curpath="$PWD/$1"
   ln -s $curpath "$ARC/usr/bin/$name"
 }
-
-# Quick open new iTerm window (works only on osx of course)
-iterm() {
-  osascript - "$@" <<EOF
-  on run argv
-  tell application "iTerm"
-      activate
-      set new_term to (create window with default profile)
-      tell new_term
-          tell the current session
-              repeat with arg in argv
-                 write text arg
-              end repeat
-          end tell
-      end tell
-  end tell
-  end run
-EOF
-}
-
-# Awesome Star Wars alias
-alias starwars="telnet towel.blinkenlights.nl"
 
 # Load user config
 [[ -f "$ARC/usr/bashrc" ]] &&

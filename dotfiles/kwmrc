@@ -1,41 +1,3 @@
-/*
-This is a sample config for Kwm
-
-The following statements can be used to set Kwms internal directory structure.
-
-    This is the root folder for Kwms files, the only thing this actually
-    specifies is the location of the 'init' script which Kwm runs upon startup.
-    Defaults to $HOME/.kwm
-
-        kwm_home /path/to/.kwm
-
-    This is the root folder in which all files included using 'include' must reside.
-    Defaults to $HOME/.kwm
-
-        kwm_include /path/to/.kwm/include
-
-    This is the folder in which all bsp-layouts managed by 'tree load' and 'tree save'
-    is loaded from / saved to. Defaults to $HOME/.kwm/layouts
-
-        kwm_layouts /path/to/.kwm/layouts
-
-Commands prefixed with 'kwmc' will call
-local functions corresponding to the
-kwmc syntax.
-
-To run an external program or command,
-use the prefix 'exec' followed by command.
-e.g 'exec mvim' would open macvim
-
-Read file and execute commands as
-if they were written inside kwmrc.
-
-include filename
-
-e.g: window-rules in a separate file called 'rules'
-    include rules
-*/
-
 # Set default values for screen padding
 kwmc config padding 40 20 20 20
 
@@ -83,20 +45,6 @@ kwmc config mouse-drag mod shift+ctrl
 
 # Allow window focus to wrap-around
 kwmc config cycle-focus on
-
-/*
-Override default settings for space 1 on screen 0
-   kwmc config space 0 1 mode monocle
-   kwmc config space 0 1 padding 100 100 100 100
-   kwmc config space 0 1 gap 40 40
-*/
-
-/*
-Override default settings for screen 1
-   kwmc config display 1 mode bsp
-   kwmc config display 1 padding 100 100 100 100
-   kwmc config display 1 gap 40 40
-*/
 
 # Set default container split-ratio
 kwmc config split-ratio 0.5

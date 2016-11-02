@@ -1,12 +1,3 @@
-" vim: filetype=vifm :
-" Sample configuration file for vifm on OSX (last updated: 27 Mar, 2015)
-" You can edit this file by hand.
-" The " character at the beginning of a line comments out the line.
-" Blank lines are ignored.
-" The basic format for each item is shown with an example.
-
-" ------------------------------------------------------------------------------
-
 " This is the actual command used to start vi.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.

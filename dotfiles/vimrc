@@ -418,6 +418,11 @@ nnoremap <silent> [unite]p :<C-u>Unite -auto-resize -buffer-name=commands comman
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => GUI related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+" Current file to terminal tab
+let &titlestring = expand('%:t')
+set title
+
 " Set font according to system
 if has("mac") || has("macunix")
   set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15

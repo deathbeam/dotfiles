@@ -21,6 +21,9 @@
         - 'echo "export ARC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc'
         - Setting up home directory
     -
+        - curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
+        - Installing git prompt for bash
+    -
         - lib/bash/fzf/install --all --no-update-rc
         - Installing fuzzy finder for bash
     -
