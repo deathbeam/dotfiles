@@ -13,9 +13,6 @@
 [submodule "lib/vim-pathogen"]
 	path = lib/vim/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
-[submodule "lib/vim/vim-colorschemes"]
-	path = lib/vim/vim-colorschemes
-	url = git://github.com/flazz/vim-colorschemes.git
 [submodule "lib/vim/vim-airline"]
 	path = lib/vim/vim-airline
 	url = git://github.com/vim-airline/vim-airline.git
@@ -40,18 +37,12 @@
 [submodule "lib/vim/vim-gitgutter"]
 	path = lib/vim/vim-gitgutter
 	url = git://github.com/airblade/vim-gitgutter.git
-[submodule "lib/vim/vim-addon-mw-utils"]
-	path = lib/vim/vim-addon-mw-utils
-	url = git://github.com/MarcWeber/vim-addon-mw-utils.git
-[submodule "lib/vim/tlib_vim"]
-	path = lib/vim/tlib_vim
-	url = git://github.com/tomtom/tlib_vim.git
 [submodule "lib/vim/vim-snipmate"]
 	path = lib/vim/vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
 [submodule "lib/vim/vim-snippets"]
 	path = lib/vim/vim-snippets
-	url = git://github.com/honza/vim-snippets.git
+	url = https://github.com/honza/vim-snippets
 [submodule "lib/vim/editorconfig-vim"]
 	path = lib/vim/editorconfig-vim
 	url = git://github.com/editorconfig/editorconfig-vim.git
@@ -61,15 +52,6 @@
 [submodule "lib/vim/nerdcommenter"]
 	path = lib/vim/nerdcommenter
 	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule "lib/vim/ack.vim"]
-	path = lib/vim/ack.vim
-	url = git://github.com/mileszs/ack.vim.git
-[submodule "lib/vim/tagbar"]
-	path = lib/vim/tagbar
-	url = git://github.com/majutsushi/tagbar.git
-[submodule "lib/vim/vim-autotag"]
-	path = lib/vim/vim-autotag
-	url = git://github.com/craigemery/vim-autotag.git
 [submodule "lib/vim/syntastic"]
 	path = lib/vim/syntastic
 	url = https://github.com/scrooloose/syntastic
@@ -82,27 +64,6 @@
 [submodule "lib/vim/vim-multiple-cursors"]
 	path = lib/vim/vim-multiple-cursors
 	url = https://github.com/terryma/vim-multiple-cursors
-[submodule "lib/vim/unite.vim"]
-	path = lib/vim/unite.vim
-	url = https://github.com/shougo/unite.vim
-[submodule "lib/vim/vimproc.vim"]
-	path = lib/vim/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim
-[submodule "lib/vim/neoyank.vim"]
-	path = lib/vim/neoyank.vim
-	url = https://github.com/Shougo/neoyank.vim
-[submodule "lib/vim/neomru.vim"]
-	path = lib/vim/neomru.vim
-	url = https://github.com/Shougo/neomru.vim
-[submodule "lib/vim/neosnippet.vim"]
-	path = lib/vim/neosnippet.vim
-	url = https://github.com/Shougo/neosnippet.vim
-[submodule "lib/vim/neosnippet-snippets"]
-	path = lib/vim/neosnippet-snippets
-	url = https://github.com/Shougo/neosnippet-snippets
-[submodule "lib/vim/unite-outline"]
-	path = lib/vim/unite-outline
-	url = https://github.com/Shougo/unite-outline
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -148,3 +109,9 @@
 [submodule "lib/vim/vimwiki"]
 	path = lib/vim/vimwiki
 	url = https://github.com/vimwiki/vimwiki
+[submodule "lib/vim/fzf.vim"]
+	path = lib/vim/fzf.vim
+	url = https://github.com/junegunn/fzf.vim
+[submodule "lib/vim/ultisnips"]
+	path = lib/vim/ultisnips
+	url = https://github.com/SirVer/ultisnips

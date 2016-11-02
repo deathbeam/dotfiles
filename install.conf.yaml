@@ -27,9 +27,6 @@
         - lib/bash/fzf/install --all --no-update-rc
         - Installing fuzzy finder for bash
     -
-        - make -C lib/vim/vimproc.vim
-        - Installing interactive command execution for Vim
-    -
         - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget" & true
         - Installing Ubersicht widget
 

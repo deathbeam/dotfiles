@@ -47,14 +47,13 @@ arc vimrc
 arc tmux.conf
 ```
 
-To add your owm Vim plugin, just clone it to `$ARC/usr/vim` directory. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
+To add your own Vim plugin, just clone it to `$ARC/usr/vim` directory. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
 
 ```shell
 git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
 ```
 
 ## Included stuff
-TODO: Finish included stuff list
 
 ### Bash
  * [fasd](https://github.com/clvv/fasd): Command-line productivity booster, offers quick access to files and directories, inspired by autojump, z and v.
@@ -62,14 +61,31 @@ TODO: Finish included stuff list
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
 
 ### Vim
- * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
+ * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
+ * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
+ * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
+ * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
+ * [hardmode](https://github.com/wikitopian/hardmode): Vim: Hard Mode
+ * [incsearch](https://github.com/haya14busa/incsearch.vim): Improved incremental searching for Vim
+ * [nerdcommenter](https://github.com/scrooloose/nerdcommenter): Vim plugin for intensely orgasmic commenting
  * [NERDTree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
- * [unite.vim](https://github.com/Shougo/unite.vim): Unite and create user interfaces
- * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
+ * [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin): A plugin of NERDTree showing git status
+ * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
- * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
+ * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
- * ...
+ * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
+ * [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes): A collection of themes for vim-airline
+ * [vim-easymotion](https://github.com/easymotion/vim-easymotion): Vim motions on speed!
+ * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
+ * [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks
+ * [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors): True Sublime Text style multiple selections for Vim
+ * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
+ * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
+ * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
+ * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
+ * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
+ * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
 
 ### Tmux
  * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux settings everyone can agree on

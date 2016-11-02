@@ -1,25 +1,11 @@
 #!/usr/bin/env bash
 
+# Load base .profile (in some environments, if .bash_profile is being loaded, .profile loading is skipped, we do not want that)
 if [ -f ~/.profile ]; then
   source ~/.profile
 fi
 
-# Load ARC path
-source ~/.adrc
-
-# Manually set your language environment
-export LANG=en_US.UTF-8
-
-# Preferred editor for local and remote sessions
-export EDITOR="vim"
-export VISUAL="$EDITOR"
-
-# Add binaries in opt to PATH (for MacPorts etc)
-export PATH="/opt/local/bin:/opt/local/sbin:$PATH"
-
-# Adjust path to use bin in user/bin
-export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
-
+# Load .bashrc (in some environments, .bashrc is not loaded when running login shell, so fix it)
 if [ -f ~/.bashrc ]; then
   source ~/.bashrc
 fi

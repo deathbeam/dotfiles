@@ -1,11 +1,25 @@
 #!/usr/bin/env bash
 
-# If not running interactively, don't do anything
+# Load ARC path
+source ${HOME}/.adrc
+
+# Adjust path to use bin in user/bin
+export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
+
+# If not running interactively, don't continue
 [ -z "$PS1" ] && return
 
 if [ -f /etc/bashrc ]; then
   . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
+
+# Manually set your language environment
+export LANG="en_US.UTF-8"
+export LC_ALL="en_US.UTF-8"
+
+# Preferred editor for local and remote sessions
+export EDITOR="vim"
+export VISUAL="$EDITOR"
 
 # Enable colors
 export CLICOLOR=1

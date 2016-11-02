@@ -2,13 +2,13 @@
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
-
 unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 " Modify runtime path
 source $ARC/lib/vim/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_blacklist=['vim-pathogen']
+call pathogen#infect('$ARC/lib/bash/{}')
 call pathogen#infect('$ARC/lib/vim/{}')
 call pathogen#infect('$ARC/usr/vim/{}')
 call pathogen#helptags()
@@ -365,54 +365,19 @@ autocmd VimEnter * call WelcomeScreen(wmuse_nt)
 " Fix EditorConfig for fugitive
 let g:EditorConfig_exclude_patterns = ['fugitive://.*']
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Unite
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! s:EscapeUnite()
-    augroup CloseUniteBuffer
-        autocmd!
-        autocmd InsertEnter <buffer>
-            \ let b:close = 0 |
-            \ let g:udt = &updatetime |
-            \ set updatetime=3
-
-        autocmd InsertLeave <buffer>
-            \ let b:close = 1
-
-        autocmd BufLeave,CursorHold <buffer>
-            \ let &updatetime = g:udt |
-            \ unlet g:udt
-
-        autocmd CursorHold <buffer>
-            \ if b:close | close | endif
-    augroup END
-endfunction
-
-augroup EscapeUnite
-    autocmd!
-    autocmd FileType unite call s:EscapeUnite()
-augroup END
-
-call unite#custom#profile('default', 'context', { 'start_insert': 1 })
-call unite#filters#matcher_default#use(['matcher_fuzzy'])
-call unite#filters#sorter_default#use(['sorter_rank'])
-let g:unite_source_history_yank_enable = 1
-let g:unite_prompt = 'λ '
-let g:unite_marked_icon = '✗'
-nmap <space> [unite]
-nnoremap [unite] <nop>
-nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
-nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline outline<cr>
-nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
-nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
-nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
-nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
-nnoremap <silent> [unite]p :<C-u>Unite -auto-resize -buffer-name=commands command<cr>
+nmap <space> [fzf]
+" nnoremap [unite] <nop>
+" nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
+" nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline outline<cr>
+" nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
+" nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
+" nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
+" nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
+" nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
+" nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
+" nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
+" nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
+" nnoremap <silent> [unite]p :<C-u>Unite -auto-resize -buffer-name=commands command<cr>
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -549,7 +514,7 @@ function! VisualSelection(direction, extra_filter) range
   let l:pattern = substitute(l:pattern, "\n$", "", "")
 
   if a:direction == 'gv'
-    call CmdLine("Ack \"" . l:pattern . "\" " )
+    call CmdLine("grep \"" . l:pattern . "\" " )
   elseif a:direction == 'replace'
     call CmdLine("%s" . '/'. l:pattern . '/')
   endif
