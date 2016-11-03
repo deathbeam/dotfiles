@@ -6,10 +6,9 @@ This is my Bash and Vim configuration. It is still work in progress, so expect a
 ## Requirements
 
 * bash - This is Bash and Vim config anyway, duh
-* vim - Same as above. Vim with Lua support is required for everything to work correctly.
+* vim - Same as above. Requires to be installed with python support for all plugins to work correctly
 * git - Most of the installation process is managed via Git
-* lua - Needed for some Vim plugins
-* cowsay - Just for fancy MOTD (the most important thing in this entire setup, of course)
+* editorconfig - For editorconfig plugin
 
 ## How to install?
 
@@ -21,8 +20,6 @@ git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
 ```
 
 I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
-
-Also, it is preferred to use [Tomorrow Night](https://github.com/chriskempson/tomorrow-theme) color scheme for your favorite terminal. It will look a lot better, because Vim is also using this color scheme.
 
 ## How to update?
 
@@ -67,8 +64,6 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
  * [hardmode](https://github.com/wikitopian/hardmode): Vim: Hard Mode
  * [incsearch](https://github.com/haya14busa/incsearch.vim): Improved incremental searching for Vim
- * [NERDTree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
- * [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin): A plugin of NERDTree showing git status
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
@@ -85,6 +80,7 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
+ * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
  * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
 

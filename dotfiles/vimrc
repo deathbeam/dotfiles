@@ -306,12 +306,26 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
+" Syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
+" Speed up editorconfig plugin
+let g:EditorConfig_core_mode = 'external_command'
+
+" Just simple AceJump-like mapping
 nmap ; <Plug>(easymotion-overwin-f)
 
 " HARD MODE BABY - disable arrows..
 let g:HardMode_level='wannabe'
 autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
 
+" Replace normal search with enhanced search
 map /  <Plug>(incsearch-forward)
 map ?  <Plug>(incsearch-backward)
 map g/ <Plug>(incsearch-stay)
