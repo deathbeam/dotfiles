@@ -25,12 +25,6 @@
 [submodule "lib/vim/undotree"]
 	path = lib/vim/undotree
 	url = git://github.com/mbbill/undotree.git
-[submodule "lib/vim/nerdtree"]
-	path = lib/vim/nerdtree
-	url = git://github.com/scrooloose/nerdtree.git
-[submodule "lib/vim/nerdtree-git-plugin"]
-	path = lib/vim/nerdtree-git-plugin
-	url = git://github.com/Xuyuanp/nerdtree-git-plugin.git
 [submodule "lib/vim/vim-fugitive"]
 	path = lib/vim/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -49,9 +43,6 @@
 [submodule "lib/vim/vim-repeat"]
 	path = lib/vim/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
-[submodule "lib/vim/nerdcommenter"]
-	path = lib/vim/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter.git
 [submodule "lib/vim/syntastic"]
 	path = lib/vim/syntastic
 	url = https://github.com/scrooloose/syntastic
@@ -115,3 +106,12 @@
 [submodule "lib/vim/ultisnips"]
 	path = lib/vim/ultisnips
 	url = https://github.com/SirVer/ultisnips
+[submodule "lib/vim/vim-commentary"]
+	path = lib/vim/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "lib/vim/vim-surround"]
+	path = lib/vim/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "lib/vim/vim-vinegar"]
+	path = lib/vim/vim-vinegar
+	url = https://github.com/tpope/vim-vinegar

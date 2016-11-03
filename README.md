@@ -67,7 +67,6 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
  * [hardmode](https://github.com/wikitopian/hardmode): Vim: Hard Mode
  * [incsearch](https://github.com/haya14busa/incsearch.vim): Improved incremental searching for Vim
- * [nerdcommenter](https://github.com/scrooloose/nerdcommenter): Vim plugin for intensely orgasmic commenting
  * [NERDTree](https://github.com/scrooloose/nerdtree): A tree explorer plugin for vim
  * [nerdtree-git-plugin](https://github.com/Xuyuanp/nerdtree-git-plugin): A plugin of NERDTree showing git status
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
@@ -76,6 +75,7 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
  * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
  * [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes): A collection of themes for vim-airline
+ * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-easymotion](https://github.com/easymotion/vim-easymotion): Vim motions on speed!
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks
@@ -84,6 +84,7 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
+ * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
  * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
 
