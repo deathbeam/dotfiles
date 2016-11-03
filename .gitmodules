@@ -58,9 +58,6 @@
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter
-[submodule "lib/vim/vim-easymotion"]
-	path = lib/vim/vim-easymotion
-	url = https://github.com/easymotion/vim-easymotion
 [submodule "lib/vim/incsearch.vim"]
 	path = lib/vim/incsearch.vim
 	url = https://github.com/haya14busa/incsearch.vim
@@ -115,3 +112,6 @@
 [submodule "lib/vim/vim-vinegar"]
 	path = lib/vim/vim-vinegar
 	url = https://github.com/tpope/vim-vinegar
+[submodule "lib/vim/vim-sneak"]
+	path = lib/vim/vim-sneak
+	url = https://github.com/justinmk/vim-sneak

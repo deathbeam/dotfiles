@@ -71,12 +71,12 @@ git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
  * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
  * [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes): A collection of themes for vim-airline
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
- * [vim-easymotion](https://github.com/easymotion/vim-easymotion): Vim motions on speed!
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks
  * [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors): True Sublime Text style multiple selections for Vim
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
+ * [vim-sneak](https://github.com/justinmk/vim-sneak): The missing motion for Vim
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
