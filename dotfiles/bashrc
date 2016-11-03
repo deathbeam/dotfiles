@@ -4,7 +4,7 @@
 source ${HOME}/.adrc
 
 # Adjust path to use bin in user/bin
-export PATH="$ARC/usr/bin:$HOME/.local/bin:$PATH"
+export PATH="$ADRC/usr/bin:$HOME/.local/bin:$PATH"
 
 # If not running interactively, don't continue
 [ -z "$PS1" ] && return
@@ -74,12 +74,12 @@ else
 fi
 
 # Base 16
-BASE16_SHELL=$ARC/lib/bash/base16-shell/
+BASE16_SHELL=$ADRC/lib/bash/base16-shell/
 [ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
 base16_tomorrow-night
 
 # Init fasd with cache to speed up startup
-source "$ARC/lib/bash/fasd/fasd" > /dev/null
+source "$ADRC/lib/bash/fasd/fasd" > /dev/null
 fasd_cache=~/.fasd-init-cache
 if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
   fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
@@ -133,21 +133,45 @@ function makezip() { zip -r "${1%%/}.zip" "$1" ; }
 # Make your directories and files access rights sane.
 function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 
-# Fast edit rc files
-arc() {
-  eval "$EDITOR $ARC/usr/$1"
-}
-
-# Add link to binary to $ARC/user/bin path
-arclink() {
-  local name=`basename $1`
-  local curpath="$PWD/$1"
-  ln -s $curpath "$ARC/usr/bin/$name"
+# Simple helper to manage adrc setup
+adrc() {
+  case ${1} in
+    # Setup adrc (f.e. after new update from repo)
+    -s|--setup)
+      eval "$ADRC/install"
+      ;;
+    # Fast open and edit user rc files
+    -o|--open)
+      eval "$EDITOR $ADRC/usr/$2"
+      ;;
+    # Add link to $ADRC/usr/bin what is added to $PATH
+    -l|--link)
+      local name=`basename $2`
+      local curpath="$PWD/$2"
+      ln -s $curpath "$ADRC/usr/bin/$name"
+      ;;
+    # Add Vim plugin as submodule
+    -v|--vim-plugin)
+      cd "$ADRC/usr/vim"
+      git submodule add "$1"
+      ;;
+    -h|--help)
+      echo -e "usage: "
+      echo -e "\t-s | --setup                       setup adrc (f.e. after new update from repo)"
+      echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf)"
+      echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
+      echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
+      echo -e "\t-h | --help                        show this message"
+      ;;
+    *)
+      echo "Wrong command '${1}'. See --help"
+      ;;
+  esac
 }
 
 # Load user config
-[[ -f "$ARC/usr/bashrc" ]] &&
-  source "$ARC/usr/bashrc"
+[[ -f "$ADRC/usr/bashrc" ]] &&
+  source "$ADRC/usr/bashrc"
 
 # Load fzf last to override possible bash-completion
 source ~/.fzf.bash

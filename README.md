@@ -6,9 +6,14 @@ This is my Bash and Vim configuration. It is still work in progress, so expect a
 ## Requirements
 
 * bash - This is Bash and Vim config anyway, duh
-* vim - Same as above. Requires to be installed with python support for all plugins to work correctly
-* git - Most of the installation process is managed via Git
-* editorconfig - For editorconfig plugin
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of the installation process is managed via Git
+
+And some optional ones:
+
+* vim - Do not required if you only want bash and tmux stuff, but hey, Vim is awesome. Requires to be installed with python support for all plugins to work correctly
+* [vimperator](https://addons.mozilla.org/en-US/firefox/addon/vimperator/) - And Vim in your Firefox is even more awesome
+* [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) - And having your Firefox to look like Vim is even more awesome
+* [editorconfig](https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md) - For editorconfig plugin
 
 ## How to install?
 
@@ -21,6 +26,12 @@ git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
 
 I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
 
+To install Firefox theme, use [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) and enter this URL to `Install from URLs`:
+
+```
+https://raw.githubusercontent.com/deathbeam/awesomedotrc/master/lib/firefox/firefox.css
+```
+
 ## How to update?
 
 There is nothing simplier, just use git :)
@@ -31,24 +42,26 @@ git -C ~/.awesomedotrc pull --rebase
 
 ## How to inlude your own stuff?
 
-After you have installed awesomedotrc, you can start including your own stuff by using the `arc` command:
+After you have installed awesomedotrc, you can start including your own stuff by using the `adrc --open` command:
 
 ```shell
 # Custom bash configuration
-arc bashrc
+adrc --open bashrc
 
 # Custom Vim configuration
-arc vimrc
+adrc --open vimrc
 
 # Custom Tmux configuration
-arc tmux.conf
+adrc --open tmux.conf
 ```
 
-To add your own Vim plugin, just clone it to `$ARC/usr/vim` directory. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
+To add your own Vim plugin you can use `adrc --vim-plugin` command. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
 
 ```shell
-git clone https://github.com/ervandew/supertab.git $ARC/usr/vim/supertab
+adrc --vim-plugin https://github.com/ervandew/supertab.git
 ```
+
+To see all helper commands, run `adrc --help`.
 
 ## Included stuff
 

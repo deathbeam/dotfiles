@@ -62,6 +62,9 @@ set suggestengines=duckduckgo
 " use also characters for hints
 set hintchars=hjklasdfgyuiopqwertnmzxcvb
 
+" do not close firefox window when last tab is closed
+set! browser.tabs.closeWindowWithLastTab=false
+
 " disable some browser features
 " -----------------------------
 

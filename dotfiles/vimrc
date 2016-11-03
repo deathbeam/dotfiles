@@ -6,11 +6,11 @@ unlet! skip_defaults_vim
 source $VIMRUNTIME/defaults.vim
 
 " Modify runtime path
-source $ARC/lib/vim/vim-pathogen/autoload/pathogen.vim
+source $ADRC/lib/vim/vim-pathogen/autoload/pathogen.vim
 let g:pathogen_blacklist=['vim-pathogen']
-call pathogen#infect('$ARC/lib/bash/{}')
-call pathogen#infect('$ARC/lib/vim/{}')
-call pathogen#infect('$ARC/usr/vim/{}')
+call pathogen#infect('$ADRC/lib/bash/{}')
+call pathogen#infect('$ADRC/lib/vim/{}')
+call pathogen#infect('$ADRC/usr/vim/{}')
 call pathogen#helptags()
 
 " With a map leader it's possible to do extra key combinations
@@ -294,7 +294,7 @@ map <leader>s? z=
 noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 " Quickly open a buffer for scribble
-map <leader>b :e $ARC/usr/scribble<cr>
+map <leader>b :e $ADRC/usr/scribble<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
@@ -303,7 +303,10 @@ map <leader>pp :setlocal paste!<cr>
 """"""""""""""""""""""""""""""
 " => Plugins config
 """"""""""""""""""""""""""""""
-" Syntastic
+" close vinegar like NERDTree
+autocmd filetype netrw nnoremap q :bd<cr>
+
+" syntastic
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
@@ -599,6 +602,6 @@ endfunc
 
 " Load user configuration
 try
-source $ARC/usr/vimrc
+source $ADRC/usr/vimrc
 catch
 endtry

@@ -6,7 +6,7 @@
     Compatibility: -- Firefox 49.02a --
 
     Useful search tags within this css:
-    "url-bar visible", "bottom margin", "attach url-bar", "newtab button", "back/forward", "enable scrollbar"
+    "url-bar visible", "enable scrollbar"
 */
 
 
@@ -17,7 +17,7 @@
     --bg-light: #383838; --bg-dark: #282828;
     --fg-light: #e8e8e8; --fg-dark: #e8e8e8;
     --tab-triangle-correction: -1px;
-    --tab-height: 20px; --tab-icon-size: 16px; --tab-strip-margin: 0px -15px 0 -11px; --tab-overlap: -5px;
+    --tab-height: 22px; --tab-icon-size: 10px; --tab-strip-margin: 0px -15px 0 -11px; --tab-overlap: -5px;
     --tab-fonts: "Hack","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
     --tab-text-align: left; /* left | center | right */
     --tab-triangle: block;  /* block | none */
@@ -38,10 +38,8 @@
     #notification-popup-box, #new-tab-button, #private-browsing-indicator, #search-container, #nav-bar-overflow-button,
     .tabs-newtab-button, .tab-close-button, .tab-close, .tab-throbber, .tab-background-start, .tab-background-end,
     #pocket-button, #loop-button, #social-share-button, #window-controls
-    #alltabs-button, #tabview-button, .tab-icon-image, .tab-icon-image:not([pinned]), #titlebar { display: none !important; }
-
+    #alltabs-button, #tabview-button, .tab-icon-image:not([pinned]), #titlebar { display: none !important; }
     * { box-sizing: border-box !important; }
-
     .tab-drop-indicator { margin-bottom: 0 !important; }
 
     #navigator-toolbox { background: var(--url-background) !important; }
@@ -55,13 +53,6 @@
         position: var(--url-position) !important; bottom: 0 !important;
         width: 100% !important; height: var(--url-height) !important;
         margin: 0 !important; background: transparent !important;
-
-        /* --- Uncomment section below to attach url-bar to the tab-bar [EXPERIMENTAL] (Require a line in "#TabsToolbar" below) --- */
-        /*
-        position: fixed !important; top: 0 !important; left: 0 !important;
-        width: 315px !important; max-width: 315px !important;
-        z-index: 100 !important;
-        /**/
     }
 
     #nav-bar-customization-target, #urlbar-container, #urlbar {
@@ -81,26 +72,12 @@
         text-align: var(--url-text-align) !important;
         height: 100% !important;
     }
-    /*#urlbar * { -moz-appearance: none !important; }*/
+
+    #urlbar * { -moz-appearance: none !important; }
 
     .urlbar-textbox-container .urlbar-input-box .textbox-input {
         height: var(--url-height) !important;
     }
-
-
-    /* --- Uncomment the section below to enable the back/forward buttons [EXPERIMENTAL] (Requires url-bar) --- */
-    /*
-    #back-button, #forward-button { display: block !important; }
-    #back-button::before, #forward-button::before {
-        display: inline-block !important; position: absolute !important;
-        width: var(--url-height) !important; height: var(--url-height) !important; top: 0 !important;
-        text-align: center !important; line-height: var(--url-height) !important;
-    }
-    #back-button::before { content: "<" !important; left: 0 !important; }
-    #forward-button::before { content: ">" !important; left: calc(var(--url-height) + 8px) !important; }
-    #urlbar { padding-left: calc((var(--url-height) * 2) + 8px) !important; }
-    /**/
-
 
     /* --- Comment out the section below to make the url-bar visible --- */
     #nav-bar {
@@ -122,10 +99,11 @@
     .tabbrowser-tab label { padding: 0 10px 0 10px !important; }
 
     #tabbrowser-tabs .tabbrowser-tab[pinned]            { width: 48px !important; }
-    /*#tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }/**/
+    #tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }
+    #tabbrowser-tabs .tabbrowser-tab[pinned] .tab-icon-image { display: block!important; }
 
     #tabbrowser-tabs .tabbrowser-tab .tab-icon-image {
-        margin: 0 -10px 0 16px !important;
+        margin: 0 -10px 0 10px !important;
         width: var(--tab-icon-size) !important;
         height: var(--tab-icon-size) !important;
     }
@@ -170,16 +148,11 @@
         height: var(--tab-height) !important; min-height: var(--tab-height)!important;
         margin: var(--tab-strip-margin) !important;
         background: var(--bg-dark) !important;
-
-        /* --- Uncomment section below to attach url-bar to the tab-bar [EXPERIMENTAL] (Require a line in "#nav-bar" above) --- */
-        /*margin-left: 147px !important;/**/
     }
 
     #TabsToolbar::after { display: none !important; }
     .tabbrowser-tab::before, .tabbrowser-tab::after { background: none !important; opacity: 1 !important; visibility: visible !important; }
-
     browser, #navigator-toolbox { -moz-appearance: none !important; background: transparent !important; }
-
     #navigator-toolbox::after { height: 0px !important; background: var(--bg-light) !important; }
 
     /* MENUS */
@@ -204,44 +177,14 @@
     #liberator-statusline:not([customizing="true"]) { margin: 0 !important; padding: 0 0 !important; height: var(--tab-height) !important; }
     #liberator-statusline:not([customizing="true"]) :-moz-any(toolbarbutton) { height: 100% !important; }
 
-    /* Tabgroup margin top fix */
-    #tab-view-deck #tab-view { margin: var(--tab-height) 12px 12px 12px !important; }
-    #tab-view-deck { background: var(--bg-light) !important; }
-
+    /* Fullscreen adjustments */
+    window[sizemode="fullscreen"] #browser-panel        { margin-top: -1px !important; }
     window[sizemode="fullscreen"] #liberator-statusline { display: none !important; }
     window[sizemode="fullscreen"] #liberator-bottombar  {
         margin-top: -20px !important;
         transition: 1s ease !important; transition-delay: .3s !important;
     }
-    window[sizemode="fullscreen"] #browser-panel        { margin-top: -1px !important; }
 }
-
-
-/* Tab Group Page Style (Ctrl+Shift+E) */
-@-moz-document url(chrome://browser/content/tabview.html) {
-    #content #bg, #actions, body { background: var(--bg-light) !important; }
-    body * { color: var(--fg-light) !important; }
-
-    body .groupItem, #content #actions, body .undo {
-        background: var(--bg-dark) !important;
-        border: 0 !important; border-radius: 0 !important; box-shadow: 0 0 0 0 !important;
-    }
-    #content #actions {
-        opacity: 0 !important; display: none !important; /* block | none */
-        transition: .3s ease-out !important;
-    }
-    #content #actions:hover { opacity: 1 !important; }
-
-    body .appTabTrayContainer { border: 0 !important; }
-    body .tab, body .tab .thumb {
-        box-shadow: 0 0 0 0 !important; border: 0 !important; border-radius: 0 !important;
-        background: transparent !important; padding : 0 !important;
-    }
-    body .tab .favicon { display: none !important; }
-    body .groupItem .name { border: 0 !important; }
-    body .tab .tab-title { padding-top: 2px !important; }
-}
-
 
 /* AGENT_SHEET */
 @-moz-document url-prefix(http://), url-prefix(https://), url-prefix(chrome://liberator/), url-prefix(file:///) {
@@ -250,41 +193,13 @@
     scrollbar[orient="horizontal"], scrollbar thumb[orient="horizontal"] {
         display: none !important; /* block | none (enable scrollbar) */
     }
-
-    /*
-       Comment out section below to disable style
-       (width/height is controlled by the margin)
-    */
-
-    scrollbar > slider { -moz-appearance: none !important; }
-
-    scrollbar[orient="vertical"] { margin: 0 -10px 0 0 !important; }
-    scrollbar[orient='vertical'] > slider { background: #27282B !important; max-width: 100% !important; }
-    scrollbar[orient='vertical'] > slider > thumb {
-        -moz-appearance: none !important;
-        background: #17181A !important; border: 0 !important; width: 100% !important;
-    }
-
-    scrollbar[orient="horizontal"] { margin: 0 0 -10px 0 !important; }
-    scrollbar[orient='horizontal'] > slider { background: #27282B !important; max-height: 100% !important; }
-    scrollbar[orient='horizontal'] > slider > thumb {
-        -moz-appearance: none !important;
-        background: #17181A !important; border: 0 !important; height: 100% !important;
-    }
-
-    scrollbar > scrollbarbutton { -moz-appearance: none !important; border: none !important; background: none !important; }
-    scrollbar[orient='vertical'] > scrollbarbutton { min-height: 0 !important; }
-    scrollbar[orient='horizontal'] > scrollbarbutton { min-width: 0 !important; }
-    /**/
 }
-
 
 /* background color around/behind pictures opened in firefox (require html namespace on top) */
 @-moz-document regexp("(https?://|file:///)(.*)\\.(jpeg|jpg|gif|png|apng|svg|bmp|webm|webp)") {
     body { background: var(--bg-light) !important; }
     img.decoded { background-color: transparent !important; }
 }
-
 
 /* About:Blank background */
 @-moz-document url(about:blank) {
@@ -294,13 +209,6 @@
 /* About:NewTab background */
 @-moz-document url(about:newtab) {
     html,body,#newtab-customize-overlay { background-color: var(--bg-light) !important; color: var(--fg-light) !important; }
-}
-
-/* about:stylish-edit toolbar style */
-@-moz-document regexp("about:stylish-edit.*") {
-    #main-area, textbox { background: var(--bg-light) !important; }
-    textbox, grid, columns, rows, separator { border: 0 !important; }
-    .devtools-toolbarbutton { background: var(--bg-dark) !important; color: var(--fg-light) !important; }
 }
 
 /*----- Fix for white flash on new tab -----*/
