@@ -38,7 +38,7 @@
     #notification-popup-box, #new-tab-button, #private-browsing-indicator, #search-container, #nav-bar-overflow-button,
     .tabs-newtab-button, .tab-close-button, .tab-close, .tab-throbber, .tab-background-start, .tab-background-end,
     #pocket-button, #loop-button, #social-share-button, #window-controls
-    #alltabs-button, #tabview-button, .tab-icon-image:not([pinned]), #titlebar { display: none !important; }
+    #alltabs-button, #tabview-button, #toolbar-menubar, .tab-icon-image:not([pinned]), #titlebar { display: none !important; }
     * { box-sizing: border-box !important; }
     .tab-drop-indicator { margin-bottom: 0 !important; }
 

@@ -34,10 +34,17 @@ https://raw.githubusercontent.com/deathbeam/awesomedotrc/master/lib/firefox/fire
 
 ## How to update?
 
-There is nothing simplier, just use git :)
+You can use
+
+```
+adrc --update
+```
+
+what was made exactly for this. It will fetch latest changes from remote, then runs rebase and at end run installation script to update links and installed stuff. Or, if you want, you can use Git like this:
+
 
 ```shell
-git -C ~/.awesomedotrc pull --rebase
+git -C $ADRC pull --rebase
 ```
 
 ## How to inlude your own stuff?
@@ -45,20 +52,29 @@ git -C ~/.awesomedotrc pull --rebase
 After you have installed awesomedotrc, you can start including your own stuff by using the `adrc --open` command:
 
 ```shell
-# Custom bash configuration
 adrc --open bashrc
-
-# Custom Vim configuration
 adrc --open vimrc
-
-# Custom Tmux configuration
 adrc --open tmux.conf
+```
+
+or manually without helper:
+
+```shell
+vim $ADRC/usr/bashrc
+vim $ADRC/usr/vimrc
+vim $ADRC/usr/tmux.conf
 ```
 
 To add your own Vim plugin you can use `adrc --vim-plugin` command. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
 
 ```shell
 adrc --vim-plugin https://github.com/ervandew/supertab.git
+```
+
+or you can do the same just with Git:
+
+```shell
+git clone https://github.com/ervandew/supertab.git $ADRC/usr/vim/supertab
 ```
 
 To see all helper commands, run `adrc --help`.

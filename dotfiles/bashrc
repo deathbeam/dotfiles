@@ -136,8 +136,9 @@ function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
 # Simple helper to manage adrc setup
 adrc() {
   case ${1} in
-    # Setup adrc (f.e. after new update from repo)
-    -s|--setup)
+    # Update adrc
+    -u|--update)
+      git -C "$ADRC" pull --rebase
       eval "$ADRC/install"
       ;;
     # Fast open and edit user rc files
@@ -152,12 +153,11 @@ adrc() {
       ;;
     # Add Vim plugin as submodule
     -v|--vim-plugin)
-      cd "$ADRC/usr/vim"
-      git submodule add "$1"
+      (cd "$ADRC/usr/vim"; git clone "$2")
       ;;
     -h|--help)
       echo -e "usage: "
-      echo -e "\t-s | --setup                       setup adrc (f.e. after new update from repo)"
+      echo -e "\t-u | --update                      update adrc"
       echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf)"
       echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
       echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
