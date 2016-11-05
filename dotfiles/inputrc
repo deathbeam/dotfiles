@@ -1,6 +1,6 @@
-# Use Vi, not Emacs, style editing
-set editing-mode vi
-set keymap vi
+# Use Emacs style editing
+set editing-mode emacs
+set keymap emacs
 
 # Show all completions as soon as I press tab, even if there's more than one
 set show-all-if-ambiguous on
