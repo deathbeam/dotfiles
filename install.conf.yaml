@@ -18,7 +18,7 @@
         - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
-        - 'echo "export ADRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc'
+        - 'echo "export ADRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc; touch usr/gitconfig'
         - Setting up home directory
     -
         - curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
@@ -45,3 +45,6 @@
     $HOME/.kwm/kwmrc: dotfiles/kwmrc
     $HOME/.khdrc: dotfiles/khdrc
     $HOME/.inputrc: dotfiles/inputrc
+    $HOME/.gitconfig: dotfiles/gitconfig
+    $HOME/.gitignore: dotfiles/gitignore
+    $HOME/.gitconfig.local: usr/gitconfig

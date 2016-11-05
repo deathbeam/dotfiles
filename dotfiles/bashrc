@@ -13,6 +13,19 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
+# Case-insensitive globbing (used in pathname expansion)
+shopt -s nocaseglob;
+
+# Autocorrect typos in path names when using `cd`
+shopt -s cdspell;
+
+# Enable some Bash 4 features when possible:
+# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+# * Recursive globbing, e.g. `echo **/*.txt`
+for option in autocd globstar; do
+	shopt -s "$option" 2> /dev/null;
+done;
+
 # Load bash_completion
 if command -v brew >/dev/null 2>&1; then
   if [ -f $(brew --prefix)/etc/bash_completion ]; then
@@ -25,6 +38,9 @@ else
     . /etc/bash_completion
   fi
 fi
+
+# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
 # Manually set your language environment
 export LANG="en_US.UTF-8"
@@ -171,7 +187,7 @@ adrc() {
     -h|--help)
       echo -e "usage: "
       echo -e "\t-u | --update                      update adrc"
-      echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf)"
+      echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf, gitconfig)"
       echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
       echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
       echo -e "\t-h | --help                        show this message"
@@ -188,5 +204,3 @@ adrc() {
 
 # Load fzf last to not mess autocompletion
 source ~/.fzf.bash
-
-

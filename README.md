@@ -67,6 +67,7 @@ After you have installed awesomedotrc, you can start including your own stuff by
 adrc --open bashrc
 adrc --open vimrc
 adrc --open tmux.conf
+adrc --open gitconfig
 ```
 
 or manually without helper:
@@ -75,6 +76,7 @@ or manually without helper:
 vim $ADRC/usr/bashrc
 vim $ADRC/usr/vimrc
 vim $ADRC/usr/tmux.conf
+vim $ADRC/usr/gitconfig
 ```
 
 To add your own Vim plugin you can use `adrc --vim-plugin` command. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
@@ -135,3 +137,12 @@ To see all helper commands, run `adrc --help`.
  * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
  * [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect): Persists tmux environment across system restarts
  * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
+
+## Thanks to..
+
+ * [skwp/dotfiles](https://github.com/skwp/dotfiles) for some sane .gitignore config for ignoring Vim and ctags stuff
+ * [mathiasbynens/dotfiles](https://github.com/mathiasbynens/dotfiles) for sane .gitconfig and some things in .gitignore, and also for enabling Bash 4 features for tab completion if possible
+ * [amix/vimrc](https://github.com/amix/vimrc) for a lot of stuff in my vimrc. Without configurations, what are really nicely explained in that repo, I would be lost like forever
+ * [twily](http://twily.info/) for his awesome Firefox stylish theme, what I configured to suit my needs
+ * [nerdbar.widget](https://github.com/herrbischoff/nerdbar.widget) for awesome widget for Ubersicht on what I based on mine
+ * I also found some things in other dotfile repositories (for example most of the great config in vimperatorrc), but I totally lost track, so sorry if I forgot to mention anyone here
