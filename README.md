@@ -37,6 +37,7 @@ git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
 ```
 
 I recommend to install [Hack](http://sourcefoundry.org/hack/) font. It is awesome for programming and runs in Vim really fast. I personally like DejaVu Sans Mono more, but it really slows down my Vim (for some unknown reason) so I am sticking to Hack. All my configurations tries to load Hack font if possible, otherwise they tries couple other good fonts and falls back to some common one if none is found.
+
 To install Firefox theme, use [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) and enter this URL to `Install from URLs`:
 
 ```
@@ -121,6 +122,7 @@ To see all helper commands, run `adrc --help`.
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-submode](https://github.com/kana/vim-submode): Create your own submodes
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
+ * [vim-unimpared](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
  * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
