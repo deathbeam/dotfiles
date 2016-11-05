@@ -70,9 +70,6 @@
 [submodule "lib/tmux/tmux-yank"]
 	path = lib/tmux/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
-[submodule "lib/tmux/tmux-gitbar"]
-	path = lib/tmux/tmux-gitbar
-	url = https://github.com/aurelien-rainone/tmux-gitbar
 [submodule "lib/tmux/tmux-sensible"]
 	path = lib/tmux/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible

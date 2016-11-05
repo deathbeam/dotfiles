@@ -131,7 +131,6 @@ To see all helper commands, run `adrc --help`.
 
 ### Tmux
  * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux settings everyone can agree on
- * [tmux-gitbar](https://github.com/aurelien-rainone/tmux-gitbar): Git in your tmux status bar
  * [tmux-prefix-highlight](https://github.com/tmux-plugins/tmux-prefix-highlight): Visually shows different tmux modes (prefix, copy)
  * [tmux-yank](https://github.com/tmux-plugins/tmux-yank): Plugin for copying to system clipboard
  * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
@@ -145,4 +144,5 @@ To see all helper commands, run `adrc --help`.
  * [amix/vimrc](https://github.com/amix/vimrc) for a lot of stuff in my vimrc. Without configurations, what are really nicely explained in that repo, I would be lost like forever
  * [twily](http://twily.info/) for his awesome Firefox stylish theme, what I configured to suit my needs
  * [nerdbar.widget](https://github.com/herrbischoff/nerdbar.widget) for awesome widget for Ubersicht on what I based on mine
+ * [thoughtbot/dotfiles](https://github.com/thoughtbot/dotfiles) for some parts of tmux configuration. I also want to mention that I absolutely love their youtube channel
  * I also found some things in other dotfile repositories (for example most of the great config in vimperatorrc), but I totally lost track, so sorry if I forgot to mention anyone here

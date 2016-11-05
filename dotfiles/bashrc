@@ -1,95 +1,54 @@
 #!/usr/bin/env bash
+# vim:foldmethod=marker:set ft=sh:
 
-# Load ARC path
-source ${HOME}/.adrc
+# General {{{
+  # Load ARC path
+  source ${HOME}/.adrc
 
-# Adjust path to use bin in user/bin
-export PATH="$ADRC/usr/bin:$HOME/.local/bin:$PATH"
+  # Adjust path to use bin in user/bin
+  export PATH="$ADRC/usr/bin:$HOME/.local/bin:$PATH"
 
-# If not running interactively, don't continue
-[ -z "$PS1" ] && return
+  # If not running interactively, don't continue
+  [ -z "$PS1" ] && return
 
-if [ -f /etc/bashrc ]; then
-  . /etc/bashrc   # --> Read /etc/bashrc, if present.
-fi
-
-# Case-insensitive globbing (used in pathname expansion)
-shopt -s nocaseglob;
-
-# Autocorrect typos in path names when using `cd`
-shopt -s cdspell;
-
-# Enable some Bash 4 features when possible:
-# * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
-# * Recursive globbing, e.g. `echo **/*.txt`
-for option in autocd globstar; do
-	shopt -s "$option" 2> /dev/null;
-done;
-
-# Load bash_completion
-if command -v brew >/dev/null 2>&1; then
-  if [ -f $(brew --prefix)/etc/bash_completion ]; then
-    source $(brew --prefix)/etc/bash_completion
+  if [ -f /etc/bashrc ]; then
+    . /etc/bashrc   # --> Read /etc/bashrc, if present.
   fi
-else
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
-fi
 
-if command -v ag >/dev/null 2>&1; then
-  # Use ag instead of the default find command for listing candidates.
-  # - The first argument to the function is the base path to start traversal
-  # - Note that ag only lists files not directories
-  # - See the source code (completion.{bash,zsh}) for the details.
-  _fzf_compgen_path() {
-    ag -g "" "$1"
-  }
-fi
+  # Case-insensitive globbing (used in pathname expansion)
+  shopt -s nocaseglob;
 
-# Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
-[ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
+  # Autocorrect typos in path names when using `cd`
+  shopt -s cdspell;
 
-# Manually set your language environment
-export LANG="en_US.UTF-8"
-export LC_ALL="en_US.UTF-8"
+  # Enable some Bash 4 features when possible:
+  # * `autocd`, e.g. `**/qux` will enter `./foo/bar/baz/qux`
+  # * Recursive globbing, e.g. `echo **/*.txt`
+  for option in autocd globstar; do
+    shopt -s "$option" 2> /dev/null;
+  done;
 
-# Preferred editor for local and remote sessions
-export EDITOR="vim"
-export VISUAL="$EDITOR"
+  # Better history
+  shopt -s histappend
+  shopt -s cmdhist
+  export HISTFILESIZE=1000000
+  export HISTSIZE=1000000
+  export HISTCONTROL=ignoreboth
+  export HISTIGNORE='ls:bg:fg:history'
+  export HISTTIMEFORMAT='%F %T '
+  [[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
-# Enable colors
-export CLICOLOR=1
+  # Manually set your language environment
+  export LANG="en_US.UTF-8"
+  export LC_ALL="en_US.UTF-8"
 
-# Pretty-print of PATH variables
-alias path='echo -e ${PATH//:/\\n}'
+  # Preferred editor for local and remote sessions
+  export EDITOR="vim"
+  export VISUAL="$EDITOR"
 
-# Some sane aliases
-alias mkdir='mkdir -p'
-alias ..='cd ..'
+# }}}
 
-# Add colors for filetype and  human-readable sizes by default on 'ls':
-alias ls='ls -h'
-alias lk='ls -lSr'         #  Sort by size, biggest last.
-alias lt='ls -ltr'         #  Sort by date, most recent last.
-alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
-alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
-
-# The ubiquitous 'll'
-alias ll="ls -lG"
-alias lm='ll | more'       #  Pipe through 'more'
-alias lr='ll -R'           #  Recursive ls.
-alias la='ll -A'           #  Show hidden files.
-alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
-
-if [ -z $TMUX ]; then
-  # Set tab title to show only current directory and not full path
-  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
-
-  # Enable 256 color mode
-  export TERM="xterm-256color"
+# User interface {{{
 
   # Set custom prompt with git info included when available
   source ~/.git-prompt.sh
@@ -102,116 +61,179 @@ if [ -z $TMUX ]; then
     echo "$PRE$NAME"
   }
 
+  # If we are connected through SSH or TTY, use simpler PS1
   if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
     export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) > '
   else
     export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) \[\e[32;1m\]λ\[\e[0m\] '
   fi
-else
-  # We are in Tmux, so we have everything in bar, so set prompt to minimal one
-  export PS1=' \[\e[32;1m\]λ\[\e[0m\] '
-fi
 
-# Base 16
-BASE16_SHELL=$ADRC/lib/bash/base16-shell/
-[ -n "$PS1" ] && [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-base16_tomorrow-night
 
-# Init fasd with cache to speed up startup
-source "$ADRC/lib/bash/fasd/fasd" > /dev/null
-fasd_cache=~/.fasd-init-cache
-if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
-  fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
-fi
-source "$fasd_cache"
-unset fasd_cache
-alias v='f -e vim -b viminfo'
-_fasd_bash_hook_cmd_complete v
+  # Set tab title to show only current directory and not full path
+  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
 
-# Load rest of libraries
-command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
-command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
-
-# Better history
-shopt -s histappend
-shopt -s cmdhist
-export HISTFILESIZE=1000000
-export HISTSIZE=1000000
-export HISTCONTROL=ignoreboth
-export HISTIGNORE='ls:bg:fg:history'
-export HISTTIMEFORMAT='%F %T '
-[[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
-# Handy Extract Program
-function extract() {
-  if [ -f $1 ] ; then
-    case $1 in
-      *.tar.bz2)   tar xvjf $1     ;;
-      *.tar.gz)    tar xvzf $1     ;;
-      *.bz2)       bunzip2 $1      ;;
-      *.rar)       unrar x $1      ;;
-      *.gz)        gunzip $1       ;;
-      *.tar)       tar xvf $1      ;;
-      *.tbz2)      tar xvjf $1     ;;
-      *.tgz)       tar xvzf $1     ;;
-      *.zip)       unzip $1        ;;
-      *.Z)         uncompress $1   ;;
-      *.7z)        7z x $1         ;;
-      *)           echo "'$1' cannot be extracted via >extract<" ;;
-    esac
+  # Load bash_completion (it is important to load it before fzf)
+  if command -v brew >/dev/null 2>&1; then
+    if [ -f $(brew --prefix)/etc/bash_completion ]; then
+      source $(brew --prefix)/etc/bash_completion
+    fi
   else
-    echo "'$1' is not a valid file!"
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+      . /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+      . /etc/bash_completion
+    fi
   fi
-}
 
-# Creates an archive (*.tar.gz) from given directory.
-function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+  # Add tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
+  [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2- | tr ' ' '\n')" scp sftp ssh;
 
-# Create a ZIP archive of a file or folder.
-function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+# }}}
 
-# Make your directories and files access rights sane.
-function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+# Aliases and functions {{{
 
-# Simple helper to manage adrc setup
-adrc() {
-  case ${1} in
-    # Update adrc
-    -u|--update)
-      git -C "$ADRC" pull --rebase
-      eval "$ADRC/install"
-      ;;
-    # Fast open and edit user rc files
-    -o|--open)
-      eval "$EDITOR $ADRC/usr/$2"
-      ;;
-    # Add link to $ADRC/usr/bin what is added to $PATH
-    -l|--link)
-      local name=`basename $2`
-      local curpath="$PWD/$2"
-      ln -s $curpath "$ADRC/usr/bin/$name"
-      ;;
-    # Add Vim plugin as submodule
-    -v|--vim-plugin)
-      (cd "$ADRC/usr/vim"; git clone "$2")
-      ;;
-    -h|--help)
-      echo -e "usage: "
-      echo -e "\t-u | --update                      update adrc"
-      echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf, gitconfig)"
-      echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
-      echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
-      echo -e "\t-h | --help                        show this message"
-      ;;
-    *)
-      echo "Wrong command '${1}'. See --help"
-      ;;
-  esac
-}
+  # Pretty-print of PATH variables
+  alias path='echo -e ${PATH//:/\\n}'
 
-# Load user config
-[[ -f "$ADRC/usr/bashrc" ]] &&
-  source "$ADRC/usr/bashrc"
+  # Some sane aliases
+  alias mkdir='mkdir -p'
+  alias ..='cd ..'
 
-# Load fzf last to not mess autocompletion
-source ~/.fzf.bash
+  # Add colors for filetype and  human-readable sizes by default on 'ls':
+  alias ls='ls -h'
+  alias lk='ls -lSr'         #  Sort by size, biggest last.
+  alias lt='ls -ltr'         #  Sort by date, most recent last.
+  alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
+  alias lu='ls -ltur'        #  Sort by/show access time,most recent last.
+
+  # The ubiquitous 'll'
+  alias ll="ls -lG"
+  alias lm='ll | more'       #  Pipe through 'more'
+  alias lr='ll -R'           #  Recursive ls.
+  alias la='ll -A'           #  Show hidden files.
+  alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
+
+  # Handy Extract Program
+  function extract() {
+    if [ -f $1 ] ; then
+      case $1 in
+        *.tar.bz2)   tar xvjf $1     ;;
+        *.tar.gz)    tar xvzf $1     ;;
+        *.bz2)       bunzip2 $1      ;;
+        *.rar)       unrar x $1      ;;
+        *.gz)        gunzip $1       ;;
+        *.tar)       tar xvf $1      ;;
+        *.tbz2)      tar xvjf $1     ;;
+        *.tgz)       tar xvzf $1     ;;
+        *.zip)       unzip $1        ;;
+        *.Z)         uncompress $1   ;;
+        *.7z)        7z x $1         ;;
+        *)           echo "'$1' cannot be extracted via >extract<" ;;
+      esac
+    else
+      echo "'$1' is not a valid file!"
+    fi
+  }
+
+  # Creates an archive (*.tar.gz) from given directory.
+  function maketar() { tar cvzf "${1%%/}.tar.gz"  "${1%%/}/"; }
+
+  # Create a ZIP archive of a file or folder.
+  function makezip() { zip -r "${1%%/}.zip" "$1" ; }
+
+  # Make your directories and files access rights sane.
+  function sanitize() { chmod -R u=rwX,g=rX,o= "$@" ;}
+
+# }}}
+
+# Colors {{{
+
+  # Enable colors
+  export CLICOLOR=1
+
+  # Enable 256 color mode
+  export TERM="xterm-256color"
+
+  # Base 16
+  BASE16_SHELL=$ADRC/lib/bash/base16-shell/
+  [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+  base16_tomorrow-night
+
+# }}}
+
+# Plugins {{{
+
+  # Init fasd with cache to speed up startup
+  source "$ADRC/lib/bash/fasd/fasd" > /dev/null
+  fasd_cache=~/.fasd-init-cache
+  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
+  fi
+  source "$fasd_cache"
+  unset fasd_cache
+
+  # Add viminfo fasd command
+  alias v='f -e vim -b viminfo'
+  _fasd_bash_hook_cmd_complete v
+
+  # Load fzf
+  source ~/.fzf.bash
+  if command -v ag >/dev/null 2>&1; then
+    # Use ag instead of the default find command for listing candidates.
+    # - The first argument to the function is the base path to start traversal
+    # - Note that ag only lists files not directories
+    # - See the source code (completion.{bash,zsh}) for the details.
+    _fzf_compgen_path() {
+      ag -g "" "$1"
+    }
+  fi
+
+  # Load rest of libraries
+  command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
+  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
+
+# }}}
+
+# User configuration {{{
+
+  # Simple helper to manage adrc setup
+  adrc() {
+    case ${1} in
+      # Update adrc
+      -u|--update)
+        git -C "$ADRC" pull --rebase
+        eval "$ADRC/install"
+        ;;
+      # Fast open and edit user rc files
+      -o|--open)
+        eval "$EDITOR $ADRC/usr/$2"
+        ;;
+      # Add link to $ADRC/usr/bin what is added to $PATH
+      -l|--link)
+        local name=`basename $2`
+        local curpath="$PWD/$2"
+        ln -s $curpath "$ADRC/usr/bin/$name"
+        ;;
+      # Add Vim plugin as submodule
+      -v|--vim-plugin)
+        (cd "$ADRC/usr/vim"; git clone "$2")
+        ;;
+      -h|--help)
+        echo -e "usage: "
+        echo -e "\t-u | --update                      update adrc"
+        echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf, gitconfig)"
+        echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
+        echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
+        echo -e "\t-h | --help                        show this message"
+        ;;
+      *)
+        echo "Wrong command '${1}'. See --help"
+        ;;
+    esac
+  }
+
+  # Load user config
+  [[ -f "$ADRC/usr/bashrc" ]] &&
+    source "$ADRC/usr/bashrc"
+
+# }}}

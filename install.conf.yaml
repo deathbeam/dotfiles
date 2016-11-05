@@ -48,3 +48,4 @@
     $HOME/.gitconfig: dotfiles/gitconfig
     $HOME/.gitignore: dotfiles/gitignore
     $HOME/.gitconfig.local: usr/gitconfig
+    $HOME/.gitmessage: dotfiles/gitmessage

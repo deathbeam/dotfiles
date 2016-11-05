@@ -1,7 +1,8 @@
+" vim:foldmethod=marker:set ft=vim:
+
 " This is the actual command used to start vi.  The default is vim.
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
-
 set vicmd=vim
 " set vicmd=elvis\ -G\ termcap
 " set vicmd=vile
@@ -330,4 +331,3 @@ nnoremap <right> <nop>
 nnoremap <up> <nop>
 nnoremap <down> <nop>
 
-" vim: set filetype=vim:
