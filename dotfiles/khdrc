@@ -17,7 +17,7 @@ ctrl - a                 :    khd -e "mode activate prefix"
 cmd + alt + ctrl - q     :    kwmc quit
 
 # Launch iTerm2
-cmd - return             :    open -na /Applications/Utilities/iTerm.app
+cmd - return             :    open -na /Applications/iTerm.app
 
 # Set Space Tiling Mode To BSP
 cmd + ctrl - a           :    kwmc space -t bsp

@@ -44,3 +44,4 @@
     $HOME/.vimperator/colors: lib/firefox/vimperator/colors
     $HOME/.kwm/kwmrc: dotfiles/kwmrc
     $HOME/.khdrc: dotfiles/khdrc
+    $HOME/.inputrc: dotfiles/inputrc

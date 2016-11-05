@@ -16,6 +16,7 @@ map <silent> <leader>9 :tabn<Space>9<Return>
 map <silent> <leader>0 :tabn<Space>10<Return>
 
 " Set default editor to gvim (including environment setup)
+" This also works on Mac, because MacVim have alias for gvim
 set editor='bash -lc "gvim -f $*" gvim '
 
 " I don't like beeps

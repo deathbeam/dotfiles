@@ -324,11 +324,6 @@ nnoremap I cw<c-a>
 nnoremap cc cw<c-u>
 nnoremap A cw<c-w>
 
-" Use Vim-like leader for quit
-nnoremap ,q :q!<cr>
-nnoremap ,w :w!<cr>
-nnoremap ,x :x<cr>
-
 " Remove arrow keys
 nnoremap <left> <nop>
 nnoremap <right> <nop>

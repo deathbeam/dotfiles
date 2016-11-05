@@ -24,7 +24,7 @@
 
     /* URL VARIABLES */
     --url-background: var(--bg-light); --url-color: var(--fg-dark);
-    --url-height: 20px; --url-right-margin: 6px;
+    --url-height: 22px; --url-right-margin: 6px;
     --url-fonts: "Hack","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
     --url-text-align: center; /* left | center | right */
     --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */

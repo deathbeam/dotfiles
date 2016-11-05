@@ -1,607 +1,446 @@
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set nocompatible
-unlet! skip_defaults_vim
-source $VIMRUNTIME/defaults.vim
-
-" Modify runtime path
-source $ADRC/lib/vim/vim-pathogen/autoload/pathogen.vim
-let g:pathogen_blacklist=['vim-pathogen']
-call pathogen#infect('$ADRC/lib/bash/{}')
-call pathogen#infect('$ADRC/lib/vim/{}')
-call pathogen#infect('$ADRC/usr/vim/{}')
-call pathogen#helptags()
-
-" With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
-let mapleader = ","
-let maplocalleader = ","
-let g:mapleader = ","
-
-" Reload vimrc after it was changed
-autocmd BufWritePost .vimrc source $MYVIMRC
-
-" Use system clipboard
-set clipboard=unnamed
-
-" Show what command we are writing
-set showcmd
-
-" Sets how many lines of history VIM has to remember
-set history=500
-
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
-
-" Set to auto read when a file is changed from the outside
-set autoread
-
-" Fast operations
-nmap <leader>w :w!<cr>
-nmap <leader>q :q!<cr>
-nmap <leader>x :x!<cr>
-
-" Fast way to edit .vimrc
-nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-
-" Fast way to reload .vimrc
-nnoremap <leader>sv :source $MYVIMRC<cr>:echo $MYVIMRC 'reloaded'<CR>
-
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
-command! W w !sudo tee % > /dev/null
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => VIM user interface
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Set 7 lines to the cursor - when moving vertically using j/k
-set so=7
-
-" Avoid garbled characters in Chinese language windows OS
-let $LANG='en_US.utf8'
-set langmenu=en
-source $VIMRUNTIME/delmenu.vim
-source $VIMRUNTIME/menu.vim
-
-" Turn on the Wild menu
-set wildmenu
-set wildmode=longest:full,full
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc
-if has("win16") || has("win32")
-  set wildignore+=.git\*,.hg\*,.svn\*
-else
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-if has("gui_running")
-  set mouse=a
-else
-  set mouse=
-endif
-
-" Show line numbers
-set number
-
-" Less annoying error messages
-set shortmess=at
-
-"Always show current position
-set ruler
-
-" Height of the command bar
-set cmdheight=1
-
-" A buffer becomes hidden when it is abandoned
-set hid
-
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
-set whichwrap+=<,>,h,l
-
-" Ignore case when searching
-set ignorecase
-
-" When searching try to be smart about cases
-set smartcase
-
-" Highlight search results
-set hlsearch
-
-" Makes search act like search in modern browsers
-set incsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
-" For regular expressions turn magic on
-set magic
-
-" Show matching brackets when text indicator is over them
-set showmatch
-" How many tenths of a second to blink when matching brackets
-set mat=2
-
-" No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set tm=500
-" Add a bit extra margin to the left
-set foldcolumn=1
-
-" Always show the status line
-set laststatus=2
-
-" Format the status line
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Colors and Fonts
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Enable syntax highlighting
-syntax enable
-
-" Enable 256 color mode
-set t_Co=256
-
-" Set theme if possible
-try
-  colorscheme base16-tomorrow-night
-catch
-endtry
-
-set background=dark
-
-" If base16 theme is set from shell, load it
-if filereadable(expand("~/.vimrc_background"))
-  let base16colorspace=256
-  source ~/.vimrc_background
-endif
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set ffs=unix,dos,mac
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Files, backups and undo
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Use spaces instead of tabs
-set expandtab
-
-" Be smart when using tabs ;)
-set smarttab
-
-" 1 tab == 4 spaces
-set shiftwidth=2
-set tabstop=2
-
-" Linebreak on 500 characters
-set lbr
-set tw=500
-
-set ai "Auto indent
-set si "Smart indent
-set wrap "Wrap lines
-
-
-""""""""""""""""""""""""""""""
-" => Visual mode related
-""""""""""""""""""""""""""""""
-" When you press <leader>r you can search and replace the selected text
-vnoremap <silent> <leader>r :call VisualSelection('replace', '')<CR>
-
-" Visual mode pressing * or # searches for the current selection
-" Super useful! From an idea by Michael Naumann
-vnoremap <silent> * :<C-u>call VisualSelection('', '')<CR>/<C-R>=@/<CR><CR>
-vnoremap <silent> # :<C-u>call VisualSelection('', '')<CR>?<C-R>=@/<CR><CR>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Moving around, tabs, windows and buffers
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
-
-" Close the current buffer
-map <leader>bc :Kwbd<cr>
-
-" Close all the buffers
-map <leader>ba :bufdo bc<cr>
-
-" Move between buffers
-map <leader>l :bnext<cr>
-map <leader>h :bprevious<cr>
-
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :Kwbd<cr>:tabclose<cr>
-map <leader>th :tabprevious<cr>
-map <leader>tl :tabnext<cr>
-
-" Opens a new tab with the current buffer's path
-" Super useful when editing files in the same directory
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
-
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
-" Specify the behavior when switching between buffers
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
-
-" Return to last edit position when opening files (You want this!)
-au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Editing mappings
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remap VIM 0 to first non-blank character
-map 0 ^
-
-" allows cursor change in tmux mode
-if exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
-else
-  let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-  let &t_EI = "\<Esc>]50;CursorShape=0\x7"
-endif
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Spell checking
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
-
-" Shortcuts using <leader>
-map <leader>sn ]s
-map <leader>sp [s
-map <leader>sa zg
-map <leader>s? z=
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Misc
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Remove the Windows ^M - when the encodings gets messed up
-noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
-" Quickly open a buffer for scribble
-map <leader>b :e $ADRC/usr/scribble<cr>
-
-" Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
-
-
-""""""""""""""""""""""""""""""
-" => Plugins config
-""""""""""""""""""""""""""""""
-" close vinegar like NERDTree
-autocmd filetype netrw nnoremap q :bd<cr>
-
-" syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" Speed up editorconfig plugin
-let g:EditorConfig_core_mode = 'external_command'
-" Fix EditorConfig for fugitive
-let g:EditorConfig_exclude_patterns = ['fugitive://.*']
-
-" Sneak with simple AceJump-like use
-let g:sneak#streak = 1
-nmap <leader>s :keepj normal H<cr><Plug>(SneakStreak)
-
-"replace 'f' with 1-char Sneak
-nmap f <Plug>Sneak_f
-nmap F <Plug>Sneak_F
-xmap f <Plug>Sneak_f
-xmap F <Plug>Sneak_F
-omap f <Plug>Sneak_f
-omap F <Plug>Sneak_F
-"replace 't' with 1-char Sneak
-nmap t <Plug>Sneak_t
-nmap T <Plug>Sneak_T
-xmap t <Plug>Sneak_t
-xmap T <Plug>Sneak_T
-omap t <Plug>Sneak_t
-omap T <Plug>Sneak_T
-
-" HARD MODE BABY - disable arrows..
-let g:HardMode_level='wannabe'
-autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-
-" Replace normal search with enhanced search
-let g:incsearch#auto_nohlsearch = 1
-map /  <Plug>(incsearch-forward)
-map ?  <Plug>(incsearch-backward)
-map g/ <Plug>(incsearch-stay)
-map n  <Plug>(incsearch-nohl-n)
-map N  <Plug>(incsearch-nohl-N)
-map *  <Plug>(incsearch-nohl-*)
-map #  <Plug>(incsearch-nohl-#)
-map g* <Plug>(incsearch-nohl-g*)
-map g# <Plug>(incsearch-nohl-g#)
-
-" Undotree
-nnoremap <leader>u :UndotreeToggle<cr>
-
-" Fugitive
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>gr :Gremove<CR>
-autocmd BufReadPost fugitive://* set bufhidden=delete
-
-" Airline
-let g:airline_theme='base16'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#buffer_idx_mode = 1
-nmap <leader>1 <Plug>AirlineSelectTab1
-nmap <leader>2 <Plug>AirlineSelectTab2
-nmap <leader>3 <Plug>AirlineSelectTab3
-nmap <leader>4 <Plug>AirlineSelectTab4
-nmap <leader>5 <Plug>AirlineSelectTab5
-nmap <leader>6 <Plug>AirlineSelectTab6
-nmap <leader>7 <Plug>AirlineSelectTab7
-nmap <leader>8 <Plug>AirlineSelectTab8
-nmap <leader>9 <Plug>AirlineSelectTab9
-
-nmap <space> [fzf]
-" nnoremap [unite] <nop>
-" nnoremap <silent> [unite]<space> :<C-u>Unite -toggle -auto-resize -buffer-name=mixed file_rec/async:! buffer file_mru bookmark<cr><c-u>
-" nnoremap <silent> [unite]o :<C-u>Unite -buffer-name=outline outline<cr>
-" nnoremap <silent> [unite]f :<C-u>Unite -toggle -auto-resize -buffer-name=files file_rec/async:!<cr><c-u>
-" nnoremap <silent> [unite]e :<C-u>Unite -buffer-name=recent file_mru<cr>
-" nnoremap <silent> [unite]y :<C-u>Unite -buffer-name=yanks history/yank<cr>
-" nnoremap <silent> [unite]l :<C-u>Unite -auto-resize -buffer-name=line line<cr>
-" nnoremap <silent> [unite]b :<C-u>Unite -auto-resize -buffer-name=buffers buffer file_mru<cr>
-" nnoremap <silent> [unite]/ :<C-u>Unite -no-quit -buffer-name=search grep:.<cr>
-" nnoremap <silent> [unite]m :<C-u>Unite -auto-resize -buffer-name=mappings mapping<cr>
-" nnoremap <silent> [unite]s :<C-u>Unite -quick-match buffer<cr>
-" nnoremap <silent> [unite]p :<C-u>Unite -auto-resize -buffer-name=commands command<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => GUI related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Current file to terminal tab
-let &titlestring = expand('%:t')
-set title
-
-" Set font according to system
-if has("mac") || has("macunix")
-  set gfn=Hack:h14,Source\ Code\ Pro:h15,Menlo:h15
-elseif has("win16") || has("win32")
-  set gfn=Hack:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-elseif has("gui_gtk2")
-  set gfn=Hack\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("linux")
-  set gfn=Hack\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-elseif has("unix")
-  set gfn=Monospace\ 11
-endif
-
-" Fix some issues with MacVim
-if has("gui_macvim")
-  autocmd GUIEnter * set guioptions-=e
-endif
-
-" Set extra options when running in GUI mode
-if has("gui_running")
-  autocmd GUIEnter * set vb t_vb=
-  set guitablabel=%M\ %t
-endif
-
-" Disable scrollbars (real hackers don't use scrollbars for navigation!)
-set guioptions-=r
-set guioptions-=R
-set guioptions-=l
-set guioptions-=L
-
-" Disable tabs from gui
-set guioptions-=e
-set guioptions-=T
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Turn persistent undo on
-"    means that you can undo even when you close a buffer/VIM
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-try
-  set undodir=~/.vim_runtime/temp_dirs/undodir
-  set undofile
-catch
-endtry
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Command mode related
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
-" Bash like keys for the command line
-cnoremap <C-A>		<Home>
-cnoremap <C-E>		<End>
-cnoremap <C-K>		<C-U>
-
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
-
-" Map ½ to something useful
-map ½ $
-cmap ½ $
-imap ½ $
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => General abbreviations
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Omni complete functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Helper functions
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-function! CmdLine(str)
-  exe "menu Foo.Bar :" . a:str
-  emenu Foo.Bar
-  unmenu Foo
-endfunction
-
-function! VisualSelection(direction, extra_filter) range
-  let l:saved_reg = @"
-  execute "normal! vgvy"
-
-  let l:pattern = escape(@", '\\/.*$^~[]')
-  let l:pattern = substitute(l:pattern, "\n$", "", "")
-
-  if a:direction == 'gv'
-    call CmdLine("grep \"" . l:pattern . "\" " )
-  elseif a:direction == 'replace'
-    call CmdLine("%s" . '/'. l:pattern . '/')
+" vim:foldmethod=marker:set ft=vim
+
+" General {{{
+  " Reset all auto commands
+  autocmd!
+
+  " Disable Vi compatibility mode
+  set nocompatible
+
+  " Modify runtime path
+  source $ADRC/lib/vim/vim-pathogen/autoload/pathogen.vim
+  let g:pathogen_blacklist=['vim-pathogen']
+  call pathogen#infect('$ADRC/lib/bash/{}')
+  call pathogen#infect('$ADRC/lib/vim/{}')
+  call pathogen#infect('$ADRC/usr/vim/{}')
+  call pathogen#helptags()
+
+  " With a map leader it's possible to do extra key combinations
+  let mapleader = ","
+  let maplocalleader = ","
+  let g:mapleader = ","
+
+  " Use system clipboard
+  set clipboard=unnamed,unnamedplus
+
+  " Sets how many lines of history VIM has to remember
+  set history=200
+
+  " Enable filetype plugins
+  filetype plugin on
+  filetype indent on
+
+  " time out for key codes
+  set ttimeout
+  set ttimeoutlen=100	" wait up to 100ms after Esc for special key
+
+  " Turn backup off, since most stuff is in SVN, git et.c anyway...
+  set nobackup
+  set nowb
+  set noswapfile
+
+  " Turn persistent undo on
+  " means that you can undo even when you close a buffer/VIM
+  try
+    set undodir=$HOME/.vim/undodir
+    set undofile
+  catch
+  endtry
+
+  " The Silver Searcher
+  if executable('ag')
+    " Use ag over grep
+    set grepprg=ag\ --nogroup\ --nocolor
+    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
   endif
 
-  let @/ = l:pattern
-  let @" = l:saved_reg
-endfunction
+" }}}
 
+" User interface {{{
 
-" Returns true if paste mode is enabled
-function! HasPaste()
-  if &paste
-    return 'PASTE MODE  '
-  endif
-  return ''
-endfunction
+  " Set 5 lines to the cursor - when moving vertically using j/k
+  " and also when you click at top or bottom of the creen with mouse
+  set scrolloff=5
 
-"delete the buffer; keep windows; create a scratch buffer if no buffers left
-function! s:Kwbd(kwbdStage)
-  if(a:kwbdStage == 1)
-    if(!buflisted(winbufnr(0)))
-      bd!
-      return
-    endif
-    let s:kwbdBufNum = bufnr("%")
-    let s:kwbdWinNum = winnr()
-    windo call s:Kwbd(2)
-    execute s:kwbdWinNum . 'wincmd w'
-    let s:buflistedLeft = 0
-    let s:bufFinalJump = 0
-    let l:nBufs = bufnr("$")
-    let l:i = 1
-    while(l:i <= l:nBufs)
-      if(l:i != s:kwbdBufNum)
-        if(buflisted(l:i))
-          let s:buflistedLeft = s:buflistedLeft + 1
-        else
-          if(bufexists(l:i) && !strlen(bufname(l:i)) && !s:bufFinalJump)
-            let s:bufFinalJump = l:i
-          endif
-        endif
-      endif
-      let l:i = l:i + 1
-    endwhile
-    if(!s:buflistedLeft)
-      if(s:bufFinalJump)
-        windo if(buflisted(winbufnr(0))) | execute "b! " . s:bufFinalJump | endif
-      else
-        enew
-        let l:newBuf = bufnr("%")
-        windo if(buflisted(winbufnr(0))) | execute "b! " . l:newBuf | endif
-      endif
-      execute s:kwbdWinNum . 'wincmd w'
-    endif
-    if(buflisted(s:kwbdBufNum) || s:kwbdBufNum == bufnr("%"))
-      execute "bd! " . s:kwbdBufNum
-    endif
-    if(!s:buflistedLeft)
-      set buflisted
-      set bufhidden=delete
-      set buftype=
-      setlocal noswapfile
-    endif
-  else
-    if(bufnr("%") == s:kwbdBufNum)
-      let prevbufvar = bufnr("#")
-      if(prevbufvar > 0 && buflisted(prevbufvar) && prevbufvar != s:kwbdBufNum)
-        b #
-      else
-        bn
-      endif
-    endif
-  endif
-endfunction
+  " display completion matches in a status line
+  set wildmenu
+  set wildmode=longest:full,full
 
-command! Kwbd call s:Kwbd(1)
+  " after leaving buffer set it as hidden (so we can open buffer without saving
+  " previous buffer
+  set hidden
 
-func! DeleteTillSlash()
-  let g:cmd = getcmdline()
+  " Show what command we are writing
+  set showcmd
 
+  " Ignore compiled files
+  set wildignore=*.o,*~,*.pyc
   if has("win16") || has("win32")
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\]\\).*", "\\1", "")
+    set wildignore+=.git\*,.hg\*,.svn\*
   else
-    let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*", "\\1", "")
+    set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
   endif
 
-  if g:cmd == g:cmd_edited
-    if has("win16") || has("win32")
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[\\\\\]\\).*\[\\\\\]", "\\1", "")
-    else
-      let g:cmd_edited = substitute(g:cmd, "\\(.*\[/\]\\).*/", "\\1", "")
+  " allows cursor change in tmux mode
+  if exists('$TMUX')
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+  else
+    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
+    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+  endif
+
+  " Current file to terminal tab
+  let &titlestring = expand('%:t')
+  set title
+
+  " Less annoying error messages
+  set shortmess=at
+
+  "Always show current position
+  set ruler
+
+  " Height of the command bar
+  set cmdheight=1
+
+  " Configure backspace so it acts as it should act
+  set backspace=eol,start,indent
+
+  " Ignore case when searching
+  set ignorecase
+
+  " When searching try to be smart about cases
+  set smartcase
+
+  " Highlight search results
+  set hlsearch
+
+  " Makes search act like search in modern browsers
+  set incsearch
+
+  " Don't redraw while executing macros (good performance config)
+  set lazyredraw
+
+  " For regular expressions turn magic on
+  set magic
+
+  " Show matching brackets when text indicator is over them
+  set showmatch
+
+  " How many tenths of a second to blink when matching brackets
+  set mat=2
+
+  " No annoying sound on errors
+  set noerrorbells
+  set novisualbell
+  set t_vb=
+  set tm=500
+
+  " Always show the status line
+  set laststatus=2
+
+  " Format the status line
+  set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+" }}}
+
+" Colors and Fonts {{{
+
+  " Enable syntax highlighting
+  syntax enable
+
+  " Enable 256 color mode
+  set t_Co=256
+
+  " If base16 theme is set from shell, load it
+  if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+  else
+    " Set theme if possible
+    try
+      colorscheme base16-tomorrow-night
+    catch
+    endtry
+  endif
+
+  set background=dark
+
+  " Set utf8 as standard encoding and en_US as the standard language
+  set encoding=utf8
+
+  " Use Unix as the standard file type
+  set ffs=unix,dos,mac
+
+" }}}
+
+" Text, tab and indent related {{{
+  " Search down into subfolders
+  " Provides tab-completion for all file-related tasks
+  set path+=**
+
+  "" Searching includes can be slow
+  set complete-=i
+
+  " Use spaces instead of tabs
+  set expandtab
+
+  " Be smart when using tabs
+  set smarttab
+
+  " 1 tab == 4 spaces
+  set shiftwidth=2
+  set tabstop=2
+
+  " Linebreak on 500 characters
+  set lbr
+  set tw=500
+
+  set ai "Auto indent
+  set si "Smart indent
+  set wrap "Wrap lines
+
+  " When you type xdate in insert mode, change it to current time and date
+  " example: 04/11/16 07:50:31
+  iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
+
+  " When editing a file, always jump to the last known cursor position.
+  " Don't do it when the position is invalid or when inside an event handler
+  " (happens when dropping a file on gvim).
+  autocmd BufReadPost *
+        \ if line("'\"") >= 1 && line("'\"") <= line("$") |
+        \   exe "normal! g`\"" |
+        \ endif
+
+" }}}
+
+" GUI related {{{
+
+  if has("gui_running")
+    " Set extra options when running in GUI mode
+    set mouse=a
+    set guitablabel=%M\ %t
+    autocmd GUIEnter * set vb t_vb=
+    autocmd GUIEnter * set guioptions-=e
+
+    " Disable scrollbars (real hackers don't use scrollbars for navigation!)
+    set guioptions-=r
+    set guioptions-=R
+    set guioptions-=l
+    set guioptions-=L
+
+    " Disable tabs from gui
+    set guioptions-=e
+    set guioptions-=T
+
+    " Set font according to system
+    if has("mac") || has("macunix")
+      set gfn=Hack:h12,Source\ Code\ Pro:h12,Menlo:h12
+    elseif has("win16") || has("win32")
+      set gfn=Hack:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+    elseif has("gui_gtk2")
+      set gfn=Hack\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("linux")
+      set gfn=Hack\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+    elseif has("unix")
+      set gfn=Monospace\ 11
     endif
   endif
 
-  return g:cmd_edited
-endfunc
+" }}}
 
-func! CurrentFileDir(cmd)
-  return a:cmd . " " . expand("%:p:h") . "/"
-endfunc
+" Mappings {{{
 
-" Load user configuration
-try
-source $ADRC/usr/vimrc
-catch
-endtry
+  " Switch CWD to the directory of the open buffer
+  map <leader>cd :cd %:p:h<cr>:pwd<cr>
+
+  " Don't use Ex mode, use Q for formatting.
+  " Revert with ":unmap Q".
+  map Q gq
+
+  " Make capital yank work like other capital letters
+  nnoremap Y y$
+
+  " Pressing ,ss will toggle and untoggle spell checking
+  map <leader>ss :setlocal spell!<cr>
+
+  " Toggle paste mode on and off
+  map <leader>pp :setlocal paste!<cr>
+
+  " Remove the Windows ^M - when the encodings gets messed up
+  noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+  " Quickly open a buffer for scribble
+  map <leader>b :e $ADRC/usr/scribble<cr>
+
+  " Select the stuff I just pasted
+  nnoremap gV `[V`]
+
+  " Change indent continuously
+  vmap < <gv
+  vmap > >gv
+
+  " Emacs like keybindings for the command line (:) are better
+  " and we cannot use Vi style-binding here anyway, because ESC
+  " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
+  " do not even have them, because they are useless.
+  cnoremap <C-A>		<Home>
+  cnoremap <C-E>		<End>
+  cnoremap <C-K>		<C-U>
+  cnoremap <C-P> <Up>
+  cnoremap <C-N> <Down>
+
+  " Create the `tags` file (may need to install ctags first)
+  command! MakeTags !ctags -R .
+
+  " :W sudo saves the file
+  " (useful for handling the permission-denied error)
+  command! W w !sudo tee % > /dev/null
+
+  " Sane pasting
+  command! Paste call SmartPaste()
+  function! SmartPaste()
+    setl paste
+    normal "+p
+    setl nopaste
+  endfunction
+
+  " Show numbers, folds and git diff signs on left
+  function! Info()
+    if &relativenumber
+      windo set norelativenumber foldcolumn=0
+      exe 'GitGutterSignsDisable'
+      if exists("+cursorcolumn")
+        set nocursorcolumn nocursorline
+      endif
+    else
+      windo set relativenumber foldcolumn=1
+      exe 'GitGutterSignsEnable'
+      if exists("+cursorcolumn")
+        set cursorline
+      endif
+    endif
+  endfunction
+  command! -bar Info :call Info()
+" }}}
+
+" Plugins {{{
+  " gitgutter
+  let g:gitgutter_signs = 0
+
+  " syntastic
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+
+  " EditorConfig
+  let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
+  let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
+
+  " Sneak with simple AceJump-like use
+  let g:sneak#streak = 1
+  nmap <leader>s :keepj normal H<cr><Plug>(SneakStreak)
+
+  "replace 'f' with 1-char Sneak
+  nmap f <Plug>Sneak_f
+  nmap F <Plug>Sneak_F
+  xmap f <Plug>Sneak_f
+  xmap F <Plug>Sneak_F
+  omap f <Plug>Sneak_f
+  omap F <Plug>Sneak_F
+  "replace 't' with 1-char Sneak
+  nmap t <Plug>Sneak_t
+  nmap T <Plug>Sneak_T
+  xmap t <Plug>Sneak_t
+  xmap T <Plug>Sneak_T
+  omap t <Plug>Sneak_t
+  omap T <Plug>Sneak_T
+
+  " HARD MODE BABY - disable arrows..
+  let g:HardMode_level='wannabe'
+  autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
+
+  " Replace normal search with enhanced search
+  let g:incsearch#auto_nohlsearch = 1
+  map /  <Plug>(incsearch-forward)
+  map ?  <Plug>(incsearch-backward)
+  map g/ <Plug>(incsearch-stay)
+  map n  <Plug>(incsearch-nohl-n)
+  map N  <Plug>(incsearch-nohl-N)
+  map *  <Plug>(incsearch-nohl-*)
+  map #  <Plug>(incsearch-nohl-#)
+  map g* <Plug>(incsearch-nohl-g*)
+  map g# <Plug>(incsearch-nohl-g#)
+
+  " Undotree
+  nnoremap <leader>u :UndotreeToggle<cr>
+
+  " Fugitive
+  nnoremap <silent> <leader>gs :Gstatus<CR>
+  nnoremap <silent> <leader>gd :Gdiff<CR>
+  nnoremap <silent> <leader>gc :Gcommit<CR>
+  nnoremap <silent> <leader>gb :Gblame<CR>
+  nnoremap <silent> <leader>gl :Glog<CR>
+  nnoremap <silent> <leader>gp :Git push<CR>
+  nnoremap <silent> <leader>gw :Gwrite<CR>
+  nnoremap <silent> <leader>gr :Gremove<CR>
+  autocmd BufReadPost fugitive://* set bufhidden=delete
+
+  " Airline
+  let g:airline_theme='base16'
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline#extensions#tabline#buffer_idx_mode = 1
+  nmap <leader>1 <Plug>AirlineSelectTab1
+  nmap <leader>2 <Plug>AirlineSelectTab2
+  nmap <leader>3 <Plug>AirlineSelectTab3
+  nmap <leader>4 <Plug>AirlineSelectTab4
+  nmap <leader>5 <Plug>AirlineSelectTab5
+  nmap <leader>6 <Plug>AirlineSelectTab6
+  nmap <leader>7 <Plug>AirlineSelectTab7
+  nmap <leader>8 <Plug>AirlineSelectTab8
+  nmap <leader>9 <Plug>AirlineSelectTab9
+
+  " Window mode {{{
+    " A message will appear in the message line when you're in a submode
+    " and stay there until the mode has existed.
+    let g:submode_always_show_submode = 1
+    let g:submode_timeout= 0
+
+    " We're taking over the default <C-w> setting. Don't worry we'll do
+    " our best to put back the default functionality.
+    call submode#enter_with('window', 'n', '', '<C-w>')
+
+    " Note: <C-c> will also get you out to the mode without this mapping.
+    " Note: <C-[> also behaves as <ESC>
+    call submode#leave_with('window', 'n', '', '<ESC>')
+
+    " Go through every letter
+    for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
+          \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
+      " maps lowercase, uppercase and <C-key>
+      call submode#map('window', 'n', '', key, '<C-w>' . key)
+      call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
+      call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
+    endfor
+
+    " Go through symbols. Sadly, '|', not supported in submode plugin.
+    for key in ['=','_','+','-','<','>']
+      call submode#map('window', 'n', '', key, '<C-w>' . key)
+    endfor
+
+    " Old way, just in case.
+    nnoremap <Leader>w <C-w>
+  " }}}
+
+" }}}
+
+" User configuration {{{
+  try
+    " Load user configuration
+    source $ADRC/usr/vimrc
+  catch
+  endtry
+" }}}

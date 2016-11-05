@@ -28,9 +28,6 @@
 [submodule "lib/vim/vim-fugitive"]
 	path = lib/vim/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
-[submodule "lib/vim/vim-gitgutter"]
-	path = lib/vim/vim-gitgutter
-	url = git://github.com/airblade/vim-gitgutter.git
 [submodule "lib/vim/vim-snipmate"]
 	path = lib/vim/vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
@@ -115,3 +112,12 @@
 [submodule "lib/vim/vim-sneak"]
 	path = lib/vim/vim-sneak
 	url = https://github.com/justinmk/vim-sneak
+[submodule "lib/vim/vim-submode"]
+	path = lib/vim/vim-submode
+	url = https://github.com/kana/vim-submode
+[submodule "lib/vim/vim-unimpaired"]
+	path = lib/vim/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
+[submodule "lib/vim/vim-gitgutter"]
+	path = lib/vim/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter

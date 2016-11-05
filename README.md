@@ -1,19 +1,31 @@
 # awesome.rc
 [![TravisCI Build Status](https://api.travis-ci.org/deathbeam/awesomedotrc.svg?branch=master)](https://travis-ci.org/deathbeam/awesomedotrc)
 
-This is my Bash and Vim configuration. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable.
+These are my configuration files for Linux and Mac. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable. I put this README together, because I (like most of other programmers) do not have any life. I even added CI integration to this repo, because I was bored. Yes, you hear right, CI INTEGRATION TO FUCKING DOTFILES REPO. I doubt anyone will ever appreciate my effort, but [frankly, my dear, I don't give a damn](https://en.wikipedia.org/wiki/Frankly,_my_dear,_I_don't_give_a_damn). Expect a lot of changes in this repo, because most of the time I just cannot make up my mind, and I change my decisions very often.
 
 ## Requirements
 
-* bash - This is Bash and Vim config anyway, duh
-* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of the installation process is managed via Git
+* [python](https://www.python.org/downloads/) - Required for [dotbot](https://github.com/anishathalye/dotbot) to work properly. Python is installed by default on most Linux distributions and also on Mac.
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of the installation process is managed via Git, so you need this one.
 
-And some optional ones:
+## Optional requirements
 
-* vim - Do not required if you only want bash and tmux stuff, but hey, Vim is awesome. Requires to be installed with python support for all plugins to work correctly
-* [vimperator](https://addons.mozilla.org/en-US/firefox/addon/vimperator/) - And Vim in your Firefox is even more awesome
-* [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) - And having your Firefox to look like Vim is even more awesome
-* [editorconfig](https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md) - For editorconfig plugin
+* bash - I am using bash, and my terminal configuration is working mostly for bash only. If you are using zsh, or fish or whatever, it's okay, I tried them all and eventually I came back to bash, mainly because some completion stuff I am using is a bit broken in other shells than bash. Otherwise, zsh is really great and if all this completion stuff was properly working there, I would be using zsh.
+* [tmux](https://tmux.github.io/) - Terminal multiplexer. Awesome stuff, but I find myself to use it less and less, because I started using tiling window manager's features more. But still, tmux is really awesome, and have some great features what screen do not have. I have some really nice Tmux stuff in my repository, so feel free to try it, maybe you will like it.
+* [vim](http://www.vim.org/download.php/) - Required for Vim stuff (of course). Needs to be installed with python support for all plugins to work correctly. If you are just starting with Vim, then I recommend you to run `vimtutor` from your CLI. Thank me later.
+* [vifm](http://vifm.info/) - ncurses based file manager with vi like keybindings/modes/options/commands/configuration. I am still deciding between vifm and [ranger](http://nongnu.org/ranger/), but vifm have great name, so for now I am using it.
+* [Firefox](https://www.mozilla.org/en-US/firefox/new/) - The only browser I found that can be properly styled to my likings (for example, doing what I did with my Firefox is with browsers like Chrome just not possible) and also allows me to watch porn in HD quality is Firefox. Just kidding, I don't watch porn. Also, has Vimperator. Install latest Firefox stable version, Vimperator do not works with Developer Edition.
+* [vimperator](https://addons.mozilla.org/en-US/firefox/addon/vimperator/) - Vim for your firefox. It is really awesome, but if you prefer unmainained Pendactyl, then use it, or you want to have just Vi keybindings in your browser, but want to configure your browser through messsy JSON file or even worse, through setting menus (where you will need to use your mouse..) without possibility to store all these setting in nice dotfile repository, then use VimFX, you hipster. Otherwise, just use
+  Vimperator, what is currently the best one (if you are not using Firefox Developer Edition, because Vimperator is totally broken there, and it do not seems that Vimperator devs are making any progress on fixing these issues).
+* [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) - Just cool extension that can style your browser. I do not found nice solution how to store my custom Firefox style in some dotfile, so this is last thing I do not like in this setup, you need to install my style manually from Addon menu (yes, I know, it is horrible, but it is only way that is currently working and styles entire top menu properly on my Mac OS).
+* [editorconfig](https://github.com/editorconfig/editorconfig-core-c/blob/master/INSTALL.md) - For editorconfig plugin. This is not necessary at all, but EditorConfig is super awesome portable thing to configure indentation and whitespace settings for your project, and it works in most of editors, not only in Vim.
+
+### macOS specific
+
+* [kwm](https://github.com/koekeishiya/kwm) - Awesome tiling window manager for macOS. Noticed that I am using macOS instead of OSX? It is because Apple rebranded OSX to macOS in latest Sierra update. You can read more about it [here](https://techcrunch.com/2016/06/13/os-x-is-now-macos-and-gets-support-for-siri-auto-unlock-and-more/). Great stuff, right? Anyway, back to the point. Kwm is a lot better than Amethyst, if you are still using it. Are you asking why? Because it can be
+  configured from dotfile, that is why. Also, it have nice focus borders, and is more similar to window managers on Linux, what I really miss on OSX, but I am not going to use XQuartz just to have i3 for my terminals here, lol.
+* [khd](https://github.com/koekeishiya/khd) - Hotkey daemon for macOS, required to have keybindings in kwm. Originally these two was one project, but they got split, what is imo great thing.
+* [iTerm2](http://iterm2.com/) - It is better than Terminal, and supports 256 colors, instead of Terminal's 16. Also, it have no titlebar mode, what is great. And my macOS setup is configured to be working properly with iTerm2.
 
 ## How to install?
 
@@ -24,8 +36,7 @@ git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
     ~/.awesomedotrc/install
 ```
 
-I recommend to install [Hack for Powerline](https://github.com/powerline/fonts/tree/master/Hack) font. It is awesome for programming and also supports special symbols used in Bash theme we are using here and Vim config is also configured to try to use it when available.
-
+I recommend to install [Hack](http://sourcefoundry.org/hack/) font. It is awesome for programming and runs in Vim really fast. I personally like DejaVu Sans Mono more, but it really slows down my Vim (for some unknown reason) so I am sticking to Hack. All my configurations tries to load Hack font if possible, otherwise they tries couple other good fonts and falls back to some common one if none is found.
 To install Firefox theme, use [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) and enter this URL to `Install from URLs`:
 
 ```
@@ -108,6 +119,7 @@ To see all helper commands, run `adrc --help`.
  * [vim-sneak](https://github.com/justinmk/vim-sneak): The missing motion for Vim
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
+ * [vim-submode](https://github.com/kana/vim-submode): Create your own submodes
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim

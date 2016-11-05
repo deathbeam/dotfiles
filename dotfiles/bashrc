@@ -13,6 +13,19 @@ if [ -f /etc/bashrc ]; then
   . /etc/bashrc   # --> Read /etc/bashrc, if present.
 fi
 
+# Load bash_completion
+if command -v brew >/dev/null 2>&1; then
+  if [ -f $(brew --prefix)/etc/bash_completion ]; then
+    source $(brew --prefix)/etc/bash_completion
+  fi
+else
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
+fi
+
 # Manually set your language environment
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
@@ -173,5 +186,7 @@ adrc() {
 [[ -f "$ADRC/usr/bashrc" ]] &&
   source "$ADRC/usr/bashrc"
 
-# Load fzf last to override possible bash-completion
+# Load fzf last to not mess autocompletion
 source ~/.fzf.bash
+
+
