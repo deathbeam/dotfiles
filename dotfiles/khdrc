@@ -2,22 +2,31 @@
 khd kwm on
 
 # set color of default mode
-khd mode default color 0xFFD5C4A1
+khd mode default color 0xFFBDD322
 
-# Enable the prefix mode
+# Enable the resize mode
 khd mode resize prefix on
-khd mode resize timeout 2
+khd mode resize timeout 1
 khd mode resize restore default
-khd mode resize color 0xFF458588
+khd mode resize color 0xFFD921C9
 
 # Exit kwm
-cmd + alt + ctrl - e      : kwmc exit
+cmd + alt + ctrl + shift - e       :    kwmc exit
+
+# Restart kwm
+cmd + alt + ctrl + shift - r       :    brew services restart kwm
+
+# Reload kwm configuration file
+cmd + alt + ctrl + shift - c       :    kwmc config reload
+
+# Close window
+cmd + alt + ctrl + shift - q       :    khd -p "cmd + alt - q"
 
 # Launch terminal
-cmd + alt + ctrl - return :    open -na /Applications/iTerm.app
+cmd + alt + ctrl - return          :    open -na /Applications/iTerm.app
 
 # Launch launcher
-cmd + alt + ctrl - d : open /Applications/Alfred\ 3.app
+cmd + alt + ctrl - d               :    open /Applications/Alfred\ 3.app
 
 # Make window fullscreen
 cmd + alt + ctrl - f               :    kwmc window -z fullscreen
@@ -38,31 +47,31 @@ cmd + alt + ctrl + shift - 0x15    :    kwmc window -m space 4
 cmd + alt + ctrl + shift - 0x16    :    kwmc window -m space 5
 
 # Resize windows
-cmd + alt + ctrl - r     :    khd -e "mode activate resize"
-resize - h               :    kwmc window -c expand 0.05 west
-resize - j               :    kwmc window -c expand 0.05 south
-resize - k               :    kwmc window -c expand 0.05 north
-resize - l               :    kwmc window -c expand 0.05 east
-resize + shift - h       :    kwmc window -c reduce 0.05 west
-resize + shift - j       :    kwmc window -c reduce 0.05 south
-resize + shift - k       :    kwmc window -c reduce 0.05 north
-resize + shift - l       :    kwmc window -c reduce 0.05 east
+cmd + alt + ctrl - r               :    khd -e "mode activate resize"
+resize - h                         :    kwmc window -c expand 0.05 west
+resize - j                         :    kwmc window -c expand 0.05 south
+resize - k                         :    kwmc window -c expand 0.05 north
+resize - l                         :    kwmc window -c expand 0.05 east
+resize + shift - h                 :    kwmc window -c reduce 0.05 west
+resize + shift - j                 :    kwmc window -c reduce 0.05 south
+resize + shift - k                 :    kwmc window -c reduce 0.05 north
+resize + shift - l                 :    kwmc window -c reduce 0.05 east
 
 # Give Focus To Window
-cmd + alt + ctrl - h            :    kwmc window -f west
-cmd + alt + ctrl - l            :    kwmc window -f east
-cmd + alt + ctrl - j            :    kwmc window -f south
-cmd + alt + ctrl - k            :    kwmc window -f north
-cmd + alt + ctrl - p            :    kwmc window -f prev
-cmd + alt + ctrl - n            :    kwmc window -f next
+cmd + alt + ctrl - h               :    kwmc window -f west
+cmd + alt + ctrl - l               :    kwmc window -f east
+cmd + alt + ctrl - j               :    kwmc window -f south
+cmd + alt + ctrl - k               :    kwmc window -f north
+cmd + alt + ctrl - p               :    kwmc window -f prev
+cmd + alt + ctrl - n               :    kwmc window -f next
 
 # Move window
-cmd + alt + ctrl + shift - h    :    kwmc window -s west
-cmd + alt + ctrl + shift - j    :    kwmc window -s south
-cmd + alt + ctrl + shift - k    :    kwmc window -s north
-cmd + alt + ctrl + shift - l    :    kwmc window -s east
-cmd + alt + ctrl + shift - p    :    kwmc window -s prev
-cmd + alt + ctrl + shift - n    :    kwmc window -s next
+cmd + alt + ctrl + shift - h       :    kwmc window -s west
+cmd + alt + ctrl + shift - j       :    kwmc window -s south
+cmd + alt + ctrl + shift - k       :    kwmc window -s north
+cmd + alt + ctrl + shift - l       :    kwmc window -s east
+cmd + alt + ctrl + shift - p       :    kwmc window -s prev
+cmd + alt + ctrl + shift - n       :    kwmc window -s next
 
 # Give Focus To Screen
 # cmd + alt - 1            :    kwmc display -f 0
@@ -109,12 +118,9 @@ cmd + alt + ctrl + shift - n    :    kwmc window -s next
 # Rotate Window-Tree By 90degrees (Clockwise)
 # cmd + alt + ctrl - r      :    kwmc tree rotate 90
 
-
-
 # Modify Container
 # cmd + alt + ctrl - s               :    kwmc window -c split-mode toggle
 # cmd + alt + ctrl - 0x32            :    kwmc window -c type toggle
-
 
 # Mark Window
 # cmd + alt + ctrl - m     :    kwmc window -mk focused
@@ -122,5 +128,3 @@ cmd + alt + ctrl + shift - n    :    kwmc window -s next
 # cmd + alt + ctrl - l     :    kwmc window -mk east wrap
 # cmd + alt + ctrl - j     :    kwmc window -mk south wrap
 # cmd + alt + ctrl - k     :    kwmc window -mk north wrap
-
-
