@@ -105,7 +105,6 @@ To see all helper commands, run `adrc --help`.
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
- * [hardmode](https://github.com/wikitopian/hardmode): Vim: Hard Mode
  * [incsearch](https://github.com/haya14busa/incsearch.vim): Improved incremental searching for Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
@@ -122,7 +121,6 @@ To see all helper commands, run `adrc --help`.
  * [vim-sneak](https://github.com/justinmk/vim-sneak): The missing motion for Vim
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
- * [vim-submode](https://github.com/kana/vim-submode): Create your own submodes
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
  * [vim-unimpared](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
@@ -136,6 +134,7 @@ To see all helper commands, run `adrc --help`.
  * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
  * [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect): Persists tmux environment across system restarts
  * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
+ * [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator): Seamless navigation between tmux panes and vim splits
 
 ## Thanks to..
 

@@ -11,14 +11,15 @@
   source $ADRC/lib/vim/vim-pathogen/autoload/pathogen.vim
   let g:pathogen_blacklist=['vim-pathogen']
   call pathogen#infect('$ADRC/lib/bash/{}')
+  call pathogen#infect('$ADRC/lib/tmux/{}')
   call pathogen#infect('$ADRC/lib/vim/{}')
   call pathogen#infect('$ADRC/usr/vim/{}')
   call pathogen#helptags()
 
   " With a map leader it's possible to do extra key combinations
-  let mapleader = ","
-  let maplocalleader = ","
-  let g:mapleader = ","
+  let mapleader = " "
+  let maplocalleader = " "
+  let g:mapleader = " "
 
   " Use system clipboard
   set clipboard=unnamed,unnamedplus
@@ -136,6 +137,10 @@
   set t_vb=
   set tm=500
 
+  " Open new split panes to right and bottom, which feels more natural
+  set splitbelow
+  set splitright
+
   " Always show the status line
   set laststatus=2
 
@@ -250,6 +255,16 @@
 
 " Mappings {{{
 
+  " Get off my lawn
+  nnoremap <Left> :echoe "Use h"<CR>
+  nnoremap <Right> :echoe "Use l"<CR>
+  nnoremap <Up> :echoe "Use k"<CR>
+  nnoremap <Down> :echoe "Use j"<CR>
+  vnoremap <Left> <Esc>:echoe "Use h"<CR>
+  vnoremap <Right> <Esc>:echoe "Use l"<CR>
+  vnoremap <Up> <Esc>:echoe "Use k"<CR>
+  vnoremap <Down> <Esc>:echoe "Use j"<CR>
+
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
@@ -359,10 +374,6 @@
   omap t <Plug>Sneak_t
   omap T <Plug>Sneak_T
 
-  " HARD MODE BABY - disable arrows..
-  let g:HardMode_level='wannabe'
-  autocmd VimEnter,BufNewFile,BufReadPost * silent! call HardMode()
-
   " Replace normal search with enhanced search
   let g:incsearch#auto_nohlsearch = 1
   map /  <Plug>(incsearch-forward)
@@ -402,38 +413,6 @@
   nmap <leader>7 <Plug>AirlineSelectTab7
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
-
-  " Window mode {{{
-    " A message will appear in the message line when you're in a submode
-    " and stay there until the mode has existed.
-    let g:submode_always_show_submode = 1
-    let g:submode_timeout= 0
-
-    " We're taking over the default <C-w> setting. Don't worry we'll do
-    " our best to put back the default functionality.
-    call submode#enter_with('window', 'n', '', '<C-w>')
-
-    " Note: <C-c> will also get you out to the mode without this mapping.
-    " Note: <C-[> also behaves as <ESC>
-    call submode#leave_with('window', 'n', '', '<ESC>')
-
-    " Go through every letter
-    for key in ['a','b','c','d','e','f','g','h','i','j','k','l','m',
-          \           'n','o','p','q','r','s','t','u','v','w','x','y','z']
-      " maps lowercase, uppercase and <C-key>
-      call submode#map('window', 'n', '', key, '<C-w>' . key)
-      call submode#map('window', 'n', '', toupper(key), '<C-w>' . toupper(key))
-      call submode#map('window', 'n', '', '<C-' . key . '>', '<C-w>' . '<C-'.key . '>')
-    endfor
-
-    " Go through symbols. Sadly, '|', not supported in submode plugin.
-    for key in ['=','_','+','-','<','>']
-      call submode#map('window', 'n', '', key, '<C-w>' . key)
-    endfor
-
-    " Old way, just in case.
-    nnoremap <Leader>w <C-w>
-  " }}}
 
 " }}}
 
