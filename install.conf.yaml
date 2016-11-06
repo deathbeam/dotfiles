@@ -15,7 +15,7 @@
         - git submodule foreach git pull origin master
         - Updating submodules
     -
-        - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p usr/bin & mkdir -p usr/vim
+        - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p ~/.karabiner.d/configuration & mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
         - 'echo "export ADRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc; touch usr/gitconfig'
@@ -49,3 +49,4 @@
     $HOME/.gitignore: dotfiles/gitignore
     $HOME/.gitconfig.local: usr/gitconfig
     $HOME/.gitmessage: dotfiles/gitmessage
+    $HOME/.karabiner.d/configuration/karabiner.json: dotfiles/karabiner.json

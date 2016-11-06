@@ -21,9 +21,6 @@
   let maplocalleader = " "
   let g:mapleader = " "
 
-  " Use system clipboard
-  set clipboard=unnamed,unnamedplus
-
   " Sets how many lines of history VIM has to remember
   set history=200
 
