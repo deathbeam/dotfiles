@@ -2,6 +2,9 @@
 
 source ~/.vimrc
 
+" Emulate Idea version of Vim surround
+set surround
+
 " TODO: 2 char jump, not one char jump
 nnoremap s :action emacsIDEAs.AceJumpWord<CR>
 xnoremap s :action emacsIDEAs.AceJumpWord<CR>

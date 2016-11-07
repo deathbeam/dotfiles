@@ -70,6 +70,9 @@
   " Show what command we are writing
   set showcmd
 
+  " Show what mode we are in
+  set showmode
+
   " Ignore compiled files
   set wildignore=*.o,*~,*.pyc
   if has("win16") || has("win32")

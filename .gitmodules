@@ -55,9 +55,6 @@
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter
-[submodule "lib/vim/incsearch.vim"]
-	path = lib/vim/incsearch.vim
-	url = https://github.com/haya14busa/incsearch.vim
 [submodule "lib/vim/base16-vim"]
 	path = lib/vim/base16-vim
 	url = https://github.com/chriskempson/base16-vim
