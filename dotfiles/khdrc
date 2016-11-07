@@ -2,13 +2,13 @@
 khd kwm on
 
 # set color of default mode
-khd mode default color 0xFFBDD322
+khd mode default color 0xFF7CAFC2
 
 # Enable the resize mode
 khd mode resize prefix on
 khd mode resize timeout 1
 khd mode resize restore default
-khd mode resize color 0xFFD921C9
+khd mode resize color 0xFFDC9656
 
 # Exit kwm
 cmd + alt + ctrl + shift - e       :    kwmc exit
