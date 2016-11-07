@@ -1,16 +1,35 @@
-nmap / :action Find<CR>
-nmap n :action FindNext<CR>
-nmap N :action FindPrevious<CR>
-nmap <c-o> :action Back<cr>
-nmap <c-i> :action Forward<cr>
-nmap ; :action emacsIDEAs.AceJumpWord<CR>
-nmap ,u :action LocalHistory.ShowHistory<CR>
-nmap <space>y :action PasteMultiple<CR>
-nmap <space>c :action GotoClass<CR>
-nmap <space>f :action GotoFile<CR>
-nmap <space>p :action GotoAction<CR>
-nmap <space>/ :action SearchEverywhere<CR>
-nmap <space>e :action RecentFiles<CR>
-nmap <space>o :action FileStructurePopup<CR>
+" vim:set ft=vim:foldmethod=marker:
 
-" vim: set filetype=vim:
+source ~/.vimrc
+
+" TODO: 2 char jump, not one char jump
+nnoremap s :action emacsIDEAs.AceJumpWord<CR>
+xnoremap s :action emacsIDEAs.AceJumpWord<CR>
+" TODO: Map Z to backward jump
+
+" Menus {{{
+  " Undos (Intellij Show local history)
+  nnoremap <space>u :action LocalHistory.ShowHistory<CR>
+
+  " Search everywhere (Intellij Find in path)
+  nnoremap <space>/ :action FindInPath<CR>
+
+  " Tags (Intellij Go to symbol)
+  nnoremap <space>t :action GotoSymbol<CR>
+
+  " Buffer tags (Intellij File structure popup)
+  nnoremap <space>o :action FileStructurePopup<CR>
+
+  " Files (Intellij Go to file)
+  nnoremap <space>f :action GotoFile<CR>
+
+  " Commands (Intellij Go to action)<CR>
+  nnoremap <space>c :action GotoAction<CR>
+
+  " History (Intellij Recent files)
+  nnoremap <space>h :action RecentFiles<CR>
+
+  " Buffers (Intellij Switcher)
+  nnoremap <space>b :action Switcher<CR>
+" }}}
+

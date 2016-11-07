@@ -1,4 +1,4 @@
-" vim:foldmethod=marker:set ft=vim
+" vim:set ft=vim:foldmethod=marker:
 
 " General {{{
   " Reset all auto commands
@@ -49,7 +49,6 @@
   if executable('ag')
     " Use ag over grep
     set grepprg=ag\ --nogroup\ --nocolor
-    command! -nargs=+ -complete=file -bar Ag silent! grep! <args>|cwindow|redraw!
   endif
 
 " }}}
@@ -281,8 +280,8 @@
   " Remove the Windows ^M - when the encodings gets messed up
   noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-  " Quickly open a buffer for scribble
-  map <leader>b :e $ADRC/usr/scribble<cr>
+  " Clear last search highlight
+  map <leader><cr> :noh<cr>
 
   " Select the stuff I just pasted
   nnoremap gV `[V`]
@@ -352,41 +351,7 @@
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
   let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
-  " Sneak with simple AceJump-like use
-  let g:sneak#streak = 1
-  nmap <leader>s :keepj normal H<cr><Plug>(SneakStreak)
-
-  "replace 'f' with 1-char Sneak
-  nmap f <Plug>Sneak_f
-  nmap F <Plug>Sneak_F
-  xmap f <Plug>Sneak_f
-  xmap F <Plug>Sneak_F
-  omap f <Plug>Sneak_f
-  omap F <Plug>Sneak_F
-  "replace 't' with 1-char Sneak
-  nmap t <Plug>Sneak_t
-  nmap T <Plug>Sneak_T
-  xmap t <Plug>Sneak_t
-  xmap T <Plug>Sneak_T
-  omap t <Plug>Sneak_t
-  omap T <Plug>Sneak_T
-
-  " Replace normal search with enhanced search
-  let g:incsearch#auto_nohlsearch = 1
-  map /  <Plug>(incsearch-forward)
-  map ?  <Plug>(incsearch-backward)
-  map g/ <Plug>(incsearch-stay)
-  map n  <Plug>(incsearch-nohl-n)
-  map N  <Plug>(incsearch-nohl-N)
-  map *  <Plug>(incsearch-nohl-*)
-  map #  <Plug>(incsearch-nohl-#)
-  map g* <Plug>(incsearch-nohl-g*)
-  map g# <Plug>(incsearch-nohl-g#)
-
-  " Undotree
-  nnoremap <leader>u :UndotreeToggle<cr>
-
-  " Fugitive
+   " Fugitive
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
   nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -410,6 +375,32 @@
   nmap <leader>7 <Plug>AirlineSelectTab7
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
+
+  " Menus {{{
+    " Undos (Undotree)
+    nnoremap <leader>u :UndotreeToggle<cr>
+
+    " Search everywhere (fzf.vim Ag)
+    nnoremap <leader>/ :Ag<cr>
+
+    " Tags (fzf.vim Tags)
+    nnoremap <leader>t :Tags<cr>
+
+    " Buffer tags (fzf.vim BTags)
+    nnoremap <leader>o :BTags<cr>
+
+    " Files (fzf.vim Files)
+    nnoremap <leader>f :Files<cr>
+
+    " Commands (fzf.vim Commands)
+    nnoremap <leader>c :Commands<cr>
+
+    " History (fzf.vim History)
+    nnoremap <leader>h :History<cr>
+
+    " Buffers (fzf.vim Buffers)
+    nnoremap <leader>b :Buffers<cr>
+  " }}}
 
 " }}}
 
