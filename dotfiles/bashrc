@@ -2,12 +2,6 @@
 # vim:foldmethod=marker:set ft=sh:
 
 # General {{{
-  # Load ARC path
-  source ${HOME}/.adrc
-
-  # Adjust path to use bin in user/bin
-  export PATH="$ADRC/usr/bin:$HOME/.local/bin:$PATH"
-
   # If not running interactively, don't continue
   [ -z "$PS1" ] && return
 

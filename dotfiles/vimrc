@@ -13,8 +13,8 @@
   call pathogen#infect('$ADRC/lib/bash/{}')
   call pathogen#infect('$ADRC/lib/tmux/{}')
   call pathogen#infect('$ADRC/lib/vim/{}')
-  call pathogen#infect('$ADRC/usr/vim/{}')
-  call pathogen#helptags()
+    call pathogen#infect('$ADRC/usr/vim/{}')
+    call pathogen#helptags()
 
   " With a map leader it's possible to do extra key combinations
   let mapleader = " "
@@ -381,28 +381,28 @@
 
   " Menus {{{
     " Undos (Undotree)
-    nnoremap <leader>u :UndotreeToggle<cr>
+    nmap <leader>u :UndotreeToggle<cr>
 
     " Search everywhere (fzf.vim Ag)
-    nnoremap <leader>/ :Ag<cr>
+    nmap <leader>/ :Ag<cr>
 
     " Tags (fzf.vim Tags)
-    nnoremap <leader>t :Tags<cr>
+    nmap <leader>t :Tags<cr>
 
     " Buffer tags (fzf.vim BTags)
-    nnoremap <leader>o :BTags<cr>
+    nmap <leader>o :BTags<cr>
 
     " Files (fzf.vim Files)
-    nnoremap <leader>f :Files<cr>
+    nmap <leader>f :Files<cr>
 
-    " Commands (fzf.vim Commands)
-    nnoremap <leader>c :Commands<cr>
+    " Actions (fzf.vim Commands)
+    nmap <leader>a :Commands<cr>
 
     " History (fzf.vim History)
-    nnoremap <leader>h :History<cr>
+    nmap <leader>h :History<cr>
 
     " Buffers (fzf.vim Buffers)
-    nnoremap <leader>b :Buffers<cr>
+    nmap <leader>b :Buffers<cr>
   " }}}
 
 " }}}

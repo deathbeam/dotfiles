@@ -138,7 +138,7 @@ set! privacy.trackingprotection.introCount=20
 " =======
 
 " tracking protection
-set! privacy.trackingprotection.enabled=true
+set! privacy.trackingprotection.enabled=false
 set! privacy.trackingprotection.pbmode.enabled=true
 
 " clear things on shutdown

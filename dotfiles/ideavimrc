@@ -26,8 +26,8 @@ xnoremap s :action emacsIDEAs.AceJumpWord<CR>
   " Files (Intellij Go to file)
   nnoremap <space>f :action GotoFile<CR>
 
-  " Commands (Intellij Go to action)<CR>
-  nnoremap <space>c :action GotoAction<CR>
+  " Actions (Intellij Go to action)
+  nnoremap <space>a :action GotoAction<CR>
 
   " History (Intellij Recent files)
   nnoremap <space>h :action RecentFiles<CR>
