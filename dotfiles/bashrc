@@ -9,6 +9,16 @@
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
   fi
 
+  # Detect current OS
+  OS="$OSTYPE"
+  case "$OS" in
+    solaris*) OS="SOLARIS" ;;
+    darwin*)  OS="OSX" ;;
+    linux*)   OS="LINUX" ;;
+    bsd*)     OS="BSD" ;;
+    msys*)    OS="WINDOWS" ;;
+  esac
+
   # Case-insensitive globbing (used in pathname expansion)
   shopt -s nocaseglob;
 
@@ -55,13 +65,10 @@
     echo "$PRE$NAME"
   }
 
-  # If we are connected through SSH or TTY, use simpler PS1
-  if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_TTY" ]; then
-    export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) > '
-  else
-    export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) \[\e[32;1m\]λ\[\e[0m\] '
+  # If we are not connected through SSH or TTY, use custom PS1
+  if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
+    export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) \[\e[31;1m\]❯\[\e[0m\]\[\e[33;1m\]❯\[\e[0m\]\[\e[32;1m\]❯\[\e[0m\] '
   fi
-
 
   # Set tab title to show only current directory and not full path
   export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
@@ -94,7 +101,14 @@
   alias ..='cd ..'
 
   # Add colors for filetype and  human-readable sizes by default on 'ls':
-  alias ls='ls -h'
+  if [ $OS = "LINUX" ]; then
+    alias ls='ls -h --color=auto'
+  elif [ $OS = "BSD" ]; then
+    alias ls='ls -hG'
+  else
+    alias ls='ls -h'
+  fi
+
   alias lk='ls -lSr'         #  Sort by size, biggest last.
   alias lt='ls -ltr'         #  Sort by date, most recent last.
   alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
@@ -106,7 +120,12 @@
   alias lr='ll -R'           #  Recursive ls.
   alias la='ll -A'           #  Show hidden files.
   alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
-  
+
+  # Update and cleanup brew
+  if [ $curos = "OSX" ]; then
+    alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
+  fi
+
   # Serve current directory as HTTP server, optionally specifying the port (default is 8000)
   function serve() {
     local port="${1:-8000}"
