@@ -1,5 +1,5 @@
-# awesome.rc
-[![TravisCI Build Status](https://api.travis-ci.org/deathbeam/awesomedotrc.svg?branch=master)](https://travis-ci.org/deathbeam/awesomedotrc)
+# dotfiles
+[![TravisCI Build Status](https://api.travis-ci.org/deathbeam/dotfiles.svg?branch=master)](https://travis-ci.org/deathbeam/dotfiles)
 
 These are my configuration files for Linux and Mac. It is still work in progress, so expect a lot of changes, but I think it is stable enough to be usable. I put this README together, because I (like most of other programmers) do not have any life. I even added CI integration to this repo, because I was bored. Yes, you hear right, CI INTEGRATION TO FUCKING DOTFILES REPO. I doubt anyone will ever appreciate my effort, but [frankly, my dear, I don't give a damn](https://en.wikipedia.org/wiki/Frankly,_my_dear,_I_don't_give_a_damn). Expect a lot of changes in this repo, because most of the time I just cannot make up my mind, and I change my decisions very often.
 
@@ -34,8 +34,8 @@ These are my configuration files for Linux and Mac. It is still work in progress
 It is simple, just use integrated dotbot installer
 
 ```shell
-git clone https://github.com/deathbeam/awesomedotrc.git ~/.awesomedotrc && \
-    ~/.awesomedotrc/install
+git clone https://github.com/deathbeam/dotfiles.git ~/.dotfiles && \
+    ~/.dotfiles/install
 ```
 
 I recommend to install [Hack](http://sourcefoundry.org/hack/) font. It is awesome for programming and runs in Vim really fast. I personally like DejaVu Sans Mono more, but it really slows down my Vim (for some unknown reason) so I am sticking to Hack. All my configurations tries to load Hack font if possible, otherwise they tries couple other good fonts and falls back to some common one if none is found.
@@ -43,7 +43,7 @@ I recommend to install [Hack](http://sourcefoundry.org/hack/) font. It is awesom
 To install Firefox theme, use [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) and enter this URL to `Install from URLs`:
 
 ```
-https://raw.githubusercontent.com/deathbeam/awesomedotrc/master/lib/firefox/firefox.css
+https://raw.githubusercontent.com/deathbeam/dotfiles/master/lib/firefox/firefox.css
 ```
 
 ## How to update?
@@ -51,49 +51,49 @@ https://raw.githubusercontent.com/deathbeam/awesomedotrc/master/lib/firefox/fire
 You can use
 
 ```
-adrc --update
+dottool --update
 ```
 
 what was made exactly for this. It will fetch latest changes from remote, then runs rebase and at end run installation script to update links and installed stuff. Or, if you want, you can use Git like this:
 
 
 ```shell
-git -C $ADRC pull --rebase
+git -C $DOTHOME pull --rebase
 ```
 
 ## How to inlude your own stuff?
 
-After you have installed awesomedotrc, you can start including your own stuff by using the `adrc --open` command:
+After you have installed dotfiles, you can start including your own stuff by using the `dottool --open` command:
 
 ```shell
-adrc --open bashrc
-adrc --open vimrc
-adrc --open tmux.conf
-adrc --open gitconfig
+dottool --open bashrc
+dottool --open vimrc
+dottool --open tmux.conf
+dottool --open gitconfig
 ```
 
 or manually without helper:
 
 ```shell
-vim $ADRC/usr/bashrc
-vim $ADRC/usr/vimrc
-vim $ADRC/usr/tmux.conf
-vim $ADRC/usr/gitconfig
+vim $DOTHOME/usr/bashrc
+vim $DOTHOME/usr/vimrc
+vim $DOTHOME/usr/tmux.conf
+vim $DOTHOME/usr/gitconfig
 ```
 
-To add your own Vim plugin you can use `adrc --vim-plugin` command. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
+To add your own Vim plugin you can use `dottool --vim-plugin` command. For example to add [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
 
 ```shell
-adrc --vim-plugin https://github.com/ervandew/supertab.git
+dottool --vim-plugin https://github.com/ervandew/supertab.git
 ```
 
 or you can do the same just with Git:
 
 ```shell
-git clone https://github.com/ervandew/supertab.git $ADRC/usr/vim/supertab
+git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
 ```
 
-To see all helper commands, run `adrc --help`.
+To see all helper commands, run `dottool --help`.
 
 ## Included stuff
 
@@ -107,7 +107,6 @@ To see all helper commands, run `adrc --help`.
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
- * [incsearch](https://github.com/haya14busa/incsearch.vim): Improved incremental searching for Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
@@ -124,7 +123,7 @@ To see all helper commands, run `adrc --help`.
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-surrond](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
- * [vim-unimpared](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
+ * [vim-unimpaired](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
  * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
