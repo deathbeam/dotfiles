@@ -1,10 +1,10 @@
 # vim:foldmethod=marker:set ft=sh:
 
 # Load ARC path
-source ${HOME}/.adrc
+source ${HOME}/.dotconfig
 
 # Adjust path to use bin in user/bin
-export PATH="$ADRC/usr/bin:$ADRC/lib/panel:$HOME/.local/bin:$PATH"
+export PATH="$DOTHOME/usr/bin:$HOME/.local/bin:$PATH"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1

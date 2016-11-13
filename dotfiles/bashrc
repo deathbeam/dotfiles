@@ -9,16 +9,6 @@
     . /etc/bashrc   # --> Read /etc/bashrc, if present.
   fi
 
-  # Detect current OS
-  OS="$OSTYPE"
-  case "$OS" in
-    solaris*) OS="SOLARIS" ;;
-    darwin*)  OS="OSX" ;;
-    linux*)   OS="LINUX" ;;
-    bsd*)     OS="BSD" ;;
-    msys*)    OS="WINDOWS" ;;
-  esac
-
   # Case-insensitive globbing (used in pathname expansion)
   shopt -s nocaseglob;
 
@@ -100,15 +90,15 @@
   alias mkdir='mkdir -p'
   alias ..='cd ..'
 
-  # Add colors for filetype and  human-readable sizes by default on 'ls':
-  if [ $OS = "LINUX" ]; then
-    alias ls='ls -h --color=auto'
-  elif [ $OS = "BSD" ]; then
-    alias ls='ls -hG'
-  else
-    alias ls='ls -h'
+  # Detect which `ls` flavor is in use
+  if ls --color > /dev/null 2>&1; then # GNU `ls`
+    colorflag="--color"
+  else # OS X `ls`
+    colorflag="-G"
   fi
 
+  # Add colors for filetype and  human-readable sizes by default on 'ls':
+  alias ls="ls -h${colorflag}"
   alias lk='ls -lSr'         #  Sort by size, biggest last.
   alias lt='ls -ltr'         #  Sort by date, most recent last.
   alias lc='ls -ltcr'        #  Sort by/show change time,most recent last.
@@ -122,9 +112,25 @@
   alias tree='tree -Csuh'    #  Nice alternative to 'recursive ls' ...
 
   # Update and cleanup brew
-  if [ $curos = "OSX" ]; then
+  if command -v brew >/dev/null 2>&1; then
     alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
   fi
+
+  # Enhanced WHOIS lookups
+  alias whois="whois -h whois-servers.net"
+
+  # Detect current OS
+  function whereami() {
+    local OS="$OSTYPE"
+    case "$OS" in
+      solaris*) OS="Solaris" ;;
+      darwin*)  OS="macOS" ;;
+      linux*)   OS="Linux" ;;
+      bsd*)     OS="BSD" ;;
+      msys*)    OS="Windows" ;;
+    esac
+    echo "$OS"
+  }
 
   # Serve current directory as HTTP server, optionally specifying the port (default is 8000)
   function serve() {
@@ -177,7 +183,7 @@
   export TERM="xterm-256color"
 
   # Base 16
-  BASE16_SHELL=$ADRC/lib/bash/base16-shell/
+  BASE16_SHELL=$DOTHOME/lib/bash/base16-shell/
   [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
   base16_tomorrow-night
 
@@ -186,7 +192,7 @@
 # Plugins {{{
 
   # Init fasd with cache to speed up startup
-  source "$ADRC/lib/bash/fasd/fasd" > /dev/null
+  source "$DOTHOME/lib/bash/fasd/fasd" > /dev/null
   fasd_cache=~/.fasd-init-cache
   if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
     fasd --init posix-alias bash-hook bash-ccomp bash-ccomp-install >| "$fasd_cache"
@@ -218,34 +224,34 @@
 
 # User configuration {{{
 
-  # Simple helper to manage adrc setup
-  adrc() {
+  # Simple helper to manage dotfiles setup
+  dottool() {
     case ${1} in
-      # Update adrc
+      # Update dotfiles
       -u|--update)
-        git -C "$ADRC" pull --rebase
-        eval "$ADRC/install"
+        git -C "$DOTHOME" pull --rebase
+        eval "$DOTHOME/install"
         ;;
       # Fast open and edit user rc files
       -o|--open)
-        eval "$EDITOR $ADRC/usr/$2"
+        eval "$EDITOR $DOTHOME/usr/$2"
         ;;
-      # Add link to $ADRC/usr/bin what is added to $PATH
+      # Add link to $DOTHOME/usr/bin what is added to $PATH
       -l|--link)
         local name=`basename $2`
         local curpath="$PWD/$2"
-        ln -s $curpath "$ADRC/usr/bin/$name"
+        ln -s $curpath "$DOTHOME/usr/bin/$name"
         ;;
       # Add Vim plugin as submodule
       -v|--vim-plugin)
-        (cd "$ADRC/usr/vim"; git clone "$2")
+        (cd "$DOTHOME/usr/vim"; git clone "$2")
         ;;
       -h|--help)
         echo -e "usage: "
         echo -e "\t-u | --update                      update adrc"
         echo -e "\t-o | --open <configuration_file>   fast open and edit confiuration files (bashrc, vimrc, tmux.conf, gitconfig)"
-        echo -e "\t-l | --link <file>                 add link to $ADRC/usr/bin what is in \$PATH variable (useful for adding CLI things)"
-        echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $ADRC/usr/vim"
+        echo -e "\t-l | --link <file>                 add link to $DOTHOME/usr/bin what is in \$PATH variable (useful for adding CLI things)"
+        echo -e "\t-v | --vim-plugin <git_repository> add vim plugin as git submodule to $DOTHOME/usr/vim"
         echo -e "\t-h | --help                        show this message"
         ;;
       *)
@@ -255,7 +261,7 @@
   }
 
   # Load user config
-  [[ -f "$ADRC/usr/bashrc" ]] &&
-    source "$ADRC/usr/bashrc"
+  [[ -f "$DOTHOME/usr/bashrc" ]] &&
+    source "$DOTHOME/usr/bashrc"
 
 # }}}

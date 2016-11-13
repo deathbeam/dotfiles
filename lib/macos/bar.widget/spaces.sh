@@ -1,3 +1,5 @@
+#!/bin/sh
+
 # Display spaces using in a bar that accepts stdout
 kwmc=/usr/local/bin/kwmc
 

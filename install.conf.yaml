@@ -18,7 +18,7 @@
         - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p ~/.config/bspwm & mkdir -p ~/.config/sxhkd & mkdir -p ~/.karabiner.d/configuration & mkdir -p usr/bin & mkdir -p usr/vim
         - Creating directory structure
     -
-        - 'echo "export ADRC="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/adrc; touch usr/gitconfig'
+        - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/dotconfig; touch usr/gitconfig'
         - Setting up home directory
     -
         - curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
@@ -31,7 +31,7 @@
         - Installing Ubersicht widget
 
 - link:
-    $HOME/.adrc: usr/adrc
+    $HOME/.dotconfig: usr/dotconfig
     $HOME/.profile: dotfiles/profile
     $HOME/.bash_profile: dotfiles/bash_profile
     $HOME/.bashrc: dotfiles/bashrc
@@ -52,3 +52,4 @@
     $HOME/.karabiner.d/configuration/karabiner.json: dotfiles/karabiner.json
     $HOME/.config/bspwm: dotfiles/bspwm
     $HOME/.config/sxhkd/sxhkdrc: dotfiles/sxhkdrc
+    $HOME/.hushlogin: dotfiles/hushlogin

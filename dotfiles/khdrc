@@ -22,16 +22,19 @@ cmd + alt + ctrl + shift - c       :    kwmc config reload
 # Close window
 cmd + alt + ctrl + shift - q       :    khd -p "cmd + alt - q"
 
+# Lock screen
+cmd + alt + ctrl + shift - s       :    pmset displaysleepnow
+
 # Launch terminal
 cmd + alt + ctrl - return          :    open -na /Applications/iTerm.app
 
 # Launch launcher
-cmd + alt + ctrl - d               :    open /Applications/Alfred\ 3.app
+cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
 
-# Make window fullscreen
+# Toggle window fullscreen
 cmd + alt + ctrl - f               :    kwmc window -z fullscreen
 
-# Make window floating
+# Toggle window floating
 cmd + alt + ctrl + shift - space   :    kwmc window -t focused
 
 # Move between spaces

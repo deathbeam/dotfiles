@@ -4,18 +4,14 @@ refreshFrequency: 10000 # ms
 
 render: (output) ->
   """
-  <link rel="stylesheet" href="./bar.widget/assets/font-awesome/css/font-awesome.min.css" />
   <div class="time"
     <span></span>
-    <span class="icon"></span>
+    <span class="icon fa fa-clock-o"></span>
   </div>
   """
 
 update: (output, el) ->
-    $(".time span:first-child", el).text("  #{output}")
-    $icon = $(".time span.icon", el)
-    $icon.removeClass().addClass("icon")
-    $icon.addClass("fa fa-clock-o")
+  $(".time span:first-child", el).text("  #{output}")
 
 style: """
   -webkit-font-smoothing: antialiased

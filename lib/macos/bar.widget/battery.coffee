@@ -4,19 +4,16 @@ refreshFrequency: 15000 # ms
 
 render: (output) ->
   """
-  <link rel="stylesheet" href="./bar.widget/assets/font-awesome/css/font-awesome.min.css" />
   <div class="battery"
     <span></span>
-    <span class="icon"></span>
+    <span class="icon fa fa-baterry-empty"></span>
   </div>
   """
 
 update: (output, el) ->
-    bat = parseInt(output)
     $(".battery span:first-child", el).text("  #{output}")
-    $icon = $(".battery span.icon", el)
-    $icon.removeClass().addClass("icon")
-    $icon.addClass("fa #{@icon(bat)}")
+    elIcon = $(".battery span.icon", el)
+    elIcon.removeClass().addClass("icon fa #{@icon(parseInt(output))}")
 
 icon: (output) =>
   return if output > 90

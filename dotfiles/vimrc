@@ -8,13 +8,13 @@
   set nocompatible
 
   " Modify runtime path
-  source $ADRC/lib/vim/vim-pathogen/autoload/pathogen.vim
+  source $DOTHOME/lib/vim/vim-pathogen/autoload/pathogen.vim
   let g:pathogen_blacklist=['vim-pathogen']
-  call pathogen#infect('$ADRC/lib/bash/{}')
-  call pathogen#infect('$ADRC/lib/tmux/{}')
-  call pathogen#infect('$ADRC/lib/vim/{}')
-    call pathogen#infect('$ADRC/usr/vim/{}')
-    call pathogen#helptags()
+  call pathogen#infect('$DOTHOME/lib/bash/{}')
+  call pathogen#infect('$DOTHOME/lib/tmux/{}')
+  call pathogen#infect('$DOTHOME/lib/vim/{}')
+  call pathogen#infect('$DOTHOME/usr/vim/{}')
+  call pathogen#helptags()
 
   " With a map leader it's possible to do extra key combinations
   let mapleader = " "
@@ -145,6 +145,10 @@
 
   " Format the status line
   set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+
+  " We are using bash
+  let g:is_bash=1
+
 " }}}
 
 " Colors and Fonts {{{
@@ -410,7 +414,7 @@
 " User configuration {{{
   try
     " Load user configuration
-    source $ADRC/usr/vimrc
+    source $DOTHOME/usr/vimrc
   catch
   endtry
 " }}}
