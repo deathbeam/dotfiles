@@ -10,7 +10,7 @@
 - shell:
     -
         - git submodule update --init --recursive
-        - Installing submodules
+        - Initializing submodules
     -
         - git submodule foreach git pull origin master
         - Updating submodules
@@ -22,13 +22,13 @@
         - Setting up home directory
     -
         - curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
-        - Installing git prompt for bash
+        - Downloading git prompt for bash
     -
         - lib/bash/fzf/install --all --no-update-rc
         - Installing fuzzy finder for bash
     -
         - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget" & true
-        - Installing Ubersicht widget
+        - Copying panel widgets
 
 - link:
     $HOME/.dotconfig: usr/dotconfig
@@ -50,6 +50,7 @@
     $HOME/.gitconfig.local: usr/gitconfig
     $HOME/.gitmessage: dotfiles/gitmessage
     $HOME/.karabiner.d/configuration/karabiner.json: dotfiles/karabiner.json
-    $HOME/.config/bspwm: dotfiles/bspwm
+    $HOME/.config/bspwm/bspwmrc: dotfiles/bspwmrc
+    $HOME/.config/bspwm/panel: lib/linux/panel
     $HOME/.config/sxhkd/sxhkdrc: dotfiles/sxhkdrc
     $HOME/.hushlogin: dotfiles/hushlogin

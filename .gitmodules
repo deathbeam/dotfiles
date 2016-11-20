@@ -112,3 +112,6 @@
 [submodule "lib/tmux/vim-tmux-navigator"]
 	path = lib/tmux/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "lib/vim/supertab"]
+	path = lib/vim/supertab
+	url = https://github.com/ervandew/supertab

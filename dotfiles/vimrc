@@ -7,15 +7,6 @@
   " Disable Vi compatibility mode
   set nocompatible
 
-  " Modify runtime path
-  source $DOTHOME/lib/vim/vim-pathogen/autoload/pathogen.vim
-  let g:pathogen_blacklist=['vim-pathogen']
-  call pathogen#infect('$DOTHOME/lib/bash/{}')
-  call pathogen#infect('$DOTHOME/lib/tmux/{}')
-  call pathogen#infect('$DOTHOME/lib/vim/{}')
-  call pathogen#infect('$DOTHOME/usr/vim/{}')
-  call pathogen#helptags()
-
   " With a map leader it's possible to do extra key combinations
   let mapleader = " "
   let maplocalleader = " "
@@ -64,7 +55,7 @@
   set wildmode=longest:full,full
 
   " after leaving buffer set it as hidden (so we can open buffer without saving
-  " previous buffer
+  " previous buffer)
   set hidden
 
   " Show what command we are writing
@@ -149,6 +140,12 @@
   " We are using bash
   let g:is_bash=1
 
+  " Always use vertical diffs
+  set diffopt+=vertical
+
+  " Automatically rebalance windows on vim resize
+  autocmd VimResized * :wincmd =
+
 " }}}
 
 " Colors and Fonts {{{
@@ -159,18 +156,7 @@
   " Enable 256 color mode
   set t_Co=256
 
-  " If base16 theme is set from shell, load it
-  if filereadable(expand("~/.vimrc_background"))
-    let base16colorspace=256
-    source ~/.vimrc_background
-  else
-    " Set theme if possible
-    try
-      colorscheme base16-tomorrow-night
-    catch
-    endtry
-  endif
-
+  " Set dark background
   set background=dark
 
   " Set utf8 as standard encoding and en_US as the standard language
@@ -195,7 +181,7 @@
   " Be smart when using tabs
   set smarttab
 
-  " 1 tab == 4 spaces
+  " 1 tab == 2 spaces
   set shiftwidth=2
   set tabstop=2
 
@@ -324,14 +310,14 @@
 
   " Show numbers, folds and git diff signs on left
   function! Info()
-    if &relativenumber
-      windo set norelativenumber foldcolumn=0
+    if &number
+      windo set norelativenumber nonumber foldcolumn=0
       exe 'GitGutterSignsDisable'
       if exists("+cursorcolumn")
         set nocursorcolumn nocursorline
       endif
     else
-      windo set relativenumber foldcolumn=1
+      windo set relativenumber number foldcolumn=1
       exe 'GitGutterSignsEnable'
       if exists("+cursorcolumn")
         set cursorline
@@ -339,9 +325,32 @@
     endif
   endfunction
   command! -bar Info :call Info()
+
 " }}}
 
 " Plugins {{{
+
+  " Modify runtime path
+  source $DOTHOME/lib/vim/vim-pathogen/autoload/pathogen.vim
+  let g:pathogen_blacklist=['vim-pathogen']
+  call pathogen#infect('$DOTHOME/lib/bash/{}')
+  call pathogen#infect('$DOTHOME/lib/tmux/{}')
+  call pathogen#infect('$DOTHOME/lib/vim/{}')
+  call pathogen#infect('$DOTHOME/usr/vim/{}')
+  call pathogen#helptags()
+
+  " If base16 theme is set from shell, load it
+  if filereadable(expand("~/.vimrc_background"))
+    let base16colorspace=256
+    source ~/.vimrc_background
+  else
+    " Set theme if possible
+    try
+      colorscheme base16-tomorrow-night
+    catch
+    endtry
+  endif
+
   " gitgutter
   let g:gitgutter_signs = 0
 

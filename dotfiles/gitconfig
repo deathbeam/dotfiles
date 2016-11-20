@@ -96,6 +96,9 @@
 	# Detect copies as well as renames
 	renames = copies
 
+  # Use vimdiff as defailt diff tool
+	tool = vimdiff
+
 [diff "bin"]
 	# Use `hexdump` to diff binary files
 	textconv = hexdump -v -C
@@ -108,9 +111,13 @@
 	# Include summaries of merged commits in newly created merge commit messages
 	log = true
 
+  # Use vimdiff as default merge tool
+	tool = vimdiff
+
 [push]
   # Push only current branch instead of all branches
   default = current
+
 	# Make `git push` push relevant annotated tags when pushing branches out.
 	followTags = true
 
@@ -120,5 +127,10 @@
 [rebase]
   autosquash = true
 
+[difftool]
+  # Do not show prompt when calling diff tool
+	prompt = false
+
 [include]
+  # Include user configuration
   path = ~/.gitconfig.local

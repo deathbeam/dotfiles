@@ -5,8 +5,8 @@ export PANEL_HEIGHT=24
 export PANEL_FONT="-*-fixed-*-*-*-*-10-*-*-*-*-*-*-*"
 export PANEL_WM_NAME=bspwm_panel
 
-bspc monitor VGA-1 -d o o o o
-bspc monitor VGA-2 -d o o o o
+bspc monitor VGA-1 -d 1 2 3 4
+bspc monitor VGA-2 -d 5 6 7 8
 
 bspc config normal_border_color  "#282828"
 bspc config active_border_color  "#dc9656"
@@ -20,9 +20,7 @@ bspc config gapless_monocle      true
 
 bspc rule -a Screenkey manage=off
 
-$(dirname $0)/panel &
+$(dirname $0)/panel/panel &
 st &
 xsetroot -cursor_name left_ptr
 sxhkd &
-
-
