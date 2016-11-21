@@ -393,6 +393,9 @@
   nmap <leader>9 <Plug>AirlineSelectTab9
 
   " Menus {{{
+    " New file
+    nmap <leader>n :new<space>
+
     " Undos (Undotree)
     nmap <leader>u :UndotreeToggle<cr>
 

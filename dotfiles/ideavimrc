@@ -5,34 +5,70 @@ source ~/.vimrc
 " Emulate Idea version of Vim surround
 set surround
 
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+" vim-commentary mappings
+nnoremap gcc :action CommentByLineComment<cr>
+vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
+
 " TODO: 2 char jump, not one char jump
-nnoremap s :action emacsIDEAs.AceJumpWord<CR>
-xnoremap s :action emacsIDEAs.AceJumpWord<CR>
+nnoremap s :action emacsIDEAs.AceJumpWord<cr>
+xnoremap s :action emacsIDEAs.AceJumpWord<cr>
 " TODO: Map Z to backward jump
 
+" Show intention actions (alt-enter in Idea)
+nnoremap <space>i :action ShowIntentionActions<cr>
+
+" Generate
+nnoremap <space>g :action Generate<cr>
+
+" Refactor element name
+nnoremap <space>rn :action RenameElement<cr>
+
+" Refactor element signature
+nnoremap <space>rs :action ChangeSignature<cr>
+
+" Refactor element type
+nnoremap <space>rt :action ChangeTypeSignature<cr>
+
 " Menus {{{
+  " New element
+  nnoremap <space>n :action NewElement<cr>
+
   " Undos (Intellij Show local history)
-  nnoremap <space>u :action LocalHistory.ShowHistory<CR>
+  nnoremap <space>u :action LocalHistory.ShowHistory<cr>
 
   " Search everywhere (Intellij Find in path)
-  nnoremap <space>/ :action FindInPath<CR>
+  nnoremap <space>/ :action FindInPath<cr>
 
   " Tags (Intellij Go to symbol)
-  nnoremap <space>t :action GotoSymbol<CR>
+  nnoremap <space>t :action GotoSymbol<cr>
 
   " Buffer tags (Intellij File structure popup)
-  nnoremap <space>o :action FileStructurePopup<CR>
+  nnoremap <space>o :action FileStructurePopup<cr>
 
   " Files (Intellij Go to file)
-  nnoremap <space>f :action GotoFile<CR>
+  nnoremap <space>f :action GotoFile<cr>
 
   " Actions (Intellij Go to action)
-  nnoremap <space>a :action GotoAction<CR>
+  nnoremap <space>a :action GotoAction<cr>
 
   " History (Intellij Recent files)
-  nnoremap <space>h :action RecentFiles<CR>
+  nnoremap <space>h :action RecentFiles<cr>
 
   " Buffers (Intellij Switcher)
-  nnoremap <space>b :action Switcher<CR>
+  nnoremap <space>b :action Switcher<cr>
 " }}}
 
