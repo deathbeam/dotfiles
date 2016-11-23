@@ -21,7 +21,7 @@
 
   " time out for key codes
   set ttimeout
-  set ttimeoutlen=100	" wait up to 100ms after Esc for special key
+  set ttimeoutlen=100 " wait up to 100ms after Esc for special key
 
   " Turn backup off, since most stuff is in SVN, git et.c anyway...
   set nobackup
@@ -52,7 +52,7 @@
 
   " display completion matches in a status line
   set wildmenu
-  set wildmode=longest:full,full
+  set wildmode=list:longest,list:full
 
   " after leaving buffer set it as hidden (so we can open buffer without saving
   " previous buffer)
@@ -145,6 +145,23 @@
 
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
+
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd FileType c set omnifunc=ccomplete#Complete
+  autocmd FileType java set omnifunc=javacomplete#Complete
+
+  " use syntax complete if nothing else available
+  if has("autocmd") && exists("+omnifunc")
+    autocmd Filetype *
+          \	if &omnifunc == "" |
+          \		setlocal omnifunc=syntaxcomplete#Complete |
+          \	endif
+  endif
 
 " }}}
 
@@ -254,6 +271,20 @@
   vnoremap <Up> <Esc>:echoe "Use k"<CR>
   vnoremap <Down> <Esc>:echoe "Use j"<CR>
 
+  " Tab completion
+  " will insert tab at beginning of line,
+  " will use completion if not at beginning
+  function! InsertTabWrapper()
+    let col = col('.') - 1
+    if !col || getline('.')[col - 1] !~ '\k'
+      return "\<tab>"
+    else
+      return "\<c-p>"
+    endif
+  endfunction
+  inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
+  inoremap <S-Tab> <c-n>
+
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
@@ -273,6 +304,14 @@
   " Remove the Windows ^M - when the encodings gets messed up
   noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
+  " Replace the current word in all opened buffers
+  fun! Replace()
+    let s:word = input("Replace " . expand('<cword>') . " with:")
+    :exe 'bufdo! %s/\<' . expand('<cword>') . '\>/' . s:word . '/ge'
+    :unlet! s:word
+  endfun
+  map <leader>rn :call Replace()<CR>
+
   " Clear last search highlight
   map <leader><cr> :noh<cr>
 
@@ -287,9 +326,9 @@
   " and we cannot use Vi style-binding here anyway, because ESC
   " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
   " do not even have them, because they are useless.
-  cnoremap <C-A>		<Home>
-  cnoremap <C-E>		<End>
-  cnoremap <C-K>		<C-U>
+  cnoremap <C-A>    <Home>
+  cnoremap <C-E>    <End>
+  cnoremap <C-K>    <C-U>
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
@@ -394,7 +433,7 @@
 
   " Menus {{{
     " New file
-    nmap <leader>n :new<space>
+    nmap <leader>n :tabedit<space>
 
     " Undos (Undotree)
     nmap <leader>u :UndotreeToggle<cr>

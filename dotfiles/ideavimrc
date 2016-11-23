@@ -23,11 +23,6 @@ nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap gcc :action CommentByLineComment<cr>
 vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
 
-" TODO: 2 char jump, not one char jump
-nnoremap s :action emacsIDEAs.AceJumpWord<cr>
-xnoremap s :action emacsIDEAs.AceJumpWord<cr>
-" TODO: Map Z to backward jump
-
 " Show intention actions (alt-enter in Idea)
 nnoremap <space>i :action ShowIntentionActions<cr>
 

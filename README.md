@@ -108,7 +108,6 @@ To see all helper commands, run `dottool --help`.
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
- * [supertab](https://github.com/ervandew/supertab): Perform all your vim insert mode completions with Tab
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
@@ -117,10 +116,8 @@ To see all helper commands, run `dottool --help`.
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks
- * [vim-multiple-cursors](https://github.com/terryma/vim-multiple-cursors): True Sublime Text style multiple selections for Vim
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
- * [vim-sneak](https://github.com/justinmk/vim-sneak): The missing motion for Vim
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-surround](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
