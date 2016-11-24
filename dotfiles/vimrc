@@ -393,6 +393,9 @@
   " gitgutter
   let g:gitgutter_signs = 0
 
+  " VimWiki
+  let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+
   " syntastic
   set statusline+=%#warningmsg#
   set statusline+=%{SyntasticStatuslineFlag()}

@@ -20,6 +20,7 @@ bspc config gapless_monocle      true
 
 bspc rule -a Screenkey manage=off
 
+xrdb merge ~/.XResources
 $(dirname $0)/panel/panel &
 st &
 xsetroot -cursor_name left_ptr
