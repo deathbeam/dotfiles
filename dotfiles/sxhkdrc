@@ -9,11 +9,15 @@ super + Return
 # program launcher
 # dmenu_run
 super + space
- rofi -show run -font "Hack 12" -fg "#d3d0c8" -bg "#2d2d2d" -hlfg "#2d2d2d" -hlbg "#d3d0c8" -opacity 85 -bc "#FFFFFF" -bw 7
+  rofi -show run -font "Hack 12" -fg "#e8e8e8" -bg "#282828" -hlfg "#282828" -hlbg "#7cafc2" -opacity 85 -bc "#7cafc2" -bw 5
 
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
+
+# Lock screen
+super + e
+  slock
 
 #
 # bspwm hotkeys

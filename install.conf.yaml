@@ -54,4 +54,3 @@
     $HOME/.config/bspwm/panel: lib/linux/panel
     $HOME/.config/sxhkd/sxhkdrc: dotfiles/sxhkdrc
     $HOME/.hushlogin: dotfiles/hushlogin
-    $HOME/.XResources: dotfiles/XResources

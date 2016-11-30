@@ -27,7 +27,7 @@ vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action Comme
 nnoremap <space>i :action ShowIntentionActions<cr>
 
 " Generate
-nnoremap <space>g :action Generate<cr>
+nnoremap <space>gg :action Generate<cr>
 
 " Refactor element name
 nnoremap <space>rn :action RenameElement<cr>
