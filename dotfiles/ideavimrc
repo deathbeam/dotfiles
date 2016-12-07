@@ -2,8 +2,15 @@
 
 source ~/.vimrc
 
+" Adjust line numbers
+set number
+set relativenumber
+
 " Emulate Idea version of Vim surround
 set surround
+
+" vinegar emulation with Idea
+nnoremap - :action ActivateProjectToolWindow<cr>
 
 " built-in navigation to navigated items works better
 nnoremap <c-o> :action Back<cr>

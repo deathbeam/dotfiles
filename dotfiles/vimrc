@@ -189,8 +189,8 @@
   " Provides tab-completion for all file-related tasks
   set path+=**
 
-  "" Searching includes can be slow
-  set complete-=i
+  "" Include spelling completion when spelling enabled
+  set complete+=kspell
 
   " Use spaces instead of tabs
   set expandtab
