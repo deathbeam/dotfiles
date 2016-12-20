@@ -19,9 +19,6 @@
 [submodule "lib/vim/vim-airline-themes"]
 	path = lib/vim/vim-airline-themes
 	url = git://github.com/vim-airline/vim-airline-themes.git
-[submodule "lib/vim/vim-startify"]
-	path = lib/vim/vim-startify
-	url = git://github.com/mhinz/vim-startify.git
 [submodule "lib/vim/undotree"]
 	path = lib/vim/undotree
 	url = git://github.com/mbbill/undotree.git
@@ -106,3 +103,6 @@
 [submodule "lib/tmux/vim-tmux-navigator"]
 	path = lib/tmux/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "lib/vim/supertab"]
+	path = lib/vim/supertab
+	url = https://github.com/ervandew/supertab

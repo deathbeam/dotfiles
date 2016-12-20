@@ -119,7 +119,6 @@ To see all helper commands, run `dottool --help`.
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
- * [vim-startify](https://github.com/mhinz/vim-startify): The fancy start screen for Vim
  * [vim-surround](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
  * [vim-unimpaired](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing

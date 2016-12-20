@@ -15,7 +15,7 @@
         - git submodule foreach git pull origin master
         - Updating submodules
     -
-        - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p ~/.config/bspwm & mkdir -p ~/.config/sxhkd & mkdir -p ~/.karabiner.d/configuration & mkdir -p usr/bin & mkdir -p usr/vim
+        - mkdir -p ~/.vifm/colors & mkdir -p ~/.vimperator & mkdir -p ~/.kwm & mkdir -p ~/.config/bspwm & mkdir -p ~/.config/sxhkd & mkdir -p ~/.karabiner.d/configuration & mkdir -p usr/bin & mkdir -p usr/vim & mkdir -p ~/.config/dunst
         - Creating directory structure
     -
         - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/dotconfig; touch usr/gitconfig'
@@ -53,4 +53,6 @@
     $HOME/.config/bspwm/bspwmrc: dotfiles/bspwmrc
     $HOME/.config/bspwm/panel: lib/linux/panel
     $HOME/.config/sxhkd/sxhkdrc: dotfiles/sxhkdrc
+    $HOME/.config/dunst/dunstrc: dotfiles/dunstrc
     $HOME/.hushlogin: dotfiles/hushlogin
+    $HOME/.compton.conf: dotfiles/compton.conf

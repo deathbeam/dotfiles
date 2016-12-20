@@ -189,8 +189,11 @@
   " Provides tab-completion for all file-related tasks
   set path+=**
 
-  "" Include spelling completion when spelling enabled
+  " Include spelling completion when spelling enabled
   set complete+=kspell
+
+  " Includes completion is super slow, disable it
+  set complete -=i
 
   " Use spaces instead of tabs
   set expandtab
@@ -199,8 +202,8 @@
   set smarttab
 
   " 1 tab == 2 spaces
-  set shiftwidth=2
-  set tabstop=2
+  set shiftwidth=4
+  set tabstop=4
 
   " Linebreak on 500 characters
   set lbr
@@ -270,20 +273,6 @@
   vnoremap <Right> <Esc>:echoe "Use l"<CR>
   vnoremap <Up> <Esc>:echoe "Use k"<CR>
   vnoremap <Down> <Esc>:echoe "Use j"<CR>
-
-  " Tab completion
-  " will insert tab at beginning of line,
-  " will use completion if not at beginning
-  function! InsertTabWrapper()
-    let col = col('.') - 1
-    if !col || getline('.')[col - 1] !~ '\k'
-      return "\<tab>"
-    else
-      return "\<c-p>"
-    endif
-  endfunction
-  inoremap <Tab> <c-r>=InsertTabWrapper()<cr>
-  inoremap <S-Tab> <c-n>
 
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -422,8 +411,8 @@
 
   " Airline
   let g:airline_theme='base16'
-  let g:airline#extensions#tabline#enabled = 1
-  let g:airline#extensions#tabline#buffer_idx_mode = 1
+  let g:airline#extensions#tabline#enabled=1
+  let g:airline#extensions#tabline#buffer_idx_mode=1
   nmap <leader>1 <Plug>AirlineSelectTab1
   nmap <leader>2 <Plug>AirlineSelectTab2
   nmap <leader>3 <Plug>AirlineSelectTab3
@@ -433,6 +422,18 @@
   nmap <leader>7 <Plug>AirlineSelectTab7
   nmap <leader>8 <Plug>AirlineSelectTab8
   nmap <leader>9 <Plug>AirlineSelectTab9
+
+  " Eclim
+  let g:EclimMakeLCD = 1
+
+  " Supertab
+  let g:SuperTabDefaultCompletionType = 'context'
+
+  " FZF
+  imap <c-x><c-k> <plug>(fzf-complete-word)
+  imap <c-x><c-f> <plug>(fzf-complete-path)
+  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
+  imap <c-x><c-l> <plug>(fzf-complete-line)
 
   " Menus {{{
     " New file
