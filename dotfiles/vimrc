@@ -65,7 +65,7 @@
   set showmode
 
   " Ignore compiled files
-  set wildignore=*.o,*~,*.pyc
+  set wildignore=*.o,*~,*.pyc,*.class
   if has("win16") || has("win32")
     set wildignore+=.git\*,.hg\*,.svn\*
   else
@@ -74,15 +74,14 @@
 
   " allows cursor change in tmux mode
   if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=1\x7\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\<Esc>]50;CursorShape=0\x7\<Esc>\\"
+    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
   else
-    let &t_SI = "\<Esc>]50;CursorShape=1\x7"
-    let &t_EI = "\<Esc>]50;CursorShape=0\x7"
+    let &t_SI = "\e[5 q"
+    let &t_EI = "\e[2 q"
   endif
 
   " Current file to terminal tab
-  let &titlestring = expand('%:t')
   set title
 
   " Less annoying error messages
@@ -146,15 +145,6 @@
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 
-  " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd FileType c set omnifunc=ccomplete#Complete
-  autocmd FileType java set omnifunc=javacomplete#Complete
-
   " use syntax complete if nothing else available
   if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
@@ -193,7 +183,10 @@
   set complete+=kspell
 
   " Includes completion is super slow, disable it
-  set complete -=i
+  set complete-=i
+
+  " Better completion menu
+  set completeopt=longest,menuone
 
   " Use spaces instead of tabs
   set expandtab
@@ -398,7 +391,7 @@
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
   let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
-   " Fugitive
+  " Fugitive
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
   nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -424,10 +417,20 @@
   nmap <leader>9 <Plug>AirlineSelectTab9
 
   " Eclim
-  let g:EclimMakeLCD = 1
+  let g:EclimMakeLCD=1
+  let g:EclimCompletionMethod='omnifunc'
+  nnoremap <silent> <leader>js :JavaSearch<CR>
+  nnoremap <silent> <leader>ji :JavaImport<CR>
+  nnoremap <silent> <leader>jc :JavaCorrect<CR>
+  nnoremap <silent> <leader>jt :JUnit %<CR>
 
   " Supertab
-  let g:SuperTabDefaultCompletionType = 'context'
+  let g:SuperTabDefaultCompletionType='context'
+  let g:SuperTabContextDefaultCompletionType='<c-n>'
+  let g:SuperTabLongestEnhanced=1
+  let g:SuperTabLongestHighlight=1
+  let g:SuperTabClosePreviewOnPopupClose=1
+  let g:SuperTabCrMapping=1
 
   " FZF
   imap <c-x><c-k> <plug>(fzf-complete-word)
@@ -435,13 +438,13 @@
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
   imap <c-x><c-l> <plug>(fzf-complete-line)
 
+  " Enable per-command history.
+  " CTRL-N and CTRL-P will be automatically bound to next-history and
+  " previous-history instead of down and up. If you don't like the change,
+  " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
+  let g:fzf_history_dir = '~/.local/share/fzf-history'
+
   " Menus {{{
-    " New file
-    nmap <leader>n :tabedit<space>
-
-    " Undos (Undotree)
-    nmap <leader>u :UndotreeToggle<cr>
-
     " Search everywhere (fzf.vim Ag)
     nmap <leader>/ :Ag<cr>
 
