@@ -9,7 +9,8 @@ super + Return
 # program launcher
 # dmenu_run
 super + space
-  dmenu_run -fn 'Hack 12'
+#  dmenu_run -fn 'Hack 12'
+  st -c fzf-menu -g 80x15 -e bash -li -c '$(compgen -c | fzf --print-query --prompt "Run> ")'
 
 # make sxhkd reload its configuration files:
 super + Escape

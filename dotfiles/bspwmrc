@@ -21,6 +21,7 @@ bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
 bspc rule -a Screenkey manage=off
+bspc rule -a fzf-menu state=floating
 
 $DOTHOME/lib/linux/wallpaper.sh
 $(dirname $0)/panel/panel &

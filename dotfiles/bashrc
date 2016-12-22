@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
-# vim:foldmethod=marker:set ft=sh:
+# vim:set ft=sh:foldmethod=marker:
+# ██████╗  █████╗ ███████╗██╗  ██╗██████╗  ██████╗
+# ██╔══██╗██╔══██╗██╔════╝██║  ██║██╔══██╗██╔════╝
+# ██████╔╝███████║███████╗███████║██████╔╝██║
+# ██╔══██╗██╔══██║╚════██║██╔══██║██╔══██╗██║
+# ██████╔╝██║  ██║███████║██║  ██║██║  ██║╚██████╗
+# ╚═════╝ ╚═╝  ╚═╝╚══════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 # General {{{
   # If not running interactively, don't continue
@@ -118,6 +124,11 @@
 
   # Enhanced WHOIS lookups
   alias whois="whois -h whois-servers.net"
+
+  # Open Java eclim project in Vim
+  function vjava () {
+    vim --servername "$1" +"ProjectOpen $1"
+  }
 
   # Detect current OS
   function whereami() {
