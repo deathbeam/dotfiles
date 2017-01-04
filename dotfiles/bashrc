@@ -122,6 +122,15 @@
     alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
   fi
 
+  # Copy-paste (requires xclip on *NIX systems)
+  if command -v pbcopy >/dev/null 2>&1; then
+    alias copy='pbcopy'
+    alias paste='pbpaste'
+  else
+    alias copy='xclip -i -selection clipboard'
+    alias paste='xclip -o -selection clipboard'
+  fi
+
   # Enhanced WHOIS lookups
   alias whois="whois -h whois-servers.net"
 
