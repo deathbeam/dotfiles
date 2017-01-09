@@ -119,6 +119,7 @@
 
   # Update and cleanup brew
   if command -v brew >/dev/null 2>&1; then
+    export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
     alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
   fi
 

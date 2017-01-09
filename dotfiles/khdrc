@@ -20,7 +20,7 @@ cmd + alt + ctrl + shift - r       :    brew services restart kwm
 cmd + alt + ctrl + shift - c       :    kwmc config reload
 
 # Close window
-cmd + alt + ctrl + shift - q       :    khd -p "cmd + alt - q"
+cmd + alt + ctrl + shift - q       :    khd -p "cmd - q"
 
 # Lock screen
 cmd + alt + ctrl + shift - s       :    pmset displaysleepnow

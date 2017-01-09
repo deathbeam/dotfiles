@@ -14,7 +14,7 @@ kwmc config float-non-resizable on
 kwmc config lock-to-container on
 
 # Set focus-follows-mouse-mode to autoraise
-kwmc config focus-follows-mouse on
+kwmc config focus-follows-mouse off
 
 /*
     Focus-follows-mouse is temporarily disabled when
