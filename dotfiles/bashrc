@@ -200,7 +200,7 @@
   export CLICOLOR=1
 
   # Enable 256 color mode
-  export TERM="xterm-256color"
+  [[ $TMUX = "" ]] && export TERM="xterm-256color"
 
   # Base 16
   BASE16_SHELL=$DOTHOME/lib/bash/base16-shell/

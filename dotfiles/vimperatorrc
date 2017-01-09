@@ -11,18 +11,6 @@ colorscheme tomorrow-night
 " Map , to be leader
 map , <leader>
 
-" Move between tabs with numbers
-map <silent> <leader>1 :tabn<Space>1<Return>
-map <silent> <leader>2 :tabn<Space>2<Return>
-map <silent> <leader>3 :tabn<Space>3<Return>
-map <silent> <leader>4 :tabn<Space>4<Return>
-map <silent> <leader>5 :tabn<Space>5<Return>
-map <silent> <leader>6 :tabn<Space>6<Return>
-map <silent> <leader>7 :tabn<Space>7<Return>
-map <silent> <leader>8 :tabn<Space>8<Return>
-map <silent> <leader>9 :tabn<Space>9<Return>
-map <silent> <leader>0 :tabn<Space>10<Return>
-
 " Set default editor to gvim (including environment setup)
 " This also works on Mac, because MacVim have alias for gvim
 set editor='bash -lc "gvim -f $*" gvim '
@@ -39,8 +27,8 @@ set complete=lS
 set tabnumbers
 
 " h and l for tab movement
-nnoremap h gT
-nnoremap l gt
+nnoremap K gT
+nnoremap J gt
 
 " faster scrolling
 noremap j 3j
