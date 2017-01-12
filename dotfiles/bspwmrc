@@ -24,9 +24,10 @@ bspc rule -a Screenkey manage=off
 bspc rule -a fzf-menu state=floating
 
 $DOTHOME/lib/linux/wallpaper.sh
+st &
+mopidy &
 polybar left &
 polybar right &
-st &
 xsetroot -cursor_name left_ptr
 sxhkd &
 ~/.eclim/eclipse/eclimd &

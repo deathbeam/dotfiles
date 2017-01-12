@@ -436,6 +436,15 @@
   " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
+  " If this is Git repo, list git files only, otherwise list all
+  function! VFiles()
+    if !empty(glob(".git"))
+      execute "GFiles"
+    else
+      execute "Files"
+    endif
+  endfunction
+
   " Menus {{{
     " Search everywhere (fzf.vim Ag)
     nmap <leader>/ :Ag<cr>
@@ -447,7 +456,7 @@
     nmap <leader>o :BTags<cr>
 
     " Files (fzf.vim Files)
-    nmap <leader>f :Files<cr>
+    nmap <leader>f :call VFiles()<cr>
 
     " Actions (fzf.vim Commands)
     nmap <leader>a :Commands<cr>
