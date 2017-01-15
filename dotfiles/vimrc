@@ -42,6 +42,9 @@
   catch
   endtry
 
+  " Fix Man command when using normally from Vim
+  let $PAGER=''
+
   " The Silver Searcher
   if executable('ag')
     " Use ag over grep

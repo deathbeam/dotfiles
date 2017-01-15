@@ -103,3 +103,6 @@
 [submodule "lib/vim/supertab"]
 	path = lib/vim/supertab
 	url = https://github.com/ervandew/supertab
+[submodule "lib/vim/vim-obsession"]
+	path = lib/vim/vim-obsession
+	url = https://github.com/tpope/vim-obsession

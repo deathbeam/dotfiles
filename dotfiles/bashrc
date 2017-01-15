@@ -33,18 +33,9 @@
   shopt -s cmdhist
   export HISTFILESIZE=1000000
   export HISTSIZE=1000000
-  export HISTCONTROL=ignoreboth
+  export HISTCONTROL=ignoreboth:erasedups
   export HISTIGNORE='ls:bg:fg:history'
   export HISTTIMEFORMAT='%F %T '
-  [[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
-
-  # Manually set your language environment
-  export LANG="en_US.UTF-8"
-  export LC_ALL="en_US.UTF-8"
-
-  # Preferred editor for local and remote sessions
-  export EDITOR="vim"
-  export VISUAL="$EDITOR"
 
 # }}}
 
@@ -135,22 +126,9 @@
   # Enhanced WHOIS lookups
   alias whois="whois -h whois-servers.net"
 
-  # Open Java eclim project in Vim
+  # Run with in server mode to allow eclim debugger, open eclim project and start session recording
   function vjava () {
-    vim --servername "$1" +"ProjectOpen $1"
-  }
-
-  # Detect current OS
-  function whereami() {
-    local OS="$OSTYPE"
-    case "$OS" in
-      solaris*) OS="Solaris" ;;
-      darwin*)  OS="macOS" ;;
-      linux*)   OS="Linux" ;;
-      bsd*)     OS="BSD" ;;
-      msys*)    OS="Windows" ;;
-    esac
-    echo "$OS"
+    vim --servername "$1" +"ProjectOpen $1" +Obsession
   }
 
   # Serve current directory as HTTP server, optionally specifying the port (default is 8000)
@@ -206,7 +184,7 @@
   # Base 16
   BASE16_SHELL=$DOTHOME/lib/bash/base16-shell/
   [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
-  base16_tomorrow-night
+  [ -z $BASE16_THEME ] && base16_tomorrow-night
 
 # }}}
 
@@ -238,8 +216,11 @@
   fi
 
   # Load rest of libraries
-  command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
+  # command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
+
+  # Better history saving
+  [[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # }}}
 
