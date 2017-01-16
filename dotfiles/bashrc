@@ -115,12 +115,9 @@
   fi
 
   # Copy-paste (requires xclip on *NIX systems)
-  if command -v pbcopy >/dev/null 2>&1; then
-    alias copy='pbcopy'
-    alias paste='pbpaste'
-  else
-    alias copy='xclip -i -selection clipboard'
-    alias paste='xclip -o -selection clipboard'
+  if command -v xclip >/dev/null 2>&1; then
+    alias pbcopy='xclip -i -selection clipboard'
+    alias pbpaste='xclip -o -selection clipboard'
   fi
 
   # Enhanced WHOIS lookups
@@ -128,7 +125,7 @@
 
   # Run with in server mode to allow eclim debugger, open eclim project and start session recording
   function vjava () {
-    vim --servername "$1" +"ProjectOpen $1" +Obsession
+    vim --servername "$1" +SessionTracker +"ProjectOpen $1"
   }
 
   # Serve current directory as HTTP server, optionally specifying the port (default is 8000)

@@ -40,5 +40,6 @@ Session.vim
 .netrwhist
 *~
 
-# Yang
+# Misc
 .yangcp/
+nohup.out
