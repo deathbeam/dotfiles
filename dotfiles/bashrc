@@ -125,7 +125,7 @@
 
   # Run with in server mode to allow eclim debugger, open eclim project and start session recording
   function vjava () {
-    vim --servername "$1" +SessionTracker +"ProjectOpen $1"
+    $EDITOR --servername "$1" +Session +"ProjectOpen $1"
   }
 
   # Serve current directory as HTTP server, optionally specifying the port (default is 8000)

@@ -29,6 +29,9 @@
   set ttimeout
   set ttimeoutlen=100 " wait up to 100ms after Esc for special key
 
+  " We are fast
+  set ttyfast
+
   " Turn backup off, since most stuff is in SVN, git et.c anyway...
   set nobackup
   set nowb
@@ -181,6 +184,10 @@
   " Use Unix as the standard file type
   set ffs=unix,dos,mac
 
+  " Performance improvement
+  syntax sync minlines=256
+  set synmaxcol=200
+
   " Highlight 121th character in line
   autocmd BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
   autocmd BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
@@ -218,10 +225,6 @@
   set ai "Auto indent
   set si "Smart indent
   set wrap "Wrap lines
-
-  " When you type xdate in insert mode, change it to current time and date
-  " example: 04/11/16 07:50:31
-  iab xdate <c-r>=strftime("%d/%m/%y %H:%M:%S")<cr>
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -270,16 +273,6 @@
 
 " Mappings {{{
 
-  " Get off my lawn
-  nnoremap <Left> :echoe "Use h"<CR>
-  nnoremap <Right> :echoe "Use l"<CR>
-  nnoremap <Up> :echoe "Use k"<CR>
-  nnoremap <Down> :echoe "Use j"<CR>
-  vnoremap <Left> <Esc>:echoe "Use h"<CR>
-  vnoremap <Right> <Esc>:echoe "Use l"<CR>
-  vnoremap <Up> <Esc>:echoe "Use k"<CR>
-  vnoremap <Down> <Esc>:echoe "Use j"<CR>
-
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
@@ -296,18 +289,14 @@
   " Toggle paste mode on and off
   map <leader>pp :setlocal paste!<cr>
 
-  " Remove the Windows ^M - when the encodings gets messed up
-  noremap <leader>m mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
-
   " Clear last search highlight
   map <leader><cr> :noh<cr>
 
+  " Reset syntax
+  map <leader><leader> :syntax off<cr> :syntax on<cr>
+
   " Select the stuff I just pasted
   nnoremap gV `[V`]
-
-  " Change indent continuously
-  vmap < <gv
-  vmap > >gv
 
   " Emacs like keybindings for the command line (:) are better
   " and we cannot use Vi style-binding here anyway, because ESC
@@ -353,14 +342,14 @@
   command! -bar Info :call Info()
 
   " If session file exists, source it, and then start session recording
-  function! SessionTracker()
+  function! Session()
     if filereadable('Session.vim')
       source Session.vim
     endif
 
     :Obsession
   endfunction
-  command! -bar SessionTracker :call SessionTracker()
+  command! -bar Session :call Session()
 
 " }}}
 
@@ -463,23 +452,35 @@
     " Search everywhere (fzf.vim Ag)
     nmap <leader>/ :Ag<cr>
 
+    " Help tags (fzf.vim Helptags)
+    nmap <leader>? :Helptags<cr>
+
     " Tags (fzf.vim Tags)
     nmap <leader>t :Tags<cr>
 
     " Buffer tags (fzf.vim BTags)
     nmap <leader>o :BTags<cr>
 
-    " Files (fzf.vim Files)
+    " Files (fzf.vim Files or GFiles)
     nmap <leader>f :call VFiles()<cr>
 
     " Actions (fzf.vim Commands)
     nmap <leader>a :Commands<cr>
+
+    " Snippets (fzf.vim Snippets)
+    nmap <leader>s :Snippets<cr>
+
+    " Commits (fzf.vim Commits)
+    nmap <leader>c :Commits<cr>
 
     " History (fzf.vim History)
     nmap <leader>h :History<cr>
 
     " Buffers (fzf.vim Buffers)
     nmap <leader>b :Buffers<cr>
+
+    " Windows (fzf.vim Windows)
+    nmap <leader>w :Windows<cr>
   " }}}
 
 " }}}
