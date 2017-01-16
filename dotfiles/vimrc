@@ -385,9 +385,6 @@
 
   " syntastic
   let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
 
   " EditorConfig
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -412,12 +409,15 @@
   let g:airline#extensions#tabline#show_close_button=0
 
   " Eclim
-  let g:EclimMakeLCD=1
   let g:EclimCompletionMethod='omnifunc'
+  nnoremap <silent> <leader>jc :JavaCorrect<CR>
   nnoremap <silent> <leader>js :JavaSearch<CR>
   nnoremap <silent> <leader>ji :JavaImport<CR>
-  nnoremap <silent> <leader>jc :JavaCorrect<CR>
+  nnoremap <silent> <leader>jI :JavaImportOrganize<CR>
+  nnoremap <silent> <leader>jd :JavaDocComment<CR>
+  nnoremap <silent> <leader>jD :JavaDocPreview<CR>
   nnoremap <silent> <leader>jt :JUnit %<CR>
+  nnoremap <silent> <leader>jT :JUnitFindTest<CR>
 
   " Supertab
   let g:SuperTabDefaultCompletionType='context'
