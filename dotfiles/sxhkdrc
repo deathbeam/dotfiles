@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + space
-  st -c fzf-menu -g 80x15 -e bash -li -c 'nohup $(compgen -c | fzf --print-query --prompt "Run> ")'
+  st -c fzf-menu -g 80x15 -e bash -li -c 'nohup $(compgen -c | fzf --prompt "Run> " --bind=ctrl-t:print-query)'
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -89,12 +89,18 @@ super + {_,shift + }{1-9,0}
   bspc {desktop -f,node -d} '^{1-9,10}'
 
 #
-# preselect
+# preselect/move/resize
 #
 
-# preselect the direction
+# preselect the direction or move a floating window
 super + ctrl + {h,j,k,l}
-  bspc node -p {west,south,north,east}
+  direction={west,south,north,east}; \
+  bspc node -p $direction || case $direction in \
+    west)  bspc node -v -20 0;; \
+    south) bspc node -v 0 20;; \
+    north) bspc node -v 0 -20;; \
+    east)  bspc node -v 20 0;; \
+  esac
 
 # preselect the ratio
 super + ctrl + {1-9}
@@ -108,10 +114,6 @@ super + ctrl + space
 super + ctrl + shift + space
   bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
 
-#
-# move/resize
-#
-
 # expand a window by moving one of its side outward
 super + alt + {h,j,k,l}
   bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
@@ -119,7 +121,3 @@ super + alt + {h,j,k,l}
 # contract a window by moving one of its side inward
 super + alt + shift + {h,j,k,l}
   bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
-
-# move a floating window
-super + {Left,Down,Up,Right}
-  bspc node -v {-20 0,0 20,0 -20,20 0}
