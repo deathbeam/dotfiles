@@ -154,6 +154,9 @@
   " Always use vertical diffs
   set diffopt+=vertical
 
+  " Show tabs and trailing spaces
+  set list listchars=tab:→\ ,trail:·
+
   " Automatically rebalance windows on vim resize
   autocmd VimResized * :wincmd =
 
