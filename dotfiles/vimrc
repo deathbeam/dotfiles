@@ -45,14 +45,14 @@
   catch
   endtry
 
-  " Fix Man command when using normally from Vim
-  let $PAGER=''
-
   " The Silver Searcher
   if executable('ag')
     " Use ag over grep
     set grepprg=ag\ --nogroup\ --nocolor
   endif
+
+  " Disable matchparen plugin (super slow sometimes)
+  let loaded_matchparen = 1
 
 " }}}
 

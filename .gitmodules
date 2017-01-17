@@ -19,9 +19,6 @@
 [submodule "lib/vim/vim-airline-themes"]
 	path = lib/vim/vim-airline-themes
 	url = git://github.com/vim-airline/vim-airline-themes.git
-[submodule "lib/vim/undotree"]
-	path = lib/vim/undotree
-	url = git://github.com/mbbill/undotree.git
 [submodule "lib/vim/vim-fugitive"]
 	path = lib/vim/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -40,12 +37,6 @@
 [submodule "lib/vim/syntastic"]
 	path = lib/vim/syntastic
 	url = https://github.com/scrooloose/syntastic
-[submodule "lib/vim/gist-vim"]
-	path = lib/vim/gist-vim
-	url = https://github.com/mattn/gist-vim
-[submodule "lib/vim/webapi-vim"]
-	path = lib/vim/webapi-vim
-	url = https://github.com/mattn/webapi-vim
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter

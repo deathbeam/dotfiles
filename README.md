@@ -105,16 +105,17 @@ To see all helper commands, run `dottool --help`.
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
- * [gist-vim](https://github.com/mattn/gist-vim): vimscript for creating gists
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
+ * [supertab](https://github.com/ervandew/supertab): Perform all your vim insert mode completions with Tab
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
- * [undotree](https://github.com/mbbill/undotree): The ultimate undo history visualizer for VIM
  * [vim-airline](https://github.com/vim-airline/vim-airline): Lean & mean status/tabline for vim that's light as air
  * [vim-airline-themes](https://github.com/vim-airline/vim-airline-themes): A collection of themes for vim-airline
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gitgutter](https://github.com/airblade/vim-gitgutter): A Vim plugin which shows a git diff in the gutter (sign column) and stages/undoes hunks
+ * [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags): A Vim plugin that manages your tag files
+ * [vim-obsession](https://github.com/tpope/vim-obsession): continuously updated session files
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
@@ -122,7 +123,6 @@ To see all helper commands, run `dottool --help`.
  * [vim-unimpaired](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
- * [webapi-vim](https://github.com/mattn/webapi-vim): vim interface to Web API
 
 ### Tmux
  * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux settings everyone can agree on

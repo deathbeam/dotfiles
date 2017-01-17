@@ -14,13 +14,6 @@ export _JAVA_AWT_WM_NONREPARENTING=1
 # Remove -X and -F (exit if the content fits on one screen) to enable it.
 export LESS='-F -g -i -M -R -S -w -X -z-4'
 
-# Use Vim as man pager
-export PAGER="/bin/sh -c \"unset PAGER;col -b -x | \
-    vim -R -c 'set ft=man nomod nolist' -c 'map q :q<CR>' \
-    -c 'map <SPACE> <C-D>' -c 'map b <C-U>' \
-    -c 'nmap K :Man <C-R>=expand(\\\"<cword>\\\")<CR><CR>' -\""
-
-
 # Manually set your language environment
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
