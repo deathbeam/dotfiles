@@ -205,6 +205,9 @@
   " Include spelling completion when spelling enabled
   set complete+=kspell
 
+  " Use old regexpengine (maybe better performance)
+  set regexpengine=1
+
   " Includes completion is super slow, disable it
   set complete-=i
 
@@ -427,7 +430,6 @@
   let g:SuperTabContextDefaultCompletionType='<c-n>'
   let g:SuperTabLongestEnhanced=1
   let g:SuperTabLongestHighlight=1
-  let g:SuperTabClosePreviewOnPopupClose=1
   let g:SuperTabCrMapping=1
 
   " FZF
