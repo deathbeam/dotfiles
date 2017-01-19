@@ -88,3 +88,6 @@
 [submodule "lib/vim/vim-gutentags"]
 	path = lib/vim/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "lib/tmux/tmux-open"]
+	path = lib/tmux/tmux-open
+	url = https://github.com/tmux-plugins/tmux-open

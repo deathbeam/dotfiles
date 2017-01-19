@@ -153,11 +153,12 @@ To see all helper commands, run `dottool --help`.
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
 
 ### Tmux
+ * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
+ * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
+ * [tmux-open](https://github.com/tmux-plugins/tmux-open): Tmux key bindings for quick opening of a highlighted file or url
+ * [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect): Persists tmux environment across system restarts
  * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux settings everyone can agree on
  * [tmux-yank](https://github.com/tmux-plugins/tmux-yank): Plugin for copying to system clipboard
- * [tmux-copycat](https://github.com/tmux-plugins/tmux-copycat): Enhances tmux search
- * [tmux-resurrect](https://github.com/tmux-plugins/tmux-resurrect): Persists tmux environment across system restarts
- * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
  * [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator): Seamless navigation between tmux panes and vim splits
 
 ## Thanks to..
