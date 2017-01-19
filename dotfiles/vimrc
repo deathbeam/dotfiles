@@ -45,10 +45,13 @@
   catch
   endtry
 
-  " The Silver Searcher
-  if executable('ag')
-    " Use ag over grep
-    set grepprg=ag\ --nogroup\ --nocolor
+  " Use faster grep alternatives if possible
+  if executable("rg")
+    set grepprg=rg\ --vimgrep\ --no-heading
+    set grepformat^=%f:%l:%c:%m
+  elseif executable('ag')
+    set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+    set grepformat^=%f:%l:%c:%m
   endif
 
   " Disable matchparen plugin (super slow sometimes)
