@@ -36,6 +36,7 @@
   export HISTCONTROL=ignoreboth:erasedups
   export HISTIGNORE='ls:bg:fg:history'
   export HISTTIMEFORMAT='%F %T '
+  [[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # }}}
 
@@ -56,9 +57,6 @@
   if [ -z "$SSH_CLIENT" ] && [ -z "$SSH_TTY" ]; then
     export PS1='$(_PS1 "$PWD" 20)$(__git_ps1) \[\e[31;1m\]❯\[\e[0m\]\[\e[33;1m\]❯\[\e[0m\]\[\e[32;1m\]❯\[\e[0m\] '
   fi
-
-  # Set tab title to show only current directory and not full path
-  export PROMPT_COMMAND='echo -ne "\033];${PWD##*/}\007";'
 
   # Load bash_completion (it is important to load it before fzf)
   if command -v brew >/dev/null 2>&1; then
@@ -205,7 +203,7 @@
 
   # Use faster grep command if possible
   if command -v rg >/dev/null 2>&1; then
-    export FZF_DEFAULT_COMMAND='rg --files --follow'
+    export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
   elif command -v ag >/dev/null 2>&1; then
     export FZF_DEFAULT_COMMAND='ag -g ""'
   fi
@@ -213,9 +211,6 @@
   # Load rest of libraries
   # command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
-
-  # Better history saving
-  [[ "$PROMPT_COMMAND" != "*history*" ]] && export PROMPT_COMMAND="history -a;$PROMPT_COMMAND"
 
 # }}}
 

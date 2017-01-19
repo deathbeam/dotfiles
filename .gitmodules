@@ -13,12 +13,6 @@
 [submodule "lib/vim-pathogen"]
 	path = lib/vim/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
-[submodule "lib/vim/vim-airline"]
-	path = lib/vim/vim-airline
-	url = git://github.com/vim-airline/vim-airline.git
-[submodule "lib/vim/vim-airline-themes"]
-	path = lib/vim/vim-airline-themes
-	url = git://github.com/vim-airline/vim-airline-themes.git
 [submodule "lib/vim/vim-fugitive"]
 	path = lib/vim/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
@@ -85,9 +79,6 @@
 [submodule "lib/vim/vim-unimpaired"]
 	path = lib/vim/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
-[submodule "lib/vim/vim-gitgutter"]
-	path = lib/vim/vim-gitgutter
-	url = https://github.com/airblade/vim-gitgutter
 [submodule "lib/tmux/vim-tmux-navigator"]
 	path = lib/tmux/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator

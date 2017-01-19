@@ -10,9 +10,6 @@
   " Reset all auto commands
   autocmd!
 
-  " Disable Vi compatibility mode
-  set nocompatible
-
   " With a map leader it's possible to do extra key combinations
   let mapleader = ' '
   let maplocalleader = ' '
@@ -46,7 +43,7 @@
   endtry
 
   " Use faster grep alternatives if possible
-  if executable("rg")
+  if executable('rg')
     set grepprg=rg\ --vimgrep\ --no-heading
     set grepformat^=%f:%l:%c:%m
   elseif executable('ag')
@@ -95,9 +92,6 @@
     let &t_SI = "\e[5 q"
     let &t_EI = "\e[2 q"
   endif
-
-  " Current file to terminal tab
-  set title
 
   " Less annoying error messages
   set shortmess=at
@@ -192,12 +186,26 @@
 
   " Performance improvement
   syntax sync minlines=256
-  set synmaxcol=200
+  set synmaxcol=256
 
   " Highlight 121th character in line
   autocmd BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
   autocmd BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
 
+
+" }}}
+
+" Statusline {{{
+  set statusline=
+  set statusline +=%1*\ %n\ %*            "buffer number
+  set statusline +=%5*%{&ff}%*            "file format
+  set statusline +=%3*%y%*                "file type
+  set statusline +=%4*\ %<%F%*            "full path
+  set statusline +=%2*%m%*                "modified flag
+  set statusline +=%1*%=%5l%*             "current line
+  set statusline +=%2*/%L%*               "total lines
+  set statusline +=%1*%4v\ %*             "virtual column number
+  set statusline +=%2*0x%04B\ %*          "character under cursor
 " }}}
 
 " Text, tab and indent related {{{
@@ -317,6 +325,14 @@
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
+  function! StripTrailingWhitespaces()
+    let l = line('.')
+    let c = col('.')
+    %s/\s\+$//e
+    call cursor(l, c)
+  endfun
+  command! -bar Respace :call StripTrailingWhitespaces()
+
   " Create the `tags` file (may need to install ctags first)
   command! MakeTags !ctags -R .
 
@@ -336,13 +352,11 @@
   function! Info()
     if &number
       windo set norelativenumber nonumber foldcolumn=0
-      exe 'GitGutterSignsDisable'
       if exists('+cursorcolumn')
         set nocursorcolumn nocursorline
       endif
     else
       windo set relativenumber number foldcolumn=1
-      exe 'GitGutterSignsEnable'
       if exists('+cursorcolumn')
         set cursorline
       endif
@@ -366,7 +380,7 @@
 
   " Modify runtime path
   source $DOTHOME/lib/vim/vim-pathogen/autoload/pathogen.vim
-  let g:pathogen_blacklist=['vim-pathogen']
+  let g:pathogen_blacklist=['vim-pathogen', 'vim-airline', 'vim-airline-themes', 'vim-gitgutter']
   call pathogen#infect('$DOTHOME/lib/bash/{}')
   call pathogen#infect('$DOTHOME/lib/tmux/{}')
   call pathogen#infect('$DOTHOME/lib/vim/{}')
@@ -384,6 +398,12 @@
     catch
     endtry
   endif
+
+  " Fix some things
+  hi clear LineNr
+  hi clear SignColumn
+  hi clear FoldColumn
+  hi Search cterm=NONE ctermfg=18 ctermbg=3
 
   " gitgutter
   let g:gitgutter_signs = 0
