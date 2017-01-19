@@ -56,4 +56,3 @@
     $HOME/.ncmpcpp/config: dotfiles/ncmpcpp
     $HOME/.config/polybar/config: dotfiles/polybar
     $HOME/.config/qutebrowser/qutebrowser.conf: dotfiles/qutebrowser.conf
-    $HOME/.Xresources: dotfiles/Xresources
