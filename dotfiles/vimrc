@@ -21,6 +21,8 @@
   " Enable filetype plugins
   filetype plugin on
   filetype indent on
+  runtime macros/matchit.vim
+  let loaded_matchparen = 1 " disable matchparen, can be really slow
 
   " time out for key codes
   set ttimeout
@@ -50,9 +52,6 @@
     set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
     set grepformat^=%f:%l:%c:%m
   endif
-
-  " Disable matchparen plugin (super slow sometimes)
-  let loaded_matchparen = 1
 
 " }}}
 
@@ -126,9 +125,6 @@
   " Show matching brackets when text indicator is over them
   set showmatch
 
-  " How many tenths of a second to blink when matching brackets
-  set mat=2
-
   " No annoying sound on errors
   set noerrorbells
   set novisualbell
@@ -142,8 +138,17 @@
   " Always show the status line
   set laststatus=2
 
-  " Format the status line
-  set statusline=\ %F%m%r%h\ %w\ \ CWD:\ %r%{getcwd()}%h\ \ \ Line:\ %l\ \ Column:\ %c
+  " Status line format
+  set statusline=
+  set statusline +=%1*\ %n\ %*            "buffer number
+  set statusline +=%5*%{&ff}%*            "file format
+  set statusline +=%3*%y%*                "file type
+  set statusline +=%4*\ %<%F%*            "full path
+  set statusline +=%2*%m%*                "modified flag
+  set statusline +=%1*%=%5l%*             "current line
+  set statusline +=%2*/%L%*               "total lines
+  set statusline +=%1*%4v\ %*             "virtual column number
+  set statusline +=%2*0x%04B\ %*          "character under cursor
 
   " We are using bash
   let g:is_bash=1
@@ -184,7 +189,7 @@
   " Use Unix as the standard file type
   set ffs=unix,dos,mac
 
-  " Performance improvement
+  " Limit horizontal and vertical syntax rendering
   syntax sync minlines=256
   set synmaxcol=256
 
@@ -192,23 +197,10 @@
   autocmd BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
   autocmd BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
 
-
-" }}}
-
-" Statusline {{{
-  set statusline=
-  set statusline +=%1*\ %n\ %*            "buffer number
-  set statusline +=%5*%{&ff}%*            "file format
-  set statusline +=%3*%y%*                "file type
-  set statusline +=%4*\ %<%F%*            "full path
-  set statusline +=%2*%m%*                "modified flag
-  set statusline +=%1*%=%5l%*             "current line
-  set statusline +=%2*/%L%*               "total lines
-  set statusline +=%1*%4v\ %*             "virtual column number
-  set statusline +=%2*0x%04B\ %*          "character under cursor
 " }}}
 
 " Text, tab and indent related {{{
+
   " Search down into subfolders
   " Provides tab-completion for all file-related tasks
   set path+=**
@@ -232,16 +224,15 @@
   set smarttab
 
   " 1 tab == 2 spaces
-  set shiftwidth=4
-  set tabstop=4
+  set shiftwidth=2
+  set tabstop=2
 
-  " Linebreak on 500 characters
-  set lbr
-  set tw=500
+  " Text width is 120 characters
+  set textwidth=120
 
-  set ai "Auto indent
-  set si "Smart indent
-  set wrap "Wrap lines
+  " Better automatic indentation
+  set autoindent
+  set smartindent
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
@@ -293,19 +284,6 @@
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-  " Don't use Ex mode, use Q for formatting.
-  " Revert with ":unmap Q".
-  map Q gq
-
-  " Make capital yank work like other capital letters
-  nnoremap Y y$
-
-  " Pressing ,ss will toggle and untoggle spell checking
-  map <leader>ss :setlocal spell!<cr>
-
-  " Toggle paste mode on and off
-  map <leader>pp :setlocal paste!<cr>
-
   " Clear last search highlight
   map <leader><cr> :noh<cr>
 
@@ -341,12 +319,12 @@
   command! W w !sudo tee % > /dev/null
 
   " Sane pasting
-  command! Paste call SmartPaste()
   function! SmartPaste()
     setl paste
     normal "+p
     setl nopaste
   endfunction
+  command! Paste call SmartPaste()
 
   " Show numbers, folds and git diff signs on left
   function! Info()

@@ -46,9 +46,6 @@
 [submodule "lib/tmux/tmux-sensible"]
 	path = lib/tmux/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
-[submodule "lib/tmux/tmux-prefix-highlight"]
-	path = lib/tmux/tmux-prefix-highlight
-	url = https://github.com/tmux-plugins/tmux-prefix-highlight
 [submodule "lib/tmux/tmux-resurrect"]
 	path = lib/tmux/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
