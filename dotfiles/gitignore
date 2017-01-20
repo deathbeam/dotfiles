@@ -24,6 +24,8 @@ tags
 .tags
 .tags1
 gtags.files
+tags.lock
+tags.temp
 GTAGS
 GRTAGS
 GPATH
@@ -41,5 +43,6 @@ Session.vim
 *~
 
 # Misc
+.editorconfig
 .yangcp/
 nohup.out
