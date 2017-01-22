@@ -14,19 +14,19 @@
 
 # Aliases & functions {{{
 
-  # Update and cleanup brew
+  # Some aliases and enhancements for homebrew
   if command -v brew >/dev/null 2>&1; then
     export PYTHONPATH=$(brew --prefix)/lib/python2.7/site-packages:$PYTHONPATH
     alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
   fi
 
-  # Copy-paste (requires xclip on *NIX systems)
+  # Alias xclip copy/paste to same as on macOS for consistency
   if command -v xclip >/dev/null 2>&1; then
     alias pbcopy='xclip -i -selection clipboard'
     alias pbpaste='xclip -o -selection clipboard'
   fi
 
-  # Run with in server mode to allow eclim debugger, open eclim project and start session recording
+  # Open Java project in Vim with Eclim
   function vjava () {
     $EDITOR --servername "$1" +Session +"ProjectOpen $1"
   }
@@ -41,34 +41,30 @@
 # Plugins {{{
 
   # Source zim
-  if [[ -s ${ZDOTDIR:-${HOME}}/.zim/init.zsh ]]; then
-    source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
-  fi
+  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
   # Load vi mode plugin
   source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
 
   # Base 16
-  BASE16_SHELL=$DOTHOME/lib/shell/base16-shell/
-  [ -s $BASE16_SHELL/profile_helper.sh ] && eval "$($BASE16_SHELL/profile_helper.sh)"
+  eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
   [ -z $BASE16_THEME ] && base16_tomorrow-night
 
-  # Add viminfo fasd command
-  alias v='f -e vim -b viminfo'
+  # Load the fuck alias
+  command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
+
+  # Load hub alias
+  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
   # Load fzf
   source ~/.fzf.zsh
 
-  # Use faster grep command if possible
+  # Use faster FZF grep command if possible
   if command -v rg >/dev/null 2>&1; then
     export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
   elif command -v ag >/dev/null 2>&1; then
     export FZF_DEFAULT_COMMAND='ag -g ""'
   fi
-
-  # Load rest of libraries
-  # command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
-  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
 # }}}
 
