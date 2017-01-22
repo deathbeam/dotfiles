@@ -4,10 +4,7 @@
 [submodule "lib/bash/bash-it"]
 	path = lib/bash/bash-it
 	url = https://github.com/Bash-it/bash-it
-[submodule "lib/bash/fasd"]
-	path = lib/shell/fasd
-	url = https://github.com/clvv/fasd
-[submodule "lib/bash/fzf"]
+[submodule "lib/shell/fzf"]
 	path = lib/shell/fzf
 	url = https://github.com/junegunn/fzf.git
 [submodule "lib/vim-pathogen"]
@@ -37,7 +34,7 @@
 [submodule "lib/vim/base16-vim"]
 	path = lib/vim/base16-vim
 	url = https://github.com/chriskempson/base16-vim
-[submodule "lib/bash/base16-shell"]
+[submodule "lib/shell/base16-shell"]
 	path = lib/shell/base16-shell
 	url = https://github.com/chriskempson/base16-shell
 [submodule "lib/tmux/tmux-yank"]
@@ -93,4 +90,4 @@
 	url = https://github.com/tmux-plugins/tmux-open
 [submodule "lib/shell/zim"]
 	path = lib/shell/zim
-	url = https://github.com/Eriner/zim
+	url = https://github.com/deathbeam/zim

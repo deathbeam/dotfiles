@@ -21,9 +21,6 @@
         - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/dotconfig; touch usr/gitconfig'
         - Setting up home directory
     -
-        - curl https://raw.githubusercontent.com/git/git/master/contrib/completion/git-prompt.sh -o ~/.git-prompt.sh
-        - Downloading git prompt
-    -
         - lib/shell/fzf/install --all --no-update-rc
         - Installing fuzzy finder for shell
     -
@@ -33,8 +30,6 @@
 - link:
     $HOME/.dotconfig: usr/dotconfig
     $HOME/.profile: dotfiles/profile
-    $HOME/.bash_profile: dotfiles/bash_profile
-    $HOME/.bashrc: dotfiles/bashrc
     $HOME/.vimrc: dotfiles/vimrc
     $HOME/.tmux.conf: dotfiles/tmux.conf
     $HOME/.ideavimrc: dotfiles/ideavimrc

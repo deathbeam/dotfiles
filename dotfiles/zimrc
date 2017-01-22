@@ -1,9 +1,9 @@
 # Select what modules you would like enabled.
-zmodules=(directory environment git git-info history input utility meta custom \
+zmodules=(directory environment fasd git git-info history input utility meta \
           syntax-highlighting history-substring-search prompt completion)
 
 # Set your desired prompt here
-zprompt_theme='gitster'
+zprompt_theme='pure'
 
 # Set the string below to the desired terminal title format string.
 # Below uses the following format: 'username@host:/current/directory'

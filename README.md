@@ -17,10 +17,8 @@ because most of the time I just cannot make up my mind, and I change my decision
 
 ## Optional requirements
 
-* bash - I am using bash, and my terminal configuration is working mostly for bash only. If you are using zsh, or fish
-  or whatever, it's okay, I tried them all and eventually I came back to bash, mainly because some completion stuff I am
-  using is a bit broken in other shells than bash. Otherwise, zsh is really great and if all this completion stuff was
-  properly working there, I would be using zsh.
+* zsh - Zsh is awesome. I was using bash, but then switched to zsh, and it is pretty much compatible with all bash stuff
+  and it is also faster and nicer.
 * [tmux](https://tmux.github.io/) - Terminal multiplexer. Awesome stuff, but I find myself to use it less and less,
   because I started using tiling window manager's features more. But still, tmux is really awesome, and have some great
   features what screen do not have. I have some really nice Tmux stuff in my repository, so feel free to try it, maybe
@@ -130,7 +128,7 @@ To see all helper commands, run `dottool --help`.
 ## Included stuff
 
 ### Shell
- * [fasd](https://github.com/clvv/fasd): Command-line productivity booster, offers quick access to files and directories, inspired by autojump, z and v.
+ * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
 
