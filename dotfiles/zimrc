@@ -1,5 +1,5 @@
 # Select what modules you would like enabled.
-zmodules=(directory environment fasd git git-info history input utility meta \
+zmodules=(archive directory environment fasd git git-info history input utility \
           syntax-highlighting history-substring-search prompt completion)
 
 # Set your desired prompt here

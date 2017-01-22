@@ -76,15 +76,7 @@ https://raw.githubusercontent.com/deathbeam/dotfiles/master/lib/firefox/firefox.
 
 ## How to update?
 
-You can use
-
-```
-dottool --update
-```
-
-what was made exactly for this. It will fetch latest changes from remote, then runs rebase and at end run installation
-script to update links and installed stuff. Or, if you want, you can use Git like this:
-
+You can just use Git:
 
 ```shell
 git -C $DOTHOME pull --rebase
@@ -92,38 +84,22 @@ git -C $DOTHOME pull --rebase
 
 ## How to inlude your own stuff?
 
-After you have installed dotfiles, you can start including your own stuff by using the `dottool --open` command:
+After you have installed dotfiles, you can start including your own stuff by creating appropriate dotfiles in usr
+directory:
 
 ```shell
-dottool --open bashrc
-dottool --open vimrc
-dottool --open tmux.conf
-dottool --open gitconfig
-```
-
-or manually without helper:
-
-```shell
-vim $DOTHOME/usr/bashrc
+vim $DOTHOME/usr/zshrc
 vim $DOTHOME/usr/vimrc
 vim $DOTHOME/usr/tmux.conf
 vim $DOTHOME/usr/gitconfig
 ```
 
-To add your own Vim plugin you can use `dottool --vim-plugin` command. For example to add
+To add your own Vim plugin you can use clone it to proper directory. For example to add
 [SuperTab](https://github.com/ervandew/supertab), all you need to do is run this command:
-
-```shell
-dottool --vim-plugin https://github.com/ervandew/supertab.git
-```
-
-or you can do the same just with Git:
 
 ```shell
 git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
 ```
-
-To see all helper commands, run `dottool --help`.
 
 ## Included stuff
 

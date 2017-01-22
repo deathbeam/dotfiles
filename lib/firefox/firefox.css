@@ -18,15 +18,15 @@
     --fg-light: #e8e8e8; --fg-dark: #e8e8e8;
     --tab-triangle-correction: -1px;
     --tab-height: 22px; --tab-icon-size: 10px; --tab-strip-margin: 0px -15px 0 -11px; --tab-overlap: -5px;
-    --tab-fonts: "Hack","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
+    --tab-fonts: "Terminus","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
     --tab-text-align: left; /* left | center | right */
     --tab-triangle: block;  /* block | none */
 
     /* URL VARIABLES */
     --url-background: var(--bg-light); --url-color: var(--fg-dark);
     --url-height: 22px; --url-right-margin: 6px;
-    --url-fonts: "Hack","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
-    --url-text-align: center; /* left | center | right */
+    --url-fonts: "Terminus","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
+    --url-text-align: left; /* left | center | right */
     --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */
 }
 
@@ -53,6 +53,7 @@
         position: var(--url-position) !important; bottom: 0 !important;
         width: 100% !important; height: var(--url-height) !important;
         margin: 0 !important; background: transparent !important;
+        border: none !important;
     }
 
     #nav-bar-customization-target, #urlbar-container, #urlbar {
@@ -65,27 +66,25 @@
         position: absolute !important; top: -1px !important; left: 0 !important; height: calc(100% - 1px) !important; /* (bottom margin - height switch +/- to fix line) */
     }
 
-    #urlbar {
-        border: none !important; padding: 0 2px 0 8px !important;
+    #urlbar, .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        border: none !important;
+        padding: 0px !important;;
         background: var(--url-background) !important; color: var(--url-color) !important;
         font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;
         text-align: var(--url-text-align) !important;
         height: 100% !important;
     }
 
-    #urlbar * { -moz-appearance: none !important; }
+    #urlbar {
+        padding: 0 5px !important;
+    }
+
+    #urlbar * { -moz-appearance: none !important; border: none !important; }
 
     .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        margin-top: -2px !important;;
         height: var(--url-height) !important;
     }
-
-    /* --- Comment out the section below to make the url-bar visible --- */
-    #nav-bar {
-        width: 0 !important; height: 0 !important;
-        position: fixed !important; left: -1px !important; top: -1px !important;
-        overflow: hidden !important; visibility: hidden !important;
-    }
-    /**/
 
     /* TABS */
     .tabbrowser-tab[fadein]:not([pinned]) { min-width: 100px !important; max-width: /*180px*/ 100% !important; }
@@ -96,7 +95,10 @@
         font-size: var(--tab-font-size); text-shadow: none !important; text-align: var(--tab-text-align) !important;
     }
 
-    .tabbrowser-tab label { padding: 0 10px 0 10px !important; }
+    .tabbrowser-tab label {
+        padding: 0 10px 0 10px !important;
+        text-align: var(--tab-text-align) !important;
+    }
 
     #tabbrowser-tabs .tabbrowser-tab[pinned]            { width: 48px !important; }
     #tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }
@@ -199,6 +201,11 @@
 @-moz-document regexp("(https?://|file:///)(.*)\\.(jpeg|jpg|gif|png|apng|svg|bmp|webm|webp)") {
     body { background: var(--bg-light) !important; }
     img.decoded { background-color: transparent !important; }
+}
+
+/* About:Blank background */
+@-moz-document url(about:home) {
+    html,body { background: var(--bg-light) !important; }
 }
 
 /* About:Blank background */

@@ -90,4 +90,4 @@
 	url = https://github.com/tmux-plugins/tmux-open
 [submodule "lib/shell/zim"]
 	path = lib/shell/zim
-	url = https://github.com/deathbeam/zim
+	url = https://github.com/Eriner/zim/
