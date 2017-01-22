@@ -1,4 +1,4 @@
-" vim:set ft=vim:foldmethod=marker:
+" vim:foldmethod=marker:set ft=vim:
 " ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
 " ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
 " ██║   ██║██║██╔████╔██║██████╔╝██║
@@ -140,21 +140,24 @@
 
   " Status line format
   set statusline=
-  set statusline +=%1*\ %n\ %*            "buffer number
-  set statusline +=%5*%{&ff}%*            "file format
-  set statusline +=%3*%y%*                "file type
-  set statusline +=%4*\ %<%F%*            "full path
-  set statusline +=%2*%m%*                "modified flag
-  set statusline +=%1*%=%5l%*             "current line
-  set statusline +=%2*/%L%*               "total lines
-  set statusline +=%1*%4v\ %*             "virtual column number
-  set statusline +=%2*0x%04B\ %*          "character under cursor
+  set statusline +=\ %n\             "buffer number
+  set statusline +=%{&ff}            "file format
+  set statusline +=%y                "file type
+  set statusline +=\ %<%F            "full path
+  set statusline +=%m                "modified flag
+  set statusline +=%=%5l             "current line
+  set statusline +=/%L               "total lines
+  set statusline +=%4v\              "virtual column number
+  set statusline +=0x%04B\           "character under cursor
 
   " We are using bash
   let g:is_bash=1
 
   " Always use vertical diffs
   set diffopt+=vertical
+
+  " Cursor line (it is slowing Vim a bit, but too useful)
+  set cursorline
 
   " Show tabs and trailing spaces
   set list listchars=tab:→\ ,trail:·
@@ -329,14 +332,14 @@
   " Show numbers, folds and git diff signs on left
   function! Info()
     if &number
-      windo set norelativenumber nonumber foldcolumn=0
+      set nonumber foldcolumn=0
       if exists('+cursorcolumn')
-        set nocursorcolumn nocursorline
+        set nocursorcolumn
       endif
     else
-      windo set relativenumber number foldcolumn=1
+      set number foldcolumn=1
       if exists('+cursorcolumn')
-        set cursorline
+        set cursorcolumn
       endif
     endif
   endfunction
@@ -381,7 +384,14 @@
   hi clear LineNr
   hi clear SignColumn
   hi clear FoldColumn
-  hi Search cterm=NONE ctermfg=18 ctermbg=3
+  hi Search cterm=NONE ctermfg=0 ctermbg=3
+  hi StatusLine ctermbg=NONE ctermfg=4
+  hi StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
+  hi VertSplit ctermbg=NONE ctermfg=19
+  hi Title ctermfg=19
+  hi TabLineSel ctermbg=NONE ctermfg=4
+  hi TabLineFill ctermbg=NONE ctermfg=19
+  hi TabLine ctermbg=NONE ctermfg=19
 
   " gitgutter
   let g:gitgutter_signs = 0
@@ -392,6 +402,7 @@
   " syntastic
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_vim_checkers = ['vint']
+  set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
   " EditorConfig
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -408,13 +419,6 @@
   nnoremap <silent> <leader>gr :Gremove<CR>
   autocmd BufReadPost fugitive://* set bufhidden=delete
 
-  " Airline
-  let g:airline_theme='base16'
-  let g:airline#extensions#tabline#enabled=1
-  let g:airline#extensions#tabline#show_buffers=0
-  let g:airline#extensions#tabline#buffer_min_count=1
-  let g:airline#extensions#tabline#show_close_button=0
-
   " Eclim
   let g:EclimCompletionMethod='omnifunc'
   nnoremap <silent> <leader>jc :JavaCorrect<CR>
@@ -425,6 +429,7 @@
   nnoremap <silent> <leader>jD :JavaDocPreview<CR>
   nnoremap <silent> <leader>jt :JUnit %<CR>
   nnoremap <silent> <leader>jT :JUnitFindTest<CR>
+  nnoremap <silent> <leader>jr :JavaRename<space>
 
   " Supertab
   let g:SuperTabDefaultCompletionType='context'
@@ -439,10 +444,32 @@
   imap <c-x><c-j> <plug>(fzf-complete-file-ag)
   " imap <c-x><c-l> <plug>(fzf-complete-line)
 
+  " rg command suffix, [options]
+  function! VRg_raw(command_suffix, ...)
+    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.a:command_suffix, 1], a:000))
+  endfunction
+
+  " query, [[ag options], options]
+  function! VRg(query, ...)
+    let query = empty(a:query) ? '^.' : a:query
+    let args = copy(a:000)
+    let ag_opts = len(args) > 1 ? remove(args, 0) : ''
+    let command = ag_opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
+    return call('VRg_raw', insert(args, command, 0))
+  endfunction
+
+  " Try to use ripgrep, otherwise fallback to ag
+  function! VFind(query, ...)
+    let args = insert(copy(a:000), a:query, 0)
+    if executable('rg')
+      return call('VRg', args)
+    endif
+
+    return call('fzf#vim#ag', args)
+  endfunction
+  command! -bang -nargs=* Find call VFind(<q-args>, <bang>0)
+
   " Enable per-command history.
-  " CTRL-N and CTRL-P will be automatically bound to next-history and
-  " previous-history instead of down and up. If you don't like the change,
-  " explicitly bind the keys to down and up in your $FZF_DEFAULT_OPTS.
   let g:fzf_history_dir = '~/.local/share/fzf-history'
 
   " If this is Git repo, list git files only, otherwise list all
@@ -456,7 +483,7 @@
 
   " Menus {{{
     " Search everywhere (fzf.vim Ag)
-    nmap <leader>/ :Ag<cr>
+    nmap <leader>/ :Find<cr>
 
     " Help tags (fzf.vim Helptags)
     nmap <leader>? :Helptags<cr>

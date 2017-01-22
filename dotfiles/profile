@@ -4,7 +4,7 @@
 source ${HOME}/.dotconfig
 
 # Adjust path to use bin in user/bin
-export PATH="$DOTHOME/usr/bin:$HOME/.local/bin:$PATH"
+export PATH="$DOTHOME/usr/bin:$HOME/.local/bin:$PATH:$HOME/.cargo/bin"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1

@@ -3,15 +3,17 @@
 
 These are my configuration files for Linux and Mac. It is still work in progress, so expect a lot of changes, but I
 think it is stable enough to be usable. I put this README together, because I (like most of other programmers) do not
-have any life. I even added CI integration to this repo, because I was bored. Yes, you hear right, CI INTEGRATION TO
+have any life. I even added CI to this repo, because I was bored. Yes, you hear right, COUNTINUOS INTEGRATION TO
 FUCKING DOTFILES REPO. I doubt anyone will ever appreciate my effort, but [frankly, my dear, I don't give a
 damn](https://en.wikipedia.org/wiki/Frankly,_my_dear,_I_don't_give_a_damn). Expect a lot of changes in this repo,
 because most of the time I just cannot make up my mind, and I change my decisions very often.
 
 ## Requirements
 
-* [python](https://www.python.org/downloads/) - Required for [dotbot](https://github.com/anishathalye/dotbot) to work properly. Python is installed by default on most Linux distributions and also on Mac.
-* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of the installation process is managed via Git, so you need this one.
+* [python](https://www.python.org/downloads/) - Required for [dotbot](https://github.com/anishathalye/dotbot) to work
+  properly. Python is installed by default on most Linux distributions and also on Mac.
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of the installation process is managed via
+  Git, so you need this one.
 
 ## Optional requirements
 
@@ -27,9 +29,8 @@ because most of the time I just cannot make up my mind, and I change my decision
   support for all plugins to work correctly. If you are just starting with Vim, then I recommend you to run `vimtutor`
   from your CLI. Thank me later.
 * [Firefox](https://www.mozilla.org/en-US/firefox/new/) - The only browser I found that can be properly styled to my
-  likings (for example, doing what I did with my Firefox is with browsers like Chrome just not possible). Also, has
-  Vimperator. Install latest Firefox stable version, Vimperator do not works with Developer Edition.
-* [vimperator](https://addons.mozilla.org/en-US/firefox/addon/vimperator/) - Vim for your firefox. No need to say more.
+  likings (for example, doing what I did with my Firefox is with browsers like Chrome just not possible)
+* [vimfx](https://addons.mozilla.org/en-US/firefox/addon/vimfx/) - Vim for your firefox. No need to say more.
 * [Stylish](https://addons.mozilla.org/en-US/firefox/addon/stylish/) - Just cool extension that can style your browser.
   I do not found nice solution how to store my custom Firefox style in some dotfile, so this is last thing I do not like
   in this setup, you need to install my style manually from Addon menu (yes, I know, it is horrible, but it is only way
@@ -44,8 +45,9 @@ because most of the time I just cannot make up my mind, and I change my decision
   instead of OSX? It is because Apple rebranded OSX to macOS in latest Sierra update. You can read more about it
   [here](https://techcrunch.com/2016/06/13/os-x-is-now-macos-and-gets-support-for-siri-auto-unlock-and-more/). Great
   stuff, right? Anyway, back to the point. Kwm is a lot better than Amethyst, if you are still using it. Are you asking
-  why? Because it can be
-  configured from dotfile, that is why. Also, it have nice focus borders, and is more similar to window managers on Linux, what I really miss on OSX, but I am not going to use XQuartz just to have i3 for my terminals here, lol.
+  why? Because it can be configured from dotfile, that is why. Also, it have nice focus borders, and is more similar to
+  window managers on
+  Linux, what I really miss on OSX, but I am not going to use XQuartz just to have i3 for my terminals here, lol.
 * [khd](https://github.com/koekeishiya/khd) - Hotkey daemon for macOS, required to have keybindings in kwm. Originally
   these two was one project, but they got split, what is imo great thing.
 * [karabiner-elements](https://github.com/tekezo/Karabiner-Elements) - Can remap our Caps-Lock key to Hyper key, what I
@@ -127,7 +129,7 @@ To see all helper commands, run `dottool --help`.
 
 ## Included stuff
 
-### Bash
+### Shell
  * [fasd](https://github.com/clvv/fasd): Command-line productivity booster, offers quick access to files and directories, inspired by autojump, z and v.
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
