@@ -48,9 +48,6 @@
   eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
   [ -z $BASE16_THEME ] && base16_tomorrow-night
 
-  # Load the fuck alias
-  command -v thefuck >/dev/null 2>&1 && eval "$(thefuck --alias)"
-
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 

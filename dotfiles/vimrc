@@ -8,7 +8,9 @@
 
 " General {{{
   " Reset all auto commands
-  autocmd!
+  augroup VimRc
+    autocmd!
+  augroup END
 
   " With a map leader it's possible to do extra key combinations
   let mapleader = ' '
@@ -160,15 +162,13 @@
   set list listchars=tab:→\ ,trail:·
 
   " Automatically rebalance windows on vim resize
-  autocmd VimResized * :wincmd =
+  autocmd VimRc VimResized * :wincmd =
 
   " use syntax complete if nothing else available
-  if has('autocmd') && exists('+omnifunc')
-    autocmd Filetype *
-          \	if &omnifunc == "" |
-          \		setlocal omnifunc=syntaxcomplete#Complete |
-          \	endif
-  endif
+  autocmd VimRc Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
 
 " }}}
 
@@ -194,8 +194,8 @@
   set synmaxcol=256
 
   " Highlight 121th character in line
-  autocmd BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
-  autocmd BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
+  autocmd VimRc BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
+  autocmd VimRc BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
 
 " }}}
 
@@ -237,7 +237,7 @@
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
   " (happens when dropping a file on gvim).
-  autocmd BufReadPost *
+  autocmd VimRc BufReadPost *
         \ if line("'\"") >= 1 && line("'\"") <= line("$") |
         \   exe "normal! g`\"" |
         \ endif
@@ -250,8 +250,8 @@
     " Set extra options when running in GUI mode
     set mouse=a
     set guitablabel=%M\ %t
-    autocmd GUIEnter * set vb t_vb=
-    autocmd GUIEnter * set guioptions-=e
+    autocmd VimRc GUIEnter * set vb t_vb=
+    autocmd VimRc GUIEnter * set guioptions-=e
 
     " Disable scrollbars (real hackers don't use scrollbars for navigation!)
     set guioptions-=r
@@ -414,7 +414,7 @@
   nnoremap <silent> <leader>gp :Git push<CR>
   nnoremap <silent> <leader>gw :Gwrite<CR>
   nnoremap <silent> <leader>gr :Gremove<CR>
-  autocmd BufReadPost fugitive://* set bufhidden=delete
+  autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 
   " Eclim
   let g:EclimCompletionMethod='omnifunc'
