@@ -32,9 +32,7 @@
   }
 
   # Super cool gource alias (requires gource)
-  alias gource="gource -1280x720 --key --stop-at-end -e 0.5 -c 1.7 -a 1 -r 60 -i 0 --highlight-dirs
-  --highlight-all-users --max-file-lag 0.5 --hide mouse,progress --camera-mode track --bloom-multiplier 1.7
-  --bloom-intensity 1.2 --no-vsync"
+  alias gource="gource --key --stop-at-end -i 0 --highlight-dirs --highlight-all-users --max-file-lag 0.5"
 
 # }}}
 

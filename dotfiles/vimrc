@@ -150,9 +150,6 @@
   set statusline +=%4v\              "virtual column number
   set statusline +=0x%04B\           "character under cursor
 
-  " We are using bash
-  let g:is_bash=1
-
   " Always use vertical diffs
   set diffopt+=vertical
 
@@ -362,7 +359,7 @@
   " Modify runtime path
   source $DOTHOME/lib/vim/vim-pathogen/autoload/pathogen.vim
   let g:pathogen_blacklist=['vim-pathogen', 'vim-airline', 'vim-airline-themes', 'vim-gitgutter']
-  call pathogen#infect('$DOTHOME/lib/bash/{}')
+  call pathogen#infect('$DOTHOME/lib/shell/{}')
   call pathogen#infect('$DOTHOME/lib/tmux/{}')
   call pathogen#infect('$DOTHOME/lib/vim/{}')
   call pathogen#infect('$DOTHOME/usr/vim/{}')

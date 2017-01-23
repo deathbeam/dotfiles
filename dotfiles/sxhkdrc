@@ -8,7 +8,7 @@ super + Return
 
 # program launcher
 super + space
-  st -c fzf-menu -g 80x15 -e zsh -li -c 'nohup $(print -lr -- $^path/*$^@*(N:t) | sort -u | fzf --prompt "Run> " --bind "ctrl-x:print-query")'
+  st -c fzf-menu -g 80x15 -e zsh -li -c '(($#)) || set "" && nohup $(print -lr -- $^path/*$^@*(N:t) | fzf --prompt "Run> " --bind "ctrl-x:print-query") &'
 
 # make sxhkd reload its configuration files:
 super + Escape

@@ -54,3 +54,4 @@
     $HOME/.zlogin: dotfiles/zlogin
     $HOME/.zimrc: dotfiles/zimrc
     $HOME/.zim: lib/shell/zim
+    $HOME/.xsession: dotfiles/xsession
