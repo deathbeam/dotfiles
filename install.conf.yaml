@@ -1,5 +1,6 @@
 - defaults:
     link:
+        create: true
         force: true
         relink: true
 
@@ -15,10 +16,10 @@
         - git submodule foreach git pull origin master
         - Updating submodules
     -
-        - mkdir -p ~/.vimperator ; mkdir -p ~/.kwm ; mkdir -p ~/.config/bspwm ; mkdir -p ~/.config/sxhkd ; mkdir -p ~/.karabiner.d/configuration ; mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p ~/.config/dunst ; mkdir -p ~/.ncmpcpp ; mkdir -p ~/.vim/undodir ; mkdir -p ~/.config/polybar ; mkdir -p ~/.config/qutebrowser ; mkdir -p ~/Library/Preferences/qutebrowser  ; mkdir -p ~/.config/mpv
+        - mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p ~/.vim/undodir
         - Creating directory structure
     -
-        - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > usr/dotconfig; touch usr/gitconfig'
+        - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > .dotconfig; touch usr/gitconfig'
         - Setting up home directory
     -
         - lib/shell/fzf/install --all --no-update-rc
@@ -28,30 +29,29 @@
         - Copying panel widgets
 
 - link:
-    $HOME/.dotconfig: usr/dotconfig
-    $HOME/.profile: dotfiles/profile
-    $HOME/.vimrc: dotfiles/vimrc
-    $HOME/.tmux.conf: dotfiles/tmux.conf
-    $HOME/.ideavimrc: dotfiles/ideavimrc
-    $HOME/.kwm/kwmrc: dotfiles/kwmrc
-    $HOME/.khdrc: dotfiles/khdrc
-    $HOME/.inputrc: dotfiles/inputrc
-    $HOME/.gitconfig: dotfiles/gitconfig
-    $HOME/.gitignore: dotfiles/gitignore
+    $HOME/.dotconfig: .dotconfig
+    $HOME/.profile: config/profile
+    $HOME/.vimrc: config/vimrc
+    $HOME/.tmux.conf: config/tmux.conf
+    $HOME/.kwm/kwmrc: config/kwmrc
+    $HOME/.khdrc: config/khdrc
+    $HOME/.inputrc: config/inputrc
+    $HOME/.gitconfig: config/gitconfig
+    $HOME/.gitignore: config/gitignore
     $HOME/.gitconfig.local: usr/gitconfig
-    $HOME/.gitmessage: dotfiles/gitmessage
-    $HOME/.karabiner.d/configuration/karabiner.json: dotfiles/karabiner.json
-    $HOME/.config/bspwm/bspwmrc: dotfiles/bspwmrc
-    $HOME/.config/sxhkd/sxhkdrc: dotfiles/sxhkdrc
-    $HOME/.config/dunst/dunstrc: dotfiles/dunstrc
-    $HOME/.hushlogin: dotfiles/hushlogin
-    $HOME/.compton.conf: dotfiles/compton.conf
-    $HOME/.ncmpcpp/config: dotfiles/ncmpcpp
-    $HOME/.config/polybar/config: dotfiles/polybar
-    $HOME/.config/qutebrowser/qutebrowser.conf: dotfiles/qutebrowser.conf
-    $HOME/.config/mpv/mpv.conf: dotfiles/mpv.conf
-    $HOME/.zshrc: dotfiles/zshrc
-    $HOME/.zlogin: dotfiles/zlogin
-    $HOME/.zimrc: dotfiles/zimrc
+    $HOME/.gitmessage: config/gitmessage
+    $HOME/.karabiner.d/configuration/karabiner.json: config/karabiner.json
+    $HOME/.config/bspwm/bspwmrc: config/bspwmrc
+    $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
+    $HOME/.config/dunst/dunstrc: config/dunstrc
+    $HOME/.hushlogin: config/hushlogin
+    $HOME/.compton.conf: config/compton.conf
+    $HOME/.ncmpcpp/config: config/ncmpcpp
+    $HOME/.config/polybar/config: config/polybar
+    $HOME/.config/mpv/mpv.conf: config/mpv.conf
+    $HOME/.zshrc: config/zshrc
+    $HOME/.zlogin: config/zlogin
+    $HOME/.zimrc: config/zimrc
     $HOME/.zim: lib/shell/zim
-    $HOME/.xsession: dotfiles/xsession
+    $HOME/.xsession: config/xsession
+    $HOME/.editorconfig: config/editorconfig
