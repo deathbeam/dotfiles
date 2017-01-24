@@ -91,3 +91,6 @@
 [submodule "lib/shell/zim"]
 	path = lib/shell/zim
 	url = https://github.com/Eriner/zim/
+[submodule "lib/vim/bclose.vim"]
+	path = lib/vim/bclose.vim
+	url = https://github.com/chrismccord/bclose.vim

@@ -110,6 +110,7 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
 
 ### Vim
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
+ * [bclose.vim](https://github.com/chrismccord/bclose.vim): Delete a buffer without closing the window
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
