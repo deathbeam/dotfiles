@@ -55,6 +55,10 @@
     set grepformat^=%f:%l:%c:%m
   endif
 
+  " Add cscope support
+  set cscopetag cscopeverbose
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
+
 " }}}
 
 " User interface {{{
@@ -85,13 +89,20 @@
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
   endif
 
-  " allows cursor change in tmux mode
-  if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+  if has('nvim')
+    " visible incremental command replace
+    set inccommand=nosplit
+
+    " allows cursor change
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   else
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
+    if exists('$TMUX')
+      let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+      let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+    else
+      let &t_SI = "\e[5 q"
+      let &t_EI = "\e[2 q"
+    endif
   endif
 
   " Less annoying error messages
@@ -163,6 +174,15 @@
 
   " Automatically rebalance windows on vim resize
   autocmd VimRc VimResized * :wincmd =
+
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd VimRc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd VimRc FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd VimRc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd VimRc FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd VimRc FileType c set omnifunc=ccomplete#Complete
+  autocmd VimRc FileType java set omnifunc=javacomplete#Complete
 
   " use syntax complete if nothing else available
   autocmd VimRc Filetype *
@@ -390,9 +410,6 @@
   hi TabLineFill ctermbg=NONE ctermfg=19
   hi TabLine ctermbg=NONE ctermfg=19
 
-  " gitgutter
-  let g:gitgutter_signs = 0
-
   " VimWiki
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 
@@ -416,30 +433,58 @@
   nnoremap <silent> <leader>gr :Gremove<CR>
   autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 
-  " Eclim
-  let g:EclimCompletionMethod='omnifunc'
-  nnoremap <silent> <leader>jc :JavaCorrect<CR>
-  nnoremap <silent> <leader>js :JavaSearch<CR>
-  nnoremap <silent> <leader>ji :JavaImport<CR>
-  nnoremap <silent> <leader>jI :JavaImportOrganize<CR>
-  nnoremap <silent> <leader>jd :JavaDocComment<CR>
-  nnoremap <silent> <leader>jD :JavaDocPreview<CR>
-  nnoremap <silent> <leader>jt :JUnit %<CR>
-  nnoremap <silent> <leader>jT :JUnitFindTest<CR>
-  nnoremap <silent> <leader>jr :JavaRename<space>
+  " Completion
+  if has('nvim') && has('python3')
+    call deoplete#enable()
+  endif
 
-  " Supertab
-  let g:SuperTabDefaultCompletionType='context'
-  let g:SuperTabContextDefaultCompletionType='<c-n>'
-  let g:SuperTabLongestEnhanced=1
-  let g:SuperTabLongestHighlight=1
-  let g:SuperTabCrMapping=1
+  " Java
+  autocmd VimRc FileType java :call EnableJava()
+  function! EnableJava()
+    nmap <leader>jI <Plug>(JavaComplete-Imports-AddMissing)
+    nmap <leader>jR <Plug>(JavaComplete-Imports-RemoveUnused)
+    nmap <leader>ji <Plug>(JavaComplete-Imports-AddSmart)
+    nmap <leader>jii <Plug>(JavaComplete-Imports-Add)
+    imap <C-j>I <Plug>(JavaComplete-Imports-AddMissing)
+    imap <C-j>R <Plug>(JavaComplete-Imports-RemoveUnused)
+    imap <C-j>i <Plug>(JavaComplete-Imports-AddSmart)
+    imap <C-j>ii <Plug>(JavaComplete-Imports-Add)
+    nmap <leader>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+    imap <C-j>jM <Plug>(JavaComplete-Generate-AbstractMethods)
+    nmap <leader>jA <Plug>(JavaComplete-Generate-Accessors)
+    nmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+    nmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+    nmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+    nmap <leader>jts <Plug>(JavaComplete-Generate-ToString)
+    nmap <leader>jeq <Plug>(JavaComplete-Generate-EqualsAndHashCode)
+    nmap <leader>jc <Plug>(JavaComplete-Generate-Constructor)
+    nmap <leader>jcc <Plug>(JavaComplete-Generate-DefaultConstructor)
+    imap <C-j>s <Plug>(JavaComplete-Generate-AccessorSetter)
+    imap <C-j>g <Plug>(JavaComplete-Generate-AccessorGetter)
+    imap <C-j>a <Plug>(JavaComplete-Generate-AccessorSetterGetter)
+    vmap <leader>js <Plug>(JavaComplete-Generate-AccessorSetter)
+    vmap <leader>jg <Plug>(JavaComplete-Generate-AccessorGetter)
+    vmap <leader>ja <Plug>(JavaComplete-Generate-AccessorSetterGetter)
 
-  " FZF
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  " imap <c-x><c-l> <plug>(fzf-complete-line)
+    set makeprg=mvn\ $*
+
+    set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
+          \\[%t%[A-Z]%#]\ %f:%l:\ %m,
+          \\%A%f:[%l\\,%c]\ %m,
+          \\%Csymbol%.%#:\ %m,
+          \\%Zlocation%.%#:\ %m,
+          \\%AEmbedded\ error:%.%#\ -\ %f:%l:\ %m,
+          \\%-Z\ %p^,
+          \\%A%f:%l:\ %m,
+          \\%-Z\ %p^,
+          \\%ARunning\ %f,
+          \\%+ZTests\ run%.%#FAILURE!%.%#,
+          \\%ARunning\ %f,
+          \\%C%.%#,
+          \\%+ZTests\ run%.%#FAILURE!%.%#,
+          \\%-G%.%#
+
+  endfunction
 
   " rg command suffix, [options]
   function! VRg_raw(command_suffix, ...)
