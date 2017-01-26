@@ -45,7 +45,6 @@
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc
     $HOME/.hushlogin: config/hushlogin
-    $HOME/.compton.conf: config/compton.conf
     $HOME/.ncmpcpp/config: config/ncmpcpp
     $HOME/.config/polybar/config: config/polybar
     $HOME/.config/mpv/mpv.conf: config/mpv.conf

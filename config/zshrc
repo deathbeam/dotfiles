@@ -37,7 +37,7 @@
   alias gource="gource --key --stop-at-end -i 0 --highlight-dirs --highlight-all-users --max-file-lag 0.5"
 
   # Hastebin fast share
-  haste() { a=$(cat); curl -X POST -s -d "$a" http://hastebin.com/documents | awk -F '"' '{print "http://hastebin.com/"$4}'; }
+  haste() { a=$(cat); curl -X POST -s -d "$a" https://hastebin.com/documents | awk -F '"' '{print "https://hastebin.com/"$4}'; }
 # }}}
 
 # Plugins {{{
@@ -50,7 +50,7 @@
 
   # Base 16
   eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
-  [ -z $BASE16_THEME ] && base16_tomorrow-night
+  [ -z $BASE16_THEME ] && base16_ocean
 
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
