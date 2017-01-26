@@ -12,7 +12,7 @@ super + space
 
 # clipboard manager
 super + c
-  $DOTHOME/lib/shell/clipmenu/clipmenu -i -l 10 -p "clip >" -b -fn Terminus:size=12
+  $DOTHOME/lib/linux/clipmenu/clipmenu -i -l 10 -p "clip >" -b -fn Terminus:size=12
 
 # make sxhkd reload its configuration files:
 super + Escape

@@ -7,15 +7,11 @@
 "   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 " General {{{
+
   " Reset all auto commands
   augroup VimRc
     autocmd!
   augroup END
-
-  " With a map leader it's possible to do extra key combinations
-  let mapleader = ' '
-  let maplocalleader = ' '
-  let g:mapleader = ' '
 
   " Sets how many lines of history VIM has to remember
   set history=200
@@ -35,7 +31,7 @@
 
   " Turn backup off, since most stuff is in SVN, git et.c anyway...
   set nobackup
-  set nowb
+  set nowritebackup
   set noswapfile
 
   " Turn persistent undo on
@@ -142,7 +138,7 @@
   set noerrorbells
   set novisualbell
   set t_vb=
-  set tm=500
+  set timeoutlen=500
 
   " Open new split panes to right and bottom, which feels more natural
   set splitbelow
@@ -175,21 +171,6 @@
   " Automatically rebalance windows on vim resize
   autocmd VimRc VimResized * :wincmd =
 
-  " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd VimRc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd VimRc FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd VimRc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd VimRc FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd VimRc FileType c set omnifunc=ccomplete#Complete
-  autocmd VimRc FileType java set omnifunc=javacomplete#Complete
-
-  " use syntax complete if nothing else available
-  autocmd VimRc Filetype *
-        \	if &omnifunc == "" |
-        \		setlocal omnifunc=syntaxcomplete#Complete |
-        \	endif
-
 " }}}
 
 " Colors and Fonts {{{
@@ -207,15 +188,32 @@
   set encoding=utf8
 
   " Use Unix as the standard file type
-  set ffs=unix,dos,mac
+  set fileformats=unix,dos,mac
 
   " Limit horizontal and vertical syntax rendering
   syntax sync minlines=256
   set synmaxcol=256
 
-  " Highlight 121th character in line
-  autocmd VimRc BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
-  autocmd VimRc BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
+  " Adjust syntax highlighting
+  autocmd VimRc BufEnter * call AdjustHighlighting()
+  function! AdjustHighlighting()
+    " Make all these colors less annoying
+    highlight clear LineNr
+    highlight clear SignColumn
+    highlight clear FoldColumn
+    highlight Search cterm=NONE ctermfg=0 ctermbg=3
+    highlight StatusLine ctermbg=NONE ctermfg=4
+    highlight StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
+    highlight VertSplit ctermbg=NONE ctermfg=19
+    highlight Title ctermfg=19
+    highlight TabLineSel ctermbg=NONE ctermfg=4
+    highlight TabLineFill ctermbg=NONE ctermfg=19
+    highlight TabLine ctermbg=NONE ctermfg=19
+
+    " Highlight 121th character in line
+    highlight ColorColumn ctermbg=darkred ctermfg=white
+    call matchadd('ColorColumn', '\%121v', 100) "set column nr
+  endfunction
 
 " }}}
 
@@ -262,6 +260,21 @@
         \   exe "normal! g`\"" |
         \ endif
 
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd VimRc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd VimRc FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd VimRc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd VimRc FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd VimRc FileType c set omnifunc=ccomplete#Complete
+  autocmd VimRc FileType java set omnifunc=javacomplete#Complete
+
+  " use syntax complete if nothing else available
+  autocmd VimRc Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+
 " }}}
 
 " GUI related {{{
@@ -285,21 +298,26 @@
 
     " Set font according to system
     if has('mac') || has('macunix')
-      set gfn=Terminus:h12,Source\ Code\ Pro:h12,Menlo:h12
+      set guifont=Terminus:h12,Source\ Code\ Pro:h12,Menlo:h12
     elseif has('win16') || has('win32')
-      set gfn=Terminus:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+      set guifont=Terminus:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
     elseif has('gui_gtk2')
-      set gfn=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+      set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
     elseif has('linux')
-      set gfn=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+      set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
     elseif has('unix')
-      set gfn=Monospace\ 11
+      set guifont=Monospace\ 11
     endif
   endif
 
 " }}}
 
 " Mappings {{{
+
+  " With a map leader it's possible to do extra key combinations
+  let mapleader = ' '
+  let maplocalleader = ' '
+  let g:mapleader = ' '
 
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -397,26 +415,8 @@
     endtry
   endif
 
-  " Fix some things
-  hi clear LineNr
-  hi clear SignColumn
-  hi clear FoldColumn
-  hi Search cterm=NONE ctermfg=0 ctermbg=3
-  hi StatusLine ctermbg=NONE ctermfg=4
-  hi StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
-  hi VertSplit ctermbg=NONE ctermfg=19
-  hi Title ctermfg=19
-  hi TabLineSel ctermbg=NONE ctermfg=4
-  hi TabLineFill ctermbg=NONE ctermfg=19
-  hi TabLine ctermbg=NONE ctermfg=19
-
   " VimWiki
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-
-  " syntastic
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_vim_checkers = ['vint']
-  set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
   " EditorConfig
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -437,6 +437,19 @@
   if has('nvim') && has('python3')
     call deoplete#enable()
   endif
+
+  " Neomake
+  autocmd VimRc BufWritePost * Neomake
+  set statusline+=\ %#ErrorMsg#%{neomake#statusline#LoclistStatus('loc:\ ')}
+  set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
+
+  " Yang
+  let g:neomake_yang_enabled_makers = [ 'pyang' ]
+  let g:neomake_yang_pyang_maker = {
+        \ 'errorformat':
+        \ '%f:%l: %trror: %m,' .
+        \ '%f:%l: %tarning: %m,'
+        \ }
 
   " Java
   autocmd VimRc FileType java :call EnableJava()

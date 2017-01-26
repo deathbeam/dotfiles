@@ -13,7 +13,7 @@
         - git submodule update --init --recursive
         - Initializing submodules
     -
-        - git submodule foreach git pull origin master
+        - git submodule update --recursive --remote
         - Updating submodules
     -
         - mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p ~/.vim/undodir

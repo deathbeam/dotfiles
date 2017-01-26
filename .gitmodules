@@ -25,9 +25,6 @@
 [submodule "lib/vim/vim-repeat"]
 	path = lib/vim/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
-[submodule "lib/vim/syntastic"]
-	path = lib/vim/syntastic
-	url = https://github.com/scrooloose/syntastic
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -97,6 +94,10 @@
 [submodule "lib/vim/deoplete.nvim"]
 	path = lib/vim/deoplete.nvim
 	url = https://github.com/Shougo/deoplete.nvim
-[submodule "lib/shell/clipmenu"]
-	path = lib/shell/clipmenu
-	url = https://github.com/cdown/clipmenu/
+[submodule "lib/linux/clipmenu"]
+	path = lib/linux/clipmenu
+  url = https://github.com/cdown/clipmenu/
+  branch = develop
+[submodule "lib/vim/neomake"]
+	path = lib/vim/neomake
+	url = https://github.com/neomake/neomake

@@ -17,13 +17,13 @@ because most of the time I just cannot make up my mind, and I change my decision
 
 ## Optional requirements
 
-* zsh - Zsh is awesome. I was using bash, but then switched to zsh, and it is pretty much compatible with all bash stuff
+* [zsh](http://www.zsh.org/) - Zsh is awesome. I was using bash, but then switched to zsh, and it is pretty much compatible with all bash stuff
   and it is also faster and nicer.
 * [tmux](https://tmux.github.io/) - Terminal multiplexer. Awesome stuff, but I find myself to use it less and less,
   because I started using tiling window manager's features more. But still, tmux is really awesome, and have some great
   features what screen do not have. I have some really nice Tmux stuff in my repository, so feel free to try it, maybe
   you will like it.
-* [vim](http://www.vim.org/download.php/) - Required for Vim stuff (of course). Needs to be installed with python
+* [neovim](https://neovim.io/) - Required for Vim stuff (of course). Needs to be installed with python
   support for all plugins to work correctly. If you are just starting with Vim, then I recommend you to run `vimtutor`
   from your CLI. Thank me later.
 * [Firefox](https://www.mozilla.org/en-US/firefox/new/) - The only browser I found that can be properly styled to my
@@ -104,22 +104,24 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
 ## Included stuff
 
 ### Shell
- * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
- * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
+ * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
+ * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
 
 ### Vim
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
  * [bclose.vim](https://github.com/chrismccord/bclose.vim): Delete a buffer without closing the window
+ * [deoplete.nvim](https://github.com/Shougo/deoplete.nvim): 🌠 Dark powered asynchronous completion framework for neovim
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
+ * [neomake](https://github.com/neomake/neomake): Asynchronous linting and make framework for Neovim/Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [supertab](https://github.com/ervandew/supertab): Perform all your vim insert mode completions with Tab
- * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags): A Vim plugin that manages your tag files
+ * [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2): Updated javacomplete plugin for vim
  * [vim-obsession](https://github.com/tpope/vim-obsession): continuously updated session files
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
