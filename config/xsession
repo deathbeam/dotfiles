@@ -24,7 +24,7 @@ st &
 $DOTHOME/lib/linux/wallpaper.sh
 
 # Start clipboard manager daemon
-$DOTHOME/lib/shell/clipmenu/clipmenud &
+$DOTHOME/lib/linux/clipmenu/clipmenud &
 
 # Start music manager daemon
 mopidy &
