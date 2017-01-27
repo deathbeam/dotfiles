@@ -1,5 +1,5 @@
 # Set default values for screen padding
-kwmc config padding 35 15 15 15
+kwmc config padding 40 15 15 15
 
 # Set default values for container gaps
 kwmc config gap 15 15
@@ -16,29 +16,17 @@ kwmc config lock-to-container on
 # Set focus-follows-mouse-mode to autoraise
 kwmc config focus-follows-mouse off
 
-/*
-    Focus-follows-mouse is temporarily disabled when
-    a floating window has focus
-*/
+# When floating, do less stuff
 kwmc config standby-on-float on
 
 # Center window when made floating
 kwmc config center-on-float on
 
-/*
-    The mouse will automatically move to the center
-    of the focused window
-*/
-kwmc config mouse-follows-focus on
+# Mouse do not follows focus
+kwmc config mouse-follows-focus off
 
-/*
-    Allows a window to be moved by dragging,
-    when a modifier key and left-click is held down.
-
-    Allows a window to be resized by dragging
-    when a modifier key and right-click is held down.
-*/
-kwmc config mouse-drag on
+# Mouse do not moves windows
+kwmc config mouse-drag off
 
 # The modifier keys to be held down to initiate mouse-drag
 kwmc config mouse-drag mod cmd+alt+ctrl
@@ -54,12 +42,12 @@ kwmc config spawn right
 
 # Enable border for focused window
 kwmc config border focused on
-kwmc config border focused size 5
-kwmc config border focused color 0xFF7CAFC2
+kwmc config border focused size 2
+kwmc config border focused color 0xFFA3BE8C
 kwmc config border focused radius 0
 
 # Enable border for marked window
 kwmc config border marked on
-kwmc config border marked size 5
-kwmc config border marked color 0xFFA1B56C
+kwmc config border marked size 2
+kwmc config border marked color 0xFF2B303B
 kwmc config border marked radius 0

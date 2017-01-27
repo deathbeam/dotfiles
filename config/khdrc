@@ -2,40 +2,43 @@
 khd kwm on
 
 # set color of default mode
-khd mode default color 0xFF7CAFC2
+khd mode default color 0xFFA3BE8C
 
 # Enable the resize mode
 khd mode resize prefix on
 khd mode resize timeout 1
 khd mode resize restore default
-khd mode resize color 0xFFDC9656
-
-# Exit kwm
-cmd + alt + ctrl + shift - e       :    kwmc exit
-
-# Restart kwm
-cmd + alt + ctrl + shift - r       :    brew services restart kwm
-
-# Reload kwm configuration file
-cmd + alt + ctrl + shift - c       :    kwmc config reload
-
-# Close window
-cmd + alt + ctrl + shift - q       :    khd -p "cmd - q"
-
-# Lock screen
-cmd + alt + ctrl + shift - s       :    pmset displaysleepnow
+khd mode resize color 0xFF96B5B5
 
 # Launch terminal
 cmd + alt + ctrl - return          :    open -na /Applications/iTerm.app
 
+# Launch clipboard manager
+cmd + alt + ctrl - c               :    khd -p "cmd + alt - c"
+
 # Launch launcher
 cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
+
+# Restard khd
+cmd + alt + ctrl - escape          :    brew services restart khd
+
+# Restard kwm
+cmd + alt + ctrl + shift - escape  :    brew services restart kwm
+
+# Lock screen
+cmd + alt + ctrl - e               :    pmset displaysleepnow
+
+# Close window
+cmd + alt + ctrl - w               :    khd -p "cmd - w"
+
+# Quit application
+cmd + alt + ctrl + shift - w       :    khd -p "cmd - q"
 
 # Toggle window fullscreen
 cmd + alt + ctrl - f               :    kwmc window -z fullscreen
 
 # Toggle window floating
-cmd + alt + ctrl + shift - space   :    kwmc window -t focused
+cmd + alt + ctrl - s               :    kwmc window -t focused
 
 # Move between spaces
 cmd + alt + ctrl - 0x12            :    kwmc space -fExperimental 1

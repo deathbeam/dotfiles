@@ -24,8 +24,8 @@
 
     /* URL VARIABLES */
     --url-background: var(--bg-light); --url-color: var(--fg-dark);
-    --url-height: 24px; --url-right-margin: 0x;
-    --url-fonts: "Hack","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
+    --url-height: 22px; --url-right-margin: 6px;
+    --url-fonts: "Terminus","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
     --url-text-align: left; /* left | center | right */
     --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */
 }
@@ -52,7 +52,8 @@
     #nav-bar {
         position: var(--url-position) !important; bottom: 0 !important;
         width: 100% !important; height: var(--url-height) !important;
-        margin: 0 0 -2px 0 !important; background: transparent !important;
+        margin: 0 !important; background: transparent !important;
+        border: none !important;
     }
 
     #nav-bar-customization-target, #urlbar-container, #urlbar {
@@ -65,31 +66,25 @@
         position: absolute !important; top: -1px !important; left: 0 !important; height: calc(100% - 1px) !important; /* (bottom margin - height switch +/- to fix line) */
     }
 
-    #urlbar, .urlbar-textbox-container, .urlbar-input-box .textbox-input {
-        border: none !important; padding: 0px !important;
-        background: var(--url-background)!important; color: var(--url-color) !important;
+    #urlbar, .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        border: none !important;
+        padding: 0px !important;;
+        background: var(--url-background) !important; color: var(--url-color) !important;
         font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;
         text-align: var(--url-text-align) !important;
         height: 100% !important;
     }
 
     #urlbar {
-        padding: 0 0 0 8px !important;
+        padding: 0 5px !important;
     }
 
-    #urlbar * { -moz-appearance: none !important; }
+    #urlbar * { -moz-appearance: none !important; border: none !important; }
 
-    .urlbar-textbox-container, .urlbar-input-box .textbox-input {
+    .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        margin-top: -2px !important;;
         height: var(--url-height) !important;
     }
-
-    /* --- Comment out the section below to make the url-bar visible ---
-    #nav-bar {
-        width: 0 !important; height: 0 !important;
-        position: fixed !important; left: -1px !important; top: -1px !important;
-        overflow: hidden !important; visibility: hidden !important;
-    }
-    /**/
 
     /* TABS */
     .tabbrowser-tab[fadein]:not([pinned]) { min-width: 100px !important; max-width: /*180px*/ 100% !important; }
@@ -100,7 +95,10 @@
         font-size: var(--tab-font-size); text-shadow: none !important; text-align: var(--tab-text-align) !important;
     }
 
-    .tabbrowser-tab label { padding: 0 10px 0 10px !important; }
+    .tabbrowser-tab label {
+        padding: 0 10px 0 10px !important;
+        text-align: var(--tab-text-align) !important;
+    }
 
     #tabbrowser-tabs .tabbrowser-tab[pinned]            { width: 48px !important; }
     #tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }
@@ -205,11 +203,9 @@
     img.decoded { background-color: transparent !important; }
 }
 
-/* About:Home styling */
+/* About:Blank background */
 @-moz-document url(about:home) {
     html,body { background: var(--bg-light) !important; }
-    #snippetContainer, #brandLogo, #aboutMozilla { display: none!important; }
-    .launchButton { color: var(--fg-light) !important; }
 }
 
 /* About:Blank background */
