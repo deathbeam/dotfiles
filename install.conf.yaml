@@ -13,7 +13,7 @@
         - git submodule update --init --recursive
         - Initializing submodules
     -
-        - git submodule foreach git pull origin master
+        - git submodule update --recursive --remote
         - Updating submodules
     -
         - mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p ~/.vim/undodir
@@ -25,7 +25,7 @@
         - lib/shell/fzf/install --all --no-update-rc
         - Installing fuzzy finder for shell
     -
-        - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget" & true
+        - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget"; true
         - Copying panel widgets
 
 - link:
@@ -45,7 +45,6 @@
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc
     $HOME/.hushlogin: config/hushlogin
-    $HOME/.compton.conf: config/compton.conf
     $HOME/.ncmpcpp/config: config/ncmpcpp
     $HOME/.config/polybar/config: config/polybar
     $HOME/.config/mpv/mpv.conf: config/mpv.conf

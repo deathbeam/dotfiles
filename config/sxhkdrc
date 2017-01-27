@@ -8,7 +8,11 @@ super + Return
 
 # program launcher
 super + space
-  st -c fzf-menu -g 80x15 -e zsh -li -c '(($#)) || set "" && nohup $(print -lr -- $^path/*$^@*(N:t) | fzf --prompt "Run> " --bind "ctrl-x:print-query") &'
+  dmenu_run -i -l 10 -p "run" -b -nb "#2b303b" -nf "#dfe1e8" -sb "#a3be8c" -sf "#2b303b" -fn Terminus:size=12
+
+# clipboard manager
+super + c
+  $DOTHOME/lib/linux/clipmenu/clipmenu -i -l 10 -p "clip" -b -nb "#2b303b" -nf "#dfe1e8" -sb "#a3be8c" -sf "#2b303b" -fn Terminus:size=12
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -67,11 +71,11 @@ super + {p,b,comma,period}
   bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node
-super + {_,shift + }c
-  bspc node -f {next,prev}
+super + bracket{left,right}
+  bspc node -f {prev,next}
 
 # focus the next/previous desktop
-super + bracket{left,right}
+super + brace{left,right}
   bspc desktop -f {prev,next}
 
 # focus the last node/desktop

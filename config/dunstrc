@@ -5,7 +5,7 @@
     browser = /usr/bin/firefox -new-tab
     dmenu = /usr/bin/dmenu -p dunst:
     follow = none
-    font = Hack 12
+    font = Terminus 12
     format = "<b>%s</b>\n%b"
     # geometry [{width}]x{height}][+/-{x}+/-{y}]
     geometry = "0-10+10"
@@ -29,20 +29,19 @@
     word_wrap = yes
 
 [frame]
-    width = 1
-    color = "6092BE"
+    width = 0
 
 [urgency_low]
-    background = "#6092BE"
-    foreground = "#FFFFFF"
+    background = "#2b303b"
+    foreground = "#8fa1b3"
     timeout = 10
 
 [urgency_normal]
-    background = "#6092BE"
-    foreground = "#FFFFFF"
+    background = "#2b303b"
+    foreground = "#dfe1e8"
     timeout = 20
 
 [urgency_critical]
-    background = "#801515"
-    foreground = "#D46A6A"
+    background = "#bf616a"
+    foreground = "#2b303b"
     timeout = 0

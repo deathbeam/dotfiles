@@ -17,8 +17,8 @@ offset-y = 0
 
 bottom = false
 
-background = #ee222222
-foreground = #ccfafafa
+background = #2b303b
+foreground = #dfe1e8
 underline-color = #666
 overline-color = #666
 
@@ -86,21 +86,22 @@ ws-icon-default = x
 format = <label-state> <label-mode>
 
 label-focused = %index%
-label-focused-background = #ee333333
-label-focused-underline= #cc333333
+label-focused-foreground = #2b303b
+label-focused-background = #a3be8c
+label-focused-underline= #a3be8c
 label-focused-padding = 1
 
 label-occupied = %index%
 label-occupied-padding = 1
 
 label-urgent = %index%
-label-urgent-background = #e60053
+label-urgent-foreground = #2b303b
+label-urgent-background = #bf616a
 label-urgent-padding = 1
 
 label-empty = %index%
-label-empty-foreground = #666
+label-empty-foreground = #65737e
 label-empty-padding = 1
-
 
 [module/wifi]
 type = internal/network
@@ -130,7 +131,7 @@ label-connected = %{T3}%local_ip%%{T-}
 [module/date]
 type = internal/date
 date = %%{F#666}%{F#cc} %Y-%m-%d %%{F#666}%%{F#cc} %H:%M
-interval = 5
+interval = 5#dfe1e8
 
 
 [module/volume]

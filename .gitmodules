@@ -25,9 +25,6 @@
 [submodule "lib/vim/vim-repeat"]
 	path = lib/vim/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
-[submodule "lib/vim/syntastic"]
-	path = lib/vim/syntastic
-	url = https://github.com/scrooloose/syntastic
 [submodule "lib/vim/vim-rooter"]
 	path = lib/vim/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -76,9 +73,6 @@
 [submodule "lib/tmux/vim-tmux-navigator"]
 	path = lib/tmux/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
-[submodule "lib/vim/supertab"]
-	path = lib/vim/supertab
-	url = https://github.com/ervandew/supertab
 [submodule "lib/vim/vim-obsession"]
 	path = lib/vim/vim-obsession
 	url = https://github.com/tpope/vim-obsession
@@ -94,3 +88,16 @@
 [submodule "lib/vim/bclose.vim"]
 	path = lib/vim/bclose.vim
 	url = https://github.com/chrismccord/bclose.vim
+[submodule "lib/vim/vim-javacomplete2"]
+	path = lib/vim/vim-javacomplete2
+	url = https://github.com/artur-shaik/vim-javacomplete2
+[submodule "lib/vim/deoplete.nvim"]
+	path = lib/vim/deoplete.nvim
+	url = https://github.com/Shougo/deoplete.nvim
+[submodule "lib/linux/clipmenu"]
+	path = lib/linux/clipmenu
+  url = https://github.com/cdown/clipmenu/
+  branch = develop
+[submodule "lib/vim/neomake"]
+	path = lib/vim/neomake
+	url = https://github.com/neomake/neomake

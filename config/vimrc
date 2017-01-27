@@ -7,15 +7,11 @@
 "   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 " General {{{
+
   " Reset all auto commands
   augroup VimRc
     autocmd!
   augroup END
-
-  " With a map leader it's possible to do extra key combinations
-  let mapleader = ' '
-  let maplocalleader = ' '
-  let g:mapleader = ' '
 
   " Sets how many lines of history VIM has to remember
   set history=200
@@ -35,7 +31,7 @@
 
   " Turn backup off, since most stuff is in SVN, git et.c anyway...
   set nobackup
-  set nowb
+  set nowritebackup
   set noswapfile
 
   " Turn persistent undo on
@@ -54,6 +50,10 @@
     set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
     set grepformat^=%f:%l:%c:%m
   endif
+
+  " Add cscope support
+  set cscopetag cscopeverbose
+  set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 " }}}
 
@@ -85,13 +85,20 @@
     set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
   endif
 
-  " allows cursor change in tmux mode
-  if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+  if has('nvim')
+    " visible incremental command replace
+    set inccommand=nosplit
+
+    " allows cursor change
+    let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
   else
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
+    if exists('$TMUX')
+      let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+      let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
+    else
+      let &t_SI = "\e[5 q"
+      let &t_EI = "\e[2 q"
+    endif
   endif
 
   " Less annoying error messages
@@ -131,7 +138,7 @@
   set noerrorbells
   set novisualbell
   set t_vb=
-  set tm=500
+  set timeoutlen=500
 
   " Open new split panes to right and bottom, which feels more natural
   set splitbelow
@@ -164,12 +171,6 @@
   " Automatically rebalance windows on vim resize
   autocmd VimRc VimResized * :wincmd =
 
-  " use syntax complete if nothing else available
-  autocmd VimRc Filetype *
-        \	if &omnifunc == "" |
-        \		setlocal omnifunc=syntaxcomplete#Complete |
-        \	endif
-
 " }}}
 
 " Colors and Fonts {{{
@@ -187,15 +188,32 @@
   set encoding=utf8
 
   " Use Unix as the standard file type
-  set ffs=unix,dos,mac
+  set fileformats=unix,dos,mac
 
   " Limit horizontal and vertical syntax rendering
   syntax sync minlines=256
   set synmaxcol=256
 
-  " Highlight 121th character in line
-  autocmd VimRc BufEnter * highlight ColorColumn ctermbg=darkred ctermfg=white
-  autocmd VimRc BufEnter * call matchadd('ColorColumn', '\%121v', 100) "set column nr
+  " Adjust syntax highlighting
+  autocmd VimRc BufEnter * call AdjustHighlighting()
+  function! AdjustHighlighting()
+    " Make all these colors less annoying
+    highlight clear LineNr
+    highlight clear SignColumn
+    highlight clear FoldColumn
+    highlight Search cterm=NONE ctermfg=0 ctermbg=3
+    highlight StatusLine ctermbg=NONE ctermfg=4
+    highlight StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
+    highlight VertSplit ctermbg=NONE ctermfg=19
+    highlight Title ctermfg=19
+    highlight TabLineSel ctermbg=NONE ctermfg=4
+    highlight TabLineFill ctermbg=NONE ctermfg=19
+    highlight TabLine ctermbg=NONE ctermfg=19
+
+    " Highlight 121th character in line
+    highlight ColorColumn ctermbg=darkred ctermfg=white
+    call matchadd('ColorColumn', '\%121v', 100) "set column nr
+  endfunction
 
 " }}}
 
@@ -242,6 +260,21 @@
         \   exe "normal! g`\"" |
         \ endif
 
+  " Enable omni completion. (Ctrl-X Ctrl-O)
+  autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+  autocmd VimRc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+  autocmd VimRc FileType python setlocal omnifunc=pythoncomplete#Complete
+  autocmd VimRc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+  autocmd VimRc FileType css set omnifunc=csscomplete#CompleteCSS
+  autocmd VimRc FileType c set omnifunc=ccomplete#Complete
+  autocmd VimRc FileType java set omnifunc=javacomplete#Complete
+
+  " use syntax complete if nothing else available
+  autocmd VimRc Filetype *
+        \	if &omnifunc == "" |
+        \		setlocal omnifunc=syntaxcomplete#Complete |
+        \	endif
+
 " }}}
 
 " GUI related {{{
@@ -265,21 +298,26 @@
 
     " Set font according to system
     if has('mac') || has('macunix')
-      set gfn=Terminus:h12,Source\ Code\ Pro:h12,Menlo:h12
+      set guifont=Terminus:h12,Source\ Code\ Pro:h12,Menlo:h12
     elseif has('win16') || has('win32')
-      set gfn=Terminus:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
+      set guifont=Terminus:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
     elseif has('gui_gtk2')
-      set gfn=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+      set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
     elseif has('linux')
-      set gfn=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
+      set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
     elseif has('unix')
-      set gfn=Monospace\ 11
+      set guifont=Monospace\ 11
     endif
   endif
 
 " }}}
 
 " Mappings {{{
+
+  " With a map leader it's possible to do extra key combinations
+  let mapleader = ' '
+  let maplocalleader = ' '
+  let g:mapleader = ' '
 
   " Switch CWD to the directory of the open buffer
   map <leader>cd :cd %:p:h<cr>:pwd<cr>
@@ -372,34 +410,13 @@
   else
     " Set theme if possible
     try
-      colorscheme base16-tomorrow-night
+      colorscheme base16-ocean
     catch
     endtry
   endif
 
-  " Fix some things
-  hi clear LineNr
-  hi clear SignColumn
-  hi clear FoldColumn
-  hi Search cterm=NONE ctermfg=0 ctermbg=3
-  hi StatusLine ctermbg=NONE ctermfg=4
-  hi StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
-  hi VertSplit ctermbg=NONE ctermfg=19
-  hi Title ctermfg=19
-  hi TabLineSel ctermbg=NONE ctermfg=4
-  hi TabLineFill ctermbg=NONE ctermfg=19
-  hi TabLine ctermbg=NONE ctermfg=19
-
-  " gitgutter
-  let g:gitgutter_signs = 0
-
   " VimWiki
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-
-  " syntastic
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_vim_checkers = ['vint']
-  set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
   " EditorConfig
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -416,30 +433,41 @@
   nnoremap <silent> <leader>gr :Gremove<CR>
   autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 
-  " Eclim
-  let g:EclimCompletionMethod='omnifunc'
-  nnoremap <silent> <leader>jc :JavaCorrect<CR>
-  nnoremap <silent> <leader>js :JavaSearch<CR>
-  nnoremap <silent> <leader>ji :JavaImport<CR>
-  nnoremap <silent> <leader>jI :JavaImportOrganize<CR>
-  nnoremap <silent> <leader>jd :JavaDocComment<CR>
-  nnoremap <silent> <leader>jD :JavaDocPreview<CR>
-  nnoremap <silent> <leader>jt :JUnit %<CR>
-  nnoremap <silent> <leader>jT :JUnitFindTest<CR>
-  nnoremap <silent> <leader>jr :JavaRename<space>
+  " Completion
+  if has('nvim') && has('python3')
+    call deoplete#enable()
+  endif
 
-  " Supertab
-  let g:SuperTabDefaultCompletionType='context'
-  let g:SuperTabContextDefaultCompletionType='<c-n>'
-  let g:SuperTabLongestEnhanced=1
-  let g:SuperTabLongestHighlight=1
-  let g:SuperTabCrMapping=1
+  " Neomake
+  autocmd VimRc BufWritePost * Neomake
+  set statusline+=\ %#ErrorMsg#%{neomake#statusline#LoclistStatus('loc:\ ')}
+  set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
 
-  " FZF
-  imap <c-x><c-k> <plug>(fzf-complete-word)
-  imap <c-x><c-f> <plug>(fzf-complete-path)
-  imap <c-x><c-j> <plug>(fzf-complete-file-ag)
-  " imap <c-x><c-l> <plug>(fzf-complete-line)
+  " Java
+  autocmd VimRc FileType java :call EnableJava()
+  function! EnableJava()
+    let g:JavaComplete_ImportSortType = 'packageName'
+    let g:JavaComplete_ImportOrder = ['*']
+
+    set makeprg=mvn\ $*
+
+    set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
+          \\[%t%[A-Z]%#]\ %f:%l:\ %m,
+          \\%A%f:[%l\\,%c]\ %m,
+          \\%Csymbol%.%#:\ %m,
+          \\%Zlocation%.%#:\ %m,
+          \\%AEmbedded\ error:%.%#\ -\ %f:%l:\ %m,
+          \\%-Z\ %p^,
+          \\%A%f:%l:\ %m,
+          \\%-Z\ %p^,
+          \\%ARunning\ %f,
+          \\%+ZTests\ run%.%#FAILURE!%.%#,
+          \\%ARunning\ %f,
+          \\%C%.%#,
+          \\%+ZTests\ run%.%#FAILURE!%.%#,
+          \\%-G%.%#
+
+  endfunction
 
   " rg command suffix, [options]
   function! VRg_raw(command_suffix, ...)
@@ -521,4 +549,14 @@
     source $DOTHOME/usr/vimrc
   catch
   endtry
+
+  " Yang
+  let g:neomake_yang_enabled_makers = [ 'pyang' ]
+  let g:neomake_yang_pyang_maker = {
+        \ 'args': [ '--path', get(g:, 'neomake_yang_pyang_yangpath', '.') ],
+        \ 'errorformat':
+        \ '%f:%l: %trror: %m,' .
+        \ '%f:%l: %tarning: %m,'
+        \ }
+
 " }}}
