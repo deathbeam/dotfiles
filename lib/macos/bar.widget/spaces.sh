@@ -41,10 +41,10 @@ for (( i = 0; i < ${#bar[@]}; i++ ))
 do
 	if [[ $(($i+1)) == "$active" ]]
 	then
-		bbar[(($i*3+1))]="("${bar[$i]}")"
+		bbar[(($i*3+1))]="<b class='active'>"${bar[$i]}"</b>"
 	else
 		bbar[(($i*3+1))]=" ${bar[$i]} "
 	fi
 done
 
-echo "$($kwmc query space active mode)   ${bbar[*]}"
+echo "${bbar[*]}"

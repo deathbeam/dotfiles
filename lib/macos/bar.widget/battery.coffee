@@ -4,7 +4,7 @@ refreshFrequency: 15000 # ms
 
 render: (output) ->
   """
-  <div class="battery"
+  <div class="battery">
     <span></span>
     <span class="icon fa fa-baterry-empty"></span>
   </div>
@@ -28,9 +28,6 @@ icon: (output) =>
     "fa-battery-empty"
 
 style: """
-  -webkit-font-smoothing: antialiased
-  font: 9px Input
   top: 7px
   right: 160px
-  color: #d5c4a1
 """

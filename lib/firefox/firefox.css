@@ -203,9 +203,20 @@
     img.decoded { background-color: transparent !important; }
 }
 
-/* About:Blank background */
+/* About:Home background */
 @-moz-document url(about:home) {
     html,body { background: var(--bg-light) !important; }
+    #snippetContainer, #spacer, #launcher, #brandLogo, #searchSubmit, #aboutMozilla { display: none !important; }
+
+    #topSection * { -moz-appearance: none !important; border: none !important; }
+
+    #searchText {
+        border-radius: 0px !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: var(--bg-light) !important;
+        color: var(--fg-light) !important;
+    }
 }
 
 /* About:Blank background */

@@ -17,9 +17,9 @@
   # Switch to neovim
   alias vim='nvim'
 
-  # Some aliases and enhancements for homebrew
+  # Update and cleanup homebrew
   if command -v brew >/dev/null 2>&1; then
-    alias brewup='brew update && brew upgrade --all && brew cleanup && brew cask cleanup'
+    alias brewup='brew update && brew upgrade && brew cleanup && brew cask cleanup'
   fi
 
   # Alias xclip copy/paste to same as on macOS for consistency
@@ -28,9 +28,9 @@
     alias pbpaste='xclip -o -selection clipboard'
   fi
 
-  # Open Java project in Vim with Eclim
-  function vjava () {
-    $EDITOR --servername "$1" +Session +"ProjectOpen $1"
+  # Open Vim and start saving it's session
+  function vsession () {
+    $EDITOR --servername "$1" +Session
   }
 
   # Super cool gource alias (requires gource)
@@ -38,6 +38,7 @@
 
   # Hastebin fast share
   haste() { a=$(cat); curl -X POST -s -d "$a" https://hastebin.com/documents | awk -F '"' '{print "https://hastebin.com/"$4}'; }
+
 # }}}
 
 # Plugins {{{

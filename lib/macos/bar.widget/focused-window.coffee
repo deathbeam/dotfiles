@@ -1,10 +1,14 @@
-command: 'echo "$(./bar.widget/spaces.sh) | $(/usr/local/bin/kwmc query window focused name)"'
+command: './bar.widget/spaces.sh'
 
-refreshFrequency: 1000 # ms
+refreshFrequency: 500 # ms
 
 render: (output) ->
   """
-  <div class="foc"
+  <style>
+  .active {
+    color: #a3be8c;
+  </style>
+  <div class="foc">
     <span></span>
     <span class="icon fa fa-bars"></span>
   </div>
@@ -12,7 +16,7 @@ render: (output) ->
 
 update: (output, el) ->
   output = @dotted output, 80
-  $(".foc span:first-child", el).text("  #{output}")
+  $(".foc span:first-child", el).html("  #{output}")
 
 dotted: (str, limit) ->
   dots = "..."
@@ -21,14 +25,7 @@ dotted: (str, limit) ->
   return str
 
 style: """
-  -webkit-font-smoothing: antialiased
-  color: #d5c4a1
-  font: 10px Input
   height: 16px
   left: 10px
-  overflow: hidden
-  text-overflow: ellipsis
   top: 6px
-  width: auto
-  white-space: nowrap
 """

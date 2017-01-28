@@ -319,17 +319,8 @@
   let maplocalleader = ' '
   let g:mapleader = ' '
 
-  " Switch CWD to the directory of the open buffer
-  map <leader>cd :cd %:p:h<cr>:pwd<cr>
-
   " Clear last search highlight
   map <leader><cr> :noh<cr>
-
-  " Reset syntax
-  map <leader><leader> :syntax off<cr> :syntax on<cr>
-
-  " Select the stuff I just pasted
-  nnoremap gV `[V`]
 
   " Emacs like keybindings for the command line (:) are better
   " and we cannot use Vi style-binding here anyway, because ESC
@@ -341,44 +332,9 @@
   cnoremap <C-P> <Up>
   cnoremap <C-N> <Down>
 
-  function! StripTrailingWhitespaces()
-    let l = line('.')
-    let c = col('.')
-    %s/\s\+$//e
-    call cursor(l, c)
-  endfun
-  command! -bar Respace :call StripTrailingWhitespaces()
-
-  " Create the `tags` file (may need to install ctags first)
-  command! MakeTags !ctags -R .
-
   " :W sudo saves the file
   " (useful for handling the permission-denied error)
   command! W w !sudo tee % > /dev/null
-
-  " Sane pasting
-  function! SmartPaste()
-    setl paste
-    normal "+p
-    setl nopaste
-  endfunction
-  command! Paste call SmartPaste()
-
-  " Show numbers, folds and git diff signs on left
-  function! Info()
-    if &number
-      set nonumber foldcolumn=0
-      if exists('+cursorcolumn')
-        set nocursorcolumn
-      endif
-    else
-      set number foldcolumn=1
-      if exists('+cursorcolumn')
-        set cursorcolumn
-      endif
-    endif
-  endfunction
-  command! -bar Info :call Info()
 
   " If session file exists, source it, and then start session recording
   function! Session()
@@ -448,9 +404,7 @@
   function! EnableJava()
     let g:JavaComplete_ImportSortType = 'packageName'
     let g:JavaComplete_ImportOrder = ['*']
-
     set makeprg=mvn\ $*
-
     set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
           \\[%t%[A-Z]%#]\ %f:%l:\ %m,
           \\%A%f:[%l\\,%c]\ %m,
@@ -466,7 +420,6 @@
           \\%C%.%#,
           \\%+ZTests\ run%.%#FAILURE!%.%#,
           \\%-G%.%#
-
   endfunction
 
   " rg command suffix, [options]

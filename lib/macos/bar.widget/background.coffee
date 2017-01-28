@@ -6,6 +6,8 @@ render: (output) ->
   <style type="text/css">
   html, body {
     font-family: "Terminus", system, -apple-system;
+    font-size: 12px;
+    color: #dfe1e8;
   }
   </style>
   """
@@ -15,6 +17,6 @@ style: """
   left: 0
   height: 25px
   width: 100%
-  background-color: #282828
   z-index: -1
+  background: #2b303b;
 """
