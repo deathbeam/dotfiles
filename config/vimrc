@@ -366,7 +366,7 @@
   else
     " Set theme if possible
     try
-      colorscheme base16-ocean
+      colorscheme base16-solarized-dark
     catch
     endtry
   endif
