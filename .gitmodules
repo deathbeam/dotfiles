@@ -101,3 +101,6 @@
 [submodule "lib/vim/neomake"]
 	path = lib/vim/neomake
 	url = https://github.com/neomake/neomake
+[submodule "lib/vim/yang.vim"]
+	path = lib/vim/yang.vim
+	url = https://github.com/nathanalderson/yang.vim

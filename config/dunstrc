@@ -32,16 +32,16 @@
     width = 0
 
 [urgency_low]
-    background = "#2b303b"
-    foreground = "#8fa1b3"
+    background = "#073642"
+    foreground = "#657b83"
     timeout = 10
 
 [urgency_normal]
-    background = "#2b303b"
-    foreground = "#dfe1e8"
+    background = "#002b36"
+    foreground = "#586e75"
     timeout = 20
 
 [urgency_critical]
-    background = "#bf616a"
-    foreground = "#2b303b"
+    background = "#268bd2"
+    foreground = "#002b36"
     timeout = 0

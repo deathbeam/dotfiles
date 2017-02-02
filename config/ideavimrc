@@ -20,6 +20,8 @@ nnoremap [<space> O<esc>j
 nnoremap ]<space> o<esc>k
 nnoremap [q :action PreviousOccurence<cr>
 nnoremap ]q :action NextOccurence<cr>
+nnoremap [l :action GotoPreviousError<cr>
+nnoremap ]l :action GotoNextError<cr>
 nnoremap [m :action MethodUp<cr>
 nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
@@ -49,8 +51,8 @@ nnoremap <space>jt :action ChangeTypeSignature<cr>
   " New element
   nnoremap <space>n :action NewElement<cr>
 
-  " Search everywhere (Intellij Find in path)
-  nnoremap <space>/ :action FindInPath<cr>
+  " Search everywhere
+  nnoremap <space>/ :action SearchEverywhere<cr>
 
   " Tags (Intellij Go to symbol)
   nnoremap <space>t :action GotoSymbol<cr>
