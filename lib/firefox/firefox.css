@@ -1,60 +1,54 @@
 @namespace html url(http://www.w3.org/1999/xhtml);
 @namespace xul url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
-/*
-    Author: Twily, deathbeam
-    Description: Vim-like base16-tomorrow-night styled tabs for Australis
-    Compatibility: -- Firefox 49.02a --
-
-    Useful search tags within this css:
-    "url-bar visible", "enable scrollbar"
-*/
-
 
 :root {
     /* TAB VARIABLES */
-    --bg-active: #268bd2;
-    --fg-active: #002b36;
-    --bg-light: #073642;
-    --fg-light: #657b83;
-    --bg-dark: #002b36;
-    --fg-dark: #586e75;
-    --tab-triangle-correction: -1px;
-    --tab-height: 22px; --tab-icon-size: 10px; --tab-strip-margin: 0px -15px 0 -11px; --tab-overlap: -5px;
-    --tab-fonts: "Terminus","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans"; --tab-font-size: 10pt;
+    --bg-high: #268bd2;
+    --fg-high: #eee8d5;
+    --bg-normal: #073642;
+    --fg-normal: #93a1a1;
+    --bg-low: #002b36;
+    --fg-low: #839496;
+    --tab-height: 20px;
+    --tab-fonts: "Inconsolata","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans";
+    --tab-font-size: 10pt;
     --tab-text-align: left; /* left | center | right */
-    --tab-triangle: block;  /* block | none */
+    --tab-triangle-correction: -1px;
+    --tab-icon-size: 10px;
+    --tab-strip-margin: 0px -15px 0 -11px;
+    --tab-overlap: 0px;
+    --tab-triangle: none;  /* block | none */
 
     /* URL VARIABLES */
-    --url-background: var(--bg-light); --url-color: var(--fg-dark);
-    --url-height: 24px; --url-right-margin: 0x;
-    --url-fonts: "Hack","Droid Sans", "Source Sans Pro", "Lemon",monospace,"Dejavu Sans"; --url-font-size: 10pt;
+    --url-background: var(--bg-low);
+    --url-color: var(--fg-low);
+    --url-height: var(--tab-height);
+    --url-fonts: var(--tab-fonts);
+    --url-font-size: var(--tab-font-size);
     --url-text-align: left; /* left | center | right */
+    --url-right-margin: 6px;
     --url-position: absolute; /* absolute == top (under tabs) || fixed == bottom of browser */
 }
 
 
 @-moz-document url(chrome://browser/content/browser.xul) {
-    /* URL-BAR */
+    /* HIDE STUFF */
     #back-button, #forward-button, #back-button *, #forward-button *, #identity-box, #urlbar-reload-button, #urlbar-stop-button, #urlbar-go-button,
     #PanelUI-button, #bookmarks-menu-button, #downloads-button, #home-button, #stylish-toolbar-button, #abp-toolbarbutton,
     #notification-popup-box, #new-tab-button, #private-browsing-indicator, #search-container, #nav-bar-overflow-button,
     .tabs-newtab-button, .tab-close-button, .tab-close, .tab-throbber, .tab-background-start, .tab-background-end,
     #pocket-button, #loop-button, #social-share-button, #window-controls
-    #alltabs-button, #tabview-button, #toolbar-menubar, .tab-icon-image:not([pinned]), #titlebar { display: none !important; }
-    * { box-sizing: border-box !important; }
-    .tab-drop-indicator { margin-bottom: 0 !important; }
+    #alltabs-button, #tabview-button, #toolbar-menubar, .tab-icon-image:not([pinned]), #titlebar,
+    .tabbrowser-tab::before, .tabbrowser-tab::after ,#TabsToolbar::after, #TabsToolbar tab::after,
+    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator,
+    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator-titlebar { display: none !important; }
 
-    #navigator-toolbox { background: var(--url-background) !important; }
-    #navigator-toolbox * { clip: auto !important; clip-path: none !important; }
-    #main-window { -moz-appearance:none !important; }
-    #autohide-context { display:none!important; } /* hide "Exit Full Screen Mode" */
-    #window-controls  { display:none!important; } /* hide window controls */
-    #titlebar-buttonbox-container { display:none!important; }
-
+    /* URL BAR */
     #nav-bar {
         position: var(--url-position) !important; bottom: 0 !important;
         width: 100% !important; height: var(--url-height) !important;
-        margin: 0 0 -3px -3px !important; background: transparent !important;
+        margin: 0 !important; padding: 0 !important; background: transparent !important;
+        border: none !important;
     }
 
     #nav-bar-customization-target, #urlbar-container, #urlbar {
@@ -64,22 +58,26 @@
     }
 
     #nav-bar-customization-target {
-        position: absolute !important; top: -1px !important; left: 0 !important; height: calc(100% - 1px) !important; /* (bottom margin - height switch +/- to fix line) */
+        position: absolute !important; top: 0px !important; left: 0 !important; height: 100% !important; /* (bottom margin - height switch +/- to fix line) */
     }
 
-    #urlbar, .urlbar-textbox-container, .urlbar-input-box .textbox-input {
-        border: none !important; padding: 0px !important;
-        background: var(--url-background)!important; color: var(--url-color) !important;
+    #urlbar, .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        border: none !important;
+        padding: 0px !important;;
+        background: var(--url-background) !important; color: var(--url-color) !important;
         font-family: var(--url-fonts) !important; font-size: var(--url-font-size) !important;
         text-align: var(--url-text-align) !important;
         height: 100% !important;
     }
 
     #urlbar {
-        padding: 0 0 0 8px !important;
+        padding: 0 5px !important;
     }
 
-    .urlbar-textbox-container, .urlbar-input-box .textbox-input {
+    #urlbar * { -moz-appearance: none !important; border: none !important; }
+
+    .urlbar-textbox-container .urlbar-input-box .textbox-input {
+        margin-top: -2px !important;;
         height: var(--url-height) !important;
     }
 
@@ -88,11 +86,14 @@
     tab {
         font-family: var(--tab-fonts) !important;
         height: var(--tab-height) !important; min-height: var(--tab-height) !important;
-        background: var(--bg-dark) !important; color: var(--fg-dark) !important;
+        background: var(--bg-normal) !important; color: var(--fg-normal) !important;
         font-size: var(--tab-font-size); text-shadow: none !important; text-align: var(--tab-text-align) !important;
     }
 
-    .tabbrowser-tab label { padding: 0 10px 0 10px !important; }
+    .tabbrowser-tab label {
+        padding: 0 10px 0 10px !important;
+        text-align: var(--tab-text-align) !important;
+    }
 
     #tabbrowser-tabs .tabbrowser-tab[pinned]            { width: 48px !important; }
     #tabbrowser-tabs .tabbrowser-tab[pinned] label      { display: none !important; }
@@ -110,76 +111,36 @@
         -moz-appearance: none !important;
     }
 
-    #alltabs-button { margin-left: -10px !important; }
-
     #tabbrowser-tabs .tabbrowser-tab[pinned] .tab-stack { height: var(--tab-height) !important; width: 100% !important; }
     #tabbrowser-tabs .tabbrowser-arrowscrollbox, #tabbrowser-tabs .tabbrowser-arrowscrollbox .box-inherit.scrollbox-innerbox {
         max-height: var(--tab-height) !important;
+        border: none !important;
+        -moz-appearance: none !important;
     }
+
     .scrollbutton-up, .scrollbutton-down { border: none !important; }
 
     #tabbrowser-tabs[overflow]:not([positionpinnedtabs]) { -moz-padding-start: 20px !important; }
 
     .tabbrowser-tab .tab-stack, #TabsToolbar tab::after {
-        background: var(--bg-dark) !important; color: var(--fg-dark) !important;
+        background: var(--bg-normal) !important; color: var(--fg-normal) !important;
         border-radius: 0px !important; position: relative !important;
-    }
-
-    #TabsToolbar tab::after {
-        display: block!important;
-        opacity: 1!important;
-        visibility: visible!important;
-        -moz-appearance: none !important;
-        padding: 6px;
-        height: var(--tab-height)!important;
-        width:var(--tab-height)!important;
+        border: none !important;
     }
 
     .tabbrowser-tab[selected="true"] .tab-stack, #TabsToolbar tab[selected="true"]::after {
-        background: var(--bg-active) !important; color: var(--fg-active) !important;
+        background: var(--bg-high) !important; color: var(--fg-high) !important;
     }
 
     #TabsToolbar, #tabbrowser-tabs {
         -moz-appearance: none !important;
         height: var(--tab-height) !important; min-height: var(--tab-height)!important;
         margin: var(--tab-strip-margin) !important;
-        background: var(--bg-dark) !important;
+        background: var(--bg-normal) !important;
     }
 
-    #TabsToolbar::after { display: none !important; }
-    .tabbrowser-tab::before, .tabbrowser-tab::after { background: none !important; opacity: 1 !important; visibility: visible !important; }
     browser, #navigator-toolbox { -moz-appearance: none !important; background: transparent !important; }
-    #navigator-toolbox::after { height: 0px !important; background: var(--bg-light) !important; }
-
-    /* MENUS */
-    menuitem + menuseparator, menu + menuseparator, .menu-iconic-left { display: none !important; }
-    menuitem > label { margin-left: var(--tab-height) !important; }
-    menubar, menubutton, menulist, menu, menuitem {
-        font-family: var(--tab-fonts) !important; font-size: var(--tab-font-size);
-        height: var(--tab-height) !important;
-    }
-
-    /* HIDE ORANGE MENU BUTTON */
-    #appmenu-toolbar-button, #appmenu-button-container { display: none !important; }
-
-    /* HIDE STATUS BAR */
-    #status-bar, #statusbar-display, statuspanel { display: none !important; }
-
-    /* PRIVATE BROWSING ICON HIDE */
-    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator,
-    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator-titlebar { display: none !important; }
-
-    /* Vimperator icon style */
-    #liberator-statusline:not([customizing="true"]) { margin: 0 !important; padding: 0 0 !important; height: var(--tab-height) !important; }
-    #liberator-statusline:not([customizing="true"]) :-moz-any(toolbarbutton) { height: 100% !important; }
-
-    /* Fullscreen adjustments */
-    window[sizemode="fullscreen"] #browser-panel        { margin-top: -1px !important; }
-    window[sizemode="fullscreen"] #liberator-statusline { display: none !important; }
-    window[sizemode="fullscreen"] #liberator-bottombar  {
-        margin-top: -20px !important;
-        transition: 1s ease !important; transition-delay: .3s !important;
-    }
+    #navigator-toolbox::after { height: 0px !important; background: var(--bg-low) !important; }
 }
 
 /* AGENT_SHEET */
@@ -193,26 +154,35 @@
 
 /* background color around/behind pictures opened in firefox (require html namespace on top) */
 @-moz-document regexp("(https?://|file:///)(.*)\\.(jpeg|jpg|gif|png|apng|svg|bmp|webm|webp)") {
-    body { background: var(--bg-light) !important; }
+    body { background: var(--bg-low) !important; }
     img.decoded { background-color: transparent !important; }
 }
 
-/* About:Home styling */
+/* About:Home background */
 @-moz-document url(about:home) {
-    html,body { background: var(--bg-light) !important; }
-    #snippetContainer, #brandLogo, #aboutMozilla { display: none!important; }
-    .launchButton { color: var(--fg-light) !important; }
+    html,body { background: var(--bg-low) !important; }
+    #snippetContainer, #spacer, #launcher, #brandLogo, #searchSubmit, #aboutMozilla { display: none !important; }
+
+    #topSection * { -moz-appearance: none !important; border: none !important; }
+
+    #searchText {
+        border-radius: 0px !important;
+        box-shadow: none !important;
+        border: none !important;
+        background: var(--bg-low) !important;
+        color: var(--fg-low) !important;
+    }
 }
 
 /* About:Blank background */
 @-moz-document url(about:blank) {
-    html,body { background: var(--bg-light) !important; }
+    html,body { background: var(--bg-low) !important; }
 }
 
 /* About:NewTab background */
 @-moz-document url(about:newtab) {
-    html,body,#newtab-customize-overlay { background-color: var(--bg-light) !important; color: var(--fg-light) !important; }
+    html,body,#newtab-customize-overlay { background-color: var(--bg-low) !important; color: var(--fg-low) !important; }
 }
 
 /*----- Fix for white flash on new tab -----*/
-tabbrowser tabpanels, #appcontent > #content { background: var(--bg-light) !important; }
+tabbrowser tabpanels, #appcontent > #content { background: var(--bg-low) !important; }
