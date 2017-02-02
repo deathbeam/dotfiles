@@ -17,17 +17,17 @@ fi
 # Set up x stuff first
 xsetroot -cursor_name left_ptr
 
+# Start music manager daemon
+mopidy &
+
 # Now, open terminal window
 st &
 
 # Set nice wallpaper
-$DOTHOME/lib/linux/wallpaper.sh
+$DOTHOME/lib/linux/wallpaper.sh &
 
 # Start clipboard manager daemon
 $DOTHOME/lib/linux/clipmenu/clipmenud &
-
-# Start music manager daemon
-mopidy &
 
 # Start key manager daemon
 sxhkd &

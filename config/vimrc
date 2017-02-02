@@ -168,6 +168,8 @@
   " Show tabs and trailing spaces
   set list listchars=tab:→\ ,trail:·
 
+  set showbreak=↲
+
   " Automatically rebalance windows on vim resize
   autocmd VimRc VimResized * :wincmd =
 
@@ -446,9 +448,6 @@
     return call('fzf#vim#ag', args)
   endfunction
   command! -bang -nargs=* Find call VFind(<q-args>, <bang>0)
-
-  " Enable per-command history.
-  let g:fzf_history_dir = '~/.local/share/fzf-history'
 
   " If this is Git repo, list git files only, otherwise list all
   function! VFiles()

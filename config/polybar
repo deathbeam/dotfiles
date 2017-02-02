@@ -37,7 +37,7 @@ font-0 = Terminus:size=10;1
 font-1 = FontAwesome:size=10;0
 
 modules-left = bspwm
-modules-center =
+modules-center = title
 modules-right = wifi wired volume battery date powermenu
 
 tray-position = right
@@ -74,6 +74,7 @@ font-0 = Terminus:size=10;1
 font-1 = FontAwesome:size=10;0
 
 modules-left = bspwm
+modules-center = title
 modules-right = mpd
 
 tray-position = right
@@ -185,6 +186,8 @@ animation-charging-4 = 
 animation-charging-foreground = #666
 animation-charging-framerate = 750
 
+[module/title]
+type = internal/xwindow
 
 [module/mpd]
 type = internal/mpd
@@ -193,9 +196,6 @@ host = localhost
 port = 6600
 
 format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
-format-online-background = #ee333333
-format-online-underline = #cc333333
-format-online-padding = 3
 
 ;format-offline = <label-offline>
 ;format-offline-foreground = #66

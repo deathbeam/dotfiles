@@ -16,7 +16,7 @@
         - git submodule update --recursive --remote
         - Updating submodules
     -
-        - mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p ~/.vim/undodir
+        - mkdir -p usr/bin ; mkdir -p usr/vim ; mkdir -p usr/wallpapers ; mkdir -p ~/.vim/undodir
         - Creating directory structure
     -
         - 'echo "export DOTHOME="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"" > .dotconfig; touch usr/gitconfig'
@@ -54,3 +54,4 @@
     $HOME/.zim: lib/shell/zim
     $HOME/.xsession: config/xsession
     $HOME/.editorconfig: config/editorconfig
+    $HOME/.ideavimrc: config/ideavimrc

@@ -30,7 +30,7 @@
 
   # Open Vim and start saving it's session
   function vsession () {
-    $EDITOR --servername "$1" +Session
+    $EDITOR +Session
   }
 
   # Super cool gource alias (requires gource)
