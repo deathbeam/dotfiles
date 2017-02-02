@@ -1,51 +1,35 @@
-#
-# ~/.ncmpcpp/config
-#
+mpd_music_dir = "~/Music"
 
-# connection settings
-mpd_host = "localhost"
-mpd_port = "6600"
-mpd_crossfade_time = "5"
+user_interface = "classic"
 
-# Visualizer
-visualizer_fifo_path = "/tmp/mpd_fifo"
-visualizer_output_name = "fifo"
-visualizer_type = "wave" (spectrum/wave)
+alternative_header_first_line_format = "$(11)─┤ $b$(13)%a$(end)$/b ├─$(end)"
+alternative_header_second_line_format = "$(4)%t (%y)$(end)"
+alternative_ui_separator_color = 11
 
-# Playlist
-song_columns_list_format = "(4f)[white]{n} (25)[cyan]{a} (30)[blue]{b} (40)[default]{t|f} (6f)[white]{l}"
-now_playing_prefix = "$b→ "
+color1 = 13
+color2 = 15
+main_window_highlight_color = cyan
+main_window_color = 13
+
+now_playing_prefix = "$b"
 now_playing_suffix = "$/b"
-playlist_display_mode = "columns" (classic/columns)
+song_list_format = "    $(15)%t$(end)$R $(11)%A$(end) ($(cyan)%l$(end))    "
+song_columns_list_format = "(40)[15]{t|f} (25)[13]{a} (25)[11]{b} (5)[cyan]{l}"
+browser_playlist_prefix = "$(11) playlist $(end) "
+active_column_color = 4
+
+progressbar_color = 1
+progressbar_elapsed_color = 11
+progressbar_look = "──━"
+song_status_format = " $(15)%a$(end) $4⟫$7⟫$0 $(13)%t$(end) $4⟫$7⟫$0  $(11)%b$(end)"
+
+mouse_support = "no"
+header_visibility = "no"
+statusbar_visibility = "yes"
+playlist_display_mode = "classic" (classic/columns)
+browser_display_mode = "classic"
+search_engine_display_mode = "classic"
+playlist_editor_display_mode = "classic"
 autocenter_mode = "yes"
-centered_cursor = "yes"
-
-# Bars
-#song_status_format = "$0%t $8• $7%a $8•{ $5%b $8• }$5%y$0"
-progressbar_look = "─╼·"
 titles_visibility = "no"
-header_visibility = "yes"
-
-# Browser
-browser_playlist_prefix = "82plist »$9 "
-browser_display_mode = "columns" (classic/columns)
-
-# Colors
-discard_colors_if_item_is_selected = "yes"
-header_window_color = "white"
-volume_color = "cyan"
-state_line_color = "default"
-state_flags_color = "red"
-main_window_color = "default"
-color1 = "default"
-color2 = "black"
-main_window_highlight_color = "green"
-progressbar_color = "green"
-statusbar_color = "default"
-active_column_color = "cyan"
-visualizer_color = "cyan"
-
-# Others
-song_window_title_format = "MPD: {%a > }{%t}{ [%b{ Disc %d}]}|{%f}"
-search_engine_display_mode = "columns" (classic/columns)
-follow_now_playing_lyrics = "yes"
+enable_window_title = "yes"

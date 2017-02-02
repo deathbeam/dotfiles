@@ -51,7 +51,7 @@
 
   # Base 16
   eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
-  [ -z $BASE16_THEME ] && base16_ocean
+  [ -z $BASE16_THEME ] && base16_solarized-dark
 
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
