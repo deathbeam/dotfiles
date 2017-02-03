@@ -3,7 +3,7 @@ monitor = VGA-1
 wm-restack = bspwm
 override-redirect = false
 width = 100%
-height = 30
+height = 25
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -17,8 +17,8 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 2
 
-background = #002b36
-foreground = #657b83
+background = #073642
+foreground = #93a1a1
 font-0 = Terminus:size=10;1
 font-1 = FontAwesome:size=10;0
 
@@ -32,7 +32,7 @@ monitor = VGA-2
 wm-restack = bspwm
 override-redirect = false
 width = 100%
-height = 30
+height = 25
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -46,8 +46,8 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 2
 
-background = #002b36
-foreground = #657b83
+background = #073642
+foreground = #93a1a1
 font-0 = Terminus:size=10;1
 font-1 = FontAwesome:size=10;0
 
@@ -62,19 +62,19 @@ format = <label-state> <label-mode>
 
 label-focused = %index%
 label-focused-background = #268bd2
-label-focused-foreground = #002b36
+label-focused-foreground = #eee8d5
 label-focused-padding = 1
+
+label-empty = %index%
+label-empty-background = #002b36
+label-empty-foreground = #839496
+label-empty-padding = 1
+
+label-urgent = %index%
+label-urgent-padding = 1
 
 label-occupied = %index%
 label-occupied-padding = 1
-
-label-urgent = %index%
-label-urgent-background = #073642
-label-urgent-foreground = #657b83
-label-urgent-padding = 1
-
-label-empty = %index%
-label-empty-padding = 1
 
 [module/wifi]
 type = internal/network

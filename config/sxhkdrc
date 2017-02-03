@@ -8,11 +8,11 @@ super + Return
 
 # program launcher
 super + space
-  dmenu_run -i -l 10 -p "run" -b -nb "#002b36" -nf "#586e75" -sb "#268bd2" -sf "#002b36" -fn Terminus:size=12
+  dmenu_run -i -l 10 -p "run" -b -nb "#073642" -nf "#93a1a1" -sb "#268bd2" -sf "#eee8d5" -fn Terminus:size=12
 
 # clipboard manager
 super + c
-  $DOTHOME/lib/linux/clipmenu/clipmenu -i -l 10 -p "clip" -b -nb "#002b36" -nf "#586e75" -sb "#268bd2" -sf "#002b36" -fn Terminus:size=12
+  $DOTHOME/lib/linux/clipmenu/clipmenu -i -l 10 -p "clip" -b -nb "#073642" -nf "#93a1a1" -sb "#268bd2" -sf "#eee8d5" -fn Terminus:size=12
 
 # make sxhkd reload its configuration files:
 super + Escape

@@ -9,9 +9,9 @@
     --fg-normal: #93a1a1;
     --bg-low: #002b36;
     --fg-low: #839496;
-    --tab-height: 20px;
-    --tab-fonts: "Inconsolata","Droid Sans","Source Sans Pro","Lemon",monospace,"Dejavu Sans";
-    --tab-font-size: 10pt;
+    --tab-height: 25px;
+    --tab-fonts: "Terminus (TTF)", "Inconsolata", monospace;
+    --tab-font-size: 12pt;
     --tab-text-align: left; /* left | center | right */
     --tab-triangle-correction: -1px;
     --tab-icon-size: 10px;
@@ -41,7 +41,8 @@
     #alltabs-button, #tabview-button, #toolbar-menubar, .tab-icon-image:not([pinned]), #titlebar,
     .tabbrowser-tab::before, .tabbrowser-tab::after ,#TabsToolbar::after, #TabsToolbar tab::after,
     #main-window[privatebrowsingmode=temporary] #private-browsing-indicator,
-    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator-titlebar { display: none !important; }
+    #main-window[privatebrowsingmode=temporary] #private-browsing-indicator-titlebar,
+    #status-bar, #statusbar-display, statuspanel { display: none !important; }
 
     /* URL BAR */
     #nav-bar {
@@ -58,7 +59,7 @@
     }
 
     #nav-bar-customization-target {
-        position: absolute !important; top: 0px !important; left: 0 !important; height: 100% !important; /* (bottom margin - height switch +/- to fix line) */
+        position: absolute !important; top: 0px !important; left: 0 !important; height: 103% !important;
     }
 
     #urlbar, .urlbar-textbox-container .urlbar-input-box .textbox-input {
@@ -77,7 +78,7 @@
     #urlbar * { -moz-appearance: none !important; border: none !important; }
 
     .urlbar-textbox-container .urlbar-input-box .textbox-input {
-        margin-top: -2px !important;;
+        margin: 1px !important;;
         height: var(--url-height) !important;
     }
 
