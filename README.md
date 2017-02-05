@@ -116,9 +116,9 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [neomake](https://github.com/neomake/neomake): Asynchronous linting and make framework for Neovim/Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
- * [supertab](https://github.com/ervandew/supertab): Perform all your vim insert mode completions with Tab
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
+ * [vim-dirvish](https://github.com/justinmk/vim-dirvish): Directory viewer for Vim ⚡️
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags): A Vim plugin that manages your tag files
  * [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2): Updated javacomplete plugin for vim
@@ -127,8 +127,8 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
  * [vim-surround](https://github.com/tpope/vim-surround): quoting/parenthesizing made simple
+ * [vim-test](https://github.com/janko-m/vim-test): Run your tests at the speed of thought
  * [vim-unimpaired](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
- * [vim-vinegar](https://github.com/tpope/vim-vinegar): combine with netrw to create a delicious salad dressing
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
 
 ### Tmux

@@ -31,46 +31,26 @@ nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap gcc :action CommentByLineComment<cr>
 vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
 
-" Show intention actions (alt-enter in Idea)
+" Navigation
+nnoremap <space>j] :action GotoImplementation<cr>
+
+" Refactoring
 nnoremap <space>ji :action ShowIntentionActions<cr>
-
-" Generate
 nnoremap <space>jg :action Generate<cr>
-
-" Refactor element name
 nnoremap <space>jr :action RenameElement<cr>
-
-" Refactor element signature
 nnoremap <space>js :action ChangeSignature<cr>
-
-" Refactor element type
 nnoremap <space>jt :action ChangeTypeSignature<cr>
 
-" Menus {{{
-
-  " New element
-  nnoremap <space>n :action NewElement<cr>
-
-  " Search everywhere
-  nnoremap <space>/ :action SearchEverywhere<cr>
-
-  " Tags (Intellij Go to symbol)
-  nnoremap <space>t :action GotoSymbol<cr>
-
-  " Buffer tags (Intellij File structure popup)
-  nnoremap <space>o :action FileStructurePopup<cr>
-
-  " Files (Intellij Go to file)
-  nnoremap <space>f :action GotoFile<cr>
-
-  " Actions (Intellij Go to action)
-  nnoremap <space>a :action GotoAction<cr>
-
-  " History (Intellij Recent files)
-  nnoremap <space>h :action RecentFiles<cr>
-
-  " Buffers (Intellij Switcher)
-  nnoremap <space>b :action Switcher<cr>
+" Menus
+nnoremap <space>/ :action SearchEverywhere<cr>
+nnoremap <space>T :action GotoSymbol<cr>
+nnoremap <space>t :action FileStructurePopup<cr>
+nnoremap <space>F :action GotoFile<cr>
+nnoremap <space>f :action GotoClass<cr>
+nnoremap <space>a :action GotoAction<cr>
+nnoremap <space>h :action RecentFiles<cr>
+nnoremap <space>b :action Switcher<cr>
+nnoremap <space>n :action NewElement<cr>
 
 " }}}
 

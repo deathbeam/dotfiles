@@ -10,7 +10,7 @@
     --bg-low: #002b36;
     --fg-low: #839496;
     --tab-height: 25px;
-    --tab-fonts: "Terminus (TTF)", "Inconsolata", monospace;
+    --tab-fonts: "Terminus (TTF)", "Terminus", "Inconsolata", monospace;
     --tab-font-size: 12pt;
     --tab-text-align: left; /* left | center | right */
     --tab-triangle-correction: -1px;

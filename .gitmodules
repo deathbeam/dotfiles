@@ -64,9 +64,6 @@
 [submodule "lib/vim/vim-surround"]
 	path = lib/vim/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "lib/vim/vim-vinegar"]
-	path = lib/vim/vim-vinegar
-	url = https://github.com/tpope/vim-vinegar
 [submodule "lib/vim/vim-unimpaired"]
 	path = lib/vim/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
@@ -107,3 +104,12 @@
 [submodule "lib/irssi/irssi-colors-solarized"]
 	path = lib/irssi/irssi-colors-solarized
 	url = https://github.com/huyz/irssi-colors-solarized
+[submodule "lib/vim/vim-test"]
+	path = lib/vim/vim-test
+	url = https://github.com/janko-m/vim-test
+[submodule "lib/vim/vim-dirvish"]
+	path = lib/vim/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
+[submodule "lib/vim/vim-polyglot"]
+	path = lib/vim/vim-polyglot
+	url = https://github.com/sheerun/vim-polyglot

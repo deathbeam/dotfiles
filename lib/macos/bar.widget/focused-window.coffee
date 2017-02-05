@@ -6,7 +6,7 @@ render: (output) ->
   """
   <style>
   .active {
-    color: #a3be8c;
+    color: #268bd2;
   </style>
   <div class="foc">
     <span></span>

@@ -165,9 +165,11 @@
   " Cursor line (it is slowing Vim a bit, but too useful)
   set cursorline
 
-  " Show tabs and trailing spaces
-  set list listchars=tab:→\ ,trail:·
+  " Disable text wrap
+  set nowrap
 
+  " Show tabs, trailing spaces and newline breaks
+  set list listchars=tab:→\ ,trail:·
   set showbreak=↲
 
   " Automatically rebalance windows on vim resize
@@ -380,7 +382,13 @@
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
   let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
+  " Completion
+  if has('nvim') && has('python3')
+    call deoplete#enable()
+  endif
+
   " Fugitive
+  autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
   nnoremap <silent> <leader>gs :Gstatus<CR>
   nnoremap <silent> <leader>gd :Gdiff<CR>
   nnoremap <silent> <leader>gc :Gcommit<CR>
@@ -389,17 +397,22 @@
   nnoremap <silent> <leader>gp :Git push<CR>
   nnoremap <silent> <leader>gw :Gwrite<CR>
   nnoremap <silent> <leader>gr :Gremove<CR>
-  autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
-
-  " Completion
-  if has('nvim') && has('python3')
-    call deoplete#enable()
-  endif
 
   " Neomake
-  autocmd VimRc BufWritePost * Neomake
+  nmap <silent> <leader>mf :Neomake<CR>
+  nmap <silent> <leader>mF :Neomake!<CR>
   set statusline+=\ %#ErrorMsg#%{neomake#statusline#LoclistStatus('loc:\ ')}
   set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
+
+  " Vim Test
+  let test#strategy = 'make'
+  nmap <silent> <leader>mt :TestFile<CR>
+  nmap <silent> <leader>mT :TestSuite<CR>
+  nmap <silent> <leader>mtt :TestNearest<CR>
+
+  " Quickfix and location list
+  nmap <silent> <leader>oc  :copen<CR>
+  nmap <silent> <leader>ol  :lopen<CR>
 
   " Java
   autocmd VimRc FileType java :call EnableJava()
@@ -424,73 +437,45 @@
           \\%-G%.%#
   endfunction
 
-  " rg command suffix, [options]
-  function! VRg_raw(command_suffix, ...)
-    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.a:command_suffix, 1], a:000))
-  endfunction
+  " FZF {{{
+    " rg command suffix, [options]
+    function! VRg_raw(command_suffix, ...)
+      return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.a:command_suffix, 1], a:000))
+    endfunction
 
-  " query, [[ag options], options]
-  function! VRg(query, ...)
-    let query = empty(a:query) ? '^.' : a:query
-    let args = copy(a:000)
-    let ag_opts = len(args) > 1 ? remove(args, 0) : ''
-    let command = ag_opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
-    return call('VRg_raw', insert(args, command, 0))
-  endfunction
+    " query, [[ag options], options]
+    function! VRg(query, ...)
+      let query = empty(a:query) ? '^.' : a:query
+      let args = copy(a:000)
+      let ag_opts = len(args) > 1 ? remove(args, 0) : ''
+      let command = ag_opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
+      return call('VRg_raw', insert(args, command, 0))
+    endfunction
 
-  " Try to use ripgrep, otherwise fallback to ag
-  function! VFind(query, ...)
-    let args = insert(copy(a:000), a:query, 0)
-    if executable('rg')
-      return call('VRg', args)
-    endif
+    " Try to use ripgrep, otherwise fallback to ag
+    function! VFind(query, ...)
+      let args = insert(copy(a:000), a:query, 0)
+      if executable('rg')
+        return call('VRg', args)
+      endif
 
-    return call('fzf#vim#ag', args)
-  endfunction
-  command! -bang -nargs=* Find call VFind(<q-args>, <bang>0)
+      return call('fzf#vim#ag', args)
+    endfunction
+    command! -bang -nargs=* Find call VFind(<q-args>, <bang>0)
 
-  " If this is Git repo, list git files only, otherwise list all
-  function! VFiles()
-    if !empty(glob('.git'))
-      execute 'GFiles'
-    else
-      execute 'Files'
-    endif
-  endfunction
-
-  " Menus {{{
-    " Search everywhere (fzf.vim Ag)
+    " Menus
     nmap <leader>/ :Find<cr>
-
-    " Help tags (fzf.vim Helptags)
-    nmap <leader>? :Helptags<cr>
-
-    " Tags (fzf.vim Tags)
-    nmap <leader>t :Tags<cr>
-
-    " Buffer tags (fzf.vim BTags)
-    nmap <leader>o :BTags<cr>
-
-    " Files (fzf.vim Files or GFiles)
-    nmap <leader>f :call VFiles()<cr>
-
-    " Actions (fzf.vim Commands)
+    nmap <leader>T :Tags<cr>
+    nmap <leader>t :BTags<cr>
+    nmap <leader>F :Files<cr>
+    nmap <leader>f :GFiles<cr>
     nmap <leader>a :Commands<cr>
-
-    " Snippets (fzf.vim Snippets)
-    nmap <leader>s :Snippets<cr>
-
-    " Commits (fzf.vim Commits)
-    nmap <leader>c :Commits<cr>
-
-    " History (fzf.vim History)
     nmap <leader>h :History<cr>
-
-    " Buffers (fzf.vim Buffers)
     nmap <leader>b :Buffers<cr>
-
-    " Windows (fzf.vim Windows)
     nmap <leader>w :Windows<cr>
+    nmap <leader>s :Snippets<cr>
+    nmap <leader>c :Commits<cr>
+    nmap <leader>? :Helptags<cr>
   " }}}
 
 " }}}

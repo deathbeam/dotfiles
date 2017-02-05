@@ -2,13 +2,13 @@
 khd kwm on
 
 # set color of default mode
-khd mode default color 0xFFA3BE8C
+khd mode default color 0xFF268BD2
 
 # Enable the resize mode
 khd mode resize prefix on
 khd mode resize timeout 1
 khd mode resize restore default
-khd mode resize color 0xFF96B5B5
+khd mode resize color 0xFF2AA198
 
 # Launch terminal
 cmd + alt + ctrl - return          :    open -na /Applications/iTerm.app

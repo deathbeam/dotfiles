@@ -7,7 +7,7 @@ render: (output) ->
   html, body {
     font-family: "Terminus", system, -apple-system;
     font-size: 12px;
-    color: #dfe1e8;
+    color: #93a1a1;
   }
   </style>
   """
@@ -18,5 +18,5 @@ style: """
   height: 25px
   width: 100%
   z-index: -1
-  background: #2b303b;
+  background: #073642;
 """
