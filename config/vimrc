@@ -377,6 +377,7 @@
 
   " VimWiki
   let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+  let g:vimwiki_global_ext=0
 
   " EditorConfig
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -386,6 +387,10 @@
   if has('nvim') && has('python3')
     call deoplete#enable()
   endif
+
+  " Set patterns for TypeScript autocompletion
+  let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+  let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
 
   " Fugitive
   autocmd VimRc BufReadPost fugitive://* set bufhidden=delete

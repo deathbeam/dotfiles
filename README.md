@@ -116,6 +116,7 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [neomake](https://github.com/neomake/neomake): Asynchronous linting and make framework for Neovim/Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
+ * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-dirvish](https://github.com/justinmk/vim-dirvish): Directory viewer for Vim ⚡️
@@ -123,6 +124,7 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags): A Vim plugin that manages your tag files
  * [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2): Updated javacomplete plugin for vim
  * [vim-obsession](https://github.com/tpope/vim-obsession): continuously updated session files
+ * [vim-polyglot](https://github.com/sheerun/vim-polyglot): A solid language pack for Vim.
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
  * [vim-snippets](https://github.com/honza/vim-snippets): contains snippets files for various programming languages
