@@ -54,6 +54,7 @@
     $HOME/.zim: lib/shell/zim
     $HOME/.xsession: config/xsession
     $HOME/.editorconfig: config/editorconfig
+    $HOME/.ctags: config/ctagsrc
     $HOME/.ideavimrc: config/ideavimrc
     $HOME/.irssi/config: config/irssi
     $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl

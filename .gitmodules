@@ -119,3 +119,6 @@
 [submodule "lib/vim/syntastic"]
 	path = lib/vim/syntastic
 	url = https://github.com/vim-syntastic/syntastic
+[submodule "lib/vim/vaxe"]
+	path = lib/vim/vaxe
+	url = https://github.com/jdonaldson/vaxe

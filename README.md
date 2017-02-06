@@ -118,6 +118,7 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
+ * [vaxe](https://github.com/jdonaldson/vaxe): A modern, modular vim mode for Haxe.
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out
  * [vim-dirvish](https://github.com/justinmk/vim-dirvish): Directory viewer for Vim ⚡️
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal

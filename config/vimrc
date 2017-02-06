@@ -326,6 +326,10 @@
   " Clear last search highlight
   map <leader><cr> :noh<cr>
 
+  " Quickfix and location list
+  nmap <silent> <leader>oc  :copen<CR>
+  nmap <silent> <leader>ol  :lopen<CR>
+
   " Emacs like keybindings for the command line (:) are better
   " and we cannot use Vi style-binding here anyway, because ESC
   " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
@@ -400,18 +404,12 @@
   nnoremap <silent> <leader>gr :Gremove<CR>
 
   " Syntastic
-  nmap <silent> <leader>mf :Neomake<CR>
+  nmap <silent> <leader>mf :SyntasticCheck<CR>
   nmap <silent> <leader>mF :make<CR>
   let g:syntastic_always_populate_loc_list = 1
   let g:syntastic_vim_checkers = ['vint']
   let g:syntastic_html_checkers = ['htmlhint']
   set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
-
-  " TypeScript
-  let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-  let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
-  let g:tsuquyomi_disable_quickfix = 1
-  let g:syntastic_typescript_checkers = ['tsuquyomi']
 
   " Vim Test
   let test#strategy = 'make'
@@ -419,32 +417,36 @@
   nmap <silent> <leader>mT :TestSuite<CR>
   nmap <silent> <leader>mtt :TestNearest<CR>
 
-  " Quickfix and location list
-  nmap <silent> <leader>oc  :copen<CR>
-  nmap <silent> <leader>ol  :lopen<CR>
+  " Language specific {{{
+    " TypeScript
+    let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+    let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
+    let g:tsuquyomi_disable_quickfix = 1
+    let g:syntastic_typescript_checkers = ['tsuquyomi']
 
-  " Java
-  autocmd VimRc FileType java :call EnableJava()
-  function! EnableJava()
-    let g:JavaComplete_ImportSortType = 'packageName'
-    let g:JavaComplete_ImportOrder = ['*']
-    set makeprg=mvn\ $*
-    set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
-          \\[%t%[A-Z]%#]\ %f:%l:\ %m,
-          \\%A%f:[%l\\,%c]\ %m,
-          \\%Csymbol%.%#:\ %m,
-          \\%Zlocation%.%#:\ %m,
-          \\%AEmbedded\ error:%.%#\ -\ %f:%l:\ %m,
-          \\%-Z\ %p^,
-          \\%A%f:%l:\ %m,
-          \\%-Z\ %p^,
-          \\%ARunning\ %f,
-          \\%+ZTests\ run%.%#FAILURE!%.%#,
-          \\%ARunning\ %f,
-          \\%C%.%#,
-          \\%+ZTests\ run%.%#FAILURE!%.%#,
-          \\%-G%.%#
-  endfunction
+    " Java
+    autocmd VimRc FileType java :call EnableJava()
+    function! EnableJava()
+      let g:JavaComplete_ImportSortType = 'packageName'
+      let g:JavaComplete_ImportOrder = ['*']
+      set makeprg=mvn\ $*
+      set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
+            \\[%t%[A-Z]%#]\ %f:%l:\ %m,
+            \\%A%f:[%l\\,%c]\ %m,
+            \\%Csymbol%.%#:\ %m,
+            \\%Zlocation%.%#:\ %m,
+            \\%AEmbedded\ error:%.%#\ -\ %f:%l:\ %m,
+            \\%-Z\ %p^,
+            \\%A%f:%l:\ %m,
+            \\%-Z\ %p^,
+            \\%ARunning\ %f,
+            \\%+ZTests\ run%.%#FAILURE!%.%#,
+            \\%ARunning\ %f,
+            \\%C%.%#,
+            \\%+ZTests\ run%.%#FAILURE!%.%#,
+            \\%-G%.%#
+    endfunction
+  " }}}
 
   " FZF {{{
     " rg command suffix, [options]
