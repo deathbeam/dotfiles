@@ -114,8 +114,8 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [deoplete.nvim](https://github.com/Shougo/deoplete.nvim): 🌠 Dark powered asynchronous completion framework for neovim
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
- * [neomake](https://github.com/neomake/neomake): Asynchronous linting and make framework for Neovim/Vim
  * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
+ * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [vim-commentary](https://github.com/tpope/vim-commentary): comment stuff out

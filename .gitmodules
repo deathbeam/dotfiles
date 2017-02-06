@@ -95,9 +95,6 @@
 	path = lib/linux/clipmenu
   url = https://github.com/cdown/clipmenu/
   branch = develop
-[submodule "lib/vim/neomake"]
-	path = lib/vim/neomake
-	url = https://github.com/neomake/neomake
 [submodule "lib/vim/yang.vim"]
 	path = lib/vim/yang.vim
 	url = https://github.com/nathanalderson/yang.vim
@@ -119,3 +116,6 @@
 [submodule "lib/vim/vim-polyglot"]
 	path = lib/vim/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
+[submodule "lib/vim/syntastic"]
+	path = lib/vim/syntastic
+	url = https://github.com/vim-syntastic/syntastic

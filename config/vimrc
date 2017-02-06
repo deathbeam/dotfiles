@@ -388,10 +388,6 @@
     call deoplete#enable()
   endif
 
-  " Set patterns for TypeScript autocompletion
-  let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-  let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
-
   " Fugitive
   autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
   nnoremap <silent> <leader>gs :Gstatus<CR>
@@ -403,11 +399,19 @@
   nnoremap <silent> <leader>gw :Gwrite<CR>
   nnoremap <silent> <leader>gr :Gremove<CR>
 
-  " Neomake
+  " Syntastic
   nmap <silent> <leader>mf :Neomake<CR>
-  nmap <silent> <leader>mF :Neomake!<CR>
-  set statusline+=\ %#ErrorMsg#%{neomake#statusline#LoclistStatus('loc:\ ')}
-  set statusline+=\ %#ErrorMsg#%{neomake#statusline#QflistStatus('qf:\ ')}
+  nmap <silent> <leader>mF :make<CR>
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_vim_checkers = ['vint']
+  let g:syntastic_html_checkers = ['htmlhint']
+  set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
+
+  " TypeScript
+  let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
+  let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
+  let g:tsuquyomi_disable_quickfix = 1
+  let g:syntastic_typescript_checkers = ['tsuquyomi']
 
   " Vim Test
   let test#strategy = 'make'
@@ -486,19 +490,11 @@
 " }}}
 
 " User configuration {{{
+"
   try
     " Load user configuration
     source $DOTHOME/usr/vimrc
   catch
   endtry
-
-  " Yang
-  let g:neomake_yang_enabled_makers = [ 'pyang' ]
-  let g:neomake_yang_pyang_maker = {
-        \ 'args': [ '--path', get(g:, 'neomake_yang_pyang_yangpath', '.') ],
-        \ 'errorformat':
-        \ '%f:%l: %trror: %m,' .
-        \ '%f:%l: %tarning: %m,'
-        \ }
 
 " }}}
