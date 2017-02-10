@@ -31,8 +31,12 @@ nnoremap ]c :action VcsShowNextChangeMarker<cr>
 nnoremap gcc :action CommentByLineComment<cr>
 vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
 
+" Building
+nnoremap <space>mf :action Compile<cr>
+nnoremap <space>mF :action CompileProject<cr>
+
 " Navigation
-nnoremap <space>j] :action GotoImplementation<cr>
+nnoremap <C-^> :action GotoImplementation<cr>
 
 " Refactoring
 nnoremap <space>ji :action ShowIntentionActions<cr>
