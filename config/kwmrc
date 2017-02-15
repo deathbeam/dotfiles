@@ -1,8 +1,8 @@
 # Set default values for screen padding
-kwmc config padding 40 15 15 15
+kwmc config padding 25 0 0 0
 
 # Set default values for container gaps
-kwmc config gap 15 15
+kwmc config gap 0 0
 
 # Default tiling mode for Kwm (bsp | monocle | float)
 kwmc config tiling bsp
@@ -29,25 +29,25 @@ kwmc config mouse-follows-focus off
 kwmc config mouse-drag off
 
 # The modifier keys to be held down to initiate mouse-drag
-kwmc config mouse-drag mod cmd+alt+ctrl
+# kwmc config mouse-drag mod cmd+alt+ctrl
 
 # Allow window focus to wrap-around
 kwmc config cycle-focus on
 
 # Set default container split-ratio
-kwmc config split-ratio 0.5
+kwmc config split-ratio 0.52
 
 # New splits become the left leaf-node
-kwmc config spawn right
+kwmc config spawn left
 
 # Enable border for focused window
 kwmc config border focused on
-kwmc config border focused size 2
+kwmc config border focused size 1
 kwmc config border focused color 0xFF268BD2
 kwmc config border focused radius 0
 
 # Enable border for marked window
 kwmc config border marked on
-kwmc config border marked size 2
+kwmc config border marked size 1
 kwmc config border marked color 0xFF073642
 kwmc config border marked radius 0
