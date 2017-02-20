@@ -10,6 +10,8 @@
   # Enable colors
   export CLICOLOR=1
 
+  setopt sh_word_split
+
 # }}}
 
 # Aliases & functions {{{

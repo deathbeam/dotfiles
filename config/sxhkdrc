@@ -6,13 +6,19 @@
 super + Return
   st
 
-# program launcher
+# program menu
 super + space
-  dmenu_run -i -l 10 -p "run" -b -nb "#073642" -nf "#93a1a1" -sb "#268bd2" -sf "#eee8d5" -fn Terminus:size=12
+  bash -c 'dmenu_run ${DMENU_ARG} -p "run"'
 
-# clipboard manager
+# music menu
+
+# password menu
+super + x
+  bash -c '$DOTHOME/lib/linux/passmenu ${DMENU_ARG} -p "pass"'
+
+# clipboard menu
 super + c
-  $DOTHOME/lib/linux/clipmenu/clipmenu -i -l 10 -p "clip" -b -nb "#073642" -nf "#93a1a1" -sb "#268bd2" -sf "#eee8d5" -fn Terminus:size=12
+  bash -c '$DOTHOME/lib/linux/clipmenu/clipmenu ${DMENU_ARG} -p "clip"'
 
 # make sxhkd reload its configuration files:
 super + Escape
