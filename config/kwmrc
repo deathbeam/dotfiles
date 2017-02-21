@@ -51,3 +51,9 @@ kwmc config border marked on
 kwmc config border marked size 1
 kwmc config border marked color 0xFF073642
 kwmc config border marked radius 0
+
+# Fix some applications
+kwmc rule owner="Steam" properties={float="true"}
+kwmc rule owner="System Preferences" properties={float="true"}
+kwmc rule owner="Finder" properties={role="AXDialog"}
+kwmc rule owner="App Store" properties={float="true"}

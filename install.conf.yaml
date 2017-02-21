@@ -41,6 +41,7 @@
     $HOME/.gitconfig.local: usr/gitconfig
     $HOME/.gitmessage: config/gitmessage
     $HOME/.karabiner.d/configuration/karabiner.json: config/karabiner.json
+    $HOME/.iterm2/iterm2.applescript: lib/macos/iterm2.applescript
     $HOME/.config/bspwm/bspwmrc: config/bspwmrc
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc

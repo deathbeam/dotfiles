@@ -11,7 +11,10 @@ khd mode resize restore default
 khd mode resize color 0xFF2AA198
 
 # Launch terminal
-cmd + alt + ctrl - return          :    open -na /Applications/iTerm.app
+cmd + alt + ctrl - return          :    ~/.iterm2/iterm2.applescript
+
+# Launch music manager
+cmd + alt + ctrl - v               :    khd -p "cmd + alt - v"
 
 # Launch clipboard manager
 cmd + alt + ctrl - c               :    khd -p "cmd + alt - c"
@@ -29,10 +32,17 @@ cmd + alt + ctrl + shift - escape  :    brew services restart kwm
 cmd + alt + ctrl - e               :    pmset displaysleepnow
 
 # Close window
-cmd + alt + ctrl - w               :    khd -p "cmd - w"
+cmd + alt + ctrl - w    ![Firefox] :    khd -p "cmd - w"
+cmd + alt + ctrl - w     [Firefox] :    khd -p "cmd + shift - w"
 
 # Quit application
 cmd + alt + ctrl + shift - w       :    khd -p "cmd - q"
+
+# Set space tiled
+cmd + alt + ctrl - t               :    kwmc space -t bsp
+
+# Set space monocle
+cmd + alt + ctrl - m               :    kwmc space -t monocle
 
 # Toggle window fullscreen
 cmd + alt + ctrl - f               :    kwmc window -z fullscreen
@@ -52,17 +62,6 @@ cmd + alt + ctrl + shift - 0x14    :    kwmc window -m space 3
 cmd + alt + ctrl + shift - 0x15    :    kwmc window -m space 4
 cmd + alt + ctrl + shift - 0x16    :    kwmc window -m space 5
 
-# Resize windows
-cmd + alt + ctrl - r               :    khd -e "mode activate resize"
-resize - h                         :    kwmc window -c expand 0.05 west
-resize - j                         :    kwmc window -c expand 0.05 south
-resize - k                         :    kwmc window -c expand 0.05 north
-resize - l                         :    kwmc window -c expand 0.05 east
-resize + shift - h                 :    kwmc window -c reduce 0.05 west
-resize + shift - j                 :    kwmc window -c reduce 0.05 south
-resize + shift - k                 :    kwmc window -c reduce 0.05 north
-resize + shift - l                 :    kwmc window -c reduce 0.05 east
-
 # Give Focus To Window
 cmd + alt + ctrl - h               :    kwmc window -f west
 cmd + alt + ctrl - l               :    kwmc window -f east
@@ -78,6 +77,17 @@ cmd + alt + ctrl + shift - k       :    kwmc window -s north
 cmd + alt + ctrl + shift - l       :    kwmc window -s east
 cmd + alt + ctrl + shift - p       :    kwmc window -s prev
 cmd + alt + ctrl + shift - n       :    kwmc window -s next
+
+# Resize windows
+cmd + alt + ctrl - r               :    khd -e "mode activate resize"
+resize - h                         :    kwmc window -c expand 0.05 west
+resize - j                         :    kwmc window -c expand 0.05 south
+resize - k                         :    kwmc window -c expand 0.05 north
+resize - l                         :    kwmc window -c expand 0.05 east
+resize + shift - h                 :    kwmc window -c reduce 0.05 west
+resize + shift - j                 :    kwmc window -c reduce 0.05 south
+resize + shift - k                 :    kwmc window -c reduce 0.05 north
+resize + shift - l                 :    kwmc window -c reduce 0.05 east
 
 # Give Focus To Screen
 # cmd + alt - 1            :    kwmc display -f 0
