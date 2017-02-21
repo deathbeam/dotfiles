@@ -11,19 +11,23 @@ khd mode resize restore default
 khd mode resize color 0xFF2AA198
 
 # Launch terminal
-cmd + alt + ctrl - return          :    ~/.iterm2/iterm2.applescript
+cmd + alt + ctrl - return          :    ~/.kwm/iterm2.applescript
+
+# Launch app manager
+cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
 
 # Launch music manager
-cmd + alt + ctrl - v               :    khd -p "cmd + alt - v"
+cmd + alt + ctrl - z               :    ~/.kwm/spotify.applescript
+cmd + alt + ctrl - y               :    ~/.kwm/spotify.applescript
+
+# Launch password manager
+cmd + alt + ctrl - x               :    ~/.kwm/pass.applescript
 
 # Launch clipboard manager
 cmd + alt + ctrl - c               :    khd -p "cmd + alt - c"
 
-# Launch launcher
-cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
-
 # Restard khd
-cmd + alt + ctrl - escape          :    brew services restart khd
+cmd + alt + ctrl - escape          :    khd -e "reload"
 
 # Restard kwm
 cmd + alt + ctrl + shift - escape  :    brew services restart kwm
