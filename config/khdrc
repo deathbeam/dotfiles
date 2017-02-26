@@ -11,7 +11,7 @@ khd mode resize restore default
 khd mode resize color 0xFF2AA198
 
 # Launch terminal
-cmd + alt + ctrl - return          :    ~/.kwm/iterm2.applescript
+cmd + alt + ctrl - return          :    open -na /Applications/Hyper.app
 
 # Launch app manager
 cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
@@ -95,59 +95,3 @@ resize + shift - h                 :    kwmc window -c reduce 0.05 west
 resize + shift - j                 :    kwmc window -c reduce 0.05 south
 resize + shift - k                 :    kwmc window -c reduce 0.05 north
 resize + shift - l                 :    kwmc window -c reduce 0.05 east
-
-# Give Focus To Screen
-# cmd + alt - 1            :    kwmc display -f 0
-# cmd + alt - 2            :    kwmc display -f 1
-# cmd + alt - 3            :    kwmc display -f 2
-
-# Swap focused window
-# ctrl + alt - m           :    kwmc window -s mark
-
-# # Pseudo containers
-# cmd + ctrl + alt - p     :    kwmc tree -pseudo create
-# cmd + ctrl + alt - o     :    kwmc tree -pseudo destroy
-
-# # Detach Focused Window And Reinsert In Direction
-# ctrl + shift - k         :    kwmc window -m north
-# ctrl + shift - l         :    kwmc window -m east
-# ctrl + shift - j         :    kwmc window -m south
-# ctrl + shift - h         :    kwmc window -m west
-
-# # Detach Marked Window And Reinsert At Focused Window
-# ctrl + shift - x         :    kwmc window -m mark
-
-# # Move Focused Window To Space
-# ctrl + alt - left        :    kwmc window -m space left
-# ctrl + alt - right       :    kwmc window -m space right
-
-# # Move Focused Window To Screen
-# ctrl + alt - 1           :    kwmc window -m display 0
-# ctrl + alt - 2           :    kwmc window -m display 1
-# ctrl + alt - 3           :    kwmc window -m display 2
-
-# Set Temporary Window Container
-# cmd + alt + ctrl - d               :    kwmc window -z parent
-
-# Set Space Tiling Mode To BSP
-# cmd + alt + ctrl - a      :    kwmc space -t bsp
-
-# Set Space Tiling Mode To Monocle
-# cmd + alt + ctrl - s      :    kwmc space -t monocle
-
-# Set Space Tiling Mode To Floating
-# cmd + alt + ctrl - d      :    kwmc space -t float
-
-# Rotate Window-Tree By 90degrees (Clockwise)
-# cmd + alt + ctrl - r      :    kwmc tree rotate 90
-
-# Modify Container
-# cmd + alt + ctrl - s               :    kwmc window -c split-mode toggle
-# cmd + alt + ctrl - 0x32            :    kwmc window -c type toggle
-
-# Mark Window
-# cmd + alt + ctrl - m     :    kwmc window -mk focused
-# cmd + alt + ctrl - h     :    kwmc window -mk west wrap
-# cmd + alt + ctrl - l     :    kwmc window -mk east wrap
-# cmd + alt + ctrl - j     :    kwmc window -mk south wrap
-# cmd + alt + ctrl - k     :    kwmc window -mk north wrap

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+export CHUNKC_SOCKET=3920
+
+# Plugins
+chunkc plugin_dir ~/.chunkwm_plugins
+chunkc hotload 1
+chunkc load tiling.so
+# chunkc load ffm.so
+chunkc load border.so

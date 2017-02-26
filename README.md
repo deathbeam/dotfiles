@@ -54,8 +54,6 @@ because most of the time I just cannot make up my mind, and I change my decision
   configuration that will remap caps lock to hyper is in dotfiles.
 * [Alfred 3](https://www.alfredapp.com/) - Used as launcher application in my kwm/khd config. Not needed, you can just
   adjust keybindings in khdrc to use Spotlight, but Alfred is just too awesome to pass.
-* [iTerm2](http://iterm2.com/) - It is better than Terminal, and supports 256 colors, instead of Terminal's 16. Also, it
-  have no titlebar mode, what is great. And my macOS setup is configured to be working properly with iTerm2.
 
 ## How to install?
 
