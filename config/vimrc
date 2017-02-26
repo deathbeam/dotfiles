@@ -51,6 +51,9 @@
     set grepformat^=%f:%l:%c:%m
   endif
 
+  " Use system clipboard
+  set clipboard+=unnamedplus
+
   " Add cscope support
   set cscopetag cscopeverbose
   set cscopequickfix=s-,c-,d-,i-,t-,e-

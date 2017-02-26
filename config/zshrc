@@ -48,6 +48,11 @@
   # Source zim
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
+  # Load tmux plugin
+  export ZSH_TMUX_AUTOSTART=true
+  export ZSH_TMUX_FIXTERM=false
+  source "$DOTHOME/lib/shell/tmux.plugin.zsh"
+
   # Load vi mode plugin
   source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
 
