@@ -39,12 +39,13 @@
     $HOME/.kwm/pkill.applescript: lib/macos/alfred/pkill.applescript
     $HOME/.kwm/spotify.applescript: lib/macos/alfred/spotify.applescript
     $HOME/.khdrc: config/khdrc
+    $HOME/.chunkwmrc: config/chunkwmrc
+    $HOME/.chunkwmtilingrc: config/chunkwmtilingrc
     $HOME/.inputrc: config/inputrc
     $HOME/.gitconfig: config/gitconfig
     $HOME/.gitignore: config/gitignore
     $HOME/.gitconfig.local: usr/gitconfig
     $HOME/.gitmessage: config/gitmessage
-    $HOME/.karabiner.d/configuration/karabiner.json: config/karabiner.json
     $HOME/.config/bspwm/bspwmrc: config/bspwmrc
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc

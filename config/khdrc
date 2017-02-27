@@ -4,94 +4,87 @@ khd kwm on
 # set color of default mode
 khd mode default color 0xFF268BD2
 
-# Enable the resize mode
-khd mode resize prefix on
-khd mode resize timeout 1
-khd mode resize restore default
-khd mode resize color 0xFF2AA198
-
 # Launch terminal
-cmd + alt + ctrl - return          :    open -na /Applications/Hyper.app
+cmd - return          :    open -na /Applications/Hyper.app
 
 # Launch app manager
-cmd + alt + ctrl - space           :    open /Applications/Alfred\ 3.app
+cmd - space           :    open /Applications/Alfred\ 3.app
 
 # Launch password manager
-cmd + alt + ctrl - z               :    ~/.kwm/pass.applescript
-cmd + alt + ctrl - y               :    ~/.kwm/pass.applescript
+cmd + alt - z         :    ~/.kwm/pass.applescript
+cmd + alt - y         :    ~/.kwm/pass.applescript
 
 # Launch process manager
-cmd + alt + ctrl - x               :    ~/.kwm/pkill.applescript
+cmd + alt - x         :    ~/.kwm/pkill.applescript
 
 # Launch clipboard manager
-cmd + alt + ctrl - c               :    khd -p "cmd + alt - c"
+cmd + alt - c         :    khd -p "cmd + alt + shift - c"
 
 # Launch music manager
-cmd + alt + ctrl - v               :    ~/.kwm/spotify.applescript
+cmd + alt - v         :    ~/.kwm/spotify.applescript
 
 # Restard khd
-cmd + alt + ctrl - escape          :    khd -e "reload"
+cmd - escape          :    khd -e "reload"
 
 # Restard kwm
-cmd + alt + ctrl + shift - escape  :    brew services restart kwm
+cmd + shift - escape  :    brew services restart kwm
 
 # Lock screen
-cmd + alt + ctrl - e               :    pmset displaysleepnow
+cmd - e               :    pmset displaysleepnow
 
 # Close window
-cmd + alt + ctrl - w    ![Firefox] :    khd -p "cmd - w"
-cmd + alt + ctrl - w     [Firefox] :    khd -p "cmd + shift - w"
+cmd - w    ![Firefox] :    khd -p "cmd - w"
+cmd - w     [Firefox] :    khd -p "cmd + shift - w"
 
 # Quit application
-cmd + alt + ctrl + shift - w       :    khd -p "cmd - q"
+cmd + shift - w       :    khd -p "cmd - q"
 
 # Set space tiled
-cmd + alt + ctrl - t               :    kwmc space -t bsp
+cmd - t               :    kwmc space -t bsp
 
 # Set space monocle
-cmd + alt + ctrl - m               :    kwmc space -t monocle
+cmd - m               :    kwmc space -t monocle
 
 # Toggle window fullscreen
-cmd + alt + ctrl - f               :    kwmc window -z fullscreen
+cmd - f               :    kwmc window -z fullscreen
 
 # Toggle window floating
-cmd + alt + ctrl - s               :    kwmc window -t focused
+cmd - s               :    kwmc window -t focused
 
 # Move between spaces
-cmd + alt + ctrl - 0x12            :    kwmc space -fExperimental 1
-cmd + alt + ctrl - 0x13            :    kwmc space -fExperimental 2
-cmd + alt + ctrl - 0x14            :    kwmc space -fExperimental 3
-cmd + alt + ctrl - 0x15            :    kwmc space -fExperimental 4
-cmd + alt + ctrl - 0x16            :    kwmc space -fExperimental 5
-cmd + alt + ctrl + shift - 0x12    :    kwmc window -m space 1
-cmd + alt + ctrl + shift - 0x13    :    kwmc window -m space 2
-cmd + alt + ctrl + shift - 0x14    :    kwmc window -m space 3
-cmd + alt + ctrl + shift - 0x15    :    kwmc window -m space 4
-cmd + alt + ctrl + shift - 0x16    :    kwmc window -m space 5
+cmd - 0x12            :    kwmc space -fExperimental 1
+cmd - 0x13            :    kwmc space -fExperimental 2
+cmd - 0x14            :    kwmc space -fExperimental 3
+cmd - 0x15            :    kwmc space -fExperimental 4
+cmd - 0x16            :    kwmc space -fExperimental 5
+cmd + shift - 0x12    :    kwmc window -m space 1
+cmd + shift - 0x13    :    kwmc window -m space 2
+cmd + shift - 0x14    :    kwmc window -m space 3
+cmd + shift - 0x15    :    kwmc window -m space 4
+cmd + shift - 0x16    :    kwmc window -m space 5
 
 # Give Focus To Window
-cmd + alt + ctrl - h               :    kwmc window -f west
-cmd + alt + ctrl - l               :    kwmc window -f east
-cmd + alt + ctrl - j               :    kwmc window -f south
-cmd + alt + ctrl - k               :    kwmc window -f north
-cmd + alt + ctrl - p               :    kwmc window -f prev
-cmd + alt + ctrl - n               :    kwmc window -f next
+cmd - h               :    kwmc window -f west
+cmd - l               :    kwmc window -f east
+cmd - j               :    kwmc window -f south
+cmd - k               :    kwmc window -f north
+cmd - p               :    kwmc window -f prev
+cmd - n               :    kwmc window -f next
 
 # Move window
-cmd + alt + ctrl + shift - h       :    kwmc window -s west
-cmd + alt + ctrl + shift - j       :    kwmc window -s south
-cmd + alt + ctrl + shift - k       :    kwmc window -s north
-cmd + alt + ctrl + shift - l       :    kwmc window -s east
-cmd + alt + ctrl + shift - p       :    kwmc window -s prev
-cmd + alt + ctrl + shift - n       :    kwmc window -s next
+cmd + shift - h       :    kwmc window -s west
+cmd + shift - j       :    kwmc window -s south
+cmd + shift - k       :    kwmc window -s north
+cmd + shift - l       :    kwmc window -s east
+cmd + shift - p       :    kwmc window -s prev
+cmd + shift - n       :    kwmc window -s next
 
 # Resize windows
-cmd + alt + ctrl - r               :    khd -e "mode activate resize"
-resize - h                         :    kwmc window -c expand 0.05 west
-resize - j                         :    kwmc window -c expand 0.05 south
-resize - k                         :    kwmc window -c expand 0.05 north
-resize - l                         :    kwmc window -c expand 0.05 east
-resize + shift - h                 :    kwmc window -c reduce 0.05 west
-resize + shift - j                 :    kwmc window -c reduce 0.05 south
-resize + shift - k                 :    kwmc window -c reduce 0.05 north
-resize + shift - l                 :    kwmc window -c reduce 0.05 east
+cmd + alt - h         :    kwmc window -c expand 0.05 west
+cmd + alt - j         :    kwmc window -c expand 0.05 south
+cmd + alt - k         :    kwmc window -c expand 0.05 north
+cmd + alt - l         :    kwmc window -c expand 0.05 east
+cmd + alt + shift - h :    kwmc window -c reduce 0.05 west
+cmd + alt + shift - j :    kwmc window -c reduce 0.05 south
+cmd + alt + shift - k :    kwmc window -c reduce 0.05 north
+cmd + alt + shift - l :    kwmc window -c reduce 0.05 east
