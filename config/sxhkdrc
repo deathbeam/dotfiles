@@ -10,11 +10,13 @@ super + Return
 super + space
   bash -c 'dmenu_run ${DMENU_ARG} -p "run"'
 
-# music menu
-
 # password menu
-super + x
+super + z
   bash -c '$DOTHOME/lib/linux/passmenu ${DMENU_ARG} -p "pass"'
+
+# process menu
+super + x
+  bash -c '$DOTHOME/lib/linux/procmenu ${DMENU_ARG} -p "proc"'
 
 # clipboard menu
 super + c
