@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+cmd_list="play stop next prev toggle add volume seek repeat single consume random clear crop"
+
+mpc_add() {
+    file="$(mpc listall | dmenu "$@")"
+    [[ -z $file ]] && exit 1
+    mpc add "$file"
+}
+
+cmd="$(echo $cmd_list | sed 's/ /\n/g' | dmenu "$@")"
+[[ -z $cmd ]] && exit 1
+
+if [[ $cmd = add ]]; then
+    mpc_add
+else
+    mpc $cmd
+fi

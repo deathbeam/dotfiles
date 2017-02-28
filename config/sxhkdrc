@@ -22,6 +22,10 @@ super + x
 super + c
   bash -c '$DOTHOME/lib/linux/clipmenu/clipmenu ${DMENU_ARG} -p "clip"'
 
+# music menu
+super + v
+  bash -c '$DOTHOME/lib/linux/mpdmenu ${DMENU_ARG} -p "mpd"'
+
 # make sxhkd reload its configuration files:
 super + Escape
   pkill -USR1 -x sxhkd
