@@ -216,10 +216,6 @@
     highlight TabLineSel ctermbg=NONE ctermfg=4
     highlight TabLineFill ctermbg=NONE ctermfg=19
     highlight TabLine ctermbg=NONE ctermfg=19
-
-    " Highlight 121th character in line
-    highlight ColorColumn ctermbg=darkred ctermfg=white
-    call matchadd('ColorColumn', '\%121v', 100) "set column nr
   endfunction
 
 " }}}

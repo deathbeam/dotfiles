@@ -64,3 +64,4 @@
     $HOME/.irssi/config: config/irssi
     $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
     $HOME/.irssi/solarized-universal.theme: lib/irssi/irssi-colors-solarized/solarized-universal.theme
+    $HOME/.Xmodmap: config/Xmodmap

@@ -19,6 +19,7 @@ source ~/.dotconfig
 
 # Set up x stuff first
 xsetroot -cursor_name left_ptr
+xmodmap ~/.Xmodmap
 
 # Start music manager daemon
 mopidy &

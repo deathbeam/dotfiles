@@ -30,11 +30,9 @@ servers = (
     port = "6667";
   },
   {
-    address = "pantheon.sk";
+    address = "im.pantheon.sk";
     chatnet = "Pantheon";
     port = "5222";
-    use_ssl = "no";
-    ssl_verify = "no";
   }
 );
 
@@ -47,13 +45,14 @@ chatnets = {
   };
   Pantheon = {
     type = "XMPP";
-    nick = "tomas.slusny@pantheon.sk";
+    nick = "tomas.slusny@im.pantheon.sk/irssi";
   };
 };
 
 channels = (
   { name = "#freenode"; chatnet = "Freenode"; autojoin = "No"; },
   { name = "#irssi"; chatnet = "Freenode"; autojoin = "No"; },
+  { name = "#opendaylight-openflowplugin"; chatnet = "Freenode"; autojoin = "Yes"; },
 );
 
 aliases = {
