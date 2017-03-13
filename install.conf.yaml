@@ -34,10 +34,9 @@
     $HOME/.vimrc: config/vimrc
     $HOME/.tmux.conf: config/tmux.conf
     $HOME/.hyper.js: config/hyper.js
-    $HOME/.kwm/kwmrc: config/kwmrc
-    $HOME/.kwm/pass.applescript: lib/macos/alfred/pass.applescript
-    $HOME/.kwm/pkill.applescript: lib/macos/alfred/pkill.applescript
-    $HOME/.kwm/spotify.applescript: lib/macos/alfred/spotify.applescript
+    $HOME/.khd/pass.applescript: lib/macos/alfred/pass.applescript
+    $HOME/.khd/pkill.applescript: lib/macos/alfred/pkill.applescript
+    $HOME/.khd/spotify.applescript: lib/macos/alfred/spotify.applescript
     $HOME/.khdrc: config/khdrc
     $HOME/.chunkwmrc: config/chunkwmrc
     $HOME/.chunkwmtilingrc: config/chunkwmtilingrc

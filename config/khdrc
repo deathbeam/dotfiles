@@ -1,90 +1,88 @@
-# Enable kwm compatibility mode
-khd kwm on
-
-# set color of default mode
-khd mode default color 0xFF268BD2
-
 # Launch terminal
-cmd - return          :    open -na /Applications/Hyper.app
+cmd - return          : open -na /Applications/Hyper.app
 
 # Launch app manager
-cmd - space           :    open /Applications/Alfred\ 3.app
+cmd - space           : open /Applications/Alfred\ 3.app
 
 # Launch password manager
-cmd + alt - z         :    ~/.kwm/pass.applescript
-cmd + alt - y         :    ~/.kwm/pass.applescript
+cmd + alt - z         : ~/.khd/pass.applescript
+cmd + alt - y         : ~/.khd/pass.applescript
 
 # Launch process manager
-cmd + alt - x         :    ~/.kwm/pkill.applescript
+cmd + alt - x         : ~/.khd/pkill.applescript
 
 # Launch clipboard manager
-cmd + alt - c         :    khd -p "cmd + alt + shift - c"
+cmd + alt - c         : khd -p "cmd + alt - c"
 
 # Launch music manager
-cmd + alt - v         :    ~/.kwm/spotify.applescript
+cmd + alt - v         : ~/.khd/spotify.applescript
 
-# Restard khd
-cmd - escape          :    khd -e "reload"
+# Restart khd
+cmd - escape          : khd -e "reload"
 
-# Restard kwm
-cmd + shift - escape  :    brew services restart kwm
+# Restart window manager
+# cmd + alt + ctrl + shift - escape  :    brew services restart kwm
 
 # Lock screen
-cmd - e               :    pmset displaysleepnow
+cmd - e               : pmset displaysleepnow
 
-# Close window
-cmd - w    ![Firefox] :    khd -p "cmd - w"
-cmd - w     [Firefox] :    khd -p "cmd + shift - w"
+# # Close window
+# cmd - w  ![Firefox] : khd -p "cmd - w"
+# cmd - w   [Firefox] : khd -p "cmd + shift - w"
 
-# Quit application
-cmd + shift - w       :    khd -p "cmd - q"
+# # Quit application
+# cmd + shift - w     : khd -p "cmd - q"
 
 # Set space tiled
-cmd - t               :    kwmc space -t bsp
+cmd - t               : chunkc space -l bsp
 
 # Set space monocle
-cmd - m               :    kwmc space -t monocle
+cmd - m               : chunkc space -l monocle
 
 # Toggle window fullscreen
-cmd - f               :    kwmc window -z fullscreen
+cmd - f               : chunkc window -t fullscreen
 
 # Toggle window floating
-cmd - s               :    kwmc window -t focused
-
-# Move between spaces
-cmd - 0x12            :    kwmc space -fExperimental 1
-cmd - 0x13            :    kwmc space -fExperimental 2
-cmd - 0x14            :    kwmc space -fExperimental 3
-cmd - 0x15            :    kwmc space -fExperimental 4
-cmd - 0x16            :    kwmc space -fExperimental 5
-cmd + shift - 0x12    :    kwmc window -m space 1
-cmd + shift - 0x13    :    kwmc window -m space 2
-cmd + shift - 0x14    :    kwmc window -m space 3
-cmd + shift - 0x15    :    kwmc window -m space 4
-cmd + shift - 0x16    :    kwmc window -m space 5
+cmd - s               : chunkc window -t float
 
 # Give Focus To Window
-cmd - h               :    kwmc window -f west
-cmd - l               :    kwmc window -f east
-cmd - j               :    kwmc window -f south
-cmd - k               :    kwmc window -f north
-cmd - p               :    kwmc window -f prev
-cmd - n               :    kwmc window -f next
+cmd - h               : chunkc window -f west
+cmd - l               : chunkc window -f east
+cmd - j               : chunkc window -f south
+cmd - k               : chunkc window -f north
 
 # Move window
-cmd + shift - h       :    kwmc window -s west
-cmd + shift - j       :    kwmc window -s south
-cmd + shift - k       :    kwmc window -s north
-cmd + shift - l       :    kwmc window -s east
-cmd + shift - p       :    kwmc window -s prev
-cmd + shift - n       :    kwmc window -s next
+cmd + shift - h       : chunkc window -w west
+cmd + shift - j       : chunkc window -w south
+cmd + shift - k       : chunkc window -w north
+cmd + shift - l       : chunkc window -w east
 
 # Resize windows
-cmd + alt - h         :    kwmc window -c expand 0.05 west
-cmd + alt - j         :    kwmc window -c expand 0.05 south
-cmd + alt - k         :    kwmc window -c expand 0.05 north
-cmd + alt - l         :    kwmc window -c expand 0.05 east
-cmd + alt + shift - h :    kwmc window -c reduce 0.05 west
-cmd + alt + shift - j :    kwmc window -c reduce 0.05 south
-cmd + alt + shift - k :    kwmc window -c reduce 0.05 north
-cmd + alt + shift - l :    kwmc window -c reduce 0.05 east
+cmd + alt - h         : chunkc window -r 0.05 -e west
+cmd + alt - j         : chunkc window -r 0.05 -e south
+cmd + alt - k         : chunkc window -r 0.05 -e north
+cmd + alt - l         : chunkc window -r 0.05 -e east
+cmd + alt + shift - h : chunkc window -r -0.05 -e west
+cmd + alt + shift - j : chunkc window -r -0.05 -e south
+cmd + alt + shift - k : chunkc window -r -0.05 -e north
+cmd + alt + shift - l : chunkc window -r -0.05 -e east
+
+# Sebd window to desktop
+cmd + shift - 0x12    : chunkc window -d 1
+cmd + shift - 0x13    : chunkc window -d 2
+cmd + shift - 0x14    : chunkc window -d 3
+cmd + shift - 0x15    : chunkc window -d 4
+cmd + shift - 0x16    : chunkc window -d 5
+cmd + shift - 0x17    : chunkc window -d 6
+
+# Move between spaces
+cmd - 0x12            : khd -p "ctrl - 0x12"
+cmd - 0x13            : khd -p "ctrl - 0x13"
+cmd - 0x14            : khd -p "ctrl - 0x14"
+cmd - 0x15            : khd -p "ctrl - 0x15"
+
+# Set insertion point
+cmd + ctrl - h        : chunkc window -i west
+cmd + ctrl - j        : chunkc window -i south
+cmd + ctrl - k        : chunkc window -i north
+cmd + ctrl - l        : chunkc window -i east
