@@ -10,7 +10,7 @@
   # Enable colors
   export CLICOLOR=1
 
-  setopt sh_word_split
+  # setopt sh_word_split
 
 # }}}
 
@@ -18,17 +18,6 @@
 
   # Switch to neovim
   alias vim='nvim'
-
-  # Update and cleanup homebrew
-  if command -v brew >/dev/null 2>&1; then
-    alias brewup='brew update && brew upgrade && brew cleanup && brew cask cleanup'
-  fi
-
-  # Alias xclip copy/paste to same as on macOS for consistency
-  if command -v xclip >/dev/null 2>&1; then
-    alias pbcopy='xclip -i -selection clipboard'
-    alias pbpaste='xclip -o -selection clipboard'
-  fi
 
   # Open Vim and start saving it's session
   function vsession () {
@@ -45,24 +34,69 @@
 
 # Plugins {{{
 
-  # Source zim
-  source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
+  # Load fasd
+  source "$DOTHOME/lib/shell/fasd/fasd" > /dev/null
+  fasd_cache=~/.fasd-init-cache
+  if [ "$(command -v fasd)" -nt "$fasd_cache" -o ! -s "$fasd_cache" ]; then
+    fasd --init auto >| "$fasd_cache"
+  fi
+  source "$fasd_cache"
+  unset fasd_cache
+  alias v="f -e $EDITOR"
+  alias o='a -e open_command'
 
-  # Load tmux plugin
+  # Load zplug
+  source "$DOTHOME/lib/shell/zplug/init.zsh"
+
+  # Libraries from oh-my-zsh
+  zplug "lib/clipboard", from:oh-my-zsh
+  zplug "lib/completion", from:oh-my-zsh
+  zplug "lib/directories", from:oh-my-zsh
+  zplug "lib/grep", from:oh-my-zsh
+  zplug "lib/history", from:oh-my-zsh
+  zplug "lib/misc", from:oh-my-zsh
+  zplug "lib/theme-and-appearance", from:oh-my-zsh
+
+  # Plugins from oh-my-zsh
+  zplug "plugins/brew", from:oh-my-zsh
+  zplug "plugins/colored-man-pages", from:oh-my-zsh
+  zplug "plugins/command-not-found", from:oh-my-zsh
+  zplug "plugins/docker", from:oh-my-zsh
+  zplug "plugins/extract", from:oh-my-zsh
+  zplug "plugins/git", from:oh-my-zsh
+  zplug "plugins/github", from:oh-my-zsh
+  zplug "plugins/heroku", from:oh-my-zsh
+  zplug "plugins/mvn", from:oh-my-zsh
+  zplug "plugins/pass", from:oh-my-zsh
+  zplug "plugins/pip", from:oh-my-zsh
+  zplug "plugins/vagrant", from:oh-my-zsh
+  zplug "plugins/vi-mode", from:oh-my-zsh
+
+  # External plugins
+  zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
+  zplug "mafredri/zsh-async", from:github
+  zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
+
+  # Tmux plugin
   export ZSH_TMUX_AUTOSTART=true
   export ZSH_TMUX_FIXTERM=false
   export ZSH_TMUX_AUTOCONNECT=true
-  source "$DOTHOME/lib/shell/tmux.plugin.zsh"
+  zplug "plugins/tmux", from:oh-my-zsh, defer:3
 
-  # Load vi mode plugin
-  source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
+  # Install plugins if there are plugins that have not been installed
+  if ! zplug check --verbose; then
+    printf "Install? [y/N]: "
+    if read -q; then
+      echo; zplug install
+    fi
+  fi
+
+  # Then, source plugins and add commands to $PATH
+  zplug load --verbose
 
   # Base 16
   eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
   [ -z $BASE16_THEME ] && base16_solarized-dark
-
-  # Load hub alias
-  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
   # Load fzf
   source ~/.fzf.zsh
