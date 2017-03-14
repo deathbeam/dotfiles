@@ -10,7 +10,8 @@
   # Enable colors
   export CLICOLOR=1
 
-  # setopt sh_word_split
+  # We want to use old ugly stuff
+  setopt sh_word_split
 
 # }}}
 
@@ -69,6 +70,7 @@
   zplug "plugins/mvn", from:oh-my-zsh
   zplug "plugins/pass", from:oh-my-zsh
   zplug "plugins/pip", from:oh-my-zsh
+  zplug "plugins/tmux", from:oh-my-zsh
   zplug "plugins/vagrant", from:oh-my-zsh
   zplug "plugins/vi-mode", from:oh-my-zsh
 
@@ -76,12 +78,6 @@
   zplug "zsh-users/zsh-syntax-highlighting", from:github, defer:2
   zplug "mafredri/zsh-async", from:github
   zplug "sindresorhus/pure", use:pure.zsh, from:github, as:theme
-
-  # Tmux plugin
-  export ZSH_TMUX_AUTOSTART=true
-  export ZSH_TMUX_FIXTERM=false
-  export ZSH_TMUX_AUTOCONNECT=true
-  zplug "plugins/tmux", from:oh-my-zsh, defer:3
 
   # Install plugins if there are plugins that have not been installed
   if ! zplug check --verbose; then

@@ -23,7 +23,7 @@ module.exports = {
 
     showWindowControls: 'false',
     shell: '/bin/zsh',
-    shellArgs: ['--login'],
+    shellArgs: ['--login', '-c', 'tmux', '-2', '-u'],
     bell: false,
   },
 
