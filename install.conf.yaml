@@ -49,7 +49,7 @@
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc
     $HOME/.hushlogin: config/hushlogin
-    $HOME/.ncmpcpp/config: config/ncmpcpp
+    $HOME/.vimpcrc: config/vimpcrc
     $HOME/.config/polybar/config: config/polybar
     $HOME/.config/mpv/mpv.conf: config/mpv.conf
     $HOME/.zshrc: config/zshrc
@@ -60,7 +60,4 @@
     $HOME/.editorconfig: config/editorconfig
     $HOME/.ctags: config/ctagsrc
     $HOME/.ideavimrc: config/ideavimrc
-    $HOME/.irssi/config: config/irssi
-    $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
-    $HOME/.irssi/solarized-universal.theme: lib/irssi/irssi-colors-solarized/solarized-universal.theme
-    $HOME/.Xmodmap: config/Xmodmap
+    $HOME/.xmodmap: config/xmodmap
