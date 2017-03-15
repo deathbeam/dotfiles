@@ -257,11 +257,10 @@
 
   " When editing a file, always jump to the last known cursor position.
   " Don't do it when the position is invalid or when inside an event handler
-  " (happens when dropping a file on gvim).
-  autocmd VimRc BufReadPost *
-        \ if line("'\"") >= 1 && line("'\"") <= line("$") |
-        \   exe "normal! g`\"" |
-        \ endif
+  autocmd BufReadPost *
+        \ if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
+        \|   exe 'normal! g`"zvzz'
+        \| endif
 
   " Enable omni completion. (Ctrl-X Ctrl-O)
   autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags

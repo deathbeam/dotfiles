@@ -119,3 +119,15 @@
 [submodule "lib/vim/vaxe"]
 	path = lib/vim/vaxe
 	url = https://github.com/jdonaldson/vaxe
+[submodule "lib/vim/vim-logreview"]
+	path = lib/vim/vim-logreview
+	url = https://github.com/andreshazard/vim-logreview
+[submodule "lib/vim/gitv"]
+	path = lib/vim/gitv
+	url = https://github.com/gregsexton/gitv
+[submodule "lib/vim/committia.vim"]
+	path = lib/vim/committia.vim
+	url = https://github.com/rhysd/committia.vim
+[submodule "lib/vim/tmux-complete.vim"]
+	path = lib/vim/tmux-complete.vim
+	url = https://github.com/wellle/tmux-complete.vim
