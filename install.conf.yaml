@@ -53,6 +53,9 @@
     $HOME/.config/polybar/config: config/polybar
     $HOME/.config/mpv/mpv.conf: config/mpv.conf
     $HOME/.zshrc: config/zshrc
+    $HOME/.zlogin: config/zlogin
+    $HOME/.zimrc: config/zimrc
+    $HOME/.zim: lib/shell/zim
     $HOME/.xsession: config/xsession
     $HOME/.editorconfig: config/editorconfig
     $HOME/.ctags: config/ctagsrc

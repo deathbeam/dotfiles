@@ -1,0 +1,16 @@
+# Select what modules you would like enabled.
+zmodules=(archive directory environment fasd git git-info history input utility \
+          syntax-highlighting history-substring-search prompt completion)
+
+# Set your desired prompt here
+zprompt_theme='pure'
+
+# Set the string below to the desired terminal title format string.
+# Below uses the following format: 'username@host:/current/directory'
+ztermtitle='%n@%m:%~'
+
+# This determines what highlighters will be used with the syntax-highlighting module.
+# For (u)rxvt, termite and gnome-terminal users,
+# removing the 'cursor' highlighter will fix the disappearing cursor problem
+zhighlighters=(main brackets cursor)
+
