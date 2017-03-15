@@ -98,9 +98,6 @@
 [submodule "lib/vim/yang.vim"]
 	path = lib/vim/yang.vim
 	url = https://github.com/nathanalderson/yang.vim
-[submodule "lib/irssi/irssi-colors-solarized"]
-	path = lib/irssi/irssi-colors-solarized
-	url = https://github.com/huyz/irssi-colors-solarized
 [submodule "lib/vim/vim-test"]
 	path = lib/vim/vim-test
 	url = https://github.com/janko-m/vim-test
