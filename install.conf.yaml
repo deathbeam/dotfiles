@@ -54,8 +54,8 @@
     $HOME/.config/mpv/mpv.conf: config/mpv.conf
     $HOME/.zshrc: config/zshrc
     $HOME/.zlogin: config/zlogin
-    $HOME/.zimrc: config/zimrc
     $HOME/.zim: lib/shell/zim
+    $HOME/.zprofile: config/profile
     $HOME/.xsession: config/xsession
     $HOME/.editorconfig: config/editorconfig
     $HOME/.ctags: config/ctagsrc

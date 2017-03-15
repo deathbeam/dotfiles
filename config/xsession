@@ -35,6 +35,9 @@ $DOTHOME/lib/linux/wallpaper.sh &
 # Start clipboard manager daemon
 $DOTHOME/lib/linux/clipmenu/clipmenud &
 
+# We want to use old ugly stuff
+setopt sh_word_split
+
 # Start key manager daemon
 sxhkd &
 

@@ -50,7 +50,7 @@
   done
   zcompare ${zim_mods}/syntax-highlighting/external/zsh-syntax-highlighting.zsh
 
-  # zsh-histery-substring-search
+  # zsh-history-substring-search
   zcompare ${zim_mods}/history-substring-search/external/zsh-history-substring-search.zsh
 
 

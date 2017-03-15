@@ -10,9 +10,6 @@
   # Enable colors
   export CLICOLOR=1
 
-  # We want to use old ugly stuff
-  setopt sh_word_split
-
 # }}}
 
 # Aliases & functions {{{
@@ -46,15 +43,41 @@
 
 # Plugins {{{
 
+  # Base 16
+  eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
+  [ -z $BASE16_THEME ] && base16_solarized-dark
+
+  # Select what modules you would like enabled.
+  zmodules=( \
+    archive \
+    directory \
+    environment \
+    fasd \
+    git \
+    git-info \
+    history \
+    input \
+    utility \
+    syntax-highlighting \
+    history-substring-search \
+    prompt \
+    completion)
+
+  # Set your desired prompt here
+  zprompt_theme='pure'
+
+  # Set the string below to the desired terminal title format string.
+  # Below uses the following format: 'username@host:/current/directory'
+  ztermtitle='%n@%m:%~'
+
+  # This determines what highlighters will be used with the syntax-highlighting module.
+  zhighlighters=(main brackets cursor)
+
   # Source zim
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
   # Load vi mode plugin
   source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
-
-  # Base 16
-  eval "$($DOTHOME/lib/shell/base16-shell/profile_helper.sh)"
-  [ -z $BASE16_THEME ] && base16_solarized-dark
 
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
