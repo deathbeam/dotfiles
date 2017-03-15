@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-  st -e "tmux -2 -u"
+  st -e "tmux"
 
 # program menu
 super + space
