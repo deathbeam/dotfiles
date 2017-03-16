@@ -107,9 +107,6 @@
 [submodule "lib/vim/tsuquyomi"]
 	path = lib/vim/tsuquyomi
 	url = https://github.com/Quramy/tsuquyomi
-[submodule "lib/vim/vimproc.vim"]
-	path = lib/vim/vimproc.vim
-	url = https://github.com/Shougo/vimproc.vim
 [submodule "lib/vim/vim-polyglot"]
 	path = lib/vim/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
