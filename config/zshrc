@@ -31,9 +31,6 @@
   # Open Vim and start saving it's session
   alias vims='vim -c "Session"'
 
-  # Gitv
-  alias gitv='vim "$(git rev-parse --show-toplevel)"/.git/index -c "Gitv --all" -c "tabonly"'
-
   # Super cool gource alias (requires gource)
   alias gource="gource --key --stop-at-end -i 0 --highlight-dirs --highlight-all-users --max-file-lag 0.5"
 

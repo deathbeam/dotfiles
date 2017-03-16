@@ -108,12 +108,13 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
 
 ### Vim
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
- * [bclose.vim](https://github.com/chrismccord/bclose.vim): Delete a buffer without closing the window
+ * [comittia.vim](https://github.com/rhysd/committia.vim): A Vim plugin for more pleasant editing on commit messages
  * [deoplete.nvim](https://github.com/Shougo/deoplete.nvim): 🌠 Dark powered asynchronous completion framework for neovim
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
- * [pathogen.vim](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim
+ * [tmux-complete.vim](https://github.com/wellle/tmux-complete.vim): Vim plugin for insert mode completion of words in
+   adjacent tmux panes
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet solution for Vim
  * [vaxe](https://github.com/jdonaldson/vaxe): A modern, modular vim mode for Haxe.
@@ -122,7 +123,9 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [vim-fugitive](https://github.com/tpope/vim-fugitive): A Git wrapper so awesome, it should be illegal
  * [vim-gutentags](https://github.com/ludovicchabant/vim-gutentags): A Vim plugin that manages your tag files
  * [vim-javacomplete2](https://github.com/artur-shaik/vim-javacomplete2): Updated javacomplete plugin for vim
+ * [vim-logreview](https://github.com/andreshazard/vim-logreview): vim plugin for log navigation
  * [vim-obsession](https://github.com/tpope/vim-obsession): continuously updated session files
+ * [vim-pathogen](https://github.com/tpope/vim-pathogen): Manage your runtimepath
  * [vim-polyglot](https://github.com/sheerun/vim-polyglot): A solid language pack for Vim.
  * [vim-repeat](https://github.com/tpope/vim-repeat): enable repeating supported plugin maps with "."
  * [vim-rooter](https://github.com/airblade/vim-rooter): Changes Vim working directory to project root (identified by presence of known directory or file)
@@ -131,6 +134,8 @@ git clone https://github.com/ervandew/supertab.git $DOTHOME/usr/vim/supertab
  * [vim-test](https://github.com/janko-m/vim-test): Run your tests at the speed of thought
  * [vim-unimpaired](https://github.com/tpope/vim-unimpaired): pairs of handy bracket mappings
  * [vim-wiki](https://github.com/vimwiki/vimwiki): Personal Wiki for Vim
+ * [yang.vim](https://github.com/nathanalderson/yang.vim): YANG syntax highlighting for VIM
+
 
 ### Tmux
  * [tmux-continuum](https://github.com/tmux-plugins/tmux-continuum): Continuous saving of tmux environment. Automatic restore when tmux is started. Automatic tmux start when computer is turned on.
