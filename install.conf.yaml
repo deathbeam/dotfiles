@@ -24,9 +24,6 @@
     -
         - lib/shell/fzf/install --all --no-update-rc
         - Installing fuzzy finder for shell
-    -
-        - cp -Rf "lib/macos/bar.widget/" "$HOME/Library/Application Support/Übersicht/widgets/bar.widget"; true
-        - Copying panel widgets
 
 - link:
     $HOME/.dotconfig: .dotconfig
