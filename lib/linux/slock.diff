@@ -1,0 +1,17 @@
+diff --git a/config.def.h b/config.def.h
+index 9855e21..e26b5e5 100644
+--- a/config.def.h
++++ b/config.def.h
+@@ -3,9 +3,9 @@ static const char *user  = "nobody";
+ static const char *group = "nogroup";
+ 
+ static const char *colorname[NUMCOLS] = {
+-	[INIT] =   "black",     /* after initialization */
+-	[INPUT] =  "#005577",   /* during input */
+-	[FAILED] = "#CC3333",   /* wrong password */
++	[INIT] =   "#002b36",     /* after initialization */
++	[INPUT] =  "#073642",   /* during input */
++	[FAILED] = "#268bd2",   /* wrong password */
+ };
+ 
+ /* treat a cleared input like a wrong password (color) */
