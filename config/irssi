@@ -67,8 +67,6 @@ statusbar = {
     topic_empty = { disabled = "yes"; };
     remove = { disabled = "yes"; };
     channels = { disabled = "yes"; };
-    "-before" = { disabled = "yes"; };
-    aw1_0 = { disabled = "yes"; };
     empty = { disabled = "yes"; };
     awl_0 = {
       placement = "top";
