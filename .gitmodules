@@ -122,3 +122,6 @@
 [submodule "lib/vim/tmux-complete.vim"]
 	path = lib/vim/tmux-complete.vim
 	url = https://github.com/wellle/tmux-complete.vim
+[submodule "lib/irssi/weed"]
+	path = lib/irssi/weed
+	url = https://github.com/ronilaukkarinen/weed

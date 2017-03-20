@@ -56,8 +56,13 @@
     $HOME/.zlogin: config/zlogin
     $HOME/.zim: lib/shell/zim
     $HOME/.zprofile: config/profile
-    $HOME/.xsession: config/xsession
+    $HOME/.xsession: config/xinitrc
+    $HOME/.xinitrc: config/xinitrc
     $HOME/.editorconfig: config/editorconfig
     $HOME/.ctags: config/ctagsrc
     $HOME/.ideavimrc: config/ideavimrc
     $HOME/.xmodmap: config/xmodmap
+    $HOME/.irssi/config: config/irssi
+    $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
+    $HOME/.irssi/scripts/autorun/awl.pl: lib/irssi/weed/scripts/awl.pl
+    $HOME/.irssi/weed.theme: lib/irssi/weed/solarizedweed.theme

@@ -21,13 +21,19 @@ source ~/.dotconfig
 xsetroot -cursor_name left_ptr
 xmodmap ~/.xmodmap
 
-# Start music manager daemon
-mopidy &
-
 # Now, open terminal window
 st &
 
+# Start music manager daemon
+mopidy &
+
+# Start dropbox
 dropbox start &
+
+# Start guest additions if available
+if command -v VBoxClient-all >/dev/null 2>&1; then
+  VBoxClient-all
+fi
 
 # Set nice wallpaper
 $DOTHOME/lib/linux/wallpaper.sh &
