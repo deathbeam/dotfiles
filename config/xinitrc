@@ -18,11 +18,7 @@ source ~/.profile
 source ~/.dotconfig
 
 # Set up x stuff first
-xsetroot -cursor_name left_ptr
 xmodmap ~/.xmodmap
-
-# Now, open terminal window
-st &
 
 # Start music manager daemon
 mopidy &
@@ -30,13 +26,8 @@ mopidy &
 # Start dropbox
 dropbox start &
 
-# Start guest additions if available
-if command -v VBoxClient-all >/dev/null 2>&1; then
-  VBoxClient-all
-fi
-
 # Set nice wallpaper
-$DOTHOME/lib/linux/wallpaper.sh &
+feh --bg-scale "$DOTHOME/lib/linux/wallpaper"
 
 # Start clipboard manager daemon
 $DOTHOME/lib/linux/clipmenu/clipmenud &
@@ -46,6 +37,9 @@ setopt sh_word_split
 
 # Start key manager daemon
 sxhkd &
+
+# Now, open terminal window
+st &
 
 # And finally, start our WM
 exec bspwm

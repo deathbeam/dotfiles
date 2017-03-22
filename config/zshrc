@@ -58,11 +58,7 @@
     utility \
     syntax-highlighting \
     history-substring-search \
-    prompt \
     completion)
-
-  # Set your desired prompt here
-  zprompt_theme='lean'
 
   # Set the string below to the desired terminal title format string.
   # Below uses the following format: 'username@host:/current/directory'
@@ -74,10 +70,14 @@
   # Source zim
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
+  # Load purer prompt
+  source "$DOTHOME/lib/shell/pure/async.zsh"
+  source "$DOTHOME/lib/shell/pure/pure.zsh"
+  autoload -U promptinit; promptinit
+  prompt pure
+
   # Load vi mode plugin
-  if [[ ! ${TERM} == (linux|*bsd*|dumb) ]]; then
-    source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
-  fi
+  source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
 
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"

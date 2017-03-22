@@ -60,20 +60,20 @@ type = internal/bspwm
 ws-icon-default = x
 format = <label-state> <label-mode>
 
-label-focused = %index%
+label-focused = %name%
 label-focused-background = #268bd2
 label-focused-foreground = #eee8d5
 label-focused-padding = 1
 
-label-empty = %index%
+label-empty = %name%
 label-empty-background = #002b36
 label-empty-foreground = #839496
 label-empty-padding = 1
 
-label-urgent = %index%
+label-urgent = %name%
 label-urgent-padding = 1
 
-label-occupied = %index%
+label-occupied = %name%
 label-occupied-padding = 1
 
 [module/wifi]
