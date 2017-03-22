@@ -61,7 +61,5 @@
     $HOME/.xmodmap: config/xmodmap
     $HOME/.irssi/config: config/irssi
     $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
-    $HOME/.irssi/scripts/autorun/awl.pl: lib/irssi/weed/scripts/awl.pl
-    $HOME/.irssi/scripts/autorun/nicklist.pl: lib/irssi/weed/scripts/tmux-nicklist-portable.pl
-    $HOME/.irssi/scripts/autorun/nickcolor.pl: lib/irssi/weed/scripts/nickcolor.pl
-    $HOME/.irssi/weed.theme: lib/irssi/weed/solarizedweed.theme
+    $HOME/.irssi/scripts/autorun/adv_windowlist.pl: lib/irssi/adv_windowlist.pl
+    $HOME/.irssi/default.theme: lib/irssi/default.theme

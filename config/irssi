@@ -5,26 +5,6 @@ settings = {
     nick = "deathbeam";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "fe-common/core" = { theme = "weed"; };
-  "perl/core/scripts" = {
-    awl_all_disable = "no";
-    awl_automode = "sbar";
-    awl_block = "20";
-    awl_columns = "1";
-    awl_display_key = " %W$C %N";
-    awl_display_key_active = "%4 %W$C ";
-    awl_display_nokey = " %W$C ";
-    awl_display_nokey_active = " %1%W$C ";
-    awl_height_adjust = "1";
-    awl_hide_data = "0";
-    awl_maxlines = "9";
-    awl_placement = "top";
-    awl_position = "0";
-    awl_prefer_name = "yes";
-    awl_sbar_maxlength = "yes";
-    awl_separator = "%N %N";
-    awl_sort = "refnum";
-  };
 };
 
 servers = (
@@ -68,13 +48,5 @@ statusbar = {
     remove = { disabled = "yes"; };
     channels = { disabled = "yes"; };
     empty = { disabled = "yes"; };
-    awl_0 = {
-      placement = "top";
-      items = {
-        barstart = { priority = "100"; };
-        awl_0 = { };
-        barend = { priority = "100"; alignment = "right"; };
-      };
-    };
   };
 };
