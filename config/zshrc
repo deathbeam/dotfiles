@@ -75,7 +75,9 @@
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
   # Load vi mode plugin
-  source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
+  if [[ ! ${TERM} == (linux|*bsd*|dumb) ]]; then
+    source "$DOTHOME/lib/shell/vi-mode.plugin.zsh"
+  fi
 
   # Load hub alias
   command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
