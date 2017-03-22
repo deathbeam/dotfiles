@@ -1,10 +1,4 @@
 " vim:foldmethod=marker:set ft=vim:
-" ██╗   ██╗██╗███╗   ███╗██████╗  ██████╗
-" ██║   ██║██║████╗ ████║██╔══██╗██╔════╝
-" ██║   ██║██║██╔████╔██║██████╔╝██║
-" ╚██╗ ██╔╝██║██║╚██╔╝██║██╔══██╗██║
-"  ╚████╔╝ ██║██║ ╚═╝ ██║██║  ██║╚██████╗
-"   ╚═══╝  ╚═╝╚═╝     ╚═╝╚═╝  ╚═╝ ╚═════╝
 
 " General {{{
 
@@ -53,10 +47,6 @@
 
   " Use system clipboard
   set clipboard+=unnamedplus
-
-  " Add cscope support
-  set cscopetag cscopeverbose
-  set cscopequickfix=s-,c-,d-,i-,t-,e-
 
 " }}}
 
@@ -170,10 +160,6 @@
 
   " Disable text wrap
   set nowrap
-
-  " Show tabs, trailing spaces and newline breaks
-  set list listchars=tab:→\ ,trail:·
-  set showbreak=↲
 
   " Automatically rebalance windows on vim resize
   autocmd VimRc VimResized * :wincmd =
