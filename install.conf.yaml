@@ -63,3 +63,6 @@
     $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
     $HOME/.irssi/scripts/autorun/adv_windowlist.pl: lib/irssi/adv_windowlist.pl
     $HOME/.irssi/default.theme: lib/irssi/default.theme
+    $HOME/.zfunctions/prompt_pure_setup: lib/shell/pure/pure.zsh
+    $HOME/.zfunctions/async: lib/shell/pure/async.zsh
+    $HOME/.config/fontconfig/fonts.conf: config/fonts.conf

@@ -10,6 +10,9 @@
   # Enable colors
   export CLICOLOR=1
 
+  # Add dir to fpath
+  fpath=( "$HOME/.zfunctions" $fpath )
+
 # }}}
 
 # Aliases & functions {{{
@@ -70,9 +73,7 @@
   # Source zim
   source ${ZDOTDIR:-${HOME}}/.zim/init.zsh
 
-  # Load purer prompt
-  source "$DOTHOME/lib/shell/pure/async.zsh"
-  source "$DOTHOME/lib/shell/pure/pure.zsh"
+  # Load pure prompt
   autoload -U promptinit; promptinit
   prompt pure
 
