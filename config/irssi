@@ -5,6 +5,7 @@ settings = {
     nick = "deathbeam";
   };
   "fe-text" = { actlist_sort = "refnum"; };
+  "perl/core/scripts" = { awl_shared_sbar = "OFF"; };
 };
 
 servers = (
