@@ -29,6 +29,7 @@
     $HOME/.dotconfig: .dotconfig
     $HOME/.profile: config/profile
     $HOME/.vimrc: config/vimrc
+    $HOME/.config/nvim/init.vim: config/vimrc
     $HOME/.tmux.conf: config/tmux.conf
     $HOME/.hyper.js: config/hyper.js
     $HOME/.khd/pass.applescript: lib/macos/alfred/pass.applescript
@@ -62,6 +63,7 @@
     $HOME/.irssi/config: config/irssi
     $HOME/.irssi/scripts/autorun/notify.pl: lib/irssi/notify.pl
     $HOME/.irssi/scripts/autorun/adv_windowlist.pl: lib/irssi/adv_windowlist.pl
+    $HOME/.irssi/scripts/autorun/tmux-nicklist-portable.pl: lib/irssi/tmux-nicklist-portable.pl
     $HOME/.irssi/default.theme: lib/irssi/default.theme
     $HOME/.zfunctions/prompt_pure_setup: lib/shell/pure/pure.zsh
     $HOME/.zfunctions/async: lib/shell/pure/async.zsh
