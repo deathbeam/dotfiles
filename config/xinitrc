@@ -4,6 +4,7 @@
 #
 # Executed by startx (run your window manager from here)
 
+# Load all other xinitrc files
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
   for f in /etc/X11/xinit/xinitrc.d/*; do
     [ -x "$f" ] && . "$f"
@@ -22,7 +23,10 @@ source ~/.profile
 # Load dotconfig because of $DOTHOME
 source ~/.dotconfig
 
-# Set up x stuff first
+# Change mouse cursor from X11 X to normal one
+xsetroot -cursor_name left_ptr
+
+# Load custom keyboard mappings
 xmodmap ~/.xmodmap
 
 # Start music manager daemon
