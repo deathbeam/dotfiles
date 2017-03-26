@@ -68,4 +68,5 @@
     $HOME/.zfunctions/async: lib/shell/pure/async.zsh
     $HOME/.config/fontconfig/fonts.conf: config/fonts.conf
     $HOME/.config/qutebrowser/qutebrowser.conf: config/qutebrowser.conf
+    $HOME/.config/qutebrowser/keys.conf: config/keys.conf
     $HOME/.config/ranger/rc.conf: config/ranger.conf
