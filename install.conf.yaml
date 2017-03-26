@@ -54,7 +54,6 @@
     $HOME/.zlogin: config/zlogin
     $HOME/.zim: lib/shell/zim
     $HOME/.zprofile: config/profile
-    $HOME/.xsession: config/xinitrc
     $HOME/.xinitrc: config/xinitrc
     $HOME/.editorconfig: config/editorconfig
     $HOME/.ctags: config/ctagsrc
@@ -68,3 +67,5 @@
     $HOME/.zfunctions/prompt_pure_setup: lib/shell/pure/pure.zsh
     $HOME/.zfunctions/async: lib/shell/pure/async.zsh
     $HOME/.config/fontconfig/fonts.conf: config/fonts.conf
+    $HOME/.config/qutebrowser/qutebrowser.conf: config/qutebrowser.conf
+    $HOME/.config/ranger/rc.conf: config/ranger.conf
