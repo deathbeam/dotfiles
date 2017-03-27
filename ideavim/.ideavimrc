@@ -1,0 +1,60 @@
+" vim:set ft=vim:foldmethod=marker:
+
+source ~/.vimrc
+
+" Adjust line numbers
+set nonumber
+
+" Emulate Idea version of Vim surround
+set surround
+
+" vinegar emulation with Idea
+nnoremap - :action ActivateProjectToolWindow<cr>
+
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+
+" unimpaired mappings
+nnoremap [<space> O<esc>j
+nnoremap ]<space> o<esc>k
+nnoremap [q :action PreviousOccurence<cr>
+nnoremap ]q :action NextOccurence<cr>
+nnoremap [l :action GotoPreviousError<cr>
+nnoremap ]l :action GotoNextError<cr>
+nnoremap [m :action MethodUp<cr>
+nnoremap ]m :action MethodDown<cr>
+nnoremap [c :action VcsShowPrevChangeMarker<cr>
+nnoremap ]c :action VcsShowNextChangeMarker<cr>
+
+" vim-commentary mappings
+nnoremap gcc :action CommentByLineComment<cr>
+vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
+
+" Building
+nnoremap <space>mf :action Compile<cr>
+nnoremap <space>mF :action CompileProject<cr>
+
+" Navigation
+nnoremap <C-^> :action GotoImplementation<cr>
+
+" Refactoring
+nnoremap <space>ji :action ShowIntentionActions<cr>
+nnoremap <space>jg :action Generate<cr>
+nnoremap <space>jr :action RenameElement<cr>
+nnoremap <space>js :action ChangeSignature<cr>
+nnoremap <space>jt :action ChangeTypeSignature<cr>
+
+" Menus
+nnoremap <space>/ :action SearchEverywhere<cr>
+nnoremap <space>T :action GotoSymbol<cr>
+nnoremap <space>t :action FileStructurePopup<cr>
+nnoremap <space>F :action GotoFile<cr>
+nnoremap <space>f :action GotoClass<cr>
+nnoremap <space>a :action GotoAction<cr>
+nnoremap <space>h :action RecentFiles<cr>
+nnoremap <space>b :action Switcher<cr>
+nnoremap <space>n :action NewElement<cr>
+
+" }}}
+

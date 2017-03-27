@@ -1,0 +1,156 @@
+[bar/left]
+monitor = VGA-1
+wm-restack = bspwm
+override-redirect = false
+width = 100%
+height = 25
+offset-x = 0
+offset-y = 0
+bottom = false
+tray-position = right
+border-bottom = 0
+spacing = 1
+underline-size = 0
+overline-size = 0
+padding-left = 0
+padding-right = 2
+module-margin-left = 0
+module-margin-right = 2
+
+background = #073642
+foreground = #93a1a1
+font-0 = Terminus:size=10;1
+font-1 = FontAwesome:size=10;0
+
+modules-left = bspwm
+modules-center = title
+modules-right = wifi wired volume battery date
+
+
+[bar/right]
+monitor = VGA-2
+wm-restack = bspwm
+override-redirect = false
+width = 100%
+height = 25
+offset-x = 0
+offset-y = 0
+bottom = false
+tray-position = right
+border-bottom = 0
+spacing = 1
+underline-size = 0
+overline-size = 0
+padding-left = 0
+padding-right = 2
+module-margin-left = 0
+module-margin-right = 2
+
+background = #073642
+foreground = #93a1a1
+font-0 = Terminus:size=10;1
+font-1 = FontAwesome:size=10;0
+
+modules-left = bspwm
+modules-center = title
+modules-right = mpd
+
+[module/bspwm]
+type = internal/bspwm
+ws-icon-default = x
+format = <label-state> <label-mode>
+
+label-focused = %name%
+label-focused-background = #268bd2
+label-focused-foreground = #eee8d5
+label-focused-padding = 1
+
+label-empty = %name%
+label-empty-background = #002b36
+label-empty-foreground = #839496
+label-empty-padding = 1
+
+label-urgent = %name%
+label-urgent-padding = 1
+
+label-occupied = %name%
+label-occupied-padding = 1
+
+[module/wifi]
+type = internal/network
+interface = wifi0
+interval = 3.0
+format-connected = <label-connected>
+label-connected =  %essid%
+
+[module/wired]
+type = internal/network
+interface = eth0
+interval = 3.0
+label-connected = %{T3}%local_ip%%{T-}
+
+[module/date]
+type = internal/date
+date =  %Y-%m-%d  %H:%M
+interval = 5
+
+[module/volume]
+type = internal/volume
+format-volume = <ramp-volume> <label-volume>
+label-volume = %percentage%
+label-muted = 
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-headphones-0 = 
+
+[module/battery]
+type = internal/battery
+full-at = 98
+
+label-charging = %percentage%
+label-discharging = -%percentage%
+label-full = 
+
+format-charging = <label-charging>
+format-discharging = <label-discharging>
+format-full = <label-full>
+
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
+
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
+animation-charging-framerate = 750
+
+[module/title]
+type = internal/xwindow
+label-maxlen = 100
+
+[module/mpd]
+type = internal/mpd
+host = localhost
+port = 6600
+
+format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
+label-song =  %artist% - %title%
+label-song-maxlen = 45
+label-song-ellipsis = true
+
+icon-prev = 
+icon-seekb = 
+icon-stop = 
+icon-play = 
+icon-pause = 
+icon-next = 
+icon-seekf = 
+icon-random = 
+icon-repeat = 
+icon-repeatone = 
+
+; vim:ft=dosini

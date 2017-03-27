@@ -1,0 +1,10 @@
+--langdef=haxe
+--langmap=haxe:.hx
+--regex-haxe=/^[ \t]*((@:?[a-zA-Z]+)[ \t]+)*((inline|macro|override|private|public|static)[ \t]+)*function[ \t]+([A-Za-z0-9_]+)/\5/f,function/
+--regex-haxe=/^[ \t]*((@:?[a-zA-Z]+)[ \t]+)*((inline|private|public|static)[ \t]+)*var[ \t]+([A-Za-z0-9_]+)/\5/v,variable/
+--regex-haxe=/^[ \t]*package[ \t]*([A-Za-z0-9_\.]+)/\1/p,package/
+--regex-haxe=/^[ \t]*((@:?[a-zA-Z]+)[ \t]+)*((extern|private)[ \t]+)?abstract[ \t]+([A-Za-z0-9_]+)[ \t]*[^\{]*/\5/a,abstract/
+--regex-haxe=/^[ \t]*((@:?[a-zA-Z]+)[ \t]+)*((extern|private)[ \t]+)?class[ \t]+([A-Za-z0-9_]+)[ \t]*[^\{]*/\5/c,class/
+--regex-haxe=/^[ \t]*((@:?[a-zA-Z]+)[ \t]+)*((extern|private)[ \t]+)?interface[ \t]+([A-Za-z0-9_]+)/\5/i,interface/
+--regex-haxe=/^[ \t]*((private)[ \t]+)?typedef[ \t]+([A-Za-z0-9_]+)/\3/t,typedef/
+--regex-haxe=/^[ \t]*enum[ \t]+([A-Za-z0-9_]+)/\1/e,enum/

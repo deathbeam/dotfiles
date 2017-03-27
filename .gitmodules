@@ -1,127 +1,127 @@
-[submodule "lib/dotbot"]
-	path = lib/dotbot
-	url = https://github.com/anishathalye/dotbot
 [submodule "lib/bash/bash-it"]
 	path = lib/bash/bash-it
 	url = https://github.com/Bash-it/bash-it
 [submodule "lib/shell/fzf"]
-	path = lib/shell/fzf
+	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf.git
 [submodule "lib/vim-pathogen"]
-	path = lib/vim/vim-pathogen
+	path = vim/.vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
 [submodule "lib/vim/vim-fugitive"]
-	path = lib/vim/vim-fugitive
+	path = vim/.vim/bundle/vim-fugitive
 	url = git://github.com/tpope/vim-fugitive.git
 [submodule "lib/vim/vim-snipmate"]
 	path = lib/vim/vim-snipmate
 	url = git://github.com/garbas/vim-snipmate.git
 [submodule "lib/vim/vim-snippets"]
-	path = lib/vim/vim-snippets
+	path = vim/.vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
-[submodule "lib/vim/editorconfig-vim"]
-	path = lib/vim/editorconfig-vim
-	url = git://github.com/editorconfig/editorconfig-vim.git
 [submodule "lib/vim/vim-repeat"]
-	path = lib/vim/vim-repeat
+	path = vim/.vim/bundle/vim-repeat
 	url = git://github.com/tpope/vim-repeat.git
 [submodule "lib/vim/vim-rooter"]
-	path = lib/vim/vim-rooter
+	path = vim/.vim/bundle/vim-rooter
 	url = https://github.com/airblade/vim-rooter
 [submodule "lib/vim/base16-vim"]
-	path = lib/vim/base16-vim
+	path = vim/.vim/bundle/base16-vim
 	url = https://github.com/chriskempson/base16-vim
 [submodule "lib/shell/base16-shell"]
-	path = lib/shell/base16-shell
+	path = zsh/.zsh/bundle/base16-shell
 	url = https://github.com/chriskempson/base16-shell
 [submodule "lib/tmux/tmux-yank"]
-	path = lib/tmux/tmux-yank
+	path = tmux/.tmux/bundle/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
 [submodule "lib/tmux/tmux-sensible"]
-	path = lib/tmux/tmux-sensible
+	path = tmux/.tmux/bundle/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
-[submodule "lib/tmux/tmux-resurrect"]
-	path = lib/tmux/tmux-resurrect
-	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "lib/tmux/tmux-copycat"]
-	path = lib/tmux/tmux-copycat
+	path = tmux/.tmux/bundle/tmux-copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
 [submodule "lib/tmux/tmux-continuum"]
-	path = lib/tmux/tmux-continuum
+	path = tmux/.tmux/bundle/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
 [submodule "lib/vim/vimwiki"]
-	path = lib/vim/vimwiki
+	path = vim/.vim/bundle/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 [submodule "lib/vim/fzf.vim"]
-	path = lib/vim/fzf.vim
+	path = vim/.vim/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 [submodule "lib/vim/ultisnips"]
-	path = lib/vim/ultisnips
+	path = vim/.vim/bundle/ultisnips
 	url = https://github.com/SirVer/ultisnips
 [submodule "lib/vim/vim-commentary"]
-	path = lib/vim/vim-commentary
+	path = vim/.vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "lib/vim/vim-surround"]
-	path = lib/vim/vim-surround
+	path = vim/.vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "lib/vim/vim-unimpaired"]
-	path = lib/vim/vim-unimpaired
+	path = vim/.vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
 [submodule "lib/tmux/vim-tmux-navigator"]
-	path = lib/tmux/vim-tmux-navigator
+	path = tmux/.tmux/bundle/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule "lib/vim/vim-obsession"]
-	path = lib/vim/vim-obsession
+	path = vim/.vim/bundle/vim-obsession
 	url = https://github.com/tpope/vim-obsession
 [submodule "lib/vim/vim-gutentags"]
-	path = lib/vim/vim-gutentags
+	path = vim/.vim/bundle/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
 [submodule "lib/tmux/tmux-open"]
-	path = lib/tmux/tmux-open
+	path = tmux/.tmux/bundle/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open
-[submodule "lib/shell/zim"]
-	path = lib/shell/zim
-	url = https://github.com/Eriner/zim/
 [submodule "lib/vim/vim-javacomplete2"]
-	path = lib/vim/vim-javacomplete2
+	path = vim/.vim/bundle/vim-javacomplete2
 	url = https://github.com/artur-shaik/vim-javacomplete2
 [submodule "lib/vim/deoplete.nvim"]
-	path = lib/vim/deoplete.nvim
+	path = vim/.vim/bundle/deoplete.nvim
 	url = https://github.com/Shougo/deoplete.nvim
 [submodule "lib/linux/clipmenu"]
-	path = lib/linux/clipmenu
+	path = bspwm/.config/dmenu/clipmenu
   url = https://github.com/cdown/clipmenu/
   branch = develop
 [submodule "lib/vim/yang.vim"]
-	path = lib/vim/yang.vim
+	path = vim/.vim/bundle/yang.vim
 	url = https://github.com/nathanalderson/yang.vim
 [submodule "lib/vim/vim-test"]
-	path = lib/vim/vim-test
+	path = vim/.vim/bundle/vim-test
 	url = https://github.com/janko-m/vim-test
 [submodule "lib/vim/vim-dirvish"]
-	path = lib/vim/vim-dirvish
+	path = vim/.vim/bundle/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
 [submodule "lib/vim/tsuquyomi"]
-	path = lib/vim/tsuquyomi
+	path = vim/.vim/bundle/tsuquyomi
 	url = https://github.com/Quramy/tsuquyomi
 [submodule "lib/vim/vim-polyglot"]
-	path = lib/vim/vim-polyglot
+	path = vim/.vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 [submodule "lib/vim/syntastic"]
-	path = lib/vim/syntastic
+	path = vim/.vim/bundle/syntastic
 	url = https://github.com/vim-syntastic/syntastic
 [submodule "lib/vim/vaxe"]
-	path = lib/vim/vaxe
+	path = vim/.vim/bundle/vaxe
 	url = https://github.com/jdonaldson/vaxe
 [submodule "lib/vim/vim-logreview"]
-	path = lib/vim/vim-logreview
+	path = vim/.vim/bundle/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
 [submodule "lib/vim/committia.vim"]
-	path = lib/vim/committia.vim
+	path = vim/.vim/bundle/committia.vim
 	url = https://github.com/rhysd/committia.vim
 [submodule "lib/vim/tmux-complete.vim"]
-	path = lib/vim/tmux-complete.vim
+	path = vim/.vim/bundle/tmux-complete.vim
 	url = https://github.com/wellle/tmux-complete.vim
 [submodule "lib/shell/pure"]
-	path = lib/shell/pure
+	path = zsh/.zsh/bundle/pure
 	url = https://github.com/intelfx/pure
+[submodule "vim/.vim/bundle/editorconfig-vim"]
+	path = vim/.vim/bundle/editorconfig-vim
+	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "tmux/.tmux/bundle/tmux-resurrect"]
+	path = tmux/.tmux/bundle/tmux-resurrect
+	url = https://github.com/tmux-plugins/tmux-resurrect
+[submodule "zsh/.zsh/bundle/zsh-async"]
+	path = zsh/.zsh/bundle/async
+	url = https://github.com/mafredri/zsh-async
+[submodule "zsh/.zim"]
+	path = zsh/.zim
+	url = https://github.com/Eriner/zim
