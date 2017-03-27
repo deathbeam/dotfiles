@@ -12,7 +12,7 @@ super + space
 
 # password menu
 super + z
-  bash -c '$DOTHOME/lib/linux/passmenu ${DMENU_ARG} -p "pass"'
+  bash -c '$DOTHOME/lib/linux/lpassmenu ${DMENU_ARG} -p "pass"'
 
 # process menu
 super + x

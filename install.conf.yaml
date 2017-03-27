@@ -31,13 +31,6 @@
     $HOME/.vimrc: config/vimrc
     $HOME/.config/nvim/init.vim: config/vimrc
     $HOME/.tmux.conf: config/tmux.conf
-    $HOME/.hyper.js: config/hyper.js
-    $HOME/.khd/pass.applescript: lib/macos/alfred/pass.applescript
-    $HOME/.khd/pkill.applescript: lib/macos/alfred/pkill.applescript
-    $HOME/.khd/spotify.applescript: lib/macos/alfred/spotify.applescript
-    $HOME/.khdrc: config/khdrc
-    $HOME/.chunkwmrc: config/chunkwmrc
-    $HOME/.chunkwmtilingrc: config/chunkwmtilingrc
     $HOME/.inputrc: config/inputrc
     $HOME/.gitconfig: config/gitconfig
     $HOME/.gitignore: config/gitignore
@@ -46,7 +39,6 @@
     $HOME/.config/bspwm/bspwmrc: config/bspwmrc
     $HOME/.config/sxhkd/sxhkdrc: config/sxhkdrc
     $HOME/.config/dunst/dunstrc: config/dunstrc
-    $HOME/.hushlogin: config/hushlogin
     $HOME/.vimpcrc: config/vimpcrc
     $HOME/.config/polybar/config: config/polybar
     $HOME/.config/mpv/mpv.conf: config/mpv.conf
