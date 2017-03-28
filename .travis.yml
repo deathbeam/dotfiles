@@ -1,4 +1,4 @@
 language: bash
 
 script:
-    - bash install
+    - make

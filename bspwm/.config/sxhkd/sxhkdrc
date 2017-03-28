@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-  st -e $SHELL -c "source ~/.zshrc; tmux new-session -A -s main"
+  st -e $SHELL -c "export PS1='temp'; source ~/.zshrc; tmux new-session -A -s main"
 
 # program menu
 super + space

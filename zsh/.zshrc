@@ -34,32 +34,42 @@
 
 # Plugins {{{
 
-  # Select what modules you would like enabled.
-  zmodules=( \
-    archive \
-    directory \
-    environment \
-    fasd \
-    git \
-    git-info \
-    history \
-    input \
-    utility \
-    syntax-highlighting \
-    history-substring-search \
-    completion)
+  # Load zim
+  if [ -f ~/.zim/init.zsh ]; then
+    # Select what modules you would like enabled.
+    zmodules=( \
+      archive \
+      directory \
+      environment \
+      fasd \
+      git \
+      git-info \
+      history \
+      input \
+      utility \
+      syntax-highlighting \
+      history-substring-search \
+      completion)
 
-  # Set the string below to the desired terminal title format string.
-  # Below uses the following format: 'username@host:/current/directory'
-  ztermtitle='%n@%m:%~'
+    # Set the string below to the desired terminal title format string.
+    # Below uses the following format: 'username@host:/current/directory'
+    ztermtitle='%n@%m:%~'
 
-  # This determines what highlighters will be used with the syntax-highlighting module.
-  zhighlighters=(main brackets cursor)
+    # This determines what highlighters will be used with the syntax-highlighting module.
+    zhighlighters=(main brackets cursor)
 
-  # Source zim
-  source ~/.zim/init.zsh
+    # Source zim
+    source ~/.zim/init.zsh
+  fi
 
-  # Load fzf
+  # Load hub alias
+  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
+
+  # Pathogen-like loader for plugins
+  find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
+  while read filename; do source "$filename"; done
+
+  # Load fzf after plugins to be able to override them
   [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
   # Use faster FZF grep command if possible
@@ -69,12 +79,8 @@
     export FZF_DEFAULT_COMMAND='ag -g ""'
   fi
 
-  # Load hub alias
-  command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
-
-  # Pathogen-like loader for plugins
-  find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
-  while read filename; do source "$filename"; done
+  # Load base16 theme
+  [ -z $BASE16_THEME ] && base16_solarized-dark
 
 # }}}
 

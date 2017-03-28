@@ -104,6 +104,12 @@
 [submodule "vim/.vim/bundle/editorconfig-vim"]
 	path = vim/.vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
+[submodule "zsh/.fzf"]
+	path = zsh/.fzf
+	url = https://github.com/junegunn/fzf.git
+[submodule "zsh/.zim"]
+	path = zsh/.zim
+	url = https://github.com/Eriner/zim
 [submodule "zsh/.zsh/bundle/base16-shell"]
 	path = zsh/.zsh/bundle/base16-shell
 	url = https://github.com/chriskempson/base16-shell
@@ -113,9 +119,9 @@
 [submodule "zsh/.zsh/bundle/async"]
 	path = zsh/.zsh/bundle/async
 	url = https://github.com/mafredri/zsh-async
-[submodule "zsh/.fzf"]
-	path = zsh/.fzf
-	url = https://github.com/junegunn/fzf.git
-[submodule "zsh/.zim"]
-	path = zsh/.zim
-	url = https://github.com/Eriner/zim
+[submodule "zsh/.zsh/bundle/k"]
+	path = zsh/.zsh/bundle/k
+	url = https://github.com/supercrabtree/k
+[submodule "zsh/.zsh/bundle/alias-tips"]
+	path = zsh/.zsh/bundle/alias-tips
+	url = https://github.com/djui/alias-tips

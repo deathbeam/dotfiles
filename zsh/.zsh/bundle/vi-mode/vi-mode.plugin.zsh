@@ -1,12 +1,7 @@
 # Updates editor information when the keymap changes.
 function zle-keymap-select() {
+  vi_precmd
   zle reset-prompt
-  zle -R
-}
-
-# Ensure that the prompt is redrawn when the terminal size changes.
-TRAPWINCH() {
-  zle &&  zle -R
 }
 
 zle -N zle-keymap-select
@@ -18,9 +13,13 @@ bindkey -v
 autoload -Uz edit-command-line
 bindkey -M vicmd 'v' edit-command-line
 
-# allow ctrl-p, ctrl-n for navigate history (standard behaviour)
-bindkey '^P' up-history
-bindkey '^N' down-history
+# allow ctrl-p, ctrl-n, j and k for navigate history (standard behaviour)
+# bindkey '^P' up-history
+# bindkey '^N' down-history
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # allow ctrl-h, ctrl-w, ctrl-? for char and word deletion (standard behaviour)
 bindkey '^?' backward-delete-char
@@ -39,11 +38,14 @@ if [[ "$MODE_INDICATOR" == "" ]]; then
   MODE_INDICATOR="%{$fg_bold[red]%}<%{$fg[red]%}<<%{$reset_color%}"
 fi
 
-function vi_mode_prompt_info() {
+vi_mode_prompt_info() {
   echo "${${KEYMAP/vicmd/$MODE_INDICATOR}/(main|viins)/}"
 }
 
-# define right prompt, if it wasn't defined by a theme
-if [[ "$RPS1" == "" && "$RPROMPT" == "" ]]; then
-  RPS1='$(vi_mode_prompt_info)'
-fi
+vi_precmd() {
+  # define right prompt, if it wasn't defined by a theme
+  RPROMPT="`vi_mode_prompt_info`"
+}
+
+autoload -Uz add-zsh-hook
+add-zsh-hook precmd vi_precmd
