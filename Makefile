@@ -1,4 +1,7 @@
-default: update link install
+default: clean update link install
+
+clean:
+	find ~ -xtype l -delete
 
 install:
 	~/.fzf/install --all --no-update-rc
