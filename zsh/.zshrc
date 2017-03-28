@@ -74,10 +74,7 @@
 
   # Pathogen-like loader for plugins
   find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
-  while read filename
-  do
-    source "$filename"
-  done
+  while read filename; do source "$filename"; done
 
 # }}}
 
