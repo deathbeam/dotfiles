@@ -66,10 +66,11 @@ git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/zsh-autoenv
 ### Shell
  * [alias-tips](https://github.com/djui/alias-tips): A plugin to help remembering those aliases you defined once
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
- * [cdk](https://github.com/deathbeam/dotfiles/tree/experimental/zsh/.zsh/bundle/cdk): Runs `k` on directory change
+ * [cdls](https://github.com/deathbeam/dotfiles/tree/experimental/zsh/.zsh/bundle/cdls): Runs `ls -A` on directory change
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [k](https://github.com/supercrabtree/k): k is the new l, yo
- * [vi-mode](https://github.com/deathbeam/dotfiles/tree/experimental/zsh/.zsh/bundle/vi-mode): Runs `k` on directory change
+ * [vi-mode](https://github.com/deathbeam/dotfiles/tree/experimental/zsh/.zsh/bundle/vi-mode): Enhanced Vi mode for zsh
+   with history substring search support
  * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
 
 ### Vim

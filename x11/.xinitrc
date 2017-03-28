@@ -33,7 +33,7 @@ mopidy &
 dropbox start &
 
 # Set nice wallpaper
-feh --bg-scale "~/.wallpaper"
+feh --bg-scale ~/.wallpaper
 
 # Start clipboard manager daemon
 ~/.config/dmenu/clipmenu/clipmenud &

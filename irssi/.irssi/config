@@ -1,3 +1,5 @@
+# vim:foldmethod=marker:set ft=conf:
+
 settings = {
   core = {
     real_name = "Tomas Slusny";
@@ -51,3 +53,11 @@ statusbar = {
     empty = { disabled = "yes"; };
   };
 };
+
+keyboard = (
+  {
+    key = "^R";
+    id = "command";
+    data = "history_search ";
+  }
+);
