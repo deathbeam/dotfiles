@@ -2,29 +2,32 @@
 # wm independent hotkeys
 #
 
-# terminal emulator
+# terminal emulator + tmux
 super + Return
-  st -e $SHELL -c "export PS1='temp'; source ~/.zshrc; tmux new-session -A -s main"
+  st -e $SHELL -c "export PS1='temp'; \
+                   source ~/.zsh/bundle/base16-shell/base16-shell.plugin.zsh; \
+                   [ -z $BASE16_THEME ] && base16_solarized-dark; \
+                   tmux new-session -A -s main"
 
 # program menu
 super + space
-  bash -c 'dmenu_run ${DMENU_ARG} -p "run"'
+  dmenu_run -p "run"
 
 # password menu
 super + z
-  bash -c '~/.config/dmenu/lpassmenu ${DMENU_ARG} -p "pass"'
+  ~/.config/dmenu/lpassmenu -p "pass"
 
 # process menu
 super + x
-  bash -c '~/.config/dmenu/procmenu ${DMENU_ARG} -p "proc"'
+  ~/.config/dmenu/procmenu -p "proc"
 
 # clipboard menu
 super + c
-  bash -c '~/.config/dmenu/clipmenu/clipmenu ${DMENU_ARG} -p "clip"'
+  ~/.config/dmenu/clipmenu/clipmenu -p "clip"
 
 # music menu
 super + v
-  bash -c '~/.config/dmenu/mpdmenu ${DMENU_ARG} -p "mpd"'
+  ~/.config/dmenu/mpdmenu -p "mpd"
 
 # make sxhkd reload its configuration files:
 super + Escape

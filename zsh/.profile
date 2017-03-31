@@ -18,6 +18,3 @@ export LC_ALL="en_US.UTF-8"
 # Preferred editor for local and remote sessions
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
-
-# Dmenu options
-export DMENU_ARG="-i -l 10 -b -nb #073642 -nf #93a1a1 -sb #268bd2 -sf #eee8d5 -fn Terminus:size=12"

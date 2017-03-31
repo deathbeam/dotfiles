@@ -47,6 +47,7 @@
       history \
       input \
       utility \
+      prompt \
       syntax-highlighting \
       history-substring-search \
       completion)
@@ -57,6 +58,10 @@
 
     # This determines what highlighters will be used with the syntax-highlighting module.
     zhighlighters=(main brackets cursor)
+
+    # Set prompt theme
+    zprompt_theme='pure'
+    PURE_PROMPT_SYMBOL='$'
 
     # Source zim
     source ~/.zim/init.zsh

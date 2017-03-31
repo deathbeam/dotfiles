@@ -113,15 +113,9 @@
 [submodule "zsh/.zsh/bundle/base16-shell"]
 	path = zsh/.zsh/bundle/base16-shell
 	url = https://github.com/chriskempson/base16-shell
-[submodule "zsh/.zsh/bundle/pure"]
-	path = zsh/.zsh/bundle/pure
-	url = https://github.com/intelfx/pure
 [submodule "zsh/.zsh/bundle/async"]
 	path = zsh/.zsh/bundle/async
 	url = https://github.com/mafredri/zsh-async
-[submodule "zsh/.zsh/bundle/k"]
-	path = zsh/.zsh/bundle/k
-	url = https://github.com/supercrabtree/k
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/bundle/alias-tips
 	url = https://github.com/djui/alias-tips
