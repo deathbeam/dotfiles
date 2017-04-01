@@ -68,9 +68,6 @@
 [submodule "vim/.vim/bundle/vim-javacomplete2"]
 	path = vim/.vim/bundle/vim-javacomplete2
 	url = https://github.com/artur-shaik/vim-javacomplete2
-[submodule "vim/.vim/bundle/deoplete.nvim"]
-	path = vim/.vim/bundle/deoplete.nvim
-	url = https://github.com/Shougo/deoplete.nvim
 [submodule "vim/.vim/bundle/yang.vim"]
 	path = vim/.vim/bundle/yang.vim
 	url = https://github.com/nathanalderson/yang.vim
@@ -119,3 +116,6 @@
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/bundle/alias-tips
 	url = https://github.com/djui/alias-tips
+[submodule "vim/.vim/bundle/completor.vim"]
+	path = vim/.vim/bundle/completor.vim
+	url = https://github.com/maralla/completor.vim

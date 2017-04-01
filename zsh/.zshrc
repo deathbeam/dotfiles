@@ -14,10 +14,6 @@
 
 # Aliases & functions {{{
 
-  # Switch to neovim
-  alias vim='nvim'
-  alias vimdiff='nvim -d'
-
   # Alias xclip copy/paste
   if command -v xclip >/dev/null 2>&1; then
     alias xcopy='xclip -i -selection clipboard'

@@ -54,10 +54,4 @@ statusbar = {
   };
 };
 
-keyboard = (
-  {
-    key = "^R";
-    id = "command";
-    data = "history_search ";
-  }
-);
+keyboard = ( { key = "^R"; id = "command"; data = "history_search "; } );

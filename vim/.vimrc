@@ -248,15 +248,6 @@
         \|   exe 'normal! g`"zvzz'
         \| endif
 
-  " Enable omni completion. (Ctrl-X Ctrl-O)
-  autocmd VimRc FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-  autocmd VimRc FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-  autocmd VimRc FileType python setlocal omnifunc=pythoncomplete#Complete
-  autocmd VimRc FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-  autocmd VimRc FileType css set omnifunc=csscomplete#CompleteCSS
-  autocmd VimRc FileType c set omnifunc=ccomplete#Complete
-  autocmd VimRc FileType java set omnifunc=javacomplete#Complete
-
   " use syntax complete if nothing else available
   autocmd VimRc Filetype *
         \	if &omnifunc == "" |
@@ -368,10 +359,12 @@
   let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
   let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
-  " Completion
-  if has('nvim') && has('python3')
-    call deoplete#enable()
-  endif
+  " Completor and UltiSnips
+  let g:UltiSnipsExpandTrigger="<c-j>"
+  let g:completor_auto_trigger = 0
+  inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
+	inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+	inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
 
   " Fugitive
   autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
@@ -388,8 +381,6 @@
   nmap <silent> <leader>mf :SyntasticCheck<CR>
   nmap <silent> <leader>mF :make<CR>
   let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_vim_checkers = ['vint']
-  let g:syntastic_html_checkers = ['htmlhint']
   set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
   " Vim Test
@@ -397,37 +388,6 @@
   nmap <silent> <leader>mt :TestFile<CR>
   nmap <silent> <leader>mT :TestSuite<CR>
   nmap <silent> <leader>mtt :TestNearest<CR>
-
-  " Language specific {{{
-    " TypeScript
-    let g:deoplete#omni#input_patterns = get(g:,'deoplete#omni#input_patterns',{})
-    let g:deoplete#omni#input_patterns.typescript = ['[^. \t0-9]\.\w*']
-    let g:tsuquyomi_disable_quickfix = 1
-    let g:syntastic_typescript_checkers = ['tsuquyomi']
-
-    " Java
-    autocmd VimRc FileType java :call EnableJava()
-    function! EnableJava()
-      let g:JavaComplete_ImportSortType = 'packageName'
-      let g:JavaComplete_ImportOrder = ['*']
-      set makeprg=mvn\ $*
-      set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
-            \\[%t%[A-Z]%#]\ %f:%l:\ %m,
-            \\%A%f:[%l\\,%c]\ %m,
-            \\%Csymbol%.%#:\ %m,
-            \\%Zlocation%.%#:\ %m,
-            \\%AEmbedded\ error:%.%#\ -\ %f:%l:\ %m,
-            \\%-Z\ %p^,
-            \\%A%f:%l:\ %m,
-            \\%-Z\ %p^,
-            \\%ARunning\ %f,
-            \\%+ZTests\ run%.%#FAILURE!%.%#,
-            \\%ARunning\ %f,
-            \\%C%.%#,
-            \\%+ZTests\ run%.%#FAILURE!%.%#,
-            \\%-G%.%#
-    endfunction
-  " }}}
 
   " FZF {{{
     " rg command suffix, [options]
