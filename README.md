@@ -48,17 +48,17 @@ $EDITOR ~/.zshrc.local
 $EDITOR ~/.tmux.conf.local
 ```
 
-To add your own Vim, Tmux or Zsh plugin you can just clone it to proper `bundle` directory:
+To add your own Vim, Tmux or Zsh plugin you can just clone it to proper `bundle/local` directory:
 
 ```shell
 # Add SuperTab vim plugin
-git clone git://github.com/ervandew/supertab ~/.vim/bundle/supertab
+git clone git://github.com/ervandew/supertab ~/.vim/bundle/local/supertab
 
 # Add Tmux sessionist plugin
-git clone git://github.com/tmux-plugins/tmux-sessionist ~/.tmux/bundle/tmux-sessionist
+git clone git://github.com/tmux-plugins/tmux-sessionist ~/.tmux/bundle/local/tmux-sessionist
 
 # Add zsh-autoenv zsh plugin
-git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/zsh-autoenv
+git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/local/zsh-autoenv
 ```
 
 ## Included stuff
@@ -66,16 +66,18 @@ git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/zsh-autoenv
 ### Shell
  * [alias-tips](https://github.com/djui/alias-tips): A plugin to help remembering those aliases you defined once
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
- * [cdls](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls): Runs `ls -A` on directory change
+ * [cdls](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls.plugin.zsh): Runs `ls -A` on directory change
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
- * [vi-mode](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/vi-mode): Enhanced Vi mode for zsh
+ * [globalias](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/globalias.plugin.zsh): Expands all glob
+   expressions, subcommands and aliases (including global)
+ * [vi-mode](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/vi-mode.plugin.zsh): Enhanced Vi mode for zsh
    with history substring search support
  * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
 
 ### Vim
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
  * [comittia.vim](https://github.com/rhysd/committia.vim): A Vim plugin for more pleasant editing on commit messages
- * [deoplete.nvim](https://github.com/Shougo/deoplete.nvim): 🌠 Dark powered asynchronous completion framework for neovim
+ * [completor.vim](https://github.com/maralla/completor.vim): Async completion framework made ease
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks for vim

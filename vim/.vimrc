@@ -46,7 +46,9 @@
   endif
 
   " Use system clipboard
-  set clipboard+=unnamedplus
+  if has("clipboard")
+    set clipboard=unnamedplus
+  endif
 
 " }}}
 
@@ -337,6 +339,7 @@
   set rtp+=~/.fzf
   runtime bundle/vim-pathogen/autoload/pathogen.vim
   execute pathogen#infect()
+  execute pathogen#infect('~/.vim/bundle/local/{}')
   execute pathogen#helptags()
 
   " If base16 theme is set from shell, load it
