@@ -63,13 +63,14 @@ git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/local/zsh-autoenv
 
 ## Included stuff
 
-### Shell
+### ZSH
  * [alias-tips](https://github.com/djui/alias-tips): A plugin to help remembering those aliases you defined once
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
  * [cdls](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls.plugin.zsh): Runs `ls -A` on directory change
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [globalias](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/globalias.plugin.zsh): Expands all glob
    expressions, subcommands and aliases (including global)
+ * [ix](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/ix.plugin.zsh): A command line pastebin - shell
  * [vi-mode](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/vi-mode.plugin.zsh): Enhanced Vi mode for zsh
    with history substring search support
  * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
