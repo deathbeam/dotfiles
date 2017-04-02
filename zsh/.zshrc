@@ -80,18 +80,6 @@ fi
 # Load base16 theme
 [ -z $BASE16_THEME ] && base16_solarized-dark
 
-unalias z
-z() {
-  local dir
-  dir="$(fasd -Rdl "$1" | fzf -1 -0 --height 40% --no-sort +m)" && cd "${dir}" || return 1
-}
-
-unalias v
-v() {
-  local file
-  file="$(fasd -Rfl "$1" | fzf -1 -0 --height 40% --no-sort +m)" && vim "${file}" || return 1
-}
-
 # }}}
 
 # User configuration {{{

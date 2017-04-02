@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-IFS="\n"
-password_list=("$(lpass ls | sed -e 's/ \[/\n/g' -e 's/\]//g' | sed -e '/id:/d' -e '/^\s*$/d')")
-password=$(printf '%s\n' "${password_list[@]}" | dmenu "$@")
-
+password=$(lpass ls  | dmenu "$@" | awk '{print $(NF)}' | sed 's/\]//g')
 [[ -n $password ]] || exit
-
 lpass show --password -c "$password"
