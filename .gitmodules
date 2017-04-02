@@ -119,3 +119,6 @@
 [submodule "vim/.vim/bundle/completor.vim"]
 	path = vim/.vim/bundle/completor.vim
 	url = https://github.com/maralla/completor.vim
+[submodule "vim/.vim/bundle/codi.vim"]
+	path = vim/.vim/bundle/codi.vim
+	url = https://github.com/metakirby5/codi.vim

@@ -67,6 +67,7 @@ git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/local/zsh-autoenv
  * [alias-tips](https://github.com/djui/alias-tips): A plugin to help remembering those aliases you defined once
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script to change your shell's default ANSI colors but most importantly, colors 17 to 21 of your shell's 256 colorspace (if supported by your terminal)
  * [cdls](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls.plugin.zsh): Runs `ls -A` on directory change
+ * [codi](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/codi.plugin.zsh): A nice way to use Codi is through a shell wrapper
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written in Go
  * [globalias](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/globalias.plugin.zsh): Expands all glob
    expressions, subcommands and aliases (including global)
@@ -77,6 +78,7 @@ git clone git://github.com/Tarrasch/zsh-autoenv ~/.zsh/bundle/local/zsh-autoenv
 
 ### Vim
  * [base16-vim](https://github.com/chriskempson/base16-vim): Base16 for Vim
+ * [codi.vim](https://github.com/metakirby5/codi.vim): :notebook_with_decorative_cover: The interactive scratchpad for hackers.
  * [comittia.vim](https://github.com/rhysd/committia.vim): A Vim plugin for more pleasant editing on commit messages
  * [completor.vim](https://github.com/maralla/completor.vim): Async completion framework made ease
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim): EditorConfig plugin for Vim

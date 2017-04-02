@@ -1,8 +1,4 @@
 #!/bin/zsh
-#
-# ~/.xinitrc
-#
-# Executed by startx (run your window manager from here)
 
 # Load all other xinitrc files
 if [ -d /etc/X11/xinit/xinitrc.d ]; then
@@ -12,13 +8,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
+# Load profile
+source ~/.profile
+
 # Start guest additions if available
 if command -v VBoxClient-all >/dev/null 2>&1; then
   VBoxClient-all
 fi
-
-# Load profile
-source ~/.profile
 
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr
@@ -26,23 +22,39 @@ xsetroot -cursor_name left_ptr
 # Load custom keyboard mappings
 xmodmap ~/.xmodmap
 
-# Start music manager daemon
-mopidy &
-
-# Start dropbox
-dropbox start &
-
 # Set nice wallpaper
-feh --bg-scale ~/.wallpaper
+if command -v feh >/dev/null 2>&1; then
+  feh --bg-scale ~/.wallpaper
+fi
+
+# Start autocutsel
+if command -v autocutsel >/dev/null 2>&1; then
+  autocutsel -fork &
+  autocutsel -selection PRIMARY -fork &
+fi
 
 # Start clipboard manager daemon
-~/.config/dmenu/clipmenu/clipmenud &
+if [ -f ~/.config/dmenu/clipmenu/clipmenud ]; then
+  ~/.config/dmenu/clipmenu/clipmenud &
+fi
+
+# Start music manager daemon
+if command -v mopidy >/dev/null 2>&1; then
+  mopidy &
+fi
+
+# Start dropbox
+if command -v dropbox >/dev/null 2>&1; then
+  dropbox start &
+fi
+
+# Now, open terminal window
+if command -v set >/dev/null 2>&1; then
+  st &
+fi
 
 # Start key manager daemon
 sxhkd &
-
-# Now, open terminal window
-st &
 
 # And finally, start our WM
 exec bspwm
