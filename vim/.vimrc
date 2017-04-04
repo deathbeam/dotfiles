@@ -7,14 +7,14 @@ augroup VimRc
   autocmd!
 augroup END
 
-" Sets how many lines of history VIM has to remember
-set history=200
-
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
 runtime macros/matchit.vim
 let loaded_matchparen = 1 " disable matchparen, can be really slow
+
+" Sets how many lines of history VIM has to remember
+set history=200
 
 " time out for key codes
 set ttimeout
@@ -80,11 +80,10 @@ else
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
+" Allows cursor change
 if has('nvim')
   " visible incremental command replace
   set inccommand=nosplit
-
-  " allows cursor change
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
 else
   if exists('$TMUX')
@@ -236,8 +235,8 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" Text width is 120 characters
-set textwidth=120
+" Text width is 80 characters
+set textwidth=80
 
 " Better automatic indentation
 set autoindent
@@ -321,16 +320,6 @@ cnoremap <C-N> <Down>
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
 
-" If session file exists, source it, and then start session recording
-function! Session()
-  if filereadable('Session.vim')
-    source Session.vim
-  endif
-
-  :Obsession
-endfunction
-command! -bar Session :call Session()
-
 " }}}
 
 " Plugins {{{
@@ -354,6 +343,17 @@ else
   endtry
 endif
 
+" Obsession
+function! Session()
+  " If session file exists, source it, and then start session recording
+  if filereadable('Session.vim')
+    source Session.vim
+  endif
+
+  :Obsession
+endfunction
+command! -bar Session :call Session()
+
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext=0
@@ -362,12 +362,12 @@ let g:vimwiki_global_ext=0
 let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
-" Completor and UltiSnips
-let g:UltiSnipsExpandTrigger="<c-j>"
-let g:completor_auto_trigger = 0
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<C-x>\<C-u>\<C-p>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>\<cr>" : "\<cr>"
+" Supertab
+let g:SuperTabDefaultCompletionType='context'
+let g:SuperTabContextDefaultCompletionType='<c-n>'
+let g:SuperTabLongestEnhanced=1
+let g:SuperTabLongestHighlight=1
+let g:SuperTabCrMapping=1
 
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
