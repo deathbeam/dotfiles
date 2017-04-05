@@ -101,9 +101,6 @@
 [submodule "vim/.vim/bundle/editorconfig-vim"]
 	path = vim/.vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
-[submodule "vim/.vim/bundle/completor.vim"]
-	path = vim/.vim/bundle/completor.vim
-	url = https://github.com/maralla/completor.vim
 [submodule "vim/.vim/bundle/codi.vim"]
 	path = vim/.vim/bundle/codi.vim
 	url = https://github.com/metakirby5/codi.vim
@@ -119,3 +116,6 @@
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/bundle/alias-tips
 	url = https://github.com/djui/alias-tips
+[submodule "vim/.vim/bundle/supertab"]
+	path = vim/.vim/bundle/supertab
+	url = https://github.com/ervandew/supertab
