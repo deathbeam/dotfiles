@@ -95,8 +95,6 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
    insert mode completions with Tab
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks
    for vim
- * [tmux-complete.vim](https://github.com/wellle/tmux-complete.vim): Vim plugin
-   for insert mode completion of words in adjacent tmux panes
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet
    solution for Vim

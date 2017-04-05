@@ -357,6 +357,7 @@ command! -bar Session :call Session()
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext=0
+let g:vimwiki_table_mappings = 0
 
 " EditorConfig
 let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
@@ -393,6 +394,23 @@ nmap <silent> <leader>mT :TestSuite<CR>
 nmap <silent> <leader>mtt :TestNearest<CR>
 
 " FZF {{{
+
+" Fuzzy completion
+function! FzfCompletionPop(findstart, base)
+  if !a:findstart
+    " let b:SuperTabChain = ( &omnifunc, &tmuxcomplete#complete, "<c-p>" )
+    " let res = SuperTabCodeComplete(a:findstart, a:base)
+    let l:res = function(&omnifunc)(a:findstart, a:base)
+    call fzf#complete(l:res)
+  endif
+
+  return ''
+endfunction
+set completefunc=FzfCompletionPop
+imap <c-x><c-k> <plug>(fzf-complete-word)
+imap <c-x><c-f> <plug>(fzf-complete-path)
+imap <c-x><c-l> <plug>(fzf-complete-line)
+
 " rg command suffix, [options]
 function! VRg_raw(command_suffix, ...)
   return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.a:command_suffix, 1], a:000))

@@ -95,9 +95,6 @@
 [submodule "vim/.vim/bundle/committia.vim"]
 	path = vim/.vim/bundle/committia.vim
 	url = https://github.com/rhysd/committia.vim
-[submodule "vim/.vim/bundle/tmux-complete.vim"]
-	path = vim/.vim/bundle/tmux-complete.vim
-	url = https://github.com/wellle/tmux-complete.vim
 [submodule "vim/.vim/bundle/editorconfig-vim"]
 	path = vim/.vim/bundle/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
