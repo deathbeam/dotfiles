@@ -88,11 +88,11 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
    :notebook_with_decorative_cover: The interactive scratchpad for hackers.
  * [comittia.vim](https://github.com/rhysd/committia.vim): A Vim plugin for more
    pleasant editing on commit messages
+ * [completor.vim](https://github.com/maralla/completor.vim): Async completion
+   framework made ease
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim):
    EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
- * [supertab](https://github.com/ervandew/supertab/): Perform all your vim
-   insert mode completions with Tab
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks
    for vim
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript

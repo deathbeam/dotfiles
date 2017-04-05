@@ -354,6 +354,13 @@ function! Session()
 endfunction
 command! -bar Session :call Session()
 
+" Ultisnips
+let g:UltiSnipsExpandTrigger = '<s-tab>'
+
+" Completor
+let g:completor_auto_trigger = 0
+let g:completor_min_chars = 1
+
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext=0
@@ -362,13 +369,6 @@ let g:vimwiki_table_mappings = 0
 " EditorConfig
 let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
-
-" Supertab
-let g:SuperTabDefaultCompletionType='context'
-let g:SuperTabContextDefaultCompletionType='<c-n>'
-let g:SuperTabLongestEnhanced=1
-let g:SuperTabLongestHighlight=1
-let g:SuperTabCrMapping=1
 
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
@@ -397,19 +397,44 @@ nmap <silent> <leader>mtt :TestNearest<CR>
 
 " Fuzzy completion
 function! FzfCompletionPop(findstart, base)
-  if !a:findstart
-    " let b:SuperTabChain = ( &omnifunc, &tmuxcomplete#complete, "<c-p>" )
-    " let res = SuperTabCodeComplete(a:findstart, a:base)
-    let l:res = function(&omnifunc)(a:findstart, a:base)
-    call fzf#complete(l:res)
+  let l:res = completor#completefunc(a:findstart, a:base)
+
+  if a:findstart
+    return l:res
   endif
 
-  return ''
+  let l:words = []
+
+  for word in l:res.words
+    call add(l:words, word['word'] . ' ' . word['menu'])
+  endfor
+
+  let l:result = fzf#run({ 'source': l:words, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
+
+  if empty(l:result)
+    return [ a:base ]
+  endif
+
+  return [ split(l:result[0])[0] ]
 endfunction
-set completefunc=FzfCompletionPop
-imap <c-x><c-k> <plug>(fzf-complete-word)
-imap <c-x><c-f> <plug>(fzf-complete-path)
-imap <c-x><c-l> <plug>(fzf-complete-line)
+
+function! FzfCompletionTrigger()
+  setlocal completefunc=FzfCompletionPop
+  setlocal completeopt=menu
+  call feedkeys("\<c-x>\<c-u>", 'n')
+endfunction
+imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
+
+" Awesome TAB fuzzy completion
+function! Smart_TabComplete()
+  let col = col('.') - 1
+  if !col || getline('.')[col - 1] !~ '\k'
+    call feedkeys("\<tab>", 'n')
+    return
+  endif
+  call feedkeys("\<c-x>\<c-j>")
+endfunction
+inoremap <silent> <tab> <c-o>:call Smart_TabComplete()<cr>
 
 " rg command suffix, [options]
 function! VRg_raw(command_suffix, ...)
