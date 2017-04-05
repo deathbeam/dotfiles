@@ -8,7 +8,7 @@ install:
 	~/.fzf/install --all --no-update-rc
 
 link:
-	stow --restow `ls -d */`
+	stow --target ~ --restow `ls -d */`
 
 update:
 	git submodule update --init --recursive
