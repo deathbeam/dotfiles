@@ -18,3 +18,5 @@ export LC_ALL="en_US.UTF-8"
 # Preferred editor for local and remote sessions
 export EDITOR="vim"
 export VISUAL="$EDITOR"
+
+[[ -f "~/.profile.local" ]] && source "~/.profile.local"

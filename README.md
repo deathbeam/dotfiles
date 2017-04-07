@@ -42,6 +42,7 @@ creating appropriate `.local` dotfiles in home directory:
 
     $EDITOR ~/.gitconfig.local
     $EDITOR ~/.vimrc.local
+    $EDITOR ~/.profile.local
     $EDITOR ~/.zshrc.local
     $EDITOR ~/.tmux.conf.local
 

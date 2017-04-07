@@ -1,8 +1,6 @@
 setlocal omnifunc=javacomplete#Complete
-let g:JavaComplete_ImportSortType = 'packageName'
-let g:JavaComplete_ImportOrder = ['*']
-set makeprg=mvn\ $*
-set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
+setlocal makeprg=mvn\ $*
+setlocal errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
       \\[%t%[A-Z]%#]\ %f:%l:\ %m,
       \\%A%f:[%l\\,%c]\ %m,
       \\%Csymbol%.%#:\ %m,
@@ -18,4 +16,10 @@ set errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
       \\%+ZTests\ run%.%#FAILURE!%.%#,
       \\%-G%.%#
 
-let g:completor_java_omni_trigger = '\w+$|[\w\)\]\}\\\'\"]+\.\w*$'
+" Completor integration
+let g:completor_java_omni_trigger = '(\w+|[^\. \t0-9]+\.\w*)$'
+
+" JavaComplete adjustments
+let g:JavaComplete_ImportSortType = 'packageName'
+let g:JavaComplete_ImportOrder = ['*']
+
