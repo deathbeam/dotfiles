@@ -396,8 +396,6 @@ nmap <silent> <leader>mtt :TestNearest<CR>
 " FZF {{{
 
 " Fuzzy completion
-let g:fuzzyfunc = 'completor#completefunc'
-
 function! FuzzyCompleteFunc(findstart, base)
   let Func = function(get(g:, 'fuzzyfunc', &omnifunc))
   let results = Func(a:findstart, a:base)
@@ -428,37 +426,44 @@ function! FuzzyCompleteFunc(findstart, base)
   endif
 endfunction
 
+let g:fuzzyfunc = 'completor#completefunc'
+
+" Custom trigger for our fuzzy function
 function! FuzzyFuncTrigger()
   setlocal completefunc=FuzzyCompleteFunc
   setlocal completeopt=menu
   call feedkeys("\<c-x>\<c-u>", 'n')
 endfunction
+
 imap <c-x><c-j> <c-o>:call FuzzyFuncTrigger()<cr>
 
 " Awesome TAB fuzzy completion
 function! TabComplete()
   let col = col('.') - 1
+
   if !col || getline('.')[col - 1] !~# '\k'
     call feedkeys("\<tab>", 'n')
     return
   endif
+
   call feedkeys("\<c-x>\<c-j>")
 endfunction
+
 inoremap <silent> <tab> <c-o>:call TabComplete()<cr>
 
 " Try to use ripgrep, otherwise fallback to ag
 function! s:fzf_rg(query, ...)
   if executable('rg')
-    let l:query = empty(a:query) ? '^.' : a:query
-    let l:args = copy(a:000)
-    let l:opts = len(l:args) > 1 ? remove(l:args, 0) : ''
-    let l:command = l:opts . ' ' . "'".substitute(l:query, "'", "'\\\\''", 'g')."'"
-    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.l:command, 1], l:args))
+    let query = empty(a:query) ? '^.' : a:query
+    let args = copy(a:000)
+    let opts = len(args) > 1 ? remove(args, 0) : ''
+    let command = opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
+    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.command, 1], args))
   endif
 
-  let l:args = insert(copy(a:000), a:query, 0)
-  return call('fzf#vim#ag', args)
+  return call('fzf#vim#ag', insert(copy(a:000), a:query, 0))
 endfunction
+
 command! -bang -nargs=* Find call s:fzf_rg(<q-args>, <bang>0)
 
 nmap <leader>/ :Find<cr>
