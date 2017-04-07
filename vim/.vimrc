@@ -46,7 +46,7 @@ elseif executable('ag')
 endif
 
 " Use system clipboard
-if has("clipboard")
+if has('clipboard')
   set clipboard=unnamedplus
 endif
 
@@ -244,7 +244,7 @@ set smartindent
 
 " When editing a file, always jump to the last known cursor position.
 " Don't do it when the position is invalid or when inside an event handler
-autocmd BufReadPost *
+autocmd VimRc BufReadPost *
       \  if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
       \|   exe 'normal! g`"zvzz'
       \| endif
@@ -396,70 +396,70 @@ nmap <silent> <leader>mtt :TestNearest<CR>
 " FZF {{{
 
 " Fuzzy completion
-function! FzfCompletionPop(findstart, base)
-  let l:res = completor#completefunc(a:findstart, a:base)
+let g:fuzzyfunc = 'completor#completefunc'
+
+function! FuzzyCompleteFunc(findstart, base)
+  let Func = function(get(g:, 'fuzzyfunc', &omnifunc))
+  let results = Func(a:findstart, a:base)
 
   if a:findstart
-    return l:res
+    return results
   endif
 
-  let l:words = []
+  if type(results) == type({}) && has_key(results, 'words')
+    let l:words = []
+    for result in results.words
+      call add(words, result.word . ' ' . result.menu)
+    endfor
+  elseif len(results)
+    let l:words = results
+  endif
 
-  for word in l:res.words
-    call add(l:words, word['word'] . ' ' . word['menu'])
-  endfor
+  if len(l:words)
+    let result = fzf#run({ 'source': l:words, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
 
-  let l:result = fzf#run({ 'source': l:words, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
+    if empty(result)
+      return [ a:base ]
+    endif
 
-  if empty(l:result)
+    return [ split(result[0])[0] ]
+  else
     return [ a:base ]
   endif
-
-  return [ split(l:result[0])[0] ]
 endfunction
 
-function! FzfCompletionTrigger()
-  setlocal completefunc=FzfCompletionPop
+function! FuzzyFuncTrigger()
+  setlocal completefunc=FuzzyCompleteFunc
   setlocal completeopt=menu
   call feedkeys("\<c-x>\<c-u>", 'n')
 endfunction
-imap <c-x><c-j> <c-o>:call FzfCompletionTrigger()<cr>
+imap <c-x><c-j> <c-o>:call FuzzyFuncTrigger()<cr>
 
 " Awesome TAB fuzzy completion
-function! Smart_TabComplete()
+function! TabComplete()
   let col = col('.') - 1
-  if !col || getline('.')[col - 1] !~ '\k'
+  if !col || getline('.')[col - 1] !~# '\k'
     call feedkeys("\<tab>", 'n')
     return
   endif
   call feedkeys("\<c-x>\<c-j>")
 endfunction
-inoremap <silent> <tab> <c-o>:call Smart_TabComplete()<cr>
-
-" rg command suffix, [options]
-function! VRg_raw(command_suffix, ...)
-  return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.a:command_suffix, 1], a:000))
-endfunction
-
-" query, [[ag options], options]
-function! VRg(query, ...)
-  let query = empty(a:query) ? '^.' : a:query
-  let args = copy(a:000)
-  let ag_opts = len(args) > 1 ? remove(args, 0) : ''
-  let command = ag_opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
-  return call('VRg_raw', insert(args, command, 0))
-endfunction
+inoremap <silent> <tab> <c-o>:call TabComplete()<cr>
 
 " Try to use ripgrep, otherwise fallback to ag
-function! VFind(query, ...)
-  let args = insert(copy(a:000), a:query, 0)
+function! s:fzf_rg(query, ...)
   if executable('rg')
-    return call('VRg', args)
+    let l:query = empty(a:query) ? '^.' : a:query
+    let l:args = copy(a:000)
+    let l:opts = len(l:args) > 1 ? remove(l:args, 0) : ''
+    let l:command = l:opts . ' ' . "'".substitute(l:query, "'", "'\\\\''", 'g')."'"
+    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.l:command, 1], l:args))
   endif
 
+  let l:args = insert(copy(a:000), a:query, 0)
   return call('fzf#vim#ag', args)
 endfunction
-command! -bang -nargs=* Find call VFind(<q-args>, <bang>0)
+command! -bang -nargs=* Find call s:fzf_rg(<q-args>, <bang>0)
 
 nmap <leader>/ :Find<cr>
 nmap <leader>T :Tags<cr>

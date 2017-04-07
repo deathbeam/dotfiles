@@ -1,2 +1,1 @@
 setlocal omnifunc=htmlcomplete#CompleteTags
-
