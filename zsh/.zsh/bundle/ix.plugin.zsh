@@ -24,7 +24,7 @@ ix() {
         local filename="$1"
         shift
         [ "$filename" ] && {
-            curl $opts -F f:1=@"$filename" $* ix.io/$id
+            curl --http1.0 $opts -F f:1=@"$filename" $* ix.io/$id
             return
         }
         echo "^C to cancel, ^D to send."
