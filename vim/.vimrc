@@ -7,21 +7,10 @@ augroup VimRc
   autocmd!
 augroup END
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+" Enable some default plugins
+runtime defaults.vim
 runtime macros/matchit.vim
 let loaded_matchparen = 1 " disable matchparen, can be really slow
-
-" Sets how many lines of history VIM has to remember
-set history=200
-
-" time out for key codes
-set ttimeout
-set ttimeoutlen=100 " wait up to 100ms after Esc for special key
-
-" We are fast
-set ttyfast
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -36,15 +25,6 @@ try
 catch
 endtry
 
-" Use faster grep alternatives if possible
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat^=%f:%l:%c:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-  set grepformat^=%f:%l:%c:%m
-endif
-
 " Use system clipboard
 if has('clipboard')
   set clipboard=unnamedplus
@@ -54,23 +34,15 @@ endif
 
 " User interface {{{
 
-" Set 5 lines to the cursor - when moving vertically using j/k
-" and also when you click at top or bottom of the creen with mouse
-set scrolloff=5
-
-" display completion matches in a status line
-set wildmenu
-set wildmode=list:longest,list:full
+" Faster screen redrawing
+set ttyfast
 
 " after leaving buffer set it as hidden (so we can open buffer without saving
 " previous buffer)
 set hidden
 
-" Show what command we are writing
-set showcmd
-
-" Show what mode we are in
-set showmode
+" display completion matches in a status line
+set wildmode=list:longest,list:full
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.class
@@ -85,27 +57,26 @@ if has('nvim')
   " visible incremental command replace
   set inccommand=nosplit
   let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
+elseif exists('$TMUX')
+  let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
+  let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
 else
-  if exists('$TMUX')
-    let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-    let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-  else
-    let &t_SI = "\e[5 q"
-    let &t_EI = "\e[2 q"
-  endif
+  let &t_SI = "\e[5 q"
+  let &t_EI = "\e[2 q"
 endif
 
-" Less annoying error messages
-set shortmess=at
+" Search down into subfolders
+" Provides tab-completion for all file-related tasks
+set path+=**
 
-"Always show current position
-set ruler
+" Include spelling completion when spelling enabled
+set complete+=kspell
 
-" Height of the command bar
-set cmdheight=1
+" Includes completion is super slow, disable it
+set complete-=i
 
-" Configure backspace so it acts as it should act
-set backspace=eol,start,indent
+" Better completion menu
+set completeopt=longest,menuone
 
 " Ignore case when searching
 set ignorecase
@@ -116,27 +87,18 @@ set smartcase
 " Highlight search results
 set hlsearch
 
-" Makes search act like search in modern browsers
-set incsearch
-
 " Don't redraw while executing macros (good performance config)
 set lazyredraw
-
-" For regular expressions turn magic on
-set magic
 
 " Show matching brackets when text indicator is over them
 set showmatch
 
-" No annoying sound on errors
+" Less annoying errors
+set shortmess=at
 set noerrorbells
 set novisualbell
 set t_vb=
 set timeoutlen=500
-
-" Open new split panes to right and bottom, which feels more natural
-set splitbelow
-set splitright
 
 " Always show the status line
 set laststatus=2
@@ -162,31 +124,40 @@ set cursorline
 " Disable text wrap
 set nowrap
 
+" Use old regexpengine (maybe better performance)
+set regexpengine=1
+
+" Limit horizontal and vertical syntax rendering (for better performance)
+syntax sync minlines=256
+set synmaxcol=256
+
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =
 
+" use syntax complete if nothing else available
+autocmd VimRc Filetype *
+      \  if &omnifunc == ""
+      \|   setlocal omnifunc=syntaxcomplete#Complete
+      \| endif
+
+" Use faster grep alternatives if possible
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat^=%f:%l:%c:%m
+elseif executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+  set grepformat^=%f:%l:%c:%m
+endif
+
 " }}}
 
-" Colors and Fonts {{{
-
-" Enable syntax highlighting
-syntax enable
+" Colors {{{
 
 " Enable 256 color mode
 set t_Co=256
 
 " Set dark background
 set background=dark
-
-" Set utf8 as standard encoding and en_US as the standard language
-set encoding=utf8
-
-" Use Unix as the standard file type
-set fileformats=unix,dos,mac
-
-" Limit horizontal and vertical syntax rendering
-syntax sync minlines=256
-set synmaxcol=256
 
 " Adjust syntax highlighting
 autocmd VimRc BufEnter * call AdjustHighlighting()
@@ -209,22 +180,6 @@ endfunction
 
 " Text, tab and indent related {{{
 
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-set path+=**
-
-" Include spelling completion when spelling enabled
-set complete+=kspell
-
-" Use old regexpengine (maybe better performance)
-set regexpengine=1
-
-" Includes completion is super slow, disable it
-set complete-=i
-
-" Better completion menu
-set completeopt=longest,menuone
-
 " Use spaces instead of tabs
 set expandtab
 
@@ -242,53 +197,11 @@ set textwidth=80
 set autoindent
 set smartindent
 
-" When editing a file, always jump to the last known cursor position.
-" Don't do it when the position is invalid or when inside an event handler
-autocmd VimRc BufReadPost *
-      \  if &ft !~ '^git\c' && ! &diff && line("'\"") > 0 && line("'\"") <= line("$")
-      \|   exe 'normal! g`"zvzz'
-      \| endif
+" For regular expressions turn magic on
+set magic
 
-" use syntax complete if nothing else available
-autocmd VimRc Filetype *
-      \  if &omnifunc == ""
-      \|   setlocal omnifunc=syntaxcomplete#Complete
-      \| endif
-
-" }}}
-
-" GUI related {{{
-
-if has('gui_running')
-  " Set extra options when running in GUI mode
-  set mouse=a
-  set guitablabel=%M\ %t
-  autocmd VimRc GUIEnter * set vb t_vb=
-  autocmd VimRc GUIEnter * set guioptions-=e
-
-  " Disable scrollbars (real hackers don't use scrollbars for navigation!)
-  set guioptions-=r
-  set guioptions-=R
-  set guioptions-=l
-  set guioptions-=L
-
-  " Disable tabs from gui
-  set guioptions-=e
-  set guioptions-=T
-
-  " Set font according to system
-  if has('mac') || has('macunix')
-    set guifont=Terminus:h12,Source\ Code\ Pro:h12,Menlo:h12
-  elseif has('win16') || has('win32')
-    set guifont=Terminus:h12,Source\ Code\ Pro:h12,Bitstream\ Vera\ Sans\ Mono:h11
-  elseif has('gui_gtk2')
-    set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-  elseif has('linux')
-    set guifont=Terminus\ 12,Source\ Code\ Pro\ 12,Bitstream\ Vera\ Sans\ Mono\ 11
-  elseif has('unix')
-    set guifont=Monospace\ 11
-  endif
-endif
+" Use Unix as the standard file type
+set fileformats=unix,dos,mac
 
 " }}}
 
@@ -385,6 +298,7 @@ nnoremap <silent> <leader>gr :Gremove<CR>
 nmap <silent> <leader>mf :SyntasticCheck<CR>
 nmap <silent> <leader>mF :make<CR>
 let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_check_on_wq = 0
 set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
 " Vim Test
