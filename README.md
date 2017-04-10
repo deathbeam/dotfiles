@@ -8,6 +8,8 @@ My Vim configuration is great for Java, Haxe and Typescript development when
 running Vim in Tmux and using Git. So, if you are doing all of this, then feel
 free to steal some stuff from here.
 
+![Screenshot](http://i.imgur.com/z6heJf8.png)
+
 ## Requirements
 
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) - Most of
