@@ -73,8 +73,10 @@ while read filename; do source "$filename"; done
 # Use faster FZF grep command if possible
 if command -v rg >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
+  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 elif command -v ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
+  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 
 # Load base16 theme

@@ -69,17 +69,17 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
  * [base-16-shell](https://github.com/chriskempson/base16-shell): A shell script
    to change your shell's default ANSI colors but most importantly, colors 17 to
    21 of your shell's 256 colorspace (if supported by your terminal)
- * [cdls](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls.plugin.zsh):
+ * [__cdls__*](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/cdls.plugin.zsh):
    Runs `ls -A` on directory change
- * [codi](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/codi.plugin.zsh):
+ * [__codi__*](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/codi.plugin.zsh):
    A nice way to use Codi is through a shell wrapper
  * [fzf](https://github.com/junegunn/fzf): A command-line fuzzy finder written
    in Go
- * [globalias](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/globalias.plugin.zsh):
+ * [__globalias__**](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/globalias.plugin.zsh):
    Expands all glob expressions, subcommands and aliases (including global)
- * [ix](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/ix.plugin.zsh):
+ * [__ix__*](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/ix.plugin.zsh):
    A command line pastebin - shell
- * [vi-mode](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/vi-mode.plugin.zsh):
+ * [__vi-mode__**](https://github.com/deathbeam/dotfiles/tree/master/zsh/.zsh/bundle/vi-mode.plugin.zsh):
    Enhanced Vi mode for zsh with history substring search support
  * [zim](https://github.com/Eriner/zim): ZIM - Zsh IMproved
 
@@ -94,7 +94,7 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim):
    EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
- * [fzf-contrib](https://github.com/deathbeam/dotfiles/tree/master/vim/.vim/bundle/fzf-contrib):
+ * [__fzf-contrib__*](https://github.com/deathbeam/dotfiles/tree/master/vim/.vim/bundle/fzf-contrib):
    Completion menu using FZF, tab-completion, support for `ripgrep` in FZF
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks
    for vim
@@ -155,3 +155,6 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
    system clipboard
  * [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator):
    Seamless navigation between tmux panes and vim splits
+
+__*__ _These plugins are made by me, so do not bother searching for them online_  
+__**__ _These plugins are copied from oh-my-zsh, with some modifications_
