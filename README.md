@@ -94,6 +94,8 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
  * [editorconfig-vim](https://github.com/editorconfig/editorconfig-vim):
    EditorConfig plugin for Vim
  * [fzf.vim](https://github.com/junegunn/fzf.vim): fzf :heart: vim
+ * [fzf-contrib](https://github.com/deathbeam/dotfiles/tree/master/vim/.vim/bundle/fzf-contrib):
+   Completion menu using FZF, tab-completion, support for `ripgrep` in FZF
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks
    for vim
  * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript

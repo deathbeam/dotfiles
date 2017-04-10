@@ -30,6 +30,21 @@ if has('clipboard')
   set clipboard=unnamedplus
 endif
 
+" use syntax complete if nothing else available
+autocmd VimRc Filetype *
+      \  if &omnifunc == ""
+      \|   setlocal omnifunc=syntaxcomplete#Complete
+      \| endif
+
+" Use faster grep alternatives if possible
+if executable('rg')
+  set grepprg=rg\ --vimgrep\ --no-heading
+  set grepformat^=%f:%l:%c:%m
+elseif executable('ag')
+  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
+  set grepformat^=%f:%l:%c:%m
+endif
+
 " }}}
 
 " User interface {{{
@@ -134,21 +149,6 @@ set synmaxcol=256
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =
 
-" use syntax complete if nothing else available
-autocmd VimRc Filetype *
-      \  if &omnifunc == ""
-      \|   setlocal omnifunc=syntaxcomplete#Complete
-      \| endif
-
-" Use faster grep alternatives if possible
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat^=%f:%l:%c:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-  set grepformat^=%f:%l:%c:%m
-endif
-
 " }}}
 
 " Colors {{{
@@ -205,7 +205,7 @@ set fileformats=unix,dos,mac
 
 " }}}
 
-" Mappings {{{
+" Mappings and commands {{{
 
 " With a map leader it's possible to do extra key combinations
 let mapleader = ' '
@@ -302,85 +302,14 @@ let g:syntastic_check_on_wq = 0
 set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 
 " Vim Test
-let test#strategy = 'make'
+let g:test#strategy = 'make'
 nmap <silent> <leader>mt :TestFile<CR>
 nmap <silent> <leader>mT :TestSuite<CR>
 nmap <silent> <leader>mtt :TestNearest<CR>
 
-" FZF {{{
-
-" Fuzzy completion
-function! FuzzyCompleteFunc(findstart, base)
-  let Func = function(get(g:, 'fuzzyfunc', &omnifunc))
-  let results = Func(a:findstart, a:base)
-
-  if a:findstart
-    return results
-  endif
-
-  if type(results) == type({}) && has_key(results, 'words')
-    let l:words = []
-    for result in results.words
-      call add(words, result.word . ' ' . result.menu)
-    endfor
-  elseif len(results)
-    let l:words = results
-  endif
-
-  if len(l:words)
-    let result = fzf#run({ 'source': l:words, 'down': '~40%', 'options': printf('--query "%s" +s', a:base) })
-
-    if empty(result)
-      return [ a:base ]
-    endif
-
-    return [ split(result[0])[0] ]
-  else
-    return [ a:base ]
-  endif
-endfunction
-
-let g:fuzzyfunc = 'completor#completefunc'
-
-" Custom trigger for our fuzzy function
-function! FuzzyFuncTrigger()
-  setlocal completefunc=FuzzyCompleteFunc
-  setlocal completeopt=menu
-  call feedkeys("\<c-x>\<c-u>", 'n')
-endfunction
-
-imap <c-x><c-j> <c-o>:call FuzzyFuncTrigger()<cr>
-
-" Awesome TAB fuzzy completion
-function! TabComplete()
-  let col = col('.') - 1
-
-  if !col || getline('.')[col - 1] !~# '\k'
-    call feedkeys("\<tab>", 'n')
-    return
-  endif
-
-  call feedkeys("\<c-x>\<c-j>")
-endfunction
-
-inoremap <silent> <tab> <c-o>:call TabComplete()<cr>
-
-" Try to use ripgrep, otherwise fallback to ag
-function! s:fzf_rg(query, ...)
-  if executable('rg')
-    let query = empty(a:query) ? '^.' : a:query
-    let args = copy(a:000)
-    let opts = len(args) > 1 ? remove(args, 0) : ''
-    let command = opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
-    return call('fzf#vim#grep', extend(['rg --no-heading --column --color always '.command, 1], args))
-  endif
-
-  return call('fzf#vim#ag', insert(copy(a:000), a:query, 0))
-endfunction
-
-command! -bang -nargs=* Find call s:fzf_rg(<q-args>, <bang>0)
-
-nmap <leader>/ :Find<cr>
+" FZF
+let g:fzf#contrib#completefunc = 'completor#completefunc'
+nmap <leader>/ :Grep<cr>
 nmap <leader>T :Tags<cr>
 nmap <leader>t :BTags<cr>
 nmap <leader>F :Files<cr>
@@ -392,7 +321,6 @@ nmap <leader>w :Windows<cr>
 nmap <leader>s :Snippets<cr>
 nmap <leader>c :Commits<cr>
 nmap <leader>? :Helptags<cr>
-" }}}
 
 " }}}
 
