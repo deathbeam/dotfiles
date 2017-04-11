@@ -153,6 +153,8 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
    tmux environment across system restarts
  * [tmux-sensible](https://github.com/tmux-plugins/tmux-sensible): basic tmux
    settings everyone can agree on
+ * [tmux-sessionist](https://github.com/tmux-plugins/tmux-sessionist):
+   Lightweight tmux utils for manipulating sessions
  * [tmux-yank](https://github.com/tmux-plugins/tmux-yank): Plugin for copying to
    system clipboard
  * [vim-tmux-navigator](https://github.com/christoomey/vim-tmux-navigator):

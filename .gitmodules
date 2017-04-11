@@ -116,3 +116,6 @@
 [submodule "vim/.vim/bundle/completor.vim"]
 	path = vim/.vim/bundle/completor.vim
 	url = https://github.com/maralla/completor.vim
+[submodule "tmux/.tmux/bundle/tmux-sessionist"]
+	path = tmux/.tmux/bundle/tmux-sessionist
+	url = https://github.com/tmux-plugins/tmux-sessionist

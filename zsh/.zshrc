@@ -34,6 +34,7 @@ if [ -f ~/.zim/init.zsh ]; then
     archive \
     directory \
     environment \
+    spectrum \
     fasd \
     git \
     git-info \
