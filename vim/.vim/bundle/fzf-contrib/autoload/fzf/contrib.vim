@@ -37,26 +37,26 @@ function! fzf#contrib#complete(...) abort
   call feedkeys("\<c-x>\<c-u>", 'n')
 endfunction
 
-function! fzf#contrib#locate(query, ...) abort
+function! fzf#contrib#locate(query) abort
   if executable('locate')
     let query = empty(a:query) ? '$PWD' : a:query
 
     return fzf#run(fzf#wrap(
-          \ {'source': 'locate ' . a:query, 'options': '-m'}, 0))
+          \ {'source': 'locate ' . query, 'options': '-m'}, 0))
   endif
 
-  return call('fzf#contrib#grep', insert(copy(a:000), a:query, 0))
+  return fzf#contrib#grep(a:query)
 endfunction
-function! fzf#contrib#grep(query, ...) abort
+
+function! fzf#contrib#grep(query) abort
   if executable('rg')
     let query = empty(a:query) ? '^.' : a:query
-    let args = copy(a:000)
-    let opts = len(args) > 1 ? remove(args, 0) : ''
-    let command = opts . ' ' . "'".substitute(query, "'", "'\\\\''", 'g')."'"
 
-    return call('fzf#vim#grep', extend(
-          \ ['rg --no-heading --column --color always '.command, 1],
-          \ args))
+    return fzf#vim#grep(
+          \ 'rg --column --line-number --no-heading' .
+          \ ' --fixed-strings --ignore-case --hidden' .
+          \ ' --follow --glob "!.git/*" --color "always" ' .
+          \ shellescape(query), 1, 0)
   endif
 
   return call('fzf#vim#ag', insert(copy(a:000), a:query, 0))
