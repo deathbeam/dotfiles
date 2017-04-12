@@ -37,6 +37,16 @@ function! fzf#contrib#complete(...) abort
   call feedkeys("\<c-x>\<c-u>", 'n')
 endfunction
 
+function! fzf#contrib#locate(query, ...) abort
+  if executable('locate')
+    let query = empty(a:query) ? '$PWD' : a:query
+
+    return fzf#run(fzf#wrap(
+          \ {'source': 'locate ' . a:query, 'options': '-m'}, 0))
+  endif
+
+  return call('fzf#contrib#grep', insert(copy(a:000), a:query, 0))
+endfunction
 function! fzf#contrib#grep(query, ...) abort
   if executable('rg')
     let query = empty(a:query) ? '^.' : a:query
