@@ -38,6 +38,11 @@ if [ -f ~/.config/dmenu/clipmenu/clipmenud ]; then
   ~/.config/dmenu/clipmenu/clipmenud &
 fi
 
+# Start DavMail
+if command -v davmail >/dev/null 2>&1; then
+  davmail ~/.davmail.properties &
+fi
+
 # Start music manager daemon
 if command -v mopidy >/dev/null 2>&1; then
   mopidy &
@@ -49,12 +54,14 @@ if command -v dropbox >/dev/null 2>&1; then
 fi
 
 # Now, open terminal window
-if command -v set >/dev/null 2>&1; then
+if command -v st >/dev/null 2>&1; then
   st &
 fi
 
 # Start key manager daemon
-sxhkd &
+if command -v sxhkd >/dev/null 2>&1; then
+  sxhkd &
+fi
 
 # And finally, start our WM
 exec bspwm

@@ -1,0 +1,5 @@
+PATH=/bin:/usr/bin:/usr/local/bin
+VERBOSE=off
+DEFAULT=/var/spool/mail/$USER
+MAILDIR=$HOME/mail
+LOGFILE=$HOME/.procmaillog

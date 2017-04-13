@@ -119,3 +119,6 @@
 [submodule "tmux/.tmux/bundle/tmux-sessionist"]
 	path = tmux/.tmux/bundle/tmux-sessionist
 	url = https://github.com/tmux-plugins/tmux-sessionist
+[submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
+	path = mutt/.mutt/bundle/mutt-colors-solarized
+	url = https://github.com/altercation/mutt-colors-solarized
