@@ -59,5 +59,5 @@ function! fzf#contrib#grep(query) abort
           \ shellescape(query), 1, 0)
   endif
 
-  return call('fzf#vim#ag', insert(copy(a:000), a:query, 0))
+  return fzf#vim#ag(a:query)
 endfunction
