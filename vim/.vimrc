@@ -49,7 +49,7 @@ endif
 
 " User interface {{{
 
-" Faster screen redrawing
+" Faster screen redrawing (do not set as default when in not common terminals)
 set ttyfast
 
 " after leaving buffer set it as hidden (so we can open buffer without saving
@@ -89,9 +89,6 @@ set complete+=kspell
 
 " Includes completion is super slow, disable it
 set complete-=i
-
-" Better completion menu
-set completeopt=longest,menuone
 
 " Ignore case when searching
 set ignorecase
@@ -152,12 +149,6 @@ autocmd VimRc VimResized * :wincmd =
 " }}}
 
 " Colors {{{
-
-" Enable 256 color mode
-set t_Co=256
-
-" Set dark background
-set background=dark
 
 " Adjust syntax highlighting
 autocmd VimRc BufEnter * call AdjustHighlighting()
