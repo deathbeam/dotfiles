@@ -7,20 +7,27 @@ function! fzf#contrib#completefunc(findstart, base) abort
   endif
 
   let words = type(results) == type({}) && has_key(results, 'words')
+        \ ? len(results.words) && type(results.words[0]) == type({})
         \ ? map(results.words, 'v:val.word . "\t" . v:val.menu')
+        \ : results.words
         \ : results
 
-  let results = fzf#run({
+  let results = len(words) > 1
+        \ ? fzf#run({
         \ 'source': words,
         \ 'down': '~40%',
         \ 'options': printf('--query "%s" +s -m', a:base)
         \ })
+        \ : words
 
   if exists('*UltiSnips#ExpandSnippet')
         \ && len(results) == 1
         \ && len(results[0]) > 1
-        \ && split(results[0], "\t")[1] =~? '\[snip\]'
-    call feedkeys("\<c-r>=UltiSnips#ExpandSnippet()\<cr>", 'n')
+    let resultsplit = split(results[0], "\t")
+
+    if len(resultsplit) > 1 && resultsplit[1] =~? '\[snip\]'
+      call feedkeys("\<c-r>=UltiSnips#ExpandSnippet()\<cr>", 'n')
+    endif
   endif
 
   return map(results, 'split(v:val, "\t")[0]')
