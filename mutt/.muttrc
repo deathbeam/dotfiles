@@ -8,20 +8,30 @@ set envelope_from = yes
 set sendmail="/usr/bin/msmtp"
 
 # Folders
-set spoolfile="/var/spool/mail/vagrant"
-set folder="$HOME/mail"
-set record="+sent"
-set postponed="+postponed"
-set mbox_type=mbox
-set move=no
-
+set mbox_type=Maildir
+set folder=~/mail
+set spoolfile="+INBOX"
+set record = "+Sent\ Items"
+set postponed = "+Drafts"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
+set move=no
+mailboxes +INBOX
+source ~/.mutt/mailboxes
 
-# Watch these mailboxes for new mail, useful only if
-# Procmail or Maildrop is used to sort mail.
-mailboxes ! +slrn +fetchmail +mutt
-set sort_browser=alpha    # Sort mailboxes by alpha(bet)
+# Sorting
+set sort     = threads
+set sort_aux = reverse-last-date-received
+set sort_re
+
+# Look and feel
+set pager_index_lines = 8
+set pager_context     = 5
+set pager_stop
+set menu_scroll
+set smart_wrap
+set tilde
+unset markers
 
 # Load colorscheme
 source $HOME/.mutt/bundle/mutt-colors-solarized/mutt-colors-solarized-dark-16.muttrc
