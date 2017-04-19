@@ -1,3 +1,5 @@
+; vim:ft=dosini
+
 [bar/left]
 monitor = VGA-1
 wm-restack = bspwm
@@ -153,4 +155,3 @@ icon-random = 
 icon-repeat = 
 icon-repeatone = 
 
-; vim:ft=dosini

@@ -43,6 +43,11 @@ if command -v davmail >/dev/null 2>&1; then
   davmail ~/.davmail.properties &
 fi
 
+# Start offlineimap
+if command -v offlineimp >/dev/null 2>&1; then
+  offlineimap &
+fi
+
 # Start music manager daemon
 if command -v mopidy >/dev/null 2>&1; then
   mopidy &

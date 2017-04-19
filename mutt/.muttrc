@@ -16,7 +16,6 @@ set postponed = "+Drafts"
 set header_cache=~/.mutt/cache/headers
 set message_cachedir=~/.mutt/cache/bodies
 set move=no
-mailboxes +INBOX
 source ~/.mutt/mailboxes
 
 # Sorting

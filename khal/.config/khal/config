@@ -1,0 +1,18 @@
+# vim: set ft=toml:
+
+[default]
+highlight_event_days = true
+
+[calendars]
+
+[[calendar]]
+path = ~/.calendars/calendar
+type = discover
+readonly = true
+
+[locale]
+timeformat = %H:%M
+dateformat = %Y-%m-%d
+longdateformat = %Y-%m-%d
+datetimeformat = %Y-%m-%d %H:%M
+longdatetimeformat = %Y-%m-%d %H:%M
