@@ -229,7 +229,6 @@ command! W w !sudo tee % > /dev/null
 " Plugins {{{
 
 " Modify runtime path
-set rtp+=~/.fzf
 runtime bundle/vim-pathogen/autoload/pathogen.vim
 execute pathogen#infect()
 execute pathogen#infect('~/.vim/bundle/local/{}')
