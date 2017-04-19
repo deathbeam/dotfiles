@@ -44,7 +44,7 @@ if command -v davmail >/dev/null 2>&1; then
 fi
 
 # Start offlineimap
-if command -v offlineimp >/dev/null 2>&1; then
+if command -v offlineimap >/dev/null 2>&1; then
   offlineimap &
 fi
 
