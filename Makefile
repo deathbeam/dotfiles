@@ -5,6 +5,7 @@ clean:
 
 install:
 	touch /tmp/cmd && chmod u+x /tmp/cmd
+	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc
 
 link:

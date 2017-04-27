@@ -18,6 +18,9 @@ export CLICOLOR=1
 if command -v xclip >/dev/null 2>&1; then
   alias xcopy='xclip -i -selection clipboard'
   alias xpaste='xclip -o -selection clipboard'
+elif command -v xsel >/dev/null 2>&1; then
+  alias xcopy='xsel --clipboard --input'
+  alias xpaste='xsel --clipboard --output'
 fi
 
 # Open Vim and start saving it's session
