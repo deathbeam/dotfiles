@@ -1,7 +1,7 @@
 # vim:foldmethod=marker:set ft=sh:
 
 # Adjust path to use bin in user/bin
-export PATH="$HOME/.local/bin:$PATH:$HOME/.cargo/bin"
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$PATH"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
