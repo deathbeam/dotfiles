@@ -8,9 +8,11 @@ function! fzf#contrib#completefunc(findstart, base) abort
 
   let words = type(results) == type({}) && has_key(results, 'words')
         \ ? len(results.words) && type(results.words[0]) == type({})
-        \ ? map(results.words, 'v:val.word . "\t" . v:val.menu')
-        \ : results.words
-        \ : results
+          \ ? map(results.words, 'v:val.word . "\t" . v:val.menu')
+          \ : results.words
+        \ : len(results) && type(results[0]) == type({})
+          \ ? map(results, 'v:val.word . "\t" . v:val.menu')
+          \ : results
 
   let results = len(words) > 1
         \ ? fzf#run({

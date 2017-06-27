@@ -260,10 +260,6 @@ command! -bar Session :call Session()
 " Ultisnips
 let g:UltiSnipsExpandTrigger = '<s-tab>'
 
-" Completor
-let g:completor_auto_trigger = 0
-let g:completor_min_chars = 1
-
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext=0
@@ -299,7 +295,6 @@ nmap <silent> <leader>mT :TestSuite<CR>
 nmap <silent> <leader>mtt :TestNearest<CR>
 
 " FZF
-let g:fzf#contrib#completefunc = 'completor#completefunc'
 nmap <leader>/ :Grep<cr>
 nmap <leader>T :Tags<cr>
 nmap <leader>t :BTags<cr>
