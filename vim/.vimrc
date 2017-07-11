@@ -106,7 +106,6 @@ set lazyredraw
 set showmatch
 
 " Less annoying errors
-set shortmess=at
 set noerrorbells
 set novisualbell
 set t_vb=
