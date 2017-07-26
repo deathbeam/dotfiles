@@ -291,7 +291,6 @@ set statusline+=%#warningmsg#%{SyntasticStatuslineFlag()}%*
 let g:test#strategy = 'make'
 nmap <silent> <leader>mt :TestFile<CR>
 nmap <silent> <leader>mT :TestSuite<CR>
-nmap <silent> <leader>mtt :TestNearest<CR>
 
 " FZF
 nmap <leader>/ :Grep<cr>

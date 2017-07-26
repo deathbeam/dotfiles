@@ -35,18 +35,22 @@ vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action Comme
 nnoremap <space>mf :action Compile<cr>
 nnoremap <space>mF :action CompileProject<cr>
 
+" Testing
+nnoremap <space>mt :action RunClass<cr>
+nnoremap <space>mT :action RunConfiguration<cr>
+
 " Navigation
 nnoremap <C-^> :action GotoImplementation<cr>
 
 " Refactoring
-nnoremap <space>ji :action ShowIntentionActions<cr>
-nnoremap <space>jg :action Generate<cr>
-nnoremap <space>jr :action RenameElement<cr>
-nnoremap <space>js :action ChangeSignature<cr>
-nnoremap <space>jt :action ChangeTypeSignature<cr>
+nnoremap <space>gi :action ShowIntentionActions<cr>
+nnoremap <space>gg :action Generate<cr>
+nnoremap <space>gr :action RenameElement<cr>
+nnoremap <space>gs :action ChangeSignature<cr>
+nnoremap <space>gt :action ChangeTypeSignature<cr>
 
 " Menus
-nnoremap <space>/ :action SearchEverywhere<cr>
+nnoremap <space>/ :action FindInPath<cr>
 nnoremap <space>T :action GotoSymbol<cr>
 nnoremap <space>t :action FileStructurePopup<cr>
 nnoremap <space>F :action GotoFile<cr>
