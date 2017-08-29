@@ -77,9 +77,6 @@
 [submodule "vim/.vim/bundle/vim-dirvish"]
 	path = vim/.vim/bundle/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/.vim/bundle/tsuquyomi"]
-	path = vim/.vim/bundle/tsuquyomi
-	url = https://github.com/Quramy/tsuquyomi
 [submodule "vim/.vim/bundle/vim-polyglot"]
 	path = vim/.vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
@@ -119,3 +116,6 @@
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
+[submodule "vim/.vim/bundle/tern_for_vim"]
+	path = vim/.vim/bundle/tern_for_vim
+	url = https://github.com/ternjs/tern_for_vim

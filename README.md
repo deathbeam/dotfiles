@@ -98,7 +98,7 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
    Completion menu using FZF, tab-completion, support for `ripgrep` in FZF
  * [syntastic](https://github.com/scrooloose/syntastic): Syntax checking hacks
    for vim
- * [tsuquyomi](https://github.com/Quramy/tsuquyomi): A Vim plugin for TypeScript
+ * [tern_for_vim](https://github.com/ternjs/tern_for_vim): Tern plugin for Vim
  * [ultisnips](https://github.com/SirVer/ultisnips): The ultimate snippet
    solution for Vim
  * [vaxe](https://github.com/jdonaldson/vaxe): A modern, modular vim mode for
