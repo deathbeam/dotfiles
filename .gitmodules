@@ -80,9 +80,6 @@
 [submodule "vim/.vim/bundle/vim-polyglot"]
 	path = vim/.vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "vim/.vim/bundle/syntastic"]
-	path = vim/.vim/bundle/syntastic
-	url = https://github.com/vim-syntastic/syntastic
 [submodule "vim/.vim/bundle/vaxe"]
 	path = vim/.vim/bundle/vaxe
 	url = https://github.com/jdonaldson/vaxe
@@ -119,3 +116,6 @@
 [submodule "vim/.vim/bundle/tern_for_vim"]
 	path = vim/.vim/bundle/tern_for_vim
 	url = https://github.com/ternjs/tern_for_vim
+[submodule "vim/.vim/bundle/ale"]
+	path = vim/.vim/bundle/ale
+	url = https://github.com/w0rp/ale

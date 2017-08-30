@@ -16,10 +16,6 @@ setlocal errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
       \\%+ZTests\ run%.%#FAILURE!%.%#,
       \\%-G%.%#
 
-" Completor integration
-let g:completor_java_omni_trigger = '(\w+|[^\. \t0-9]+\.\w*)$'
-
 " JavaComplete adjustments
 let g:JavaComplete_ImportSortType = 'packageName'
 let g:JavaComplete_ImportOrder = ['*']
-
