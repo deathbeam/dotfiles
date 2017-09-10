@@ -1,7 +1,10 @@
 # vim:foldmethod=marker:set ft=sh:
 
-# Adjust path to use bin in user/bin
-export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$PATH"
+# Adjust path to use various bin folders
+export PATH="$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$PATH"
+
+# Set npm home to user home
+export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
