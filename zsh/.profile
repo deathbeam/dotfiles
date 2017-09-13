@@ -22,4 +22,4 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-[[ -f "~/.profile.local" ]] && source "~/.profile.local"
+[[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"
