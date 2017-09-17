@@ -119,3 +119,6 @@
 [submodule "vim/.vim/bundle/ale"]
 	path = vim/.vim/bundle/ale
 	url = https://github.com/w0rp/ale
+[submodule "vim/.vim/bundle/rainbow_parentheses.vim"]
+	path = vim/.vim/bundle/rainbow_parentheses.vim
+	url = https://github.com/junegunn/rainbow_parentheses.vim
