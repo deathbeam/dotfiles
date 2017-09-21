@@ -122,3 +122,6 @@
 [submodule "vim/.vim/bundle/rainbow_parentheses.vim"]
 	path = vim/.vim/bundle/rainbow_parentheses.vim
 	url = https://github.com/junegunn/rainbow_parentheses.vim
+[submodule "vim/.vim/bundle/vim-fireplace"]
+	path = vim/.vim/bundle/vim-fireplace
+	url = https://github.com/tpope/vim-fireplace
