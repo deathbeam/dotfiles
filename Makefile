@@ -1,4 +1,4 @@
-default: clean update link install
+default: update link install
 
 clean:
 	find ~ -xtype l -delete
