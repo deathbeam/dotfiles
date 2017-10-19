@@ -8,7 +8,7 @@ browser = /usr/bin/firefox -new-tab
 dmenu = /usr/bin/dmenu -p dunst:
 font = Terminus 12
 format = "<b>%s</b>\n%b"
-geometry = "0-15-15"
+geometry = "0-15+15"
 history_length = 20
 horizontal_padding = 10
 idle_threshold = 120
@@ -30,17 +30,17 @@ transparency = 0
 word_wrap = yes
 
 [frame]
-width = 0
+width = 1
 
 [urgency_low]
 background = "#002b36"
 foreground = "#839496"
-timeout = 10
+timeout = 5
 
 [urgency_normal]
 background = "#073642"
 foreground = "#93a1a1"
-timeout = 20
+timeout = 10
 
 [urgency_critical]
 background = "#268bd2"

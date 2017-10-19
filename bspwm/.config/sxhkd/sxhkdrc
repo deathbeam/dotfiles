@@ -41,11 +41,11 @@ super + e
 # mouse keys
 #
 
-alt + {_,shift + } + {h,j,k,l}
-  xdotool mousemove_relative --sync {--,--} {-35 0,0 35,0 -35,35 0}
-
-ctrl + {_,shift + } + {u,o}
-  xdotool {click,click} {1,3}
+# alt + {_,shift + } + {h,j,k,l}
+#   xdotool mousemove_relative --sync {--,--} {-35 0,0 35,0 -35,35 0}
+#
+# ctrl + {_,shift + } + {u,o}
+#   xdotool {click,click} {1,3}
 
 #
 # bspwm hotkeys
