@@ -1,5 +1,5 @@
-vim/.vim/bundle/local/
-tmux/.tmux/bundle/local/
-zsh/.zsh/bundle/local/
-vim/.vim/undodir/*
-tmux/.tmux/ressurect/tmux_resurrect*
+/vim/.vim/bundle/local/
+/tmux/.tmux/bundle/local/
+/zsh/.zsh/bundle/local/
+/vim/.vim/undodir/
+/tmux/.tmux/ressurect/
