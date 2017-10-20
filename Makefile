@@ -8,6 +8,7 @@ install:
 	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc
 	(cd vim/.vim/bundle/tern_for_vim && npm install)
+	chmod 600 ~/.netrc
 
 link:
 	stow --target ~ --restow `ls -d */`
