@@ -3,8 +3,8 @@
 settings = {
   core = {
     real_name = "Tomas Slusny";
-    user_name = "deathbeam";
-    nick = "deathbeam";
+    user_name = "tomasslusny";
+    nick = "tomasslusny";
   };
   "fe-text" = { actlist_sort = "refnum"; };
   "perl/core/scripts" = { awl_shared_sbar = "OFF"; };
@@ -27,7 +27,7 @@ servers = (
 
 chatnets = {
   Freenode = { type = "IRC"; nick = "tomasslusny"; };
-  Bitlbee = { type = "IRC"; nick = "deathbeam"; };
+  Bitlbee = { type = "IRC"; nick = "tomasslusny"; };
 };
 
 channels = (
