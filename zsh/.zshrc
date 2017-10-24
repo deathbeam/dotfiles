@@ -44,6 +44,7 @@ if [ -f ~/.zim/init.zsh ]; then
     history \
     input \
     utility \
+    meta \
     prompt \
     syntax-highlighting \
     history-substring-search \
@@ -59,9 +60,10 @@ if [ -f ~/.zim/init.zsh ]; then
   # Set prompt theme
   zprompt_theme='pure'
   PURE_PROMPT_SYMBOL='$'
+  ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
 
   # Source zim
-  source ~/.zim/init.zsh
+  source $ZIM_HOME/init.zsh
 fi
 
 # Load hub alias
