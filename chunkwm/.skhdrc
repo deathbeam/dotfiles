@@ -31,7 +31,7 @@
 
 
 # open terminal, blazingly fast compared to iTerm/Hyper
-cmd - return : open -na /Applications/Alacritty.app
+cmd - return : open -na /Applications/Kitty.app
 
 # close focused window
 alt - w : chunkc tiling::window --close
