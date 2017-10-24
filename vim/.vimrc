@@ -27,7 +27,7 @@ endtry
 
 " Use system clipboard
 if has('clipboard')
-  set clipboard=unnamedplus
+  set clipboard=unnamed
 endif
 
 " use syntax complete if nothing else available
