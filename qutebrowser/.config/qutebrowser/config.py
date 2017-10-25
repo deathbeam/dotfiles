@@ -1,4 +1,4 @@
-# Adjust font
+# Adjust font and font size
 c.fonts.completion.category = "bold 16pt monospace"
 c.fonts.completion.entry = "16pt monospace"
 c.fonts.debug_console = "16pt monospace"
