@@ -1,3 +1,6 @@
+# Enable plugins
+c.content.plugins = True
+
 # Adjust font and font size
 c.fonts.completion.category = "bold 16pt monospace"
 c.fonts.completion.entry = "16pt monospace"
