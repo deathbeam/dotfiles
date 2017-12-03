@@ -74,3 +74,6 @@
 [include]
   # Include user configuration
   path = ~/.gitconfig.local
+[user]
+	name = Tomas Slusny
+	email = slusnucky@gmail.com

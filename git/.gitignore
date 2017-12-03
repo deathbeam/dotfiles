@@ -43,6 +43,5 @@ Session.vim
 *~
 
 # Misc
-.editorconfig
 .yangcp/
 nohup.out
