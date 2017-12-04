@@ -62,10 +62,10 @@ function! fzf#contrib#grep(query) abort
     let query = empty(a:query) ? '^.' : a:query
 
     return fzf#vim#grep(
-          \ 'rg --column --line-number --no-heading' .
-          \ ' --fixed-strings --ignore-case --hidden' .
+          \ 'rg --column --line-number' .
+          \ ' --ignore-case --hidden' .
           \ ' --follow --glob "!.git/*" --color "always" ' .
-          \ shellescape(query), 1, 0)
+          \ fzf#shellescape(query), 1, 0)
   endif
 
   return fzf#vim#ag(a:query)
