@@ -30,7 +30,6 @@ fi
 # Start autocutsel
 if command -v autocutsel >/dev/null 2>&1; then
   autocutsel -fork &
-  autocutsel -selection PRIMARY -fork &
 fi
 
 # Start clipboard manager daemon

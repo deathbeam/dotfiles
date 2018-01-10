@@ -74,6 +74,7 @@ label-empty-padding = 1
 
 label-urgent = %name%
 label-urgent-padding = 1
+label-urgent-background = #dc322f
 
 label-occupied = %name%
 label-occupied-padding = 1
