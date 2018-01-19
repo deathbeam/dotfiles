@@ -2,4 +2,5 @@
 /tmux/.tmux/bundle/local/
 /zsh/.zsh/bundle/local/
 /vim/.vim/undodir/
-/tmux/.tmux/ressurect/
+/tmux/.tmux/resurrect/
+/qutebrowser/.config/qutebrowser/qsettings/

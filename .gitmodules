@@ -125,3 +125,9 @@
 [submodule "vim/.vim/bundle/vim-fireplace"]
 	path = vim/.vim/bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace
+[submodule "vim/.vim/bundle/vim-cucumber"]
+	path = vim/.vim/bundle/vim-cucumber
+	url = https://github.com/tpope/vim-cucumber/
+[submodule "vim/.vim/bundle/jedi-vim"]
+	path = vim/.vim/bundle/jedi-vim
+	url = https://github.com/davidhalter/jedi-vim
