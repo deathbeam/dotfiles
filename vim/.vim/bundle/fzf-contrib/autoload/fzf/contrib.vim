@@ -22,7 +22,9 @@ function! fzf#contrib#completefunc(findstart, base) abort
         \ })
         \ : words
 
-  if exists('*UltiSnips#ExpandSnippet') && len(results) == 0
+  if exists('*UltiSnips#ExpandSnippet')
+        \ && len(results) == 0 || (len(results) == 1
+        \ && len(split(results[0], "\t")[0]) == len(a:base))
     call feedkeys("\<c-r>=UltiSnips#ExpandSnippet()\<cr>", 'n')
     return
   endif
