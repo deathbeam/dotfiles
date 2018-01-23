@@ -279,6 +279,20 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
 
+" Vim rooter
+let g:rooter_patterns = [
+      \ '.pylintrc',
+      \ 'pylintrc',
+      \ 'package.json',
+      \ '.editorconfig',
+      \ '.git',
+      \ '.git/',
+      \ '_darcs/',
+      \ '.hg/',
+      \ '.bzr/',
+      \ '.svn/'
+      \]
+
 " Ale
 nmap <silent> <leader>mF :make<CR>
 function! LinterStatus() abort
