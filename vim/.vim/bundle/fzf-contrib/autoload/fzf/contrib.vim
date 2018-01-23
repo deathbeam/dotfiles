@@ -22,14 +22,9 @@ function! fzf#contrib#completefunc(findstart, base) abort
         \ })
         \ : words
 
-  if exists('*UltiSnips#ExpandSnippet')
-        \ && len(results) == 1
-        \ && len(results[0]) > 1
-    let resultsplit = split(results[0], "\t")
-
-    if len(resultsplit) > 1 && resultsplit[1] =~? '\[snip\]'
-      call feedkeys("\<c-r>=UltiSnips#ExpandSnippet()\<cr>", 'n')
-    endif
+  if exists('*UltiSnips#ExpandSnippet') && len(results) == 0
+    call feedkeys("\<c-r>=UltiSnips#ExpandSnippet()\<cr>", 'n')
+    return
   endif
 
   return map(results, 'split(v:val, "\t")[0]')
