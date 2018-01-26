@@ -258,6 +258,8 @@ command! -bar Session :call Session()
 
 " Ultisnips
 let g:UltiSnipsExpandTrigger = '<s-tab>'
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-z>"
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
