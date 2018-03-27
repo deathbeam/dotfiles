@@ -24,7 +24,7 @@ super + space
 
 # password menu
 super + z
-  ~/.config/dmenu/lpassmenu -p "pass"
+  ~/.config/dmenu/passmenu -p "pass"
 
 # process menu
 super + x
