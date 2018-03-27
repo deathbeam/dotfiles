@@ -97,3 +97,6 @@ fi
 [[ -f "~/.zshrc.local" ]] && source "~/.zshrc.local"
 
 # }}}
+
+# added by travis gem
+[ -f /home/vagrant/.travis/travis.sh ] && source /home/vagrant/.travis/travis.sh

@@ -42,9 +42,13 @@ super + v
 super + Escape
   pkill -USR1 -x sxhkd
 
-# Lock screen
+# lock screen
 super + e
   slock
+
+# type clipboard
+super + ctrl + v
+  sleep .5 && xdotool getactivewindow windowactivate --sync type --clearmodifiers --delay 50 "$(xclip -o -selection clipboard)"
 
 #
 # bspwm hotkeys

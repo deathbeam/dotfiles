@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
 
-password=$(lpass ls  | dmenu "$@" | awk '{print $(NF)}' | sed 's/\]//g')
+password=$(lpass ls | dmenu "$@" | awk '{print $(NF)}' | sed 's/\]//g')
 [[ -n $password ]] || exit
 lpass show --password -c "$password"
