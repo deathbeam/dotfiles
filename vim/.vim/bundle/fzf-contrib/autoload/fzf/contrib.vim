@@ -6,12 +6,14 @@ function! fzf#contrib#completefunc(findstart, base) abort
     return results
   endif
 
+  let mapping = 'v:val.word . "\t" . (has_key(v:val, "menu") ? v:val.menu : v:val.info)'
+
   let words = type(results) == type({}) && has_key(results, 'words')
         \ ? len(results.words) && type(results.words[0]) == type({})
-          \ ? map(results.words, 'v:val.word . "\t" . v:val.menu')
+          \ ? map(results.words, mapping)
           \ : results.words
         \ : len(results) && type(results[0]) == type({})
-          \ ? map(results, 'v:val.word . "\t" . v:val.menu')
+          \ ? map(results, mapping)
           \ : results
 
   let results = len(words) > 1
