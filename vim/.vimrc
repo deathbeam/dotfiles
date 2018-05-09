@@ -213,9 +213,9 @@ nmap <silent> <leader>ol  :lopen<CR>
 " and we cannot use Vi style-binding here anyway, because ESC
 " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
 " do not even have them, because they are useless.
-cnoremap <C-A>    <Home>
-cnoremap <C-E>    <End>
-cnoremap <C-K>    <C-U>
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
@@ -283,16 +283,16 @@ nnoremap <silent> <leader>gr :Gremove<CR>
 
 " Vim rooter
 let g:rooter_patterns = [
-      \ '.pylintrc',
-      \ 'pylintrc',
-      \ 'package.json',
-      \ '.editorconfig',
       \ '.git',
       \ '.git/',
       \ '_darcs/',
       \ '.hg/',
       \ '.bzr/',
-      \ '.svn/'
+      \ '.svn/',
+      \ '.pylintrc',
+      \ 'pylintrc',
+      \ 'package.json',
+      \ '.editorconfig',
       \]
 
 " Ale
