@@ -31,10 +31,11 @@ alias vims='vim -c "Session"'
 # Plugins {{{
 
 # Load zim
-if [ -f ~/.zim/init.zsh ]; then
+if [ -f $ZIM_HOME/init.zsh ]; then
   # Select what modules you would like enabled.
   zmodules=( \
     archive \
+    autosuggestions \
     directory \
     environment \
     spectrum \
@@ -45,10 +46,18 @@ if [ -f ~/.zim/init.zsh ]; then
     input \
     utility \
     meta \
+    pacman \
     prompt \
+    ssh \
     syntax-highlighting \
     history-substring-search \
     completion)
+
+  # Pacman
+  zpacman_frontend='pacaur'
+
+  # This appends '../' to your input for each '.' you type after an initial '..'
+  zdouble_dot_expand='true'
 
   # Set the string below to the desired terminal title format string.
   # Below uses the following format: 'username@host:/current/directory'
@@ -60,7 +69,9 @@ if [ -f ~/.zim/init.zsh ]; then
   # Set prompt theme
   zprompt_theme='pure'
   PURE_PROMPT_SYMBOL='$'
-  ZIM_HOME=${ZDOTDIR:-${HOME}}/.zim
+
+  # Load these ssh identities with the ssh module
+  zssh_ids=(id_rsa)
 
   # Source zim
   source $ZIM_HOME/init.zsh

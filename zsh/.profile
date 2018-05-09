@@ -6,6 +6,9 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/
 # Set npm home to user home
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
+# Set zim home to user home
+export ZIM_HOME="$HOME/.zim"
+
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
 
