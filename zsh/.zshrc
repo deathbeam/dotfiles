@@ -54,7 +54,7 @@ if [ -f $ZIM_HOME/init.zsh ]; then
     completion)
 
   # Pacman
-  zpacman_frontend='pacaur'
+  zpacman_frontend='yay'
 
   # This appends '../' to your input for each '.' you type after an initial '..'
   zdouble_dot_expand='true'

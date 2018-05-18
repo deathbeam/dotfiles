@@ -1,7 +1,10 @@
 # vim:foldmethod=marker:set ft=sh:
 
 # Adjust path to use various bin folders
-export PATH="$PATH:$HOME/.local/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.5.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.5.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
+
+# Set go path to user home
+export GOPATH="$HOME/go"
 
 # Set npm home to user home
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
