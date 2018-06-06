@@ -14,6 +14,7 @@ export ZIM_HOME="$HOME/.zim"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
+export _MOTIF_WM_HINTS=1
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
