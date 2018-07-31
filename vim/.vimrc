@@ -245,6 +245,9 @@ else
   endtry
 endif
 
+" Read DOCX
+autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
+
 " Obsession
 function! Session()
   " If session file exists, source it, and then start session recording
