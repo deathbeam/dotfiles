@@ -77,8 +77,14 @@ if [ -f $ZIM_HOME/init.zsh ]; then
   source $ZIM_HOME/init.zsh
 fi
 
+# Load pyenv
+command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
+
 # Load hub alias
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
+
+# Load travis
+[ -f /home/vagrant/.travis/travis.sh ] && source /home/vagrant/.travis/travis.sh
 
 # Pathogen-like loader for plugins
 find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
@@ -108,6 +114,3 @@ fi
 [[ -f "~/.zshrc.local" ]] && source "~/.zshrc.local"
 
 # }}}
-
-# added by travis gem
-[ -f /home/vagrant/.travis/travis.sh ] && source /home/vagrant/.travis/travis.sh

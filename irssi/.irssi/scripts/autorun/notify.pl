@@ -17,11 +17,8 @@ $VERSION = "0.01";
   name        => 'notify.pl',
   description => 'TODO',
   license     => 'MIT',
-  url         => 'https://nondev.io',
+  url         => 'https://github.com/deathbeam',
 );
-
-Irssi::settings_add_str('notify', 'notify_remote', '');
-Irssi::settings_add_str('notify', 'notify_debug', '');
 
 sub sanitize {
   my ($text) = @_;
@@ -36,20 +33,17 @@ sub sanitize {
 }
 
 sub notify_linux {
-  my ($server, $nodebugstr, $remote, $summary, $message) = @_;
-  my $cmd = "EXEC " . $nodebugstr . "ssh -q " . $remote . " \"".
-            " notify-send".
-            " -i gtk-dialog-info -t 5000" .
+  my ($server, $summary, $message) = @_;
+  my $cmd = "EXEC - notify-send" .
             " '" . $summary . "'" .
             " '" . $message . "'";
   $server->command($cmd);
 }
 
 sub notify_mac {
-  my ($server, $nodebugstr, $remote, $summary, $message) = @_;
+  my ($server, $summary, $message) = @_;
   $message =~ s/\\"/\\\\\\"/g;
-  my $cmd = "EXEC " . $nodebugstr . "ssh -q " . $remote . " \"".
-          " osascript -e".
+  my $cmd = "EXEC -  osascript -e" .
           " 'display notification \\\"". $message . "\\\"" .
           " with title \\\"" . $summary . "\\\"" .
           " sound name \\\"Basso\\\"'\"";
@@ -63,29 +57,19 @@ sub notify {
   $summary = sanitize($summary);
   $message = sanitize($message);
 
-  my $debug = Irssi::settings_get_str('notify_debug');
-  my $nodebugstr = '- ';
-  if ($debug ne '') {
-    $nodebugstr = '';
-  }
-  my $cmd = "EXEC " . $nodebugstr .
+  my $cmd = "EXEC -" .
             " notify-send".
-            " -i gtk-dialog-info -t 5000" .
             " '" . $summary . "'" .
             " '" . $message . "'";
   $server->command($cmd);
 
-  my $remote = Irssi::settings_get_str('notify_remote');
-  if ($remote ne '') {
-    if (substr($remote, length($remote)-1) ne 'M') {
-      notify_linux($server, $nodebugstr, $remote, $summary, $message);
-    }
-    else {
-      $remote = substr($remote, 0, length($remote)-1);
-      notify_mac($server, $nodebugstr, $remote, $summary, $message);
-    }
+  # Detect OS
+  if ($^O eq "linux") {
+    notify_linux($server, $summary, $message);
   }
-
+  else {
+    notify_mac($server, $summary, $message);
+  }
 }
 
 sub print_text_notify {

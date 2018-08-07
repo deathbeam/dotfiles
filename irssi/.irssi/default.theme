@@ -286,9 +286,7 @@ abstracts = {
   sb_act_hilight_color = "$0$1-%n";
 };
 formats = {
-  "fe-common/core" = {
-    pubmsg = "{pubmsgnick $2 {pubnick \003\00303$[-10]0}}$1";
-  };
+  "fe-common/core" = { pubmsg = "{pubmsgnick $2 {pubnick \00303$0}}$1"; };
   "Irssi::Script::adv_windowlist" = {
     awl_display_key = "%0%W$C";
     awl_display_key_active = "%4%W$C";

@@ -134,3 +134,6 @@
 [submodule "vim/.vim/bundle/vim-go"]
 	path = vim/.vim/bundle/vim-go
 	url = https://github.com/fatih/vim-go
+[submodule "pyenv/.pyenv"]
+	path = pyenv/.pyenv
+	url = https://github.com/pyenv/pyenv.git
