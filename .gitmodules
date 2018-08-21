@@ -137,3 +137,6 @@
 [submodule "pyenv/.pyenv"]
 	path = pyenv/.pyenv
 	url = https://github.com/pyenv/pyenv.git
+[submodule "zsh/.zsh/bundle/imgur.sh"]
+	path = zsh/.zsh/bundle/imgur.sh
+	url = https://github.com/tremby/imgur.sh
