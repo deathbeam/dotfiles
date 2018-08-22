@@ -1,24 +1,24 @@
 diff --git a/config.def.h b/config.def.h
-index 877afab..cc4b8d8 100644
+index 82b1b09..d4b432e 100644
 --- a/config.def.h
 +++ b/config.def.h
 @@ -5,8 +5,8 @@
   *
   * font: see http://freedesktop.org/software/fontconfig/fontconfig-user.html
   */
--char font[] = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
--int borderpx = 2;
-+char font[] = "Terminus:pixelsize=14:antialias=false:autohint=false";
-+int borderpx = 10;
+-static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
+-static int borderpx = 2;
++static char *font = "Terminus:size=12:antialias=false:autohint=false";
++static int borderpx = 10;
  
  /*
   * What program is execed by st depends of these precedence rules:
-@@ -16,7 +16,7 @@ int borderpx = 2;
+@@ -16,7 +16,7 @@ static int borderpx = 2;
   * 4: value of shell in /etc/passwd
   * 5: value of shell in config.h
   */
--static char shell[] = "/bin/sh";
-+static char shell[] = "/bin/zsh";
- static char *utmp = NULL;
- static char stty_args[] = "stty raw pass8 nl -echo -iexten -cstopb 38400";
+-static char *shell = "/bin/sh";
++static char *shell = "/bin/zsh";
+ char *utmp = NULL;
+ char *stty_args = "stty raw pass8 nl -echo -iexten -cstopb 38400";
  

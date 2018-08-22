@@ -32,4 +32,7 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
+# Auto scale for QT5 apps
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"

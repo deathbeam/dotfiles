@@ -5,7 +5,7 @@ monitor = VGA-1
 wm-restack = bspwm
 override-redirect = false
 width = 100%
-height = 25
+height = 30
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -22,10 +22,10 @@ module-margin-right = 2
 background = #073642
 foreground = #93a1a1
 dpi = -1
-font-0 = Terminus:size=10;1
-font-1 = FontAwesome 5 Free:size=10;3
-font-2 = FontAwesome 5 Free:style=Solid:size=10;3
-font-3 = FontAwesome 5 Brands:size=10;3
+font-0 = Terminus:size=12;1
+font-1 = FontAwesome 5 Free:size=12;3
+font-2 = FontAwesome 5 Free:style=Solid:size=12;3
+font-3 = FontAwesome 5 Brands:size=12;3
 
 modules-left = bspwm
 modules-center = title
