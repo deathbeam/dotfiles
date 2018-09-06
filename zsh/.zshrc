@@ -84,7 +84,7 @@ command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 
 # Load travis
-[ -f /home/vagrant/.travis/travis.sh ] && source /home/vagrant/.travis/travis.sh
+[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Pathogen-like loader for plugins
 find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
@@ -111,6 +111,6 @@ fi
 # User configuration {{{
 
 # Load user config
-[[ -f "~/.zshrc.local" ]] && source "~/.zshrc.local"
+[ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
 
 # }}}
