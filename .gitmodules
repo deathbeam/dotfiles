@@ -143,3 +143,6 @@
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/bundle/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
+[submodule "vim/.vim/bundle/vim-which-key"]
+	path = vim/.vim/bundle/vim-which-key
+	url = https://github.com/liuchengxu/vim-which-key
