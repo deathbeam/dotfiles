@@ -80,3 +80,5 @@
 	email = slusnucky@gmail.com
 [credential]
 	helper = store
+[http]
+	postBuffer = 524288000
