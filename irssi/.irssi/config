@@ -7,7 +7,11 @@ settings = {
     nick = "tomasslusny";
   };
   "fe-text" = { actlist_sort = "refnum"; };
-  "perl/core/scripts" = { awl_shared_sbar = "OFF"; awl_sort = "refnum"; };
+  "perl/core/scripts" = {
+    awl_shared_sbar = "OFF";
+    awl_sort = "refnum";
+    lastfm_user = "tomasslusny";
+  };
 };
 
 servers = (

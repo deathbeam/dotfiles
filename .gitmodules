@@ -146,3 +146,6 @@
 [submodule "vim/.vim/bundle/vim-which-key"]
 	path = vim/.vim/bundle/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key
+[submodule "vim/.vim/bundle/vim-rhubarb"]
+	path = vim/.vim/bundle/vim-rhubarb
+	url = https://github.com/tpope/vim-rhubarb
