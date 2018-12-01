@@ -73,6 +73,11 @@ XF86KbdBrightnessDown
 XF86MonBrightnessDown
   light -U 5
 
+# Print screen
+Print
+  import ~/screenshot.png; \
+  xclip -selection clipboard -t image/png -i ~/screenshot.png
+
 #
 # bspwm hotkeys
 #
