@@ -1,7 +1,7 @@
 ; vim:ft=dosini
 
-[bar/left]
-monitor = eDP-1
+[bar/main]
+monitor = ${env:MONITOR:}
 wm-restack = bspwm
 override-redirect = false
 width = 100%
@@ -30,38 +30,6 @@ font-3 = FontAwesome 5 Brands:size=12;3
 modules-left = bspwm title
 modules-center = mpd
 modules-right = wifi wired volume battery backlight date
-
-
-[bar/right]
-monitor = VGA-2
-wm-restack = ${bar/left.wm-restack}
-override-redirect = ${bar/left.override-redirect}
-width = ${bar/left.width}
-height = ${bar/left.height}
-offset-x = ${bar/left.offset-x}
-offset-y = ${bar/left.offset-y}
-bottom = ${bar/left.bottom}
-tray-position = ${bar/left.tray-position}
-border-bottom-size = ${bar/left.border-bottom-size}
-spacing = ${bar/left.spacing}
-underline-size = ${bar/left.underline-size}
-overline-size = ${bar/left.overline-size}
-padding-left = ${bar/left.padding-left}
-padding-right = ${bar/left.padding-right}
-module-margin-left = ${bar/left.module-margin-left}
-module-margin-right = ${bar/left.module-margin-right}
-
-background = ${bar/left.background}
-foreground = ${bar/left.foreground}
-dpi = ${bar/left.dpi}
-font-0 = ${bar/left.font-0}
-font-1 = ${bar/left.font-1}
-font-2 = ${bar/left.font-2}
-font-3 = ${bar/left.font-3}
-
-modules-left = ${bar/left.modules-left}
-modules-center = ${bar/left.modules-center}
-modules-right = mpd
 
 [module/bspwm]
 type = internal/bspwm
