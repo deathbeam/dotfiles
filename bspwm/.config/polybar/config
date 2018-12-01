@@ -6,6 +6,8 @@ wm-restack = bspwm
 override-redirect = false
 width = 100%
 height = 80
+dpi = ${xrdb:Xft.dpi:-1}
+tray-maxsize = 80
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -21,7 +23,6 @@ module-margin-right = 2
 
 background = #073642
 foreground = #93a1a1
-dpi = -1
 font-0 = Terminus:size=12;1
 font-1 = FontAwesome 5 Free:size=12;3
 font-2 = FontAwesome 5 Free:style=Solid:size=12;3
