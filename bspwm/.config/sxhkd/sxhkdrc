@@ -59,15 +59,19 @@ XF86AudioLowerVolume
 XF86AudioMute
   amixer -q set Master toggle
 
+# Mute/unmute mic
+XF86AudioMicMute
+  amixer -q set Capture toggle
+
 # Increase birghtness
 XF86KbdBrightnessUp
 XF86MonBrightnessUp
-  light -A 10
+  light -A 5
 
 # Decrease birghtness
 XF86KbdBrightnessDown
 XF86MonBrightnessDown
-  light -U 10
+  light -U 5
 
 #
 # bspwm hotkeys
