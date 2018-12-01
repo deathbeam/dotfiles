@@ -10,6 +10,12 @@ fi
 # Enable colors
 export CLICOLOR=1
 
+# Enable QT dpi scale
+export QT_AUTO_SCREEN_SCALE_FACTOR=1
+
+# GDK scale
+export GDK_SCALE=2
+
 # }}}
 
 # Aliases & functions {{{
@@ -38,14 +44,12 @@ if [ -f $ZIM_HOME/init.zsh ]; then
     autosuggestions \
     directory \
     environment \
-    spectrum \
     fasd \
     git \
     git-info \
     history \
     input \
     utility \
-    meta \
     pacman \
     prompt \
     ssh \

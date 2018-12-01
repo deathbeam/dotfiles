@@ -1,1 +1,174 @@
-/home/vagrant/.config/sxhkd/sxhkdrc_normal
+#
+# wm independent hotkeys
+#
+
+# terminal emulator + tmux
+super + Return
+  st -e $SHELL -c "export PS1='temp'; \
+                   source ~/.zsh/bundle/base16-shell/base16-shell.plugin.zsh; \
+                   [ -z $BASE16_THEME ] && base16_solarized-dark; \
+                   tmux new-session -A -s main"
+
+# program menu
+super + space
+  dmenu_run -p "run"
+
+# password menu
+super + z
+  ~/.config/dmenu/passmenu -p "pass"
+
+# process menu
+super + x
+  ~/.config/dmenu/procmenu -p "proc"
+
+# clipboard menu
+super + c
+  ~/.config/dmenu/clipmenu/clipmenu -p "clip"
+
+# music menu
+super + v
+  ~/.config/dmenu/mpdmenu -p "mpd"
+
+# make sxhkd reload its configuration files:
+super + Escape
+  pkill -USR1 -x sxhkd
+
+# lock screen
+super + e
+  slock
+
+# type clipboard
+super + ctrl + v
+  sleep .5 && xdotool getactivewindow windowactivate --sync type --clearmodifiers --delay 50 "$(xclip -o -selection clipboard)"
+
+#
+# media keys
+#
+
+# Raise volume
+# note: also ensures audio is enabled
+XF86AudioRaiseVolume
+  amixer -q set Master 5%+ on
+
+# Lower volume
+# note:  intentionally does not unmute
+XF86AudioLowerVolume
+  amixer -q set Master 5%-
+
+# Mute/unmute audio
+XF86AudioMute
+  amixer -q set Master toggle
+
+# Increase birghtness
+XF86KbdBrightnessUp
+XF86MonBrightnessUp
+  light -A 10
+
+# Decrease birghtness
+XF86KbdBrightnessDown
+XF86MonBrightnessDown
+  light -U 10
+
+#
+# bspwm hotkeys
+#
+
+# quit bspwm normally
+super + shift + Escape
+  bspc quit
+
+# close and kill
+super + {_,shift + }w
+  bspc node -{c,k}
+
+# alternate between the tiled and monocle layout
+super + m
+  bspc desktop -l next
+
+# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
+super + y
+  bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+
+# swap the current node and the biggest node
+super + g
+  bspc node -s biggest
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+  bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
+
+# set the node flags
+super + ctrl + {x,y,z}
+  bspc node -g {locked,sticky,private}
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+  bspc node -{f,s} {west,south,north,east}
+
+# focus the node for the given path jump
+super + {p,b,comma,period}
+  bspc node -f @{parent,brother,first,second}
+
+# focus the next/previous node
+super + bracket{left,right}
+  bspc node -f {prev,next}
+
+# focus the next/previous desktop
+super + brace{left,right}
+  bspc desktop -f {prev,next}
+
+# focus the last node/desktop
+super + {grave,Tab}
+  bspc {node,desktop} -f last
+
+# focus the older or newer node in the focus history
+super + {o,i}
+  bspc wm -h off; \
+  bspc node {older,newer} -f; \
+  bspc wm -h on
+
+# focus or send to the given desktop
+super + {_,shift + }{1-9,0}
+  bspc {desktop -f,node -d} '^{1-9,10}'
+
+#
+# preselect/move/resize
+#
+
+# preselect the direction or move a floating window
+super + ctrl + {h,j,k,l}
+  direction={west,south,north,east}; \
+  bspc node -p $direction || case $direction in \
+    west)  bspc node -v -20 0;; \
+    south) bspc node -v 0 20;; \
+    north) bspc node -v 0 -20;; \
+    east)  bspc node -v 20 0;; \
+  esac
+
+# preselect the ratio
+super + ctrl + {1-9}
+  bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + ctrl + space
+  bspc node -p cancel
+
+# cancel the preselection for the focused desktop
+super + ctrl + shift + space
+  bspc query -N -d | xargs -I id -n 1 bspc node id -p cancel
+
+# expand a window by moving one of its side outward
+super + alt + {h,j,k,l}
+  bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+
+# contract a window by moving one of its side inward
+super + alt + shift + {h,j,k,l}
+  bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}

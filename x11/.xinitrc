@@ -11,16 +11,21 @@ fi
 # Load profile
 source ~/.profile
 
-# Start guest additions if available
-if command -v VBoxClient-all >/dev/null 2>&1; then
-  VBoxClient-all
-fi
+# Set DPI
+xrandr --dpi 196
+
+# Update XResouces
+xrdb -merge ~/.Xresources
 
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr
 
 # Load custom keyboard mappings
 xmodmap ~/.xmodmap
+
+# Update mouse acceleration
+xinput --set-prop 10 'libinput Accel Speed' 0.5 # touchpad
+xinput --set-prop 15 'libinput Accel Speed' 0.5 # mouse
 
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
@@ -37,19 +42,24 @@ if [ -f ~/.config/dmenu/clipmenu/clipmenud ]; then
   ~/.config/dmenu/clipmenu/clipmenud &
 fi
 
-# Start DavMail
-if command -v davmail >/dev/null 2>&1; then
-  davmail ~/.davmail.properties &
-fi
-
-# Start offlineimap
-if command -v offlineimap >/dev/null 2>&1; then
-  offlineimap &
+# Start notification daemon
+if command -v dunst >/dev/null 2>&1; then
+  dunst &
 fi
 
 # Start music manager daemon
 if command -v mopidy >/dev/null 2>&1; then
   mopidy &
+fi
+
+# Start bitlbee
+if command -v bitlbee >/dev/null 2>&1; then
+  bitlbee &
+fi
+
+# Start redshift
+if command -v redshift-gtk >/dev/null 2>&1; then
+  redshift-gtk &
 fi
 
 # Start dropbox
