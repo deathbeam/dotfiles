@@ -10,12 +10,6 @@ fi
 # Enable colors
 export CLICOLOR=1
 
-# Enable QT dpi scale
-export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
-# GDK scale
-export GDK_SCALE=2
-
 # }}}
 
 # Aliases & functions {{{

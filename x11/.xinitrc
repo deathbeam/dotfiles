@@ -11,11 +11,18 @@ fi
 # Load profile
 source ~/.profile
 
-# Set DPI
-xrandr --dpi 196
+# Set HiDPI
+if [[ -z "${LDPI}" ]]; then
+  xrandr --dpi 96
+  export QT_AUTO_SCREEN_SCALE_FACTOR=1
+  export GDK_SCALE=2
+  export POLYBAR_BAR_HEIGHT=80
 
-# Update XResouces
-xrdb -merge ~/.Xresources
+  # Update XResouces
+  xrdb -merge ~/.Xresources
+else
+  export POLYBAR_BAR_HEIGHT=40
+fi
 
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr

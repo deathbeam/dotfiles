@@ -33,8 +33,14 @@ yay --noconfirm -S \
   libspotify mpc ncmpcpp \
   bitlbee bitlbee-discord-git bitlbee-facebook \
   perl-html-parser perl-text-charwidth irssi \
-  httpie sshpass
+  httpie sshpass \
+  docker
 
+# Enable docker for current user
+sudo usermod -aG docker "$USER"
+newgrp docker
+
+# Update XDG
 xdg-user-dirs-update
 
 # Install some stuff for development
