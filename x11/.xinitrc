@@ -13,7 +13,7 @@ source ~/.profile
 
 # Set HiDPI
 if [[ -z "${LDPI}" ]]; then
-  xrandr --dpi 96
+  xrandr --dpi 196
   export QT_AUTO_SCREEN_SCALE_FACTOR=1
   export GDK_SCALE=2
   export POLYBAR_BAR_HEIGHT=80

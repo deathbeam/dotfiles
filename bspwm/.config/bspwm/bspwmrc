@@ -17,11 +17,5 @@ bspc config split_ratio          0.52
 bspc config borderless_monocle   false
 bspc config gapless_monocle      false
 
-# Terminate already running bar instances
-killall -q polybar
-while pgrep -x polybar >/dev/null; do sleep 1; done
-
 # Start polybar
-for m in $(polybar --list-monitors | cut -d":" -f1); do
-  MONITOR=$m polybar --reload main &
-done
+~/.config/polybar/start.sh
