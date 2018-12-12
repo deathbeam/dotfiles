@@ -11,6 +11,11 @@ fi
 # Load profile
 source ~/.profile
 
+# Start VirtualBox guest additions
+if command -v VBoxClient-all >/dev/null 2>&1; then
+  VBoxClient-all
+fi
+
 # Set HiDPI
 if [[ -z "${LDPI}" ]]; then
   xrandr --dpi 196
