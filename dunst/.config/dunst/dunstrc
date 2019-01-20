@@ -30,15 +30,19 @@ transparency = 0
 word_wrap = yes
 frame_width = 1
 
+[play_sound]
+summary = "*"
+script = ~/.config/dunst/alert.sh
+
 [urgency_low]
 background = "#002b36"
 foreground = "#839496"
-timeout = 0
+timeout = 10
 
 [urgency_normal]
 background = "#073642"
 foreground = "#93a1a1"
-timeout = 0
+timeout = 10
 
 [urgency_critical]
 background = "#268bd2"

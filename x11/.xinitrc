@@ -89,5 +89,10 @@ if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
 fi
 
+# Start touchegg
+if command -v touchegg >/dev/null 2>&1; then
+  touchegg &
+fi
+
 # And finally, start our WM
 exec bspwm

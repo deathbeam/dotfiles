@@ -75,10 +75,12 @@
   # Include user configuration
   path = ~/.gitconfig.local
 
-[user]
-	name = Tomas Slusny
-	email = slusnucky@gmail.com
 [credential]
-	helper = store
+  helper = store
+
 [http]
-	postBuffer = 524288000
+  postBuffer = 524288000
+
+[user]
+  name = Tomas Slusny
+  email = slusnucky@gmail.com

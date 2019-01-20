@@ -84,7 +84,7 @@ yay --noconfirm -S \
   feh zathura zathura-pdf-mupdf imagemagick \
   mpv flashplugin qt5-webengine qt5-webengine-widevine qutebrowser \
   libnotify dunst \
-  bspwm sxhkd polybar-git \
+  bspwm sxhkd polybar-git touchegg \
   discord \
   intellij-idea-ultimate-edition
 
@@ -92,6 +92,7 @@ yay --noconfirm -S \
 xdg-settings set default-web-browser qutebrowser.desktop
 
 # Install extra packages from source
+echo '==> Installing packages from source'
 mkdir -p ~/git
 cd ~/git
 
