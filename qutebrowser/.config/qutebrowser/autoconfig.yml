@@ -3,5 +3,5 @@
 
 config_version: 2
 settings:
-  content.plugins:
+  content.javascript.enabled:
     global: true

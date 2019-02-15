@@ -45,7 +45,9 @@ xdg-user-dirs-update
 
 # Install some stuff for development
 echo '==> Installing development packages'
-yay --noconfirm -S jdk8-openjdk maven npm hub git-review
+yay --noconfirm -S jdk8-openjdk openjdk8-doc openjdk8-src \
+  jdk-openjdk openjdk-doc openjdk-src \
+  maven npm hub git-review
 
 echo '==> Installing python packages'
 yay --noconfirm -S \
