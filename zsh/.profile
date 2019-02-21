@@ -35,4 +35,8 @@ export VISUAL="$EDITOR"
 # Auto scale for QT5 apps
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
+# Better browsing
+export QTWEBENGINE_REMOTE_DEBUGGING="10300"
+export QTWEBENGINE_CHROMIUM_FLAGS="--v=1 --enable-logging --log-level=0"
+
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"

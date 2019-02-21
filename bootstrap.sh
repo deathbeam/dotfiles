@@ -27,8 +27,8 @@ yay --noconfirm -S \
   acpi redshift-gtk \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
-  stow w3m zsh tmux ripgrep mlocate htop \
-  dropbox pass ranger \
+  stow w3m zsh tmux ripgrep mlocate htop ranger \
+  dropbox pass pass-otp zbar \
   vim universal-ctags-git editorconfig-core-c \
   libspotify mpc ncmpcpp \
   bitlbee bitlbee-discord-git bitlbee-facebook \
