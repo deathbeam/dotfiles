@@ -25,7 +25,7 @@ makepkg PKGBUILD --skippgpcheck --install --noconfirm --needed
 
 # Install some extra packages via yay
 echo '==> Installing extra packages'
-yay --noconfirm --skipinteg -S \
+yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
@@ -49,12 +49,13 @@ xdg-user-dirs-update
 
 # Install some stuff for development
 echo '==> Installing development packages'
-yay --noconfirm --skipinteg -S jdk8-openjdk openjdk8-doc openjdk8-src \
+yay --noconfirm -S --mflags --skipinteg \
+  jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
   maven npm hub git-review
 
 echo '==> Installing python packages'
-yay --noconfirm --skipinteg -S \
+yay --noconfirm -S --mflags --skipinteg \
   python-pip python2-pip \
   gst-plugins-good gst-plugins-ugly gst-python2 gstreamer
 
@@ -67,14 +68,14 @@ make
 cd ~
 
 echo '==> Installing extra X11 packages'
-yay --noconfirm --skipinteg -S \
+yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
   xorg-fonts-misc xsel xclip autocutsel \
   xf86-input-libinput
 
 # Improve font rendering and install extra fonts
 echo '==> Configuring improved font rendering'
-yay --noconfirm --skipinteg -S \
+yay --noconfirm -S --mflags --skipinteg \
   freetype2 cairo libxft \
   fonts-meta-base fonts-meta-extended-lt \
   terminus-font-ttf terminus-font ttf-font-awesome
@@ -86,7 +87,7 @@ fc-cache -f
 # Install applications
 echo '==> Installing X11 applications'
 pip install --user pyopengl
-yay --noconfirm --skipinteg -S \
+yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   mpv flashplugin qt5-webengine qt5-webengine-widevine qutebrowser \
   libnotify dunst \
