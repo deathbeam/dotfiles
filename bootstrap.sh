@@ -10,6 +10,10 @@ if [ ! -f /swapfile ]; then
   echo '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
 fi
 
+# Install devel packages
+echo '==> Installing base-devel'
+sudo pacman --noconfirm -S base-devel
+
 # Install AUR helper
 echo '==> Installing AUR helper'
 rm -rf /tmp/aur_install
