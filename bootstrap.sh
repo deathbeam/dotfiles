@@ -28,7 +28,7 @@ echo '==> Installing extra packages'
 yay --noconfirm -S \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
-  acpi redshift-gtk \
+  acpi redshift \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
   stow w3m zsh tmux ripgrep mlocate htop ranger \
