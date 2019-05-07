@@ -89,7 +89,7 @@ echo '==> Installing X11 applications'
 pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
-  mpv flashplugin qt5-webengine qt5-webengine-widevine qutebrowser \
+  mpv flashplugin qt5-webengine qutebrowser \
   libnotify dunst \
   bspwm sxhkd polybar-git touchegg \
   discord \
