@@ -38,7 +38,8 @@ yay --noconfirm -S --mflags --skipinteg \
   bitlbee bitlbee-discord-git bitlbee-facebook \
   perl-html-parser perl-text-charwidth irssi \
   httpie sshpass \
-  docker
+  docker \
+  stoken openvpn
 
 # Enable docker for current user
 sudo usermod -aG docker "$USER"
@@ -60,6 +61,7 @@ yay --noconfirm -S --mflags --skipinteg \
   gst-plugins-good gst-plugins-ugly gst-python2 gstreamer
 
 pip2 install --user mopidy mopidy-spotify mopidy-scrobbler
+pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
 echo '==> Installing configuration files'
 git clone https://github.com/deathbeam/dotfiles ~/.dotfiles || true
