@@ -39,7 +39,8 @@ yay --noconfirm -S --mflags --skipinteg \
   perl-html-parser perl-text-charwidth irssi \
   httpie sshpass \
   docker \
-  stoken openvpn wget
+  stoken openvpn wget \
+  tlp newsboat
 
 # Enable docker for current user
 sudo usermod -aG docker "$USER"

@@ -3,5 +3,5 @@
 
 config_version: 2
 settings:
-  content.javascript.enabled:
+  content.javascript.can_open_tabs_automatically:
     global: true

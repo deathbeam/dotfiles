@@ -4,7 +4,7 @@
 export PYENV_ROOT="$HOME/.pyenv"
 
 # Adjust path to use various bin folders
-export PATH="$PYENV_ROOT/bin:$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.5.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
+export PATH="$PYENV_ROOT/bin:$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.6.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
 
 # Set go path to user home
 export GOPATH="$HOME/go"

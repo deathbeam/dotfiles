@@ -42,6 +42,18 @@ super + ctrl + v
   sleep .5 && xdotool getactivewindow windowactivate --sync type --clearmodifiers --delay 50 "$(xclip -o -selection clipboard)"
 
 #
+# games
+#
+
+# input 123
+~grave
+  ~/.config/sxhkd/poe.sh "onetwo" 'grave'
+
+# go to hideout
+~Control_R
+  ~/.config/sxhkd/poe.sh "home" "Control_R"
+
+#
 # media keys
 #
 
