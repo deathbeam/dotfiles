@@ -270,7 +270,7 @@ let g:vimwiki_global_ext=0
 let g:vimwiki_table_mappings = 0
 
 " EditorConfig
-let g:EditorConfig_core_mode = 'external_command' " Speed up editorconfig plugin
+let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
 " Fugitive

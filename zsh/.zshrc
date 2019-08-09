@@ -26,6 +26,25 @@ fi
 # Open Vim and start saving it's session
 alias vims='vim -c "Session"'
 
+# Set proxy
+function setproxy {
+  export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
+  export http_proxy=$1
+  export https_proxy=$http_proxy
+  export ftp_proxy=$http_proxy
+  export rsync_proxy=$http_proxy
+  export HTTP_PROXY=$http_proxy
+  export HTTPS_PROXY=$http_proxy
+  export FTP_PROXY=$http_proxy
+  export RSYNC_PROXY=$http_proxy
+}
+
+# Unset proxy
+function unsetproxy {
+  unset http_proxy https_proxy ftp_proxy rsync_proxy \
+    HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY
+}
+
 # }}}
 
 # Plugins {{{
@@ -51,8 +70,12 @@ if [ -f $ZIM_HOME/init.zsh ]; then
     history-substring-search \
     completion)
 
+  # Use VI input mode
+  zinput_mode='vi'
+
   # Pacman
   zpacman_frontend='yay'
+  zpacman_helper=()
 
   # This appends '../' to your input for each '.' you type after an initial '..'
   zdouble_dot_expand='true'
@@ -62,7 +85,7 @@ if [ -f $ZIM_HOME/init.zsh ]; then
   ztermtitle='%n@%m:%~'
 
   # This determines what highlighters will be used with the syntax-highlighting module.
-  zhighlighters=(main brackets cursor)
+  zhighlighters=(main brackets pattern cursor)
 
   # Set prompt theme
   zprompt_theme='pure'

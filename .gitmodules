@@ -28,13 +28,13 @@
 	url = https://github.com/tpope/vim-pathogen
 [submodule "vim/.vim/bundle/vim-fugitive"]
 	path = vim/.vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
+	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/.vim/bundle/vim-snippets"]
 	path = vim/.vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
 [submodule "vim/.vim/bundle/vim-repeat"]
 	path = vim/.vim/bundle/vim-repeat
-	url = git://github.com/tpope/vim-repeat.git
+	url = https://github.com/tpope/vim-repeat
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/bundle/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -97,7 +97,7 @@
 	url = https://github.com/metakirby5/codi.vim
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
-	url = https://github.com/junegunn/fzf.git
+	url = https://github.com/junegunn/fzf
 [submodule "zsh/.zim"]
 	path = zsh/.zim
 	url = https://github.com/Eriner/zim
@@ -136,7 +136,7 @@
 	url = https://github.com/fatih/vim-go
 [submodule "pyenv/.pyenv"]
 	path = pyenv/.pyenv
-	url = https://github.com/pyenv/pyenv.git
+	url = https://github.com/pyenv/pyenv
 [submodule "zsh/.zsh/bundle/imgur.sh"]
 	path = zsh/.zsh/bundle/imgur.sh
 	url = https://github.com/tremby/imgur.sh

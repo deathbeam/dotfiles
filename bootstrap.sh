@@ -37,9 +37,11 @@ yay --noconfirm -S --mflags --skipinteg \
   libspotify mpc ncmpcpp \
   bitlbee bitlbee-discord-git bitlbee-facebook \
   perl-html-parser perl-text-charwidth irssi \
-  httpie sshpass \
-  docker \
-  stoken openvpn wget
+  httpie sshpass ntp stoken openvpn wget jq
+
+# Enable vbox access for current user
+sudo usermod -a -G vboxsf $(whoami)
+newgrp vboxsf
 
 # Enable docker for current user
 sudo usermod -aG docker "$USER"
@@ -53,7 +55,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm hub git-review
+  maven npm hub git-review docker
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
