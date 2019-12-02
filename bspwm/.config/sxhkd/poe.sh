@@ -13,7 +13,7 @@ fi
 sleep .5
 
 if [[ $command = "onetwo" ]]; then
-  xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "2345"
+  xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "345"
 elif [[ $command = "home" ]]; then
   xdotool getwindowfocus key --window %@ Return
   xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "/hideout"

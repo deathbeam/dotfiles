@@ -30,6 +30,7 @@ yay --noconfirm -S --mflags --skipinteg \
   xdg-utils xdg-user-dirs \
   acpi redshift \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
+  lib32-alsa-plugins \
   pulseaudio pulseaudio-alsa \
   stow w3m zsh tmux ripgrep mlocate htop ranger \
   dropbox pass pass-otp zbar \
@@ -61,7 +62,8 @@ yay --noconfirm -S --mflags --skipinteg \
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
   python-pip python2-pip \
-  gst-plugins-good gst-plugins-ugly gst-python2 gstreamer
+  gst-plugins-good gst-plugins-ugly gst-python2 gstreamer \
+  python-dbus
 
 pip2 install --user mopidy mopidy-spotify mopidy-scrobbler
 pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
@@ -76,7 +78,8 @@ echo '==> Installing extra X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
   xorg-fonts-misc xsel xclip autocutsel \
-  xf86-input-libinput
+  xf86-input-libinput \
+  upower
 
 # Improve font rendering and install extra fonts
 echo '==> Configuring improved font rendering'
@@ -95,6 +98,7 @@ pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   mpv flashplugin qt5-webengine qutebrowser \
+  chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar-git touchegg \
   discord \

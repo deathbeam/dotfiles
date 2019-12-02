@@ -1,5 +1,6 @@
 # Enable plugins
 c.content.plugins = True
+c.qt.args = ['ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so']
 
 # Adjust font and font size
 c.fonts.completion.category = "bold 16pt monospace"
