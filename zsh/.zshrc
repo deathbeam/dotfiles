@@ -10,6 +10,16 @@ fi
 # Enable colors
 export CLICOLOR=1
 
+# Remove older command from the history if a duplicate is to be added.
+setopt HIST_IGNORE_ALL_DUPS
+
+# Set editor default keymap to emacs (`-e`) or vi (`-v`)
+bindkey -e
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
+
+
 # }}}
 
 # Aliases & functions {{{
@@ -49,54 +59,21 @@ function unsetproxy {
 
 # Plugins {{{
 
-# Load zim
-if [ -f $ZIM_HOME/init.zsh ]; then
-  # Select what modules you would like enabled.
-  zmodules=( \
-    archive \
-    autosuggestions \
-    directory \
-    environment \
-    fasd \
-    git \
-    git-info \
-    history \
-    input \
-    utility \
-    pacman \
-    prompt \
-    ssh \
-    syntax-highlighting \
-    history-substring-search \
-    completion)
+# Expand dots
+zstyle ':zim:input' double-dot-expand yes
 
-  # Use VI input mode
-  zinput_mode='vi'
+# Pacman
+zstyle ':zim:pacman' frontend
 
-  # Pacman
-  zpacman_frontend='yay'
-  zpacman_helper=()
+# Set the string below to the desired terminal title format string.
+# Below uses the following format: 'username@host:/current/directory'
+zstyle ':zim:termtitle' format '%n@%m:%~'
 
-  # This appends '../' to your input for each '.' you type after an initial '..'
-  zdouble_dot_expand='true'
+# Set git alias prefix
+zstyle ':zim:git' aliases-prefix g
 
-  # Set the string below to the desired terminal title format string.
-  # Below uses the following format: 'username@host:/current/directory'
-  ztermtitle='%n@%m:%~'
-
-  # This determines what highlighters will be used with the syntax-highlighting module.
-  zhighlighters=(main brackets pattern cursor)
-
-  # Set prompt theme
-  zprompt_theme='pure'
-  PURE_PROMPT_SYMBOL='$'
-
-  # Load these ssh identities with the ssh module
-  zssh_ids=(id_rsa)
-
-  # Source zim
-  source $ZIM_HOME/init.zsh
-fi
+# This determines what highlighters will be used with the syntax-highlighting module.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 # Load pyenv
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
@@ -108,8 +85,24 @@ command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Pathogen-like loader for plugins
-find -L ~/.zsh/bundle -type f -name "*.plugin.zsh" | sort |
-while read filename; do source "$filename"; done
+find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort |
+while read filename; do source "$filename" >/dev/null 2>&1; done
+
+# Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
+bindkey '^[[A' history-substring-search-up
+bindkey '^[[B' history-substring-search-down
+
+# Bind up and down keys
+zmodload -F zsh/terminfo +p:terminfo
+if [[ -n ${terminfo[kcuu1]} && -n ${terminfo[kcud1]} ]]; then
+  bindkey ${terminfo[kcuu1]} history-substring-search-up
+  bindkey ${terminfo[kcud1]} history-substring-search-down
+fi
+
+bindkey '^P' history-substring-search-up
+bindkey '^N' history-substring-search-down
+bindkey -M vicmd 'k' history-substring-search-up
+bindkey -M vicmd 'j' history-substring-search-down
 
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

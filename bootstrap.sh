@@ -39,7 +39,7 @@ yay --noconfirm -S --mflags --skipinteg \
   bitlbee bitlbee-discord-git bitlbee-facebook \
   perl-html-parser perl-text-charwidth irssi \
   httpie sshpass ntp stoken openvpn wget jq \
-  tlp newsboat
+  tlp newsboat cpus udisks2
 
 # Enable vbox access for current user
 sudo usermod -a -G vboxsf $(whoami)

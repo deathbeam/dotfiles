@@ -98,9 +98,6 @@
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf
-[submodule "zsh/.zim"]
-	path = zsh/.zim
-	url = https://github.com/Eriner/zim
 [submodule "zsh/.zsh/bundle/base16-shell"]
 	path = zsh/.zsh/bundle/base16-shell
 	url = https://github.com/chriskempson/base16-shell
@@ -149,3 +146,45 @@
 [submodule "vim/.vim/bundle/vim-rhubarb"]
 	path = vim/.vim/bundle/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
+[submodule "zsh/.zsh/bundle/utility"]
+	path = zsh/.zsh/bundle/utility
+	url = https://github.com/zimfw/utility
+[submodule "zsh/.zsh/bundle/archive"]
+	path = zsh/.zsh/bundle/archive
+	url = https://github.com/zimfw/archive
+[submodule "zsh/.zsh/bundle/zsh-autosuggestions"]
+	path = zsh/.zsh/bundle/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
+[submodule "zsh/.zsh/bundle/zsh-syntax-highlighting"]
+	path = zsh/.zsh/bundle/zsh-syntax-highlighting
+	url = https://github.com/zsh-users/zsh-syntax-highlighting
+[submodule "zsh/.zsh/bundle/git"]
+	path = zsh/.zsh/bundle/git
+	url = https://github.com/zimfw/git
+[submodule "zsh/.zsh/bundle/history"]
+	path = zsh/.zsh/bundle/history
+	url = https://github.com/zimfw/history
+[submodule "zsh/.zsh/bundle/zim-completion"]
+	path = zsh/.zsh/bundle/zim-completion
+	url = https://github.com/zimfw/completion
+[submodule "zsh/.zsh/bundle/input"]
+	path = zsh/.zsh/bundle/input
+	url = https://github.com/zimfw/input
+[submodule "zsh/.zsh/bundle/termtitle"]
+	path = zsh/.zsh/bundle/termtitle
+	url = https://github.com/zimfw/termtitle
+[submodule "zsh/.zsh/bundle/history-substring-search"]
+	path = zsh/.zsh/bundle/history-substring-search
+	url = https://github.com/zimfw/history-substring-search
+[submodule "zsh/.zsh/bundle/ssh"]
+	path = zsh/.zsh/bundle/ssh
+	url = https://github.com/zimfw/ssh
+[submodule "zsh/.zsh/bundle/pacman"]
+	path = zsh/.zsh/bundle/pacman
+	url = https://github.com/zimfw/pacman
+[submodule "zsh/.zsh/bundle/git-info"]
+	path = zsh/.zsh/bundle/git-info
+	url = https://github.com/zimfw/git-info
+[submodule "zsh/.zsh/bundle/pure"]
+	path = zsh/.zsh/bundle/pure
+	url = https://github.com/sindresorhus/pure

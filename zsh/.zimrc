@@ -1,0 +1,31 @@
+# Select what modules you would like enabled.
+zmodule archive
+zmodule autosuggestions
+zmodule environment
+zmodule fasd
+zmodule git
+zmodule git-info
+zmodule history
+zmodule input
+zmodule utility
+zmodule pacman
+zmodule prompt
+zmodule ssh
+zmodule termtitle
+zmodule completion
+zmodule zsh-users/zsh-autosuggestions
+zmodule zsh-users/zsh-syntax-highlighting
+zmodule history-substring-search
+
+# Pacman
+zstyle ':zim:pacman' frontend
+
+# Set the string below to the desired terminal title format string.
+# Below uses the following format: 'username@host:/current/directory'
+zstyle ':zim:termtitle' format '%n@%m:%~'
+
+# This determines what highlighters will be used with the syntax-highlighting module.
+ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
+
+# Set prompt theme
+zmodule sindresorhus/pure
