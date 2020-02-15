@@ -188,3 +188,6 @@
 [submodule "zsh/.zsh/bundle/pure"]
 	path = zsh/.zsh/bundle/pure
 	url = https://github.com/sindresorhus/pure
+[submodule "zsh/.zsh/bundle/fasd"]
+	path = zsh/.zsh/bundle/fasd
+	url = https://github.com/clvv/fasd
