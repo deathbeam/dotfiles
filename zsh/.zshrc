@@ -117,12 +117,12 @@ elif command -v ag >/dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 
-export FZF_DEFAULT_OPTS='--preview "[[ $(file --mime {}) =~ binary ]] &&
-  echo {} is a binary file ||
-  (highlight -O ansi -l {} ||
-  coderay {} ||
-  rougify {} ||
-  cat {}) 2> /dev/null | head -500"'
+# export FZF_DEFAULT_OPTS='--preview "[[ $(file --mime {}) =~ binary ]] &&
+#   echo {} is a binary file ||
+#   (highlight -O ansi -l {} ||
+#   coderay {} ||
+#   rougify {} ||
+#   cat {}) 2> /dev/null | head -500"'
 
 # Load base16 theme
 [ -z $BASE16_THEME ] && base16_solarized-dark
