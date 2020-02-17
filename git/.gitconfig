@@ -84,6 +84,3 @@
 [user]
   name = Tomas Slusny
   email = slusnucky@gmail.com
-
-[url "https://"]
-	insteadOf = git://
