@@ -32,7 +32,9 @@ export LC_ALL="en_US.UTF-8"
 export EDITOR="vim"
 export VISUAL="$EDITOR"
 
-# Auto scale for QT5 apps
+# Auto scale for QT5/GDK apps
+export GDK_SCALE=2
+export GDK_DPI_SCALE=0.5
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 # Better browsing

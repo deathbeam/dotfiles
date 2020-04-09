@@ -79,6 +79,7 @@ yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
   xorg-fonts-misc xsel xclip autocutsel \
   xf86-input-libinput \
+  libva-inter-driver \
   upower
 
 # Improve font rendering and install extra fonts
