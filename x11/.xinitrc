@@ -16,18 +16,20 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
   VBoxClient-all
 fi
 
-# Set HiDPI
+# Set DPI
 if [[ -z "${LDPI}" ]]; then
-  xrandr --dpi 196
-  export QT_AUTO_SCREEN_SCALE_FACTOR=1
   export GDK_SCALE=2
+  export GDK_DPI_SCALE=0.5
+  export DPI=196
   export POLYBAR_BAR_HEIGHT=80
-
-  # Update XResouces
-  xrdb -merge ~/.Xresources
 else
+  xrandr -s 1920x1080
+  export DPI=96
   export POLYBAR_BAR_HEIGHT=40
 fi
+
+xrandr --dpi ${DPI}
+xrdb -D"DPI=$DPI" -merge ~/.Xresources
 
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr

@@ -5,3 +5,6 @@
 # Instead, create a config.py - see :help for details.
 
 config_version: 2
+settings:
+  content.javascript.enabled:
+    global: true
