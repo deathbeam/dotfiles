@@ -85,8 +85,20 @@ command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Pathogen-like loader for plugins
-find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort |
-while read filename; do source "$filename" >/dev/null 2>&1; done
+while read filename; do
+  plugindir="$(dirname $filename)"
+  functiondir="$plugindir/functions"
+  if [ -d "$functiondir" ]; then
+    fpath=( "$functiondir" "${fpath[@]}" )
+
+    for pluginfunction in $functiondir/*(.); do
+      functionname="$(basename $pluginfunction)"
+      autoload -Uz $functionname
+    done
+  fi
+
+  source "$filename" >/dev/null 2>&1
+done <<< $(find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
 
 # Bind ^[[A/^[[B manually so up/down works both before and after zle-line-init
 bindkey '^[[A' history-substring-search-up
