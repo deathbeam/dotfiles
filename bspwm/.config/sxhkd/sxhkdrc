@@ -41,6 +41,10 @@ super + e
 super + ctrl + v
   sleep .5 && xdotool getactivewindow windowactivate --sync type --clearmodifiers --delay 50 "$(xclip -o -selection clipboard)"
 
+# screenshot
+super + alt + s
+  import png:- | xclip -selection clipboard -t image/png
+
 #
 # games
 #
