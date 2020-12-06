@@ -134,9 +134,6 @@
 [submodule "pyenv/.pyenv"]
 	path = pyenv/.pyenv
 	url = https://github.com/pyenv/pyenv
-[submodule "zsh/.zsh/bundle/imgur.sh"]
-	path = zsh/.zsh/bundle/imgur.sh
-	url = https://github.com/tremby/imgur.sh
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/bundle/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
@@ -191,3 +188,7 @@
 [submodule "zsh/.zsh/bundle/fasd"]
 	path = zsh/.zsh/bundle/fasd
 	url = https://github.com/clvv/fasd
+[submodule "zsh/.zsh/bundle/imgur.sh"]
+	path = zsh/.zsh/bundle/imgur.sh
+	url = https://github.com/tremby/imgur.sh
+	branch = main

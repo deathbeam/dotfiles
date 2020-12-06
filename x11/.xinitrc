@@ -41,6 +41,9 @@ xmodmap ~/.xmodmap
 xinput --set-prop 10 'libinput Accel Speed' 0.5 # touchpad
 xinput --set-prop 15 'libinput Accel Speed' 0.5 # mouse
 
+# Disable touch screen
+xipnut disable 'Wacom HID 50F0 Finger'
+
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
   feh --bg-scale ~/.wallpaper

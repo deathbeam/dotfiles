@@ -3,21 +3,25 @@ c.content.plugins = True
 c.qt.args = ['ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so']
 
 # Adjust font and font size
-c.fonts.completion.category = "bold 16pt Terminus"
-c.fonts.completion.entry = "16pt Terminus"
-c.fonts.debug_console = "16pt Terminus"
-c.fonts.downloads = "16pt Terminus"
-c.fonts.hints = "16pt Terminus"
-c.fonts.keyhint = "16pt Terminus"
-c.fonts.messages.error = "16pt Terminus"
-c.fonts.messages.info = "16pt Terminus"
-c.fonts.messages.warning = "16pt Terminus"
-c.fonts.default_family = "Terminus, monospace"
-c.fonts.default_size = "16pt"
-c.fonts.prompts = "16pt Terminus"
-c.fonts.statusbar = "16pt Terminus"
-c.fonts.tabs = "16pt Terminus"
+# c.fonts.completion.category = "bold 16pt Terminus"
+# c.fonts.completion.entry = "16pt Terminus"
+# c.fonts.debug_console = "16pt Terminus"
+# c.fonts.downloads = "16pt Terminus"
+# c.fonts.hints = "16pt Terminus"
+# c.fonts.keyhint = "16pt Terminus"
+# c.fonts.messages.error = "16pt Terminus"
+# c.fonts.messages.info = "16pt Terminus"
+# c.fonts.messages.warning = "16pt Terminus"
+# c.fonts.default_size = "16pt"
+# c.fonts.prompts = "16pt Terminus"
+# c.fonts.statusbar = "16pt Terminus"
+# c.fonts.tabs.selected = "16pt Terminus"
+# c.fonts.tabs.unselected = "16pt Terminus"
 # c.fonts.monospace = "Terminus, monospace"
+c.fonts.default_family = "Terminus"
+c.fonts.default_size = "16pt"
+c.fonts.web.family.standard = "Terminus"
+c.fonts.web.size.default = 16
 
 # Tabs
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
@@ -94,6 +98,12 @@ c.colors.completion.scrollbar.fg = base05
 
 # Color of the scrollbar in the completion view.
 c.colors.completion.scrollbar.bg = base00
+
+# Background color of disabled items in the context menu.
+c.colors.contextmenu.disabled.bg = base01
+
+# Foreground color of disabled items in the context menu.
+c.colors.contextmenu.disabled.fg = base04
 
 # Background color of the context menu. If set to null, the Qt default is used.
 c.colors.contextmenu.menu.bg = base00
@@ -316,4 +326,4 @@ c.colors.tabs.selected.even.bg = base0D
 
 # Background color for webpages if unset (or empty to use the theme's
 # color).
-c.colors.webpage.bg = base00
+# c.colors.webpage.bg = base00

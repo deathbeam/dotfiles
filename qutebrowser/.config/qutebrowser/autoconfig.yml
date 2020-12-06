@@ -6,5 +6,5 @@
 
 config_version: 2
 settings:
-  content.javascript.enabled:
-    global: true
+  content.mouse_lock:
+    https://hordes.io: false

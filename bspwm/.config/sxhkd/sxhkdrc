@@ -42,7 +42,7 @@ super + ctrl + v
   sleep .5 && xdotool getactivewindow windowactivate --sync type --clearmodifiers --delay 50 "$(xclip -o -selection clipboard)"
 
 # screenshot
-super + alt + s
+F11
   import png:- | xclip -selection clipboard -t image/png
 
 #
@@ -82,12 +82,12 @@ XF86AudioMicMute
 # Increase birghtness
 XF86KbdBrightnessUp
 XF86MonBrightnessUp
-  light -A 5
+  sudo light -A 5
 
 # Decrease birghtness
 XF86KbdBrightnessDown
 XF86MonBrightnessDown
-  light -U 5
+  sudo light -U 5
 
 # Print screen
 Print
