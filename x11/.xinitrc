@@ -17,7 +17,7 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
 fi
 
 # Set DPI
-if [[ -z "${LDPI}" ]]; then
+if [[ -z "${HDPI}" ]]; then
   export GDK_SCALE=2
   export GDK_DPI_SCALE=0.5
   export DPI=196
