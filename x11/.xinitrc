@@ -17,7 +17,7 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
 fi
 
 # Set DPI
-if [[ -z "${HDPI}" ]]; then
+if [[ -z "${LDPI}" ]]; then
   export GDK_SCALE=2
   export GDK_DPI_SCALE=0.5
   export DPI=196
@@ -59,6 +59,12 @@ if [ -f ~/.config/dmenu/clipmenu/clipmenud ]; then
   ~/.config/dmenu/clipmenu/clipmenud &
 fi
 
+# Start location daemon
+if [ -f /usr/lib/geoclue-2.0/demos/agent ]; then
+  /usr/lib/geoclue-2.0/demos/agent &
+fi
+
+
 # Start notification daemon
 if command -v dunst >/dev/null 2>&1; then
   dunst &
@@ -75,8 +81,8 @@ if command -v bitlbee >/dev/null 2>&1; then
 fi
 
 # Start redshift
-if command -v redshift-gtk >/dev/null 2>&1; then
-  redshift-gtk &
+if command -v redshift-qt >/dev/null 2>&1; then
+  redshift-qt &
 fi
 
 # Start dropbox

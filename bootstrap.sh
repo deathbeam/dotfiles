@@ -80,6 +80,7 @@ yay --noconfirm -S --mflags --skipinteg \
   xorg-fonts-misc xsel xclip autocutsel \
   xf86-input-libinput \
   libva-inter-driver \
+  redshift-qt \
   upower
 
 # Improve font rendering and install extra fonts
