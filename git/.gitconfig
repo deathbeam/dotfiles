@@ -71,10 +71,6 @@
   # Do not show prompt when calling diff tool
   prompt = false
 
-[include]
-  # Include user configuration
-  path = ~/.gitconfig.local
-
 [credential]
   helper = store
 
@@ -84,3 +80,7 @@
 [user]
   name = Tomas Slusny
   email = slusnucky@gmail.com
+
+[include]
+  # Include user configuration
+  path = ~/.gitconfig.local

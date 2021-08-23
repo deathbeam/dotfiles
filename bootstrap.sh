@@ -20,8 +20,9 @@ rm -rf /tmp/aur_install
 mkdir -p /tmp/aur_install
 cd /tmp/aur_install
 sudo pacman --noconfirm --needed -S git sudo go
-curl -o PKGBUILD 'https://aur.archlinux.org/cgit/aur.git/plain/PKGBUILD?h=yay'
-makepkg PKGBUILD --skippgpcheck --install --noconfirm --needed
+git clone https://aur.archlinux.org/yay.git
+cd yay
+makepkg -si
 
 # Install some extra packages via yay
 echo '==> Installing extra packages'

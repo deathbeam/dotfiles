@@ -15,6 +15,12 @@ export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 # Set zim home to user home
 export ZIM_HOME="$HOME/.zim"
 
+# Set JAVA_HOME
+export JAVA_HOME=/usr/lib/jvm/default
+
+# Enable Java SE
+export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
+
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1

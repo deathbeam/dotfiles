@@ -193,3 +193,6 @@
 	path = zsh/.zsh/bundle/imgur.sh
 	url = https://github.com/tremby/imgur.sh
 	branch = main
+[submodule "zsh/.zsh/bundle/environment"]
+	path = zsh/.zsh/bundle/environment
+	url = https://github.com/zimfw/environment

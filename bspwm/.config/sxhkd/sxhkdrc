@@ -7,7 +7,7 @@ super + Return
   st -e $SHELL -c "export PS1='temp'; \
                    source ~/.zsh/bundle/base16-shell/base16-shell.plugin.zsh; \
                    [ -z $BASE16_THEME ] && base16_solarized-dark; \
-                   tmux new-session -A -s main"
+                   tmux attach"
 
 # program menu
 super + space
