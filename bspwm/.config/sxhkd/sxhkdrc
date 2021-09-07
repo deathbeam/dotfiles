@@ -23,7 +23,7 @@ super + x
 
 # clipboard menu
 super + c
-  ~/.config/dmenu/clipmenu/clipmenu -p "clip"
+  clipmenu -p "clip"
 
 # music menu
 super + v
