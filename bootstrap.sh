@@ -130,6 +130,11 @@ cd ..
 git clone git://git.suckless.org/slock || true
 cd slock
 git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/slock.diff
+sudo make install
+cd ..
+
+git clone https://github.com/cdown/clipmenu.git || true
+cd clipmenu
 sudo make clean install
 cd ..
 

@@ -55,15 +55,14 @@ if command -v autocutsel >/dev/null 2>&1; then
 fi
 
 # Start clipboard manager daemon
-if [ -f ~/.config/dmenu/clipmenu/clipmenud ]; then
-  ~/.config/dmenu/clipmenu/clipmenud &
+if command -v clipmenud >/dev/null 2>&1; then
+  clipmenud &
 fi
 
 # Start location daemon
 if [ -f /usr/lib/geoclue-2.0/demos/agent ]; then
   /usr/lib/geoclue-2.0/demos/agent &
 fi
-
 
 # Start notification daemon
 if command -v dunst >/dev/null 2>&1; then
