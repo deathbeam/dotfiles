@@ -154,9 +154,6 @@
 [submodule "zsh/.zsh/bundle/git"]
 	path = zsh/.zsh/bundle/git
 	url = https://github.com/zimfw/git
-[submodule "zsh/.zsh/bundle/history"]
-	path = zsh/.zsh/bundle/history
-	url = https://github.com/zimfw/history
 [submodule "zsh/.zsh/bundle/zim-completion"]
 	path = zsh/.zsh/bundle/zim-completion
 	url = https://github.com/zimfw/completion
@@ -166,9 +163,6 @@
 [submodule "zsh/.zsh/bundle/termtitle"]
 	path = zsh/.zsh/bundle/termtitle
 	url = https://github.com/zimfw/termtitle
-[submodule "zsh/.zsh/bundle/history-substring-search"]
-	path = zsh/.zsh/bundle/history-substring-search
-	url = https://github.com/zimfw/history-substring-search
 [submodule "zsh/.zsh/bundle/ssh"]
 	path = zsh/.zsh/bundle/ssh
 	url = https://github.com/zimfw/ssh
