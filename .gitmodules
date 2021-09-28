@@ -192,3 +192,6 @@
 [submodule "zsh/.zsh/bundle/environment"]
 	path = zsh/.zsh/bundle/environment
 	url = https://github.com/zimfw/environment
+[submodule "zsh/.zsh/bundle/zsh-history-substring-search"]
+	path = zsh/.zsh/bundle/zsh-history-substring-search
+	url = https://github.com/zsh-users/zsh-history-substring-search

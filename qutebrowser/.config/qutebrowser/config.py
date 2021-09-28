@@ -1,23 +1,16 @@
+config.load_autoconfig(True)
+
 # Enable plugins
 c.content.plugins = True
 c.qt.args = ['ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so']
 
+# Adblock
+c.content.blocking.enabled = True
+c.content.blocking.method = 'auto'
+c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
+                                    'https://easylist.to/easylist/easyprivacy.txt']
+
 # Adjust font and font size
-# c.fonts.completion.category = "bold 16pt Terminus"
-# c.fonts.completion.entry = "16pt Terminus"
-# c.fonts.debug_console = "16pt Terminus"
-# c.fonts.downloads = "16pt Terminus"
-# c.fonts.hints = "16pt Terminus"
-# c.fonts.keyhint = "16pt Terminus"
-# c.fonts.messages.error = "16pt Terminus"
-# c.fonts.messages.info = "16pt Terminus"
-# c.fonts.messages.warning = "16pt Terminus"
-# c.fonts.default_size = "16pt"
-# c.fonts.prompts = "16pt Terminus"
-# c.fonts.statusbar = "16pt Terminus"
-# c.fonts.tabs.selected = "16pt Terminus"
-# c.fonts.tabs.unselected = "16pt Terminus"
-# c.fonts.monospace = "Terminus, monospace"
 c.fonts.default_family = "Terminus"
 c.fonts.default_size = "16pt"
 c.fonts.web.family.standard = "Terminus"
@@ -27,8 +20,8 @@ c.fonts.web.size.default = 16
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
 
 # Play videos with mpv
-config.bind('e', 'spawn mpv {url}')
-config.bind('E', 'hint links spawn mpv {hint-url}')
+config.bind('e', 'spawn --detach mpv {url}')
+config.bind('E', 'hint links spawn --detach mpv {hint-url}')
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)
 # Base16 qutebrowser template by theova and Daniel Mulford
