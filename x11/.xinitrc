@@ -17,15 +17,15 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
 fi
 
 # Set DPI
-if [[ -z "${LDPI}" ]]; then
+if [[ -z "${HDPI}" ]]; then
+  xrandr -s 1920x1080
+  export DPI=96
+  export POLYBAR_BAR_HEIGHT=40
+else
   export GDK_SCALE=2
   export GDK_DPI_SCALE=0.5
   export DPI=196
   export POLYBAR_BAR_HEIGHT=80
-else
-  xrandr -s 1920x1080
-  export DPI=96
-  export POLYBAR_BAR_HEIGHT=40
 fi
 
 xrandr --dpi ${DPI}
