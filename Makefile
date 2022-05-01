@@ -8,6 +8,8 @@ install:
 	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc
 	(cd vim/.vim/bundle/tern_for_vim && npm install)
+	npm install --global webtorrent-mpv-hook
+	ln -s ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js
 
 link:
 	stow --target ~ --restow `ls -d */`
