@@ -17,6 +17,9 @@ indent_size = 4
 [*.py]
 indent_size = 4
 
+[*.lua]
+trim_trailing_whitespace = false
+
 [*.md]
 trim_trailing_whitespace = false
 

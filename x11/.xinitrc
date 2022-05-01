@@ -42,7 +42,7 @@ xinput --set-prop 10 'libinput Accel Speed' 0.5 # touchpad
 xinput --set-prop 15 'libinput Accel Speed' 0.5 # mouse
 
 # Disable touch screen
-xipnut disable 'Wacom HID 50F0 Finger'
+xipnut disable 13
 
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
@@ -89,11 +89,6 @@ if command -v dropbox >/dev/null 2>&1; then
   dropbox start &
 fi
 
-# Now, open terminal window
-if command -v st >/dev/null 2>&1; then
-  st &
-fi
-
 # Start key manager daemon
 if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
@@ -102,6 +97,11 @@ fi
 # Start touchegg
 if command -v touchegg >/dev/null 2>&1; then
   touchegg &
+fi
+
+# Now, open terminal window
+if command -v st >/dev/null 2>&1; then
+  { sleep 3; st; } &
 fi
 
 # And finally, start our WM

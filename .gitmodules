@@ -22,15 +22,9 @@
 [submodule "vim/.vim/bundle/vim-pathogen"]
 	path = vim/.vim/bundle/vim-pathogen
 	url = https://github.com/tpope/vim-pathogen
-[submodule "vim/.vim/bundle/vim-fugitive"]
-	path = vim/.vim/bundle/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/.vim/bundle/vim-snippets"]
 	path = vim/.vim/bundle/vim-snippets
 	url = https://github.com/honza/vim-snippets
-[submodule "vim/.vim/bundle/vim-repeat"]
-	path = vim/.vim/bundle/vim-repeat
-	url = https://github.com/tpope/vim-repeat
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/bundle/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -64,9 +58,6 @@
 [submodule "vim/.vim/bundle/vim-javacomplete2"]
 	path = vim/.vim/bundle/vim-javacomplete2
 	url = https://github.com/artur-shaik/vim-javacomplete2
-[submodule "vim/.vim/bundle/yang.vim"]
-	path = vim/.vim/bundle/yang.vim
-	url = https://github.com/nathanalderson/yang.vim
 [submodule "vim/.vim/bundle/vim-test"]
 	path = vim/.vim/bundle/vim-test
 	url = https://github.com/janko-m/vim-test
@@ -189,3 +180,6 @@
 [submodule "zsh/.zsh/bundle/zsh-history-substring-search"]
 	path = zsh/.zsh/bundle/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
+[submodule "vim/.vim/bundle/vim-fugitive"]
+	path = vim/.vim/bundle/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive

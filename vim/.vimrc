@@ -139,8 +139,8 @@ set nowrap
 set regexpengine=1
 
 " Limit horizontal and vertical syntax rendering (for better performance)
-syntax sync minlines=256
-set synmaxcol=256
+" syntax sync minlines=256
+" set synmaxcol=256
 
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =

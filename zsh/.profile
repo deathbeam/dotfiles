@@ -19,7 +19,7 @@ export ZIM_HOME="$HOME/.zim"
 export JAVA_HOME=/usr/lib/jvm/default
 
 # Enable Java SE
-export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
+# export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1

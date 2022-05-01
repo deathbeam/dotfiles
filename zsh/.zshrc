@@ -85,20 +85,25 @@ command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Pathogen-like loader for plugins
-while read filename; do
-  plugindir="$(dirname $filename)"
-  functiondir="$plugindir/functions"
-  if [ -d "$functiondir" ]; then
-    fpath=( "$functiondir" "${fpath[@]}" )
+if [ -z $PLUGINS_LOADED ]; then
+  PLUGINS_LOADED=()
+  while read filename; do
+    plugindir="$(dirname $filename)"
+    functiondir="$plugindir/functions"
+    if [ -d "$functiondir" ]; then
+      fpath=( "$functiondir" "${fpath[@]}" )
 
-    for pluginfunction in $functiondir/*(.); do
-      functionname="$(basename $pluginfunction)"
-      autoload -Uz $functionname
-    done
-  fi
+      for pluginfunction in $functiondir/*(.); do
+        functionname="$(basename $pluginfunction)"
+        autoload -Uz $functionname
+      done
+    fi
 
-  source "$filename" >/dev/null 2>&1
-done <<< $(find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
+    PLUGINS_LOADED+=("$filename")
+    source "$filename" >/dev/null 2>&1
+  done <<< $(find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
+  export PLUGINS_LOADED
+fi
 
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
