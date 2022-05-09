@@ -9,6 +9,7 @@ install:
 	~/.fzf/install --all --no-update-rc
 	(cd vim/.vim/bundle/tern_for_vim && npm install)
 	npm install --global webtorrent-mpv-hook
+	mkdir -p ~/.config/mpv/scripts
 	ln -s ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js
 
 link:
