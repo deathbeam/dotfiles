@@ -16,6 +16,7 @@ sudo pacman --noconfirm -S base-devel
 
 # Install AUR helper
 echo '==> Installing AUR helper'
+cur_dir=$PWD
 rm -rf /tmp/aur_install
 mkdir -p /tmp/aur_install
 cd /tmp/aur_install
@@ -23,6 +24,7 @@ sudo pacman --noconfirm --needed -S git sudo go
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si
+cd $cur_dir
 
 # Install some extra packages via yay
 echo '==> Installing extra packages'
