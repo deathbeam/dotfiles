@@ -13,7 +13,7 @@ install:
 	ln -s ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js
 
 link:
-	stow --target ~ --restow `ls -d */`
+	stow --target ~ --restow `ls -d */` || true
 
 update:
 	git submodule update --init --recursive
