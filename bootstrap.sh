@@ -31,16 +31,14 @@ yay --noconfirm -S --mflags --skipinteg \
   xdg-utils xdg-user-dirs \
   acpi redshift \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
-  lib32-alsa-plugins \
   pulseaudio pulseaudio-alsa \
   stow w3m zsh tmux ripgrep mlocate htop ranger \
   dropbox pass pass-otp zbar \
-  vim universal-ctags-git editorconfig-core-c \
+  vim ctags editorconfig-core-c \
   libspotify mpc ncmpcpp \
-  bitlbee bitlbee-discord-git bitlbee-facebook \
   perl-html-parser perl-text-charwidth irssi \
   httpie sshpass ntp stoken openvpn wget jq \
-  tlp newsboat cpus udisks2
+  tlp newsboat udisks2
 
 # Enable vbox access for current user
 sudo usermod -a -G vboxsf $(whoami)
@@ -58,7 +56,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm hub git-review docker
+  maven npm hub docker
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -66,7 +64,6 @@ yay --noconfirm -S --mflags --skipinteg \
   gst-plugins-good gst-plugins-ugly gst-python2 gstreamer \
   python-dbus
 
-pip2 install --user mopidy mopidy-spotify mopidy-scrobbler
 pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
 echo '==> Installing configuration files'
