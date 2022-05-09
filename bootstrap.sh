@@ -86,7 +86,7 @@ yay --noconfirm -S --mflags --skipinteg \
 echo '==> Configuring improved font rendering'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 cairo libxft \
-  fonts-meta-base fonts-meta-extended-lt \
+  fonts-meta-base \
   terminus-font-ttf terminus-font ttf-font-awesome
 
 # Enable bitmap fonts (we need them to correctly render Terminus)
