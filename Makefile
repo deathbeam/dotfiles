@@ -10,7 +10,7 @@ install:
 	(cd vim/.vim/bundle/tern_for_vim && npm install)
 	npm install --global webtorrent-mpv-hook
 	mkdir -p ~/.config/mpv/scripts
-	ln -s ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js
+	ln -s ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js || true
 
 link:
 	stow --target ~ --restow `ls -d */` || true
