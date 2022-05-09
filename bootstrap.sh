@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-set -e
+set -ex
 
 echo '==> Setting up swap file'
 if [ ! -f /swapfile ]; then
