@@ -62,7 +62,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
-  python-pip python2-pip \
+  python-pip \
   gst-plugins-good gst-plugins-ugly gst-python2 gstreamer \
   python-dbus
 
