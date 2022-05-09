@@ -44,13 +44,11 @@ yay --noconfirm -S --mflags --skipinteg \
 
 # Enable vbox access for current user
 sudo groupadd -f vboxsf
-sudo usermod -a -G vboxsf $(whoami)
-newgrp vboxsf
+sudo usermod -aG vboxsf "$USER"
 
 # Enable docker for current user
 sudo groupadd -f docker
 sudo usermod -aG docker "$USER"
-newgrp docker
 
 # Update XDG
 xdg-user-dirs-update
