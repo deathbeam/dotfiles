@@ -63,7 +63,7 @@ yay --noconfirm -S --mflags --skipinteg \
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
   python-pip \
-  gst-plugins-good gst-plugins-ugly gst-python2 gstreamer \
+  gst-plugins-good gst-plugins-ugly gstreamer \
   python-dbus
 
 pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
