@@ -43,10 +43,12 @@ yay --noconfirm -S --mflags --skipinteg \
   tlp newsboat udisks2
 
 # Enable vbox access for current user
+sudo groupadd -f vboxsf
 sudo usermod -a -G vboxsf $(whoami)
 newgrp vboxsf
 
 # Enable docker for current user
+sudo groupadd -f docker
 sudo usermod -aG docker "$USER"
 newgrp docker
 
