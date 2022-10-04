@@ -6,4 +6,6 @@
 /tmux/.tmux/resurrect/
 /qutebrowser/.config/qutebrowser/qsettings/
 /qutebrowser/.config/qutebrowser/bookmarks/
+/qutebrowser/.config/qutebrowser/autoconfig.yml
 /mpv/.config/mpv/scripts
+/mpv/.config/mpv/script-opts

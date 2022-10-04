@@ -85,7 +85,7 @@ command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 
 # Pathogen-like loader for plugins
-if [ -z $PLUGINS_LOADED ]; then
+if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()
   while read filename; do
     plugindir="$(dirname $filename)"
@@ -98,10 +98,11 @@ if [ -z $PLUGINS_LOADED ]; then
         autoload -Uz $functionname
       done
     fi
+    source "$filename" >/dev/null 2>&1
 
     PLUGINS_LOADED+=("$filename")
-    source "$filename" >/dev/null 2>&1
   done <<< $(find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
+  echo "$PLUGINS_LOADED"
   export PLUGINS_LOADED
 fi
 
@@ -117,13 +118,6 @@ elif command -v ag >/dev/null 2>&1; then
   export FZF_DEFAULT_COMMAND='ag -g ""'
   export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
-
-# export FZF_DEFAULT_OPTS='--preview "[[ $(file --mime {}) =~ binary ]] &&
-#   echo {} is a binary file ||
-#   (highlight -O ansi -l {} ||
-#   coderay {} ||
-#   rougify {} ||
-#   cat {}) 2> /dev/null | head -500"'
 
 # Load base16 theme
 [ -z $BASE16_THEME ] && base16_solarized-dark

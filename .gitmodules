@@ -139,14 +139,14 @@
 [submodule "zsh/.zsh/bundle/zsh-autosuggestions"]
 	path = zsh/.zsh/bundle/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
-[submodule "zsh/.zsh/bundle/zsh-syntax-highlighting"]
-	path = zsh/.zsh/bundle/zsh-syntax-highlighting
-	url = https://github.com/zsh-users/zsh-syntax-highlighting
 [submodule "zsh/.zsh/bundle/git"]
 	path = zsh/.zsh/bundle/git
 	url = https://github.com/zimfw/git
-[submodule "zsh/.zsh/bundle/zim-completion"]
-	path = zsh/.zsh/bundle/zim-completion
+[submodule "zsh/.zsh/bundle/zsh-completions"]
+	path = zsh/.zsh/bundle/zsh-completions
+	url = https://github.com/zsh-users/zsh-completions
+[submodule "zsh/.zsh/bundle/completion"]
+	path = zsh/.zsh/bundle/completion
 	url = https://github.com/zimfw/completion
 [submodule "zsh/.zsh/bundle/input"]
 	path = zsh/.zsh/bundle/input
