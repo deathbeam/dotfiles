@@ -48,3 +48,5 @@ Session.vim
 # Misc
 .yangcp/
 nohup.out
+
+ModCache.lua

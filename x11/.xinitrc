@@ -89,6 +89,11 @@ if command -v dropbox >/dev/null 2>&1; then
   dropbox start &
 fi
 
+# Start udiskie
+if command -v udiskie >/dev/null 2>&1; then
+  udiskie &
+fi
+
 # Start key manager daemon
 if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &

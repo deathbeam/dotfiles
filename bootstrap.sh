@@ -58,7 +58,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm hub docker
+  maven npm github-cli docker
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -80,7 +80,8 @@ yay --noconfirm -S --mflags --skipinteg \
   xorg-fonts-misc xsel xclip autocutsel \
   xf86-input-libinput \
   redshift-qt \
-  upower
+  upower \
+  udiskie
 
 # Improve font rendering and install extra fonts
 echo '==> Configuring improved font rendering'

@@ -2,7 +2,7 @@
 
 command="$1"
 key="$2"
-wanted_title="Path of Exile"
+wanted_title="Boosteroid"
 poe_title="$(xdotool getactivewindow getwindowname)"
 
 if [[ "$wanted_title" != "$poe_title" ]]; then
@@ -13,7 +13,7 @@ fi
 sleep .5
 
 if [[ $command = "onetwo" ]]; then
-  xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "345"
+  xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "12345"
 elif [[ $command = "home" ]]; then
   xdotool getwindowfocus key --window %@ Return
   xdotool getwindowfocus type --window %@ --clearmodifiers --delay 50 "/hideout"

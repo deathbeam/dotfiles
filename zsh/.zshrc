@@ -78,9 +78,6 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 # Load pyenv
 command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
 
-# Load hub alias
-command -v hub >/dev/null 2>&1 && eval "$(hub alias -s)"
-
 # Load travis
 [ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
 

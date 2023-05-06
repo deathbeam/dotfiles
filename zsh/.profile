@@ -43,6 +43,6 @@ export QT_AUTO_SCREEN_SCALE_FACTOR=1
 
 # Better browsing
 export QTWEBENGINE_REMOTE_DEBUGGING="10300"
-export QTWEBENGINE_CHROMIUM_FLAGS="--v=1 --enable-logging --log-level=0"
+export QTWEBENGINE_CHROMIUM_FLAGS="--v=1 --enable-logging --log-level=0 -widevine-path=/usr/lib/chromium/libwidevinecdm.so"
 
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"
