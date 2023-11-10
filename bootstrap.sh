@@ -34,7 +34,7 @@ yay --noconfirm -S --mflags --skipinteg \
   acpi redshift \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
-  stow w3m zsh tmux ripgrep mlocate htop ranger \
+  stow w3m zsh tmux ripgrep mlocate htop \
   dropbox pass pass-otp zbar \
   vim ctags editorconfig-core-c \
   libspotify mpc ncmpcpp \
