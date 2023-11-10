@@ -341,11 +341,8 @@ nmap <leader>? :Helptags<cr>
 " }}}
 
 " User configuration {{{
-
-try
-  " Load user configuration
+if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
-catch
-endtry
+endif
 
 " }}}

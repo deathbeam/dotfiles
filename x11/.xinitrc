@@ -37,12 +37,10 @@ xsetroot -cursor_name left_ptr
 # Load custom keyboard mappings
 xmodmap ~/.xmodmap
 
-# Update mouse acceleration
-xinput --set-prop 10 'libinput Accel Speed' 0.5 # touchpad
-xinput --set-prop 15 'libinput Accel Speed' 0.5 # mouse
-
-# Disable touch screen
-xipnut disable 13
+# Update mouse stuff
+xinput disable 'Wacom HID 50F0 Finger touch' # disable touch screen
+xinput --set-prop 'MSFT0001:02 06CB:7F8F Touchpad' 'libinput Accel Speed' 0 # touchpad
+xinput --set-prop 15 'libinput Accel Speed' 0 # mouse
 
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then

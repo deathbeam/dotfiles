@@ -103,6 +103,9 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
+# Remove gh alias as it conflicts with gh
+unalias gh
+
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
