@@ -99,7 +99,7 @@ yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick mpv \
   flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
-  bspwm sxhkd polybar-git touchegg \
+  bspwm sxhkd polybar touchegg \
   discord \
   postman intellij-idea-ue-eap
 
