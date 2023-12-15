@@ -23,7 +23,7 @@ cd /tmp/aur_install
 sudo pacman --noconfirm --needed -S git sudo go
 git clone https://aur.archlinux.org/yay.git
 cd yay
-makepkg -si
+makepkg -si --noconfirm
 cd $cur_dir
 
 # Install some extra packages via yay
@@ -97,7 +97,7 @@ echo '==> Installing X11 applications'
 pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick mpv \
-  flashplugin qt5-webengine qutebrowser python-adblock chromium-widevine \
+  flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar-git touchegg \
   discord \
