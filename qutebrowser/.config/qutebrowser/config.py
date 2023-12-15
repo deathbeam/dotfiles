@@ -1,5 +1,9 @@
 config.load_autoconfig(True)
 
+# home
+c.url.default_page = 'qute://start'
+c.url.start_pages = c.url.default_page
+
 # Enable plugins
 c.content.plugins = True
 c.qt.args = ['ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so']

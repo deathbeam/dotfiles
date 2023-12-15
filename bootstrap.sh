@@ -34,13 +34,11 @@ yay --noconfirm -S --mflags --skipinteg \
   acpi redshift \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
-  stow w3m zsh tmux ripgrep mlocate htop \
+  stow zsh tmux ripgrep mlocate htop \
   dropbox pass pass-otp zbar \
   vim ctags editorconfig-core-c \
-  libspotify mpc ncmpcpp \
-  perl-html-parser perl-text-charwidth irssi \
   httpie sshpass ntp stoken openvpn wget jq \
-  tlp newsboat udisks2
+  tlp udisks2
 
 # Enable vbox access for current user
 sudo groupadd -f vboxsf
@@ -58,7 +56,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm github-cli docker
+  maven npm github-cli azure-cli docker docker-compose
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -98,13 +96,12 @@ fc-cache -f
 echo '==> Installing X11 applications'
 pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
-  feh zathura zathura-pdf-mupdf imagemagick \
-  mpv flashplugin qt5-webengine qutebrowser python-adblock \
-  chromium-widevine \
+  feh zathura zathura-pdf-mupdf imagemagick mpv \
+  flashplugin qt5-webengine qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar-git touchegg \
   discord \
-  intellij-idea-ultimate-edition
+  postman intellij-idea-ue-eap
 
 # Set default browser
 xdg-settings set default-web-browser qutebrowser.desktop
