@@ -10,6 +10,7 @@ Vagrant.configure("2") do |config|
   config.ssh.username = "vagrant"
   config.ssh.password = "vagrant"
   config.vm.synced_folder "shared", "/vagrant_shared"
+  config.vm.disk :disk, size: "100GB", primary: true
 
   # Enable provisioning with a shell script. Additional provisioners such as
   # Ansible, Chef, Docker, Puppet and Salt are also available. Please see the
