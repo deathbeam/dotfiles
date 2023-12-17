@@ -37,7 +37,7 @@ yay --noconfirm -S --mflags --skipinteg \
   stow zsh tmux ripgrep mlocate htop \
   dropbox pass pass-otp zbar \
   vim ctags editorconfig-core-c \
-  httpie sshpass ntp stoken openvpn wget jq \
+  httpie sshpass ntp stoken openvpn openconnect wget jq \
   tlp udisks2
 
 # Enable vbox access for current user
@@ -140,3 +140,7 @@ sudo usermod -a -G nogroup "$USER"
 
 echo '==> Changing default shell'
 echo "$USER" | chsh -s /bin/zsh
+
+echo '==> Generating loale'
+sudo echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
+sudo locale-gen
