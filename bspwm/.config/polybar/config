@@ -28,7 +28,7 @@ font-3 = FontAwesome 6 Brands:size=12;3
 
 modules-left = bspwm title
 modules-center = mpd
-modules-right = wifi wired volume battery backlight date tray
+modules-right = tray wifi wired volume battery backlight date
 
 [module/bspwm]
 type = internal/bspwm
