@@ -6,12 +6,10 @@ wm-restack = bspwm
 override-redirect = false
 width = 100%
 height = ${env:POLYBAR_BAR_HEIGHT:40}
-tray-maxsize = ${env:POLYBAR_BAR_HEIGHT:40}
 dpi = -1
 offset-x = 0
 offset-y = 0
 bottom = false
-tray-position = right
 border-bottom-size = 0
 spacing = 1
 underline-size = 0
@@ -30,7 +28,7 @@ font-3 = FontAwesome 6 Brands:size=12;3
 
 modules-left = bspwm title
 modules-center = mpd
-modules-right = wifi wired volume battery backlight date
+modules-right = wifi wired volume battery backlight date tray
 
 [module/bspwm]
 type = internal/bspwm
@@ -155,3 +153,7 @@ bar-width = 10
 bar-indicator = |
 bar-fill = ─
 bar-empty = ─
+
+[module/tray]
+type = internal/tray
+tray-spacing = 2px

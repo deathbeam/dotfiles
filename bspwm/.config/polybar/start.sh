@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+unset GDK_SCALE
+unset GDK_DPI_SCALE
 
 # Terminate already running bar instances
 killall -q polybar
