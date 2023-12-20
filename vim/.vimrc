@@ -161,7 +161,7 @@ function! AdjustHighlighting()
   highlight clear SignColumn
   highlight clear FoldColumn
   highlight Search cterm=NONE ctermfg=0 ctermbg=3
-  highlight StatusLine ctermbg=NONE ctermfg=4
+  highlight StatusLine cterm=underline ctermbg=NONE ctermfg=4
   highlight StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
   highlight VertSplit ctermbg=NONE ctermfg=19
   highlight Title ctermfg=19
