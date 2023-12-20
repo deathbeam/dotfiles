@@ -1,6 +1,6 @@
 _cdls_chpwd_handler () {
   emulate -L zsh
-  ls -A
+  ls -A --color=always
 }
 
 autoload -U add-zsh-hook
