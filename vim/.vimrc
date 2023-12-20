@@ -138,6 +138,10 @@ set nowrap
 " Use old regexpengine (maybe better performance)
 set regexpengine=1
 
+" Always show the signcolumn, otherwise it would shift the text each time
+" diagnostics appear/become resolved
+set signcolumn=yes
+
 " Limit horizontal and vertical syntax rendering (for better performance)
 " syntax sync minlines=256
 " set synmaxcol=256
@@ -262,11 +266,6 @@ command! -bar Session :call Session()
 " Rainbow parentheses
 let g:rainbow_active = 1
 
-" Ultisnips
-let g:UltiSnipsExpandTrigger = '<s-tab>'
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
-let g:UltiSnipsJumpBackwardTrigger="<c-z>"
-
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext=0
@@ -305,23 +304,6 @@ let g:rooter_patterns = [
       \ '.editorconfig',
       \]
 
-" Ale
-nmap <silent> <leader>mF :make<CR>
-function! LinterStatus() abort
-  let l:counts = ale#statusline#Count(bufnr(''))
-
-  let l:all_errors = l:counts.error + l:counts.style_error
-  let l:all_non_errors = l:counts.total - l:all_errors
-
-  return l:counts.total == 0 ? 'OK' : printf(
-        \   '%dW %dE',
-        \   all_non_errors,
-        \   all_errors
-        \)
-endfunction
-
-set statusline+=%#warningmsg#%{LinterStatus()}%*
-
 " FZF
 nmap <leader>/ :Grep<cr>
 nmap <leader>T :Tags<cr>
@@ -335,6 +317,39 @@ nmap <leader>w :Windows<cr>
 nmap <leader>s :Snippets<cr>
 nmap <leader>c :Commits<cr>
 nmap <leader>? :Helptags<cr>
+
+" coc.nvim
+let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-java', 'coc-jedi']
+
+set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+" Use tab for trigger completion with characters ahead and navigate
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+" Use <c-space> to trigger completion
+if has('nvim')
+  inoremap <silent><expr> <c-space> coc#refresh()
+else
+  inoremap <silent><expr> <c-@> coc#refresh()
+endif
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 
 " }}}
 

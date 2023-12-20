@@ -43,9 +43,6 @@
 [submodule "vim/.vim/bundle/fzf.vim"]
 	path = vim/.vim/bundle/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "vim/.vim/bundle/ultisnips"]
-	path = vim/.vim/bundle/ultisnips
-	url = https://github.com/SirVer/ultisnips
 [submodule "vim/.vim/bundle/vim-commentary"]
 	path = vim/.vim/bundle/vim-commentary
 	url = https://github.com/tpope/vim-commentary
@@ -88,12 +85,6 @@
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
-[submodule "vim/.vim/bundle/ale"]
-	path = vim/.vim/bundle/ale
-	url = https://github.com/w0rp/ale
-[submodule "vim/.vim/bundle/vim-fireplace"]
-	path = vim/.vim/bundle/vim-fireplace
-	url = https://github.com/tpope/vim-fireplace
 [submodule "pyenv/.pyenv"]
 	path = pyenv/.pyenv
 	url = https://github.com/pyenv/pyenv
@@ -162,3 +153,10 @@
 [submodule "vim/.vim/bundle/rainbow"]
 	path = vim/.vim/bundle/rainbow
 	url = https://github.com/luochen1990/rainbow
+[submodule "vim/.vim/bundle/coc.nvim"]
+	path = vim/.vim/bundle/coc.nvim
+	url = https://github.com/neoclide/coc.nvim
+	branch = release
+[submodule "zsh/.zsh/bundle/fzf-tab"]
+	path = zsh/.zsh/bundle/fzf-tab
+	url = https://github.com/Aloxaf/fzf-tab

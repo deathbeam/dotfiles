@@ -15,7 +15,3 @@ setlocal errorformat=\[%t%[A-Z]%#]\ %f:[%l\\,%c]\ %m,
       \\%C%.%#,
       \\%+ZTests\ run%.%#FAILURE!%.%#,
       \\%-G%.%#
-
-" JavaComplete adjustments
-let g:JavaComplete_ImportSortType = 'packageName'
-let g:JavaComplete_ImportOrder = ['*']
