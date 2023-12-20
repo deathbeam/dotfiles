@@ -32,6 +32,7 @@ yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
+  irssi ncmpcpp \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep mlocate htop \
@@ -96,11 +97,11 @@ fc-cache -f
 echo '==> Installing X11 applications'
 pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
-  feh zathura zathura-pdf-mupdf imagemagick mpv \
+  feh zathura zathura-pdf-mupdf imagemagick \
   flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar touchegg \
-  discord \
+  mpv discord \
   postman bruno-bin intellij-idea-ue-eap
 
 # Set default browser
