@@ -55,21 +55,12 @@
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/bundle/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
-[submodule "vim/.vim/bundle/vim-javacomplete2"]
-	path = vim/.vim/bundle/vim-javacomplete2
-	url = https://github.com/artur-shaik/vim-javacomplete2
-[submodule "vim/.vim/bundle/vim-test"]
-	path = vim/.vim/bundle/vim-test
-	url = https://github.com/janko-m/vim-test
 [submodule "vim/.vim/bundle/vim-dirvish"]
 	path = vim/.vim/bundle/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/bundle/vim-polyglot"]
 	path = vim/.vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
-[submodule "vim/.vim/bundle/vaxe"]
-	path = vim/.vim/bundle/vaxe
-	url = https://github.com/jdonaldson/vaxe
 [submodule "vim/.vim/bundle/vim-logreview"]
 	path = vim/.vim/bundle/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
@@ -97,27 +88,12 @@
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
-[submodule "vim/.vim/bundle/tern_for_vim"]
-	path = vim/.vim/bundle/tern_for_vim
-	url = https://github.com/ternjs/tern_for_vim
 [submodule "vim/.vim/bundle/ale"]
 	path = vim/.vim/bundle/ale
 	url = https://github.com/w0rp/ale
-[submodule "vim/.vim/bundle/rainbow_parentheses.vim"]
-	path = vim/.vim/bundle/rainbow_parentheses.vim
-	url = https://github.com/junegunn/rainbow_parentheses.vim
 [submodule "vim/.vim/bundle/vim-fireplace"]
 	path = vim/.vim/bundle/vim-fireplace
 	url = https://github.com/tpope/vim-fireplace
-[submodule "vim/.vim/bundle/vim-cucumber"]
-	path = vim/.vim/bundle/vim-cucumber
-	url = https://github.com/tpope/vim-cucumber/
-[submodule "vim/.vim/bundle/jedi-vim"]
-	path = vim/.vim/bundle/jedi-vim
-	url = https://github.com/davidhalter/jedi-vim
-[submodule "vim/.vim/bundle/vim-go"]
-	path = vim/.vim/bundle/vim-go
-	url = https://github.com/fatih/vim-go
 [submodule "pyenv/.pyenv"]
 	path = pyenv/.pyenv
 	url = https://github.com/pyenv/pyenv
@@ -183,3 +159,6 @@
 [submodule "vim/.vim/bundle/vim-fugitive"]
 	path = vim/.vim/bundle/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
+[submodule "vim/.vim/bundle/rainbow"]
+	path = vim/.vim/bundle/rainbow
+	url = https://github.com/luochen1990/rainbow

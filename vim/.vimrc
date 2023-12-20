@@ -259,6 +259,9 @@ function! Session()
 endfunction
 command! -bar Session :call Session()
 
+" Rainbow parentheses
+let g:rainbow_active = 1
+
 " Ultisnips
 let g:UltiSnipsExpandTrigger = '<s-tab>'
 let g:UltiSnipsJumpForwardTrigger="<c-b>"
@@ -275,11 +278,11 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for f
 
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
-nnoremap <silent> <leader>gs :Gstatus<CR>
-nnoremap <silent> <leader>gd :Gdiff<CR>
-nnoremap <silent> <leader>gc :Gcommit --signoff<CR>
-nnoremap <silent> <leader>gb :Gblame<CR>
-nnoremap <silent> <leader>gl :Glog<CR>
+nnoremap <silent> <leader>gs :Git<CR>
+nnoremap <silent> <leader>gd :Gdiffsplit<CR>
+nnoremap <silent> <leader>gc :Git commit --signoff<CR>
+nnoremap <silent> <leader>gb :Git blame<CR>
+nnoremap <silent> <leader>gl :Git log<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
@@ -318,11 +321,6 @@ function! LinterStatus() abort
 endfunction
 
 set statusline+=%#warningmsg#%{LinterStatus()}%*
-
-" Vim Test
-let g:test#strategy = 'make'
-nmap <silent> <leader>mt :TestFile<CR>
-nmap <silent> <leader>mT :TestSuite<CR>
 
 " FZF
 nmap <leader>/ :Grep<cr>

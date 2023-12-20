@@ -12,8 +12,8 @@ set surround
 nnoremap - :action ActivateProjectToolWindow<cr>
 
 " built-in navigation to navigated items works better
-" nnoremap <c-o> :action Back<cr>
-" nnoremap <c-i> :action Forward<cr>
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
 
 " unimpaired mappings
 nnoremap [<space> O<esc>j
