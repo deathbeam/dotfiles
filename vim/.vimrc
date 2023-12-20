@@ -319,7 +319,7 @@ nmap <leader>c :Commits<cr>
 nmap <leader>? :Helptags<cr>
 
 " coc.nvim
-let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-java', 'coc-jedi']
+let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
 
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 " Use tab for trigger completion with characters ahead and navigate
