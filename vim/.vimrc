@@ -305,7 +305,7 @@ let g:rooter_patterns = [
       \]
 
 " FZF
-nmap <leader>/ :Grep<cr>
+nmap <leader>/ :RG<cr>
 nmap <leader>T :Tags<cr>
 nmap <leader>t :BTags<cr>
 nmap <leader>F :Files<cr>
