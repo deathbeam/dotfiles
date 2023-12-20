@@ -101,7 +101,7 @@ yay --noconfirm -S --mflags --skipinteg \
   flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar touchegg \
-  mpv discord \
+  mpv discord boosteroid \
   postman bruno-bin intellij-idea-ue-eap
 
 # Set default browser
