@@ -101,7 +101,7 @@ yay --noconfirm -S --mflags --skipinteg \
   libnotify dunst \
   bspwm sxhkd polybar touchegg \
   discord \
-  postman intellij-idea-ue-eap
+  postman bruno-bin intellij-idea-ue-eap
 
 # Set default browser
 xdg-settings set default-web-browser qutebrowser.desktop
