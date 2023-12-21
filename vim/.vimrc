@@ -321,7 +321,7 @@ command! -bang -complete=dir -nargs=? LS
 let g:codeium_disable_bindings = 1
 let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
 
-set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Make <TAB> either confirm current selection or complete with codeium
 inoremap <silent><expr> <TAB>

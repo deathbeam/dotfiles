@@ -1,3 +1,4 @@
 {
-    "suggest.noselect": true
+    "suggest.noselect": true,
+    "java.jdt.ls.vmargs": "-javaagent:${env:VIM_HOME}/lombok.jar"
 }
