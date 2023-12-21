@@ -323,9 +323,14 @@ let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc
 
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
 
+" Make <TAB> either confirm current selection or complete with codeium
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " Diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
