@@ -1,10 +1,7 @@
 # vim:foldmethod=marker:set ft=sh:
 
-# Set pyenv home
-export PYENV_ROOT="$HOME/.pyenv"
-
 # Adjust path to use various bin folders
-export PATH="$PYENV_ROOT/bin:$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.6.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
+export PATH="$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.6.0/bin/:$HOME/go/bin:/usr/local/osx-ndk-x86/bin"
 
 # Set go path to user home
 export GOPATH="$HOME/go"
@@ -12,14 +9,8 @@ export GOPATH="$HOME/go"
 # Set npm home to user home
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
-# Set zim home to user home
-export ZIM_HOME="$HOME/.zim"
-
 # Set JAVA_HOME
 export JAVA_HOME=/usr/lib/jvm/default
-
-# Enable Java SE
-# export JAVA_OPTS="-XX:+IgnoreUnrecognizedVMOptions --add-modules java.se.ee"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
@@ -40,9 +31,5 @@ export VISUAL="$EDITOR"
 
 # Auto scale for QT5 apps
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
-
-# Better browsing
-export QTWEBENGINE_REMOTE_DEBUGGING="10300"
-export QTWEBENGINE_CHROMIUM_FLAGS="--v=1 --enable-logging --log-level=0 -widevine-path=/usr/lib/chromium/libwidevinecdm.so"
 
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"

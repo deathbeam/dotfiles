@@ -6,11 +6,19 @@ c.url.start_pages = c.url.default_page
 
 # Enable plugins
 c.content.plugins = True
-c.qt.args = ['ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so']
+c.qt.args = [
+    'ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so',
+    'widevine-path=/usr/lib/chromium/libwidevinecdm.so',
+    'ignore-gpu-blocklist',
+    'enable-gpu-rasterization',
+    'enable-accelerated-video-decode',
+    'enable-quic',
+    'enable-zero-copy'
+]
 
 # Dark mode
 c.colors.webpage.preferred_color_scheme = 'dark'
-c.colors.webpage.darkmode.enabled = True
+c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.threshold.foreground = 150
 c.colors.webpage.darkmode.threshold.background = 100

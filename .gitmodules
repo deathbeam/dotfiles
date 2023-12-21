@@ -85,9 +85,6 @@
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
-[submodule "pyenv/.pyenv"]
-	path = pyenv/.pyenv
-	url = https://github.com/pyenv/pyenv
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/bundle/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes

@@ -88,12 +88,6 @@ zstyle ':fzf-tab:*' switch-group ',' '.'
 # This determines what highlighters will be used with the syntax-highlighting module.
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
-# Load pyenv
-command -v pyenv >/dev/null 2>&1 && eval "$(pyenv init -)"
-
-# Load travis
-[ -f "$HOME/.travis/travis.sh" ] && source "$HOME/.travis/travis.sh"
-
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()
