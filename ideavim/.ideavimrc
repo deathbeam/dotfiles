@@ -2,12 +2,15 @@
 
 source ~/.vimrc
 
+set notimeout
+
 " Adjust line numbers
 set nonumber
 
 " Emulate Idea version of Vim surround
 set commentary
 set surround
+set which-key
 
 " vinegar emulation with Idea
 nnoremap - :action ActivateProjectToolWindow<cr>
