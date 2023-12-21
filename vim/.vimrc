@@ -209,10 +209,6 @@ let g:mapleader = ' '
 " Clear last search highlight
 map <leader><cr> :noh<cr>
 
-" Quickfix and location list
-nmap <silent> <leader>oc  :copen<CR>
-nmap <silent> <leader>ol  :lopen<CR>
-
 " Emacs like keybindings for the command line (:) are better
 " and we cannot use Vi style-binding here anyway, because ESC
 " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
@@ -314,14 +310,13 @@ nmap <leader>a :Commands<cr>
 nmap <leader>h :History<cr>
 nmap <leader>b :Buffers<cr>
 nmap <leader>w :Windows<cr>
-nmap <leader>s :Snippets<cr>
 nmap <leader>c :Commits<cr>
-nmap <leader>? :Helptags<cr>
 
 " coc.nvim
-let g:coc_global_extensions = ['coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
+let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
 
 set statusline+=%{coc#status()}%{get(b:,'coc_current_function','')}
+
 " Use tab for trigger completion with characters ahead and navigate
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
@@ -347,9 +342,28 @@ else
 endif
 
 " Use `[g` and `]g` to navigate diagnostics
-" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+nnoremap <silent> K :call ShowDocumentation()<CR>
+function! ShowDocumentation()
+  if CocAction('hasProvider', 'hover')
+    call CocActionAsync('doHover')
+  else
+    call feedkeys('K', 'in')
+  endif
+endfunction
+
+" Diagnostics/refactoring
+nnoremap <leader>gl :<C-u>CocDiagnostics<cr>
+nnoremap <leader>gr <Plug>(coc-rename)
+xmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>gf <Plug>(coc-format-selected)
 
 " }}}
 

@@ -27,10 +27,6 @@ nnoremap ]m :action MethodDown<cr>
 nnoremap [c :action VcsShowPrevChangeMarker<cr>
 nnoremap ]c :action VcsShowNextChangeMarker<cr>
 
-" vim-commentary mappings
-nnoremap gcc :action CommentByLineComment<cr>
-vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
-
 " Building
 nnoremap <space>mf :action Compile<cr>
 nnoremap <space>mF :action CompileProject<cr>
@@ -39,15 +35,19 @@ nnoremap <space>mF :action CompileProject<cr>
 nnoremap <space>mt :action RunClass<cr>
 nnoremap <space>mT :action RunConfiguration<cr>
 
-" Navigation
-nnoremap <C-^> :action GotoImplementation<cr>
-
-" Refactoring
-nnoremap <space>gi :action ShowIntentionActions<cr>
-nnoremap <space>gg :action Generate<cr>
+" lsp mappings
+nnoremap [g :action GotoPreviousError<cr>
+nnoremap ]g :action GotoNextError<cr>
+nnoremap gd :action GotoDeclaration<cr>
+nnoremap gy :action GotoTypeDeclaration<cr>
+nnoremap gi :action GotoImplementation<cr>
+nnoremap gr :action GotoRelated<cr>
 nnoremap <space>gr :action RenameElement<cr>
-nnoremap <space>gs :action ChangeSignature<cr>
-nnoremap <space>gt :action ChangeTypeSignature<cr>
+nnoremap <space>gf :action ReformatCode<cr>
+
+" vim-commentary mappings
+nnoremap gcc :action CommentByLineComment<cr>
+vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
 
 " Menus
 nnoremap <space>/ :action FindInPath<cr>
@@ -58,7 +58,6 @@ nnoremap <space>f :action GotoClass<cr>
 nnoremap <space>a :action GotoAction<cr>
 nnoremap <space>h :action RecentFiles<cr>
 nnoremap <space>b :action Switcher<cr>
-nnoremap <space>n :action NewElement<cr>
 
 " }}}
 
