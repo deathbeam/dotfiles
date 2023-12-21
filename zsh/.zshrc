@@ -109,8 +109,12 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# Remove gh alias as it conflicts with gh
+# Adjust git aliases
 unalias gh
+alias gc='git commit --signoff --verbose'
+alias gca='git commit --signoff --verbose --all'
+alias gcA='git commit --signoff --verbose --patch'
+alias gcm='git commit --signoff --message'
 
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
