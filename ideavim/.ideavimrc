@@ -43,9 +43,9 @@ nnoremap gd :action GotoDeclaration<cr>
 nnoremap gy :action GotoTypeDeclaration<cr>
 nnoremap gi :action GotoImplementation<cr>
 nnoremap gr :action GotoRelated<cr>
-nnoremap <space>gl :action ShowErrorDescription<cr>
-nnoremap <space>gr :action RenameElement<cr>
-nnoremap <space>gf :action ReformatCode<cr>
+nnoremap <space>el :action ShowErrorDescription<cr>
+nnoremap <space>er :action RenameElement<cr>
+nnoremap <space>ef :action ReformatCode<cr>
 
 " Menus
 nnoremap <space>/ :action FindInPath<cr>

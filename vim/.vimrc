@@ -285,6 +285,13 @@ nnoremap <silent> <leader>gr :Gremove<CR>
 " WhichKey
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+let g:which_key_map = {}
+let g:which_key_map.ws = 'which_key_ignore'
+let g:which_key_map.wt = 'which_key_ignore'
+let g:which_key_map["<CR>"] = 'which_key_ignore'
+let g:which_key_map.g = { 'name' : '+git' }
+let g:which_key_map.e = { 'name' : '+edit' }
+call which_key#register('<Space>', "g:which_key_map")
 
 " Vim rooter
 let g:rooter_patterns = [
@@ -360,10 +367,10 @@ function! ShowDocumentation()
 endfunction
 
 " Diagnostics/refactoring
-nnoremap <leader>gl :<C-u>CocDiagnostics<cr>
-nnoremap <leader>gr <Plug>(coc-rename)
-xmap <leader>gf <Plug>(coc-format-selected)
-nmap <leader>gf <Plug>(coc-format-selected)
+nmap <leader>el :<C-u>CocDiagnostics<cr>
+nmap <leader>er <Plug>(coc-rename)
+xmap <leader>ef <Plug>(coc-format-selected)
+nmap <leader>ef <Plug>(coc-format-selected)
 
 " }}}
 
