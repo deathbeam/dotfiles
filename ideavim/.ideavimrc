@@ -59,6 +59,7 @@ nnoremap <space>f :action GotoClass<cr>
 nnoremap <space>a :action GotoAction<cr>
 nnoremap <space>h :action RecentFiles<cr>
 nnoremap <space>b :action Switcher<cr>
+nnoremap <space>c :action Vcs.ShowTabbedFileHistory<cr>
 
 " }}}
 
