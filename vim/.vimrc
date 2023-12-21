@@ -276,6 +276,7 @@ nnoremap <silent> <leader>gl :Git log<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
+set statusline+=%{FugitiveStatusline()}
 
 " WhichKey
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>

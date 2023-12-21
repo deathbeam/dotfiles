@@ -19,9 +19,6 @@
 [submodule "tmux/.tmux/bundle/tmux-open"]
 	path = tmux/.tmux/pack/bundle/start/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open
-[submodule "vim/.vim/bundle/vim-snippets"]
-	path = vim/.vim/pack/bundle/start/vim-snippets
-	url = https://github.com/honza/vim-snippets
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
@@ -58,9 +55,6 @@
 [submodule "vim/.vim/bundle/vim-logreview"]
 	path = vim/.vim/pack/bundle/start/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
-[submodule "vim/.vim/bundle/committia.vim"]
-	path = vim/.vim/pack/bundle/start/committia.vim
-	url = https://github.com/rhysd/committia.vim
 [submodule "vim/.vim/bundle/editorconfig-vim"]
 	path = vim/.vim/pack/bundle/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
