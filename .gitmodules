@@ -49,12 +49,12 @@
 [submodule "vim/.vim/bundle/vim-surround"]
 	path = vim/.vim/bundle/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "vim/.vim/bundle/vim-unimpaired"]
-	path = vim/.vim/bundle/vim-unimpaired
-	url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/vim-dirvish"]
 	path = vim/.vim/bundle/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
+    url = https://github.com/justinmk/vim-dirvish
+[submodule "vim/.vim/bundle/vim-unimpaired"]
+    path = vim/.vim/bundle/vim-unimpaired
+    url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/vim-polyglot"]
 	path = vim/.vim/bundle/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
@@ -157,3 +157,6 @@
 [submodule "zsh/.zsh/bundle/fzf-tab"]
 	path = zsh/.zsh/bundle/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
+[submodule "vim/.vim/bundle/codeium.vim"]
+	path = vim/.vim/bundle/codeium.vim
+	url = https://github.com/Exafunction/codeium.vim
