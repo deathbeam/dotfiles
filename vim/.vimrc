@@ -348,11 +348,12 @@ else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
 
-" Use `[g` and `]g` to navigate diagnostics
+" Diagnostics
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
+nmap <leader>el :<C-u>CocDiagnostics<cr>
 
-" GoTo code navigation
+" GoTo navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -366,11 +367,16 @@ function! ShowDocumentation()
   endif
 endfunction
 
-" Diagnostics/refactoring
-nmap <leader>el :<C-u>CocDiagnostics<cr>
+" Refactoring
 nmap <leader>er <Plug>(coc-rename)
 xmap <leader>ef <Plug>(coc-format-selected)
 nmap <leader>ef <Plug>(coc-format-selected)
+
+" Code actions
+xmap <leader>ea  <Plug>(coc-codeaction-selected)
+nmap <leader>ea  <Plug>(coc-codeaction-selected)
+nmap <leader>eac  <Plug>(coc-codeaction-cursor)
+nmap <leader>eas  <Plug>(coc-codeaction-source)
 
 " }}}
 
