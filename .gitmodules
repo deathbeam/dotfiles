@@ -48,10 +48,10 @@
 	url = https://github.com/tpope/vim-surround
 [submodule "vim/.vim/bundle/vim-dirvish"]
 	path = vim/.vim/pack/bundle/start/vim-dirvish
-    url = https://github.com/justinmk/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/pack/bundle/start/vim-unimpaired
-    url = https://github.com/tpope/vim-unimpaired
+	url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/vim-polyglot"]
 	path = vim/.vim/pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
