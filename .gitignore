@@ -7,5 +7,6 @@
 /qutebrowser/.config/qutebrowser/qsettings/
 /qutebrowser/.config/qutebrowser/bookmarks/
 /qutebrowser/.config/qutebrowser/autoconfig.yml
+/qutebrowser/.config/qutebrowser/quickmarks
 /mpv/.config/mpv/scripts
 /mpv/.config/mpv/script-opts
