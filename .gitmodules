@@ -19,56 +19,53 @@
 [submodule "tmux/.tmux/bundle/tmux-open"]
 	path = tmux/.tmux/bundle/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open
-[submodule "vim/.vim/bundle/vim-pathogen"]
-	path = vim/.vim/bundle/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen
 [submodule "vim/.vim/bundle/vim-snippets"]
-	path = vim/.vim/bundle/vim-snippets
+	path = vim/.vim/pack/vendor/start/vim-snippets
 	url = https://github.com/honza/vim-snippets
 [submodule "vim/.vim/bundle/vim-rooter"]
-	path = vim/.vim/bundle/vim-rooter
+	path = vim/.vim/pack/vendor/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
 [submodule "vim/.vim/bundle/base16-vim"]
-	path = vim/.vim/bundle/base16-vim
+	path = vim/.vim/pack/vendor/start/base16-vim
 	url = https://github.com/chriskempson/base16-vim
 [submodule "vim/.vim/bundle/vim-obsession"]
-	path = vim/.vim/bundle/vim-obsession
+	path = vim/.vim/pack/vendor/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession
 [submodule "vim/.vim/bundle/vim-gutentags"]
-	path = vim/.vim/bundle/vim-gutentags
+	path = vim/.vim/pack/vendor/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
 [submodule "vim/.vim/bundle/vimwiki"]
-	path = vim/.vim/bundle/vimwiki
+	path = vim/.vim/pack/vendor/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 [submodule "vim/.vim/bundle/fzf.vim"]
-	path = vim/.vim/bundle/fzf.vim
+	path = vim/.vim/pack/vendor/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 [submodule "vim/.vim/bundle/vim-commentary"]
-	path = vim/.vim/bundle/vim-commentary
+	path = vim/.vim/pack/vendor/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/bundle/vim-surround"]
-	path = vim/.vim/bundle/vim-surround
+	path = vim/.vim/pack/vendor/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "vim/.vim/bundle/vim-dirvish"]
-	path = vim/.vim/bundle/vim-dirvish
+	path = vim/.vim/pack/vendor/start/vim-dirvish
     url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/bundle/vim-unimpaired"]
-    path = vim/.vim/bundle/vim-unimpaired
+	path = vim/.vim/pack/vendor/start/vim-unimpaired
     url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/vim-polyglot"]
-	path = vim/.vim/bundle/vim-polyglot
+	path = vim/.vim/pack/vendor/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 [submodule "vim/.vim/bundle/vim-logreview"]
-	path = vim/.vim/bundle/vim-logreview
+	path = vim/.vim/pack/vendor/start/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
 [submodule "vim/.vim/bundle/committia.vim"]
-	path = vim/.vim/bundle/committia.vim
+	path = vim/.vim/pack/vendor/start/committia.vim
 	url = https://github.com/rhysd/committia.vim
 [submodule "vim/.vim/bundle/editorconfig-vim"]
-	path = vim/.vim/bundle/editorconfig-vim
+	path = vim/.vim/pack/vendor/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
 [submodule "vim/.vim/bundle/codi.vim"]
-	path = vim/.vim/bundle/codi.vim
+	path = vim/.vim/pack/vendor/start/codi.vim
 	url = https://github.com/metakirby5/codi.vim
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
@@ -89,10 +86,10 @@
 	path = zsh/.zsh/bundle/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
 [submodule "vim/.vim/bundle/vim-which-key"]
-	path = vim/.vim/bundle/vim-which-key
+	path = vim/.vim/pack/vendor/start/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key
 [submodule "vim/.vim/bundle/vim-rhubarb"]
-	path = vim/.vim/bundle/vim-rhubarb
+	path = vim/.vim/pack/vendor/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
 [submodule "zsh/.zsh/bundle/utility"]
 	path = zsh/.zsh/bundle/utility
@@ -145,18 +142,18 @@
 	path = zsh/.zsh/bundle/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
 [submodule "vim/.vim/bundle/vim-fugitive"]
-	path = vim/.vim/bundle/vim-fugitive
+	path = vim/.vim/pack/vendor/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/.vim/bundle/rainbow"]
-	path = vim/.vim/bundle/rainbow
+	path = vim/.vim/pack/vendor/start/rainbow
 	url = https://github.com/luochen1990/rainbow
 [submodule "vim/.vim/bundle/coc.nvim"]
-	path = vim/.vim/bundle/coc.nvim
+	path = vim/.vim/pack/vendor/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 	branch = release
 [submodule "zsh/.zsh/bundle/fzf-tab"]
 	path = zsh/.zsh/bundle/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
 [submodule "vim/.vim/bundle/codeium.vim"]
-	path = vim/.vim/bundle/codeium.vim
+	path = vim/.vim/pack/vendor/start/codeium.vim
 	url = https://github.com/Exafunction/codeium.vim

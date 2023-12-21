@@ -226,12 +226,7 @@ command! W w !sudo tee % > /dev/null
 " }}}
 
 " Plugins {{{
-
-" Modify runtime path
-runtime bundle/vim-pathogen/autoload/pathogen.vim
-execute pathogen#infect()
-execute pathogen#infect('~/.vim/bundle/local/{}')
-execute pathogen#helptags()
+:packloadall
 
 " If base16 theme is set from shell, load it
 if filereadable(expand('~/.vimrc_background'))
