@@ -1,159 +1,159 @@
 [submodule "tmux/.tmux/bundle/tmux-yank"]
-	path = tmux/.tmux/bundle/tmux-yank
+	path = tmux/.tmux/pack/bundle/start/tmux-yank
 	url = https://github.com/tmux-plugins/tmux-yank
 [submodule "tmux/.tmux/bundle/tmux-sensible"]
-	path = tmux/.tmux/bundle/tmux-sensible
+	path = tmux/.tmux/pack/bundle/start/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
 [submodule "tmux/.tmux/bundle/tmux-copycat"]
-	path = tmux/.tmux/bundle/tmux-copycat
+	path = tmux/.tmux/pack/bundle/start/tmux-copycat
 	url = https://github.com/tmux-plugins/tmux-copycat
 [submodule "tmux/.tmux/bundle/tmux-continuum"]
-	path = tmux/.tmux/bundle/tmux-continuum
+	path = tmux/.tmux/pack/bundle/start/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
 [submodule "tmux/.tmux/bundle/vim-tmux-navigator"]
-	path = tmux/.tmux/bundle/vim-tmux-navigator
+	path = tmux/.tmux/pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
-	path = tmux/.tmux/bundle/tmux-resurrect
+	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "tmux/.tmux/bundle/tmux-open"]
-	path = tmux/.tmux/bundle/tmux-open
+	path = tmux/.tmux/pack/bundle/start/tmux-open
 	url = https://github.com/tmux-plugins/tmux-open
 [submodule "vim/.vim/bundle/vim-snippets"]
-	path = vim/.vim/pack/vendor/start/vim-snippets
+	path = vim/.vim/pack/bundle/start/vim-snippets
 	url = https://github.com/honza/vim-snippets
 [submodule "vim/.vim/bundle/vim-rooter"]
-	path = vim/.vim/pack/vendor/start/vim-rooter
+	path = vim/.vim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
 [submodule "vim/.vim/bundle/base16-vim"]
-	path = vim/.vim/pack/vendor/start/base16-vim
+	path = vim/.vim/pack/bundle/start/base16-vim
 	url = https://github.com/chriskempson/base16-vim
 [submodule "vim/.vim/bundle/vim-obsession"]
-	path = vim/.vim/pack/vendor/start/vim-obsession
+	path = vim/.vim/pack/bundle/start/vim-obsession
 	url = https://github.com/tpope/vim-obsession
 [submodule "vim/.vim/bundle/vim-gutentags"]
-	path = vim/.vim/pack/vendor/start/vim-gutentags
+	path = vim/.vim/pack/bundle/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
 [submodule "vim/.vim/bundle/vimwiki"]
-	path = vim/.vim/pack/vendor/start/vimwiki
+	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 [submodule "vim/.vim/bundle/fzf.vim"]
-	path = vim/.vim/pack/vendor/start/fzf.vim
+	path = vim/.vim/pack/bundle/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
 [submodule "vim/.vim/bundle/vim-commentary"]
-	path = vim/.vim/pack/vendor/start/vim-commentary
+	path = vim/.vim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/bundle/vim-surround"]
-	path = vim/.vim/pack/vendor/start/vim-surround
+	path = vim/.vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
 [submodule "vim/.vim/bundle/vim-dirvish"]
-	path = vim/.vim/pack/vendor/start/vim-dirvish
+	path = vim/.vim/pack/bundle/start/vim-dirvish
     url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/bundle/vim-unimpaired"]
-	path = vim/.vim/pack/vendor/start/vim-unimpaired
+	path = vim/.vim/pack/bundle/start/vim-unimpaired
     url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/vim-polyglot"]
-	path = vim/.vim/pack/vendor/start/vim-polyglot
+	path = vim/.vim/pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
 [submodule "vim/.vim/bundle/vim-logreview"]
-	path = vim/.vim/pack/vendor/start/vim-logreview
+	path = vim/.vim/pack/bundle/start/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
 [submodule "vim/.vim/bundle/committia.vim"]
-	path = vim/.vim/pack/vendor/start/committia.vim
+	path = vim/.vim/pack/bundle/start/committia.vim
 	url = https://github.com/rhysd/committia.vim
 [submodule "vim/.vim/bundle/editorconfig-vim"]
-	path = vim/.vim/pack/vendor/start/editorconfig-vim
+	path = vim/.vim/pack/bundle/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
 [submodule "vim/.vim/bundle/codi.vim"]
-	path = vim/.vim/pack/vendor/start/codi.vim
+	path = vim/.vim/pack/bundle/start/codi.vim
 	url = https://github.com/metakirby5/codi.vim
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf
 [submodule "zsh/.zsh/bundle/base16-shell"]
-	path = zsh/.zsh/bundle/base16-shell
+	path = zsh/.zsh/pack/bundle/start/base16-shell
 	url = https://github.com/chriskempson/base16-shell
 [submodule "zsh/.zsh/bundle/alias-tips"]
-	path = zsh/.zsh/bundle/alias-tips
+	path = zsh/.zsh/pack/bundle/start/alias-tips
 	url = https://github.com/djui/alias-tips
 [submodule "tmux/.tmux/bundle/tmux-sessionist"]
-	path = tmux/.tmux/bundle/tmux-sessionist
+	path = tmux/.tmux/pack/bundle/start/tmux-sessionist
 	url = https://github.com/tmux-plugins/tmux-sessionist
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
-	path = zsh/.zsh/bundle/zsh-kubernetes
+	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
 [submodule "vim/.vim/bundle/vim-which-key"]
-	path = vim/.vim/pack/vendor/start/vim-which-key
+	path = vim/.vim/pack/bundle/start/vim-which-key
 	url = https://github.com/liuchengxu/vim-which-key
 [submodule "vim/.vim/bundle/vim-rhubarb"]
-	path = vim/.vim/pack/vendor/start/vim-rhubarb
+	path = vim/.vim/pack/bundle/start/vim-rhubarb
 	url = https://github.com/tpope/vim-rhubarb
 [submodule "zsh/.zsh/bundle/utility"]
-	path = zsh/.zsh/bundle/utility
+	path = zsh/.zsh/pack/bundle/start/utility
 	url = https://github.com/zimfw/utility
 [submodule "zsh/.zsh/bundle/archive"]
-	path = zsh/.zsh/bundle/archive
+	path = zsh/.zsh/pack/bundle/start/archive
 	url = https://github.com/zimfw/archive
 [submodule "zsh/.zsh/bundle/zsh-autosuggestions"]
-	path = zsh/.zsh/bundle/zsh-autosuggestions
+	path = zsh/.zsh/pack/bundle/start/zsh-autosuggestions
 	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh/.zsh/bundle/git"]
-	path = zsh/.zsh/bundle/git
+	path = zsh/.zsh/pack/bundle/start/git
 	url = https://github.com/zimfw/git
 [submodule "zsh/.zsh/bundle/zsh-completions"]
-	path = zsh/.zsh/bundle/zsh-completions
+	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
 [submodule "zsh/.zsh/bundle/completion"]
-	path = zsh/.zsh/bundle/completion
+	path = zsh/.zsh/pack/bundle/start/completion
 	url = https://github.com/zimfw/completion
 [submodule "zsh/.zsh/bundle/input"]
-	path = zsh/.zsh/bundle/input
+	path = zsh/.zsh/pack/bundle/start/input
 	url = https://github.com/zimfw/input
 [submodule "zsh/.zsh/bundle/termtitle"]
-	path = zsh/.zsh/bundle/termtitle
+	path = zsh/.zsh/pack/bundle/start/termtitle
 	url = https://github.com/zimfw/termtitle
 [submodule "zsh/.zsh/bundle/ssh"]
-	path = zsh/.zsh/bundle/ssh
+	path = zsh/.zsh/pack/bundle/start/ssh
 	url = https://github.com/zimfw/ssh
 [submodule "zsh/.zsh/bundle/pacman"]
-	path = zsh/.zsh/bundle/pacman
+	path = zsh/.zsh/pack/bundle/start/pacman
 	url = https://github.com/zimfw/pacman
 [submodule "zsh/.zsh/bundle/git-info"]
-	path = zsh/.zsh/bundle/git-info
+	path = zsh/.zsh/pack/bundle/start/git-info
 	url = https://github.com/zimfw/git-info
 [submodule "zsh/.zsh/bundle/pure"]
-	path = zsh/.zsh/bundle/pure
+	path = zsh/.zsh/pack/bundle/start/pure
 	url = https://github.com/sindresorhus/pure
 	branch = main
 [submodule "zsh/.zsh/bundle/fasd"]
-	path = zsh/.zsh/bundle/fasd
+	path = zsh/.zsh/pack/bundle/start/fasd
 	url = https://github.com/clvv/fasd
 [submodule "zsh/.zsh/bundle/imgur.sh"]
-	path = zsh/.zsh/bundle/imgur.sh
+	path = zsh/.zsh/pack/bundle/start/imgur.sh
 	url = https://github.com/tremby/imgur.sh
 	branch = main
 [submodule "zsh/.zsh/bundle/environment"]
-	path = zsh/.zsh/bundle/environment
+	path = zsh/.zsh/pack/bundle/start/environment
 	url = https://github.com/zimfw/environment
 [submodule "zsh/.zsh/bundle/zsh-history-substring-search"]
-	path = zsh/.zsh/bundle/zsh-history-substring-search
+	path = zsh/.zsh/pack/bundle/start/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
 [submodule "vim/.vim/bundle/vim-fugitive"]
-	path = vim/.vim/pack/vendor/start/vim-fugitive
+	path = vim/.vim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
 [submodule "vim/.vim/bundle/rainbow"]
-	path = vim/.vim/pack/vendor/start/rainbow
+	path = vim/.vim/pack/bundle/start/rainbow
 	url = https://github.com/luochen1990/rainbow
 [submodule "vim/.vim/bundle/coc.nvim"]
-	path = vim/.vim/pack/vendor/start/coc.nvim
+	path = vim/.vim/pack/bundle/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
 	branch = release
 [submodule "zsh/.zsh/bundle/fzf-tab"]
-	path = zsh/.zsh/bundle/fzf-tab
+	path = zsh/.zsh/pack/bundle/start/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
 [submodule "vim/.vim/bundle/codeium.vim"]
-	path = vim/.vim/pack/vendor/start/codeium.vim
+	path = vim/.vim/pack/bundle/start/codeium.vim
 	url = https://github.com/Exafunction/codeium.vim

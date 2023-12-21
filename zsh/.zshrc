@@ -105,7 +105,7 @@ if [ -z "$PLUGINS_LOADED" ]; then
     source "$filename" >/dev/null 2>&1
 
     PLUGINS_LOADED+=("$filename")
-  done <<< $(find -L ~/.zsh/bundle -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
+  done <<< $(find -L ~/.zsh/pack/*/start -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
   export PLUGINS_LOADED
 fi
 
