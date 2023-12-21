@@ -316,8 +316,11 @@ nmap <leader>f :GFiles<cr>
 nmap <leader>a :Commands<cr>
 nmap <leader>h :History<cr>
 nmap <leader>b :Buffers<cr>
-nmap <leader>w :Windows<cr>
 nmap <leader>c :Commits<cr>
+nmap <leader>o :LS ~/git<cr>
+
+command! -bang -complete=dir -nargs=? LS
+    \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 " coc.nvim
 let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
