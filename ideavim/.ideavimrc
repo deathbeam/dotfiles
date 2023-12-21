@@ -6,6 +6,7 @@ source ~/.vimrc
 set nonumber
 
 " Emulate Idea version of Vim surround
+set commentary
 set surround
 
 " vinegar emulation with Idea
@@ -42,12 +43,9 @@ nnoremap gd :action GotoDeclaration<cr>
 nnoremap gy :action GotoTypeDeclaration<cr>
 nnoremap gi :action GotoImplementation<cr>
 nnoremap gr :action GotoRelated<cr>
+nnoremap <space>gl :action ShowErrorDescription<cr>
 nnoremap <space>gr :action RenameElement<cr>
 nnoremap <space>gf :action ReformatCode<cr>
-
-" vim-commentary mappings
-nnoremap gcc :action CommentByLineComment<cr>
-vnoremap gc :<bs><bs><bs><bs><bs>action VimVisualSwapSelections<cr>:action CommentByLineComment<CR>
 
 " Menus
 nnoremap <space>/ :action FindInPath<cr>
