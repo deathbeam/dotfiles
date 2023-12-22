@@ -24,6 +24,9 @@ WORDCHARS=${WORDCHARS//[\/]}
 
 # Aliases & functions {{{
 
+# Alias nvim
+alias vim=nvim
+
 # Alias xclip copy/paste
 if command -v xclip >/dev/null 2>&1; then
   alias xcopy='xclip -i -selection clipboard'
@@ -110,7 +113,7 @@ if [ -z "$PLUGINS_LOADED" ]; then
 fi
 
 # Adjust git aliases
-unalias gh
+unalias gh 2>/dev/null
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
