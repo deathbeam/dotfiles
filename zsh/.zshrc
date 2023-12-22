@@ -25,7 +25,9 @@ WORDCHARS=${WORDCHARS//[\/]}
 # Aliases & functions {{{
 
 # Alias nvim
-alias vim=nvim
+if command -v nvim >/dev/null 2>&1; then
+  alias vim=nvim
+fi
 
 # Alias xclip copy/paste
 if command -v xclip >/dev/null 2>&1; then
