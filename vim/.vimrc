@@ -116,15 +116,12 @@ set laststatus=2
 
 " Status line format
 set statusline=
-set statusline +=\ %n\             "buffer number
-set statusline +=%{&ff}            "file format
-set statusline +=%y                "file type
-set statusline +=\ %<%F            "full path
-set statusline +=%m                "modified flag
-set statusline +=%=%5l             "current line
-set statusline +=/%L               "total lines
-set statusline +=%4v\              "virtual column number
-set statusline +=0x%04B\           "character under cursor
+set statusline+=%<%F         "full path
+set statusline+=%1*%m           "modified flag
+set statusline+=%=%{&ff}     "file format
+set statusline+=%y           "file type
+set statusline+=%2*\ [%l/%L-%v] "total lines
+set statusline+=\ 0x%04B     "character under cursor
 
 " Always use vertical diffs
 set diffopt+=vertical
@@ -168,7 +165,12 @@ function! AdjustHighlighting()
   highlight TabLineSel ctermbg=NONE ctermfg=4
   highlight TabLineFill ctermbg=NONE ctermfg=19
   highlight TabLine ctermbg=NONE ctermfg=19
+  hi User1 ctermfg=6
+  hi User2 ctermfg=2
+  hi User3 ctermfg=5
+  hi User4 ctermfg=3
 endfunction
+call AdjustHighlighting()
 
 " }}}
 
@@ -240,6 +242,10 @@ else
   endtry
 endif
 
+"Statusline
+set statusline+=%3*\ %{fugitive#statusline()}
+set statusline+=%4*\ %{coc#status()}%{get(b:,'coc_current_function','')}
+
 " Read DOCX
 autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
@@ -276,17 +282,10 @@ nnoremap <silent> <leader>gl :Git log<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
-set statusline+=%{FugitiveStatusline()}
 
 " WhichKey
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-nnoremap <silent> g :<c-u>WhichKey 'g'<CR>
-vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<CR>
-nnoremap <silent> ] :<c-u>WhichKey ']'<CR>
-vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>
-nnoremap <silent> [ :<c-u>WhichKey '['<CR>
-vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>
 let g:which_key_map = {}
 let g:which_key_map["<CR>"] = 'which_key_ignore'
 let g:which_key_map.g = { 'name' : '+git' }
@@ -313,7 +312,6 @@ let g:rooter_patterns = [
 " Code completion
 let g:codeium_disable_bindings = 1
 let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
-set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
