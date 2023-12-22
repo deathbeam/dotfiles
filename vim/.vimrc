@@ -116,12 +116,12 @@ set laststatus=2
 
 " Status line format
 set statusline=
-set statusline+=%<%F         "full path
-set statusline+=%1*%m           "modified flag
-set statusline+=%=%{&ff}     "file format
-set statusline+=%y           "file type
+set statusline+=%<%F            "full path
+set statusline+=\ %1*%m         "modified flag
+set statusline+=%=%{&ff}        "file format
+set statusline+=%y              "file type
 set statusline+=%2*\ [%l/%L-%v] "total lines
-set statusline+=\ 0x%04B     "character under cursor
+set statusline+=\ 0x%04B        "character under cursor
 
 " Always use vertical diffs
 set diffopt+=vertical
