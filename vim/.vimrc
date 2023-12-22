@@ -242,10 +242,6 @@ else
   endtry
 endif
 
-"Statusline
-set statusline+=%3*\ %{fugitive#statusline()}
-set statusline+=%4*\ %{coc#status()}%{get(b:,'coc_current_function','')}
-
 " Read DOCX
 autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
@@ -311,7 +307,7 @@ let g:rooter_patterns = [
 
 " Code completion
 let g:codeium_disable_bindings = 1
-let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
+let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
@@ -360,6 +356,10 @@ nmap <leader>fo :LS ~/git<cr>
 
 command! -bang -complete=dir -nargs=? LS
     \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
+
+" Statusline
+set statusline+=%3*\ %{fugitive#statusline()}
+set statusline+=%4*\ %{coc#status()}
 
 " }}}
 
