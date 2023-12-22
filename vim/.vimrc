@@ -281,6 +281,12 @@ set statusline+=%{FugitiveStatusline()}
 " WhichKey
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
+nnoremap <silent> g :<c-u>WhichKey 'g'<CR>
+vnoremap <silent> g :<c-u>WhichKeyVisual 'g'<CR>
+nnoremap <silent> ] :<c-u>WhichKey ']'<CR>
+vnoremap <silent> ] :<c-u>WhichKeyVisual ']'<CR>
+nnoremap <silent> [ :<c-u>WhichKey '['<CR>
+vnoremap <silent> [ :<c-u>WhichKeyVisual '['<CR>
 let g:which_key_map = {}
 let g:which_key_map["<CR>"] = 'which_key_ignore'
 let g:which_key_map.g = { 'name' : '+git' }
