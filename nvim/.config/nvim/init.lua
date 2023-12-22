@@ -1,15 +1,25 @@
 vim.cmd([[
-set runtimepath^=~/.vim runtimepath+=~/.vim/after
-let &packpath = &runtimepath
-source ~/.vimrc
+    set runtimepath^=~/.vim runtimepath+=~/.vim/after
+    let &packpath = &runtimepath
+    source ~/.vimrc
 ]])
 
 -- WhichKey
-local wk = require("which-key")
-wk.register({
+require("which-key").register({
   f = { name = "finder" },
   g = { name = "git" },
   e = { name = "edit" },
   r = { name = "refactor" },
   w = { name = "wiki" },
 }, { prefix = "<leader>" })
+
+-- Treesitter
+require("nvim-treesitter.configs").setup {
+  ensure_installed = { "css", "html", "javascript", "typescript", "markdown", "lua", "python", "java" },
+  sync_install = false,
+  auto_install = false,
+  highlight = {
+    enable = true,
+    additional_vim_regex_highlighting = false,
+  },
+}

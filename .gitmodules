@@ -49,9 +49,6 @@
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
-[submodule "vim/.vim/bundle/vim-polyglot"]
-	path = vim/.vim/pack/bundle/start/vim-polyglot
-	url = https://github.com/sheerun/vim-polyglot
 [submodule "vim/.vim/bundle/vim-logreview"]
 	path = vim/.vim/pack/bundle/start/vim-logreview
 	url = https://github.com/andreshazard/vim-logreview
@@ -79,9 +76,6 @@
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
-[submodule "vim/.vim/bundle/vim-rhubarb"]
-	path = vim/.vim/pack/bundle/start/vim-rhubarb
-	url = https://github.com/tpope/vim-rhubarb
 [submodule "zsh/.zsh/bundle/utility"]
 	path = zsh/.zsh/pack/bundle/start/utility
 	url = https://github.com/zimfw/utility
@@ -135,9 +129,6 @@
 [submodule "vim/.vim/bundle/vim-fugitive"]
 	path = vim/.vim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule "vim/.vim/bundle/rainbow"]
-	path = vim/.vim/pack/bundle/start/rainbow
-	url = https://github.com/luochen1990/rainbow
 [submodule "vim/.vim/bundle/coc.nvim"]
 	path = vim/.vim/pack/bundle/start/coc.nvim
 	url = https://github.com/neoclide/coc.nvim
@@ -154,3 +145,6 @@
 [submodule "vim/.vim/pack/bundle/start/which-key.nvim"]
 	path = vim/.vim/pack/bundle/start/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
+[submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
+	path = vim/.vim/pack/bundle/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter

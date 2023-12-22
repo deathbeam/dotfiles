@@ -7,9 +7,7 @@ install:
 	touch /tmp/cmd && chmod u+x /tmp/cmd
 	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc
-	npm install --global webtorrent-mpv-hook
-	mkdir -p ~/.config/mpv/scripts
-	ln -sf ~/.npm-global/lib/node_modules/webtorrent-mpv-hook/build/webtorrent.js ~/.config/mpv/scripts/webtorrent.js
+	nvim +CocUpdateSync +TSUpdateSync +qall
 
 link:
 	stow --target ~ --restow `ls -d */` || true
