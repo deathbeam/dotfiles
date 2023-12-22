@@ -1,4 +1,4 @@
 {
     "suggest.noselect": true,
-    "java.jdt.ls.vmargs": "-javaagent:${env:VIM_HOME}/lombok.jar"
+    "java.jdt.ls.vmargs": "-javaagent:${env:VIM_HOME}/lombok.jar -Xbootclasspath/a:${env:VIM_HOME}/lombok.jar"
 }
