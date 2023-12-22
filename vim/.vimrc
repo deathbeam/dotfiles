@@ -307,7 +307,7 @@ let g:rooter_patterns = [
 
 " Code completion
 let g:codeium_disable_bindings = 1
-let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
+let g:coc_global_extensions = ['coc-marketplace', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
@@ -353,6 +353,7 @@ nmap <leader>fd :<C-u>CocFzfList diagnostics --current-buf<CR>
 nmap <leader>fD :<C-u>CocFzfList diagnostics<CR>
 nmap <leader>fs :<C-u>CocFzfList outline<CR>
 nmap <leader>fS :<C-u>CocFzfList symbols<CR>
+nmap <leader>fp :<C-u>CocFzfList marketplace<CR>
 nmap <leader>fo :LS ~/git<cr>
 
 command! -bang -complete=dir -nargs=? LS
