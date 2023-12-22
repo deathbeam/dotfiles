@@ -39,36 +39,31 @@ nnoremap <space>mF :action CompileProject<cr>
 nnoremap <space>mt :action RunClass<cr>
 nnoremap <space>mT :action RunConfiguration<cr>
 
-" Diagnostics
+# GoTo navigation
 nnoremap [g :action GotoPreviousError<cr>
 nnoremap ]g :action GotoNextError<cr>
-nnoremap <space>el :action ActivateProblemsViewToolWindow<cr>
-
-# GoTo navigation
 nnoremap gd :action GotoDeclaration<cr>
 nnoremap gy :action GotoTypeDeclaration<cr>
 nnoremap gi :action GotoImplementation<cr>
 nnoremap gr :action GotoRelated<cr>
 
 # Refactoring
-nnoremap <space>er :action RenameElement<cr>
-nnoremap <space>ef :action ReformatCode<cr>
+nnoremap <space>rr :action RenameElement<cr>
+nnoremap <space>rf :action ReformatCode<cr>
+nnoremap <space>rac :action ShowIntentionActions<cr>
+nnoremap <space>ras :action RefactoringMenu<cr>
 
-# Code actions
-nnoremap <space>eac :action ShowIntentionActions<cr>
-nnoremap <space>eas :action RefactoringMenu<cr>
-
-" Menus
-nnoremap <space>/ :action FindInPath<cr>
-nnoremap <space>T :action GotoSymbol<cr>
-nnoremap <space>t :action FileStructurePopup<cr>
-nnoremap <space>F :action GotoFile<cr>
-nnoremap <space>f :action GotoClass<cr>
-nnoremap <space>a :action GotoAction<cr>
-nnoremap <space>h :action RecentFiles<cr>
-nnoremap <space>b :action Switcher<cr>
-nnoremap <space>c :action Vcs.ShowTabbedFileHistory<cr>
-nnoremap <space>o :action OpenFile<cr>
+" Finder
+nnoremap <space>fg :action FindInPath<cr>
+nnoremap <space>ff :action GotoClass<cr>
+nnoremap <space>fF :action GotoFile<cr>
+nnoremap <space>fa :action GotoAction<cr>
+nnoremap <space>fc :action Vcs.ShowTabbedFileHistory<cr>
+nnoremap <space>fb :action Switcher<cr>
+nnoremap <space>fh :action RecentFiles<cr>
+nnoremap <space>fd :action ActivateProblemsViewToolWindow<cr>
+nnoremap <space>fs :action GotoSymbol<cr>
+nnoremap <space>fo :action OpenFile<cr>
 
 " }}}
 

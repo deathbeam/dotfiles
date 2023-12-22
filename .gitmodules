@@ -151,3 +151,6 @@
 [submodule "vim/.vim/bundle/codeium.vim"]
 	path = vim/.vim/pack/bundle/start/codeium.vim
 	url = https://github.com/Exafunction/codeium.vim
+[submodule "vim/.vim/pack/bundle/start/coc-fzf"]
+	path = vim/.vim/pack/bundle/start/coc-fzf
+	url = https://github.com/antoinemadec/coc-fzf

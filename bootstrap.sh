@@ -57,7 +57,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm github-cli azure-cli docker docker-compose
+  maven npm github-cli azure-cli docker docker-compose bat
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \

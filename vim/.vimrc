@@ -282,11 +282,12 @@ set statusline+=%{FugitiveStatusline()}
 nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
 vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
 let g:which_key_map = {}
-let g:which_key_map.ws = 'which_key_ignore'
-let g:which_key_map.wt = 'which_key_ignore'
 let g:which_key_map["<CR>"] = 'which_key_ignore'
 let g:which_key_map.g = { 'name' : '+git' }
 let g:which_key_map.e = { 'name' : '+edit' }
+let g:which_key_map.f = { 'name' : '+fuzzy' }
+let g:which_key_map.r = { 'name' : '+refactor' }
+let g:which_key_map.w = { 'name' : '+wiki' }
 call which_key#register('<Space>', "g:which_key_map")
 
 " Vim rooter
@@ -303,42 +304,19 @@ let g:rooter_patterns = [
       \ '.editorconfig',
       \]
 
-" FZF
-nmap <leader>/ :RG<cr>
-nmap <leader>T :Tags<cr>
-nmap <leader>t :BTags<cr>
-nmap <leader>F :Files<cr>
-nmap <leader>f :GFiles<cr>
-nmap <leader>a :Commands<cr>
-nmap <leader>h :History<cr>
-nmap <leader>b :Buffers<cr>
-nmap <leader>c :Commits<cr>
-nmap <leader>o :LS ~/git<cr>
-
-command! -bang -complete=dir -nargs=? LS
-    \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
-
-" coc.nvim + codeium
+" Code completion
 let g:codeium_disable_bindings = 1
 let g:coc_global_extensions = ['coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-java', 'coc-jedi']
-
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
-
-" Make <TAB> either confirm current selection or complete with codeium
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
-
-" Make <CR> to accept selected completion item or notify coc.nvim to format
 inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
                               \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
-" Diagnostics
+" GoTo navigation
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
 nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <leader>el :<C-u>CocDiagnostics<cr>
-
-" GoTo navigation
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
@@ -353,15 +331,31 @@ function! ShowDocumentation()
 endfunction
 
 " Refactoring
-nmap <leader>er <Plug>(coc-rename)
-xmap <leader>ef <Plug>(coc-format-selected)
-nmap <leader>ef <Plug>(coc-format-selected)
+nmap <leader>rr <Plug>(coc-rename)
+xmap <leader>rf <Plug>(coc-format-selected)
+nmap <leader>rf <Plug>(coc-format-selected)
+xmap <leader>ra  <Plug>(coc-codeaction-selected)
+nmap <leader>ra  <Plug>(coc-codeaction-selected)
+nmap <leader>rac  <Plug>(coc-codeaction-cursor)
+nmap <leader>ras  <Plug>(coc-codeaction-source)
 
-" Code actions
-xmap <leader>ea  <Plug>(coc-codeaction-selected)
-nmap <leader>ea  <Plug>(coc-codeaction-selected)
-nmap <leader>eac  <Plug>(coc-codeaction-cursor)
-nmap <leader>eas  <Plug>(coc-codeaction-source)
+" Finder
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
+nmap <leader>fg :RG<cr>
+nmap <leader>ff :GFiles<cr>
+nmap <leader>fF :Files<cr>
+nmap <leader>fa :Commands<cr>
+nmap <leader>fc :Commits<cr>
+nmap <leader>fb :Buffers<cr>
+nmap <leader>fh :History<cr>
+nmap <leader>fd :<C-u>CocFzfList diagnostics --current-buf<CR>
+nmap <leader>fD :<C-u>CocFzfList diagnostics<CR>
+nmap <leader>fs :<C-u>CocFzfList symbols<CR>
+nmap <leader>fo :LS ~/git<cr>
+
+command! -bang -complete=dir -nargs=? LS
+    \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
 
 " }}}
 
