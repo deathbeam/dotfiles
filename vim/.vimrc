@@ -280,18 +280,6 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
 
-" WhichKey
-nnoremap <silent> <leader> :<c-u>WhichKey '<Space>'<CR>
-vnoremap <silent> <leader> :<c-u>WhichKeyVisual '<Space>'<CR>
-let g:which_key_map = {}
-let g:which_key_map["<CR>"] = 'which_key_ignore'
-let g:which_key_map.g = { 'name' : '+git' }
-let g:which_key_map.e = { 'name' : '+edit' }
-let g:which_key_map.f = { 'name' : '+fuzzy' }
-let g:which_key_map.r = { 'name' : '+refactor' }
-let g:which_key_map.w = { 'name' : '+wiki' }
-call which_key#register('<Space>', "g:which_key_map")
-
 " Vim rooter
 let g:rooter_patterns = [
       \ '.git',
