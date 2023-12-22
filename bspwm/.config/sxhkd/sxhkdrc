@@ -5,8 +5,8 @@
 # terminal emulator + tmux
 super + Return
   st -e $SHELL -c "export PS1='temp'; \
-                   source ~/.zsh/bundle/base16-shell/base16-shell.plugin.zsh; \
-                   [ -z $BASE16_THEME ] && base16_solarized-dark; \
+                   source ~/.zsh/pack/bundle/start/base16-shell/base16-shell.plugin.zsh; \
+                   base16_solarized-dark; \
                    tmux attach"
 
 # program menu
