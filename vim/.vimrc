@@ -109,6 +109,7 @@ set showmatch
 set noerrorbells
 set novisualbell
 set t_vb=
+set timeout
 set timeoutlen=500
 
 " Always show the status line
