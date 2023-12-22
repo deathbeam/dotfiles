@@ -226,6 +226,13 @@ command! W w !sudo tee % > /dev/null
 " }}}
 
 " Plugins {{{
+
+" VimWiki
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
+let g:vimwiki_global_ext=0
+let g:vimwiki_table_mappings = 0
+
+" Load all plugins
 :packloadall
 
 " If base16 theme is set from shell, load it
@@ -253,14 +260,6 @@ function! Session()
   :Obsession
 endfunction
 command! -bar Session :call Session()
-
-" Rainbow parentheses
-let g:rainbow_active = 1
-
-" VimWiki
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext=0
-let g:vimwiki_table_mappings = 0
 
 " EditorConfig
 let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason

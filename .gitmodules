@@ -49,9 +49,6 @@
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
-[submodule "vim/.vim/bundle/vim-logreview"]
-	path = vim/.vim/pack/bundle/start/vim-logreview
-	url = https://github.com/andreshazard/vim-logreview
 [submodule "vim/.vim/bundle/editorconfig-vim"]
 	path = vim/.vim/pack/bundle/start/editorconfig-vim
 	url = https://github.com/editorconfig/editorconfig-vim
