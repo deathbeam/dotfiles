@@ -62,7 +62,8 @@ nnoremap <space>fc :action Vcs.ShowTabbedFileHistory<cr>
 nnoremap <space>fb :action Switcher<cr>
 nnoremap <space>fh :action RecentFiles<cr>
 nnoremap <space>fd :action ActivateProblemsViewToolWindow<cr>
-nnoremap <space>fs :action GotoSymbol<cr>
+nnoremap <space>fs :action FileStructurePopup<cr>
+nnoremap <space>fS :action GotoSymbol<cr>
 nnoremap <space>fo :action OpenFile<cr>
 
 " }}}
