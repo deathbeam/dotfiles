@@ -10,9 +10,6 @@
 [submodule "tmux/.tmux/bundle/tmux-continuum"]
 	path = tmux/.tmux/pack/bundle/start/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
-[submodule "tmux/.tmux/bundle/vim-tmux-navigator"]
-	path = tmux/.tmux/pack/bundle/start/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
@@ -37,9 +34,6 @@
 [submodule "vim/.vim/bundle/fzf.vim"]
 	path = vim/.vim/pack/bundle/start/fzf.vim
 	url = https://github.com/junegunn/fzf.vim
-[submodule "vim/.vim/bundle/vim-commentary"]
-	path = vim/.vim/pack/bundle/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/bundle/vim-surround"]
 	path = vim/.vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
@@ -145,3 +139,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
 	path = vim/.vim/pack/bundle/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "vim/.vim/pack/bundle/start/vim-commentary"]
+	path = vim/.vim/pack/bundle/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
