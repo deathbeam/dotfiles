@@ -37,9 +37,6 @@
 [submodule "vim/.vim/bundle/vim-surround"]
 	path = vim/.vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
-[submodule "vim/.vim/bundle/vim-dirvish"]
-	path = vim/.vim/pack/bundle/start/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
@@ -145,3 +142,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-tmux-navigator"]
 	path = vim/.vim/pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
+[submodule "vim/.vim/pack/bundle/start/oil.nvim"]
+	path = vim/.vim/pack/bundle/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim
