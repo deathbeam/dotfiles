@@ -156,17 +156,17 @@ function! AdjustHighlighting()
   highlight clear SignColumn
   highlight clear FoldColumn
   highlight Search cterm=NONE ctermfg=0 ctermbg=3
-  highlight StatusLine cterm=underline ctermbg=NONE ctermfg=4
+  highlight StatusLine cterm=underline ctermbg=4 ctermfg=0
   highlight StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
   highlight VertSplit ctermbg=NONE ctermfg=19
   highlight Title ctermfg=19
   highlight TabLineSel ctermbg=NONE ctermfg=4
   highlight TabLineFill ctermbg=NONE ctermfg=19
   highlight TabLine ctermbg=NONE ctermfg=19
-  hi User1 ctermfg=6
-  hi User2 ctermfg=2
-  hi User3 ctermfg=5
-  hi User4 ctermfg=3
+  hi User1 ctermfg=6 cterm=underline ctermbg=NONE
+  hi User2 ctermfg=2 cterm=underline ctermbg=NONE
+  hi User3 ctermfg=5 cterm=underline ctermbg=NONE
+  hi User4 ctermfg=3 cterm=underline ctermbg=NONE
 endfunction
 call AdjustHighlighting()
 
@@ -232,6 +232,31 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
 let g:vimwiki_global_ext=0
 let g:vimwiki_table_mappings = 0
 
+" Vim rooter
+let g:rooter_patterns = [
+      \ '.git',
+      \ '.git/',
+      \ '_darcs/',
+      \ '.hg/',
+      \ '.bzr/',
+      \ '.svn/',
+      \ '.pylintrc',
+      \ 'pylintrc',
+      \ 'package.json',
+      \ '.editorconfig',
+      \ 'requirements.txt',
+      \]
+
+" EditorConfig
+let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason
+let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
+
+" Code completion
+let g:coc_fzf_preview = ''
+let g:coc_fzf_opts = []
+let g:codeium_disable_bindings = 1
+let g:coc_global_extensions = ['coc-marketplace', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
+
 " Load all plugins
 :packloadall
 
@@ -261,10 +286,6 @@ function! Session()
 endfunction
 command! -bar Session :call Session()
 
-" EditorConfig
-let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason
-let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
-
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 nnoremap <silent> <leader>gs :Git<CR>
@@ -276,23 +297,7 @@ nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
 nnoremap <silent> <leader>gr :Gremove<CR>
 
-" Vim rooter
-let g:rooter_patterns = [
-      \ '.git',
-      \ '.git/',
-      \ '_darcs/',
-      \ '.hg/',
-      \ '.bzr/',
-      \ '.svn/',
-      \ '.pylintrc',
-      \ 'pylintrc',
-      \ 'package.json',
-      \ '.editorconfig',
-      \]
-
-" Code completion
-let g:codeium_disable_bindings = 1
-let g:coc_global_extensions = ['coc-marketplace', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
+" Tab complete
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
@@ -327,8 +332,6 @@ nmap <leader>rc  <Plug>(coc-codelens-action)
 nmap <leader>rq  <Plug>(coc-fix-current)
 
 " Finder
-let g:coc_fzf_preview = ''
-let g:coc_fzf_opts = []
 nmap <leader>fg :RG<cr>
 nmap <leader>ff :GFiles<cr>
 nmap <leader>fF :Files<cr>
