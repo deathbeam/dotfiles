@@ -142,9 +142,15 @@
 [submodule "vim/.vim/pack/bundle/start/vim-tmux-navigator"]
 	path = vim/.vim/pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
-[submodule "vim/.vim/pack/bundle/start/oil.nvim"]
-	path = vim/.vim/pack/bundle/start/oil.nvim
-	url = https://github.com/stevearc/oil.nvim
 [submodule "vim/.vim/pack/bundle/start/undotree"]
 	path = vim/.vim/pack/bundle/start/undotree
 	url = https://github.com/mbbill/undotree
+[submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
+	path = tmux/.tmux/pack/bundle/start/tmux-fzf
+	url = https://github.com/sainnhe/tmux-fzf
+[submodule "vim/.vim/pack/bundle/start/vim-dirvish"]
+	path = vim/.vim/pack/bundle/start/vim-dirvish
+	url = https://github.com/justinmk/vim-dirvish
+[submodule "vim/.vim/pack/bundle/start/vim-dirvish-dovish"]
+	path = vim/.vim/pack/bundle/start/vim-dirvish-dovish
+	url = https://github.com/roginfarrer/vim-dirvish-dovish
