@@ -323,6 +323,8 @@ xmap <leader>ra  <Plug>(coc-codeaction-selected)
 nmap <leader>ra  <Plug>(coc-codeaction-selected)
 nmap <leader>rac  <Plug>(coc-codeaction-cursor)
 nmap <leader>ras  <Plug>(coc-codeaction-source)
+nmap <leader>rc  <Plug>(coc-codelens-action)
+nmap <leader>rq  <Plug>(coc-fix-current)
 
 " Finder
 let g:coc_fzf_preview = ''
