@@ -285,6 +285,9 @@ function! Session()
 endfunction
 command! -bar Session :call Session()
 
+" Undotree
+nnoremap <silent> <leader>u :UndotreeToggle<CR>
+
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 nnoremap <silent> <leader>gs :Git<CR>

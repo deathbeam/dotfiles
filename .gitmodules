@@ -145,3 +145,6 @@
 [submodule "vim/.vim/pack/bundle/start/oil.nvim"]
 	path = vim/.vim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
+[submodule "vim/.vim/pack/bundle/start/undotree"]
+	path = vim/.vim/pack/bundle/start/undotree
+	url = https://github.com/mbbill/undotree
