@@ -10,7 +10,6 @@ augroup END
 " Enable some default plugins
 runtime defaults.vim
 runtime macros/matchit.vim
-let loaded_matchparen = 1 " disable matchparen, can be really slow
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -136,10 +135,6 @@ set nowrap
 " Always show the signcolumn, otherwise it would shift the text each time
 " diagnostics appear/become resolved
 set signcolumn=yes
-
-" Limit horizontal and vertical syntax rendering (for better performance)
-" syntax sync minlines=256
-" set synmaxcol=256
 
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =
