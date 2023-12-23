@@ -6,7 +6,6 @@
 super + Return
   st -e $SHELL -c "export PS1='temp'; \
                    source ~/.zsh/pack/bundle/start/base16-shell/base16-shell.plugin.zsh; \
-                   base16_solarized-dark; \
                    tmux attach"
 
 # program menu

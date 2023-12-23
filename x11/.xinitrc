@@ -103,10 +103,5 @@ if command -v touchegg >/dev/null 2>&1; then
   touchegg &
 fi
 
-# Now, open terminal window
-if command -v st >/dev/null 2>&1; then
-  { sleep 3; st; } &
-fi
-
 # And finally, start our WM
 exec bspwm
