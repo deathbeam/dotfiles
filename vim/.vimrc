@@ -209,6 +209,10 @@ let g:mapleader = ' '
 " Clear last search highlight
 map <leader><cr> :noh<cr>
 
+" Splits
+noremap <silent> <leader>" :<C-U>vsplit<cr>
+noremap <silent> <leader>% :<C-U>split<cr>
+
 " Emacs like keybindings for the command line (:) are better
 " and we cannot use Vi style-binding here anyway, because ESC
 " just closes the command line and using Home and End.. just no, f.e. OSX keyboards
