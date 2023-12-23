@@ -212,6 +212,7 @@ map <leader><cr> :noh<cr>
 " Splits
 noremap <silent> <leader>" :<C-U>vsplit<cr>
 noremap <silent> <leader>% :<C-U>split<cr>
+noremap <silent> <leader>x :<C-U>close<cr>
 
 " Emacs like keybindings for the command line (:) are better
 " and we cannot use Vi style-binding here anyway, because ESC
