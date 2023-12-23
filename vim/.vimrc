@@ -104,6 +104,12 @@ set lazyredraw
 " Show matching brackets when text indicator is over them
 set showmatch
 
+" Always show some lines under
+set scrolloff=8
+
+" Fast update
+set updatetime=50
+
 " Less annoying errors
 set noerrorbells
 set novisualbell
