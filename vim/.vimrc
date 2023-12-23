@@ -301,8 +301,22 @@ nnoremap <silent> <leader>gr :Gremove<CR>
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#confirm() :
       \ codeium#Accept()
-inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+inoremap <silent><expr> <CR>
+      \ coc#pum#visible() ? coc#pum#confirm() :
+      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+inoremap <silent><expr> <C-n>
+      \ CheckBackspace() ? "\<C-n>" :
+      \ coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
+
+inoremap <silent><expr> <C-p>
+      \ CheckBackspace() ? "\<C-p>" :
+      \ coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
+
+function! CheckBackspace() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 " GoTo navigation
 nmap <silent> [g <Plug>(coc-diagnostic-prev)
