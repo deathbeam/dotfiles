@@ -356,8 +356,8 @@ nmap <leader>fh :History<cr>
 nmap <leader>fd :<C-u>CocFzfList diagnostics --current-buf<CR>
 nmap <leader>fD :<C-u>CocFzfList diagnostics<CR>
 nmap <leader>fs :<C-u>CocFzfList outline<CR>
-nmap <leader>fS :<C-u>CocFzfList symbols<CR>
-nmap <leader>fp :<C-u>CocFzfList marketplace<CR>
+nmap <leader>fS :<C-u>CocList -I symbols<CR>
+nmap <leader>fp :<C-u>CocList marketplace<CR>
 nmap <leader>fo :LS ~/git<cr>
 
 command! -bang -complete=dir -nargs=? LS
