@@ -255,7 +255,7 @@ let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for f
 let g:coc_fzf_preview = ''
 let g:coc_fzf_opts = []
 let g:codeium_disable_bindings = 1
-let g:coc_global_extensions = ['coc-marketplace', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
+let g:coc_global_extensions = ['coc-marketplace', 'coc-git', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
 
 " Load all plugins
 :packloadall
