@@ -154,8 +154,8 @@ cmp.setup({
     },
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'vsnip' },
         { name = 'path' },
-        { name = 'buffer' },
     },
     mapping = cmp.mapping.preset.insert({
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
