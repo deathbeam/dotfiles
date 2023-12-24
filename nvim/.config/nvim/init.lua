@@ -1,20 +1,77 @@
+-- Load existing vimrc
 vim.cmd([[
     set runtimepath^=~/.vim runtimepath+=~/.vim/after
     let &packpath = &runtimepath
     source ~/.vimrc
 ]])
 
+-- Define language servers
+local servers = {
+    css = {
+        lsp = 'cssls',
+    },
+    html = {
+        lsp = 'html',
+    },
+    javascript = {
+        lsp = 'tsserver',
+    },
+    typescript = {
+        lsp = 'tsserver',
+    },
+    markdown = {
+        lsp = 'marksman',
+    },
+    python = {
+        lsp = 'pylsp',
+    },
+    java = {
+        lsp = 'jdtls',
+    },
+    lua = {
+        lsp = 'lua_ls',
+        lsp_settings = {
+            Lua = {
+                runtime = {
+                    version = 'LuaJIT'
+                },
+                diagnostics = {
+                    globals = { 'vim' },
+                },
+                workspace = {
+                    library = {
+                        vim.env.VIMRUNTIME,
+                    }
+                }
+            }
+        }
+    },
+    vim = {
+        lsp = 'vimls',
+    },
+    yaml = {
+        lsp = 'yamlls',
+    },
+    json = {
+        lsp = 'jsonls',
+    },
+    xml = {
+        lsp = 'lemminx',
+    }
+}
+
+
 -- WhichKey
-require("which-key").register({
-    f = { name = "finder" },
-    g = { name = "git" },
-    r = { name = "refactor" },
-    w = { name = "wiki" },
-}, { prefix = "<leader>" })
+require("which-key").register {
+    ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' },
+    ['<leader>g'] = { name = "[G]it", _ = 'which_key_ignore' },
+    ['<leader>c'] = { name = "[C]ode", _ = 'which_key_ignore' },
+    ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
+}
 
 -- Treesitter
 require("nvim-treesitter.configs").setup {
-    ensure_installed = { "css", "html", "javascript", "typescript", "markdown", "lua", "python", "java" },
+    ensure_installed = vim.tbl_keys(servers),
     sync_install = false,
     auto_install = false,
     highlight = {
@@ -29,106 +86,92 @@ require("nvim-treesitter.configs").setup {
 -- LSP
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+local lsp_status = require('lsp-status')
+lsp_status.register_progress()
+lsp_status.config({ status_symbol = ' ', current_function = false })
+lsp_capabilities = vim.tbl_deep_extend('force', lsp_capabilities, lsp_status.capabilities)
+require('fzf_lsp').setup()
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
-        local opts = { buffer = event.buf }
+        local nmap = function(keys, func, desc)
+            vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
+        end
 
-        vim.keymap.set('n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
-        vim.keymap.set('n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
-        vim.keymap.set('n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
-        vim.keymap.set('n', 'gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
-        vim.keymap.set('n', 'go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', opts)
-        vim.keymap.set('n', 'gr', '<cmd>lua vim.lsp.buf.references()<cr>', opts)
-        vim.keymap.set('n', 'gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
-        vim.keymap.set('n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
-        vim.keymap.set('n', '[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', opts)
-        vim.keymap.set('n', ']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', opts)
+        nmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover documentation')
+        nmap('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', '[G]oto [D]efinition')
+        nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', '[G]oto [D]eclaration')
+        nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', '[G]oto [I]mplementation')
+        nmap('go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', '[G]oto [O]verload')
+        nmap('gr', '<cmd>lua vim.lsp.buf.references()<cr>', '[G]oto [R]eferences')
+        nmap('gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', '[G]oto [S]ignature help')
+        nmap('gl', '<cmd>lua vim.diagnostic.open_float()<cr>', '[G]oto [L]ine diagnostics')
+        nmap('gL', '<cmd>lua vim.diagnostic.setloclist()<cr>', '[G]oto [L]ist diagnostics')
+        nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Goto previous diagnostic')
+        nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto next diagnostic')
 
         -- find
-        vim.keymap.set('n', '<leader>fd', '<cmd>Diagnostics<cr>', opts)
-        vim.keymap.set('n', '<leader>fD', '<cmd>DiagnosticsAll<cr>', opts)
-        vim.keymap.set('n', '<leader>fs', '<cmd>DocumentSymbols<cr>', opts)
-        vim.keymap.set('n', '<leader>fS', '<cmd>WorkspaceSymbols<cr>', opts)
-        vim.keymap.set('n', '<leader>fp', '<cmd>Mason<cr>', opts)
+        nmap('<leader>fd', '<cmd>Diagnostics<cr>', '[F]ind [D]iagnostics')
+        nmap('<leader>fD', '<cmd>DiagnosticsAll<cr>', '[F]ind All [D]iagnostics')
+        nmap('<leader>fs', '<cmd>DocumentSymbols<cr>', '[F]ind [S]ymbols')
+        nmap('<leader>fS', '<cmd>WorkspaceSymbols<cr>', '[F]ind All [S]ymbols')
+        nmap('<leader>fp', '<cmd>Mason<cr>', '[F]ind [P]lugins')
 
-        -- refactor
-        vim.keymap.set('n', '<leader>rr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-        vim.keymap.set('n', '<leader>rf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', opts)
-        vim.keymap.set('n', '<leader>ra', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
+        -- code
+        nmap('<leader>cr', '<cmd>lua vim.lsp.buf.rename()<cr>', '[C]ode [R]ename')
+        nmap('<leader>cf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', '[C]ode [F]ormat')
+        nmap('<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', '[C]ode [A]ction')
     end
 })
 
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-lsp_status.config({
-    status_symbol = ' ',
-    current_function = false,
-})
-lsp_capabilities = vim.tbl_deep_extend('force', lsp_capabilities, lsp_status.capabilities)
-
-local default_setup = function(server)
-    lspconfig[server].setup({
-        capabilities = lsp_capabilities,
-        on_attach = lsp_status.on_attach,
-    })
-end
-
 require('mason').setup({})
 require('mason-lspconfig').setup({
-    ensure_installed = {
-        'jdtls',                -- java
-        'jedi_language_server', -- python,
-        'tsserver',             -- typescript,
-        'cssls',                -- css,
-        'html',                 -- html,
-        'lua_ls',               -- lua,
-        'jsonls',               -- json
-        'vimls',                -- vim,
-        'yamlls',               -- yaml
-        'lemminx',              -- xml,
-        'marksman',             -- markdown
-    },
+    ensure_installed = vim.tbl_map(function(server) return server.lsp end, servers),
     handlers = {
-        default_setup,
-        lua_ls = function()
-            require('lspconfig').lua_ls.setup({
+        function(server)
+            local settings = nil
+            for _, server_config in pairs(servers) do
+                if server_config.lsp == server then
+                    settings = server_config.lsp_settings
+                end
+            end
+            lspconfig[server].setup({
                 capabilities = lsp_capabilities,
                 on_attach = lsp_status.on_attach,
-                settings = {
-                    Lua = {
-                        runtime = {
-                            version = 'LuaJIT'
-                        },
-                        diagnostics = {
-                            globals = { 'vim' },
-                        },
-                        workspace = {
-                            library = {
-                                vim.env.VIMRUNTIME,
-                            }
-                        }
-                    }
-                }
+                settings = settings,
             })
         end
     },
 })
 
 local cmp = require('cmp')
-
 cmp.setup({
+    snippet = {
+      expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+      end,
+    },
     sources = {
         { name = 'nvim_lsp' },
+        { name = 'path' },
+        { name = 'buffer' },
     },
     mapping = cmp.mapping.preset.insert({
-        -- Enter key confirms completion item
         ['<CR>'] = cmp.mapping.confirm({ select = false }),
-
-        -- Ctrl + space triggers completion menu
-        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-n>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            else
+                cmp.mapping.complete()(fallback)
+            end
+        end),
+        ['<C-p>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                cmp.mapping.complete()(fallback)
+            end
+        end)
     })
 })
-
-require('fzf_lsp').setup()
