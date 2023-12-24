@@ -4,9 +4,6 @@
 [submodule "tmux/.tmux/bundle/tmux-sensible"]
 	path = tmux/.tmux/pack/bundle/start/tmux-sensible
 	url = https://github.com/tmux-plugins/tmux-sensible
-[submodule "tmux/.tmux/bundle/tmux-copycat"]
-	path = tmux/.tmux/pack/bundle/start/tmux-copycat
-	url = https://github.com/tmux-plugins/tmux-copycat
 [submodule "tmux/.tmux/bundle/tmux-continuum"]
 	path = tmux/.tmux/pack/bundle/start/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
