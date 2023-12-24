@@ -52,9 +52,6 @@
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/pack/bundle/start/alias-tips
 	url = https://github.com/djui/alias-tips
-[submodule "tmux/.tmux/bundle/tmux-sessionist"]
-	path = tmux/.tmux/pack/bundle/start/tmux-sessionist
-	url = https://github.com/tmux-plugins/tmux-sessionist
 [submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
 	path = mutt/.mutt/bundle/mutt-colors-solarized
 	url = https://github.com/altercation/mutt-colors-solarized
