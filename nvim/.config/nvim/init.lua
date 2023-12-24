@@ -131,17 +131,17 @@ vim.api.nvim_create_autocmd('LspAttach', {
             vim.keymap.set('n', keys, func, { buffer = event.buf, desc = desc })
         end
 
-        nmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>', 'Hover documentation')
+        nmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>', 'Documentation')
         nmap('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', '[G]oto [D]efinition')
         nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', '[G]oto [D]eclaration')
         nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', '[G]oto [I]mplementation')
         nmap('go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', '[G]oto [O]verload')
         nmap('gr', '<cmd>lua vim.lsp.buf.references()<cr>', '[G]oto [R]eferences')
-        nmap('gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', '[G]oto [S]ignature help')
-        nmap('gl', '<cmd>lua vim.diagnostic.open_float()<cr>', '[G]oto [L]ine diagnostics')
-        nmap('gL', '<cmd>lua vim.diagnostic.setloclist()<cr>', '[G]oto [L]ist diagnostics')
-        nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Goto previous diagnostic')
-        nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto next diagnostic')
+        nmap('gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', '[G]oto [S]ignature Help')
+        nmap('gl', '<cmd>lua vim.diagnostic.open_float()<cr>', '[G]oto [L]ine Diagnostics')
+        nmap('gL', '<cmd>lua vim.diagnostic.setloclist()<cr>', '[G]oto [L]ist Diagnostics')
+        nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Goto Previous [D]iagnostic')
+        nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto Next [D]iagnostic')
 
         -- find
         nmap('<leader>fd', '<cmd>Diagnostics<cr>', '[F]ind [D]iagnostics')
