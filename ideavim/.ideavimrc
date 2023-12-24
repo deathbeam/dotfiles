@@ -40,18 +40,17 @@ nnoremap <space>mt :action RunClass<cr>
 nnoremap <space>mT :action RunConfiguration<cr>
 
 # GoTo navigation
-nnoremap [g :action GotoPreviousError<cr>
-nnoremap ]g :action GotoNextError<cr>
+nnoremap [d :action GotoPreviousError<cr>
+nnoremap ]d :action GotoNextError<cr>
 nnoremap gd :action GotoDeclaration<cr>
-nnoremap gy :action GotoTypeDeclaration<cr>
 nnoremap gi :action GotoImplementation<cr>
+nnoremap go :action GotoTypeDeclaration<cr>
 nnoremap gr :action GotoRelated<cr>
 
 # Refactoring
 nnoremap <space>rr :action RenameElement<cr>
 nnoremap <space>rf :action ReformatCode<cr>
-nnoremap <space>rac :action ShowIntentionActions<cr>
-nnoremap <space>ras :action RefactoringMenu<cr>
+nnoremap <space>ra :action ShowIntentionActions<cr>
 
 " Finder
 nnoremap <space>fg :action FindInPath<cr>

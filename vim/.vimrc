@@ -257,12 +257,6 @@ let g:rooter_patterns = [
 let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason
 let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
 
-" Code completion
-let g:coc_fzf_preview = ''
-let g:coc_fzf_opts = []
-let g:codeium_disable_bindings = 1
-let g:coc_global_extensions = ['coc-marketplace', 'coc-git', 'coc-sh', 'coc-json', 'coc-yaml', 'coc-css', 'coc-html', 'coc-lua', 'coc-tsserver', 'coc-java', 'coc-jedi']
-
 " Load all plugins
 :packloadall
 
@@ -304,55 +298,14 @@ nnoremap <silent> <leader>gb :Git blame<CR>
 nnoremap <silent> <leader>gl :Git log<CR>
 nnoremap <silent> <leader>gp :Git push<CR>
 nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>gr :Gremove<CR>
+nnoremap <silent> <leader>gr :GRemove<CR>
 
-" Tab complete
-inoremap <silent><expr> <TAB>
-      \ coc#pum#visible() ? coc#pum#confirm() :
-      \ codeium#Accept()
-inoremap <silent><expr> <CR>
-      \ coc#pum#visible() ? coc#pum#confirm() :
-      \ "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
-
-inoremap <silent><expr> <C-n>
-      \ CheckBackspace() ? "\<C-n>" :
-      \ coc#pum#visible() ? coc#pum#next(1) : coc#refresh()
-
-inoremap <silent><expr> <C-p>
-      \ CheckBackspace() ? "\<C-p>" :
-      \ coc#pum#visible() ? coc#pum#prev(1) : coc#refresh()
-
-function! CheckBackspace() abort
-  let col = col('.') - 1
-  return !col || getline('.')[col - 1]  =~# '\s'
+" Statusline
+function! StatuslineLsp() abort
+  return luaeval("require('lsp-status').status()")
 endfunction
-
-" GoTo navigation
-nmap <silent> [g <Plug>(coc-diagnostic-prev)
-nmap <silent> ]g <Plug>(coc-diagnostic-next)
-nmap <silent> gd <Plug>(coc-definition)
-nmap <silent> gy <Plug>(coc-type-definition)
-nmap <silent> gi <Plug>(coc-implementation)
-nmap <silent> gr <Plug>(coc-references)
-nnoremap <silent> K :call ShowDocumentation()<CR>
-function! ShowDocumentation()
-  if CocAction('hasProvider', 'hover')
-    call CocActionAsync('doHover')
-  else
-    call feedkeys('K', 'in')
-  endif
-endfunction
-
-" Refactoring
-nmap <leader>rr <Plug>(coc-rename)
-xmap <leader>rf <Plug>(coc-format-selected)
-nmap <leader>rf <Plug>(coc-format-selected)
-xmap <leader>ra  <Plug>(coc-codeaction-selected)
-nmap <leader>ra  <Plug>(coc-codeaction-selected)
-nmap <leader>rac  <Plug>(coc-codeaction-cursor)
-nmap <leader>ras  <Plug>(coc-codeaction-source)
-nmap <leader>rc  <Plug>(coc-codelens-action)
-nmap <leader>rq  <Plug>(coc-fix-current)
+set statusline+=%3*\ %{fugitive#statusline()}
+set statusline+=%4*%{StatuslineLsp()}
 
 " Finder
 nmap <leader>fg :RG<cr>
@@ -362,19 +315,10 @@ nmap <leader>fa :Commands<cr>
 nmap <leader>fc :Commits<cr>
 nmap <leader>fb :Buffers<cr>
 nmap <leader>fh :History<cr>
-nmap <leader>fd :<C-u>CocFzfList diagnostics --current-buf<CR>
-nmap <leader>fD :<C-u>CocFzfList diagnostics<CR>
-nmap <leader>fs :<C-u>CocFzfList outline<CR>
-nmap <leader>fS :<C-u>CocList -I symbols<CR>
-nmap <leader>fp :<C-u>CocList marketplace<CR>
 nmap <leader>fo :LS ~/git<cr>
 
 command! -bang -complete=dir -nargs=? LS
     \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
-
-" Statusline
-set statusline+=%3*\ %{fugitive#statusline()}
-set statusline+=%4*\ %{coc#status()}
 
 " }}}
 

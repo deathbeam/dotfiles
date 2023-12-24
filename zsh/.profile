@@ -14,6 +14,7 @@ export JAVA_HOME=/usr/lib/jvm/default
 
 # Set VIM_HOME
 export VIM_HOME="$HOME/.vim"
+export JDTLS_JVM_ARGS="-javaagent:$VIM_HOME/lombok.jar"
 
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1

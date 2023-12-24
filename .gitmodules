@@ -114,19 +114,12 @@
 [submodule "vim/.vim/bundle/vim-fugitive"]
 	path = vim/.vim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
-[submodule "vim/.vim/bundle/coc.nvim"]
-	path = vim/.vim/pack/bundle/start/coc.nvim
-	url = https://github.com/neoclide/coc.nvim
-	branch = release
 [submodule "zsh/.zsh/bundle/fzf-tab"]
 	path = zsh/.zsh/pack/bundle/start/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab
 [submodule "vim/.vim/bundle/codeium.vim"]
 	path = vim/.vim/pack/bundle/start/codeium.vim
 	url = https://github.com/Exafunction/codeium.vim
-[submodule "vim/.vim/pack/bundle/start/coc-fzf"]
-	path = vim/.vim/pack/bundle/start/coc-fzf
-	url = https://github.com/antoinemadec/coc-fzf
 [submodule "vim/.vim/pack/bundle/start/which-key.nvim"]
 	path = vim/.vim/pack/bundle/start/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
@@ -151,3 +144,27 @@
 [submodule "vim/.vim/pack/bundle/start/vim-dirvish-dovish"]
 	path = vim/.vim/pack/bundle/start/vim-dirvish-dovish
 	url = https://github.com/roginfarrer/vim-dirvish-dovish
+[submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
+	path = vim/.vim/pack/bundle/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "vim/.vim/pack/bundle/start/mason.nvim"]
+	path = vim/.vim/pack/bundle/start/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
+[submodule "vim/.vim/pack/bundle/start/mason-lspconfig.nvim"]
+	path = vim/.vim/pack/bundle/start/mason-lspconfig.nvim
+	url = https://github.com/williamboman/mason-lspconfig.nvim
+[submodule "vim/.vim/pack/bundle/start/nvim-cmp"]
+	path = vim/.vim/pack/bundle/start/nvim-cmp
+	url = https://github.com/hrsh7th/nvim-cmp
+[submodule "vim/.vim/pack/bundle/start/cmp-nvim-lsp"]
+	path = vim/.vim/pack/bundle/start/cmp-nvim-lsp
+	url = https://github.com/hrsh7th/cmp-nvim-lsp
+[submodule "vim/.vim/pack/bundle/start/plenary.nvim"]
+	path = vim/.vim/pack/bundle/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "vim/.vim/pack/bundle/start/fzf-lsp.nvim"]
+	path = vim/.vim/pack/bundle/start/fzf-lsp.nvim
+	url = https://github.com/gfanto/fzf-lsp.nvim
+[submodule "vim/.vim/pack/bundle/start/lsp-status.nvim"]
+	path = vim/.vim/pack/bundle/start/lsp-status.nvim
+	url = https://github.com/nvim-lua/lsp-status.nvim
