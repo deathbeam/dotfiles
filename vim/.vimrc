@@ -302,7 +302,11 @@ nnoremap <silent> <leader>gr :GRemove<CR>
 
 " Statusline
 function! StatuslineLsp() abort
-  return luaeval("require('lsp-status').status()")
+  if luaeval('vim.lsp and #vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+
+  return ''
 endfunction
 set statusline+=%3*\ %{fugitive#statusline()}
 set statusline+=%4*%{StatuslineLsp()}

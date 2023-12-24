@@ -66,6 +66,7 @@ lsp_status.config({
     status_symbol = ' ',
     current_function = false,
 })
+lsp_capabilities = vim.tbl_deep_extend('force', lsp_capabilities, lsp_status.capabilities)
 
 local default_setup = function(server)
     lspconfig[server].setup({
@@ -93,6 +94,8 @@ require('mason-lspconfig').setup({
         default_setup,
         lua_ls = function()
             require('lspconfig').lua_ls.setup({
+              capabilities = lsp_capabilities,
+              on_attach = lsp_status.on_attach,
               settings = {
                 Lua = {
                   runtime = {
