@@ -61,7 +61,7 @@ local servers = {
 }
 
 
--- WhichKey
+-- Key help
 require("which-key").register {
     ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' },
     ['<leader>g'] = { name = "[G]it", _ = 'which_key_ignore' },
@@ -69,7 +69,7 @@ require("which-key").register {
     ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
 }
 
--- Treesitter
+-- Syntax highlighting
 require("nvim-treesitter.configs").setup {
     ensure_installed = vim.tbl_keys(servers),
     sync_install = false,
@@ -80,6 +80,38 @@ require("nvim-treesitter.configs").setup {
     },
     indent = {
         enable = true
+    }
+}
+
+-- Completion
+local cmp = require('cmp')
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
+        end,
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'vsnip' },
+        { name = 'path' },
+    },
+    mapping = cmp.mapping.preset.insert {
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<C-n>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            else
+                cmp.mapping.complete()(fallback)
+            end
+        end),
+        ['<C-p>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            else
+                cmp.mapping.complete()(fallback)
+            end
+        end)
     }
 }
 
@@ -125,8 +157,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
     end
 })
 
-require('mason').setup({})
-require('mason-lspconfig').setup({
+require('mason').setup()
+require('mason-lspconfig').setup {
     ensure_installed = vim.tbl_map(function(server) return server.lsp end, servers),
     handlers = {
         function(server)
@@ -143,35 +175,4 @@ require('mason-lspconfig').setup({
             })
         end
     },
-})
-
-local cmp = require('cmp')
-cmp.setup({
-    snippet = {
-      expand = function(args)
-        vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-      end,
-    },
-    sources = {
-        { name = 'nvim_lsp' },
-        { name = 'vsnip' },
-        { name = 'path' },
-    },
-    mapping = cmp.mapping.preset.insert({
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
-        ['<C-n>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_next_item()
-            else
-                cmp.mapping.complete()(fallback)
-            end
-        end),
-        ['<C-p>'] = cmp.mapping(function(fallback)
-            if cmp.visible() then
-                cmp.select_prev_item()
-            else
-                cmp.mapping.complete()(fallback)
-            end
-        end)
-    })
-})
+}
