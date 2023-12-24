@@ -63,7 +63,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 lsp_status.config({
-    status_symbol = ' '
+    status_symbol = ' ',
+    current_function = false,
 })
 
 local default_setup = function(server)
