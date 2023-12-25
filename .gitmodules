@@ -28,9 +28,6 @@
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
-[submodule "vim/.vim/bundle/fzf.vim"]
-	path = vim/.vim/pack/bundle/start/fzf.vim
-	url = https://github.com/junegunn/fzf.vim
 [submodule "vim/.vim/bundle/vim-surround"]
 	path = vim/.vim/pack/bundle/start/vim-surround
 	url = https://github.com/tpope/vim-surround
@@ -159,9 +156,6 @@
 [submodule "vim/.vim/pack/bundle/start/plenary.nvim"]
 	path = vim/.vim/pack/bundle/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
-[submodule "vim/.vim/pack/bundle/start/fzf-lsp.nvim"]
-	path = vim/.vim/pack/bundle/start/fzf-lsp.nvim
-	url = https://github.com/gfanto/fzf-lsp.nvim
 [submodule "vim/.vim/pack/bundle/start/lsp-status.nvim"]
 	path = vim/.vim/pack/bundle/start/lsp-status.nvim
 	url = https://github.com/nvim-lua/lsp-status.nvim
@@ -174,3 +168,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
 	path = vim/.vim/pack/bundle/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
+[submodule "vim/.vim/pack/bundle/start/fzf-lua"]
+	path = vim/.vim/pack/bundle/start/fzf-lua
+	url = https://github.com/ibhagwan/fzf-lua

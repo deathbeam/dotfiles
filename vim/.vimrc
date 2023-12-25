@@ -311,19 +311,6 @@ endfunction
 set statusline+=%3*\ %{fugitive#statusline()}
 set statusline+=%4*%{StatuslineLsp()}
 
-" Finder
-nmap <leader>fg :RG<cr>
-nmap <leader>ff :Files<cr>
-nmap <leader>fF :GFiles<cr>
-nmap <leader>fa :Commands<cr>
-nmap <leader>fc :Commits<cr>
-nmap <leader>fb :Buffers<cr>
-nmap <leader>fh :History<cr>
-nmap <leader>fo :LS ~/git<cr>
-
-command! -bang -complete=dir -nargs=? LS
-    \ call fzf#run(fzf#wrap('ls', {'source': 'ls', 'dir': <q-args>}, <bang>0))
-
 " }}}
 
 " User configuration {{{
