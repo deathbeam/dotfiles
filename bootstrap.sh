@@ -35,7 +35,7 @@ yay --noconfirm -S --mflags --skipinteg \
   irssi ncmpcpp \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
-  stow zsh tmux ripgrep mlocate htop \
+  stow zsh tmux ripgrep fd mlocate htop \
   dropbox pass pass-otp zbar \
   vim ctags editorconfig-core-c \
   httpie sshpass ntp stoken openvpn openconnect wget jq \
