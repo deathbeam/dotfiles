@@ -137,7 +137,7 @@ elif command -v ag >/dev/null 2>&1; then
 fi
 
 # Load base16 theme
-[ -z $BASE16_THEME ] && base16_solarized-dark
+base16_solarized-dark
 
 # }}}
 
