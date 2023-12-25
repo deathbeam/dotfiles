@@ -54,8 +54,8 @@ nnoremap <space>ra :action ShowIntentionActions<cr>
 
 " Finder
 nnoremap <space>fg :action FindInPath<cr>
-nnoremap <space>ff :action GotoClass<cr>
-nnoremap <space>fF :action GotoFile<cr>
+nnoremap <space>ff :action GotoFile<cr>
+nnoremap <space>fF :action GotoClass<cr>
 nnoremap <space>fa :action GotoAction<cr>
 nnoremap <space>fc :action Vcs.ShowTabbedFileHistory<cr>
 nnoremap <space>fb :action Switcher<cr>

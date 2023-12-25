@@ -313,8 +313,8 @@ set statusline+=%4*%{StatuslineLsp()}
 
 " Finder
 nmap <leader>fg :RG<cr>
-nmap <leader>ff :GFiles<cr>
-nmap <leader>fF :Files<cr>
+nmap <leader>ff :Files<cr>
+nmap <leader>fF :GFiles<cr>
 nmap <leader>fa :Commands<cr>
 nmap <leader>fc :Commits<cr>
 nmap <leader>fb :Buffers<cr>
