@@ -7,10 +7,6 @@ augroup VimRc
   autocmd!
 augroup END
 
-" Enable some default plugins
-runtime defaults.vim
-runtime macros/matchit.vim
-
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowritebackup
@@ -29,12 +25,6 @@ if has('clipboard')
   set clipboard=unnamed
 endif
 
-" use syntax complete if nothing else available
-autocmd VimRc Filetype *
-      \  if &omnifunc == ""
-      \|   setlocal omnifunc=syntaxcomplete#Complete
-      \| endif
-
 " Use faster grep alternatives if possible
 if executable('rg')
   set grepprg=rg\ --vimgrep\ --no-heading
@@ -48,13 +38,6 @@ endif
 
 " User interface {{{
 
-" Faster screen redrawing (do not set as default when in not common terminals)
-set ttyfast
-
-" after leaving buffer set it as hidden (so we can open buffer without saving
-" previous buffer)
-set hidden
-
 " display completion matches in a status line
 set wildmode=list:longest,list:full
 
@@ -66,19 +49,6 @@ else
   set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
 endif
 
-" Allows cursor change
-if has('nvim')
-  " visible incremental command replace
-  set inccommand=nosplit
-  let $NVIM_TUI_ENABLE_CURSOR_SHAPE=1
-elseif exists('$TMUX')
-  let &t_SI = "\<Esc>Ptmux;\<Esc>\e[5 q\<Esc>\\"
-  let &t_EI = "\<Esc>Ptmux;\<Esc>\e[2 q\<Esc>\\"
-else
-  let &t_SI = "\e[5 q"
-  let &t_EI = "\e[2 q"
-endif
-
 " Search down into subfolders
 " Provides tab-completion for all file-related tasks
 set path+=**
@@ -86,36 +56,17 @@ set path+=**
 " Include spelling completion when spelling enabled
 set complete+=kspell
 
-" Includes completion is super slow, disable it
-set complete-=i
-
 " Ignore case when searching
 set ignorecase
 
 " When searching try to be smart about cases
 set smartcase
 
-" Highlight search results
-set hlsearch
-
-" Don't redraw while executing macros (good performance config)
-set lazyredraw
-
 " Show matching brackets when text indicator is over them
 set showmatch
 
 " Always show some lines under
 set scrolloff=8
-
-" Fast update
-set updatetime=50
-
-" Less annoying errors
-set noerrorbells
-set novisualbell
-set t_vb=
-set timeout
-set timeoutlen=500
 
 " Always show the status line
 set laststatus=2
@@ -147,39 +98,10 @@ autocmd VimRc VimResized * :wincmd =
 
 " }}}
 
-" Colors {{{
-
-" Adjust syntax highlighting
-autocmd VimRc BufEnter * call AdjustHighlighting()
-function! AdjustHighlighting()
-  " Make all these colors less annoying
-  highlight clear LineNr
-  highlight clear SignColumn
-  highlight clear FoldColumn
-  highlight Search cterm=NONE ctermfg=0 ctermbg=3
-  highlight StatusLine cterm=underline ctermbg=4 ctermfg=0
-  highlight StatusLineNC cterm=underline ctermbg=NONE ctermfg=19
-  highlight VertSplit ctermbg=NONE ctermfg=19
-  highlight Title ctermfg=19
-  highlight TabLineSel ctermbg=NONE ctermfg=4
-  highlight TabLineFill ctermbg=NONE ctermfg=19
-  highlight TabLine ctermbg=NONE ctermfg=19
-  hi User1 ctermfg=6 cterm=underline ctermbg=NONE
-  hi User2 ctermfg=2 cterm=underline ctermbg=NONE
-  hi User3 ctermfg=5 cterm=underline ctermbg=NONE
-  hi User4 ctermfg=3 cterm=underline ctermbg=NONE
-endfunction
-call AdjustHighlighting()
-
-" }}}
-
 " Text, tab and indent related {{{
 
 " Use spaces instead of tabs
 set expandtab
-
-" Be smart when using tabs
-set smarttab
 
 " 1 tab == 2 spaces
 set shiftwidth=2
@@ -189,11 +111,7 @@ set tabstop=2
 set textwidth=80
 
 " Better automatic indentation
-set autoindent
 set smartindent
-
-" For regular expressions turn magic on
-set magic
 
 " Use Unix as the standard file type
 set fileformats=unix,dos,mac
@@ -228,6 +146,7 @@ cnoremap <C-N> <Down>
 " :W sudo saves the file
 " (useful for handling the permission-denied error)
 command! W w !sudo tee % > /dev/null
+command! X !chmod +x % > /dev/null
 
 " }}}
 
@@ -253,24 +172,8 @@ let g:rooter_patterns = [
       \ 'requirements.txt',
       \]
 
-" EditorConfig
-let g:EditorConfig_core_mode = 'vim_core' " External mode got removed for some reason
-let g:EditorConfig_exclude_patterns = ['fugitive://.*'] " Fix EditorConfig for fugitive
-
 " Load all plugins
 :packloadall
-
-" If base16 theme is set from shell, load it
-if filereadable(expand('~/.vimrc_background'))
-  let base16colorspace=256
-  source ~/.vimrc_background
-else
-  " Set theme if possible
-  try
-    colorscheme base16-solarized-dark
-  catch
-  endtry
-endif
 
 " Read DOCX
 autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout

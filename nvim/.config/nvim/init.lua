@@ -10,6 +10,30 @@ local nmap = function(keys, func, desc, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
 end
 
+-- Color scheme
+local base16 = require('base16-colorscheme')
+base16.load_from_shell()
+vim.api.nvim_create_autocmd('BufEnter', {
+    desc = 'Adjust colorscheme',
+    callback = function(event)
+        vim.api.nvim_set_hl(0, 'LineNr', {})
+        vim.api.nvim_set_hl(0, 'SignColumn', {})
+        vim.api.nvim_set_hl(0, 'FoldColumn', {})
+        vim.api.nvim_set_hl(0, 'Search', { bg = base16.colors.base0A, fg = base16.colors.base00 })
+        vim.api.nvim_set_hl(0, 'StatusLine', { bg = base16.colors.base0D, fg = base16.colors.base00 })
+        vim.api.nvim_set_hl(0, 'StatusLineNC', { underline = true, fg = base16.colors.base03 })
+        vim.api.nvim_set_hl(0, 'VertSplit', { fg = base16.colors.base03 })
+        vim.api.nvim_set_hl(0, 'Title', { fg = base16.colors.base03 })
+        vim.api.nvim_set_hl(0, 'TabLineSel', { fg = base16.colors.base0D })
+        vim.api.nvim_set_hl(0, 'TabLineFill', { fg = base16.colors.base03 })
+        vim.api.nvim_set_hl(0, 'TabLine', { fg = base16.colors.base03 })
+        vim.api.nvim_set_hl(0, 'User1', { underline = true, fg = base16.colors.base0C })
+        vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base16.colors.base0B })
+        vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base16.colors.base0E })
+        vim.api.nvim_set_hl(0, 'User4', { underline = true, fg = base16.colors.base0A })
+    end
+})
+
 -- Define language servers
 local servers = {
     css = {
