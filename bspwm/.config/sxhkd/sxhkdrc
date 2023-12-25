@@ -4,9 +4,7 @@
 
 # terminal emulator + tmux
 super + Return
-  st -e $SHELL -c "export PS1='temp'; \
-                   source ~/.zsh/pack/bundle/start/base16-shell/base16-shell.plugin.zsh; \
-                   tmux attach"
+  st -e $SHELL -ic "tmux attach"
 
 # program menu
 super + space
