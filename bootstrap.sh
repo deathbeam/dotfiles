@@ -37,7 +37,7 @@ yay --noconfirm -S --mflags --skipinteg \
   pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep fd mlocate htop \
   dropbox pass pass-otp zbar \
-  vim ctags editorconfig-core-c \
+  vim ctags \
   httpie sshpass ntp stoken openvpn openconnect wget jq \
   tlp udisks2 trash-cli
 
