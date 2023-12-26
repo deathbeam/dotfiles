@@ -154,8 +154,9 @@ command! X !chmod +x % > /dev/null
 
 " VimWiki
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext=0
+let g:vimwiki_global_ext = 0
 let g:vimwiki_table_mappings = 0
+autocmd BufEnter diary.md :VimwikiDiaryGenerateLinks
 
 " Vim rooter
 let g:rooter_patterns = [
