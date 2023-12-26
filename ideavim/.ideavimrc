@@ -12,6 +12,7 @@ set commentary
 set surround
 set which-key
 set matchit
+set NERDTree
 
 " vinegar emulation with Idea
 nnoremap - :action ActivateProjectToolWindow<cr>
