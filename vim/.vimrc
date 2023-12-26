@@ -73,12 +73,12 @@ set laststatus=2
 
 " Status line format
 set statusline=
-set statusline+=\ %{&ff}                "file format
+set statusline+=%1*\ %{&ff}                "file format
 set statusline+=%y                      "file type
 set statusline+=\ %<%F                  "full path
 set statusline+=\ %m                    "modified flag
-set statusline+=%1*%=                   "left/right separator
-set statusline+=%2*\ [%l/%L-%v\ 0x%04B] "cursor info
+set statusline+=%2*%=                   "left/right separator
+set statusline+=%3*\ [%l/%L-%v\ 0x%04B] "cursor info
 
 " Always use vertical diffs
 set diffopt+=vertical
@@ -211,8 +211,8 @@ function! StatuslineLsp() abort
 
   return ''
 endfunction
-set statusline+=%3*\ %{fugitive#statusline()}
-set statusline+=%4*%{StatuslineLsp()}
+set statusline+=%4*\ %{fugitive#statusline()}
+set statusline+=%5*%{StatuslineLsp()}
 
 " }}}
 
