@@ -192,10 +192,10 @@ vim.api.nvim_create_autocmd('LspAttach', {
         nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto Next [D]iagnostic', event.buf)
 
         -- find
-        nmap('<leader>fd', '<cmd>Diagnostics<cr>', '[F]ind [D]iagnostics', event.buf)
-        nmap('<leader>fD', '<cmd>DiagnosticsAll<cr>', '[F]ind All [D]iagnostics', event.buf)
-        nmap('<leader>fs', '<cmd>DocumentSymbols<cr>', '[F]ind [S]ymbols', event.buf)
-        nmap('<leader>fS', '<cmd>WorkspaceSymbols<cr>', '[F]ind All [S]ymbols', event.buf)
+        nmap('<leader>fd', '<cmd>FzfLua lsp_document_diagnostics<cr>', '[F]ind [D]iagnostics', event.buf)
+        nmap('<leader>fD', '<cmd>FzfLua lsp_workspace_diagnostics<cr>', '[F]ind All [D]iagnostics', event.buf)
+        nmap('<leader>fs', '<cmd>FzfLua lsp_document_symbols<cr>', '[F]ind [S]ymbols', event.buf)
+        nmap('<leader>fS', '<cmd>FzfLua lsp_workspace_symbols<cr>', '[F]ind All [S]ymbols', event.buf)
 
         -- code
         nmap('<leader>cr', '<cmd>lua vim.lsp.buf.rename()<cr>', '[C]ode [R]ename', event.buf)

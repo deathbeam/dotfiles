@@ -16,9 +16,6 @@
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
-[submodule "vim/.vim/bundle/vim-obsession"]
-	path = vim/.vim/pack/bundle/start/vim-obsession
-	url = https://github.com/tpope/vim-obsession
 [submodule "vim/.vim/bundle/vim-gutentags"]
 	path = vim/.vim/pack/bundle/start/vim-gutentags
 	url = https://github.com/ludovicchabant/vim-gutentags
@@ -168,3 +165,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
 	path = vim/.vim/pack/bundle/start/nvim-base16
 	url = https://github.com/rrethy/nvim-base16
+[submodule "vim/.vim/pack/bundle/start/vim-obsession"]
+	path = vim/.vim/pack/bundle/start/vim-obsession
+	url = https://github.com/tpope/vim-obsession
