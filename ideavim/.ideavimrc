@@ -7,10 +7,11 @@ set notimeout
 " Adjust line numbers
 set nonumber
 
-" Emulate Idea version of Vim surround
+" IdeaVim plugins
 set commentary
 set surround
 set which-key
+set matchit
 
 " vinegar emulation with Idea
 nnoremap - :action ActivateProjectToolWindow<cr>
@@ -39,7 +40,7 @@ nnoremap <space>mF :action CompileProject<cr>
 nnoremap <space>mt :action RunClass<cr>
 nnoremap <space>mT :action RunConfiguration<cr>
 
-# GoTo navigation
+" GoTo navigation
 nnoremap [d :action GotoPreviousError<cr>
 nnoremap ]d :action GotoNextError<cr>
 nnoremap gd :action GotoDeclaration<cr>
@@ -47,10 +48,10 @@ nnoremap gi :action GotoImplementation<cr>
 nnoremap go :action GotoTypeDeclaration<cr>
 nnoremap gr :action GotoRelated<cr>
 
-# Refactoring
-nnoremap <space>rr :action RenameElement<cr>
-nnoremap <space>rf :action ReformatCode<cr>
-nnoremap <space>ra :action ShowIntentionActions<cr>
+" Code
+nnoremap <space>cr :action RenameElement<cr>
+nnoremap <space>cf :action ReformatCode<cr>
+nnoremap <space>ca :action ShowIntentionActions<cr>
 
 " Finder
 nnoremap <space>fg :action FindInPath<cr>
