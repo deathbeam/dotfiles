@@ -60,6 +60,7 @@ nnoremap <space>ff :action GotoFile<cr>
 nnoremap <space>fF :action GotoClass<cr>
 nnoremap <space>fa :action GotoAction<cr>
 nnoremap <space>fc :action Vcs.ShowTabbedFileHistory<cr>
+nnoremap <space>fc :action Vcs.Show.Log<cr>
 nnoremap <space>fb :action Switcher<cr>
 nnoremap <space>fh :action RecentFiles<cr>
 nnoremap <space>fd :action ActivateProblemsViewToolWindow<cr>
