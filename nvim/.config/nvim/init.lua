@@ -101,11 +101,8 @@ require("which-key").register {
 -- Syntax highlighting
 require("nvim-treesitter.configs").setup {
     ensure_installed = vim.tbl_keys(servers),
-    sync_install = false,
-    auto_install = false,
     highlight = {
-        enable = true,
-        additional_vim_regex_highlighting = false,
+        enable = true
     },
     indent = {
         enable = true
@@ -139,18 +136,18 @@ nmap('<leader>fh', '<cmd>FzfLua oldfiles<cr>', '[F]ind [H]istory')
 -- Completion
 local cmp = require('cmp')
 cmp.setup {
-    snippet = {
-        expand = function(args)
-            vim.fn["vsnip#anonymous"](args.body) -- For `vsnip` users.
-        end,
-    },
     sources = {
         { name = 'nvim_lsp' },
         { name = 'vsnip' },
         { name = 'path' },
     },
+    snippet = {
+        expand = function(args)
+            vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
     mapping = cmp.mapping.preset.insert {
-        ['<CR>'] = cmp.mapping.confirm({ select = false }),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<C-n>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.select_next_item()
