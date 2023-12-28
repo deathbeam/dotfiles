@@ -184,7 +184,6 @@ vim.api.nvim_create_autocmd('LspAttach', {
         nmap('gr', '<cmd>lua vim.lsp.buf.references()<cr>', '[G]oto [R]eferences', event.buf)
         nmap('gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', '[G]oto [S]ignature Help', event.buf)
         nmap('gl', '<cmd>lua vim.diagnostic.open_float()<cr>', '[G]oto [L]ine Diagnostics', event.buf)
-        nmap('gL', '<cmd>lua vim.diagnostic.setloclist()<cr>', '[G]oto [L]ist Diagnostics', event.buf)
         nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Goto Previous [D]iagnostic', event.buf)
         nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto Next [D]iagnostic', event.buf)
 
