@@ -179,20 +179,6 @@ let g:rooter_patterns = [
 " Read DOCX
 autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
 
-" Obsession
-function! Session()
-  " If session file exists, source it, and then start session recording
-  if filereadable('Session.vim')
-    source Session.vim
-  endif
-
-  :Obsession
-endfunction
-command! -bar Session :call Session()
-
-" Undotree
-nnoremap <silent> <leader>u :UndotreeToggle<CR>
-
 " Fugitive
 autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
 nnoremap <silent> <leader>gs :Git<CR>

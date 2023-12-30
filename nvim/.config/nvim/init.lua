@@ -5,6 +5,10 @@ vim.cmd([[
     source ~/.vimrc
 ]])
 
+-- Motions
+require('leap').create_default_mappings()
+require('flit').setup()
+
 -- Utility functions
 local nmap = function(keys, func, desc, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })

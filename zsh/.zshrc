@@ -38,9 +38,6 @@ elif command -v xsel >/dev/null 2>&1; then
   alias xpaste='xsel --clipboard --output'
 fi
 
-# Open Vim and start saving it's session
-alias vims='vim -c "Session"'
-
 # Set proxy
 function setproxy {
   export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"

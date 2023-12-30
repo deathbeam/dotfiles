@@ -22,9 +22,6 @@
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
-[submodule "vim/.vim/bundle/vim-surround"]
-	path = vim/.vim/pack/bundle/start/vim-surround
-	url = https://github.com/tpope/vim-surround
 [submodule "vim/.vim/bundle/vim-unimpaired"]
 	path = vim/.vim/pack/bundle/start/vim-unimpaired
 	url = https://github.com/tpope/vim-unimpaired
@@ -117,9 +114,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-tmux-navigator"]
 	path = vim/.vim/pack/bundle/start/vim-tmux-navigator
 	url = https://github.com/christoomey/vim-tmux-navigator
-[submodule "vim/.vim/pack/bundle/start/undotree"]
-	path = vim/.vim/pack/bundle/start/undotree
-	url = https://github.com/mbbill/undotree
 [submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
 	path = tmux/.tmux/pack/bundle/start/tmux-fzf
 	url = https://github.com/sainnhe/tmux-fzf
@@ -165,6 +159,9 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
 	path = vim/.vim/pack/bundle/start/nvim-base16
 	url = https://github.com/rrethy/nvim-base16
-[submodule "vim/.vim/pack/bundle/start/vim-obsession"]
-	path = vim/.vim/pack/bundle/start/vim-obsession
-	url = https://github.com/tpope/vim-obsession
+[submodule "vim/.vim/pack/bundle/start/leap.nvim"]
+	path = vim/.vim/pack/bundle/start/leap.nvim
+	url = https://github.com/ggandor/leap.nvim
+[submodule "vim/.vim/pack/bundle/start/flit.nvim"]
+	path = vim/.vim/pack/bundle/start/flit.nvim
+	url = https://github.com/ggandor/flit.nvim
