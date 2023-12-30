@@ -133,7 +133,7 @@ require("nvim-treesitter.configs").setup {
 
 -- Fuzzy finder
 local fzf_lua = require('fzf-lua')
-fzf_lua.setup()
+fzf_lua.setup { file_icon_padding = ' ' }
 fzf_lua.register_ui_select()
 vim.lsp.handlers["textDocument/codeAction"] = fzf_lua.lsp_code_actions
 vim.lsp.handlers["textDocument/definition"] = fzf_lua.lsp_definitions
