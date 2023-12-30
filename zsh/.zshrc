@@ -112,6 +112,8 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1a --color=always $realpath'
 zstyle ':fzf-tab:*' switch-group ',' '.'
 # remove prefix
 zstyle ':fzf-tab:*' prefix ''
+# search hidden by default
+_comp_options+=(globdots)
 
 # Adjust git aliases
 unalias gh 2>/dev/null
@@ -135,6 +137,7 @@ fi
 
 # Load base16 theme
 base16_solarized-dark
+. ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-solarized-dark.config
 
 # }}}
 

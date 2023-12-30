@@ -165,3 +165,6 @@
 [submodule "vim/.vim/pack/bundle/start/flit.nvim"]
 	path = vim/.vim/pack/bundle/start/flit.nvim
 	url = https://github.com/ggandor/flit.nvim
+[submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
+	path = zsh/.zsh/pack/bundle/start/base16-fzf
+	url = https://github.com/tinted-theming/base16-fzf
