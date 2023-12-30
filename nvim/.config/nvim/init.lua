@@ -5,6 +5,9 @@ vim.cmd([[
     source ~/.vimrc
 ]])
 
+-- Icons
+require('nvim-web-devicons').setup()
+
 -- Motions
 require('leap').create_default_mappings()
 require('flit').setup()

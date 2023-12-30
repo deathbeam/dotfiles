@@ -21,10 +21,7 @@ module-margin-right = 2
 
 background = #073642
 foreground = #93a1a1
-font-0 = Terminus:size=12;1
-font-1 = FontAwesome 6 Free:size=12;3
-font-2 = FontAwesome 6 Free:style=Solid:size=12;3
-font-3 = FontAwesome 6 Brands:size=12;3
+font-0 = Terminess Nerd Font:size=12;1
 
 modules-left = bspwm title
 modules-center = mpd

@@ -87,7 +87,7 @@ echo '==> Configuring improved font rendering'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 cairo libxft \
   fonts-meta-base \
-  terminus-font-ttf terminus-font ttf-font-awesome
+  terminus-font ttf-terminus-nerd
 
 # Enable bitmap fonts (we need them to correctly render Terminus)
 sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf

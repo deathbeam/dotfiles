@@ -168,3 +168,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
 	path = zsh/.zsh/pack/bundle/start/base16-fzf
 	url = https://github.com/tinted-theming/base16-fzf
+[submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
+	path = vim/.vim/pack/bundle/start/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons
