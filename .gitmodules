@@ -93,9 +93,6 @@
 [submodule "zsh/.zsh/bundle/zsh-history-substring-search"]
 	path = zsh/.zsh/pack/bundle/start/zsh-history-substring-search
 	url = https://github.com/zsh-users/zsh-history-substring-search
-[submodule "vim/.vim/bundle/vim-fugitive"]
-	path = vim/.vim/pack/bundle/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "zsh/.zsh/bundle/fzf-tab"]
 	path = zsh/.zsh/pack/bundle/start/fzf-tab
 	url = https://github.com/Aloxaf/fzf-tab

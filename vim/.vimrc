@@ -176,20 +176,6 @@ let g:rooter_patterns = [
 " Load all plugins
 :packloadall
 
-" Read DOCX
-autocmd VimRc BufReadPost *.doc,*.docx,*.rtf,*.odp,*.odt silent %!pandoc "%" -tplain -o /dev/stdout
-
-" Fugitive
-autocmd VimRc BufReadPost fugitive://* set bufhidden=delete
-nnoremap <silent> <leader>gs :Git<CR>
-nnoremap <silent> <leader>gd :Gdiffsplit<CR>
-nnoremap <silent> <leader>gc :Git commit --signoff<CR>
-nnoremap <silent> <leader>gb :Git blame<CR>
-nnoremap <silent> <leader>gl :Git log<CR>
-nnoremap <silent> <leader>gp :Git push<CR>
-nnoremap <silent> <leader>gw :Gwrite<CR>
-nnoremap <silent> <leader>gr :GRemove<CR>
-
 " Statusline
 function! StatuslineLsp() abort
   if luaeval('vim.lsp and #vim.lsp.buf_get_clients() > 0')
@@ -198,7 +184,6 @@ function! StatuslineLsp() abort
 
   return ''
 endfunction
-set statusline+=%4*\ %{fugitive#statusline()}
 set statusline+=%5*%{StatuslineLsp()}
 
 " }}}

@@ -198,7 +198,7 @@ local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 lsp_status.config({ status_symbol = ' ', current_function = false })
-lsp_capabilities = vim.tbl_deep_extend('force', lsp_capabilities, lsp_status.capabilities)
+lsp_capabilities = vim.tbl_deep_extend('keep', lsp_capabilities, lsp_status.capabilities)
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
