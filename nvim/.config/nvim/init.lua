@@ -10,7 +10,10 @@ require('nvim-web-devicons').setup()
 
 -- Motions
 require('leap').create_default_mappings()
-require('flit').setup()
+require('flit').setup {
+  labeled_modes = 'nv'
+}
+
 -- Hide the (real) cursor when leaping, and restore it afterwards.
 vim.api.nvim_create_autocmd('User', { pattern = 'LeapEnter',
     callback = function()
@@ -42,6 +45,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
         vim.api.nvim_set_hl(0, 'SignColumn', {})
         vim.api.nvim_set_hl(0, 'FoldColumn', {})
         vim.api.nvim_set_hl(0, 'Search', { bg = base16.colors.base0A, fg = base16.colors.base00 })
+        vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { bg = base16.colors.base0A, fg = base16.colors.base00 })
+        vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { bg = base16.colors.base03, fg = base16.colors.base00 })
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = base16.colors.base00 })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base16.colors.base03 })
         vim.api.nvim_set_hl(0, 'VertSplit', { fg = base16.colors.base03 })
