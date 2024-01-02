@@ -31,9 +31,15 @@
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf
+[submodule "zsh/.zsh/bundle/base16-shell"]
+	path = zsh/.zsh/pack/bundle/start/base16-shell
+	url = https://github.com/chriskempson/base16-shell
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/pack/bundle/start/alias-tips
 	url = https://github.com/djui/alias-tips
+[submodule "mutt/.mutt/bundle/mutt-colors-solarized"]
+	path = mutt/.mutt/bundle/mutt-colors-solarized
+	url = https://github.com/altercation/mutt-colors-solarized
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
@@ -162,6 +168,3 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
 	path = vim/.vim/pack/bundle/start/nvim-web-devicons
 	url = https://github.com/nvim-tree/nvim-web-devicons
-[submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
-	path = zsh/.zsh/pack/bundle/start/base16-shell
-	url = https://github.com/tinted-theming/base16-shell
