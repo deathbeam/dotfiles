@@ -36,29 +36,34 @@ local nmap = function(keys, func, desc, buffer)
 end
 
 -- Color scheme
-local base16 = require('base16-colorscheme')
-base16.load_from_shell()
 vim.api.nvim_create_autocmd('BufEnter', {
     desc = 'Adjust colorscheme',
     callback = function()
+        local base0A = '#' .. vim.g.base16_gui0A
+        local base0D = '#' .. vim.g.base16_gui0D
+        local base00 = '#' .. vim.g.base16_gui00
+        local base03 = '#' .. vim.g.base16_gui03
+        local base0B = '#' .. vim.g.base16_gui0B
+        local base0E = '#' .. vim.g.base16_gui0E
+
         vim.api.nvim_set_hl(0, 'LineNr', {})
         vim.api.nvim_set_hl(0, 'SignColumn', {})
         vim.api.nvim_set_hl(0, 'FoldColumn', {})
-        vim.api.nvim_set_hl(0, 'Search', { bg = base16.colors.base0A, fg = base16.colors.base00 })
-        vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { bg = base16.colors.base0A, fg = base16.colors.base00 })
-        vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { bg = base16.colors.base03, fg = base16.colors.base00 })
-        vim.api.nvim_set_hl(0, 'StatusLine', { fg = base16.colors.base00 })
-        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base16.colors.base03 })
-        vim.api.nvim_set_hl(0, 'VertSplit', { fg = base16.colors.base03 })
-        vim.api.nvim_set_hl(0, 'Title', { fg = base16.colors.base03 })
-        vim.api.nvim_set_hl(0, 'TabLineSel', { fg = base16.colors.base0D })
-        vim.api.nvim_set_hl(0, 'TabLineFill', { fg = base16.colors.base03 })
-        vim.api.nvim_set_hl(0, 'TabLine', { fg = base16.colors.base03 })
-        vim.api.nvim_set_hl(0, 'User1', { underline = true, bg = base16.colors.base0D, fg = base16.colors.base00 })
-        vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base16.colors.base0D })
-        vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base16.colors.base0B })
-        vim.api.nvim_set_hl(0, 'User4', { underline = true, fg = base16.colors.base0E })
-        vim.api.nvim_set_hl(0, 'User5', { underline = true, fg = base16.colors.base0A })
+        vim.api.nvim_set_hl(0, 'Search', { bg = base0A, fg = base00 })
+        vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { bg = base0A, fg = base00 })
+        vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { bg = base03, fg = base00 })
+        vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00 })
+        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'VertSplit', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'Title', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'TabLineSel', { fg = base0D })
+        vim.api.nvim_set_hl(0, 'TabLineFill', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'TabLine', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'User1', { underline = true, bg = base0D, fg = base00 })
+        vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base0D })
+        vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base0B })
+        vim.api.nvim_set_hl(0, 'User4', { underline = true, fg = base0E })
+        vim.api.nvim_set_hl(0, 'User5', { underline = true, fg = base0A })
     end
 })
 

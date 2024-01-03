@@ -149,7 +149,7 @@ elif command -v ag >/dev/null 2>&1; then
 fi
 
 # Load base16 theme
-base16_solarized-dark
+base16_solarized-dark true
 . ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-solarized-dark.config
 
 # }}}

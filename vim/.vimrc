@@ -176,6 +176,13 @@ let g:rooter_patterns = [
 " Load all plugins
 :packloadall
 
+" Colorscheme
+if filereadable(expand("$HOME/.config/tinted-theming/set_theme.vim"))
+  let base16colorspace=256
+  set termguicolors
+  source $HOME/.config/tinted-theming/set_theme.vim
+endif
+
 " Statusline
 function! StatuslineLsp() abort
   if luaeval('vim.lsp and #vim.lsp.buf_get_clients() > 0')

@@ -31,9 +31,6 @@
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf
-[submodule "zsh/.zsh/bundle/base16-shell"]
-	path = zsh/.zsh/pack/bundle/start/base16-shell
-	url = https://github.com/chriskempson/base16-shell
 [submodule "zsh/.zsh/bundle/alias-tips"]
 	path = zsh/.zsh/pack/bundle/start/alias-tips
 	url = https://github.com/djui/alias-tips
@@ -150,9 +147,6 @@
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
 	path = vim/.vim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
-[submodule "vim/.vim/pack/bundle/start/nvim-base16"]
-	path = vim/.vim/pack/bundle/start/nvim-base16
-	url = https://github.com/rrethy/nvim-base16
 [submodule "vim/.vim/pack/bundle/start/leap.nvim"]
 	path = vim/.vim/pack/bundle/start/leap.nvim
 	url = https://github.com/ggandor/leap.nvim
@@ -165,3 +159,9 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
 	path = vim/.vim/pack/bundle/start/nvim-web-devicons
 	url = https://github.com/nvim-tree/nvim-web-devicons
+[submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
+	path = zsh/.zsh/pack/bundle/start/base16-shell
+	url = https://github.com/tinted-theming/base16-shell
+[submodule "vim/.vim/pack/bundle/start/base16-vim"]
+	path = vim/.vim/pack/bundle/start/base16-vim
+	url = https://github.com/tinted-theming/base16-vim
