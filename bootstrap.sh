@@ -39,7 +39,7 @@ yay --noconfirm -S --mflags --skipinteg \
   dropbox pass pass-otp zbar \
   vim ctags \
   httpie sshpass ntp stoken openvpn openconnect wget jq \
-  tlp udisks2 trash-cli
+  tlp udisks2 trash-cli rate-mirrors
 
 # Enable vbox access for current user
 sudo groupadd -f vboxsf

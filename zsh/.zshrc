@@ -57,6 +57,19 @@ function unsetproxy {
     HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY
 }
 
+# Arch utilities
+function arch-update-mirrors {
+  rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist
+}
+
+function arch-remove-orphans {
+  yay -Rns $(yay -Qtdq)
+}
+
+function arch-update {
+  yay -Syu
+}
+
 # }}}
 
 # Plugins {{{
