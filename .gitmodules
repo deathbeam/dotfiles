@@ -162,3 +162,6 @@
 [submodule "vim/.vim/pack/bundle/start/eyeliner.nvim"]
 	path = vim/.vim/pack/bundle/start/eyeliner.nvim
 	url = https://github.com/jinh0/eyeliner.nvim
+[submodule "bspwm/.config/polybar/base16-polybar"]
+	path = bspwm/.config/polybar/base16-polybar
+	url = https://github.com/tinted-theming/base16-polybar

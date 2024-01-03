@@ -1,4 +1,5 @@
 ; vim:ft=dosini
+include-file = $BASE16_POLYBAR_PATH
 
 [bar/main]
 monitor = ${env:MONITOR:}
@@ -19,8 +20,8 @@ padding-right = 2
 module-margin-left = 0
 module-margin-right = 2
 
-background = #073642
-foreground = #93a1a1
+background = ${colors.base01}
+foreground = ${colors.base05}
 font-0 = Terminus:size=12;1
 
 modules-left = bspwm title
@@ -32,22 +33,22 @@ type = internal/bspwm
 ws-icon-default = x
 format = <label-monitor> <label-state> <label-mode>
 
-label-dimmed-foreground = #839496
+label-dimmed-foreground = ${colors.base04}
 
 label-monitor-padding = 1
 
 label-focused = %name%
-label-focused-background = #268bd2
-label-focused-foreground = #eee8d5
+label-focused-background = ${colors.base0D}
+label-focused-foreground = ${colors.base06}
 label-focused-padding = 1
 
 label-empty = %name%
-label-empty-background = #002b36
-label-empty-foreground = #839496
+label-empty-background = ${colors.base00}
+label-empty-foreground = ${colors.base04}
 label-empty-padding = 1
 
 label-urgent = %name%
-label-urgent-background = #dc322f
+label-urgent-background = ${colors.base08}
 label-urgent-padding = 1
 
 label-occupied = %name%

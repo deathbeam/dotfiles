@@ -149,8 +149,7 @@ elif command -v ag >/dev/null 2>&1; then
 fi
 
 # Load base16 theme
-export BASE16_FZF_PATH=~/.zsh/pack/bundle/start/base16-fzf
-base16_solarized-dark true
+set_theme $BASE16_THEME true
 
 # }}}
 
