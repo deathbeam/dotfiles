@@ -20,25 +20,27 @@ require('eyeliner').setup {
 }
 
 -- Color scheme
-vim.api.nvim_create_autocmd('BufEnter', {
-  desc = 'Adjust colorscheme',
-  callback = function()
-    local base0A = '#' .. vim.g.base16_gui0A
-    local base0D = '#' .. vim.g.base16_gui0D
-    local base00 = '#' .. vim.g.base16_gui00
-    local base03 = '#' .. vim.g.base16_gui03
-    local base0B = '#' .. vim.g.base16_gui0B
-    local base0E = '#' .. vim.g.base16_gui0E
+local function adjustColors()
+  local base0A = '#' .. vim.g.base16_gui0A
+  local base0D = '#' .. vim.g.base16_gui0D
+  local base00 = '#' .. vim.g.base16_gui00
+  local base03 = '#' .. vim.g.base16_gui03
+  local base0B = '#' .. vim.g.base16_gui0B
+  local base0E = '#' .. vim.g.base16_gui0E
 
-    vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00 })
-    vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
-    vim.api.nvim_set_hl(0, 'User1', { underline = true, bg = base0D, fg = base00 })
-    vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base0D })
-    vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base0B })
-    vim.api.nvim_set_hl(0, 'User4', { underline = true, fg = base0E })
-    vim.api.nvim_set_hl(0, 'User5', { underline = true, fg = base0A })
-  end
+  vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00 })
+  vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
+  vim.api.nvim_set_hl(0, 'User1', { underline = true, bg = base0D, fg = base00 })
+  vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base0D })
+  vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base0B })
+  vim.api.nvim_set_hl(0, 'User4', { underline = true, fg = base0E })
+  vim.api.nvim_set_hl(0, 'User5', { underline = true, fg = base0A })
+end
+vim.api.nvim_create_autocmd('ColorScheme', {
+  desc = 'Adjust colors',
+  callback = adjustColors
 })
+adjustColors()
 
 -- Define language servers
 local servers = {
