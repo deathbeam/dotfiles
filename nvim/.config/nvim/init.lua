@@ -8,28 +8,6 @@ vim.cmd([[
 -- Icons
 require('nvim-web-devicons').setup()
 
--- Motions
-require('leap').create_default_mappings()
-require('flit').setup {
-  labeled_modes = 'nv'
-}
-
--- Hide the (real) cursor when leaping, and restore it afterwards.
-vim.api.nvim_create_autocmd('User', { pattern = 'LeapEnter',
-    callback = function()
-      vim.cmd.hi('Cursor', 'blend=100')
-      vim.opt.guicursor:append { 'a:Cursor/lCursor' }
-    end,
-  }
-)
-vim.api.nvim_create_autocmd('User', { pattern = 'LeapLeave',
-    callback = function()
-      vim.cmd.hi('Cursor', 'blend=0')
-      vim.opt.guicursor:remove { 'a:Cursor/lCursor' }
-    end,
-  }
-)
-
 -- Utility functions
 local nmap = function(keys, func, desc, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
