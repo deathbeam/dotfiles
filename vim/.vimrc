@@ -40,6 +40,7 @@ endif
 
 " display completion matches in a status line
 set wildmode=list:longest,list:full
+set nowildmenu
 
 " Ignore compiled files
 set wildignore=*.o,*~,*.pyc,*.class
