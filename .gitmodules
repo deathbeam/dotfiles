@@ -102,9 +102,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-commentary"]
 	path = vim/.vim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "vim/.vim/pack/bundle/start/vim-tmux-navigator"]
-	path = vim/.vim/pack/bundle/start/vim-tmux-navigator
-	url = https://github.com/christoomey/vim-tmux-navigator
 [submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
 	path = tmux/.tmux/pack/bundle/start/tmux-fzf
 	url = https://github.com/sainnhe/tmux-fzf
@@ -171,3 +168,6 @@
 [submodule "vim/.vim/pack/bundle/start/cmp-buffer"]
 	path = vim/.vim/pack/bundle/start/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer
+[submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
+	path = vim/.vim/pack/bundle/start/tmux.nvim
+	url = https://github.com/aserowy/tmux.nvim
