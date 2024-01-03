@@ -39,7 +39,7 @@ label-monitor-padding = 1
 
 label-focused = %name%
 label-focused-background = ${colors.base0D}
-label-focused-foreground = ${colors.base06}
+label-focused-foreground = ${colors.base00}
 label-focused-padding = 1
 
 label-empty = %name%
