@@ -5,13 +5,19 @@ vim.cmd([[
     source ~/.vimrc
 ]])
 
--- Icons
-require('nvim-web-devicons').setup()
-
 -- Utility functions
 local nmap = function(keys, func, desc, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
 end
+
+-- Icons
+require('nvim-web-devicons').setup()
+
+-- Eyeliner
+require('eyeliner').setup {
+  highlight_on_key = true,
+  dim = true,
+}
 
 -- Color scheme
 vim.api.nvim_create_autocmd('BufEnter', {
@@ -24,19 +30,8 @@ vim.api.nvim_create_autocmd('BufEnter', {
         local base0B = '#' .. vim.g.base16_gui0B
         local base0E = '#' .. vim.g.base16_gui0E
 
-        vim.api.nvim_set_hl(0, 'LineNr', {})
-        vim.api.nvim_set_hl(0, 'SignColumn', {})
-        vim.api.nvim_set_hl(0, 'FoldColumn', {})
-        vim.api.nvim_set_hl(0, 'Search', { bg = base0A, fg = base00 })
-        vim.api.nvim_set_hl(0, 'LeapLabelPrimary', { bg = base0A, fg = base00 })
-        vim.api.nvim_set_hl(0, 'LeapLabelSecondary', { bg = base03, fg = base00 })
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00 })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'VertSplit', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'Title', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'TabLineSel', { fg = base0D })
-        vim.api.nvim_set_hl(0, 'TabLineFill', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'TabLine', { fg = base03 })
         vim.api.nvim_set_hl(0, 'User1', { underline = true, bg = base0D, fg = base00 })
         vim.api.nvim_set_hl(0, 'User2', { underline = true, fg = base0D })
         vim.api.nvim_set_hl(0, 'User3', { underline = true, fg = base0B })

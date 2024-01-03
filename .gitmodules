@@ -159,3 +159,6 @@
 [submodule "vim/.vim/pack/bundle/start/base16-vim"]
 	path = vim/.vim/pack/bundle/start/base16-vim
 	url = https://github.com/tinted-theming/base16-vim
+[submodule "vim/.vim/pack/bundle/start/eyeliner.nvim"]
+	path = vim/.vim/pack/bundle/start/eyeliner.nvim
+	url = https://github.com/jinh0/eyeliner.nvim
