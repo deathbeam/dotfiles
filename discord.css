@@ -1,10 +1,37 @@
+/**
+* @name Base16 Solarized Dark
+* @description 
+* @author thedeathbeam
+* @authorId
+* @version
+* @source
+* @updateUrl
+**/
+
 :root {
+    --base00: #002B36; /* Black */
+    --base01: #073642; /* Bright Black */
+    --base02: #586E75; /* Grey */
+    --base03: #657B83; /* Brighter Grey */
+    --base04: #839496; /* Bright Grey */
+    --base05: #93A1A1; /* White */
+    --base06: #EEE8D5; /* Brighter White */
+    --base07: #FDF6E3; /* Bright White */
+    --base08: #DC322F; /* Red */
+    --base09: #CB4B16; /* Orange */
+    --base0A: #B58900; /* Yellow */
+    --base0B: #859900; /* Green */
+    --base0C: #2AA198; /* Cyan */
+    --base0D: #268BD2; /* Blue */
+    --base0E: #6C71C4; /* Purple */
+    --base0F: #D33682; /* Magenta */
+
     --radius-xs: 0px;
-    --radius-sm: 0px;
-    --radius-md: 0px;
-    --radius-lg: 0px;
-    --radius-xl: 0px;
-    --radius-xxl: 0px;
+    --radius-sm: var(--radius-xs);
+    --radius-md: var(--radius-xs);
+    --radius-lg: var(--radius-xs);
+    --radius-xl: var(--radius-xs);
+    --radius-xxl: var(--radius-xs);
     --font-primary: 'Terminus', normal;
     --font-display: var(--font-primary);
     --font-headline: var(--font-primary);
@@ -12,68 +39,24 @@
 }
 
 .theme-dark {
-    --background-primary: #002b36;
-    --background-secondary: #073642;
-    --background-secondary-alt: #073642;
-    --channeltextarea-background: #073642;
-    --background-tertiary: #002b36;
-    --background-accent: #AB4642;
-    --text-normal: #D8D8D8;
-    --text-spotify: #9ccfd8;
-    --text-muted: #4f4c58;
-    --text-link: #F7CA88;
-    --background-floating: #073642;
-    --header-primary: #D8D8D8;
-    --header-secondary: #9ccfd8;
-    --header-spotify: #9ccfd8;
-    --interactive-normal: #D8D8D8;
-    --interactive-hover: #F7CA88;
-    --interactive-active: #D8D8D8;
-    --ping: #AB4642;
-    --background-modifier-selected: #268bd2;
-    --scrollbar-thin-thumb: #191724; 
+    --background-primary: var(--base00);
+    --background-secondary: var(--base01);
+    --background-secondary-alt: var(--base01);
+    --channeltextarea-background: var(--base01);
+    --background-tertiary: var(--base00);
+    --background-accent: var(--base0E);
+    --background-floating: var(--base01);
+    --background-modifier-selected: var(--base00);
+    --text-normal: var(--base05);
+    --text-secondary: var(--base00);
+    --text-muted: var(--base02);
+    --text-link: var(--base0C);
+    --interactive-normal: var(--base05);
+    --interactive-hover: var(--base0C);
+    --interactive-active: var(--base0A);
+    --interactive-muted: var(--base02);
+    --header-primary: var(--base06);
+    --header-secondary: var(--base03);
     --scrollbar-thin-track: transparent; 
-    --scrollbar-auto-thumb: #191724; 
     --scrollbar-auto-track: transparent; 
-}
-
-.body-2wLx-E, .headerTop-3GPUSF, .bodyInnerWrapper-2bQs1k, .footer-3naVBw {
-    background-color: var(--background-tertiary);
-}
-
-.panels-3wFtMD {
-    background-color: var(--background-secondary);
-}
-
-.peopleColumn-1wMU14, .panels-j1Uci_, .peopleColumn-29fq28, .peopleList-2VBrVI, .content-2hZxGK, .header-1zd7se, .root-g14mjS .small-23Atuv .fullscreenOnMobile-ixj0e3{
-    background-color: var(--background-secondary);
-}
-
-.textArea-12jD-V, .lookBlank-3eh9lL,  .threadSidebar-1o3BTy, .scrollableContainer-2NUZem, .perksModalContentWrapper-3RHugb, .theme-dark .footer-31IekZ, .theme-light .footer-31IekZ{
-    background-color: var(--background-tertiary);
-}
-
-.numberBadge-2s8kKX, .base-PmTxvP, .baseShapeRound-1Mm1YW, .bar-30k2ka, .unreadMentionsBar-1Bu1dC, .mention-1f5kbO, .active-1SSsBb, .disableButton-220a9y {
-    background-color: var(--ping) !important;
-}
-
-.lookOutlined-3sRXeN.colorRed-1TFJan, .lookOutlined-3sRXeN.colorRed-1TFJan {
-    color: var(--ping) !important;
-}
-
-.header-3OsQeK, .container-ZMc96U {
-    box-shadow: none!important;
-    border: none!important;
-}
-
-.layout-1qmrhw:hover, .content-1gYQeQ:hover {
-    background-color: var(--background-modifier-selected)!important;
-}
-
-.container-3wLKDe {
-    background-color: var(--background-secondary) !important;
-}
-
-.title-31SJ6t {
-    background-color: var(--background-primary) !important;
 }
