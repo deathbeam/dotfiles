@@ -26,7 +26,6 @@ cd yay
 makepkg -si --noconfirm
 cd $cur_dir
 
-# Install some extra packages via yay
 echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
@@ -36,28 +35,16 @@ yay --noconfirm -S --mflags --skipinteg \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep mlocate htop \
+  vim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
-  vim ctags \
   httpie sshpass ntp stoken openvpn openconnect wget jq \
-  tlp udisks2 trash-cli rate-mirrors
+  tlp udisks2 rate-mirrors
 
-# Enable vbox access for current user
-sudo groupadd -f vboxsf
-sudo usermod -aG vboxsf "$USER"
-
-# Enable docker for current user
-sudo groupadd -f docker
-sudo usermod -aG docker "$USER"
-
-# Update XDG
-xdg-user-dirs-update
-
-# Install some stuff for development
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm github-cli azure-cli lazygit docker docker-compose bat
+  maven npm github-cli azure-cli lazygit docker docker-compose
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -67,13 +54,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
-echo '==> Installing configuration files'
-git clone https://github.com/deathbeam/dotfiles ~/.dotfiles || true
-cd ~/.dotfiles
-make
-cd ~
-
-echo '==> Installing extra X11 packages'
+echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
   xorg-fonts-misc xsel xclip autocutsel \
@@ -82,32 +63,28 @@ yay --noconfirm -S --mflags --skipinteg \
   upower \
   udiskie
 
-# Improve font rendering and install extra fonts
-echo '==> Configuring improved font rendering'
+echo '==> Installing font packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 cairo libxft \
   fonts-meta-base \
   terminus-font ttf-terminus-nerd
 
-# Enable bitmap fonts (we need them to correctly render Terminus)
-sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf
-fc-cache -f
-
-# Install applications
 echo '==> Installing X11 applications'
 pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
-  bspwm sxhkd polybar touchegg \
-  mpv discord boosteroid \
+  bspwm sxhkd polybar \
+  mpv discord boosteroid calibre \
   postman bruno-bin intellij-idea-ue-eap
 
-# Set default browser
-xdg-settings set default-web-browser qutebrowser.desktop
+echo '==> Installing dotfiles'
+git clone https://github.com/deathbeam/dotfiles ~/.dotfiles || true
+cd ~/.dotfiles
+make
+cd ~
 
-# Install extra packages from source
 echo '==> Installing packages from source'
 mkdir -p ~/git
 cd ~/git
@@ -135,13 +112,33 @@ cd clipmenu
 sudo make clean install
 cd ..
 
-echo '==> Addding nogroup group'
+echo '==> Configuring system'
+
+# Enable bitmap fonts (we need them to correctly render Terminus)
+sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf
+fc-cache -f
+
+# Enable vbox access for current user
+sudo groupadd -f vboxsf
+sudo usermod -aG vboxsf "$USER"
+
+# Enable docker for current user
+sudo groupadd -f docker
+sudo usermod -aG docker "$USER"
+
+# Add nogroup group for current user
 sudo groupadd nogroup
 sudo usermod -a -G nogroup "$USER"
 
-echo '==> Changing default shell'
+# Update XDG
+xdg-user-dirs-update
+
+# Set default browser
+xdg-settings set default-web-browser qutebrowser.desktop
+
+# Change default shell
 echo "$USER" | chsh -s /bin/zsh
 
-echo '==> Generating loale'
+# Set locale
 sudo echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 sudo locale-gen

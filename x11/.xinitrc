@@ -90,17 +90,12 @@ fi
 
 # Start udiskie
 if command -v udiskie >/dev/null 2>&1; then
-  udiskie &
+  udiskie --tray &
 fi
 
 # Start key manager daemon
 if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
-fi
-
-# Start touchegg
-if command -v touchegg >/dev/null 2>&1; then
-  touchegg &
 fi
 
 # And finally, start our WM
