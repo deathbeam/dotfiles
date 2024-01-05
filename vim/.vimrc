@@ -121,6 +121,10 @@ set fileformats=unix,dos,mac
 
 " Mappings and commands {{{
 
+" Restore cursor position
+autocmd BufRead * autocmd FileType <buffer> ++once
+      \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+
 " With a map leader it's possible to do extra key combinations
 let mapleader = ' '
 let maplocalleader = ' '
