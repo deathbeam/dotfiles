@@ -1,3 +1,0 @@
-clear Lock
-keycode 0x42 = Control_R
-add Control = Control_R

@@ -34,8 +34,8 @@ xrdb -D"DPI=$DPI" -merge ~/.Xresources
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr
 
-# Load custom keyboard mappings
-xmodmap ~/.xmodmap
+# Remap caps lock to control and escape
+setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
 
 # Update mouse stuff
 xinput disable 'Wacom HID 50F0 Finger touch' # disable touch screen
