@@ -95,6 +95,7 @@ zstyle ':zim:git' aliases-prefix g
 
 # Autocomplete
 zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Pathogen-like loader for plugins
