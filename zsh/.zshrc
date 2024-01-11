@@ -19,6 +19,11 @@ bindkey -e
 # Remove path separator from WORDCHARS.
 WORDCHARS=${WORDCHARS//[\/]}
 
+# Emacs command mode (its better than vi sadly)
+set -o emacs
+
+# Expand dots
+setopt globdots
 
 # }}}
 
@@ -88,9 +93,6 @@ zstyle ':zim:termtitle' format '%n@%m:%~'
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 
-# This determines what highlighters will be used with the syntax-highlighting module.
-ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
-
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()
@@ -112,21 +114,22 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# disable sort when completing `git checkout`
-zstyle ':completion:*:git-checkout:*' sort false
-# set descriptions format to enable group support
-zstyle -d ':completion:*' format
-zstyle ':completion:*:descriptions' format '[%d]'
 # set list-colors to enable filename colorizing
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-# preview directory's content with exa when completing cd
-zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls -1a --color=always $realpath'
-# switch group using `,` and `.`
-zstyle ':fzf-tab:*' switch-group ',' '.'
-# remove prefix
-zstyle ':fzf-tab:*' prefix ''
-# search hidden by default
-_comp_options+=(globdots)
+
+# improved tab completion with autocompletion
+bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
+bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+
+# set base16 thee for syntax highlighting
+function () {
+    local theme=$1
+    local current_theme
+    zstyle -g current_theme ':plugin:fast-syntax-highlighting' theme
+    if [[ $current_theme != $theme ]]; then
+        fast-theme $theme
+    fi
+} base16
 
 # Adjust git aliases
 unalias gh 2>/dev/null

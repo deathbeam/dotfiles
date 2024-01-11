@@ -52,9 +52,6 @@
 [submodule "zsh/.zsh/bundle/zsh-completions"]
 	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh/.zsh/bundle/completion"]
-	path = zsh/.zsh/pack/bundle/start/completion
-	url = https://github.com/zimfw/completion
 [submodule "zsh/.zsh/bundle/input"]
 	path = zsh/.zsh/pack/bundle/start/input
 	url = https://github.com/zimfw/input
@@ -74,9 +71,6 @@
 	path = zsh/.zsh/pack/bundle/start/pure
 	url = https://github.com/sindresorhus/pure
 	branch = main
-[submodule "zsh/.zsh/bundle/fasd"]
-	path = zsh/.zsh/pack/bundle/start/fasd
-	url = https://github.com/clvv/fasd
 [submodule "zsh/.zsh/bundle/imgur.sh"]
 	path = zsh/.zsh/pack/bundle/start/imgur.sh
 	url = https://github.com/tremby/imgur.sh
@@ -84,12 +78,6 @@
 [submodule "zsh/.zsh/bundle/environment"]
 	path = zsh/.zsh/pack/bundle/start/environment
 	url = https://github.com/zimfw/environment
-[submodule "zsh/.zsh/bundle/zsh-history-substring-search"]
-	path = zsh/.zsh/pack/bundle/start/zsh-history-substring-search
-	url = https://github.com/zsh-users/zsh-history-substring-search
-[submodule "zsh/.zsh/bundle/fzf-tab"]
-	path = zsh/.zsh/pack/bundle/start/fzf-tab
-	url = https://github.com/Aloxaf/fzf-tab
 [submodule "vim/.vim/bundle/codeium.vim"]
 	path = vim/.vim/pack/bundle/start/codeium.vim
 	url = https://github.com/Exafunction/codeium.vim
@@ -171,3 +159,9 @@
 [submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
 	path = vim/.vim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim
+[submodule "zsh/.zsh/pack/bundle/start/zsh-autocomplete"]
+	path = zsh/.zsh/pack/bundle/start/zsh-autocomplete
+	url = https://github.com/marlonrichert/zsh-autocomplete
+[submodule "zsh/.zsh/pack/bundle/start/fast-syntax-highlighting"]
+	path = zsh/.zsh/pack/bundle/start/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
