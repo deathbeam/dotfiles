@@ -93,6 +93,10 @@ zstyle ':zim:termtitle' format '%n@%m:%~'
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 
+# Autocomplete
+zstyle ':autocomplete:*' insert-unambiguous yes
+zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()
@@ -114,12 +118,10 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# set list-colors to enable filename colorizing
-zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-
 # improved tab completion with autocompletion
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+autoload -Uz cdr
 
 # set base16 thee for syntax highlighting
 function () {
