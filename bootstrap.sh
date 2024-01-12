@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-set -x
+set -ex
 
 # Install devel packages
 echo '==> Installing base-devel'
@@ -24,7 +24,7 @@ yay --noconfirm -S --mflags --skipinteg \
   acpi redshift \
   irssi ncmpcpp \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
-  pulseaudio pulseaudio-alsa \
+  pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber \
   stow zsh tmux ripgrep mlocate htop \
   vim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
@@ -41,9 +41,9 @@ echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
   python-pip \
   gst-plugins-good gst-plugins-ugly gstreamer \
-  python-dbus
+  python-dbus python-opengl
 
-pip3 install https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
+pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -61,7 +61,6 @@ yay --noconfirm -S --mflags --skipinteg \
   terminus-font ttf-terminus-nerd
 
 echo '==> Installing X11 applications'
-pip install --user pyopengl
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   flashplugin qutebrowser python-adblock chromium-widevine \
@@ -129,7 +128,3 @@ xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
 echo "$USER" | chsh -s /bin/zsh
-
-# Set locale
-sudo echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
-sudo locale-gen
