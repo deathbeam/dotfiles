@@ -28,7 +28,7 @@ yay --noconfirm -S --mflags --skipinteg \
   stow zsh tmux ripgrep mlocate htop \
   vim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
-  httpie sshpass ntp stoken openvpn openconnect wget jq \
+  httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
   tlp udisks2 rate-mirrors unzip
 
 echo '==> Installing development packages'
