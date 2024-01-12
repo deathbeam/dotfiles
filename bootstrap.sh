@@ -38,7 +38,7 @@ yay --noconfirm -S --mflags --skipinteg \
   vim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn openconnect wget jq \
-  tlp udisks2 rate-mirrors
+  tlp udisks2 rate-mirrors unzip
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
