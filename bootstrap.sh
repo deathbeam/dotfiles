@@ -24,7 +24,7 @@ yay --noconfirm -S --mflags --skipinteg \
   acpi redshift \
   irssi ncmpcpp \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
-  pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber \
+  pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep mlocate htop \
   vim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
