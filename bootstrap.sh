@@ -99,7 +99,7 @@ cd ..
 
 git clone https://github.com/cdown/clipmenu.git || true
 cd clipmenu
-sudo make clean install
+sudo make install
 cd ..
 
 echo '==> Configuring system'
