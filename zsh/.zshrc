@@ -13,17 +13,14 @@ export CLICOLOR=1
 # Remove older command from the history if a duplicate is to be added.
 setopt HIST_IGNORE_ALL_DUPS
 
-# Set editor default keymap to emacs (`-e`) or vi (`-v`)
-bindkey -e
-
-# Remove path separator from WORDCHARS.
-WORDCHARS=${WORDCHARS//[\/]}
-
 # Emacs command mode (its better than vi sadly)
-set -o emacs
+setopt emacs
 
 # Expand dots
 setopt globdots
+
+# Remove path separator from WORDCHARS.
+WORDCHARS=${WORDCHARS//[\/]}
 
 # }}}
 
