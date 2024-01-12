@@ -16,6 +16,11 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
   VBoxClient-all
 fi
 
+# Start vmware guest additions
+if command -v vmware-user >/dev/null 2>&1; then
+  vmware-user
+fi
+
 # Set DPI
 if [[ -z "${HDPI}" ]]; then
   xrandr -s 1920x1080
