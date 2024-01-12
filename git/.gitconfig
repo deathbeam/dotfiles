@@ -36,7 +36,7 @@
   renames = copies
 
   # Use vimdiff as default diff tool
-  tool = vimdiff
+  tool = nvimdiff
 
 [diff "bin"]
   # Use `hexdump` to diff binary files
@@ -51,7 +51,7 @@
   log = true
 
   # Use vimdiff as default merge tool
-  tool = vimdiff
+  tool = nvimdiff
   conflictstyle = diff3
 
 [push]

@@ -29,6 +29,7 @@ WORDCHARS=${WORDCHARS//[\/]}
 # Alias nvim
 if command -v nvim >/dev/null 2>&1; then
   alias vim=nvim
+  alias vimdiff='nvim -d'
 fi
 
 # Alias xclip copy/paste
