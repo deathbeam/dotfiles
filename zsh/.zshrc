@@ -86,10 +86,6 @@ zstyle ':zim:input' double-dot-expand yes
 zstyle ':zim:pacman' frontend 'yay'
 zstyle ':zim:pacman' helpers 'yay'
 
-# Set the string below to the desired terminal title format string.
-# Below uses the following format: 'username@host:/current/directory'
-zstyle ':zim:termtitle' format '%n@%m:%~'
-
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 
