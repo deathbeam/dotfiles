@@ -1,15 +1,6 @@
 #!/usr/bin/bash -l
 set -x
 
-echo '==> Setting up swap file'
-if [ ! -f /swapfile ]; then
-  sudo fallocate -l 2G /swapfile
-  sudo chmod 600 /swapfile
-  sudo mkswap /swapfile
-  sudo swapon /swapfile
-  echo '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
-fi
-
 # Install devel packages
 echo '==> Installing base-devel'
 sudo pacman --noconfirm -S base-devel
