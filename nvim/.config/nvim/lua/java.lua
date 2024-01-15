@@ -77,28 +77,7 @@ local function get_jdtls_paths()
     vim.list_extend(path.bundles, java_debug_bundle)
   end
 
-  ---
-  -- Useful if you're starting jdtls with a Java version that's 
-  -- different from the one the project uses.
-  ---
-  path.runtimes = {
-    -- Note: the field `name` must be a valid `ExecutionEnvironment`,
-    -- you can find the list here: 
-    -- https://github.com/eclipse/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    --
-    -- This example assume you are using sdkman: https://sdkman.io
-    -- {
-    --   name = 'JavaSE-17',
-    --   path = vim.fn.expand('~/.sdkman/candidates/java/17.0.6-tem'),
-    -- },
-    -- {
-    --   name = 'JavaSE-18',
-    --   path = vim.fn.expand('~/.sdkman/candidates/java/18.0.2-amzn'),
-    -- },
-  }
-
   cache_vars.paths = path
-
   return path
 end
 
@@ -135,7 +114,6 @@ local function jdtls_on_attach(client, bufnr)
 
   -- The following mappings are based on the suggested usage of nvim-jdtls
   -- https://github.com/mfussenegger/nvim-jdtls#usage
-
   local opts = {buffer = bufnr}
   vim.keymap.set('n', '<A-o>', "<cmd>lua require('jdtls').organize_imports()<cr>", opts)
   vim.keymap.set('n', 'crv', "<cmd>lua require('jdtls').extract_variable()<cr>", opts)
@@ -186,19 +164,14 @@ local function jdtls_setup()
     data_dir,
   }
 
+  -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
   local lsp_settings = {
     java = {
-      -- jdt = {
-      --   ls = {
-      --     vmargs = "-XX:+UseParallelGC -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -Dsun.zip.disableMemoryMapping=true -Xmx1G -Xms100m"
-      --   }
-      -- },
-      eclipse = {
-        downloadSources = true,
-      },
       configuration = {
         updateBuildConfiguration = 'interactive',
-        runtimes = path.runtimes,
+      },
+      eclipse = {
+        downloadSources = true,
       },
       maven = {
         downloadSources = true,
@@ -209,16 +182,11 @@ local function jdtls_setup()
       referencesCodeLens = {
         enabled = true,
       },
-      -- inlayHints = {
-      --   parameterNames = {
-      --     enabled = 'all' -- literals, all, none
-      --   }
-      -- },
+      references = {
+        includeDecompiledSources = true,
+      },
       format = {
         enabled = true,
-        -- settings = {
-        --   profile = 'asdf'
-        -- },
       }
     },
     signatureHelp = {
