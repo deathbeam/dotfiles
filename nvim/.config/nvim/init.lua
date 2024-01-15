@@ -273,9 +273,13 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 require('mason').setup()
 require('mason-lspconfig').setup {
-  ensure_installed = vim.tbl_values(vim.tbl_map(function(server) return server.lsp end, servers)),
+  ensure_installed = vim.tbl_values(vim.tbl_map(function(server) return server.lsp end, vim.tbl_filter(function(server) return server.lsp end, servers))),
   handlers = {
     function(server)
+      if server == 'jdtls' then
+        return
+      end
+
       local settings = nil
       for _, server_config in pairs(servers) do
         if server_config.lsp == server then
@@ -290,3 +294,5 @@ require('mason-lspconfig').setup {
     end
   },
 }
+
+require('java')

@@ -162,3 +162,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/zsh-expand-all"]
 	path = zsh/.zsh/pack/bundle/start/zsh-expand-all
 	url = https://github.com/simnalamburt/zsh-expand-all
+[submodule "vim/.vim/pack/bundle/start/nvim-jdtls"]
+	path = vim/.vim/pack/bundle/start/nvim-jdtls
+	url = https://github.com/mfussenegger/nvim-jdtls
