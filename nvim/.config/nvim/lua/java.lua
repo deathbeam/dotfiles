@@ -1,3 +1,4 @@
+-- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
 local cache_vars = {}
 
@@ -164,9 +165,7 @@ local function jdtls_setup()
   -- The command that starts the language server
   -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
   local cmd = {
-    -- 💀
     'java',
-
     '-Declipse.application=org.eclipse.jdt.ls.core.id1',
     '-Dosgi.bundles.defaultStartLevel=4',
     '-Declipse.product=org.eclipse.jdt.ls.core.product',
@@ -179,16 +178,10 @@ local function jdtls_setup()
     'java.base/java.util=ALL-UNNAMED',
     '--add-opens',
     'java.base/java.lang=ALL-UNNAMED',
-
-    -- 💀
     '-jar',
     path.launcher_jar,
-
-    -- 💀
     '-configuration',
     path.platform_config,
-
-    -- 💀
     '-data',
     data_dir,
   }
