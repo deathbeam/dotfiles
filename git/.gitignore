@@ -1,5 +1,6 @@
 # Compiled Python files
 *.pyc
+.venv/
 
 # Folder view configuration files
 .DS_Store
