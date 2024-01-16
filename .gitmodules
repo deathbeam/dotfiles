@@ -16,9 +16,6 @@
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
-[submodule "vim/.vim/bundle/vim-gutentags"]
-	path = vim/.vim/pack/bundle/start/vim-gutentags
-	url = https://github.com/ludovicchabant/vim-gutentags
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
@@ -114,12 +111,6 @@
 [submodule "vim/.vim/pack/bundle/start/cmp-path"]
 	path = vim/.vim/pack/bundle/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path
-[submodule "vim/.vim/pack/bundle/start/cmp-vsnip"]
-	path = vim/.vim/pack/bundle/start/cmp-vsnip
-	url = https://github.com/hrsh7th/cmp-vsnip
-[submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
-	path = vim/.vim/pack/bundle/start/vim-vsnip
-	url = https://github.com/hrsh7th/vim-vsnip
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
 	path = vim/.vim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
@@ -165,3 +156,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-cool"]
 	path = vim/.vim/pack/bundle/start/vim-cool
 	url = https://github.com/romainl/vim-cool
+[submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
+	path = vim/.vim/pack/bundle/start/fidget.nvim
+	url = https://github.com/j-hui/fidget.nvim

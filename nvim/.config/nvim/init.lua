@@ -36,6 +36,16 @@ require('eyeliner').setup {
   dim = true,
 }
 
+-- Notifications
+require("fidget").setup {
+  notification = {
+    override_vim_notify = true
+  },
+  logger = {
+    level = vim.log.levels.INFO
+  }
+}
+
 -- Color scheme
 local function adjustColors()
   local base0A = '#' .. vim.g.base16_gui0A
@@ -169,23 +179,19 @@ vim.keymap.set('i', '<C-e>', function () return vim.fn['codeium#Accept']() end, 
 local cmp = require('cmp')
 cmp.setup {
   sources = cmp.config.sources({
-    { name = 'nvim_lsp' },
-    { name = 'vsnip' },
+    { name = 'nvim_lsp',
+      entry_filter = function(entry)
+        return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+      end
+    },
     { name = 'path' },
   }, {
     { name = 'buffer' }
   }),
-  snippet = {
-    expand = function(args)
-      vim.fn["vsnip#anonymous"](args.body)
-    end,
-  },
   mapping = {
     ['<CR>'] = cmp.mapping.confirm({ select = true }),
     ["<Tab>"] = cmp.mapping(function(fallback)
-      if vim.fn["vsnip#available"](1) == 1 then
-        feedkey("<Plug>(vsnip-expand-or-jump)", "")
-      elseif cmp.visible() then
+      if cmp.visible() then
         cmp.select_next_item()
       elseif has_words_before() then
         cmp.complete()
@@ -193,11 +199,11 @@ cmp.setup {
         fallback()
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function()
-      if vim.fn["vsnip#jumpable"](-1) == 1 then
-        feedkey("<Plug>(vsnip-jump-prev)", "")
-      elseif cmp.visible() then
+    ["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
         cmp.select_prev_item()
+      else
+        fallback()
       end
     end, { "i", "s" }),
     ['<C-n>'] = cmp.mapping(function(fallback)
@@ -239,6 +245,7 @@ cmp.setup.cmdline(':', {
 -- LSP
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
+lsp_capabilities.textDocument.completion.completionItem.snippetSupport = false
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
