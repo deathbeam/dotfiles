@@ -50,3 +50,9 @@ Session.vim
 nohup.out
 
 ModCache.lua
+
+# jdtls
+.classpath
+.factorypath
+.project
+.settings/

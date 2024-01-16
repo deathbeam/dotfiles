@@ -203,16 +203,6 @@ if filereadable(expand("$HOME/.config/tinted-theming/set_theme.vim"))
   source $HOME/.config/tinted-theming/set_theme.vim
 endif
 
-" Statusline
-function! StatuslineLsp() abort
-  if luaeval('vim.lsp and #vim.lsp.buf_get_clients() > 0')
-    return luaeval("require('lsp-status').status()")
-  endif
-
-  return ''
-endfunction
-set statusline+=%5*%{StatuslineLsp()}
-
 " }}}
 
 " User configuration {{{

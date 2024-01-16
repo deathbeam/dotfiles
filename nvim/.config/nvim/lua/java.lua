@@ -2,14 +2,6 @@
 local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
 local cache_vars = {}
 
-local root_files = {
-  '.git',
-  'mvnw',
-  'gradlew',
-  'pom.xml',
-  'build.gradle',
-}
-
 local features = {
   -- change this to `true` to enable codelens
   codelens = false,
@@ -126,6 +118,7 @@ end
 local function jdtls_setup()
   local jdtls = require('jdtls')
 
+  local cwd = vim.loop.cwd()
   local path = get_jdtls_paths()
   local data_dir = path.data_dir .. '/' ..  vim.fn.fnamemodify(vim.fn.getcwd(), ':p:h:t')
 
@@ -228,7 +221,7 @@ local function jdtls_setup()
     settings = lsp_settings,
     on_attach = jdtls_on_attach,
     capabilities = cache_vars.capabilities,
-    root_dir = jdtls.setup.find_root(root_files),
+    root_dir = cwd,
     flags = {
       allow_incremental_sync = true,
     },

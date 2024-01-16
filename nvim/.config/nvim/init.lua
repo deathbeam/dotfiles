@@ -239,10 +239,6 @@ cmp.setup.cmdline(':', {
 -- LSP
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
-local lsp_status = require('lsp-status')
-lsp_status.register_progress()
-lsp_status.config({ status_symbol = ' ', current_function = false })
-lsp_capabilities = vim.tbl_deep_extend('keep', lsp_capabilities, lsp_status.capabilities)
 
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
@@ -288,7 +284,6 @@ require('mason-lspconfig').setup {
       end
       lspconfig[server].setup({
         capabilities = lsp_capabilities,
-        on_attach = lsp_status.on_attach,
         settings = settings,
       })
     end
