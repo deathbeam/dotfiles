@@ -77,7 +77,7 @@ local servers = {
     lsp = 'marksman',
   },
   python = {
-    lsp = 'pylsp',
+    lsp = 'pyright',
   },
   java = {
     lsp = 'jdtls',
