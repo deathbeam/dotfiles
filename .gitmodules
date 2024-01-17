@@ -105,9 +105,6 @@
 [submodule "vim/.vim/pack/bundle/start/cmp-nvim-lsp"]
 	path = vim/.vim/pack/bundle/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
-[submodule "vim/.vim/pack/bundle/start/plenary.nvim"]
-	path = vim/.vim/pack/bundle/start/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
 [submodule "vim/.vim/pack/bundle/start/cmp-path"]
 	path = vim/.vim/pack/bundle/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path
