@@ -38,6 +38,10 @@ endif
 
 " User interface {{{
 
+" set title
+set title
+set titlestring=%F
+
 " display completion matches in a status line
 set wildmode=list:longest,list:full
 set nowildmenu
