@@ -10,16 +10,6 @@ local nmap = function(keys, func, desc, buffer)
   vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
 end
 
-local has_words_before = function()
-  unpack = unpack or table.unpack
-  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-end
-
-local feedkey = function(key, mode)
-  vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(key, true, true, true), mode, true)
-end
-
 -- Icons
 require('nvim-web-devicons').setup()
 
@@ -174,6 +164,9 @@ nmap('<leader>fh', '<cmd>FzfLua oldfiles<cr>', '[F]ind [H]istory')
 
 -- Completion
 require('copilot').setup({
+  panel = {
+    enabled = false
+  },
   suggestion = {
     auto_trigger = true,
     keymap = {
@@ -185,9 +178,17 @@ require('copilot').setup({
 local suggestion = require("copilot.suggestion")
 local cmp = require('cmp')
 
+local has_words_before = function()
+  unpack = unpack or table.unpack
+  local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+  return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
+end
+
 local next_cmp = cmp.mapping(function(fallback)
   if cmp.visible() then
     cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
+  elseif suggestion.is_visible() then
+    suggestion.accept()
   elseif has_words_before() then
     cmp.complete()
   else
