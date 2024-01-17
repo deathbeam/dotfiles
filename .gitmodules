@@ -69,9 +69,6 @@
 [submodule "zsh/.zsh/bundle/environment"]
 	path = zsh/.zsh/pack/bundle/start/environment
 	url = https://github.com/zimfw/environment
-[submodule "vim/.vim/bundle/codeium.vim"]
-	path = vim/.vim/pack/bundle/start/codeium.vim
-	url = https://github.com/Exafunction/codeium.vim
 [submodule "vim/.vim/pack/bundle/start/which-key.nvim"]
 	path = vim/.vim/pack/bundle/start/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
@@ -156,3 +153,6 @@
 [submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
 	path = vim/.vim/pack/bundle/start/fidget.nvim
 	url = https://github.com/j-hui/fidget.nvim
+[submodule "vim/.vim/pack/bundle/start/copilot.lua"]
+	path = vim/.vim/pack/bundle/start/copilot.lua
+	url = https://github.com/zbirenbaum/copilot.lua

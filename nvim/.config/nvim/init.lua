@@ -173,10 +173,38 @@ nmap('<leader>fb', '<cmd>FzfLua buffers<cr>', '[F]ind [B]uffers')
 nmap('<leader>fh', '<cmd>FzfLua oldfiles<cr>', '[F]ind [H]istory')
 
 -- Completion
-vim.g.codeium_disable_bindings = 1
-vim.keymap.set('i', '<C-e>', function () return vim.fn['codeium#Accept']() end, { expr = true, silent = true })
+require('copilot').setup({
+  suggestion = {
+    auto_trigger = true,
+    keymap = {
+      accept = false
+    }
+  }
+})
 
+local suggestion = require("copilot.suggestion")
 local cmp = require('cmp')
+
+local next_cmp = cmp.mapping(function(fallback)
+  if cmp.visible() then
+    cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
+  elseif has_words_before() then
+    cmp.complete()
+  else
+    fallback()
+  end
+end)
+
+local prev_cmp = cmp.mapping(function(fallback)
+  if cmp.visible() then
+    cmp.select_prev_item({behavior = cmp.SelectBehavior.Insert})
+  elseif has_words_before() then
+    cmp.complete()
+  else
+    fallback()
+  end
+end, { "i", "s" })
+
 cmp.setup {
   sources = cmp.config.sources({
     { name = 'nvim_lsp',
@@ -189,37 +217,19 @@ cmp.setup {
     { name = 'buffer' }
   }),
   mapping = {
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
-    ["<Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      elseif has_words_before() then
-        cmp.complete()
+    ["<C-e>"] = cmp.mapping(function(fallback)
+      if suggestion.is_visible() then
+        suggestion.accept()
+      elseif cmp.visible() then
+        cmp.confirm({ select = true })
       else
         fallback()
       end
     end, { "i", "s" }),
-    ["<S-Tab>"] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        fallback()
-      end
-    end, { "i", "s" }),
-    ['<C-n>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_next_item()
-      else
-        cmp.mapping.complete()(fallback)
-      end
-    end),
-    ['<C-p>'] = cmp.mapping(function(fallback)
-      if cmp.visible() then
-        cmp.select_prev_item()
-      else
-        cmp.mapping.complete()(fallback)
-      end
-    end)
+    ["<Tab>"] = next_cmp,
+    ["<S-Tab>"] = prev_cmp,
+    ["<C-n>"] = next_cmp,
+    ["<C-p>"] = prev_cmp,
   }
 }
 cmp.setup.cmdline('/', {
