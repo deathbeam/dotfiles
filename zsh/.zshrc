@@ -148,9 +148,6 @@ elif command -v ag >/dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 
-# Load base16 theme
-set_theme $BASE16_THEME true
-
 # }}}
 
 # User configuration {{{

@@ -30,9 +30,9 @@ export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
 # Theme
-export BASE16_THEME="solarized-dark"
+export BASE16_THEME_DEFAULT="solarized-dark"
 export BASE16_FZF_PATH=~/.zsh/pack/bundle/start/base16-fzf
-export BASE16_POLYBAR_PATH=~/.config/polybar/base16-polybar/colors/base16-${BASE16_THEME}.ini
+export BASE16_POLYBAR_PATH=~/.config/polybar/base16-polybar/colors/base16-${BASE16_THEME_DEFAULT}.ini
 
 # Auto scale for QT5 apps
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
