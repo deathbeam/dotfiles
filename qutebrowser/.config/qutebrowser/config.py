@@ -16,6 +16,13 @@ c.qt.args = [
     'enable-zero-copy'
 ]
 
+# Privacy
+c.content.webgl = False
+c.content.canvas_reading = False
+c.content.geolocation = False
+c.content.webrtc_ip_handling_policy = "default-public-interface-only"
+c.content.cookies.accept = "no-unknown-3rdparty"
+
 # Dark mode
 c.colors.webpage.preferred_color_scheme = 'dark'
 c.colors.webpage.darkmode.enabled = False
