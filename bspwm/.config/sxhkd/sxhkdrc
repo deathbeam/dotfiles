@@ -16,7 +16,7 @@ super + Tab
 
 # program menu
 super + space
-  dmenu_run -p "run"
+  ~/.config/dmenu/runmenu -p "run"
 
 # password menu
 super + z
@@ -28,11 +28,7 @@ super + x
 
 # clipboard menu
 super + c
-  clipmenu -p "clip"
-
-# music menu
-super + v
-  ~/.config/dmenu/mpdmenu -p "mpd"
+  CM_LAUNCHER="$HOME/.config/dmenu/fzfmenu" clipmenu -p "clip"
 
 # make sxhkd reload its configuration files:
 super + Escape

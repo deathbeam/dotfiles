@@ -5,5 +5,5 @@ options="$(xtitle "${ids[@]}" | awk '{ print ++i": "$0 }')"
 
 [[ -n "$options" ]] || exit
 
-id_index="$(<<< "$options" dmenu "$@" | cut -d: -f1)"
+id_index="$(<<< "$options" ~/.config/dmenu/fzfmenu "$@" | cut -d: -f1)"
 bspc node "${ids[$((id_index - 1))]}" -f

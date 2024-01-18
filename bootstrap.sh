@@ -85,12 +85,6 @@ git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/st.diff
 sudo make clean install
 cd ..
 
-git clone git://git.suckless.org/dmenu || true
-cd dmenu
-git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/dmenu.diff
-sudo make clean install
-cd ..
-
 git clone git://git.suckless.org/slock || true
 cd slock
 git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/slock.diff

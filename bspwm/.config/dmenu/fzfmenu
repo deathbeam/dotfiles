@@ -1,0 +1,55 @@
+#!/bin/bash
+
+export FZF_DEFAULT_OPTS="\
+   --cycle
+   --print-query
+   --no-multi
+   --reverse --no-border --no-info --margin 0%,0%
+   --bind \;:accept
+   --bind esc:cancel
+   --bind tab:down
+   --bind btab:up
+"
+
+FILE_ARGS=/tmp/AMENU_FILE_ARGS
+FILE_CHOICES=/tmp/AMENU_FILE_CHOICES
+
+scan_args() {
+  while IFS= read -r line; do echo "$line"; done
+  [ -n "$line" ] && echo "$line"
+}
+
+show() {
+  while IFS= read -r line; do echo "$line"; done < $FILE_CHOICES;
+}
+
+run_menu() {
+  scan_args > $FILE_ARGS
+  prompt
+  show
+}
+
+prompt() {
+  : > $FILE_CHOICES
+  st -c FZFMenu -n FZFMenu -T "fzf-menu" \
+    -e "$SHELL" -c "
+      source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh; 
+      source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
+      fzf $PROMPT $QUERY < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null
+  [ -s "$FILE_CHOICES" ] || exit 1
+}
+
+main() {
+  while :; do
+    case $1 in
+      -l) shift ;;
+      -p) shift && PROMPT="--prompt \"$1 > \"" ;;
+      -q) shift && QUERY="-q \"$1\"" ;;
+      *) break ;;
+    esac
+    shift
+  done
+  run_menu
+}
+
+main "$@"
