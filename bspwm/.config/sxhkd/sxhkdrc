@@ -10,6 +10,10 @@ super + shift + Return
   {bspc rule -a \* -o state=floating sticky=on layer=above rectangle=720x360+600+40 && \
   st -e $SHELL -ic "tmux new-session -A -s scratch \; set status off \; set pane-border-status off"
 
+# switcher menu
+super + Tab
+  ~/.config/dmenu/windowsmenu -p "switch"
+
 # program menu
 super + space
   dmenu_run -p "run"
@@ -152,7 +156,7 @@ super + brace{left,right}
   bspc desktop -f {prev,next}
 
 # focus the last node/desktop
-super + {grave,Tab}
+super + grave
   bspc {node,desktop} -f last
 
 # focus the older or newer node in the focus history
