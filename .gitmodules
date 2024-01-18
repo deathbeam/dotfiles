@@ -10,9 +10,6 @@
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule "tmux/.tmux/bundle/tmux-open"]
-	path = tmux/.tmux/pack/bundle/start/tmux-open
-	url = https://github.com/tmux-plugins/tmux-open
 [submodule "vim/.vim/bundle/vim-rooter"]
 	path = vim/.vim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
