@@ -73,9 +73,6 @@ local servers = {
   typescript = {
     lsp = 'tsserver',
   },
-  markdown = {
-    lsp = 'marksman',
-  },
   python = {
     lsp = 'pyright',
   },
@@ -100,8 +97,14 @@ local servers = {
       }
     }
   },
+  bash = {
+    lsp = 'bashls',
+  },
   vim = {
     lsp = 'vimls',
+  },
+  markdown = {
+    lsp = 'marksman',
   },
   yaml = {
     lsp = 'yamlls',

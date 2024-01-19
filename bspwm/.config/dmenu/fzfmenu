@@ -41,6 +41,7 @@ prompt() {
     -e "$SHELL" -c "
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh; 
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
+      ~/.config/dmenu/closeonfocuslost.sh &
       fzf $PROMPT $QUERY < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null
   [ -s "$FILE_CHOICES" ] || exit 1
 }
