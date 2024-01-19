@@ -5,8 +5,6 @@ export FZF_DEFAULT_OPTS="\
    --print-query
    --no-multi
    --reverse --no-border --no-info --margin 0%,0%
-   --bind \;:accept
-   --bind esc:cancel
    --bind tab:down
    --bind btab:up
 "
