@@ -24,6 +24,7 @@ show() {
 }
 
 run_menu() {
+  xdotool search --class FZFMenu windowclose
   scan_args > $FILE_ARGS
   prompt
   show
