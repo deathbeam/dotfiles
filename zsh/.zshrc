@@ -12,6 +12,10 @@ export CLICOLOR=1
 
 # Remove older command from the history if a duplicate is to be added.
 setopt HIST_IGNORE_ALL_DUPS
+setopt HIST_SAVE_NO_DUPS
+setopt HIST_REDUCE_BLANKS
+export HISTFILESIZE=1000000000
+export HISTSIZE=1000000000
 
 # Emacs command mode (its better than vi sadly)
 setopt emacs
