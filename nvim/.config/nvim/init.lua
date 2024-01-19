@@ -208,6 +208,11 @@ local prev_cmp = cmp.mapping(function(fallback)
 end, { "i", "s" })
 
 cmp.setup {
+  snippet = {
+    expand = function(args)
+        vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
   sources = cmp.config.sources({
     { name = 'nvim_lsp',
       entry_filter = function(entry)
@@ -223,7 +228,7 @@ cmp.setup {
       if suggestion.is_visible() then
         suggestion.accept()
       elseif cmp.visible() then
-        cmp.confirm({ select = true })
+        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
       else
         fallback()
       end
