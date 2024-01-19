@@ -16,7 +16,7 @@ FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
 TITLE="fzf-menu"
 
 function kill_old() {
-  xdotool search --class FZFMenu windowclose
+  xdotool search --class FZFMenu windowkill
 }
 
 scan_args() {
