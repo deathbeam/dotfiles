@@ -136,6 +136,7 @@ require("nvim-treesitter.configs").setup {
 -- Fuzzy finder
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup {
+  'fzf-tmux',
   file_icon_padding = ' ',
   grep = {
     rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
