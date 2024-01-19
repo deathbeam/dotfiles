@@ -82,10 +82,6 @@ function arch-update {
 # Expand dots
 zstyle ':zim:input' double-dot-expand yes
 
-# Pacman
-zstyle ':zim:pacman' frontend 'yay'
-zstyle ':zim:pacman' helpers 'yay'
-
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 

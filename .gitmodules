@@ -49,9 +49,6 @@
 [submodule "zsh/.zsh/bundle/ssh"]
 	path = zsh/.zsh/pack/bundle/start/ssh
 	url = https://github.com/zimfw/ssh
-[submodule "zsh/.zsh/bundle/pacman"]
-	path = zsh/.zsh/pack/bundle/start/pacman
-	url = https://github.com/zimfw/pacman
 [submodule "zsh/.zsh/bundle/pure"]
 	path = zsh/.zsh/pack/bundle/start/pure
 	url = https://github.com/sindresorhus/pure
