@@ -14,8 +14,6 @@ export CLICOLOR=1
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
-export HISTFILESIZE=1000000000
-export HISTSIZE=1000000000
 
 # Emacs command mode (its better than vi sadly)
 setopt emacs
@@ -116,6 +114,9 @@ if [ -z "$PLUGINS_LOADED" ]; then
   done <<< $(find -L ~/.zsh/pack/*/start -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
   export PLUGINS_LOADED
 fi
+
+# Unset bad defaults
+unsetopt NO_CLOBBER
 
 # improved tab completion with autocompletion
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
