@@ -150,7 +150,7 @@ alias gcm='git commit --signoff --message'
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_OPTS="--bind tab:down --bind btab:up"
+export FZF_DEFAULT_OPTS="--bind tab:down --bind btab:up --color=border:#268bd2 --border=sharp"
 
 # Use faster FZF grep command if possible
 if command -v rg >/dev/null 2>&1; then
