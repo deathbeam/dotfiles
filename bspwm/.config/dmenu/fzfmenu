@@ -13,7 +13,7 @@ FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
 FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
 TITLE="fzf-menu"
 
-function kill_old() {
+kill_old() {
   xdotool search --class FZFMenu windowkill
 }
 
