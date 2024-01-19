@@ -4,7 +4,7 @@ export FZF_DEFAULT_OPTS="\
    --cycle
    --print-query
    --no-multi
-   --reverse --no-border --no-info --margin 0%,0%
+   --reverse --no-border --margin 0%,0%
    --bind tab:down
    --bind btab:up
 "
