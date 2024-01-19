@@ -11,8 +11,13 @@ export FZF_DEFAULT_OPTS="\
    --bind btab:up
 "
 
-FILE_ARGS=/tmp/AMENU_FILE_ARGS
-FILE_CHOICES=/tmp/AMENU_FILE_CHOICES
+FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
+FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
+TITLE="fzf-menu"
+
+function kill_old() {
+  xdotool search --class FZFMenu windowclose
+}
 
 scan_args() {
   while IFS= read -r line; do echo "$line"; done
@@ -24,7 +29,7 @@ show() {
 }
 
 run_menu() {
-  xdotool search --class FZFMenu windowclose
+  kill_old
   scan_args > $FILE_ARGS
   prompt
   show
@@ -32,7 +37,7 @@ run_menu() {
 
 prompt() {
   : > $FILE_CHOICES
-  st -c FZFMenu -n FZFMenu -T "fzf-menu" \
+  st -c FZFMenu -n FZFMenu -T "$TITLE" \
     -e "$SHELL" -c "
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh; 
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
@@ -44,7 +49,7 @@ main() {
   while :; do
     case $1 in
       -l) shift ;;
-      -p) shift && PROMPT="--prompt \"$1 > \"" ;;
+      -p) shift && TITLE="$TITLE: $1" && PROMPT="--prompt \"$1 > \"" ;;
       -q) shift && QUERY="-q \"$1\"" ;;
       *) break ;;
     esac
