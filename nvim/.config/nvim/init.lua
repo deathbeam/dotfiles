@@ -139,7 +139,14 @@ require("nvim-treesitter.configs").setup {
 -- Fuzzy finder
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup {
+  'fzf-tmux',
   file_icon_padding = ' ',
+  -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
+  lsp = {
+    code_actions = {
+      previewer = false
+    }
+  },
   grep = {
     rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
   }
@@ -289,9 +296,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     -- code
     nmap('<leader>cr', '<cmd>lua vim.lsp.buf.rename()<cr>', '[C]ode [R]ename', event.buf)
     nmap('<leader>cf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', '[C]ode [F]ormat', event.buf)
-    -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
-    nmap('<leader>ca', '<cmd>:FzfLua lsp_code_actions previewer=false<cr>', '[C]ode [A]ction', event.buf)
-    -- nmap('<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', '[C]ode [A]ction', event.buf)
+    nmap('<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', '[C]ode [A]ction', event.buf)
   end
 })
 

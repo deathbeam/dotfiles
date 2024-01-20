@@ -4,7 +4,7 @@
 
 # terminal emulator + tmux
 super + Return
-  st -e $SHELL -ic "set_theme $BASE16_THEME_DEFAULT true; tmux new-session -A -s default"
+  st -e $SHELL -ic "tmux new-session -A -s default"
 
 super + shift + Return
   {bspc rule -a \* -o state=floating sticky=on layer=above rectangle=720x360+600+40 && \
