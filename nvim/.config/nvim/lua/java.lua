@@ -180,37 +180,36 @@ local function jdtls_setup()
       },
       format = {
         enabled = true,
-      }
-    },
-    signatureHelp = {
-      enabled = true,
-    },
-    completion = {
-      favoriteStaticMembers = {
-        'org.hamcrest.MatcherAssert.assertThat',
-        'org.hamcrest.Matchers.*',
-        'org.hamcrest.CoreMatchers.*',
-        'org.junit.jupiter.api.Assertions.*',
-        'java.util.Objects.requireNonNull',
-        'java.util.Objects.requireNonNullElse',
-        'org.mockito.Mockito.*',
       },
-    },
-    contentProvider = {
-      preferred = 'fernflower',
-    },
-    extendedClientCapabilities = jdtls.extendedClientCapabilities,
-    sources = {
-      organizeImports = {
-        starThreshold = 9999,
-        staticStarThreshold = 9999,
-      }
-    },
-    codeGeneration = {
-      toString = {
-        template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+      signatureHelp = {
+        enabled = true,
       },
-      useBlocks = true,
+      completion = {
+        favoriteStaticMembers = {
+          'org.hamcrest.MatcherAssert.assertThat',
+          'org.hamcrest.Matchers.*',
+          'org.hamcrest.CoreMatchers.*',
+          'org.junit.jupiter.api.Assertions.*',
+          'java.util.Objects.requireNonNull',
+          'java.util.Objects.requireNonNullElse',
+          'org.mockito.Mockito.*',
+        },
+      },
+      contentProvider = {
+        preferred = 'fernflower',
+      },
+      sources = {
+        organizeImports = {
+          starThreshold = 9999,
+          staticStarThreshold = 9999,
+        }
+      },
+      codeGeneration = {
+        toString = {
+          template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
+        },
+        useBlocks = true,
+      },
     },
   }
 
