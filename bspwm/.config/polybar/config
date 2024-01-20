@@ -25,17 +25,13 @@ foreground = ${colors.base05}
 font-0 = Terminus:size=12;1
 
 modules-left = bspwm title
-modules-center = mpd
-modules-right = tray wifi wired volume battery backlight date
+modules-right = tray wifi wired volume backlight memory cpu battery date
 
 [module/bspwm]
 type = internal/bspwm
-ws-icon-default = x
-format = <label-monitor> <label-state> <label-mode>
+format = <label-state> <label-mode>
 
 label-dimmed-foreground = ${colors.base04}
-
-label-monitor-padding = 1
 
 label-focused = %name%
 label-focused-background = ${colors.base0D}
@@ -93,15 +89,15 @@ ramp-headphones-0 = 
 [module/battery]
 type = internal/battery
 battery = BAT1
-full-at = 98
+full-at = 90
 
-label-charging = %percentage%
-label-discharging = -%percentage%
-label-full = 
+label-charging = %percentage%%
+label-discharging = -%percentage%%
+label-full =  %percentage%%
 
 format-charging = <animation-charging> <label-charging>
 format-discharging = <ramp-capacity> <label-discharging>
-format-full = <ramp-capacity>
+format-full = <label-full>
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -118,40 +114,20 @@ animation-charging-framerate = 750
 
 [module/title]
 type = internal/xwindow
-label-maxlen = 100
-
-[module/mpd]
-type = internal/mpd
-host = localhost
-port = 6600
-
-format-online = <label-song> <icon-prev> <icon-stop> <toggle> <icon-next>
-label-song =  %artist% - %title%
-label-song-maxlen = 45
-label-song-ellipsis = true
-
-icon-prev = 
-icon-seekb = 
-icon-stop = 
-icon-play = 
-icon-pause = 
-icon-next = 
-icon-seekf = 
-icon-random = 
-icon-repeat = 
-icon-repeatone = 
 
 [module/backlight]
 type = internal/backlight
 card = intel_backlight
-format = <bar> <label>
-label = %percentage%%
-
-bar-width = 10
-bar-indicator = |
-bar-fill = ─
-bar-empty = ─
+format =  <label>
 
 [module/tray]
 type = internal/tray
 tray-spacing = 2px
+
+[module/cpu]
+type = internal/cpu
+format =  <label>
+
+[module/memory]
+type = internal/memory
+format = 󰍛 <label>
