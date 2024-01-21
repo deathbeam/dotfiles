@@ -18,7 +18,7 @@ c.qt.args = [
 
 # Privacy
 c.content.webgl = False
-c.content.canvas_reading = False
+c.content.canvas_reading = True # Should be false but this breaks 9gag and other sites
 c.content.geolocation = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
 c.content.cookies.accept = "no-unknown-3rdparty"
@@ -38,9 +38,9 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
                                     'https://easylist.to/easylist/easyprivacy.txt']
 
 # Adjust font and font size
-c.fonts.default_family = "Terminus"
+c.fonts.default_family = "monospace"
 c.fonts.default_size = "16pt"
-c.fonts.web.family.standard = "Terminus"
+c.fonts.web.family.standard = c.fonts.default_family
 c.fonts.web.size.default = 16
 
 # Tabs

@@ -58,7 +58,7 @@ echo '==> Installing font packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 cairo libxft \
   fonts-meta-base \
-  terminus-font ttf-terminus-nerd
+  terminus-font terminus-font-ttf ttf-terminus-nerd
 
 echo '==> Installing X11 applications'
 yay --noconfirm -S --mflags --skipinteg \
