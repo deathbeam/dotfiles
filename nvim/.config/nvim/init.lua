@@ -140,7 +140,10 @@ require("nvim-treesitter.configs").setup {
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup {
   'fzf-tmux',
-  fzf_opts = { ["--border"] = "sharp" },
+  fzf_opts = {
+    ["--border"] = "sharp",
+    ["--preview-window"] = "border-sharp"
+  },
   file_icon_padding = ' ',
   -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
   lsp = {
