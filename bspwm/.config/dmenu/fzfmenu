@@ -4,9 +4,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
    --cycle
    --print-query
    --no-multi
-   --reverse --no-border --margin 0%,0%
-   --bind tab:down
-   --bind btab:up
+   --reverse
+   --no-border
 "
 
 FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
