@@ -111,9 +111,6 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# Unset bad defaults
-unsetopt NO_CLOBBER
-
 # improved tab completion with autocompletion
 bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
 bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
