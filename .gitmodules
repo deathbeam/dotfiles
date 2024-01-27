@@ -162,3 +162,6 @@
 [submodule "vim/.vim/pack/bundle/start/mason-nvim-dap.nvim"]
 	path = vim/.vim/pack/bundle/start/mason-nvim-dap.nvim
 	url = https://github.com/jay-babu/mason-nvim-dap.nvim
+[submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
+	path = vim/.vim/pack/bundle/start/nvim-dap-virtual-text
+	url = https://github.com/theHamsta/nvim-dap-virtual-text
