@@ -352,6 +352,7 @@ require('mason-lspconfig').setup_handlers {
 }
 require('mason-tool-installer').setup {
   ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(function(server) return server.mason end, vim.tbl_filter(function(server) return server.mason end, servers)))),
+  run_on_start = false
 }
 
 require('java')
