@@ -34,13 +34,21 @@ require("fidget").setup {
   }
 }
 
+local base16 = require('base16-colorscheme')
+base16.load_from_shell()
 local function adjustColors()
-  local base0A = '#' .. vim.g.base16_gui0A
-  local base0D = '#' .. vim.g.base16_gui0D
-  local base00 = '#' .. vim.g.base16_gui00
-  local base03 = '#' .. vim.g.base16_gui03
-  local base0B = '#' .. vim.g.base16_gui0B
-  local base0E = '#' .. vim.g.base16_gui0E
+  -- local base0A = '#' .. vim.g.base16_gui0A
+  -- local base0D = '#' .. vim.g.base16_gui0D
+  -- local base00 = '#' .. vim.g.base16_gui00
+  -- local base03 = '#' .. vim.g.base16_gui03
+  -- local base0B = '#' .. vim.g.base16_gui0B
+  -- local base0E = '#' .. vim.g.base16_gui0E
+  local base0A = base16.colors.base0A
+  local base0D = base16.colors.base0D
+  local base00 = base16.colors.base00
+  local base03 = base16.colors.base03
+  local base0B = base16.colors.base0B
+  local base0E = base16.colors.base0E
 
   vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00 })
   vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })

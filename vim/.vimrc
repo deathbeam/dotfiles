@@ -197,13 +197,6 @@ let g:rooter_patterns = [
 " Load all plugins
 :packloadall
 
-" Colorscheme
-if filereadable(expand("$HOME/.config/tinted-theming/set_theme.vim"))
-  let base16colorspace=256
-  set termguicolors
-  source $HOME/.config/tinted-theming/set_theme.vim
-endif
-
 " }}}
 
 " User configuration {{{

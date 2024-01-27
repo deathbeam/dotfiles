@@ -108,9 +108,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
 	path = zsh/.zsh/pack/bundle/start/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
-[submodule "vim/.vim/pack/bundle/start/base16-vim"]
-	path = vim/.vim/pack/bundle/start/base16-vim
-	url = https://github.com/tinted-theming/base16-vim
 [submodule "vim/.vim/pack/bundle/start/eyeliner.nvim"]
 	path = vim/.vim/pack/bundle/start/eyeliner.nvim
 	url = https://github.com/jinh0/eyeliner.nvim
@@ -165,3 +162,6 @@
 [submodule "vim/.vim/pack/bundle/start/mason-tool-installer.nvim"]
 	path = vim/.vim/pack/bundle/start/mason-tool-installer.nvim
 	url = https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
+[submodule "vim/.vim/pack/bundle/start/nvim-base16"]
+	path = vim/.vim/pack/bundle/start/nvim-base16
+	url = https://github.com/RRethy/nvim-base16
