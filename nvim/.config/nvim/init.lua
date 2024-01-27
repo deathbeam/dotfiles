@@ -168,14 +168,14 @@ vim.lsp.handlers["workspace/symbol"] = fzf_lua.lsp_workspace_symbols
 vim.lsp.handlers["callHierarchy/incomingCalls"] = fzf_lua.lsp_incoming_calls
 vim.lsp.handlers["callHierarchy/outgoingCalls"] = fzf_lua.lsp_outgoing_calls
 
-nmap('<leader>fg', '<cmd>FzfLua grep_project<cr>', '[F]ind [G]rep')
-nmap('<leader>ff', '<cmd>FzfLua files<cr>', '[F]ind [F]iles')
-nmap('<leader>fF', '<cmd>FzfLua git_files<cr>', '[F]ind Git [F]iles')
-nmap('<leader>fa', '<cmd>FzfLua commands<cr>', '[F]ind [A]ctions')
-nmap('<leader>fc', '<cmd>FzfLua git_bcommits<cr>', '[F]ind [C]ommits')
-nmap('<leader>fC', '<cmd>FzfLua git_commits<cr>', '[F]ind All [C]ommits')
-nmap('<leader>fb', '<cmd>FzfLua buffers<cr>', '[F]ind [B]uffers')
-nmap('<leader>fh', '<cmd>FzfLua oldfiles<cr>', '[F]ind [H]istory')
+nmap('<leader>fg', fzf_lua.grep_project, '[F]ind [G]rep')
+nmap('<leader>ff', fzf_lua.files, '[F]ind [F]iles')
+nmap('<leader>fF', fzf_lua.git_files, '[F]ind Git [F]iles')
+nmap('<leader>fa', fzf_lua.commands, '[F]ind [A]ctions')
+nmap('<leader>fc', fzf_lua.git_bcommits, '[F]ind [C]ommits')
+nmap('<leader>fC', fzf_lua.git_commits, '[F]ind All [C]ommits')
+nmap('<leader>fb', fzf_lua.buffers, '[F]ind [B]uffers')
+nmap('<leader>fh', fzf_lua.oldfiles, '[F]ind [H]istory')
 
 -- Completion
 require('copilot').setup({
@@ -281,27 +281,27 @@ lsp_capabilities.textDocument.completion.completionItem.snippetSupport = false
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
-    nmap('K', '<cmd>lua vim.lsp.buf.hover()<cr>', 'Documentation', event.buf)
-    nmap('gd', '<cmd>lua vim.lsp.buf.definition()<cr>', '[G]oto [D]efinition', event.buf)
-    nmap('gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', '[G]oto [D]eclaration', event.buf)
-    nmap('gi', '<cmd>lua vim.lsp.buf.implementation()<cr>', '[G]oto [I]mplementation', event.buf)
-    nmap('go', '<cmd>lua vim.lsp.buf.type_definition()<cr>', '[G]oto [O]verload', event.buf)
-    nmap('gr', '<cmd>lua vim.lsp.buf.references()<cr>', '[G]oto [R]eferences', event.buf)
-    nmap('gs', '<cmd>lua vim.lsp.buf.signature_help()<cr>', '[G]oto [S]ignature Help', event.buf)
-    nmap('gl', '<cmd>lua vim.diagnostic.open_float()<cr>', '[G]oto [L]ine Diagnostics', event.buf)
-    nmap('[d', '<cmd>lua vim.diagnostic.goto_prev()<cr>', 'Goto Previous [D]iagnostic', event.buf)
-    nmap(']d', '<cmd>lua vim.diagnostic.goto_next()<cr>', 'Goto Next [D]iagnostic', event.buf)
+    nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
+    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition', event.buf)
+    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration', event.buf)
+    nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation', event.buf)
+    nmap('go', vim.lsp.buf.type_definition, '[G]oto [O]verload', event.buf)
+    nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences', event.buf)
+    nmap('gs', vim.lsp.buf.signature_help, '[G]oto [S]ignature Help', event.buf)
+    nmap('gl', vim.diagnostic.open_float, '[G]oto [L]ine Diagnostics', event.buf)
+    nmap('[d', vim.diagnostic.goto_prev, 'Goto Previous [D]iagnostic', event.buf)
+    nmap(']d', vim.diagnostic.goto_next, 'Goto Next [D]iagnostic', event.buf)
 
     -- find
-    nmap('<leader>fd', '<cmd>FzfLua lsp_document_diagnostics<cr>', '[F]ind [D]iagnostics', event.buf)
-    nmap('<leader>fD', '<cmd>FzfLua lsp_workspace_diagnostics<cr>', '[F]ind All [D]iagnostics', event.buf)
-    nmap('<leader>fs', '<cmd>FzfLua lsp_document_symbols<cr>', '[F]ind [S]ymbols', event.buf)
-    nmap('<leader>fS', '<cmd>FzfLua lsp_live_workspace_symbols<cr>', '[F]ind All [S]ymbols', event.buf)
+    nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, '[F]ind [D]iagnostics', event.buf)
+    nmap('<leader>fD', fzf_lua.lsp_workspace_diagnostics, '[F]ind All [D]iagnostics', event.buf)
+    nmap('<leader>fs', fzf_lua.lsp_document_symbols, '[F]ind [S]ymbols', event.buf)
+    nmap('<leader>fS', fzf_lua.lsp_live_workspace_symbols, '[F]ind All [S]ymbols', event.buf)
 
     -- code
-    nmap('<leader>cr', '<cmd>lua vim.lsp.buf.rename()<cr>', '[C]ode [R]ename', event.buf)
-    nmap('<leader>cf', '<cmd>lua vim.lsp.buf.format({async = true})<cr>', '[C]ode [F]ormat', event.buf)
-    nmap('<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', '[C]ode [A]ction', event.buf)
+    nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename', event.buf)
+    nmap('<leader>cf', vim.lsp.buf.format, '[C]ode [F]ormat', event.buf)
+    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', event.buf)
   end
 })
 
@@ -313,7 +313,6 @@ require('mason-lspconfig').setup {
       if server == 'jdtls' then
         return
       end
-
       local settings = nil
       for _, server_config in pairs(servers) do
         if server_config.lsp == server then
@@ -343,10 +342,11 @@ nmap('<leader>dc', dap.continue, '[D]ebug [C]ontinue')
 nmap('<leader>ds', dap.step_over, '[D]ebug [S]tep')
 nmap('<leader>di', dap.step_into, '[D]ebug [I]nto')
 nmap('<leader>do', dap.step_out, '[D]ebug [O]ut')
-nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug Toggle [B]reakpoint')
-nmap('<leader>dB', fzf_lua.dap_breakpoints, '[D]ebug List [B]reakpoints')
+nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug [B]reakpoint')
+nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, '[D]ebug Conditional [B]reakpoint')
 nmap('<leader>dr', dap.repl.open, '[D]ebug [R]epl')
 nmap('<leader>dl', dap.run_last, '[D]ebug [L]ast')
 nmap('<leader>du', dapui.toggle, '[D]ebug [U]I Toggle')
+nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
 
 require('java')
