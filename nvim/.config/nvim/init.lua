@@ -27,14 +27,17 @@ require('eyeliner').setup {
 }
 
 -- Notifications
-require("fidget").setup {
-  notification = {
-    override_vim_notify = true
-  },
-  logger = {
-    level = vim.log.levels.INFO
+-- check if neovim is in headless mode first before requiring
+if not vim.api.nvim_list_uis() then
+  require("fidget").setup {
+    notification = {
+      override_vim_notify = true
+    },
+    logger = {
+      level = vim.log.levels.INFO
+    }
   }
-}
+end
 
 -- Color scheme
 local function adjustColors()

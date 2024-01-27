@@ -144,9 +144,6 @@
 [submodule "vim/.vim/pack/bundle/start/copilot.lua"]
 	path = vim/.vim/pack/bundle/start/copilot.lua
 	url = https://github.com/zbirenbaum/copilot.lua
-[submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
-	path = vim/.vim/pack/bundle/start/fidget.nvim
-	url = https://github.com/j-hui/fidget.nvim
 [submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
 	path = vim/.vim/pack/bundle/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
@@ -165,3 +162,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
+[submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
+	path = vim/.vim/pack/bundle/start/fidget.nvim
+	url = https://github.com/j-hui/fidget.nvim
