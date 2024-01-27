@@ -201,6 +201,9 @@ local function jdtls_setup()
     init_options = {
       bundles = path.bundles,
     },
+    handlers = {
+      ['language/status'] = function() end,
+    }
   })
 end
 

@@ -10,9 +10,6 @@ local nmap = function(keys, func, desc, buffer)
   vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
 end
 
--- Icons
-require('nvim-web-devicons').setup()
-
 -- Tmux
 require("tmux").setup {
   copy_sync = {
@@ -20,26 +17,23 @@ require("tmux").setup {
   }
 }
 
--- Eyeliner
+-- Pretty stuff
+require('nvim-web-devicons').setup()
+
 require('eyeliner').setup {
   highlight_on_key = true,
   dim = true,
 }
 
--- Notifications
--- check if neovim is in headless mode first before requiring
-if not vim.tbl_isempty(vim.api.nvim_list_uis()) then
-  require("fidget").setup {
-    notification = {
-      override_vim_notify = true
-    },
-    logger = {
-      level = vim.log.levels.INFO
-    }
+require("fidget").setup {
+  notification = {
+    override_vim_notify = not vim.tbl_isempty(vim.api.nvim_list_uis())
+  },
+  logger = {
+    level = vim.log.levels.INFO
   }
-end
+}
 
--- Color scheme
 local function adjustColors()
   local base0A = '#' .. vim.g.base16_gui0A
   local base0D = '#' .. vim.g.base16_gui0D
@@ -61,6 +55,53 @@ vim.api.nvim_create_autocmd('ColorScheme', {
   callback = adjustColors
 })
 adjustColors()
+
+require("which-key").register {
+  ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' },
+  ['<leader>c'] = { name = "[C]ode", _ = 'which_key_ignore' },
+  ['<leader>d'] = { name = "[D]ebug", _ = 'which_key_ignore' },
+  ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
+}
+
+-- Fuzzy finder
+local fzf_lua = require('fzf-lua')
+fzf_lua.setup {
+  'fzf-tmux',
+  fzf_opts = {
+    ["--border"] = "sharp",
+    ["--preview-window"] = "border-sharp"
+  },
+  file_icon_padding = ' ',
+  -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
+  lsp = {
+    code_actions = {
+      previewer = false
+    }
+  },
+  grep = {
+    rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+  }
+}
+fzf_lua.register_ui_select()
+vim.lsp.handlers["textDocument/codeAction"] = fzf_lua.lsp_code_actions
+vim.lsp.handlers["textDocument/definition"] = fzf_lua.lsp_definitions
+vim.lsp.handlers["textDocument/declaration"] = fzf_lua.lsp_declarations
+vim.lsp.handlers["textDocument/typeDefinition"] = fzf_lua.lsp_typedefs
+vim.lsp.handlers["textDocument/implementation"] = fzf_lua.lsp_implementations
+vim.lsp.handlers["textDocument/references"] = fzf_lua.lsp_references
+vim.lsp.handlers["textDocument/documentSymbol"] = fzf_lua.lsp_document_symbols
+vim.lsp.handlers["workspace/symbol"] = fzf_lua.lsp_workspace_symbols
+vim.lsp.handlers["callHierarchy/incomingCalls"] = fzf_lua.lsp_incoming_calls
+vim.lsp.handlers["callHierarchy/outgoingCalls"] = fzf_lua.lsp_outgoing_calls
+
+nmap('<leader>fg', fzf_lua.grep_project, '[F]ind [G]rep')
+nmap('<leader>ff', fzf_lua.files, '[F]ind [F]iles')
+nmap('<leader>fF', fzf_lua.git_files, '[F]ind Git [F]iles')
+nmap('<leader>fa', fzf_lua.commands, '[F]ind [A]ctions')
+nmap('<leader>fc', fzf_lua.git_bcommits, '[F]ind [C]ommits')
+nmap('<leader>fC', fzf_lua.git_commits, '[F]ind All [C]ommits')
+nmap('<leader>fb', fzf_lua.buffers, '[F]ind [B]uffers')
+nmap('<leader>fh', fzf_lua.oldfiles, '[F]ind [H]istory')
 
 -- Define language servers
 local servers = {
@@ -121,14 +162,6 @@ local servers = {
   }
 }
 
--- Key help
-require("which-key").register {
-  ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' },
-  ['<leader>g'] = { name = "[G]it", _ = 'which_key_ignore' },
-  ['<leader>c'] = { name = "[C]ode", _ = 'which_key_ignore' },
-  ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
-}
-
 -- Syntax highlighting
 require("nvim-treesitter.configs").setup {
   ensure_installed = vim.tbl_keys(servers),
@@ -139,46 +172,6 @@ require("nvim-treesitter.configs").setup {
     enable = true
   }
 }
-
--- Fuzzy finder
-local fzf_lua = require('fzf-lua')
-fzf_lua.setup {
-  'fzf-tmux',
-  fzf_opts = {
-    ["--border"] = "sharp",
-    ["--preview-window"] = "border-sharp"
-  },
-  file_icon_padding = ' ',
-  -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
-  lsp = {
-    code_actions = {
-      previewer = false
-    }
-  },
-  grep = {
-    rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
-  }
-}
-fzf_lua.register_ui_select()
-vim.lsp.handlers["textDocument/codeAction"] = fzf_lua.lsp_code_actions
-vim.lsp.handlers["textDocument/definition"] = fzf_lua.lsp_definitions
-vim.lsp.handlers["textDocument/declaration"] = fzf_lua.lsp_declarations
-vim.lsp.handlers["textDocument/typeDefinition"] = fzf_lua.lsp_typedefs
-vim.lsp.handlers["textDocument/implementation"] = fzf_lua.lsp_implementations
-vim.lsp.handlers["textDocument/references"] = fzf_lua.lsp_references
-vim.lsp.handlers["textDocument/documentSymbol"] = fzf_lua.lsp_document_symbols
-vim.lsp.handlers["workspace/symbol"] = fzf_lua.lsp_workspace_symbols
-vim.lsp.handlers["callHierarchy/incomingCalls"] = fzf_lua.lsp_incoming_calls
-vim.lsp.handlers["callHierarchy/outgoingCalls"] = fzf_lua.lsp_outgoing_calls
-
-nmap('<leader>fg', fzf_lua.grep_project, '[F]ind [G]rep')
-nmap('<leader>ff', fzf_lua.files, '[F]ind [F]iles')
-nmap('<leader>fF', fzf_lua.git_files, '[F]ind Git [F]iles')
-nmap('<leader>fa', fzf_lua.commands, '[F]ind [A]ctions')
-nmap('<leader>fc', fzf_lua.git_bcommits, '[F]ind [C]ommits')
-nmap('<leader>fC', fzf_lua.git_commits, '[F]ind All [C]ommits')
-nmap('<leader>fb', fzf_lua.buffers, '[F]ind [B]uffers')
-nmap('<leader>fh', fzf_lua.oldfiles, '[F]ind [H]istory')
 
 -- Completion
 require('copilot').setup({
@@ -270,7 +263,7 @@ cmp.setup.cmdline(':', {
     {
       name = 'cmdline',
       option = {
-        ignore_cmds = { 'Man', '!' }
+        ignore_cmds = { '!' }
       }
     }
   })
@@ -280,7 +273,6 @@ cmp.setup.cmdline(':', {
 local lspconfig = require('lspconfig')
 local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 lsp_capabilities.textDocument.completion.completionItem.snippetSupport = false
-
 vim.api.nvim_create_autocmd('LspAttach', {
   desc = 'LSP actions',
   callback = function(event)
@@ -307,6 +299,7 @@ vim.api.nvim_create_autocmd('LspAttach', {
     nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', event.buf)
   end
 })
+require('java')
 
 -- DAP
 local dap, dapui = require("dap"), require("dapui")
@@ -357,5 +350,3 @@ require('mason-tool-installer').setup {
   ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(function(server) return server.mason end, vim.tbl_filter(function(server) return server.mason end, servers)))),
   run_on_start = false
 }
-
-require('java')
