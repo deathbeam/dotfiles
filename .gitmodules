@@ -156,12 +156,12 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-ui"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-ui
 	url = https://github.com/rcarriga/nvim-dap-ui
-[submodule "vim/.vim/pack/bundle/start/mason-nvim-dap.nvim"]
-	path = vim/.vim/pack/bundle/start/mason-nvim-dap.nvim
-	url = https://github.com/jay-babu/mason-nvim-dap.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
 [submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
 	path = vim/.vim/pack/bundle/start/fidget.nvim
 	url = https://github.com/j-hui/fidget.nvim
+[submodule "vim/.vim/pack/bundle/start/mason-tool-installer.nvim"]
+	path = vim/.vim/pack/bundle/start/mason-tool-installer.nvim
+	url = https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim

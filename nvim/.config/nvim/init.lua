@@ -65,26 +65,25 @@ adjustColors()
 -- Define language servers
 local servers = {
   css = {
-    lsp = 'cssls',
+    mason = { 'cssls' },
   },
   html = {
-    lsp = 'html',
+    mason = { 'html' },
   },
   javascript = {
-    lsp = 'tsserver',
+    mason = { 'tsserver' },
   },
   typescript = {
-    lsp = 'tsserver',
+    mason = { 'tsserver' },
   },
   python = {
-    lsp = 'pyright',
+    mason = { 'pyright' },
   },
   java = {
-    lsp = 'jdtls',
-    dap = { 'java-debug-adapter', 'java-test' },
+    mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
   },
   lua = {
-    lsp = 'lua_ls',
+    mason = { 'lua_ls' },
     lsp_settings = {
       Lua = {
         runtime = {
@@ -102,22 +101,22 @@ local servers = {
     }
   },
   bash = {
-    lsp = 'bashls',
+    mason = { 'bashls' },
   },
   vim = {
-    lsp = 'vimls',
+    mason = { 'vimls' },
   },
   markdown = {
-    lsp = 'marksman',
+    mason = { 'marksman' },
   },
   yaml = {
-    lsp = 'yamlls',
+    mason = { 'yamlls' },
   },
   json = {
-    lsp = 'jsonls',
+    mason = { 'jsonls' },
   },
   xml = {
-    lsp = 'lemminx',
+    mason = { 'lemminx' },
   }
 }
 
@@ -308,34 +307,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
   end
 })
 
-require('mason').setup()
-require('mason-lspconfig').setup {
-  ensure_installed = vim.tbl_values(vim.tbl_map(function(server) return server.lsp end, vim.tbl_filter(function(server) return server.lsp end, servers))),
-  handlers = {
-    function(server)
-      if server == 'jdtls' then
-        return
-      end
-      local settings = nil
-      for _, server_config in pairs(servers) do
-        if server_config.lsp == server then
-          settings = server_config.lsp_settings
-        end
-      end
-      lspconfig[server].setup({
-        capabilities = lsp_capabilities,
-        settings = settings,
-      })
-    end
-  },
-}
-
 -- DAP
 local dap, dapui = require("dap"), require("dapui")
 require("nvim-dap-virtual-text").setup()
-require("mason-nvim-dap").setup({
-    ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(function(server) return server.dap end, vim.tbl_filter(function(server) return server.dap end, servers)))),
-})
 dapui.setup()
 dap.listeners.before.attach.dapui_config = dapui.open
 dap.listeners.before.launch.dapui_config = dapui.open
@@ -356,5 +330,28 @@ nmap('<leader>dr', dap.repl.open, '[D]ebug [R]epl')
 nmap('<leader>dl', dap.run_last, '[D]ebug [L]ast')
 nmap('<leader>du', dapui.toggle, '[D]ebug [U]I Toggle')
 nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
+
+-- Mason
+require('mason').setup()
+require('mason-lspconfig').setup_handlers {
+  function(server)
+    if server == 'jdtls' then
+      return
+    end
+    local settings = nil
+    for _, server_config in pairs(servers) do
+      if server_config.mason and vim.tbl_contains(server_config.mason, server) then
+        settings = server_config.lsp_settings
+      end
+    end
+    lspconfig[server].setup({
+      capabilities = lsp_capabilities,
+      settings = settings,
+    })
+  end
+}
+require('mason-tool-installer').setup {
+  ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(function(server) return server.mason end, vim.tbl_filter(function(server) return server.mason end, servers)))),
+}
 
 require('java')
