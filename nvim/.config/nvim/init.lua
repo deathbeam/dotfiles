@@ -28,7 +28,7 @@ require('eyeliner').setup {
 
 -- Notifications
 -- check if neovim is in headless mode first before requiring
-if not vim.api.nvim_list_uis() then
+if not vim.tbl_isempty(vim.api.nvim_list_uis()) then
   require("fidget").setup {
     notification = {
       override_vim_notify = true
