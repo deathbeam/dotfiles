@@ -26,7 +26,7 @@ yay --noconfirm -S --mflags --skipinteg \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep mlocate htop \
-  vim ctags bat trash-cli \
+  neovim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
   tlp udisks2 rate-mirrors unzip
