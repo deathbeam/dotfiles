@@ -339,6 +339,11 @@ dap.listeners.before.launch.dapui_config = dapui.open
 dap.listeners.before.event_terminated.dapui_config = dapui.close
 dap.listeners.before.event_exited.dapui_config = dapui.close
 nmap('<leader>dc', dap.continue, '[D]ebug [C]ontinue')
+nmap('<leader>dx', function()
+  dap.disconnect({ terminateDebuggee = true })
+  dap.close()
+  dapui.close()
+end, '[D]ebug E[X]it')
 nmap('<leader>ds', dap.step_over, '[D]ebug [S]tep')
 nmap('<leader>di', dap.step_into, '[D]ebug [I]nto')
 nmap('<leader>do', dap.step_out, '[D]ebug [O]ut')
