@@ -81,6 +81,7 @@ local servers = {
   },
   java = {
     mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
+    lsp_ignore = true
   },
   lua = {
     mason = { 'lua_ls' },
@@ -335,14 +336,16 @@ nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
 require('mason').setup()
 require('mason-lspconfig').setup_handlers {
   function(server)
-    if server == 'jdtls' then
-      return
-    end
     local settings = nil
+    local ignore = nil
     for _, server_config in pairs(servers) do
       if server_config.mason and vim.tbl_contains(server_config.mason, server) then
         settings = server_config.lsp_settings
+        ignore = server_config.lsp_ignore
       end
+    end
+    if ignore then
+      return
     end
     lspconfig[server].setup({
       capabilities = lsp_capabilities,
