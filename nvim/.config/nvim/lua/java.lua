@@ -2,15 +2,6 @@
 local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
 local cache_vars = {}
 
-local features = {
-  -- change this to `true` to enable codelens
-  codelens = true,
-
-  -- change this to `true` if you have `nvim-dap`,
-  -- `java-test` and `java-debug-adapter` installed
-  debugger = false,
-}
-
 local function get_jdtls_paths()
   if cache_vars.paths then
     return cache_vars.paths
@@ -89,20 +80,13 @@ end
 local function enable_debugger(bufnr)
   require('jdtls').setup_dap({hotcodereplace = 'auto'})
   require('jdtls.dap').setup_dap_main_class_configs()
-
-  local opts = {buffer = bufnr}
-  vim.keymap.set('n', '<leader>df', "<cmd>lua require('jdtls').test_class()<cr>", opts)
-  vim.keymap.set('n', '<leader>dn', "<cmd>lua require('jdtls').test_nearest_method()<cr>", opts)
+  vim.keymap.set('n', '<leader>dt', "<cmd>lua require('jdtls').test_nearest_method()<cr>", {buffer = bufnr})
+  vim.keymap.set('n', '<leader>dT', "<cmd>lua require('jdtls').test_class()<cr>", {buffer = bufnr})
 end
 
 local function jdtls_on_attach(client, bufnr)
-  if features.debugger then
-    enable_debugger(bufnr)
-  end
-
-  if features.codelens then
-    enable_codelens(bufnr)
-  end
+  enable_debugger(bufnr)
+  enable_codelens(bufnr)
 end
 
 local function jdtls_setup()

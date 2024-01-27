@@ -78,6 +78,7 @@ local servers = {
   },
   java = {
     lsp = 'jdtls',
+    dap = { 'java-debug-adapter', 'java-test' },
   },
   lua = {
     lsp = 'lua_ls',
@@ -326,5 +327,32 @@ require('mason-lspconfig').setup {
     end
   },
 }
+
+-- DAP
+local dap, dapui = require("dap"), require("dapui")
+require("mason-nvim-dap").setup({
+    ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(function(server) return server.dap end, vim.tbl_filter(function(server) return server.dap end, servers)))),
+})
+dapui.setup()
+dap.listeners.before.attach.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.launch.dapui_config = function()
+  dapui.open()
+end
+dap.listeners.before.event_terminated.dapui_config = function()
+  dapui.close()
+end
+dap.listeners.before.event_exited.dapui_config = function()
+  dapui.close()
+end
+nmap('<leader>dc', dap.continue, '[D]ebug [C]ontinue')
+nmap('<leader>ds', dap.step_over, '[D]ebug [S]tep')
+nmap('<leader>di', dap.step_into, '[D]ebug [I]nto')
+nmap('<leader>do', dap.step_out, '[D]ebug [O]ut')
+nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug Toggle [B]reakpoint')
+nmap('<leader>dB', fzf_lua.dap_breakpoints, '[D]ebug List [B]reakpoints')
+nmap('<leader>dr', dap.repl.open, '[D]ebug [R]epl')
+nmap('<leader>dl', dap.run_last, '[D]ebug [L]ast')
 
 require('java')

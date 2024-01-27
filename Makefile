@@ -8,7 +8,7 @@ install:
 	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc
 	gh extension install github/gh-copilot || true
-	nvim +MasonUpdate +TSUpdateSync +qall
+	nvim +MasonUpdate +TSUpdateSync +'helptags ALL' +qall
 
 link:
 	stow --target ~ --restow `ls -d */` || true

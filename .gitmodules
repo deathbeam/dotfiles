@@ -153,3 +153,12 @@
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
 	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+[submodule "vim/.vim/pack/bundle/start/nvim-dap"]
+	path = vim/.vim/pack/bundle/start/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap
+[submodule "vim/.vim/pack/bundle/start/nvim-dap-ui"]
+	path = vim/.vim/pack/bundle/start/nvim-dap-ui
+	url = https://github.com/rcarriga/nvim-dap-ui
+[submodule "vim/.vim/pack/bundle/start/mason-nvim-dap.nvim"]
+	path = vim/.vim/pack/bundle/start/mason-nvim-dap.nvim
+	url = https://github.com/jay-babu/mason-nvim-dap.nvim
