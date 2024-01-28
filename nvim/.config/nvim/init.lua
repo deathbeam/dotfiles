@@ -5,28 +5,6 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-require("tmux").setup {
-    copy_sync = {
-        enable = false
-    }
-}
-
-require('nvim-web-devicons').setup()
-
-require('eyeliner').setup {
-    highlight_on_key = true,
-    dim = true,
-}
-
-require("fidget").setup {
-    notification = {
-        override_vim_notify = not vim.tbl_isempty(vim.api.nvim_list_uis())
-    },
-    logger = {
-        level = vim.log.levels.INFO
-    }
-}
-
 local base16 = require('base16-colorscheme')
 local function adjustColors()
     local base0A = base16.colors.base0A
@@ -50,6 +28,28 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     callback = adjustColors
 })
 base16.load_from_shell()
+
+require("tmux").setup {
+    copy_sync = {
+        enable = false
+    }
+}
+
+require('nvim-web-devicons').setup()
+
+require('eyeliner').setup {
+    highlight_on_key = true,
+    dim = true,
+}
+
+require("fidget").setup {
+    notification = {
+        override_vim_notify = not vim.tbl_isempty(vim.api.nvim_list_uis())
+    },
+    logger = {
+        level = vim.log.levels.INFO
+    }
+}
 
 require("which-key").register {
     ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
