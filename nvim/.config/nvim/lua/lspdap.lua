@@ -41,13 +41,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 })
 
 -- DAP
-local dap, dapui = require("dap"), require("dapui")
+local dap = require("dap")
+local dapui = require("dapui")
 require("nvim-dap-virtual-text").setup()
-dapui.setup()
+dapui.setup { controls = { enabled = false } }
 dap.listeners.before.attach.dapui_config = dapui.open
 dap.listeners.before.launch.dapui_config = dapui.open
 dap.listeners.before.event_terminated.dapui_config = dapui.close
 dap.listeners.before.event_exited.dapui_config = dapui.close
+
 nmap('<leader>dx', function()
     dap.disconnect({ terminateDebuggee = true })
     dap.close()
