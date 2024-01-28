@@ -54,12 +54,17 @@ function setproxy {
   export HTTPS_PROXY=$http_proxy
   export FTP_PROXY=$http_proxy
   export RSYNC_PROXY=$http_proxy
+  parts=(${(s/:/)1})
+  host=${parts[1]}
+  port=${parts[2]}
+  export JDK_JAVA_OPTIONS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
 }
 
 # Unset proxy
 function unsetproxy {
   unset http_proxy https_proxy ftp_proxy rsync_proxy \
-    HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY
+    HTTP_PROXY HTTPS_PROXY FTP_PROXY RSYNC_PROXY \
+    JDK_JAVA_OPTIONS
 }
 
 # Arch utilities

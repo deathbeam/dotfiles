@@ -1,6 +1,7 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 
 local nmap = require('config/utils').nmap
+local dap = require('dap')
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
 local registry = require('mason-registry')
@@ -70,7 +71,7 @@ local function jdtls_on_attach(client, bufnr)
     })
 
     jdtls.setup_dap({hotcodereplace = 'auto'})
-    jdtls_dap.setup_dap_main_class_configs()
+    jdtls_dap.setup_dap_main_class_configs({ config_overrides = { vmArgs = os.getenv('JDK_JAVA_OPTIONS') }})
     nmap('<leader>dt', jdtls.test_nearest_method, '[D]ebug [T]est Method', bufnr)
     nmap('<leader>dT', jdtls.test_class, '[D]ebug [T]est Class', bufnr)
 end
