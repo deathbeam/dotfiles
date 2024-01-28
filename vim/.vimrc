@@ -123,10 +123,9 @@ endfunction
 autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
 nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
 
-" Emacs like keybindings for the command line (:) are better
-cnoremap <C-A> <Home>
-cnoremap <C-E> <End>
-cnoremap <C-K> <C-U>
+" Emacs like keybindings for the command line (:) and insert mode are better
+noremap! <C-A> <Home>
+noremap! <C-E> <End>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
