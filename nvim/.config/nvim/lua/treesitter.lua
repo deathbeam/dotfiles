@@ -11,6 +11,8 @@ require("nvim-treesitter.configs").setup {
   textobjects = {
     select = {
       enable = true,
+      lookahead = true,
+      include_surrounding_whitespace = true,
       keymaps = {
         ["am"] = "@function.outer",
         ["im"] = "@function.inner",
