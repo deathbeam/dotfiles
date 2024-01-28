@@ -7,6 +7,14 @@ local jdtls_dap = require('jdtls.dap')
 local registry = require('mason-registry')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 
+dap.configurations.java = {{
+    type = 'java',
+    request = 'attach',
+    name = 'Attach remote',
+    hostName = 'localhost',
+    port = 5005,
+}}
+
 local cache_vars = {}
 
 local function get_jdtls_paths()
@@ -69,14 +77,6 @@ local function jdtls_on_attach(client, bufnr)
         desc = 'refresh codelens',
         callback = vim.lsp.codelens.refresh
     })
-
-    dap.configurations.java = {{
-        type = 'java',
-        request = 'attach',
-        name = 'Attach remote',
-        hostName = 'localhost',
-        port = 5005,
-    }}
 
     jdtls.setup_dap({hotcodereplace = 'auto'})
     jdtls_dap.setup_dap_main_class_configs({ config_overrides = { vmArgs = os.getenv('JDK_JAVA_OPTIONS') }})
