@@ -165,3 +165,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter-textobjects"]
 	path = vim/.vim/pack/bundle/start/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[submodule "vim/.vim/pack/bundle/start/nvim-treesitter-context"]
+	path = vim/.vim/pack/bundle/start/nvim-treesitter-context
+	url = https://github.com/nvim-treesitter/nvim-treesitter-context
