@@ -14,24 +14,12 @@ set noswapfile
 
 " Turn persistent undo on
 " means that you can undo even when you close a buffer/VIM
-try
-  set undodir=$HOME/.vim/undodir
-  set undofile
-catch
-endtry
+set undodir=$HOME/.vim/undodir
+set undofile
 
 " Use system clipboard
 if has('clipboard')
   set clipboard=unnamed
-endif
-
-" Use faster grep alternatives if possible
-if executable('rg')
-  set grepprg=rg\ --vimgrep\ --no-heading
-  set grepformat^=%f:%l:%c:%m
-elseif executable('ag')
-  set grepprg=ag\ --nogroup\ --nocolor\ --vimgrep
-  set grepformat^=%f:%l:%c:%m
 endif
 
 " }}}
@@ -41,25 +29,6 @@ endif
 " set title
 set title
 set titlestring=%F
-
-" display completion matches in a status line
-set wildmode=list:longest,list:full
-set nowildmenu
-
-" Ignore compiled files
-set wildignore=*.o,*~,*.pyc,*.class
-if has('win16') || has('win32')
-  set wildignore+=.git\*,.hg\*,.svn\*
-else
-  set wildignore+=*/.git/*,*/.hg/*,*/.svn/*,*/.DS_Store
-endif
-
-" Search down into subfolders
-" Provides tab-completion for all file-related tasks
-set path+=**
-
-" Include spelling completion when spelling enabled
-set complete+=kspell
 
 " Ignore case when searching
 set ignorecase
@@ -140,17 +109,13 @@ noremap <silent> <leader>% :<C-U>split<cr>
 noremap <silent> <leader>x :<C-U>quit<cr>
 
 " Emacs like keybindings for the command line (:) are better
-" and we cannot use Vi style-binding here anyway, because ESC
-" just closes the command line and using Home and End.. just no, f.e. OSX keyboards
-" do not even have them, because they are useless.
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 cnoremap <C-K> <C-U>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
-" :W sudo saves the file
-" (useful for handling the permission-denied error)
+" Useful system mappings
 command! W w !sudo tee % > /dev/null
 command! X !chmod +x % > /dev/null
 
