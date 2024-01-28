@@ -1,4 +1,5 @@
 local nmap = require('config/utils').nmap
+local desc = require('config/utils').desc
 local languages = require('config/languages')
 local fzf_lua = require('fzf-lua')
 local lsp_capabilities = vim.tbl_deep_extend(
@@ -6,9 +7,7 @@ local lsp_capabilities = vim.tbl_deep_extend(
     vim.lsp.protocol.make_client_capabilities(),
     require('cmp_nvim_lsp').default_capabilities())
 
-require("which-key").register {
-    ['<leader>c'] = { name = "[C]ode", _ = 'which_key_ignore' },
-}
+desc('<leader>c', '[C]ode')
 
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',

@@ -1,8 +1,7 @@
 local nmap = require('config/utils').nmap
+local desc = require('config/utils').desc
 
-require("which-key").register {
-    ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' }
-}
+desc('<leader>f', '[F]inder')
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup {

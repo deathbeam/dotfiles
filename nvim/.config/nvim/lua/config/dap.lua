@@ -1,9 +1,8 @@
 local nmap = require('config/utils').nmap
+local desc = require('config/utils').desc
 local fzf_lua = require('fzf-lua')
 
-require("which-key").register {
-    ['<leader>d'] = { name = "[D]ebug", _ = 'which_key_ignore' },
-}
+desc('<leader>d', '[D]ebug')
 
 local dap = require("dap")
 local dapui = require("dapui")
