@@ -168,3 +168,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter-context"]
 	path = vim/.vim/pack/bundle/start/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context
+[submodule "vim/.vim/pack/bundle/start/nvim-dap-python"]
+	path = vim/.vim/pack/bundle/start/nvim-dap-python
+	url = https://github.com/mfussenegger/nvim-dap-python

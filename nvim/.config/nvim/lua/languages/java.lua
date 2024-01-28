@@ -6,7 +6,6 @@ local registry = require('mason-registry')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
 local nmap = require('utils').nmap
 
-local java_cmds = vim.api.nvim_create_augroup('java_cmds', {clear = true})
 local cache_vars = {}
 
 local function get_jdtls_paths()
@@ -62,32 +61,21 @@ local function get_jdtls_capabilities()
     return cache_vars.capabilities
 end
 
-local function enable_codelens(bufnr)
-    pcall(vim.lsp.codelens.refresh)
-
+local function jdtls_on_attach(client, bufnr)
+    vim.lsp.codelens.refresh()
     vim.api.nvim_create_autocmd('BufWritePost', {
         buffer = bufnr,
-        group = java_cmds,
         desc = 'refresh codelens',
-        callback = function()
-            pcall(vim.lsp.codelens.refresh)
-        end,
+        callback = vim.lsp.codelens.refresh
     })
-end
 
-local function enable_debugger(bufnr)
     jdtls.setup_dap({hotcodereplace = 'auto'})
     jdtls_dap.setup_dap_main_class_configs()
     nmap('<leader>dt', jdtls.test_nearest_method, '[D]ebug [T]est Method', bufnr)
     nmap('<leader>dT', jdtls.test_class, '[D]ebug [T]est Class', bufnr)
 end
 
-local function jdtls_on_attach(client, bufnr)
-    enable_debugger(bufnr)
-    enable_codelens(bufnr)
-end
-
-local function jdtls_setup()
+local function java_setup()
     local cwd = vim.fn.getcwd()
     local path = get_jdtls_paths()
     local data_dir = path.data_dir .. '/' ..  vim.fn.fnamemodify(cwd, ':p:h:t')
@@ -194,8 +182,7 @@ local function jdtls_setup()
 end
 
 vim.api.nvim_create_autocmd('FileType', {
-    group = java_cmds,
     pattern = {'java'},
-    desc = 'Setup jdtls',
-    callback = jdtls_setup,
+    desc = 'Setup java',
+    callback = java_setup,
 })

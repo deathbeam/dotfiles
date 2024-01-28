@@ -61,7 +61,7 @@ nmap('<leader>dk', dap.step_back, '[D]ebug Step Back (up)')
 nmap('<leader>dl', dap.step_into, '[D]ebug Step Into (right)')
 nmap('<leader>dh', dap.step_out, '[D]ebug Step Out (left)')
 nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug [B]reakpoint')
-nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input("Breakpoint condition: ")) end, '[D]ebug Conditional [B]reakpoint')
+nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input("Condition: ")) end, '[D]ebug Conditional [B]reakpoint')
 nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
 
 -- Mason

@@ -28,7 +28,6 @@ require("fidget").setup {
 }
 
 local base16 = require('base16-colorscheme')
-base16.load_from_shell()
 local function adjustColors()
     local base0A = base16.colors.base0A
     local base0D = base16.colors.base0D
@@ -50,7 +49,7 @@ vim.api.nvim_create_autocmd('ColorScheme', {
     desc = 'Adjust colors',
     callback = adjustColors
 })
-adjustColors()
+base16.load_from_shell()
 
 require("which-key").register {
     ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
@@ -60,4 +59,5 @@ require("finder")
 require("treesitter")
 require("completion")
 require("lspdap")
-require("java")
+require("languages/java")
+require("languages/python")
