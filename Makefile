@@ -6,7 +6,7 @@ clean:
 install:
 	touch /tmp/cmd && chmod u+x /tmp/cmd
 	mkdir -p ~/.vim/undodir
-	~/.fzf/install --all --no-update-rc
+	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	gh extension install github/gh-copilot || true
 	nvim --headless +MasonUpdate +MasonToolsInstallSync +MasonToolsUpdateSync +TSUpdateSync +'helptags ALL' +qall
 
