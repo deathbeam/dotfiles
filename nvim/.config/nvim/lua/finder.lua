@@ -1,26 +1,26 @@
 local nmap = require('utils').nmap
 
 require("which-key").register {
-  ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' }
+    ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' }
 }
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup {
-  'fzf-tmux',
-  fzf_opts = {
-    ["--border"] = "sharp",
-    ["--preview-window"] = "border-sharp"
-  },
-  file_icon_padding = ' ',
-  -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
-  lsp = {
-    code_actions = {
-      previewer = false
+    'fzf-tmux',
+    fzf_opts = {
+        ["--border"] = "sharp",
+        ["--preview-window"] = "border-sharp"
+    },
+    file_icon_padding = ' ',
+    -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
+    lsp = {
+        code_actions = {
+            previewer = false
+        }
+    },
+    grep = {
+        rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
     }
-  },
-  grep = {
-    rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
-  }
 }
 fzf_lua.register_ui_select()
 vim.lsp.handlers["textDocument/codeAction"] = fzf_lua.lsp_code_actions
