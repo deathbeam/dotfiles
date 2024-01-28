@@ -30,6 +30,8 @@ endif
 set title
 set titlestring=%F
 
+set updatetime=100
+
 " Ignore case when searching
 set ignorecase
 
