@@ -37,12 +37,6 @@ require("fidget").setup {
 local base16 = require('base16-colorscheme')
 base16.load_from_shell()
 local function adjustColors()
-  -- local base0A = '#' .. vim.g.base16_gui0A
-  -- local base0D = '#' .. vim.g.base16_gui0D
-  -- local base00 = '#' .. vim.g.base16_gui00
-  -- local base03 = '#' .. vim.g.base16_gui03
-  -- local base0B = '#' .. vim.g.base16_gui0B
-  -- local base0E = '#' .. vim.g.base16_gui0E
   local base0A = base16.colors.base0A
   local base0D = base16.colors.base0D
   local base00 = base16.colors.base00
@@ -178,6 +172,69 @@ require("nvim-treesitter.configs").setup {
   },
   indent = {
     enable = true
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        ["am"] = "@function.outer",
+        ["im"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["as"] = "@statement.outer",
+        ["is"] = "@statement.inner",
+        ["i/"] = "@comment.inner",
+        ["a/"] = "@comment.outer",
+        ["i#"] = "@comment.inner",
+        ["a#"] = "@comment.outer",
+        ["i*"] = "@comment.inner",
+        ["a*"] = "@comment.outer",
+      }
+    },
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]c"] = "@class.outer",
+        ["]a"] = "@parameter.outer",
+        ["]b"] = "@block.outer",
+        ["]s"] = "@statement.outer",
+        ["]/"] = "@comment.outer",
+        ["]#"] = "@comment.outer",
+        ["]*"] = "@comment.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]C"] = "@class.outer",
+        ["]A"] = "@parameter.outer",
+        ["]B"] = "@block.outer",
+        ["]S"] = "@statement.outer",
+        ["]?"] = "@comment.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[c"] = "@class.outer",
+        ["[a"] = "@parameter.outer",
+        ["[b"] = "@block.outer",
+        ["[s"] = "@statement.outer",
+        ["[/"] = "@comment.outer",
+        ["[#"] = "@comment.outer",
+        ["[*"] = "@comment.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[C"] = "@class.outer",
+        ["[A"] = "@parameter.outer",
+        ["[B"] = "@block.outer",
+        ["[S"] = "@statement.outer",
+        ["[?"] = "@comment.outer",
+      },
+    },
   }
 }
 

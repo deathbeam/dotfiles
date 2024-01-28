@@ -16,9 +16,6 @@
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
-[submodule "vim/.vim/bundle/vim-unimpaired"]
-	path = vim/.vim/pack/bundle/start/vim-unimpaired
-	url = https://github.com/tpope/vim-unimpaired
 [submodule "vim/.vim/bundle/codi.vim"]
 	path = vim/.vim/pack/bundle/start/codi.vim
 	url = https://github.com/metakirby5/codi.vim
@@ -165,3 +162,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
 	path = vim/.vim/pack/bundle/start/nvim-base16
 	url = https://github.com/RRethy/nvim-base16
+[submodule "vim/.vim/pack/bundle/start/nvim-treesitter-textobjects"]
+	path = vim/.vim/pack/bundle/start/nvim-treesitter-textobjects
+	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
