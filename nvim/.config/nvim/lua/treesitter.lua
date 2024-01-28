@@ -2,6 +2,7 @@ local servers = require("servers")
 
 require("nvim-treesitter.configs").setup {
   ensure_installed = vim.tbl_keys(servers),
+  sync_install = true,
   highlight = {
     enable = true
   },
