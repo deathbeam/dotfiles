@@ -67,6 +67,13 @@ cmp.setup {
                 fallback()
             end
         end, { "i", "s" }),
+        ["<CR>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
         ["<Tab>"] = next_cmp,
         ["<S-Tab>"] = prev_cmp,
         ["<C-n>"] = next_cmp,
