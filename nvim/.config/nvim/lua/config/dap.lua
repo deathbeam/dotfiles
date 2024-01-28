@@ -7,7 +7,49 @@ desc('<leader>d', '[D]ebug')
 local dap = require("dap")
 local dapui = require("dapui")
 require("nvim-dap-virtual-text").setup()
-dapui.setup { controls = { enabled = false } }
+dapui.setup {
+    controls = {
+        enabled = false
+    },
+    layouts = {
+        {
+            elements = {
+                {
+                    id = "scopes",
+                    size = 0.25
+                },
+                {
+                    id = "breakpoints",
+                    size = 0.25
+                },
+                {
+                    id = "stacks",
+                    size = 0.25
+                },
+                {
+                    id = "watches",
+                    size = 0.25
+                },
+            },
+            position = "left",
+            size = 40
+        },
+        {
+            elements = {
+                {
+                    id = "console",
+                    size = 0.75
+                },
+                {
+                    id = "repl",
+                    size = 0.25
+                },
+            },
+            position = "bottom",
+            size = 10
+        }
+    },
+}
 dap.listeners.before.attach.dapui_config = dapui.open
 dap.listeners.before.launch.dapui_config = dapui.open
 dap.listeners.before.event_terminated.dapui_config = dapui.close
