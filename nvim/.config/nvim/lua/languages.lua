@@ -12,7 +12,7 @@ return {
         mason = { 'tsserver' },
     },
     python = {
-        mason = { 'pyright' },
+        mason = { 'pyright', 'debugpy' },
     },
     java = {
         mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
