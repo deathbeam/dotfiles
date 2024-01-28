@@ -1,7 +1,7 @@
 default: update link install
 
 clean:
-	find ~ -xtype l -delete
+	find ~ -xtype l -print -delete
 
 install:
 	touch /tmp/cmd && chmod u+x /tmp/cmd

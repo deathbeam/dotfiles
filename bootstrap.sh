@@ -22,7 +22,6 @@ yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
-  irssi ncmpcpp \
   alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
   pulseaudio pulseaudio-alsa \
   stow zsh tmux ripgrep mlocate htop \
