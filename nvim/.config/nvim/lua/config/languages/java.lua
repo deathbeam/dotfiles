@@ -1,10 +1,10 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 
+local nmap = require('config/utils').nmap
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
 local registry = require('mason-registry')
 local cmp_nvim_lsp = require('cmp_nvim_lsp')
-local nmap = require('utils').nmap
 
 local cache_vars = {}
 

@@ -1,4 +1,4 @@
-local languages = require("languages")
+local languages = require("config/languages")
 
 require("nvim-treesitter.configs").setup {
     ensure_installed = vim.tbl_keys(languages),

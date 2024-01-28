@@ -55,9 +55,20 @@ require("which-key").register {
     ['<leader>w'] = { name = "[W]iki", _ = 'which_key_ignore' },
 }
 
-require("finder")
-require("treesitter")
-require("completion")
-require("lspdap")
-require("languages/java")
-require("languages/python")
+require('mason').setup()
+require('mason-tool-installer').setup {
+    ensure_installed = vim.tbl_values(
+        vim.tbl_flatten(
+            vim.tbl_map(function(server) return server.mason end,
+                vim.tbl_filter(function(server) return server.mason end,
+                    require('config/languages'))))),
+    run_on_start = false
+}
+
+require("config/finder")
+require("config/treesitter")
+require("config/completion")
+require("config/lsp")
+require("config/dap")
+require("config/languages/java")
+require("config/languages/python")

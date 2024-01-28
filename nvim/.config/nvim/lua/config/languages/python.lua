@@ -1,4 +1,4 @@
-local nmap = require('utils').nmap
+local nmap = require('config/utils').nmap
 local registry = require('mason-registry')
 local python_dap = require('dap-python')
 

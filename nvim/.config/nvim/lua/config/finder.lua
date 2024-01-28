@@ -1,4 +1,4 @@
-local nmap = require('utils').nmap
+local nmap = require('config/utils').nmap
 
 require("which-key").register {
     ['<leader>f'] = { name = "[F]inder", _ = 'which_key_ignore' }
