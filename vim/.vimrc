@@ -95,7 +95,7 @@ set fileformats=unix,dos,mac
 " Mappings and commands {{{
 
 " Restore cursor position
-autocmd BufRead * autocmd FileType <buffer> ++once
+autocmd VimRc BufRead * autocmd FileType <buffer> ++once
       \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 
 " With a map leader it's possible to do extra key combinations
@@ -103,10 +103,23 @@ let mapleader = ' '
 let maplocalleader = ' '
 let g:mapleader = ' '
 
-" Splits
+" Navigation
 noremap <silent> <leader>" :<C-U>vsplit<cr>
 noremap <silent> <leader>% :<C-U>split<cr>
 noremap <silent> <leader>x :<C-U>quit<cr>
+
+function! ToggleZoom(zoom)
+  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
+      exec t:restore_zoom.cmd
+      unlet t:restore_zoom
+  elseif a:zoom
+      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
+      exec "normal \<C-W>\|\<C-W>_"
+  endif
+endfunction
+
+autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
+nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
 
 " Emacs like keybindings for the command line (:) are better
 cnoremap <C-A> <Home>
@@ -119,21 +132,6 @@ cnoremap <C-N> <Down>
 command! W w !sudo tee % > /dev/null
 command! X !chmod +x % > /dev/null
 
-function! ToggleZoom(zoom)
-  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
-      exec t:restore_zoom.cmd
-      unlet t:restore_zoom
-  elseif a:zoom
-      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
-      exec "normal \<C-W>\|\<C-W>_"
-  endif
-endfunction
-
-augroup restorezoom
-    au WinEnter * silent! :call ToggleZoom(v:false)
-augroup END
-nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
-
 " }}}
 
 " Plugins {{{
@@ -142,7 +140,7 @@ nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
 let g:vimwiki_global_ext = 0
 let g:vimwiki_table_mappings = 0
-autocmd BufEnter diary.md :VimwikiDiaryGenerateLinks
+autocmd VimRc BufEnter diary.md :VimwikiDiaryGenerateLinks
 
 " Vim rooter
 let g:rooter_patterns = [

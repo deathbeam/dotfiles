@@ -4,9 +4,6 @@ source ~/.vimrc
 
 set notimeout
 
-" Adjust line numbers
-set nonumber
-
 " IdeaVim plugins
 set commentary
 set surround

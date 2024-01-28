@@ -1,0 +1,80 @@
+local servers = require("servers")
+
+require("nvim-treesitter.configs").setup {
+  ensure_installed = vim.tbl_keys(servers),
+  highlight = {
+    enable = true
+  },
+  indent = {
+    enable = true
+  },
+  textobjects = {
+    select = {
+      enable = true,
+      keymaps = {
+        ["am"] = "@function.outer",
+        ["im"] = "@function.inner",
+        ["ac"] = "@class.outer",
+        ["ic"] = "@class.inner",
+        ["aa"] = "@parameter.outer",
+        ["ia"] = "@parameter.inner",
+        ["ab"] = "@block.outer",
+        ["ib"] = "@block.inner",
+        ["as"] = "@statement.outer",
+        ["is"] = "@statement.inner",
+        ["i/"] = "@comment.inner",
+        ["a/"] = "@comment.outer",
+        ["i#"] = "@comment.inner",
+        ["a#"] = "@comment.outer",
+        ["i*"] = "@comment.inner",
+        ["a*"] = "@comment.outer",
+      }
+    },
+    move = {
+      enable = true,
+      set_jumps = true,
+      goto_next_start = {
+        ["]m"] = "@function.outer",
+        ["]c"] = "@class.outer",
+        ["]a"] = "@parameter.outer",
+        ["]b"] = "@block.outer",
+        ["]s"] = "@statement.outer",
+        ["]/"] = "@comment.outer",
+        ["]#"] = "@comment.outer",
+        ["]*"] = "@comment.outer",
+      },
+      goto_next_end = {
+        ["]M"] = "@function.outer",
+        ["]C"] = "@class.outer",
+        ["]A"] = "@parameter.outer",
+        ["]B"] = "@block.outer",
+        ["]S"] = "@statement.outer",
+        ["]?"] = "@comment.outer",
+      },
+      goto_previous_start = {
+        ["[m"] = "@function.outer",
+        ["[c"] = "@class.outer",
+        ["[a"] = "@parameter.outer",
+        ["[b"] = "@block.outer",
+        ["[s"] = "@statement.outer",
+        ["[/"] = "@comment.outer",
+        ["[#"] = "@comment.outer",
+        ["[*"] = "@comment.outer",
+      },
+      goto_previous_end = {
+        ["[M"] = "@function.outer",
+        ["[C"] = "@class.outer",
+        ["[A"] = "@parameter.outer",
+        ["[B"] = "@block.outer",
+        ["[S"] = "@statement.outer",
+        ["[?"] = "@comment.outer",
+      },
+    },
+  }
+}
+
+vim.cmd [[
+  set foldmethod=expr
+  set foldexpr=nvim_treesitter#foldexpr()
+  set nofoldenable
+]]
