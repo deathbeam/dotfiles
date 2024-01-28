@@ -11,7 +11,6 @@ local function python_setup()
     nmap('<leader>dT', python_dap.test_class, '[D]ebug [T]est Class', bufnr)
 end
 
-
 vim.api.nvim_create_autocmd('FileType', {
     pattern = {'python'},
     desc = 'Setup python',
