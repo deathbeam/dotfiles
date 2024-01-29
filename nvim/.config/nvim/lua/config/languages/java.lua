@@ -23,13 +23,11 @@ local function get_jdtls_paths()
     end
 
     local path = {}
+    local jdtls_install = registry.get_package('jdtls'):get_install_path()
 
     path.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
-
-    local jdtls_install = registry.get_package('jdtls'):get_install_path()
     path.java_agent = jdtls_install .. '/lombok.jar'
-    path.launcher_jar = vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar')
-
+    path.launcher_jar = vim.trim(vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
     if vim.fn.has('mac') == 1 then
         path.platform_config = jdtls_install .. '/config_mac'
     elseif vim.fn.has('unix') == 1 then
@@ -62,11 +60,7 @@ local function get_jdtls_capabilities()
     end
 
     jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
-    cache_vars.capabilities = vim.tbl_deep_extend(
-        'force',
-        vim.lsp.protocol.make_client_capabilities(),
-        cmp_nvim_lsp.default_capabilities())
-
+    cache_vars.capabilities = cmp_nvim_lsp.default_capabilities()
     return cache_vars.capabilities
 end
 
@@ -93,26 +87,22 @@ local function java_setup()
 
     -- The command that starts the language server
     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+    -- Also see: https://github.com/redhat-developer/vscode-java/blob/master/src/javaServerStarter.ts
     local cmd = {
         'java',
         '-Declipse.application=org.eclipse.jdt.ls.core.id1',
         '-Dosgi.bundles.defaultStartLevel=4',
         '-Declipse.product=org.eclipse.jdt.ls.core.product',
-        '-Dlog.protocol=true',
-        '-Dlog.level=ALL',
-        '-javaagent:' .. path.java_agent,
+        '-Djava.import.generatesMetadataFilesAtProjectRoot=false',
+        '-Xlog:disable',
         '-Xms1g',
         '--add-modules=ALL-SYSTEM',
-        '--add-opens',
-        'java.base/java.util=ALL-UNNAMED',
-        '--add-opens',
-        'java.base/java.lang=ALL-UNNAMED',
-        '-jar',
-        path.launcher_jar,
-        '-configuration',
-        path.platform_config,
-        '-data',
-        data_dir,
+        '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+        '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+        '-javaagent:' .. path.java_agent,
+        '-jar', path.launcher_jar,
+        '-configuration', path.platform_config,
+        '-data', data_dir,
     }
 
     -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
@@ -183,10 +173,11 @@ local function java_setup()
             allow_incremental_sync = true,
         },
         init_options = {
-            bundles = path.bundles,
+            bundles = path.bundles
         },
         handlers = {
             ['language/status'] = function() end,
+            -- FIXME: Maybe check this again? https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jdtls.lua#L117
         }
     })
 end
