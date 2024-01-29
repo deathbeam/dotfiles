@@ -65,15 +65,8 @@ local function get_jdtls_capabilities()
 end
 
 local function jdtls_on_attach(client, bufnr)
-    vim.lsp.codelens.refresh()
-    vim.api.nvim_create_autocmd('BufWritePost', {
-        buffer = bufnr,
-        desc = 'refresh codelens',
-        callback = vim.lsp.codelens.refresh
-    })
-
     jdtls.setup_dap({hotcodereplace = 'auto'})
-    jdtls_dap.setup_dap_main_class_configs({ config_overrides = { vmArgs = os.getenv('JDK_JAVA_OPTIONS') }})
+    jdtls_dap.setup_dap_main_class_configs()
 
     nmap('<leader>dt', jdtls.test_nearest_method, '[D]ebug [T]est Method', bufnr)
     nmap('<leader>dT', jdtls.test_class, '[D]ebug [T]est Class', bufnr)
@@ -116,12 +109,6 @@ local function java_setup()
             },
             maven = {
                 downloadSources = true,
-            },
-            implementationsCodeLens = {
-                enabled = true,
-            },
-            referencesCodeLens = {
-                enabled = true,
             },
             references = {
                 includeDecompiledSources = true,
