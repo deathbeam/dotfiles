@@ -59,12 +59,12 @@ local function get_jdtls_capabilities()
         return cache_vars.capabilities
     end
 
-    jdtls.extendedClientCapabilities.resolveAdditionalTextEditsSupport = true
     cache_vars.capabilities = cmp_nvim_lsp.default_capabilities()
     return cache_vars.capabilities
 end
 
 local function jdtls_on_attach(client, bufnr)
+    vim.lsp.inlay_hint.enable(bufnr, true)
     jdtls.setup_dap({hotcodereplace = 'auto'})
     jdtls_dap.setup_dap_main_class_configs()
 
@@ -99,6 +99,7 @@ local function java_setup()
     }
 
     -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+    -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
     local lsp_settings = {
         java = {
             configuration = {
@@ -111,6 +112,7 @@ local function java_setup()
                 downloadSources = true,
             },
             references = {
+                includeAccessors = true,
                 includeDecompiledSources = true,
             },
             format = {
@@ -118,6 +120,11 @@ local function java_setup()
             },
             signatureHelp = {
                 enabled = true,
+            },
+            inlayHints = {
+                parameterNames = {
+                    enabled = 'all',
+                }
             },
             completion = {
                 favoriteStaticMembers = {
