@@ -40,7 +40,7 @@ echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
   python-pip \
   gst-plugins-good gst-plugins-ugly gstreamer \
-  python-dbus python-opengl
+  python-dbus python-opengl python-virtualenv
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
