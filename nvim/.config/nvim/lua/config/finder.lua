@@ -22,6 +22,8 @@ fzf_lua.setup {
     }
 }
 fzf_lua.register_ui_select()
+
+-- https://github.com/ibhagwan/fzf-lua/issues/602
 vim.lsp.handlers["textDocument/codeAction"] = fzf_lua.lsp_code_actions
 vim.lsp.handlers["textDocument/definition"] = fzf_lua.lsp_definitions
 vim.lsp.handlers["textDocument/declaration"] = fzf_lua.lsp_declarations
