@@ -1,5 +1,6 @@
 local nmap = require('config/utils').nmap
 local desc = require('config/utils').desc
+local inlay_hints = require('config/utils').inlay_hints
 local languages = require('config/languages')
 local fzf_lua = require('fzf-lua')
 local lsp_capabilities = vim.tbl_deep_extend(
@@ -12,6 +13,11 @@ desc('<leader>c', '[C]ode')
 vim.api.nvim_create_autocmd('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
+        local client = vim.lsp.get_client_by_id(event.data.client_id)
+        if client and (client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider) then
+            inlay_hints(event.buf, true)
+        end
+
         nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
         nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition', event.buf)
         nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration', event.buf)

@@ -1,7 +1,6 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 
 local nmap = require('config/utils').nmap
-local inlay_hints = require('config/utils').inlay_hints
 local dap = require('dap')
 local jdtls = require('jdtls')
 local jdtls_dap = require('jdtls.dap')
@@ -65,7 +64,6 @@ local function get_jdtls_capabilities()
 end
 
 local function jdtls_on_attach(client, bufnr)
-    inlay_hints(bufnr, true)
     jdtls.setup_dap({hotcodereplace = 'auto'})
     jdtls_dap.setup_dap_main_class_configs()
 
