@@ -7,6 +7,7 @@ desc('<leader>d', '[D]ebug')
 
 local dap = require("dap")
 local dapui = require("dapui")
+local dapui_windows = require("dapui.windows")
 require("nvim-dap-virtual-text").setup()
 dapui.setup {
     controls = {
@@ -38,6 +39,15 @@ dap.listeners.before.attach.dapui_config = function() dapui.open({ reset = true 
 dap.listeners.before.launch.dapui_config = function() dapui.open({ reset = true }) end
 dap.listeners.before.event_terminated.dapui_config = dapui.close
 dap.listeners.before.event_exited.dapui_config = dapui.close
+
+vim.api.nvim_create_autocmd('VimResized', {
+    desc = 'DAP UI resize',
+    callback = function()
+        for _, win_layout in ipairs(dapui_windows.layouts) do
+            win_layout:resize({ reset = true })
+        end
+    end
+})
 
 nmap('<leader>dx', function()
     dap.disconnect({ terminateDebuggee = true })
