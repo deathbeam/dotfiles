@@ -6,6 +6,14 @@ M.nmap = function(keys, func, desc, buffer)
     vim.keymap.set('n', keys, func, { buffer = buffer, desc = desc })
 end
 
+M.nvmap = function(keys, func, desc, buffer)
+    vim.keymap.set({'n', 'v'}, keys, func, { buffer = buffer, desc = desc })
+end
+
+M.vmap = function(keys, func, desc, buffer)
+    vim.keymap.set('v', keys, func, { buffer = buffer, desc = desc })
+end
+
 M.desc = function(key, desc)
     wk.register { [key] = { name = desc, _ = 'which_key_ignore' } }
 end
