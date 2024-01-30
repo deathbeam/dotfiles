@@ -1,12 +1,10 @@
-local nmap = require('config/utils').nmap
-local desc = require('config/utils').desc
-local inlay_hints = require('config/utils').inlay_hints
-local languages = require('config/languages')
 local fzf_lua = require('fzf-lua')
-local lsp_capabilities = vim.tbl_deep_extend(
-    'force',
-    vim.lsp.protocol.make_client_capabilities(),
-    require('cmp_nvim_lsp').default_capabilities())
+local languages = require('config.languages')
+local utils = require('config.utils')
+local nmap = utils.nmap
+local desc = utils.desc
+local inlay_hints = utils.inlay_hints
+local lsp_capabilities = require('cmp_nvim_lsp').default_capabilities()
 
 desc('<leader>c', '[C]ode')
 

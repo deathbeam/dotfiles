@@ -5,7 +5,7 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-require("config/utils").desc('<leader>w', '[W]iki')
+require("config.utils").desc('<leader>w', '[W]iki')
 
 require("tmux").setup {
     copy_sync = {
@@ -23,11 +23,11 @@ require('mason-tool-installer').setup {
                     require('config/languages')))))
 }
 
-require("config/ui")
-require("config/finder")
-require("config/treesitter")
-require("config/completion")
-require("config/lsp")
-require("config/dap")
-require("config/languages/java")
-require("config/languages/python")
+require("config.ui")
+require("config.finder")
+require("config.treesitter")
+require("config.completion")
+require("config.lsp")
+require("config.dap")
+require("config.languages.java")
+require("config.languages.python")

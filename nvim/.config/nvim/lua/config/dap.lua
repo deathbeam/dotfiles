@@ -1,7 +1,9 @@
-local nmap = require('config/utils').nmap
-local nvmap = require('config/utils').nvmap
-local desc = require('config/utils').desc
 local fzf_lua = require('fzf-lua')
+local utils = require('config.utils')
+local nmap = utils.nmap
+local rnmap = utils.rnmap
+local nvmap = utils.rnvmap
+local desc = utils.desc
 
 desc('<leader>d', '[D]ebug')
 
@@ -49,20 +51,19 @@ vim.api.nvim_create_autocmd('VimResized', {
     end
 })
 
-nmap('<leader>dx', function()
-    dap.disconnect({ terminateDebuggee = true })
-    dap.close()
-    dapui.close()
-end, '[D]ebug E[X]it')
+
+rnmap('<leader>d<space>', function() if dap.session() then dap.continue() end end, '[D]ebug Continue')
+rnmap('<leader>dj', dap.step_over, '[D]ebug Step Over (down)')
+rnmap('<leader>dk', dap.step_back, '[D]ebug Step Back (up)')
+rnmap('<leader>dl', dap.step_into, '[D]ebug Step Into (right)')
+rnmap('<leader>dh', dap.step_out, '[D]ebug Step Out (left)')
+
+nmap('<leader>dx', function() dap.terminate(); dapui.close() end, '[D]ebug E[X]it')
 nmap('<leader>dr', dap.restart, '[D]ebug [R]estart')
-nmap('<leader>dd', dap.continue, '[D]ebug Continue')
-nmap('<leader>dj', dap.step_over, '[D]ebug Step Over (down)')
-nmap('<leader>dk', dap.step_back, '[D]ebug Step Back (up)')
-nmap('<leader>dl', dap.step_into, '[D]ebug Step Into (right)')
-nmap('<leader>dh', dap.step_out, '[D]ebug Step Out (left)')
-nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug [B]reakpoint')
+nmap('<leader>dd', function() if not dap.session() then dap.continue() end end, '[D]ebug Start')
+rnmap('<leader>db', dap.toggle_breakpoint, '[D]ebug [B]reakpoint')
 nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input("Condition: ")) end, '[D]ebug Conditional [B]reakpoint')
-nmap('<leader>du', function() dapui.toggle({ reset = true }) end, '[D]ebug [U]I')
-nmap('<leader>dw', dapui.elements.watches.add, '[D]ebug [W]atch')
+nvmap('<leader>dw', dapui.elements.watches.add, '[D]ebug [W]atch')
 nvmap('<leader>de', dapui.eval, '[D]ebug [E]valuate')
+nmap('<leader>du', function() dapui.toggle({ reset = true }) end, '[D]ebug [U]I')
 nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')

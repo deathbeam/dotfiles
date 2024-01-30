@@ -1,5 +1,6 @@
-local nmap = require('config/utils').nmap
-local desc = require('config/utils').desc
+local utils = require('config.utils')
+local nmap = utils.nmap
+local desc = utils.desc
 
 desc('<leader>f', '[F]inder')
 
