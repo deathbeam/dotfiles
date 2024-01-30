@@ -15,39 +15,21 @@ dapui.setup {
     layouts = {
         {
             elements = {
-                {
-                    id = "scopes",
-                    size = 0.25
-                },
-                {
-                    id = "breakpoints",
-                    size = 0.25
-                },
-                {
-                    id = "stacks",
-                    size = 0.25
-                },
-                {
-                    id = "watches",
-                    size = 0.25
-                },
+                "scopes",
+                "breakpoints",
+                "stacks",
+                "watches"
             },
             position = "left",
-            size = 40
+            size = 0.25
         },
         {
             elements = {
-                {
-                    id = "console",
-                    size = 0.75
-                },
-                {
-                    id = "repl",
-                    size = 0.25
-                },
+                "console",
+                "repl"
             },
             position = "bottom",
-            size = 10
+            size = 0.25
         }
     },
 }
@@ -62,7 +44,6 @@ nmap('<leader>dx', function()
     dapui.close()
 end, '[D]ebug E[X]it')
 nmap('<leader>dr', dap.restart, '[D]ebug [R]estart')
-nmap('<leader>du', dapui.toggle, '[D]ebug [U]I Toggle')
 nmap('<leader>dd', dap.continue, '[D]ebug Continue')
 nmap('<leader>dj', dap.step_over, '[D]ebug Step Over (down)')
 nmap('<leader>dk', dap.step_back, '[D]ebug Step Back (up)')
@@ -70,5 +51,7 @@ nmap('<leader>dl', dap.step_into, '[D]ebug Step Into (right)')
 nmap('<leader>dh', dap.step_out, '[D]ebug Step Out (left)')
 nmap('<leader>db', dap.toggle_breakpoint, '[D]ebug [B]reakpoint')
 nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input("Condition: ")) end, '[D]ebug Conditional [B]reakpoint')
-nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
+nmap('<leader>du', function() dapui.toggle({ reset = true }) end, '[D]ebug [U]I')
+nmap('<leader>dw', dapui.elements.watches.add, '[D]ebug [W]atch')
 nvmap('<leader>de', dapui.eval, '[D]ebug [E]valuate')
+nmap('<leader>fp', fzf_lua.dap_breakpoints, '[F]ind Break[P]oints')
