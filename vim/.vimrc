@@ -108,7 +108,7 @@ let g:mapleader = ' '
 " Navigation
 noremap <silent> <leader>" :<C-U>vsplit<cr>
 noremap <silent> <leader>% :<C-U>split<cr>
-noremap <silent> <leader>x :<C-U>quit<cr>
+noremap <silent> <leader>x :<C-U>close<cr>
 
 function! ToggleZoom(zoom)
   if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
