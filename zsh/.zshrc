@@ -164,6 +164,9 @@ elif command -v ag >/dev/null 2>&1; then
   export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 fi
 
+# Set virtualenv shared requirements txt
+export AUTOSWITCH_DEFAULT_REQUIREMENTS="$HOME/.requirements.txt"
+
 # Set theme last
 set_theme $BASE16_THEME_DEFAULT true
 
