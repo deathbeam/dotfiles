@@ -1,7 +1,9 @@
-local languages = require("config.languages")
-
 require("nvim-treesitter.configs").setup {
-    ensure_installed = vim.tbl_keys(languages),
+    ensure_installed = vim.tbl_values(
+        vim.tbl_flatten(
+            vim.tbl_map(function(server) return server.language end,
+                vim.tbl_filter(function(server) return server.language end,
+                    require("config.languages"))))),
     sync_install = true,
     highlight = {
         enable = true

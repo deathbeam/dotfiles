@@ -1,12 +1,15 @@
 return {
-    css = {
-        mason = { 'cssls' },
+    {
+        language = { "css"},
+        mason = { "cssls" },
     },
-    html = {
-        mason = { 'html' },
+    {
+        language = { "html"},
+        mason = { "html" },
     },
-    javascript = {
-        mason = { 'tsserver' },
+    {
+        language = { "javascript", "typescript" },
+        mason = { "tsserver", "js-debug-adapter" },
         lsp_settings = {
             javascript = {
                 inlayHints = {
@@ -33,25 +36,25 @@ return {
             },
         }
     },
-    typescript = {
-        mason = { 'tsserver' },
+    {
+        language = { "python" },
+        mason = { "pyright", "debugpy" },
     },
-    python = {
-        mason = { 'pyright', 'debugpy' },
-    },
-    java = {
-        mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
+    {
+        language = { "java" },
+        mason = { "jdtls", "java-debug-adapter", "java-test" },
         lsp_ignore = true
     },
-    lua = {
-        mason = { 'lua_ls' },
+    {
+        language = { "lua" },
+        mason = { "lua_ls" },
         lsp_settings = {
             Lua = {
                 runtime = {
-                    version = 'LuaJIT'
+                    version = "LuaJIT"
                 },
                 diagnostics = {
-                    globals = { 'vim' },
+                    globals = { "vim" },
                 },
                 workspace = {
                     library = {
@@ -61,22 +64,28 @@ return {
             }
         }
     },
-    bash = {
-        mason = { 'bashls' },
+    {
+        language = { "bash" },
+        mason = { "bashls" },
     },
-    vim = {
-        mason = { 'vimls' },
+    {
+        language = { "vim" },
+        mason = { "vimls" },
     },
-    markdown = {
-        mason = { 'marksman' },
+    {
+        language = { "markdown" },
+        mason = { "marksman" },
     },
-    yaml = {
-        mason = { 'yamlls' },
+    {
+        language = { "yaml" },
+        mason = { "yamlls" },
     },
-    json = {
-        mason = { 'jsonls' },
+    {
+        language = { "json" },
+        mason = { "jsonls" },
     },
-    xml = {
-        mason = { 'lemminx' },
+    {
+        language = { "xml" },
+        mason = { "lemminx" },
     }
 }

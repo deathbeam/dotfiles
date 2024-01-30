@@ -1,4 +1,4 @@
-require('copilot').setup({
+require("copilot").setup({
     panel = {
         enabled = false
     },
@@ -11,7 +11,7 @@ require('copilot').setup({
 })
 
 local suggestion = require("copilot.suggestion")
-local cmp = require('cmp')
+local cmp = require("cmp")
 
 local has_words_before = function()
     unpack = unpack or table.unpack
@@ -48,14 +48,14 @@ cmp.setup {
         end,
     },
     sources = cmp.config.sources({
-        { name = 'nvim_lsp',
+        { name = "nvim_lsp",
             entry_filter = function(entry)
                 return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
             end
         },
-        { name = 'path' },
+        { name = "path" },
     }, {
-            { name = 'buffer' }
+            { name = "buffer" }
         }),
     mapping = {
         ["<C-e>"] = cmp.mapping(function(fallback)
@@ -80,21 +80,21 @@ cmp.setup {
         ["<C-p>"] = prev_cmp,
     }
 }
-cmp.setup.cmdline('/', {
+cmp.setup.cmdline("/", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = {
-        { name = 'buffer' }
+        { name = "buffer" }
     }
 })
-cmp.setup.cmdline(':', {
+cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline(),
     sources = cmp.config.sources({
-        { name = 'path' }
+        { name = "path" }
     }, {
             {
-                name = 'cmdline',
+                name = "cmdline",
                 option = {
-                    ignore_cmds = { '!' }
+                    ignore_cmds = { "!" }
                 }
             }
         })
