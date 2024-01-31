@@ -155,11 +155,14 @@ let g:rooter_patterns = [
       \ '.hg/',
       \ '.bzr/',
       \ '.svn/',
-      \ '.pylintrc',
-      \ 'pylintrc',
-      \ 'package.json',
       \ '.editorconfig',
+      \ 'Makefile',
+      \ '.pylintrc',
       \ 'requirements.txt',
+      \ 'setup.py',
+      \ 'package.json',
+      \ 'mvnw',
+      \ 'gradlew',
       \]
 
 " Load all plugins
