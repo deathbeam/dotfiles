@@ -47,7 +47,7 @@ pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archi
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
-  xorg-fonts-misc xsel xclip autocutsel \
+  xorg-fonts-misc xsel xclip clipnotify autocutsel \
   xf86-input-libinput xcape xtitle \
   redshift-qt \
   upower clipnotify \
