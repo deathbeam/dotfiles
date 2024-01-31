@@ -5,7 +5,10 @@ require("copilot").setup({
     suggestion = {
         auto_trigger = true,
         keymap = {
-            accept = false
+            accept = false,
+            next = false,
+            prev = false,
+            dismiss = false
         }
     }
 })
@@ -23,7 +26,7 @@ local next_cmp = cmp.mapping(function(fallback)
     if cmp.visible() then
         cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
     elseif suggestion.is_visible() then
-        suggestion.accept()
+        suggestion.next()
     elseif has_words_before() then
         cmp.complete()
     else
@@ -34,6 +37,8 @@ end)
 local prev_cmp = cmp.mapping(function(fallback)
     if cmp.visible() then
         cmp.select_prev_item({behavior = cmp.SelectBehavior.Insert})
+    elseif suggestion.is_visible() then
+        suggestion.prev()
     elseif has_words_before() then
         cmp.complete()
     else
@@ -47,35 +52,41 @@ cmp.setup {
             vim.fn["vsnip#anonymous"](args.body)
         end,
     },
-    sources = cmp.config.sources({
-        { name = "nvim_lsp",
-            entry_filter = function(entry)
-                return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-            end
+    sources = cmp.config.sources(
+        {
+            {
+                name = "nvim_lsp",
+                entry_filter = function(entry)
+                    return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
+                end
+            },
+            {
+                name = "path"
+            },
         },
-        { name = "path" },
-    }, {
-            { name = "buffer" }
-        }),
+        {
+            {
+                name = "buffer"
+            }
+        }
+    ),
     mapping = {
         ["<C-e>"] = cmp.mapping(function(fallback)
             if suggestion.is_visible() then
                 suggestion.accept()
-            elseif cmp.visible() then
-                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
             else
                 fallback()
             end
         end, { "i", "s" }),
-        ["<CR>"] = cmp.mapping(function(fallback)
+        ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
                 cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+            elseif has_words_before() then
+                cmp.complete()
             else
                 fallback()
             end
         end, { "i", "s" }),
-        ["<Tab>"] = next_cmp,
-        ["<S-Tab>"] = prev_cmp,
         ["<C-n>"] = next_cmp,
         ["<C-p>"] = prev_cmp,
     }

@@ -91,8 +91,6 @@ zstyle ':zim:input' double-dot-expand yes
 zstyle ':zim:git' aliases-prefix g
 
 # Autocomplete
-zstyle ':autocomplete:*' insert-unambiguous yes
-zstyle ':autocomplete:*' add-space executables aliases functions builtins reserved-words commands
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Pathogen-like loader for plugins
@@ -116,9 +114,10 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# improved tab completion with autocompletion
-bindkey '\t' menu-select "$terminfo[kcbt]" menu-select
-bindkey -M menuselect '\t' menu-complete "$terminfo[kcbt]" reverse-menu-complete
+# Completion bindings
+bindkey -M menuselect '^N' menu-complete
+bindkey -M menuselect '^P' reverse-menu-complete
+
 autoload -Uz cdr
 () {
    local -a prefix=( '\e'{\[,O} )
