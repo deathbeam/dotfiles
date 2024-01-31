@@ -5,7 +5,11 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-require("config.utils").desc("<leader>w", "[W]iki")
+local utils = require("config.utils")
+
+utils.desc("<leader>w", "[W]iki")
+utils.nmap("]<space>", "o<Esc>k")
+utils.nmap("[<space>", "O<Esc>j")
 
 require("tmux").setup {
     copy_sync = {
