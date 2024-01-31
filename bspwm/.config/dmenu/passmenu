@@ -24,6 +24,5 @@ if [[ $typeit -eq 0 ]]; then
     pass show -c "$password" 2>/dev/null
   fi
 else
-	pass show "$password" | { read -r pass; printf %s "$pass"; } |
-		xdotool type --clearmodifiers --file -
+	pass show "$password" | { read -r pass; printf %s "$pass"; } | xdotool type --clearmodifiers --file -
 fi

@@ -55,7 +55,6 @@ fi
 # Start autocutsel
 if command -v autocutsel >/dev/null 2>&1; then
   autocutsel -s CLIPBOARD -fork &
-  autocutsel -s PRIMARY -fork &
 fi
 
 # Start clipboard manager daemon

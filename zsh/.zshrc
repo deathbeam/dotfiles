@@ -34,13 +34,10 @@ if command -v nvim >/dev/null 2>&1; then
   alias vimdiff='nvim -d'
 fi
 
-# Alias xclip copy/paste
-if command -v xclip >/dev/null 2>&1; then
-  alias xcopy='xclip -i -selection clipboard'
-  alias xpaste='xclip -o -selection clipboard'
-elif command -v xsel >/dev/null 2>&1; then
-  alias xcopy='xsel --clipboard --input'
-  alias xpaste='xsel --clipboard --output'
+# Alias copy/paste
+if command -v xsel >/dev/null 2>&1; then
+  alias c='xsel --clipboard --input'
+  alias p='xsel --clipboard --output'
 fi
 
 # Set proxy
@@ -117,7 +114,6 @@ fi
 # Completion bindings
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
-
 autoload -Uz cdr
 () {
    local -a prefix=( '\e'{\[,O} )
@@ -130,16 +126,6 @@ autoload -Uz cdr
       bindkey "$key" down-line-or-history
    done
 }
-
-# set base16 thee for syntax highlighting
-function () {
-    local theme=$1
-    local current_theme
-    zstyle -g current_theme ':plugin:fast-syntax-highlighting' theme
-    if [[ $current_theme != $theme ]]; then
-        fast-theme $theme
-    fi
-} base16
 
 # Adjust git aliases
 unalias gh 2>/dev/null
@@ -167,6 +153,14 @@ fi
 export AUTOSWITCH_DEFAULT_REQUIREMENTS="$HOME/.requirements.txt"
 
 # Set theme last
+function () {
+    local theme=$1
+    local current_theme
+    zstyle -g current_theme ':plugin:fast-syntax-highlighting' theme
+    if [[ $current_theme != $theme ]]; then
+        fast-theme $theme
+    fi
+} base16
 set_theme $BASE16_THEME_DEFAULT true
 
 # }}}

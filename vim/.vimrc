@@ -19,7 +19,7 @@ set undofile
 
 " Use system clipboard
 if has('clipboard')
-  set clipboard=unnamed
+  set clipboard=unnamedplus
 endif
 
 " }}}
