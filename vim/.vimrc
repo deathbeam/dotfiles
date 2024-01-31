@@ -69,6 +69,10 @@ set nowrap
 " diagnostics appear/become resolved
 set signcolumn=yes
 
+" Relative numbers
+set number
+set relativenumber
+
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =
 
