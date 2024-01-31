@@ -50,7 +50,7 @@ yay --noconfirm -S --mflags --skipinteg \
   xorg-fonts-misc xsel xclip clipnotify autocutsel \
   xf86-input-libinput xcape xtitle \
   redshift-qt \
-  upower clipnotify \
+  upower \
   udiskie
 
 echo '==> Installing font packages'
