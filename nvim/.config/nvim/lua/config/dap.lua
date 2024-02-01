@@ -7,6 +7,12 @@ local desc = utils.desc
 
 desc("<leader>d", "[D]ebug")
 
+local icons = require("config.icons")
+for name, sign in pairs(icons.dap) do
+    sign = type(sign) == "table" and sign or { sign }
+    vim.fn.sign_define("Dap" .. name, { text = sign[1], texthl = sign[2] or "DiagnosticInfo" })
+end
+
 local dap = require("dap")
 local dapui = require("dapui")
 local dapui_windows = require("dapui.windows")

@@ -8,6 +8,10 @@ local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 desc("<leader>c", "[C]ode")
 
+for name, icon in pairs(require("config.icons").diagnostics) do
+    vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
+end
+
 vim.api.nvim_create_autocmd("LspAttach", {
     desc = "LSP actions",
     callback = function(event)

@@ -13,6 +13,7 @@ require("copilot").setup({
     }
 })
 
+local icons = require("config.icons")
 local suggestion = require("copilot.suggestion")
 local cmp = require("cmp")
 
@@ -50,6 +51,14 @@ cmp.setup {
     snippet = {
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
+        end,
+    },
+    formatting = {
+        format = function(_, item)
+            if icons.kinds[item.kind] then
+                item.kind = icons.kinds[item.kind] .. ' ' .. item.kind
+            end
+            return item
         end,
     },
     sources = cmp.config.sources(

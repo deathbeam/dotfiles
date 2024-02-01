@@ -82,11 +82,14 @@ end
 
 local function get_fold(lnum)
     if vim.fn.foldclosed(lnum) >= 0 then
-        return { text = vim.opt.fillchars:get().foldclose or "", texthl = "FoldColumn" }
+        return { text = vim.opt.fillchars:get().foldclose, texthl = "FoldColumn" }
     elseif vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
-        return { text = vim.opt.fillchars:get().foldopen or "" }
+        return { text = vim.opt.fillchars:get().foldopen }
     end
 end
+
+local icons = require("config.icons")
+vim.opt.fillchars = { foldclose = icons.fold.closed, foldopen = icons.fold.open }
 
 function StatusColumn()
     local win = vim.g.statusline_winid
