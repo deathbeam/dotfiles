@@ -1,3 +1,5 @@
+
+-- Set base16 colorscheme
 local base16 = require("base16-colorscheme")
 vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Adjust colors",
@@ -19,9 +21,17 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 })
 base16.load_from_shell()
 
+-- Set colorcolumn to textwidth
+vim.api.nvim_create_autocmd("BufEnter", {
+    desc = "Set colorcolumn",
+    callback = function()
+        vim.opt.colorcolumn = ""..vim.opt.textwidth:get()
+    end
+})
+
+-- Load fancy plugins
 require("nvim-web-devicons").setup()
 require("eyeliner").setup { highlight_on_key = true, dim = true }
-require("fidget").setup { notification = { override_vim_notify = not vim.tbl_isempty(vim.api.nvim_list_uis()) } }
 
 local function icon(sign, len)
     sign = sign or {}
@@ -115,6 +125,9 @@ end
 
 vim.opt.statuscolumn = [[%!v:lua.StatusColumn()]]
 
+local lspprogress = require('lsp-progress')
+lspprogress.setup()
+
 function StatusLineActive()
     return table.concat {
         -- color 1
@@ -130,9 +143,11 @@ function StatusLineActive()
         -- color 2
         [[%2*]],
         -- left/right separator
-        [[%=]],
+        [[%= ]],
+        -- lsp progress
+        lspprogress.progress(),
         -- color 3
-        [[%3*]],
+        [[ %3*]],
         -- cursor info
         [[ %l/%L-%v 0x%04B ]]
     }
@@ -155,6 +170,7 @@ vim.cmd [[
   augroup Statusline
   au!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLineActive()
+  au User LspProgressStatusUpdated setlocal statusline=%!v:lua.StatusLineActive()
   au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLineInactive()
   augroup END
 ]]

@@ -153,9 +153,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
-[submodule "vim/.vim/pack/bundle/start/fidget.nvim"]
-	path = vim/.vim/pack/bundle/start/fidget.nvim
-	url = https://github.com/j-hui/fidget.nvim
 [submodule "vim/.vim/pack/bundle/start/mason-tool-installer.nvim"]
 	path = vim/.vim/pack/bundle/start/mason-tool-installer.nvim
 	url = https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
@@ -174,3 +171,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
+[submodule "vim/.vim/pack/bundle/start/lsp-progress.nvim"]
+	path = vim/.vim/pack/bundle/start/lsp-progress.nvim
+	url = https://github.com/linrongbin16/lsp-progress.nvim
