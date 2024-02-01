@@ -1,6 +1,7 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 
-local nmap = require("config/utils").nmap
+local nmap = require("config.utils").nmap
+local languages = require("config.languages")
 local dap = require("dap")
 local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
@@ -97,68 +98,11 @@ local function java_setup()
         "-data", data_dir,
     }
 
-    -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
-    -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
-    local lsp_settings = {
-        java = {
-            configuration = {
-                updateBuildConfiguration = "interactive",
-            },
-            eclipse = {
-                downloadSources = true,
-            },
-            maven = {
-                downloadSources = true,
-            },
-            references = {
-                includeAccessors = true,
-                includeDecompiledSources = true,
-            },
-            format = {
-                enabled = true,
-            },
-            signatureHelp = {
-                enabled = true,
-            },
-            inlayHints = {
-                parameterNames = {
-                    enabled = "all",
-                }
-            },
-            completion = {
-                favoriteStaticMembers = {
-                    "org.hamcrest.MatcherAssert.assertThat",
-                    "org.hamcrest.Matchers.*",
-                    "org.hamcrest.CoreMatchers.*",
-                    "org.junit.jupiter.api.Assertions.*",
-                    "java.util.Objects.requireNonNull",
-                    "java.util.Objects.requireNonNullElse",
-                    "org.mockito.Mockito.*",
-                },
-            },
-            contentProvider = {
-                preferred = "fernflower",
-            },
-            sources = {
-                organizeImports = {
-                    starThreshold = 9999,
-                    staticStarThreshold = 9999,
-                }
-            },
-            codeGeneration = {
-                toString = {
-                    template = "${object.className}{${member.name()}=${member.value}, ${otherMembers}}",
-                },
-                useBlocks = true,
-            },
-        },
-    }
-
     -- This starts a new client & server,
     -- or attaches to an existing client & server depending on the `root_dir`.
     jdtls.start_or_attach({
         cmd = cmd,
-        settings = lsp_settings,
+        settings = vim.tbl_filter(function(language) return vim.tbl_contains(language.language, "java") end, languages)[1].lsp_settings,
         on_attach = jdtls_on_attach,
         capabilities = capabilities,
         root_dir = cwd,

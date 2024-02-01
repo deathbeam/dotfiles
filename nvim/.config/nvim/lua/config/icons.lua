@@ -1,7 +1,7 @@
 return {
     fold = {
-        Closed = " ",
-        Open   = " ",
+        Closed = "",
+        Open   = "",
     },
     dap = {
         Stopped             = { "󰁕 ", "DiagnosticWarn" },

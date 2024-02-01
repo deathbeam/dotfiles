@@ -28,6 +28,8 @@ require("mason-tool-installer").setup {
 }
 
 require("config.ui")
+require("config.statuscolumn")
+require("config.statusline")
 require("config.finder")
 require("config.treesitter")
 require("config.completion")

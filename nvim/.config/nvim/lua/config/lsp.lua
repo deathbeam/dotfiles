@@ -3,13 +3,24 @@ local languages = require("config.languages")
 local utils = require("config.utils")
 local nmap = utils.nmap
 local desc = utils.desc
-local inlay_hints = utils.inlay_hints
 local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
 
 desc("<leader>c", "[C]ode")
 
 for name, icon in pairs(require("config.icons").diagnostics) do
     vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
+end
+
+local function inlay_hints(buf, value)
+    local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
+    if type(ih) == "function" then
+        ih(buf, value)
+    elseif type(ih) == "table" and ih.enable then
+        if value == nil then
+            value = not ih.is_enabled(buf)
+        end
+        ih.enable(buf, value)
+    end
 end
 
 vim.api.nvim_create_autocmd("LspAttach", {
