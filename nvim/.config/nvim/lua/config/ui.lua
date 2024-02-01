@@ -2,16 +2,16 @@ local base16 = require("base16-colorscheme")
 vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Adjust colors",
     callback = function()
-        local base0A = base16.colors.base0A
         local base0D = base16.colors.base0D
         local base00 = base16.colors.base00
         local base03 = base16.colors.base03
         local base0B = base16.colors.base0B
-        local base0E = base16.colors.base0E
 
         vim.api.nvim_set_hl(0, "StatusLine", { fg = base00, underline = true })
         vim.api.nvim_set_hl(0, "StatusLineNC", { fg = base03, underline = true, })
+        vim.api.nvim_set_hl(0, "LineNr", { fg = base03 })
         vim.api.nvim_set_hl(0, "VertSplit", { fg = base03 })
+        vim.api.nvim_set_hl(0, "WinSeparator", { fg = base03 })
         vim.api.nvim_set_hl(0, "User1", { underline = false, bg = base0D, fg = base00 })
         vim.api.nvim_set_hl(0, "User2", { underline = true, fg = base0D })
         vim.api.nvim_set_hl(0, "User3", { underline = false, bg = base0B, fg = base00 })
@@ -70,6 +70,14 @@ local function get_mark(buf, lnum)
     end
 end
 
+local function get_fold(lnum)
+    if vim.fn.foldclosed(lnum) >= 0 then
+        return { text = vim.opt.fillchars:get().foldclose or "", texthl = "FoldColumn" }
+    elseif vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
+        return { text = vim.opt.fillchars:get().foldopen or "" }
+    end
+end
+
 function StatusColumn()
     local win = vim.g.statusline_winid
     local buf = vim.api.nvim_win_get_buf(win)
@@ -79,17 +87,9 @@ function StatusColumn()
 
     if show_signs then
         local sign = get_sign(buf, vim.v.lnum)
-
-        local fold
-        vim.api.nvim_win_call(win, function()
-            if vim.fn.foldclosed(vim.v.lnum) >= 0 then
-                fold = { text = vim.opt.fillchars:get().foldclose or "", texthl = "FoldColumn" }
-            elseif vim.fn.foldlevel(vim.v.lnum) > vim.fn.foldlevel(vim.v.lnum - 1) then
-                fold = { text = vim.opt.fillchars:get().foldopen or "" }
-            end
-        end)
-
+        local fold = get_fold(vim.v.lnum)
         local mark = get_mark(buf, vim.v.lnum)
+
         if vim.v.virtnum ~= 0 then
             sign = nil
         else
