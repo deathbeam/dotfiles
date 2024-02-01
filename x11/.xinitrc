@@ -11,16 +11,6 @@ fi
 # Load profile
 source ~/.profile
 
-# Start VirtualBox guest additions
-if command -v VBoxClient-all >/dev/null 2>&1; then
-  VBoxClient-all
-fi
-
-# Start vmware guest additions
-if command -v vmware-user >/dev/null 2>&1; then
-  vmware-user
-fi
-
 # Set DPI
 if [[ -z "${HDPI}" ]]; then
   xrandr -s 1920x1080
@@ -70,16 +60,6 @@ fi
 # Start notification daemon
 if command -v dunst >/dev/null 2>&1; then
   dunst &
-fi
-
-# Start music manager daemon
-if command -v mopidy >/dev/null 2>&1; then
-  mopidy &
-fi
-
-# Start bitlbee
-if command -v bitlbee >/dev/null 2>&1; then
-  bitlbee &
 fi
 
 # Start redshift

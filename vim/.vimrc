@@ -41,29 +41,20 @@ set smartcase
 " Show matching brackets when text indicator is over them
 set showmatch
 
+" Always use vertical diffs
+set diffopt+=vertical
+
 " Always show some lines under
 set scrolloff=8
+
+" Disable text wrap
+set nowrap
 
 " Always show the status line
 set laststatus=2
 
-" Status line format
-set statusline=
-set statusline+=%1*\ %{&ff}                "file format
-set statusline+=%y                      "file type
-set statusline+=\ %<%F                  "full path
-set statusline+=\ %m                    "modified flag
-set statusline+=%2*%=                   "left/right separator
-set statusline+=%3*\ [%l/%L-%v\ 0x%04B] "cursor info
-
-" Always use vertical diffs
-set diffopt+=vertical
-
-" Cursor line (it is slowing Vim a bit, but too useful)
+" Show cursor line
 set cursorline
-
-" Disable text wrap
-set nowrap
 
 " Always show the signcolumn
 set signcolumn=yes
