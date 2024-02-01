@@ -12,11 +12,9 @@ vim.api.nvim_create_autocmd("ColorScheme", {
         vim.api.nvim_set_hl(0, "StatusLine", { fg = base00, underline = true })
         vim.api.nvim_set_hl(0, "StatusLineNC", { fg = base03, underline = true, })
         vim.api.nvim_set_hl(0, "VertSplit", { fg = base03 })
-        vim.api.nvim_set_hl(0, "User1", { underline = true, bg = base0D, fg = base00 })
+        vim.api.nvim_set_hl(0, "User1", { underline = false, bg = base0D, fg = base00 })
         vim.api.nvim_set_hl(0, "User2", { underline = true, fg = base0D })
-        vim.api.nvim_set_hl(0, "User3", { underline = true, fg = base0B })
-        vim.api.nvim_set_hl(0, "User4", { underline = true, fg = base0E })
-        vim.api.nvim_set_hl(0, "User5", { underline = true, fg = base0A })
+        vim.api.nvim_set_hl(0, "User3", { underline = false, bg = base0B, fg = base00 })
     end
 })
 base16.load_from_shell()
@@ -128,7 +126,7 @@ function StatusLineActive()
         -- full path
         [[ %<%F]],
         -- modified flag 
-        [[ %m]],
+        [[ %m ]],
         -- color 2
         [[%2*]],
         -- left/right separator
@@ -136,7 +134,7 @@ function StatusLineActive()
         -- color 3
         [[%3*]],
         -- cursor info
-        [[%l/%L-%v\ 0x%04B]]
+        [[ %l/%L-%v 0x%04B ]]
     }
 end
 
