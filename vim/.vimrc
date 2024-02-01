@@ -65,13 +65,17 @@ set cursorline
 " Disable text wrap
 set nowrap
 
-" Always show the signcolumn, otherwise it would shift the text each time
-" diagnostics appear/become resolved
+" Always show the signcolumn
 set signcolumn=yes
 
 " Relative numbers
 set number
 set relativenumber
+set numberwidth=3
+
+" Folds
+set foldtext=""
+set foldlevel=99
 
 " Automatically rebalance windows on vim resize
 autocmd VimRc VimResized * :wincmd =
