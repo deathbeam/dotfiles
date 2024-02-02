@@ -132,6 +132,10 @@ cnoremap <C-N> <Down>
 command! W w !sudo tee % > /dev/null
 command! X !chmod +x % > /dev/null
 
+" Mark mappings
+nnoremap <silent> dm :<C-U>execute 'delmarks '.nr2char(getchar())<CR>
+nnoremap <silent> dm<CR> :<C-U>delm a-zA-Z0-9<CR>
+
 " }}}
 
 " Plugins {{{
