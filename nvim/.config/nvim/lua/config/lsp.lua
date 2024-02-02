@@ -3,7 +3,7 @@ local languages = require("config.languages")
 local utils = require("config.utils")
 local nmap = utils.nmap
 local desc = utils.desc
-local lsp_capabilities = require("cmp_nvim_lsp").default_capabilities()
+local lsp_capabilities = utils.make_capabilities()
 
 desc("<leader>c", "[C]ode")
 

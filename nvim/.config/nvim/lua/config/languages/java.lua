@@ -1,22 +1,21 @@
 -- https://github.com/VonHeikemen/lsp-zero.nvim/blob/v2.x/doc/md/guides/setup-with-nvim-jdtls.md
 
-local nmap = require("config.utils").nmap
 local languages = require("config.languages")
-local dap = require("dap")
 local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
 local registry = require("mason-registry")
-local cmp_nvim_lsp = require("cmp_nvim_lsp")
+local utils = require("config.utils")
+local nmap = utils.nmap
+local lsp_capabilities = utils.make_capabilities()
+local cache_vars = {}
 
-dap.configurations.java = {{
+require("dap").configurations.java = {{
     type = "java",
     request = "attach",
     name = "Attach remote",
     hostName = "localhost",
     port = 5005,
 }}
-
-local cache_vars = {}
 
 local function get_jdtls_paths()
     if cache_vars.paths then
@@ -55,15 +54,6 @@ local function get_jdtls_paths()
     return path
 end
 
-local function get_jdtls_capabilities()
-    if cache_vars.capabilities then
-        return cache_vars.capabilities
-    end
-
-    cache_vars.capabilities = cmp_nvim_lsp.default_capabilities()
-    return cache_vars.capabilities
-end
-
 local function jdtls_on_attach(client, bufnr)
     jdtls.setup_dap({hotcodereplace = "auto"})
     jdtls_dap.setup_dap_main_class_configs()
@@ -76,7 +66,6 @@ local function java_setup()
     local cwd = vim.fn.getcwd()
     local path = get_jdtls_paths()
     local data_dir = path.data_dir .. "/" ..  vim.fn.fnamemodify(cwd, ":p:h:t")
-    local capabilities = get_jdtls_capabilities()
 
     -- The command that starts the language server
     -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
@@ -104,7 +93,7 @@ local function java_setup()
         cmd = cmd,
         settings = vim.tbl_filter(function(language) return vim.tbl_contains(language.language, "java") end, languages)[1].lsp_settings,
         on_attach = jdtls_on_attach,
-        capabilities = capabilities,
+        capabilities = lsp_capabilities,
         root_dir = cwd,
         flags = {
             allow_incremental_sync = true,
