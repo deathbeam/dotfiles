@@ -1,16 +1,9 @@
 return {
     {
-        language = { "css"},
-        mason = { "cssls" },
-    },
-    {
-        language = { "html"},
-        mason = { "html" },
-    },
-    {
         language = { "javascript", "typescript" },
         mason = { "tsserver", "js-debug-adapter" },
         lsp_settings = {
+            -- See: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
             javascript = {
                 inlayHints = {
                     includeInlayEnumMemberValueHints = true,
@@ -22,7 +15,6 @@ return {
                     includeInlayVariableTypeHints = false,
                 },
             },
-
             typescript = {
                 inlayHints = {
                     includeInlayEnumMemberValueHints = true,
@@ -39,6 +31,22 @@ return {
     {
         language = { "python" },
         mason = { "pyright", "debugpy" },
+        lsp_settings = {
+            -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+            python = {
+                analysis = {
+                    diagnosticMode = "workspace",
+                    diagnosticSeverityOverrides = {
+                        reportOptionalSubscript = "none",
+                        reportOptionalMemberAccess = "none",
+                        reportOptionalCall = "none",
+                        reportOptionalIterable = "none",
+                        reportOptionalContextManager = "none",
+                        reportOptionalOperand = "none",
+                    },
+                },
+            }
+        }
     },
     {
         language = { "java" },
@@ -143,5 +151,13 @@ return {
     {
         language = { "xml" },
         mason = { "lemminx" },
-    }
+    },
+    {
+        language = { "css"},
+        mason = { "cssls" },
+    },
+    {
+        language = { "html"},
+        mason = { "html" },
+    },
 }
