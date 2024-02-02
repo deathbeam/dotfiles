@@ -156,9 +156,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter-textobjects"]
 	path = vim/.vim/pack/bundle/start/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
-[submodule "vim/.vim/pack/bundle/start/nvim-treesitter-context"]
-	path = vim/.vim/pack/bundle/start/nvim-treesitter-context
-	url = https://github.com/nvim-treesitter/nvim-treesitter-context
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-python"]
 	path = vim/.vim/pack/bundle/start/nvim-dap-python
 	url = https://github.com/mfussenegger/nvim-dap-python
@@ -171,3 +168,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
 	path = vim/.vim/pack/bundle/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
+[submodule "vim/.vim/pack/bundle/start/quickfix-reflector.vim"]
+	path = vim/.vim/pack/bundle/start/quickfix-reflector.vim
+	url = https://github.com/stefandtw/quickfix-reflector.vim
