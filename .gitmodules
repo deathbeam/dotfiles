@@ -16,9 +16,6 @@
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = vim/.vim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
-[submodule "vim/.vim/bundle/codi.vim"]
-	path = vim/.vim/pack/bundle/start/codi.vim
-	url = https://github.com/metakirby5/codi.vim
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf
