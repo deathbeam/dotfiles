@@ -1,5 +1,3 @@
-# vim:foldmethod=marker:set ft=zsh:
-
 # General {{{
 
 # Source .profile
