@@ -109,9 +109,32 @@ cmp.setup.cmdline({"/", "?"}, {
 })
 
 cmp.setup.cmdline(":", {
-    mapping = cmp.mapping.preset.cmdline(),
+    mapping = cmp.mapping.preset.cmdline {
+        ['<Tab>'] = {
+            c = function()
+                if vim.api.nvim_get_mode().mode == 'c' and cmp.get_selected_entry() == nil then
+                    local text = vim.fn.getcmdline()
+                    local expanded = vim.fn.expandcmd(text)
+                    if expanded ~= text then
+                        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-U>', true, true, true) .. expanded, 'n', false)
+                        cmp.complete()
+                    elseif cmp.visible() then
+                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+                    else
+                        cmp.complete()
+                    end
+                else
+                    if cmp.visible() then
+                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+                    else
+                        cmp.complete()
+                    end
+                end
+            end
+        }
+    },
     sources = cmp.config.sources(
         { { name = "path" } },
-        { { name = "cmdline", option = { ignore_cmds = { "!" } } } }
+        { { name = "cmdline" } }
     )
 })
