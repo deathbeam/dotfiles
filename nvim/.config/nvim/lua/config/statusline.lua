@@ -42,8 +42,8 @@ end
 vim.cmd [[
   augroup Statusline
   au!
+  au User LspProgressStatusUpdated redrawstatus!
   au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLineActive()
-  au User LspProgressStatusUpdated setlocal statusline=%!v:lua.StatusLineActive()
   au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLineInactive()
   augroup END
 ]]

@@ -4,6 +4,10 @@ return {
         mason = { "tsserver", "js-debug-adapter" },
         lsp_settings = {
             -- See: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
+            implicitProjectConfiguration = {
+                checkJs = true,
+                target = "ES2022"
+            },
             javascript = {
                 inlayHints = {
                     includeInlayEnumMemberValueHints = true,
