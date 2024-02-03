@@ -13,15 +13,15 @@ end
 
 -- make zsh files recognized as sh for bash-ls & treesitter
 vim.filetype.add {
-	extension = {
-		zsh = "sh",
-		sh = "sh",
-	},
-	filename = {
-		[".zshrc"] = "sh",
-		[".zshenv"] = "sh",
-		[".zprofile"] = "sh",
-	},
+    extension = {
+        zsh = "sh",
+        sh = "sh",
+    },
+    filename = {
+        [".zshrc"] = "sh",
+        [".zshenv"] = "sh",
+        [".zprofile"] = "sh",
+    },
 }
 
 local function inlay_hints(buf, value)
