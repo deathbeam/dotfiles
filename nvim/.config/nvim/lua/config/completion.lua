@@ -23,31 +23,11 @@ local has_words_before = function()
     return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
 end
 
-local next_cmp = cmp.mapping(function(fallback)
-    if cmp.visible() then
-        cmp.select_next_item({behavior = cmp.SelectBehavior.Insert})
-    elseif suggestion.is_visible() then
-        suggestion.next()
-    elseif has_words_before() then
-        cmp.complete()
-    else
-        fallback()
-    end
-end)
-
-local prev_cmp = cmp.mapping(function(fallback)
-    if cmp.visible() then
-        cmp.select_prev_item({behavior = cmp.SelectBehavior.Insert})
-    elseif suggestion.is_visible() then
-        suggestion.prev()
-    elseif has_words_before() then
-        cmp.complete()
-    else
-        fallback()
-    end
-end, { "i", "s" })
-
 cmp.setup {
+    preselect = true,
+    completion = {
+        completeopt = 'menu,menuone,noinsert'
+    },
     snippet = {
         expand = function(args)
             vim.fn["vsnip#anonymous"](args.body)
@@ -89,15 +69,35 @@ cmp.setup {
         end, { "i", "s" }),
         ["<Tab>"] = cmp.mapping(function(fallback)
             if cmp.visible() then
-                cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
+                cmp.confirm()
             elseif has_words_before() then
                 cmp.complete()
             else
                 fallback()
             end
         end, { "i", "s" }),
-        ["<C-n>"] = next_cmp,
-        ["<C-p>"] = prev_cmp,
+        ["<C-n>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_next_item()
+            elseif suggestion.is_visible() then
+                suggestion.next()
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
+        ["<C-p>"] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+                cmp.select_prev_item()
+            elseif suggestion.is_visible() then
+                suggestion.prev()
+            elseif has_words_before() then
+                cmp.complete()
+            else
+                fallback()
+            end
+        end, { "i", "s" }),
     }
 }
 
@@ -112,23 +112,23 @@ cmp.setup.cmdline(":", {
     mapping = cmp.mapping.preset.cmdline {
         ['<Tab>'] = {
             c = function()
-                if vim.api.nvim_get_mode().mode == 'c' and cmp.get_selected_entry() == nil then
+                local expand = false
+                if vim.api.nvim_get_mode().mode == 'c' then
                     local text = vim.fn.getcmdline()
                     local expanded = vim.fn.expandcmd(text)
                     if expanded ~= text then
+                        expand = true
                         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes('<C-U>', true, true, true) .. expanded, 'n', false)
                         cmp.complete()
-                    elseif cmp.visible() then
-                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
-                    else
-                        cmp.complete()
                     end
+                end
+
+                if expand then
+                    return
+                elseif cmp.visible() then
+                    cmp.confirm()
                 else
-                    if cmp.visible() then
-                        cmp.confirm({ behavior = cmp.ConfirmBehavior.Replace, select = true })
-                    else
-                        cmp.complete()
-                    end
+                    cmp.complete()
                 end
             end
         }
