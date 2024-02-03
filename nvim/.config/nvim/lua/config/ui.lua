@@ -28,6 +28,5 @@ vim.api.nvim_create_autocmd("BufEnter", {
     end
 })
 
--- Load fancy plugins
+-- Load icons
 require("nvim-web-devicons").setup()
-require("eyeliner").setup { highlight_on_key = true, dim = true }

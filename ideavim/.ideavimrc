@@ -10,7 +10,6 @@ set surround
 set which-key
 set matchit
 set NERDTree
-set quickscope
 
 " vinegar emulation with Idea
 nnoremap - :action ActivateProjectToolWindow<cr>

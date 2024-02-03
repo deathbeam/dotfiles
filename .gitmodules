@@ -102,9 +102,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
 	path = zsh/.zsh/pack/bundle/start/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
-[submodule "vim/.vim/pack/bundle/start/eyeliner.nvim"]
-	path = vim/.vim/pack/bundle/start/eyeliner.nvim
-	url = https://github.com/jinh0/eyeliner.nvim
 [submodule "bspwm/.config/polybar/base16-polybar"]
 	path = bspwm/.config/polybar/base16-polybar
 	url = https://github.com/tinted-theming/base16-polybar
