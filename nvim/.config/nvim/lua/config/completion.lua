@@ -43,20 +43,11 @@ cmp.setup {
     },
     sources = cmp.config.sources(
         {
-            {
-                name = "nvim_lsp",
-                entry_filter = function(entry)
-                    return cmp.lsp.CompletionItemKind.Snippet ~= entry:get_kind()
-                end
-            },
-            {
-                name = "path"
-            },
+            { name = "nvim_lsp" },
+            { name = "path" },
         },
         {
-            {
-                name = "buffer"
-            }
+            { name = "buffer" }
         }
     ),
     mapping = {
