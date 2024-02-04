@@ -40,6 +40,7 @@ vim.lsp.handlers["callHierarchy/outgoingCalls"] = fzf_lua.lsp_outgoing_calls
 nmap("<leader>fg", fzf_lua.grep_project, "[F]ind [G]rep")
 nmap("<leader>fG", function()
     fzf_lua.grep_project({
+        prompt = 'GitGrep❯ ',
         cmd = "git grep --line-number --column --color=always",
     })
 end, "[F]ind Git [G]rep")
