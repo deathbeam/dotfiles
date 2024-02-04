@@ -1,7 +1,7 @@
 *.log
-/vim/.vim/bundle/local/
-/tmux/.tmux/bundle/local/
-/zsh/.zsh/bundle/local/
+/vim/.vim/pack/local/start
+/tmux/.tmux/pack/local/start
+/zsh/.zsh/pac/local/start
 /vim/.vim/undodir/
 /tmux/.tmux/resurrect/
 /qutebrowser/.config/qutebrowser/qsettings/

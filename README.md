@@ -3,7 +3,7 @@
 These are my configuration files for Linux. It is still work in
 progress, so expect a lot of changes, but I think it is stable enough to be
 usable.
-My Vim configuration is great for Java and Typescript development when
+My NeoVim configuration is great for Java, Typescript and Python development when
 running Vim in Tmux and using Git. So, if you are doing all of this, then feel
 free to steal some stuff from here.
 
@@ -36,6 +36,13 @@ You can just use Git:
     git pull --rebase
     make
 
+## How to uninstall?
+
+Just use makefile:
+
+    cd ~/.dotfiles
+    make uninstall
+
 ## How to inlude your own stuff?
 
 After you have installed dotfiles, you can start including your own stuff by
@@ -48,7 +55,7 @@ creating appropriate `.local` dotfiles in home directory:
     $EDITOR ~/.tmux.conf.local
 
 To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
-`bundle/local` directory:
+`pack/local/start` directory:
 
     # Add SuperTab vim plugin
     git clone git://github.com/ervandew/supertab \
@@ -66,4 +73,4 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
 
 - [/zsh/.zsh/pack/bundle/start](/zsh/.zsh/pack/bundle/start) ZSH plugins
 - [/tmux/.tmux/pack/bundle/start](/tmux/.tmux/pack/bundle/start) TMUX plugins
-- [/vim/.vim/pack/bundle/start](/vim/.vim/pack/bundle/start) VIM plugins
+- [/vim/.vim/pack/bundle/start](/vim/.vim/pack/bundle/start) Neovim plugins
