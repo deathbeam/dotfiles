@@ -135,17 +135,10 @@ alias gcm='git commit --signoff --message'
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export FZF_DEFAULT_OPTS="--bind tab:down --bind btab:up --color=border:#268bd2 --border=sharp --margin 0,0 --preview-window=border-sharp"
-
-# Use faster FZF grep command if possible
-if command -v rg >/dev/null 2>&1; then
-  export FZF_DEFAULT_COMMAND='rg --files --hidden --follow --glob "!.git/*"'
-  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-  export FZF_ALT_C_COMMAND='rg --files --hidden --follow --glob "!.git/*" --null | xargs -0 dirname | uniq'
-elif command -v ag >/dev/null 2>&1; then
-  export FZF_DEFAULT_COMMAND='ag -g ""'
-  export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-fi
+export FZF_DEFAULT_OPTS="--color=border:#268bd2 --border=sharp --margin 0,0 --preview-window=border-sharp"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
 # Set virtualenv shared requirements txt
 export AUTOSWITCH_DEFAULT_REQUIREMENTS="$HOME/.requirements.txt"
