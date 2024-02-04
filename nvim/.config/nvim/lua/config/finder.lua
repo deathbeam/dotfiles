@@ -7,20 +7,20 @@ desc("<leader>f", "[F]inder")
 local fzf_lua = require("fzf-lua")
 fzf_lua.setup {
     "fzf-tmux",
+    file_icon_padding = " ",
     fzf_opts = {
         ["--border"] = "sharp",
         ["--preview-window"] = "border-sharp"
     },
-    file_icon_padding = " ",
+    grep = {
+        rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+    },
     -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
     lsp = {
         code_actions = {
             previewer = false
         }
     },
-    grep = {
-        rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
-    }
 }
 fzf_lua.register_ui_select()
 
