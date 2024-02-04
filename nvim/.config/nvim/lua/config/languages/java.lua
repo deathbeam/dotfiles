@@ -55,7 +55,7 @@ local function get_jdtls_paths()
 end
 
 local function jdtls_on_attach(client, bufnr)
-    jdtls.setup_dap({hotcodereplace = "auto"})
+    jdtls_dap.setup_dap({hotcodereplace = "auto"})
     jdtls_dap.setup_dap_main_class_configs()
 
     nmap("<leader>dt", jdtls.test_nearest_method, "[D]ebug [T]est Method", bufnr)

@@ -4,7 +4,7 @@ local registry = require("mason-registry")
 
 require("dap-vscode-js").setup({
     debugger_path = registry.get_package("js-debug-adapter"):get_install_path(),
-    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" }, -- which adapters to register in nvim-dap
+    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
 })
 
 for _, language in ipairs({ "typescript", "javascript" }) do
