@@ -13,6 +13,7 @@ fzf_lua.setup {
         ["--preview-window"] = "border-sharp"
     },
     grep = {
+        prompt = 'Grep❯ ',
         rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
     },
     -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
@@ -37,6 +38,11 @@ vim.lsp.handlers["callHierarchy/incomingCalls"] = fzf_lua.lsp_incoming_calls
 vim.lsp.handlers["callHierarchy/outgoingCalls"] = fzf_lua.lsp_outgoing_calls
 
 nmap("<leader>fg", fzf_lua.grep_project, "[F]ind [G]rep")
+nmap("<leader>fG", function()
+    fzf_lua.grep_project({
+        cmd = "git grep --line-number --column --color=always",
+    })
+end, "[F]ind Git [G]rep")
 nmap("<leader>ff", fzf_lua.files, "[F]ind [F]iles")
 nmap("<leader>fF", fzf_lua.git_files, "[F]ind Git [F]iles")
 nmap("<leader>fa", fzf_lua.commands, "[F]ind [A]ctions")
