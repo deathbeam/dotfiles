@@ -24,13 +24,9 @@ It is simple, just use `make`
     cd ~/.dotfiles
     make
 
-Most of my dotfiles are using [Terminus](http://terminus-font.sourceforge.net/)
-font, so to make everything look correct, install it in both TrueType and bitmap
-format.
-
 ## How to update?
 
-You can just use Git:
+Pull latest changes and run `make`:
 
     cd ~/.dotfiles
     git pull --rebase
@@ -38,7 +34,7 @@ You can just use Git:
 
 ## How to uninstall?
 
-Just use makefile:
+Just use `make`:
 
     cd ~/.dotfiles
     make uninstall
