@@ -1,5 +1,5 @@
 *.log
-/vim/.vim/pack/local/start
+/nvim/.config/nvim/pack/local/start
 /tmux/.tmux/pack/local/start
 /zsh/.zsh/pac/local/start
 /vim/.vim/undodir/

@@ -11,10 +11,10 @@
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "vim/.vim/bundle/vim-rooter"]
-	path = vim/.vim/pack/bundle/start/vim-rooter
+	path = nvim/.config/nvim/pack/bundle/start/vim-rooter
 	url = https://github.com/airblade/vim-rooter
 [submodule "vim/.vim/bundle/vimwiki"]
-	path = vim/.vim/pack/bundle/start/vimwiki
+	path = nvim/.config/nvim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
@@ -55,49 +55,49 @@
 	path = zsh/.zsh/pack/bundle/start/environment
 	url = https://github.com/zimfw/environment
 [submodule "vim/.vim/pack/bundle/start/which-key.nvim"]
-	path = vim/.vim/pack/bundle/start/which-key.nvim
+	path = nvim/.config/nvim/pack/bundle/start/which-key.nvim
 	url = https://github.com/folke/which-key.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
-	path = vim/.vim/pack/bundle/start/nvim-treesitter
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
 [submodule "vim/.vim/pack/bundle/start/vim-commentary"]
-	path = vim/.vim/pack/bundle/start/vim-commentary
+	path = nvim/.config/nvim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
 [submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
 	path = tmux/.tmux/pack/bundle/start/tmux-fzf
 	url = https://github.com/sainnhe/tmux-fzf
 [submodule "vim/.vim/pack/bundle/start/vim-dirvish"]
-	path = vim/.vim/pack/bundle/start/vim-dirvish
+	path = nvim/.config/nvim/pack/bundle/start/vim-dirvish
 	url = https://github.com/justinmk/vim-dirvish
 [submodule "vim/.vim/pack/bundle/start/vim-dirvish-dovish"]
-	path = vim/.vim/pack/bundle/start/vim-dirvish-dovish
+	path = nvim/.config/nvim/pack/bundle/start/vim-dirvish-dovish
 	url = https://github.com/roginfarrer/vim-dirvish-dovish
 [submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
-	path = vim/.vim/pack/bundle/start/nvim-lspconfig
+	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
 [submodule "vim/.vim/pack/bundle/start/mason.nvim"]
-	path = vim/.vim/pack/bundle/start/mason.nvim
+	path = nvim/.config/nvim/pack/bundle/start/mason.nvim
 	url = https://github.com/williamboman/mason.nvim
 [submodule "vim/.vim/pack/bundle/start/mason-lspconfig.nvim"]
-	path = vim/.vim/pack/bundle/start/mason-lspconfig.nvim
+	path = nvim/.config/nvim/pack/bundle/start/mason-lspconfig.nvim
 	url = https://github.com/williamboman/mason-lspconfig.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-cmp"]
-	path = vim/.vim/pack/bundle/start/nvim-cmp
+	path = nvim/.config/nvim/pack/bundle/start/nvim-cmp
 	url = https://github.com/hrsh7th/nvim-cmp
 [submodule "vim/.vim/pack/bundle/start/cmp-nvim-lsp"]
-	path = vim/.vim/pack/bundle/start/cmp-nvim-lsp
+	path = nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp
 	url = https://github.com/hrsh7th/cmp-nvim-lsp
 [submodule "vim/.vim/pack/bundle/start/cmp-path"]
-	path = vim/.vim/pack/bundle/start/cmp-path
+	path = nvim/.config/nvim/pack/bundle/start/cmp-path
 	url = https://github.com/hrsh7th/cmp-path
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
-	path = vim/.vim/pack/bundle/start/fzf-lua
+	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
 [submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
 	path = zsh/.zsh/pack/bundle/start/base16-fzf
 	url = https://github.com/tinted-theming/base16-fzf
 [submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
-	path = vim/.vim/pack/bundle/start/nvim-web-devicons
+	path = nvim/.config/nvim/pack/bundle/start/nvim-web-devicons
 	url = https://github.com/nvim-tree/nvim-web-devicons
 [submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
 	path = zsh/.zsh/pack/bundle/start/base16-shell
@@ -106,13 +106,13 @@
 	path = bspwm/.config/polybar/base16-polybar
 	url = https://github.com/tinted-theming/base16-polybar
 [submodule "vim/.vim/pack/bundle/start/cmp-cmdline"]
-	path = vim/.vim/pack/bundle/start/cmp-cmdline
+	path = nvim/.config/nvim/pack/bundle/start/cmp-cmdline
 	url = https://github.com/hrsh7th/cmp-cmdline
 [submodule "vim/.vim/pack/bundle/start/cmp-buffer"]
-	path = vim/.vim/pack/bundle/start/cmp-buffer
+	path = nvim/.config/nvim/pack/bundle/start/cmp-buffer
 	url = https://github.com/hrsh7th/cmp-buffer
 [submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
-	path = vim/.vim/pack/bundle/start/tmux.nvim
+	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/zsh-autocomplete
@@ -124,47 +124,47 @@
 	path = zsh/.zsh/pack/bundle/start/zsh-expand-all
 	url = https://github.com/simnalamburt/zsh-expand-all
 [submodule "vim/.vim/pack/bundle/start/nvim-jdtls"]
-	path = vim/.vim/pack/bundle/start/nvim-jdtls
+	path = nvim/.config/nvim/pack/bundle/start/nvim-jdtls
 	url = https://github.com/mfussenegger/nvim-jdtls
 [submodule "vim/.vim/pack/bundle/start/vim-cool"]
-	path = vim/.vim/pack/bundle/start/vim-cool
+	path = nvim/.config/nvim/pack/bundle/start/vim-cool
 	url = https://github.com/romainl/vim-cool
 [submodule "vim/.vim/pack/bundle/start/copilot.lua"]
-	path = vim/.vim/pack/bundle/start/copilot.lua
+	path = nvim/.config/nvim/pack/bundle/start/copilot.lua
 	url = https://github.com/zbirenbaum/copilot.lua
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
 	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
 [submodule "vim/.vim/pack/bundle/start/nvim-dap"]
-	path = vim/.vim/pack/bundle/start/nvim-dap
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-ui"]
-	path = vim/.vim/pack/bundle/start/nvim-dap-ui
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-ui
 	url = https://github.com/rcarriga/nvim-dap-ui
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
-	path = vim/.vim/pack/bundle/start/nvim-dap-virtual-text
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
 [submodule "vim/.vim/pack/bundle/start/mason-tool-installer.nvim"]
-	path = vim/.vim/pack/bundle/start/mason-tool-installer.nvim
+	path = nvim/.config/nvim/pack/bundle/start/mason-tool-installer.nvim
 	url = https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
-	path = vim/.vim/pack/bundle/start/nvim-base16
+	path = nvim/.config/nvim/pack/bundle/start/nvim-base16
 	url = https://github.com/RRethy/nvim-base16
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter-textobjects"]
-	path = vim/.vim/pack/bundle/start/nvim-treesitter-textobjects
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-python"]
-	path = vim/.vim/pack/bundle/start/nvim-dap-python
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-python
 	url = https://github.com/mfussenegger/nvim-dap-python
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
-	path = vim/.vim/pack/bundle/start/nvim-dap-vscode-js
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
 [submodule "vim/.vim/pack/bundle/start/lsp-progress.nvim"]
-	path = vim/.vim/pack/bundle/start/lsp-progress.nvim
+	path = nvim/.config/nvim/pack/bundle/start/lsp-progress.nvim
 	url = https://github.com/linrongbin16/lsp-progress.nvim
 [submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
-	path = vim/.vim/pack/bundle/start/vim-vsnip
+	path = nvim/.config/nvim/pack/bundle/start/vim-vsnip
 	url = https://github.com/hrsh7th/vim-vsnip
 [submodule "vim/.vim/pack/bundle/start/quickfix-reflector.vim"]
-	path = vim/.vim/pack/bundle/start/quickfix-reflector.vim
+	path = nvim/.config/nvim/pack/bundle/start/quickfix-reflector.vim
 	url = https://github.com/stefandtw/quickfix-reflector.vim

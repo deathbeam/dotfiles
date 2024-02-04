@@ -1,1 +1,3 @@
-vim/.vim/pack/bundle/start/
+/nvim/.config/nvim/pack/
+/tmux/.tmux/pack/
+/zsh/.zsh/pack/

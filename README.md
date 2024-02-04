@@ -55,7 +55,7 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
 
     # Add SuperTab vim plugin
     git clone git://github.com/ervandew/supertab \
-      ~/.vim/pack/local/start/supertab
+      ~/.config/nvim/pack/local/start/supertab
 
     # Add Tmux sessionist plugin
     git clone git://github.com/tmux-plugins/tmux-sessionist \
@@ -69,4 +69,4 @@ To add your own Vim, Tmux or Zsh plugin you can just clone it to proper
 
 - [/zsh/.zsh/pack/bundle/start](/zsh/.zsh/pack/bundle/start) ZSH plugins
 - [/tmux/.tmux/pack/bundle/start](/tmux/.tmux/pack/bundle/start) TMUX plugins
-- [/vim/.vim/pack/bundle/start](/vim/.vim/pack/bundle/start) Neovim plugins
+- [/nvim/.config/nvim/pack/bundle/start](/nvim/.config/nvim/pack/bundle/start) Neovim plugins
