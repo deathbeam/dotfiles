@@ -22,8 +22,8 @@ yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
-  alsa-utils alsa-plugins alsa-oss alsa-tools alsa-lib \
-  pulseaudio pulseaudio-alsa \
+  alsa-utils alsa-plugins alsa-oss \
+  pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
   stow zsh tmux ripgrep mlocate htop \
   neovim ctags bat trash-cli \
   dropbox pass pass-otp zbar \
@@ -38,9 +38,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
-  python-pip \
-  gst-plugins-good gst-plugins-ugly gstreamer \
-  python-dbus python-opengl python-virtualenv
+  python-pip python-dbus python-opengl python-virtualenv
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
