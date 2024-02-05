@@ -21,7 +21,7 @@ update:
 install:
 	mkdir -p ~/.vim/undodir
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
-	gh extension install github/gh-copilot
+	gh extension install github/gh-copilot || true
 
 uninstall:
 	~/.fzf/uninstall
