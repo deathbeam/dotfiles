@@ -48,12 +48,16 @@ local function get_mark(buf, lnum)
     end
 end
 
-local function get_fold(lnum)
-    if vim.fn.foldclosed(lnum) >= 0 then
-        return { text = vim.opt.fillchars:get().foldclose, texthl = "FoldColumn" }
-    elseif vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
-        return { text = vim.opt.fillchars:get().foldopen }
-    end
+local function get_fold(win, lnum)
+    local fold = nil
+    vim.api.nvim_win_call(win, function()
+        if vim.fn.foldclosed(lnum) >= 0 then
+            fold = { text = vim.opt.fillchars:get().foldclose, texthl = "FoldColumn" }
+        elseif vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
+            fold = { text = vim.opt.fillchars:get().foldopen }
+        end
+    end)
+    return fold
 end
 
 function StatusColumn()
@@ -65,7 +69,7 @@ function StatusColumn()
 
     if show_signs then
         local sign = get_sign(buf, vim.v.lnum)
-        local fold = get_fold(vim.v.lnum)
+        local fold = get_fold(win, vim.v.lnum)
         local mark = get_mark(buf, vim.v.lnum)
 
         if vim.v.virtnum ~= 0 then
@@ -78,7 +82,7 @@ function StatusColumn()
     end
 
     local is_num = vim.wo[win].number
-    local is_relnum = vim.wo[win].relativenumber
+    local is_relnum = vim.wo[win].relativenumber and vim.bo[buf].filetype ~= 'qf'
     if (is_num or is_relnum) and vim.v.virtnum == 0 then
         if vim.v.relnum == 0 then
             components[1] = is_num and "%l" or "%r" -- the current line
