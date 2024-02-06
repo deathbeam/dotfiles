@@ -105,21 +105,13 @@ fi
 # Completion bindings
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
-autoload -Uz cdr
-() {
-   local -a prefix=( '\e'{\[,O} )
-   local -a up=( ${^prefix}A ) down=( ${^prefix}B )
-   local key=
-   for key in $up[@]; do
-      bindkey "$key" up-line-or-history
-   done
-   for key in $down[@]; do
-      bindkey "$key" down-line-or-history
-   done
-}
+
+# Load zoxide
+if command -v zoxide >/dev/null 2>&1; then
+  eval "$(zoxide init zsh --cmd cd)"
+fi
 
 # Adjust git aliases
-unalias gh 2>/dev/null
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
