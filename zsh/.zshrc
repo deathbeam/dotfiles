@@ -72,9 +72,6 @@ alias arch-update='yay -Syu'
 
 # Plugins {{{
 
-# Expand dots
-zstyle ':zim:input' double-dot-expand yes
-
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 
@@ -89,14 +86,12 @@ if [ -z "$PLUGINS_LOADED" ]; then
     functiondir="$plugindir/functions"
     if [ -d "$functiondir" ]; then
       fpath=( "$functiondir" "${fpath[@]}" )
-
       for pluginfunction in $functiondir/*(.); do
         functionname="$(basename $pluginfunction)"
         autoload -Uz $functionname
       done
     fi
     source "$filename" >/dev/null 2>&1
-
     PLUGINS_LOADED+=("$filename")
   done <<< $(find -L ~/.zsh/pack/*/start -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
   export PLUGINS_LOADED
@@ -106,9 +101,23 @@ fi
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
 
+# Load fzf after plugins to be able to override them
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+export FZF_DEFAULT_OPTS="--color=border:#268bd2 --border=sharp --margin 0,0 --preview-window=border-sharp"
+export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
+export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
+export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
+
 # Load zoxide
 if command -v zoxide >/dev/null 2>&1; then
-  eval "$(zoxide init zsh --cmd cd)"
+   function z() {
+    __zoxide_z "$@"
+  }
+  alias cd='z'
+  +autocomplete:recent-directories() {
+    reply=(${(f)"$(zoxide query -l)"})
+  }
+  eval "$(zoxide init zsh --no-cmd)"
 fi
 
 # Adjust git aliases
@@ -116,14 +125,6 @@ alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
 alias gcm='git commit --signoff --message'
-
-# Load fzf after plugins to be able to override them
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
-export FZF_DEFAULT_OPTS="--color=border:#268bd2 --border=sharp --margin 0,0 --preview-window=border-sharp"
-export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
-export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
-export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
 # Set virtualenv shared requirements txt
 export AUTOSWITCH_DEFAULT_REQUIREMENTS="$HOME/.requirements.txt"

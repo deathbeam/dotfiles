@@ -115,7 +115,7 @@
 	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autocomplete"]
-	path = zsh/.zsh/pack/bundle/start/zsh-autocomplete
+	path = zsh/.zsh/pack/bundle/start/_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
 [submodule "zsh/.zsh/pack/bundle/start/fast-syntax-highlighting"]
 	path = zsh/.zsh/pack/bundle/start/fast-syntax-highlighting
