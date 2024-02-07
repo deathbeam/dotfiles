@@ -168,3 +168,6 @@
 [submodule "vim/.vim/pack/bundle/start/quickfix-reflector.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/quickfix-reflector.vim
 	url = https://github.com/stefandtw/quickfix-reflector.vim
+[submodule "zsh/.zsh/pack/bundle/start/fasd"]
+	path = zsh/.zsh/pack/bundle/start/fasd
+	url = https://github.com/zimfw/fasd

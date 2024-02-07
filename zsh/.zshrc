@@ -97,9 +97,18 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# Completion bindings
+# Completion
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
+function nvim_recent_files() {
+  nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n"
+}
++autocomplete:recent-directories() {
+  reply=(${(f)"$(fasd -dlR)"})
+}
++autocomplete:recent-files() {
+  reply=(${(f)"$(fasd -flR)"})
+}
 
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -107,18 +116,6 @@ export FZF_DEFAULT_OPTS="--color=border:#268bd2 --border=sharp --margin 0,0 --pr
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
-
-# Load zoxide
-if command -v zoxide >/dev/null 2>&1; then
-   function z() {
-    __zoxide_z "$@"
-  }
-  alias cd='z'
-  +autocomplete:recent-directories() {
-    reply=(${(f)"$(zoxide query -l)"})
-  }
-  eval "$(zoxide init zsh --no-cmd)"
-fi
 
 # Adjust git aliases
 alias gc='git commit --signoff --verbose'
