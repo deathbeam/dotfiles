@@ -77,6 +77,15 @@ zstyle ':zim:git' aliases-prefix g
 
 # Autocomplete
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+function nvim_recent_files() {
+  nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n"
+}
++autocomplete:recent-directories() {
+  reply=(${(f)"$(fasd -dlR)"})
+}
++autocomplete:recent-files() {
+  reply=(${(f)"$(fasd -flR)"})
+}
 
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
@@ -100,15 +109,6 @@ fi
 # Completion
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
-function nvim_recent_files() {
-  nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n"
-}
-+autocomplete:recent-directories() {
-  reply=(${(f)"$(fasd -dlR)"})
-}
-+autocomplete:recent-files() {
-  reply=(${(f)"$(fasd -flR)"})
-}
 
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
