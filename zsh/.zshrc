@@ -121,6 +121,7 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
 # Adjust git aliases
+unalias gh
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
