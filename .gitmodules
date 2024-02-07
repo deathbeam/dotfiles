@@ -116,7 +116,8 @@
 	url = https://github.com/aserowy/tmux.nvim
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/_zsh-autocomplete
-	url = https://github.com/marlonrichert/zsh-autocomplete
+	url = https://github.com/deathbeam/zsh-autocomplete
+	branch = globbed-files
 [submodule "zsh/.zsh/pack/bundle/start/fast-syntax-highlighting"]
 	path = zsh/.zsh/pack/bundle/start/fast-syntax-highlighting
 	url = https://github.com/zdharma-continuum/fast-syntax-highlighting

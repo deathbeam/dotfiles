@@ -77,6 +77,7 @@ zstyle ':zim:git' aliases-prefix g
 
 # Autocomplete
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
+zstyle '*:compinit' arguments -D -i -u -C -w
 function nvim_recent_files() {
   nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n"
 }
