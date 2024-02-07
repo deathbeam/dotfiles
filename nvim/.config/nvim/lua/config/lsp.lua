@@ -11,19 +11,6 @@ for name, icon in pairs(require("config.icons").diagnostics) do
     vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
 end
 
--- make zsh files recognized as sh for bash-ls & treesitter
-vim.filetype.add {
-    extension = {
-        zsh = "sh",
-        sh = "sh",
-    },
-    filename = {
-        [".zshrc"] = "sh",
-        [".zshenv"] = "sh",
-        [".zprofile"] = "sh",
-    },
-}
-
 local function inlay_hints(buf, value)
     local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
     if type(ih) == "function" then

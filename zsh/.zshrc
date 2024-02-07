@@ -5,22 +5,45 @@ if [ -f ~/.profile ]; then
   source ~/.profile
 fi
 
-# Enable colors
-export CLICOLOR=1
-
-# Remove older command from the history if a duplicate is to be added.
+# History file configuration
+[ -z "$HISTFILE" ] && HISTFILE="$HOME/.zhistory"
+HISTSIZE=100000
+SAVEHIST=50000
+setopt HIST_FIND_NO_DUPS
+setopt HIST_IGNORE_DUPS
 setopt HIST_IGNORE_ALL_DUPS
 setopt HIST_SAVE_NO_DUPS
 setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
+setopt HIST_VERIFY
+setopt SHARE_HISTORY
 
-# Emacs command mode (its better than vi sadly)
-setopt emacs
-
-# Expand dots
-setopt globdots
-
-# Remove path separator from WORDCHARS.
+# Input configuration
+setopt EMACS
+setopt INTERACTIVE_COMMENTS
+setopt GLOB_DOTS
+setopt EXTENDED_GLOB
 WORDCHARS=${WORDCHARS//[\/]}
+
+# Directory configuration
+setopt AUTO_CD
+setopt AUTO_PUSHD
+setopt CD_SILENT
+setopt PUSHD_IGNORE_DUPS
+
+# Job configuration
+setopt LONG_LIST_JOBS
+setopt NO_BG_NICE
+setopt NO_CHECK_JOBS
+setopt NO_HUP
+
+# }}}
+
+# Mappings {{{
+
+autoload -z edit-command-line
+zle -N edit-command-line
+bindkey '^[' edit-command-line
 
 # }}}
 
@@ -37,6 +60,12 @@ if command -v xsel >/dev/null 2>&1; then
   alias c='xsel --clipboard --input'
   alias p='xsel --clipboard --output'
 fi
+
+# Arch utilities
+alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'
+alias arch-update-mirrors='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
+alias arch-remove-orphans='yay -Rns $(yay -Qtdq)'
+alias arch-update='yay -Syu'
 
 # Set proxy
 function setproxy {
@@ -62,12 +91,6 @@ function unsetproxy {
     JDK_JAVA_OPTIONS
 }
 
-# Arch utilities
-alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'
-alias arch-update-mirrors='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
-alias arch-remove-orphans='yay -Rns $(yay -Qtdq)'
-alias arch-update='yay -Syu'
-
 # }}}
 
 # Plugins {{{
@@ -75,9 +98,10 @@ alias arch-update='yay -Syu'
 # Set git alias prefix
 zstyle ':zim:git' aliases-prefix g
 
-# Autocomplete
+# Enable colors for ls
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
-zstyle '*:compinit' arguments -D -i -u -C -w
+
+# Enable recent directories and files completion
 function recent_files() {
   fasd_out=$(fasd -flR)
   nvim_out=$(nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n")
@@ -109,7 +133,7 @@ if [ -z "$PLUGINS_LOADED" ]; then
   export PLUGINS_LOADED
 fi
 
-# Completion
+# Bind c-n and c-p to navigate in completion menu properly
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
 
@@ -121,7 +145,7 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
 # Adjust git aliases
-unalias gh
+unalias gh # Conflict with github-cli
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
