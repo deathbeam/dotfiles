@@ -24,9 +24,18 @@ base16.load_from_shell()
 vim.api.nvim_create_autocmd("BufEnter", {
     desc = "Set colorcolumn",
     callback = function()
-        vim.opt.colorcolumn = ""..vim.opt.textwidth:get()
+        vim.opt.colorcolumn = "" .. vim.opt.textwidth:get()
     end
 })
 
 -- Load icons
 require("nvim-web-devicons").setup()
+
+-- File browser
+require("oil").setup {
+    view_options = {
+        show_hidden = true
+    }
+}
+
+vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })

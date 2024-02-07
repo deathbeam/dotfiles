@@ -66,12 +66,6 @@
 [submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
 	path = tmux/.tmux/pack/bundle/start/tmux-fzf
 	url = https://github.com/sainnhe/tmux-fzf
-[submodule "vim/.vim/pack/bundle/start/vim-dirvish"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-dirvish
-	url = https://github.com/justinmk/vim-dirvish
-[submodule "vim/.vim/pack/bundle/start/vim-dirvish-dovish"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-dirvish-dovish
-	url = https://github.com/roginfarrer/vim-dirvish-dovish
 [submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
@@ -172,3 +166,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/fasd"]
 	path = zsh/.zsh/pack/bundle/start/fasd
 	url = https://github.com/zimfw/fasd
+[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim
