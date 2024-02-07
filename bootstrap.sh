@@ -64,7 +64,7 @@ yay --noconfirm -S --mflags --skipinteg \
   libnotify dunst \
   bspwm sxhkd polybar \
   mpv discord boosteroid calibre \
-  postman bruno-bin intellij-idea-ue-eap
+  postman intellij-idea-ue-eap
 
 echo '==> Installing dotfiles'
 git clone https://github.com/deathbeam/dotfiles ~/.dotfiles || true
