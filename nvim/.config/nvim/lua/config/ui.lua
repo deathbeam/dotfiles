@@ -35,6 +35,14 @@ require("nvim-web-devicons").setup()
 require("oil").setup {
     view_options = {
         show_hidden = true
+    },
+    keymaps = {
+        ["<C-s>"] = false,
+        ["<C-h>"] = false,
+        ["<C-t>"] = false,
+        ["<C-p>"] = false,
+        ["<C-c>"] = false,
+        ["<C-l>"] = false,
     }
 }
 
