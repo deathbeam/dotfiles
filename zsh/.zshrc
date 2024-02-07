@@ -78,14 +78,16 @@ zstyle ':zim:git' aliases-prefix g
 # Autocomplete
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 zstyle '*:compinit' arguments -D -i -u -C -w
-function nvim_recent_files() {
-  nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n"
+function recent_files() {
+  fasd_out=$(fasd -flR)
+  nvim_out=$(nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n")
+  echo $fasd_out $nvim_out | tr " " "\n" | uniq
 }
 +autocomplete:recent-directories() {
   reply=(${(f)"$(fasd -dlR)"})
 }
 +autocomplete:recent-files() {
-  reply=(${(f)"$(fasd -flR)"})
+  reply=(${(f)"$(recent_files)"})
 }
 
 # Pathogen-like loader for plugins
