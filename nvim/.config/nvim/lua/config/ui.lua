@@ -1,4 +1,5 @@
 -- Set base16 colorscheme
+vim.opt.termguicolors = true
 local base16 = require("base16-colorscheme")
 vim.api.nvim_create_autocmd("ColorScheme", {
     desc = "Adjust colors",
