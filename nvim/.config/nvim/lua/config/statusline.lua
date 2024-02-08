@@ -1,3 +1,4 @@
+local au = require("config.utils").au
 local lspprogress = require('lsp-progress')
 lspprogress.setup()
 
@@ -39,11 +40,23 @@ function StatusLineInactive()
     }
 end
 
-vim.cmd [[
-  augroup Statusline
-  au!
-  au User LspProgressStatusUpdated redrawstatus!
-  au WinEnter,BufEnter * setlocal statusline=%!v:lua.StatusLineActive()
-  au WinLeave,BufLeave * setlocal statusline=%!v:lua.StatusLineInactive()
-  augroup END
-]]
+au("User", {
+    pattern = {"LspProgressStatusUpdated"},
+    callback = function()
+        vim.cmd("redrawstatus!")
+    end
+})
+
+au({"WinEnter", "BufEnter"}, {
+    pattern = {"*"},
+    callback = function()
+        vim.opt_local.statusline = "%!v:lua.StatusLineActive()"
+    end
+})
+
+au({"WinLeave","BufLeave"}, {
+    pattern = {"*"},
+    callback = function()
+        vim.opt_local.statusline = "%!v:lua.StatusLineInactive()"
+    end
+})

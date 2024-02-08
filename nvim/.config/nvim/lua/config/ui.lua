@@ -24,10 +24,10 @@ au("ColorScheme", {
 base16.load_from_shell()
 
 -- Set colorcolumn to textwidth
-au("BufEnter", {
+au({"BufEnter", "WinEnter"}, {
     desc = "Set colorcolumn",
     callback = function()
-        vim.opt.colorcolumn = "" .. vim.opt.textwidth:get()
+        vim.opt_local.colorcolumn = "" .. vim.opt_local.textwidth:get()
     end
 })
 
