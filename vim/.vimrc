@@ -138,37 +138,6 @@ nnoremap <silent> dm<CR> :<C-U>delm a-zA-Z0-9<CR>
 
 " }}}
 
-" Plugins {{{
-
-" VimWiki
-let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}]
-let g:vimwiki_global_ext = 0
-let g:vimwiki_table_mappings = 0
-autocmd VimRc BufEnter diary.md :VimwikiDiaryGenerateLinks
-
-" Vim rooter
-let g:rooter_patterns = [
-      \ '.git',
-      \ '.git/',
-      \ '_darcs/',
-      \ '.hg/',
-      \ '.bzr/',
-      \ '.svn/',
-      \ '.editorconfig',
-      \ 'Makefile',
-      \ '.pylintrc',
-      \ 'requirements.txt',
-      \ 'setup.py',
-      \ 'package.json',
-      \ 'mvnw',
-      \ 'gradlew',
-      \]
-
-" Load all plugins
-:packloadall
-
-" }}}
-
 " User configuration {{{
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local

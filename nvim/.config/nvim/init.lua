@@ -11,6 +11,37 @@ utils.desc("<leader>w", "[W]iki")
 utils.nmap("]<space>", "o<Esc>k")
 utils.nmap("[<space>", "O<Esc>j")
 
+vim.g.rooter_patterns = {
+    '.git',
+    '.git/',
+    '_darcs/',
+    '.hg/',
+    '.bzr/',
+    '.svn/',
+    '.editorconfig',
+    'Makefile',
+    '.pylintrc',
+    'requirements.txt',
+    'setup.py',
+    'package.json',
+    'mvnw',
+    'gradlew',
+}
+
+vim.g.vimwiki_list = {{
+    path = '~/vimwiki/',
+    syntax =  'markdown',
+    ext = '.md'
+}}
+
+vim.g.vimwiki_global_ext = 0
+vim.g.vimwiki_table_mappings = 0
+
+utils.au("BufEnter", {
+    pattern = "diary.md",
+    command = "VimwikiDiaryGenerateLinks"
+})
+
 require("tmux").setup {
     copy_sync = {
         enable = false
