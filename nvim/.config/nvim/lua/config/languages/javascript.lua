@@ -1,13 +1,17 @@
 local dap = require("dap")
 local dap_utils = require("dap.utils")
 local registry = require("mason-registry")
+local cache_vars = {}
 
-require("dap-vscode-js").setup({
-    debugger_path = registry.get_package("js-debug-adapter"):get_install_path(),
-    adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-})
+local function js_setup(language)
+    if not cache_vars.dap_setup then
+        cache_vars.dap_setup = true
+        require("dap-vscode-js").setup({
+            debugger_path = registry.get_package("js-debug-adapter"):get_install_path(),
+            adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+        })
+    end
 
-for _, language in ipairs({ "typescript", "javascript" }) do
     dap.configurations[language] = {
         {
             type = "pwa-node",
@@ -19,7 +23,7 @@ for _, language in ipairs({ "typescript", "javascript" }) do
         {
             type = "pwa-node",
             request = "attach",
-            name = "Attach",
+            name = "Attach process",
             processId = dap_utils.pick_process,
             cwd = "${workspaceFolder}",
         },
@@ -32,4 +36,12 @@ for _, language in ipairs({ "typescript", "javascript" }) do
             userDataDir = "${workspaceFolder}/.vscode/debug"
         }
     }
+end
+
+for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
+    vim.api.nvim_create_autocmd("FileType", {
+        pattern = {language},
+        desc = "Setup " .. language,
+        callback = function() js_setup(language) end,
+    })
 end

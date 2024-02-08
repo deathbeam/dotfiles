@@ -5,17 +5,10 @@ local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
 local registry = require("mason-registry")
 local utils = require("config.utils")
+local dap = require("dap")
 local nmap = utils.nmap
 local lsp_capabilities = utils.make_capabilities()
 local cache_vars = {}
-
-require("dap").configurations.java = {{
-    type = "java",
-    request = "attach",
-    name = "Attach remote",
-    hostName = "localhost",
-    port = 5005,
-}}
 
 local function get_jdtls_paths()
     if cache_vars.paths then
@@ -63,6 +56,17 @@ local function jdtls_on_attach(client, bufnr)
 end
 
 local function java_setup()
+    if not cache_vars.dap_setup then
+        cache_vars.dap_setup = true
+        dap.configurations.java = {{
+            type = "java",
+            request = "attach",
+            name = "Attach remote",
+            hostName = "localhost",
+            port = 5005,
+        }}
+    end
+
     local cwd = vim.fn.getcwd()
     local path = get_jdtls_paths()
     local data_dir = path.data_dir .. "/" ..  vim.fn.fnamemodify(cwd, ":p:h:t")
