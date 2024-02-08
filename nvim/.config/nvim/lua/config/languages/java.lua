@@ -4,9 +4,10 @@ local languages = require("config.languages")
 local jdtls = require("jdtls")
 local jdtls_dap = require("jdtls.dap")
 local registry = require("mason-registry")
-local utils = require("config.utils")
 local dap = require("dap")
+local utils = require("config.utils")
 local nmap = utils.nmap
+local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 local cache_vars = {}
 
@@ -112,7 +113,7 @@ local function java_setup()
     })
 end
 
-vim.api.nvim_create_autocmd("FileType", {
+au("FileType", {
     pattern = {"java"},
     desc = "Setup java",
     callback = java_setup,

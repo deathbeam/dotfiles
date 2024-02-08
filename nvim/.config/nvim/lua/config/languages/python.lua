@@ -1,6 +1,8 @@
-local nmap = require("config.utils").nmap
 local registry = require("mason-registry")
 local python_dap = require("dap-python")
+local utils = require("config.utils")
+local nmap = utils.nmap
+local au = utils.au
 local cache_vars = {}
 
 local function python_setup()
@@ -15,7 +17,7 @@ local function python_setup()
     nmap("<leader>dT", python_dap.test_class, "[D]ebug [T]est Class", 0)
 end
 
-vim.api.nvim_create_autocmd("FileType", {
+au("FileType", {
     pattern = {"python"},
     desc = "Setup python",
     callback = python_setup,

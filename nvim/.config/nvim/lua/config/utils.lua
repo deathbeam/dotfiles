@@ -1,4 +1,5 @@
 local wk = require("which-key")
+local group = vim.api.nvim_create_augroup('VimRc', { clear = true })
 
 local M = {}
 
@@ -61,6 +62,11 @@ M.make_capabilities = function()
 
     capabilities.textDocument.completion.completionItem.snippetSupport = false
     return capabilities
+end
+
+M.au = function(event, opts)
+    opts["group"] = group
+    return vim.api.nvim_create_autocmd(event, opts)
 end
 
 return M

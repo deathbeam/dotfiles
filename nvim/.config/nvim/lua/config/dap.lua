@@ -4,6 +4,7 @@ local nmap = utils.nmap
 local rnmap = utils.rnmap
 local nvmap = utils.rnvmap
 local desc = utils.desc
+local au = utils.au
 
 desc("<leader>d", "[D]ebug")
 
@@ -46,7 +47,7 @@ dapui.setup {
 dap.listeners.before.attach.dapui_config = function() dapui.open({ reset = true }) end
 dap.listeners.before.launch.dapui_config = function() dapui.open({ reset = true }) end
 
-vim.api.nvim_create_autocmd("VimResized", {
+au("VimResized", {
     desc = "DAP UI resize",
     callback = function()
         for _, win_layout in ipairs(dapui_windows.layouts) do

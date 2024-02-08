@@ -1,6 +1,7 @@
 local dap = require("dap")
 local dap_utils = require("dap.utils")
 local registry = require("mason-registry")
+local au = require("config.utils").au
 local cache_vars = {}
 
 local function js_setup(language)
@@ -39,7 +40,7 @@ local function js_setup(language)
 end
 
 for _, language in ipairs({ "typescript", "javascript", "typescriptreact", "javascriptreact" }) do
-    vim.api.nvim_create_autocmd("FileType", {
+    au("FileType", {
         pattern = {language},
         desc = "Setup " .. language,
         callback = function() js_setup(language) end,

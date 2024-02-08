@@ -1,7 +1,9 @@
+local au = require("config.utils").au
+
 -- Set base16 colorscheme
 vim.opt.termguicolors = true
 local base16 = require("base16-colorscheme")
-vim.api.nvim_create_autocmd("ColorScheme", {
+au("ColorScheme", {
     desc = "Adjust colors",
     callback = function()
         local base0D = base16.colors.base0D
@@ -22,7 +24,7 @@ vim.api.nvim_create_autocmd("ColorScheme", {
 base16.load_from_shell()
 
 -- Set colorcolumn to textwidth
-vim.api.nvim_create_autocmd("BufEnter", {
+au("BufEnter", {
     desc = "Set colorcolumn",
     callback = function()
         vim.opt.colorcolumn = "" .. vim.opt.textwidth:get()

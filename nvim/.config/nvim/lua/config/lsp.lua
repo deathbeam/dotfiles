@@ -3,6 +3,7 @@ local languages = require("config.languages")
 local utils = require("config.utils")
 local nmap = utils.nmap
 local desc = utils.desc
+local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
 desc("<leader>c", "[C]ode")
@@ -23,7 +24,7 @@ local function inlay_hints(buf, value)
     end
 end
 
-vim.api.nvim_create_autocmd("LspAttach", {
+au("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
