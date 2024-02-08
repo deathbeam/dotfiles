@@ -2,11 +2,6 @@
 
 " General {{{
 
-" Reset all auto commands
-augroup VimRc
-  autocmd!
-augroup END
-
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowritebackup
@@ -68,9 +63,6 @@ set numberwidth=3
 set foldtext=""
 set foldlevel=99
 
-" Automatically rebalance windows on vim resize
-autocmd VimRc VimResized * :wincmd =
-
 " }}}
 
 " Text, tab and indent related {{{
@@ -95,10 +87,6 @@ set fileformats=unix,dos,mac
 
 " Mappings and commands {{{
 
-" Restore cursor position
-autocmd VimRc BufRead * autocmd FileType <buffer> ++once
-      \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
-
 " With a map leader it's possible to do extra key combinations
 let mapleader = ' '
 let maplocalleader = ' '
@@ -108,19 +96,6 @@ let g:mapleader = ' '
 noremap <silent> <leader>" :<C-U>vsplit<cr>
 noremap <silent> <leader>% :<C-U>split<cr>
 noremap <silent> <leader>x :<C-U>close<cr>
-
-function! ToggleZoom(zoom)
-  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
-      exec t:restore_zoom.cmd
-      unlet t:restore_zoom
-  elseif a:zoom
-      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
-      exec "normal \<C-W>\|\<C-W>_"
-  endif
-endfunction
-
-autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
-nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
 
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>
