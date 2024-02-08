@@ -8,8 +8,6 @@ vim.cmd([[
 local utils = require("config.utils")
 
 utils.desc("<leader>w", "[W]iki")
-utils.nmap("]<space>", "o<Esc>k")
-utils.nmap("[<space>", "O<Esc>j")
 
 vim.g.rooter_patterns = {
     '.git',
@@ -41,12 +39,6 @@ utils.au("BufEnter", {
     pattern = "diary.md",
     command = "VimwikiDiaryGenerateLinks"
 })
-
-require("tmux").setup {
-    copy_sync = {
-        enable = false
-    }
-}
 
 require("mason").setup()
 require("mason-tool-installer").setup {
