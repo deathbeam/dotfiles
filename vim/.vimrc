@@ -2,6 +2,11 @@
 
 " General {{{
 
+" Load vim defaults
+if !has('nvim')
+  source $VIMRUNTIME/defaults.vim
+endif
+
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowritebackup
@@ -9,7 +14,6 @@ set noswapfile
 
 " Turn persistent undo on
 " means that you can undo even when you close a buffer/VIM
-set undodir=$HOME/.vim/undodir
 set undofile
 
 " Use system clipboard
@@ -21,10 +25,11 @@ endif
 
 " User interface {{{
 
-" set title
+" Set title
 set title
 set titlestring=%F
 
+" Faster update time
 set updatetime=100
 
 " Ignore case when searching
@@ -50,9 +55,6 @@ set laststatus=2
 
 " Show cursor line
 set cursorline
-
-" Always show the signcolumn
-set signcolumn=yes
 
 " Relative numbers
 set number
@@ -108,7 +110,6 @@ cnoremap <C-N> <Down>
 
 " Useful system mappings
 command! W w !sudo tee % > /dev/null
-command! X !chmod +x % > /dev/null
 
 " }}}
 
