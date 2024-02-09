@@ -6,12 +6,16 @@ vim.cmd([[
 ]])
 
 local utils = require("config.utils")
+local nmap = utils.nmap
 
-utils.desc("<leader>w", "[W]iki")
+-- Quickfix mappings
+nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
+nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
+nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
 
-utils.nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
-utils.nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
-utils.nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
+-- Mark mappings
+nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
+nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
 
 vim.g.rooter_patterns = {
     '.git',
@@ -30,19 +34,6 @@ vim.g.rooter_patterns = {
     'gradlew',
 }
 
-vim.g.vimwiki_list = {{
-    path = '~/vimwiki/',
-    syntax =  'markdown',
-    ext = '.md'
-}}
-
-vim.g.vimwiki_global_ext = 0
-vim.g.vimwiki_table_mappings = 0
-
-utils.au("BufEnter", {
-    pattern = "diary.md",
-    command = "VimwikiDiaryGenerateLinks"
-})
 
 require("mason").setup()
 require("mason-tool-installer").setup {
@@ -55,6 +46,7 @@ require("mason-tool-installer").setup {
 }
 
 require("config.ui")
+require("config.wiki")
 require("config.statuscolumn")
 require("config.statusline")
 require("config.finder")
