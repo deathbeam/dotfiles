@@ -9,8 +9,8 @@ index 91ab8ca..2825d15 100644
 -static char *font = "Liberation Mono:pixelsize=12:antialias=true:autohint=true";
 -static int borderpx = 2;
 +static char *font = "monospace:size=12:antialias=false:autohint=false";
-+static int borderpx = 10;
- 
++static int borderpx = 3;
+
  /*
   * What program is execed by st depends of these precedence rules:
 @@ -16,7 +16,7 @@ static int borderpx = 2;
@@ -24,10 +24,10 @@ index 91ab8ca..2825d15 100644
  char *scroll = NULL;
 @@ -74,7 +74,7 @@ static unsigned int cursorthickness = 2;
  static int bellvolume = 0;
- 
+
  /* default TERM value */
 -char *termname = "st-256color";
 +char *termname = "xterm-256color";
- 
+
  /*
   * spaces per tab
