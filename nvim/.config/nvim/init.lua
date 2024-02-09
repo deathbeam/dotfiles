@@ -9,6 +9,10 @@ local utils = require("config.utils")
 
 utils.desc("<leader>w", "[W]iki")
 
+utils.nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
+utils.nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
+utils.nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
+
 vim.g.rooter_patterns = {
     '.git',
     '.git/',

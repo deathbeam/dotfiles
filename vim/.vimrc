@@ -83,6 +83,9 @@ set smartindent
 " Use Unix as the standard file type
 set fileformats=unix,dos,mac
 
+" Auto comments are annoying, disable them
+autocmd FileType * set formatoptions-=cro
+
 " }}}
 
 " Mappings and commands {{{

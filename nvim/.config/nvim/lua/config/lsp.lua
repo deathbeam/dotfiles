@@ -40,14 +40,14 @@ au("LspAttach", {
         nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences", event.buf)
         nmap("gs", vim.lsp.buf.signature_help, "[G]oto [S]ignature Help", event.buf)
         nmap("gl", vim.diagnostic.open_float, "[G]oto [L]ine Diagnostics", event.buf)
-        nmap("[d", vim.diagnostic.goto_prev, "Goto Previous [D]iagnostic", event.buf)
-        nmap("]d", vim.diagnostic.goto_next, "Goto Next [D]iagnostic", event.buf)
+        nmap("[d", vim.diagnostic.goto_prev, "Goto previous [D]iagnostic", event.buf)
+        nmap("]d", vim.diagnostic.goto_next, "Goto next [D]iagnostic", event.buf)
 
         -- find
         nmap("<leader>fd", fzf_lua.lsp_document_diagnostics, "[F]ind [D]iagnostics", event.buf)
-        nmap("<leader>fD", fzf_lua.lsp_workspace_diagnostics, "[F]ind All [D]iagnostics", event.buf)
+        nmap("<leader>fD", fzf_lua.lsp_workspace_diagnostics, "[F]ind all [D]iagnostics", event.buf)
         nmap("<leader>fs", fzf_lua.lsp_document_symbols, "[F]ind [S]ymbols", event.buf)
-        nmap("<leader>fS", fzf_lua.lsp_live_workspace_symbols, "[F]ind All [S]ymbols", event.buf)
+        nmap("<leader>fS", fzf_lua.lsp_live_workspace_symbols, "[F]ind all [S]ymbols", event.buf)
 
         -- code
         nmap("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename", event.buf)
