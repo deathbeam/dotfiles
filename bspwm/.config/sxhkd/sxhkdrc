@@ -28,7 +28,7 @@ super + x
 
 # clipboard menu
 super + c
-  CM_LAUNCHER="$HOME/.config/dmenu/fzfmenu" clipmenu -p "clip"
+  ~/.config/dmenu/clipmenu -p "clip"
 
 # make sxhkd reload its configuration files:
 super + Escape

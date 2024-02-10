@@ -45,7 +45,7 @@ pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archi
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
-  xorg-fonts-misc xsel xclip clipnotify autocutsel \
+  xorg-fonts-misc xsel xclip autocutsel clipnotify clipmenu-git \
   xf86-input-libinput xcape xtitle \
   redshift-qt \
   upower \
@@ -87,11 +87,6 @@ git clone git://git.suckless.org/slock || true
 cd slock
 cp config.def.h config.h
 git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/slock.diff
-sudo make install
-cd ..
-
-git clone https://github.com/cdown/clipmenu.git || true
-cd clipmenu
 sudo make install
 cd ..
 
