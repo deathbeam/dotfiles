@@ -3,6 +3,7 @@
 processes="$(ps -eo %cpu,%mem,pid,user,cmd h)"
 echo "$processes" \
     | grep -v procmenu \
+    | grep -v 'ps -eo' \
     | awk '{print $1+$2, $0}' \
     | sort -k 1 -n -r \
     | cut -d ' ' -f 2- \
