@@ -1,5 +1,6 @@
 local wk = require("which-key")
 local group = vim.api.nvim_create_augroup('VimRc', { clear = true })
+local root_cache = {}
 
 local M = {}
 
@@ -49,6 +50,11 @@ M.rnvmap = function(keys, func, desc, buffer)
     M.map({"n", "v"}, keys, func, true, desc, buffer)
 end
 
+M.au = function(event, opts)
+    opts["group"] = group
+    return vim.api.nvim_create_autocmd(event, opts)
+end
+
 M.desc = function(key, desc)
     wk.register { [key] = { name = desc, _ = "which_key_ignore" } }
 end
@@ -64,9 +70,25 @@ M.make_capabilities = function()
     return capabilities
 end
 
-M.au = function(event, opts)
-    opts["group"] = group
-    return vim.api.nvim_create_autocmd(event, opts)
+M.find_root = function(markers)
+    local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
+    local dirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub("oil://", "")
+    if root_cache[dirname] then
+        return root_cache[dirname]
+    end
+
+    local getparent = function(p)
+        return vim.fn.fnamemodify(p, ':h')
+    end
+    while getparent(dirname) ~= dirname do
+        for _, marker in ipairs(markers) do
+            if vim.loop.fs_stat(vim.fs.joinpath(dirname, marker)) then
+                root_cache[dirname] = dirname
+                return dirname
+            end
+        end
+        dirname = getparent(dirname)
+    end
 end
 
 return M

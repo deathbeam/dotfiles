@@ -10,9 +10,6 @@
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule "vim/.vim/bundle/vim-rooter"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-rooter
-	url = https://github.com/airblade/vim-rooter
 [submodule "vim/.vim/bundle/vimwiki"]
 	path = nvim/.config/nvim/pack/bundle/start/vimwiki
 	url = https://github.com/vimwiki/vimwiki
@@ -163,3 +160,6 @@
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/deathbeam/zsh-autocomplete
 	branch = globbed-files
+[submodule "nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp-signature-help"]
+	path = nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp-signature-help
+	url = https://github.com/hrsh7th/cmp-nvim-lsp-signature-help

@@ -7,6 +7,7 @@ vim.cmd([[
 
 local utils = require("config.utils")
 local nmap = utils.nmap
+local au = utils.au
 
 -- Quickfix mappings
 nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
@@ -17,7 +18,8 @@ nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
 nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
 nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
 
-vim.g.rooter_patterns = {
+-- Find root directory
+local root_patterns = {
     '.git',
     '.git/',
     '_darcs/',
@@ -33,6 +35,18 @@ vim.g.rooter_patterns = {
     'mvnw',
     'gradlew',
 }
+
+au({ "VimEnter", "BufEnter" }, {
+    desc = "Find root directory",
+    pattern = "*",
+    nested = true,
+    callback = function()
+        local root_dir = utils.find_root(root_patterns)
+        if root_dir then
+            vim.api.nvim_set_current_dir(root_dir)
+        end
+    end,
+})
 
 
 require("mason").setup()
