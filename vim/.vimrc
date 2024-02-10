@@ -65,6 +65,10 @@ set numberwidth=3
 set foldtext=""
 set foldlevel=99
 
+" Better file browser
+let g:netrw_banner=0
+nmap - <CMD>Explore<CR>
+
 " }}}
 
 " Text, tab and indent related {{{

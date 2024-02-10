@@ -53,7 +53,11 @@ main() {
     esac
     shift
   done
-  run_menu "$(printf "%q " "$@")"
+  quoted_args=""
+  if [ $# -gt 0 ]; then
+    quoted_args="$(printf "%q " "$@")"
+  fi
+  run_menu "$quoted_args"
 }
 
 main "$@"
