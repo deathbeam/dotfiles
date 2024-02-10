@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
-ps -eo %cpu,%mem,pid,user,args h | \
-    sort -k 1 -r | \
-    ~/.config/dmenu/fzfmenu "$@" -h "CPU% MEM% PID     USER     ARGS" | \
-    awk '{print $3}' | \
-    xargs kill -9 &>/dev/null
+ps -eo %cpu,%mem,pid,user,cmd h \
+    | sort -k 1 -r \
+    | ~/.config/dmenu/fzfmenu "$@" \
+    -h "CPU% MEM% PID     USER     CMD" \
+    -a "--preview=\"echo {} | tr -s ' ' | cut -d ' ' -f 6-\" --preview-window=down,3,wrap" \
+    | awk '{print $3}' \
+    | xargs kill -9 &>/dev/null
