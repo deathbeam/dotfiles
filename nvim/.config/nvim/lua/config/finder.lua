@@ -11,7 +11,9 @@ fzf_lua.setup {
     fzf_opts = {
         ["--info"] = false,
         ["--border"] = false,
-        ["--preview-window"] = false,
+        -- FIXME: Wait for https://github.com/ibhagwan/fzf-lua/pull/1036
+        -- ["--preview-window"] = false,
+        ["--preview-window"] = "border-sharp",
     },
     files = {
         fzf_opts = {
