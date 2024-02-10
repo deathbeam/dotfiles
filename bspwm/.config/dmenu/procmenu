@@ -1,7 +1,9 @@
 #!/usr/bin/env bash
 
 ps -eo %cpu,%mem,pid,user,cmd h \
+    | awk '{print $1+$2, $0}' \
     | sort -k 1 -r \
+    | cut -d ' ' -f 2- \
     | ~/.config/dmenu/fzfmenu "$@" \
     --header="CPU% MEM% PID     USER     CMD" \
     --preview="echo {} | tr -s ' ' | cut -d ' ' -f 6-" \
