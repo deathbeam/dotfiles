@@ -1,20 +1,22 @@
 local au = require("config.utils").au
 local root_cache = {}
 
+local function getparent(p)
+    return vim.fn.fnamemodify(p, ':h')
+end
+
 local function find_root(markers)
     local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
-    local dirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub("oil://", "")
-    if root_cache[dirname] then
-        return root_cache[dirname]
+    local bufdirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub("oil://", "")
+    if root_cache[bufdirname] then
+        return root_cache[bufdirname]
     end
 
-    local getparent = function(p)
-        return vim.fn.fnamemodify(p, ':h')
-    end
+    local dirname = bufdirname
     while getparent(dirname) ~= dirname do
         for _, marker in ipairs(markers) do
             if vim.loop.fs_stat(vim.fs.joinpath(dirname, marker)) then
-                root_cache[dirname] = dirname
+                root_cache[bufdirname] = dirname
                 return dirname
             end
         end
