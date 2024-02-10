@@ -10,7 +10,7 @@ list_clips() {
 
 chosen_line=$(list_clips \
     | ~/.config/dmenu/fzfmenu "$@" \
-    --preview="cat \"$cache_dir/\$(cksum <<< {})\"" \
+    --preview="bat -n --color=always --decorations=always \"$cache_dir/\$(cksum <<< {})\"" \
     --preview-window=right:40%)
 
 [[ $chosen_line ]] || exit 1

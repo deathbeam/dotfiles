@@ -164,6 +164,7 @@ function () {
     fi
 } base16
 set_theme $BASE16_THEME_DEFAULT true
+export BAT_THEME="base16-256"
 
 # }}}
 
