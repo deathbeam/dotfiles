@@ -6,6 +6,8 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
    --no-multi
    --reverse
    --no-border
+   --no-separator
+   --info=inline-right
 "
 
 FILE_ARGS=/tmp/FZFMENU_FILE_ARGS

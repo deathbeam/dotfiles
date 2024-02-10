@@ -9,12 +9,21 @@ fzf_lua.setup {
     "fzf-tmux",
     file_icon_padding = " ",
     fzf_opts = {
-        ["--border"] = "sharp",
-        ["--preview-window"] = "border-sharp"
+        ["--info"] = false,
+        ["--border"] = false,
+        ["--preview-window"] = false,
+    },
+    files = {
+        fzf_opts = {
+            ["--info"] = false,
+        },
     },
     grep = {
         prompt = 'Grep❯ ',
         rg_opts = "--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e",
+        fzf_opts = {
+            ["--info"] = false,
+        },
     },
     -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
     lsp = {
