@@ -5,9 +5,7 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-local utils = require("config.utils")
-local nmap = utils.nmap
-local au = utils.au
+local nmap= require("config.utils").nmap
 
 -- Quickfix mappings
 nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
@@ -17,37 +15,6 @@ nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
 -- Mark mappings
 nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
 nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
-
--- Find root directory
-local root_patterns = {
-    '.git',
-    '.git/',
-    '_darcs/',
-    '.hg/',
-    '.bzr/',
-    '.svn/',
-    '.editorconfig',
-    'Makefile',
-    '.pylintrc',
-    'requirements.txt',
-    'setup.py',
-    'package.json',
-    'mvnw',
-    'gradlew',
-}
-
-au({ "VimEnter", "BufEnter" }, {
-    desc = "Find root directory",
-    pattern = "*",
-    nested = true,
-    callback = function()
-        local root_dir = utils.find_root(root_patterns)
-        if root_dir then
-            vim.api.nvim_set_current_dir(root_dir)
-        end
-    end,
-})
-
 
 require("mason").setup()
 require("mason-tool-installer").setup {
@@ -59,6 +26,7 @@ require("mason-tool-installer").setup {
                     require("config.languages")))))
 }
 
+require("config.rooter")
 require("config.ui")
 require("config.wiki")
 require("config.statuscolumn")

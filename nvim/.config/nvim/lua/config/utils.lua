@@ -1,6 +1,5 @@
 local wk = require("which-key")
 local group = vim.api.nvim_create_augroup('VimRc', { clear = true })
-local root_cache = {}
 
 local M = {}
 
@@ -68,27 +67,6 @@ M.make_capabilities = function()
 
     capabilities.textDocument.completion.completionItem.snippetSupport = false
     return capabilities
-end
-
-M.find_root = function(markers)
-    local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
-    local dirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub("oil://", "")
-    if root_cache[dirname] then
-        return root_cache[dirname]
-    end
-
-    local getparent = function(p)
-        return vim.fn.fnamemodify(p, ':h')
-    end
-    while getparent(dirname) ~= dirname do
-        for _, marker in ipairs(markers) do
-            if vim.loop.fs_stat(vim.fs.joinpath(dirname, marker)) then
-                root_cache[dirname] = dirname
-                return dirname
-            end
-        end
-        dirname = getparent(dirname)
-    end
 end
 
 return M
