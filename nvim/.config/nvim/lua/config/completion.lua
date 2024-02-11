@@ -15,12 +15,12 @@ require('mini.completion').setup {
     }
 }
 
-vim.o.completeopt = 'menu,menuone,noinsert,preview'
+vim.o.completeopt = 'menu,menuone,noinsert'
 vim.keymap.set("i", "<Tab>", function()
     if vim.fn.pumvisible() ~= 0 then
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-y>", true, true, true), "n", true)
+        return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
     else
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Tab>", true, true, true), "n", true)
+        return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
     end
 end, { expr = true })
 
