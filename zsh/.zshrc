@@ -137,6 +137,9 @@ fi
 bindkey -M menuselect '^N' menu-complete
 bindkey -M menuselect '^P' reverse-menu-complete
 
+# Bind shift-tab to accept autosuggestions
+bindkey '^[[Z' autosuggest-accept
+
 # Load fzf after plugins to be able to override them
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--color=border:#268bd2 --border=sharp --margin 0,0 --preview-window=border-sharp --no-separator --info=inline-right"

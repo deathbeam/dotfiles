@@ -5,7 +5,7 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-local nmap= require("config.utils").nmap
+local nmap = require("config.utils").nmap
 
 -- Quickfix mappings
 nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")

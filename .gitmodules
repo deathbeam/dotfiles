@@ -66,15 +66,6 @@
 [submodule "vim/.vim/pack/bundle/start/mason-lspconfig.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/mason-lspconfig.nvim
 	url = https://github.com/williamboman/mason-lspconfig.nvim
-[submodule "vim/.vim/pack/bundle/start/nvim-cmp"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-cmp
-	url = https://github.com/hrsh7th/nvim-cmp
-[submodule "vim/.vim/pack/bundle/start/cmp-nvim-lsp"]
-	path = nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp
-	url = https://github.com/hrsh7th/cmp-nvim-lsp
-[submodule "vim/.vim/pack/bundle/start/cmp-path"]
-	path = nvim/.config/nvim/pack/bundle/start/cmp-path
-	url = https://github.com/hrsh7th/cmp-path
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
 	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
@@ -90,12 +81,6 @@
 [submodule "bspwm/.config/polybar/base16-polybar"]
 	path = bspwm/.config/polybar/base16-polybar
 	url = https://github.com/tinted-theming/base16-polybar
-[submodule "vim/.vim/pack/bundle/start/cmp-cmdline"]
-	path = nvim/.config/nvim/pack/bundle/start/cmp-cmdline
-	url = https://github.com/hrsh7th/cmp-cmdline
-[submodule "vim/.vim/pack/bundle/start/cmp-buffer"]
-	path = nvim/.config/nvim/pack/bundle/start/cmp-buffer
-	url = https://github.com/hrsh7th/cmp-buffer
 [submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim
@@ -111,9 +96,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-cool"]
 	path = nvim/.config/nvim/pack/bundle/start/vim-cool
 	url = https://github.com/romainl/vim-cool
-[submodule "vim/.vim/pack/bundle/start/copilot.lua"]
-	path = nvim/.config/nvim/pack/bundle/start/copilot.lua
-	url = https://github.com/zbirenbaum/copilot.lua
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
 	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
@@ -144,9 +126,6 @@
 [submodule "vim/.vim/pack/bundle/start/lsp-progress.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/lsp-progress.nvim
 	url = https://github.com/linrongbin16/lsp-progress.nvim
-[submodule "vim/.vim/pack/bundle/start/vim-vsnip"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-vsnip
-	url = https://github.com/hrsh7th/vim-vsnip
 [submodule "vim/.vim/pack/bundle/start/quickfix-reflector.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/quickfix-reflector.vim
 	url = https://github.com/stefandtw/quickfix-reflector.vim
@@ -160,6 +139,12 @@
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/deathbeam/zsh-autocomplete
 	branch = globbed-files
-[submodule "nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp-signature-help"]
-	path = nvim/.config/nvim/pack/bundle/start/cmp-nvim-lsp-signature-help
-	url = https://github.com/hrsh7th/cmp-nvim-lsp-signature-help
+[submodule "nvim/.config/nvim/pack/bundle/start/mini.completion"]
+	path = nvim/.config/nvim/pack/bundle/start/mini.completion
+	url = https://github.com/echasnovski/mini.completion
+[submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
+	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
+	url = https://github.com/github/copilot.vim
+[submodule "nvim/.config/nvim/pack/bundle/start/wilder.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/wilder.nvim
+	url = https://github.com/gelguy/wilder.nvim
