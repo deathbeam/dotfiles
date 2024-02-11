@@ -10,6 +10,10 @@ update:
 	git submodule sync --recursive
 	git submodule update --init --recursive
 	git submodule update --recursive --remote
+
+install:
+	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
+	gh extension install github/gh-copilot || true
 	nvim --headless \
 		+MasonUpdate \
 		+MasonToolsInstallSync \
@@ -17,11 +21,6 @@ update:
 		+TSUpdateSync \
 		+'helptags ALL' \
 		+qall
-
-install:
-	mkdir -p ~/.vim/undodir
-	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
-	gh extension install github/gh-copilot || true
 
 uninstall:
 	~/.fzf/uninstall
