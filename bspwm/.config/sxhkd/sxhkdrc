@@ -6,10 +6,6 @@
 super + Return
   st -e $SHELL -ic "tmux new-session -A -s default"
 
-super + shift + Return
-  {bspc rule -a \* -o state=floating sticky=on layer=above rectangle=720x360+600+40 && \
-  st -e $SHELL -ic "tmux new-session -A -s scratch \; set status off \; set pane-border-status off"
-
 # switcher menu
 super + Tab
   ~/.config/dmenu/windowsmenu -p "switch"

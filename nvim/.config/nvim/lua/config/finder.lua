@@ -13,6 +13,9 @@ fzf_lua.setup {
         ["--border"] = false,
         ["--preview-window"] = false,
     },
+    fzf_tmux_opts = {
+        ["-p"] = "100%,100%",
+    },
     files = {
         fzf_opts = {
             ["--info"] = false,
