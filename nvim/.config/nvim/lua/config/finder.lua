@@ -28,12 +28,22 @@ fzf_lua.setup {
             ["--info"] = false,
         },
     },
-    -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
     lsp = {
         code_actions = {
-            previewer = false
+            -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
+            previewer = false,
+            fzf_tmux_opts = {
+                ["-p"] = false,
+            },
         }
     },
+    dap = {
+        configurations = {
+            fzf_tmux_opts = {
+                ["-p"] = false,
+            },
+        },
+    }
 }
 fzf_lua.register_ui_select()
 
