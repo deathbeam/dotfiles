@@ -15,7 +15,7 @@ local function find_root(markers)
     local dirname = bufdirname
     while getparent(dirname) ~= dirname do
         for _, marker in ipairs(markers) do
-            if vim.loop.fs_stat(vim.fs.joinpath(dirname, marker)) then
+            if vim.loop.fs_stat(dirname .. "/" .. marker) then
                 root_cache[bufdirname] = dirname
                 return dirname
             end
