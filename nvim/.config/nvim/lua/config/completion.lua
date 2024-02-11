@@ -4,8 +4,18 @@ vim.g.copilot_hide_during_completion = 0
 vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
 -- Buffer autocompletion
-require('mini.completion').setup({})
-vim.o.completeopt = 'menu,menuone,noinsert'
+require('mini.completion').setup {
+    window = {
+        info = {
+            border = 'single',
+        },
+        signature = {
+            border = 'single',
+        },
+    }
+}
+
+vim.o.completeopt = 'menu,menuone,noinsert,preview'
 vim.keymap.set("i", "<Tab>", function()
     if vim.fn.pumvisible() ~= 0 then
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-y>", true, true, true), "n", true)
