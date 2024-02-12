@@ -25,8 +25,4 @@ vim.keymap.set("i", "<Tab>", function()
 end, { expr = true })
 
 -- Cmdline completion
-require('config.cmdline-completion').setup {
-    keymap = {
-        accept = '<Tab>'
-    }
-}
+require('config.cmdline-completion').setup {}

@@ -31,7 +31,7 @@ M.config = {
     },
     mappings = {
         accept = '<C-y>',
-        reject = '<C-c>',
+        reject = '<C-e>',
         next = '<C-n>',
         previous = '<C-p>',
     },
@@ -39,10 +39,10 @@ M.config = {
         selection = true,
         directories = true,
     },
-    set_vim_settings = true,
+    set_vim_settings = true, -- Disable wildmenu and map wildchar to next completion
 }
 
-local function open_win(height)
+local function open_win()
     if not H.window.bufnr then
         H.window.bufnr = vim.api.nvim_create_buf(false, true)
     end
@@ -53,7 +53,7 @@ local function open_win(height)
             border = M.config.window.border,
             style = 'minimal',
             width = vim.o.columns,
-            height = height,
+            height = H.window.height,
             row = vim.o.lines - 2,
             col = 0,
         })
@@ -122,7 +122,7 @@ local function cmdline_changed()
     end
 
     -- Recreate window if we closed it before
-    open_win(H.window.height)
+    open_win()
 
     -- Clear window
     vim.api.nvim_buf_set_lines(H.window.bufnr, 0, H.window.height, false, H.window.data)
@@ -147,12 +147,17 @@ local function cmdline_changed()
             end
 
             local completion = completions[i]
+            local is_directory = vim.fn.isdirectory(vim.fn.fnamemodify(completion, ':p')) == 1
+
             local shortened = vim.fn.fnamemodify(completion, ':p:t')
             if shortened == '' then
                 shortened = vim.fn.fnamemodify(completion, ':p:h:t')
             end
             if string.len(shortened) >= H.window.width then
                 shortened = string.sub(shortened, 1, H.window.width - 3) .. '...'
+            end
+            if is_directory then
+                shortened = shortened .. '/'
             end
 
             local end_col = col * H.window.width + string.len(shortened)
@@ -169,7 +174,7 @@ local function cmdline_changed()
             }
 
             H.completion.data[i] = data
-            if M.config.highlight.directories and vim.fn.isdirectory(vim.fn.fnamemodify(completion, ':p')) == 1 then
+            if M.config.highlight.directories and is_directory then
                 vim.highlight.range(
                     H.window.bufnr,
                     H.ns.directory,
@@ -208,7 +213,7 @@ local function setup_handlers()
         H.window.data[#H.window.data + 1] = (' '):rep(vim.o.columns)
     end
 
-    open_win(H.window.height)
+    open_win()
     cmdline_changed()
 end
 
@@ -222,7 +227,7 @@ local function teardown_handlers()
         H.window.id = nil
     end
 
-    if H.window.bufnr then
+    if vim.fn.getcmdwintype() == '' and H.window.bufnr then
         vim.api.nvim_buf_delete(H.window.bufnr, { force = true })
         H.window.bufnr = nil
     end
