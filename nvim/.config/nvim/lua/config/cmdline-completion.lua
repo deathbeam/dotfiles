@@ -93,7 +93,7 @@ local function highlight_selection()
     vim.cmd('redraw')
 end
 
-local function update_cmdline()
+local function update_cmdline(accept)
     if vim.tbl_isempty(H.completion.data) then
         return
     end
@@ -107,11 +107,15 @@ local function update_cmdline()
 
     highlight_selection()
 
-    H.completion.skip_next = true
+    H.completion.skip_next = not accept
     local commands = vim.split(vim.fn.getcmdline(), ' ')
     table.remove(commands, #commands)
     local new_cmdline = table.concat(commands, ' ') .. ' ' .. H.completion.data[H.completion.current].completion
     new_cmdline = vim.trim(new_cmdline)
+    if accept then
+        new_cmdline = new_cmdline .. (vim.endswith(new_cmdline, '/') and '' or ' ')
+    end
+
     vim.fn.setcmdline(new_cmdline)
 end
 
@@ -255,8 +259,7 @@ function M.setup(config)
 
     if M.config.mappings.accept then
         vim.keymap.set('c', M.config.mappings.accept, function()
-            update_cmdline()
-            close_win()
+            update_cmdline(true)
         end, { desc = 'Accept cmdline completion' })
     end
     if M.config.mappings.reject then
