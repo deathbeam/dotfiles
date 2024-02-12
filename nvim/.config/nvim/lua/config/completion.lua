@@ -15,7 +15,7 @@ require('mini.completion').setup {
     }
 }
 
-vim.o.completeopt = 'menu,menuone,noinsert'
+vim.o.completeopt = 'menuone,noinsert'
 vim.keymap.set("i", "<Tab>", function()
     if vim.fn.pumvisible() ~= 0 then
         return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
