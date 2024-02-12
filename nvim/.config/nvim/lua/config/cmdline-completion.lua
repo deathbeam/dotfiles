@@ -237,11 +237,6 @@ local function teardown_handlers()
         end
         H.window.id = nil
     end
-
-    if not in_cmdwin and H.window.bufnr then
-        vim.api.nvim_buf_delete(H.window.bufnr, { force = true })
-        H.window.bufnr = nil
-    end
 end
 
 local function changed_handlers()
