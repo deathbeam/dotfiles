@@ -24,15 +24,9 @@ vim.keymap.set("i", "<Tab>", function()
     end
 end, { expr = true })
 
--- Cmdline autocompletion
-local wilder = require('wilder')
-wilder.setup {
-    modes = {':', '/', '?'},
-    next_key = '<C-n>',
-    previous_key = '<C-p>',
-    accept_key = '<Tab>',
+-- Cmdline completion
+require('config.cmdline-completion').setup {
+    keymap = {
+        accept = '<Tab>'
+    }
 }
-wilder.set_option('renderer', wilder.popupmenu_renderer({
-    -- highlighter applies highlighting to the candidates
-    highlighter = wilder.basic_highlighter(),
-}))
