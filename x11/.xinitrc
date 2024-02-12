@@ -77,6 +77,11 @@ if command -v udiskie >/dev/null 2>&1; then
   udiskie --tray &
 fi
 
+# Start screenkey
+if command -v screenkey >/dev/null 2>&1; then
+  screenkey &
+fi
+
 # Start key manager daemon
 if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &

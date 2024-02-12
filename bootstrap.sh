@@ -46,7 +46,7 @@ echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xorg-server xorg-apps xorg-xinit \
   xorg-fonts-misc xsel xclip autocutsel clipnotify clipmenu-git \
-  xf86-input-libinput xcape xtitle \
+  xf86-input-libinput xcape xtitle screenkey slop \
   redshift-qt \
   upower \
   udiskie
