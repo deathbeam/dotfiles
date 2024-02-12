@@ -89,6 +89,8 @@ local function highlight_selection()
         H.completion.data[H.completion.current].finish,
         {}
     )
+
+    vim.cmd('redraw')
 end
 
 local function update_cmdline()
@@ -104,7 +106,6 @@ local function update_cmdline()
     end
 
     highlight_selection()
-    vim.cmd('redraw')
 
     H.completion.skip_next = true
     local commands = vim.split(vim.fn.getcmdline(), ' ')
@@ -191,7 +192,6 @@ local function cmdline_changed()
 
     vim.api.nvim_win_set_height(H.window.id, math.min(math.floor(#completions / (math.floor(vim.o.columns / H.window.width))), H.window.height))
     highlight_selection()
-    vim.cmd('redraw')
 end
 
 local function setup_handlers()
