@@ -4,7 +4,7 @@ local H = {
     already_setup = false,
     timer = nil,
     ns = {
-        search = nil,
+        selection = nil,
         directory = nil,
     },
     completion = {
@@ -80,11 +80,11 @@ local function highlight_selection()
         return
     end
 
-    vim.api.nvim_buf_clear_namespace(H.window.bufnr, H.ns.search, 0, -1)
+    vim.api.nvim_buf_clear_namespace(H.window.bufnr, H.ns.selection, 0, -1)
     vim.highlight.range(
         H.window.bufnr,
-        H.ns.search,
-        'Search',
+        H.ns.selection,
+        'PmenuSel',
         H.completion.data[H.completion.current].start,
         H.completion.data[H.completion.current].finish,
         {}
@@ -158,11 +158,13 @@ local function cmdline_changed()
             if shortened == '' then
                 shortened = vim.fn.fnamemodify(completion, ':p:h:t')
             end
-            if string.len(shortened) >= H.window.width then
-                shortened = string.sub(shortened, 1, H.window.width - 3) .. '...'
-            end
             if is_directory then
                 shortened = shortened .. '/'
+            end
+            shortened = ' ' .. shortened .. ' '
+
+            if string.len(shortened) >= H.window.width then
+                shortened = string.sub(shortened, 1, H.window.width - 3) .. '...'
             end
 
             local end_col = col * H.window.width + string.len(shortened)
@@ -254,7 +256,7 @@ function M.setup(config)
     end
 
     H.timer = vim.loop.new_timer()
-    H.ns.search = vim.api.nvim_create_namespace('CmdlineCompletionSearch')
+    H.ns.selection = vim.api.nvim_create_namespace('CmdlineCompletionSelection')
     H.ns.directory = vim.api.nvim_create_namespace('CmdlineCompletionDirectory')
 
     if M.config.mappings.accept then
