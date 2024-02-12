@@ -5,6 +5,7 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 -- Buffer autocompletion
 require('mini.completion').setup {
+    fallback_action = function() end,
     window = {
         info = {
             border = 'single',
