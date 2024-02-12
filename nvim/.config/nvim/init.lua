@@ -5,17 +5,6 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-local nmap = require("config.utils").nmap
-
--- Quickfix mappings
-nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
-nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
-nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
-
--- Mark mappings
-nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
-nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
-
 require("mason").setup()
 require("mason-tool-installer").setup {
     run_on_start = false,

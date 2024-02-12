@@ -26,5 +26,7 @@ end, { expr = true })
 
 -- Cmdline completion
 require('config.cmdline-completion').setup {
-    accept = '<Tab>',
+    mappings = {
+        accept = "<Tab>",
+    }
 }

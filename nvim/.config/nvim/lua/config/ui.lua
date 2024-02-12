@@ -46,6 +46,31 @@ require("oil").setup {
     }
 }
 vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+au("FileType", {
+    pattern = "oil",
+    desc = "Set oil options",
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+    end
+})
+
+-- Quickfix mappings
+nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
+nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
+nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
+
+au("BufWinEnter", {
+    pattern = "quickfix",
+    desc = "Set quickfix options",
+    callback = function()
+        vim.opt_local.relativenumber = false
+    end
+})
+
+-- Mark mappings
+nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
+nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
 
 -- Tmux bindings
 require("tmux").setup {

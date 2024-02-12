@@ -82,7 +82,7 @@ function StatusColumn()
     end
 
     local is_num = vim.wo[win].number
-    local is_relnum = vim.wo[win].relativenumber and vim.bo[buf].filetype ~= 'qf'
+    local is_relnum = vim.wo[win].relativenumber
     if (is_num or is_relnum) and vim.v.virtnum == 0 then
         if vim.v.relnum == 0 then
             components[1] = is_num and "%l" or "%r" -- the current line
