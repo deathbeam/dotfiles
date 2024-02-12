@@ -1,0 +1,32 @@
+{
+    "no_systray": false,
+    "timeout": 1.0,
+    "recent_thr": 0.1,
+    "compr_cnt": 3,
+    "ignore": [],
+    "position": "fixed",
+    "persist": false,
+    "window": null,
+    "font_desc": "Monospace 10",
+    "font_size": "small",
+    "font_color": "white",
+    "bg_color": "black",
+    "opacity": 0.3,
+    "key_mode": "composed",
+    "bak_mode": "baked",
+    "mods_mode": "emacs",
+    "mods_only": false,
+    "multiline": false,
+    "vis_shift": false,
+    "vis_space": true,
+    "geometry": [
+        1575,
+        1005,
+        338,
+        66
+    ],
+    "screen": 0,
+    "start_disabled": false,
+    "mouse": false,
+    "button_hide_duration": 1.0
+}
