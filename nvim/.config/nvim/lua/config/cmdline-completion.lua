@@ -219,7 +219,6 @@ local function setup_handlers()
         H.window.data[#H.window.data + 1] = (' '):rep(vim.o.columns)
     end
 
-    open_win()
     cmdline_changed()
 end
 
@@ -227,9 +226,19 @@ local function teardown_handlers()
     H.timer:stop()
     H.window.data = {}
     H.completion.data = {}
-    close_win()
+    local in_cmdwin = vim.fn.getcmdwintype() ~= ''
 
-    if vim.fn.getcmdwintype() == '' and H.window.bufnr then
+    if H.window.id then
+        -- FIXME: wait for nvim-0.10.0 so this is not needed, lower versions do not allow win_close in cmdwin
+        if in_cmdwin and vim.fn.has('nvim-0.10.0') == 0 then
+            vim.api.nvim_win_hide(H.window.id)
+        else
+            vim.api.nvim_win_close(H.window.id, true)
+        end
+        H.window.id = nil
+    end
+
+    if not in_cmdwin and H.window.bufnr then
         vim.api.nvim_buf_delete(H.window.bufnr, { force = true })
         H.window.bufnr = nil
     end
