@@ -221,11 +221,7 @@ local function teardown_handlers()
     H.timer:stop()
     H.window.data = {}
     H.completion.data = {}
-
-    if H.window.id then
-        vim.api.nvim_win_close(H.window.id, true)
-        H.window.id = nil
-    end
+    close_win()
 
     if vim.fn.getcmdwintype() == '' and H.window.bufnr then
         vim.api.nvim_buf_delete(H.window.bufnr, { force = true })
