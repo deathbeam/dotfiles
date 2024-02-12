@@ -58,6 +58,10 @@ local function open_win()
             col = 0,
         })
     end
+
+    if H.window.bufnr then
+        vim.api.nvim_buf_set_lines(H.window.bufnr, 0, -1, true, {})
+    end
 end
 
 local function close_win()
