@@ -42,6 +42,7 @@ M.config = {
         directories = true,
     },
     set_vim_settings = true, -- Set wildchar to <Tab> and create mappings for <Tab> and <S-Tab>
+    close_on_done = true -- Close completion window when done (accept/reject)
 }
 
 local function open_win()
@@ -105,10 +106,13 @@ local function update_cmdline(accept, reset)
         H.completion.current = #H.completion.data
     end
 
-    H.completion.skip_next = true
-
     if accept or reset then
-        close_win()
+        if M.config.close_on_done then
+            H.completion.skip_next = true
+            close_win()
+        end
+    else
+        H.completion.skip_next = not accept
     end
 
     if reset then
@@ -123,6 +127,10 @@ local function update_cmdline(accept, reset)
     table.remove(commands, #commands)
     local new_cmdline = table.concat(commands, ' ') .. ' ' .. H.completion.data[H.completion.current].completion
     new_cmdline = vim.trim(new_cmdline)
+    if accept and not M.config.close_on_done then
+        new_cmdline = new_cmdline .. (vim.endswith(new_cmdline, '/') and '' or ' ')
+    end
+
     vim.fn.setcmdline(new_cmdline)
 end
 
