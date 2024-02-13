@@ -9,6 +9,7 @@ local H = {
     },
     completion = {
         current = 0,
+        last = nil,
         skip_next = false,
         noselect = false,
         menuone = false,
@@ -135,6 +136,7 @@ local function cmdline_changed()
     local input = vim.fn.getcmdline()
     local completions = vim.fn.getcompletion(input, 'cmdline')
 
+    H.completion.last = input
     H.completion.data = {}
     H.completion.current = H.completion.noselect and 0 or 1
 
@@ -226,6 +228,7 @@ local function teardown_handlers()
     H.timer:stop()
     H.window.data = {}
     H.completion.data = {}
+    H.completion.last = nil
     local in_cmdwin = vim.fn.getcmdwintype() ~= ''
 
     if H.window.id then
@@ -288,6 +291,9 @@ function M.setup(config)
     if M.config.mappings.reject then
         vim.keymap.set('c', M.config.mappings.reject, function()
             close_win()
+            if H.completion.last then
+                vim.fn.setcmdline(H.completion.last)
+            end
         end, { desc = 'Reject cmdline completion' })
     end
     if M.config.mappings.next then
