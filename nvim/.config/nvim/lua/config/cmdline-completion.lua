@@ -61,14 +61,10 @@ local function open_win()
     end
 end
 
-local function close_win(reset)
+local function close_win()
     if H.window.id then
         vim.api.nvim_win_close(H.window.id, true)
         H.window.id = nil
-    end
-
-    if reset and H.completion.last then
-        vim.fn.setcmdline(H.completion.last)
     end
 end
 
@@ -294,7 +290,9 @@ function M.setup(config)
     end
     if M.config.mappings.reject then
         vim.keymap.set('c', M.config.mappings.reject, function()
-            close_win(true)
+            if H.completion.last then
+                vim.fn.setcmdline(H.completion.last)
+            end
         end, { desc = 'Reject cmdline completion' })
     end
     if M.config.mappings.next then
