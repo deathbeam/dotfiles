@@ -33,6 +33,7 @@ M.config = {
     mappings = {
         accept = '<C-y>',
         reject = '<C-e>',
+        complete = '<C-space>',
         next = '<C-n>',
         previous = '<C-p>',
     },
@@ -92,7 +93,7 @@ local function highlight_selection()
     )
 end
 
-local function update_cmdline(accept)
+local function update_cmdline(accept, reset)
     if vim.tbl_isempty(H.completion.data) then
         return
     end
@@ -104,18 +105,24 @@ local function update_cmdline(accept)
         H.completion.current = #H.completion.data
     end
 
+    H.completion.skip_next = true
+
+    if accept or reset then
+        close_win()
+    end
+
+    if reset then
+        vim.fn.setcmdline(H.completion.last)
+        return
+    end
+
     highlight_selection()
     vim.cmd('redraw')
 
-    H.completion.skip_next = not accept
     local commands = vim.split(vim.fn.getcmdline(), ' ')
     table.remove(commands, #commands)
     local new_cmdline = table.concat(commands, ' ') .. ' ' .. H.completion.data[H.completion.current].completion
     new_cmdline = vim.trim(new_cmdline)
-    if accept then
-        new_cmdline = new_cmdline .. (vim.endswith(new_cmdline, '/') and '' or ' ')
-    end
-
     vim.fn.setcmdline(new_cmdline)
 end
 
@@ -290,10 +297,13 @@ function M.setup(config)
     end
     if M.config.mappings.reject then
         vim.keymap.set('c', M.config.mappings.reject, function()
-            if H.completion.last then
-                vim.fn.setcmdline(H.completion.last)
-            end
+            update_cmdline(false, true)
         end, { desc = 'Reject cmdline completion' })
+    end
+    if M.config.mappings.complete then
+        vim.keymap.set('c', M.config.mappings.complete, function()
+            cmdline_changed()
+        end, { desc = 'Force complete cmdline completion' })
     end
     if M.config.mappings.next then
         vim.keymap.set('c', M.config.mappings.next, function()
