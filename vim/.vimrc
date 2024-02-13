@@ -136,10 +136,13 @@ let mapleader = ' '
 let maplocalleader = ' '
 let g:mapleader = ' '
 
+" Stupid highlight
+nmap <silent> <Esc> <CMD>noh<CR>
+
 " Navigation
-noremap <silent> <leader>" :<C-U>vsplit<cr>
-noremap <silent> <leader>% :<C-U>split<cr>
-noremap <silent> <leader>x :<C-U>close<cr>
+nmap <silent> <leader>" <CMD>vsplit<CR>
+nmap <silent> <leader>% <CMD>split<CR>
+nmap <silent> <leader>x <CMD>close<CR>
 
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>

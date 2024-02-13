@@ -93,9 +93,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-jdtls"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-jdtls
 	url = https://github.com/mfussenegger/nvim-jdtls
-[submodule "vim/.vim/pack/bundle/start/vim-cool"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-cool
-	url = https://github.com/romainl/vim-cool
 [submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
 	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
 	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
