@@ -39,7 +39,7 @@ M.config = {
         selection = true,
         directories = true,
     },
-    set_vim_settings = true, -- Disable wildmenu and map wildchar to next completion
+    set_vim_settings = true, -- Set wildchar to <Tab> and create mappings for <Tab> and <S-Tab>
 }
 
 local function open_win()
@@ -89,8 +89,6 @@ local function highlight_selection()
         H.completion.data[H.completion.current].finish,
         {}
     )
-
-    vim.cmd('redraw')
 end
 
 local function update_cmdline(accept)
@@ -106,6 +104,7 @@ local function update_cmdline(accept)
     end
 
     highlight_selection()
+    vim.cmd('redraw')
 
     H.completion.skip_next = not accept
     local commands = vim.split(vim.fn.getcmdline(), ' ')
@@ -198,6 +197,7 @@ local function cmdline_changed()
 
     vim.api.nvim_win_set_height(H.window.id, math.min(math.floor(#completions / (math.floor(vim.o.columns / H.window.width))), H.window.height))
     highlight_selection()
+    vim.cmd('redraw')
 end
 
 local function setup_handlers()
@@ -259,8 +259,21 @@ function M.setup(config)
 
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
 
+    -- Wild menu needs to be always disabled otherwise its in background for no reason
+    vim.o.wildmenu = false
+
+    -- Map default wildchar behaviour
     if M.config.set_vim_settings then
-        vim.o.wildmenu = false
+        vim.o.wildchar = vim.fn.char2nr('<Tab>')
+        vim.keymap.set('c', '<Tab>', function()
+            H.completion.current = H.completion.current + 1
+            update_cmdline()
+        end, { desc = 'Next cmdline completion using wildchar'})
+
+        vim.keymap.set('c', '<S-Tab>', function()
+            H.completion.current = H.completion.current - 1
+            update_cmdline()
+        end, { desc = 'Prev cmdline completion using wildchar'})
     end
 
     H.timer = vim.loop.new_timer()
