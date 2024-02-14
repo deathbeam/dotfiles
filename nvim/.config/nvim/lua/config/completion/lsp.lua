@@ -1,12 +1,15 @@
+local M = {}
+
+local state = {
+    ns = nil,
+    signature_window = nil,
+    debounce_cache = {}
+}
+
 local methods = vim.lsp.protocol.Methods
-local ns = vim.api.nvim_create_namespace('LspCompletion')
-local debounce_time = 200
-local signature_border = 'single'
-local signature_window = nil
-local debounce_cache = {}
 
 local function debounce(name, ms, func)
-    local entry = debounce_cache[name]
+    local entry = state.debounce_cache[name]
     if entry then
         entry.timer:stop()
         if entry.cancel then
@@ -18,7 +21,7 @@ local function debounce(name, ms, func)
             timer = vim.uv.new_timer(),
             cancel = nil
         }
-        debounce_cache[name] = entry
+        state.debounce_cache[name] = entry
     end
 
     entry.timer:start( ms, 0, vim.schedule_wrap(function()
@@ -63,11 +66,11 @@ local function apply_text_edits(client, edits, bufnr)
 
     -- Use extmark to track relevant cursor position after text edits
     local cur_pos = vim.api.nvim_win_get_cursor(0)
-    local extmark_id = vim.api.nvim_buf_set_extmark(0, ns, cur_pos[1] - 1, cur_pos[2], {})
+    local extmark_id = vim.api.nvim_buf_set_extmark(0, state.ns, cur_pos[1] - 1, cur_pos[2], {})
     local offset_encoding = client.offset_encoding
     vim.lsp.util.apply_text_edits(edits, bufnr, offset_encoding)
-    local extmark_data = vim.api.nvim_buf_get_extmark_by_id(0, ns, extmark_id, {})
-    pcall(vim.api.nvim_buf_del_extmark, 0, ns, extmark_id)
+    local extmark_data = vim.api.nvim_buf_get_extmark_by_id(0, state.ns, extmark_id, {})
+    pcall(vim.api.nvim_buf_del_extmark, 0, state.ns, extmark_id)
     pcall(vim.api.nvim_win_set_cursor, 0, { extmark_data[1] + 1, extmark_data[2] })
 end
 
@@ -83,7 +86,7 @@ local function complete_done(client, bufnr)
     end
 
     if #(item.additionalTextEdits or {}) == 0 then
-        debounce('textEdits', debounce_time, function()
+        debounce('textEdits', M.config.debounce_delay, function()
             return request(client, methods.completionItem_resolve, item, function(_, result)
                 apply_text_edits(client, result.additionalTextEdits, bufnr)
             end, bufnr)
@@ -105,7 +108,7 @@ local function complete_changed(client, bufnr)
     local selected = data.selected
     local item = completed_item.user_data.nvim.lsp.completion_item
 
-    debounce('info', debounce_time, function()
+    debounce('info', M.config.debounce_delay, function()
         return request(client, methods.completionItem_resolve, item, function(_, result)
             local info = vim.fn.complete_info()
 
@@ -149,9 +152,9 @@ local function completion_handler(client, line, col, result, ctx)
 end
 
 local function cleanup_windows(client, bufnr)
-    if signature_window and vim.api.nvim_win_is_valid(signature_window) then
-        vim.api.nvim_win_close(signature_window, true)
-        signature_window = nil
+    if state.signature_window and vim.api.nvim_win_is_valid(state.signature_window) then
+        vim.api.nvim_win_close(state.signature_window, true)
+        state.signature_window = nil
     end
 end
 
@@ -166,10 +169,10 @@ local function signature_handler(client, line, col, result, ctx)
     lines = { unpack(lines, 1, 3) }
     local _, fwin = vim.lsp.util.open_floating_preview(lines, 'markdown', {
         close_events = {},
-        border = signature_border,
+        border = M.config.window.border,
     })
 
-    signature_window = fwin
+    state.signature_window = fwin
 end
 
 local function text_changed(client, bufnr)
@@ -191,7 +194,7 @@ local function text_changed(client, bufnr)
                 triggerCharacter = c
             }
 
-            debounce('signature', debounce_time, function()
+            debounce('signature', M.config.debounce_delay, function()
                 return request(client, methods.textDocument_signatureHelp, params, handle(client, line, col, signature_handler), bufnr)
             end)
 
@@ -216,12 +219,17 @@ local function text_changed(client, bufnr)
         }
     end
 
-    debounce('completion', debounce_time, function()
+    debounce('completion', M.config.debounce_delay, function()
         return request(client, methods.textDocument_completion, params, handle(client, line, col, completion_handler), bufnr)
     end)
 end
 
-local M = {}
+M.config = {
+    window = {
+        border = 'single',
+    },
+    debounce_delay = 100
+}
 
 function M.capabilities()
     return {
@@ -246,7 +254,9 @@ function M.capabilities()
     }
 end
 
-function M.setup()
+function M.setup(config)
+    M.config = vim.tbl_deep_extend('force', M.config, config or {})
+    state.ns = vim.api.nvim_create_namespace('LspCompletion')
     local group = vim.api.nvim_create_augroup('LspCompletion', {})
 
     vim.api.nvim_create_autocmd('TextChangedI', { group = group, callback = function(args)
