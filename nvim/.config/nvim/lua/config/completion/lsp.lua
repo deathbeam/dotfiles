@@ -74,12 +74,11 @@ local function apply_text_edits(client, edits, bufnr)
 end
 
 local function complete_done(client, bufnr)
-    local completed_item = vim.v.completed_item
-    if not completed_item or not completed_item.user_data then
+    local item = vim.tbl_get(vim.v, 'completed_item', 'user_data', 'nvim', 'lsp', 'completion_item')
+    if not item then
         return
     end
 
-    local item = completed_item.user_data.nvim.lsp.completion_item
     if item.textEdit then
         apply_text_edits(client, { item.textEdit }, bufnr)
     end
@@ -96,8 +95,8 @@ local function complete_done(client, bufnr)
 end
 
 local function complete_changed(client, bufnr)
-    local completed_item = vim.v.event.completed_item
-    if not completed_item or not completed_item.user_data then
+    local item = vim.tbl_get(vim.v.event, 'completed_item', 'user_data', 'nvim', 'lsp', 'completion_item')
+    if not item then
         return
     end
 
@@ -105,7 +104,6 @@ local function complete_changed(client, bufnr)
     -- I get index 19 instead of 0 as its only match, when I press backspace it updates to 0)
     local data = vim.fn.complete_info()
     local selected = data.selected
-    local item = completed_item.user_data.nvim.lsp.completion_item
 
     debounce('info', M.config.debounce_delay, function()
         return request(client, methods.completionItem_resolve, item, function(_, result)
