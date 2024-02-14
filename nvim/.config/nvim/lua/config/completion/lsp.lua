@@ -214,6 +214,29 @@ end
 
 local M = {}
 
+function M.capabilities()
+    return {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = false,
+                    resolveSupport = {
+                        properties = { 'edit', 'documentation', 'detail', 'additionalTextEdits' },
+                    },
+                },
+                completionList = {
+                    itemDefaults = {
+                        'editRange',
+                        'insertTextFormat',
+                        'insertTextMode',
+                        'data',
+                    },
+                },
+            },
+        },
+    }
+end
+
 function M.setup()
     vim.api.nvim_create_autocmd('LspAttach', {
         group = group,
