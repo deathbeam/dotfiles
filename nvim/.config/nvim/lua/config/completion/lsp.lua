@@ -59,7 +59,6 @@ local function get_client(bufnr)
 end
 
 local function apply_text_edits(client, edits, bufnr)
-    -- TODO: What am I doing here?
     if not edits or vim.tbl_isempty(edits) then
         return
     end
@@ -151,7 +150,7 @@ local function completion_handler(client, line, col, result, ctx)
     end)
 end
 
-local function cleanup_windows(client, bufnr)
+local function close_signature_window()
     if state.signature_window and vim.api.nvim_win_is_valid(state.signature_window) then
         vim.api.nvim_win_close(state.signature_window, true)
         state.signature_window = nil
@@ -159,18 +158,24 @@ local function cleanup_windows(client, bufnr)
 end
 
 local function signature_handler(client, line, col, result, ctx)
-    local triggers = vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters')
+    local triggers = client.server_capabilities.signatureHelpProvider.triggerCharacters
     local ft = vim.bo[ctx.bufnr].filetype
     local lines, hl = vim.lsp.util.convert_signature_help_to_markdown_lines(result, ft, triggers)
     if not lines or vim.tbl_isempty(lines) then
-        cleanup_windows(client, ctx.bufnr)
+        close_signature_window()
         return
     end
     lines = { unpack(lines, 1, 3) }
-    local _, fwin = vim.lsp.util.open_floating_preview(lines, 'markdown', {
-        close_events = {},
+
+    local fbuf, fwin = vim.lsp.util.open_floating_preview(lines, 'markdown', {
+        focusable = false,
+        close_events = { 'CursorMoved' },
         border = M.config.window.border,
     })
+
+    if hl then
+        vim.api.nvim_buf_add_highlight(fbuf, state.ns, 'PmenuSel', vim.startswith(lines[1], '```') and 1 or 0, unpack(hl))
+    end
 
     state.signature_window = fwin
 end
@@ -184,7 +189,7 @@ local function text_changed(client, bufnr)
 
     local before_line = line:sub(1, col)
     local char = line:sub(col, col)
-    local params = vim.lsp.util.make_position_params(vim.api.nvim_get_current_win(), client.offset_encoding)
+    local params = vim.lsp.util.make_position_params()
     local sig_found = false
 
     for _, c in ipairs(client.server_capabilities.signatureHelpProvider.triggerCharacters or {}) do
@@ -204,7 +209,7 @@ local function text_changed(client, bufnr)
     end
 
     if not sig_found then
-        cleanup_windows(client, bufnr)
+        close_signature_window()
     end
 
     if vim.tbl_contains(client.server_capabilities.completionProvider.triggerCharacters or {}, char) then
@@ -280,14 +285,6 @@ function M.setup(config)
         local client = get_client(bufnr)
         if client then
             complete_changed(client, bufnr)
-        end
-    end })
-
-    vim.api.nvim_create_autocmd('CursorMoved', { group = group, callback = function(args)
-        local bufnr = args.buf
-        local client = get_client(bufnr)
-        if client then
-            cleanup_windows(client, bufnr)
         end
     end })
 end
