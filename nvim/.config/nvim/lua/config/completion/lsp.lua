@@ -1,6 +1,5 @@
 local methods = vim.lsp.protocol.Methods
 local ns = vim.api.nvim_create_namespace('LspCompletion')
-local group = vim.api.nvim_create_augroup('LspCompletion', { clear = true })
 local debounce_time = 200
 local signature_border = 'single'
 local signature_window = nil
@@ -44,6 +43,15 @@ local function request(client, method, params, handler, bufnr)
     return function()
         client.cancel_request(cancel_id)
     end
+end
+
+local function get_client(bufnr)
+    local clients = vim.lsp.get_clients({ bufnr, method = methods.textDocument_completion })
+    if #clients == 0 then
+        return nil
+    end
+
+    return clients[1]
 end
 
 local function apply_text_edits(client, edits, bufnr)
@@ -238,40 +246,39 @@ function M.capabilities()
 end
 
 function M.setup()
-    vim.api.nvim_create_autocmd('LspAttach', {
-        group = group,
-        callback = function(args)
-            local bufnr = args.buf
+    local group = vim.api.nvim_create_augroup('LspCompletion', {})
 
-            -- Check if we are already attached to this buffer
-            if #vim.api.nvim_get_autocmds({ event = { 'TextChangedI' }, group = group, buffer = bufnr }) ~= 0 then
-                return
-            end
+    vim.api.nvim_create_autocmd('TextChangedI', { group = group, callback = function(args)
+        local bufnr = args.buf
+        local client = get_client(bufnr)
+        if client then
+            text_changed(client, bufnr)
+        end
+    end })
 
-            local clients = vim.lsp.get_clients({ bufnr, method = methods.textDocument_completion, id = args.data.client_id })
-            if #clients == 0 then
-                return
-            end
+    vim.api.nvim_create_autocmd('CompleteDone', { group = group, callback = function(args)
+        local bufnr = args.buf
+        local client = get_client(bufnr)
+        if client then
+            complete_done(client, bufnr)
+        end
+    end })
 
-            local client = clients[1]
+    vim.api.nvim_create_autocmd('CompleteChanged', { group = group, callback = function(args)
+        local bufnr = args.buf
+        local client = get_client(bufnr)
+        if client then
+            complete_changed(client, bufnr)
+        end
+    end })
 
-            vim.api.nvim_create_autocmd('TextChangedI', { group = group, buffer = bufnr, callback = function()
-                text_changed(client, bufnr)
-            end })
-
-            vim.api.nvim_create_autocmd('CompleteDone', { group = group, buffer = bufnr, callback = function()
-                complete_done(client, bufnr)
-            end })
-
-            vim.api.nvim_create_autocmd('CompleteChanged', { group = group, buffer = bufnr, callback = function()
-                complete_changed(client, bufnr)
-            end })
-
-            vim.api.nvim_create_autocmd('CursorMoved', { group = group, buffer = bufnr, callback = function()
-                cleanup_windows(client, bufnr)
-            end })
-        end,
-    })
+    vim.api.nvim_create_autocmd('CursorMoved', { group = group, callback = function(args)
+        local bufnr = args.buf
+        local client = get_client(bufnr)
+        if client then
+            cleanup_windows(client, bufnr)
+        end
+    end })
 end
 
 return M

@@ -1,7 +1,6 @@
 local M = {}
 
 local H = {
-    already_setup = false,
     timer = nil,
     ns = {
         selection = nil,
@@ -272,10 +271,6 @@ local function changed_handlers()
 end
 
 function M.setup(config)
-    if H.already_setup then
-        return
-    end
-
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
 
     -- Wild menu needs to be always disabled otherwise its in background for no reason
