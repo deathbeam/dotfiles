@@ -180,7 +180,7 @@ local function cmdline_changed()
             shortened = ' ' .. shortened .. ' '
 
             if string.len(shortened) >= H.window.width then
-                shortened = string.sub(shortened, 1, H.window.width - 3) .. '...'
+                shortened = string.sub(shortened, 1, H.window.width - 4) .. '...'
             end
 
             local end_col = col * H.window.width + string.len(shortened)
@@ -299,7 +299,7 @@ function M.setup(config)
         end, { desc = 'Prev cmdline completion using wildchar'})
     end
 
-    H.timer = vim.loop.new_timer()
+    H.timer = vim.uv.new_timer()
     H.ns.selection = vim.api.nvim_create_namespace('CmdlineCompletionSelection')
     H.ns.directory = vim.api.nvim_create_namespace('CmdlineCompletionDirectory')
 

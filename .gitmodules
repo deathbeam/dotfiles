@@ -136,9 +136,6 @@
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/deathbeam/zsh-autocomplete
 	branch = globbed-files
-[submodule "nvim/.config/nvim/pack/bundle/start/mini.completion"]
-	path = nvim/.config/nvim/pack/bundle/start/mini.completion
-	url = https://github.com/echasnovski/mini.completion
 [submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
 	url = https://github.com/github/copilot.vim
