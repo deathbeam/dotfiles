@@ -6,20 +6,21 @@ local signature_window = nil
 local debounce_cache = {}
 
 local function debounce(name, ms, func)
-    local cur_entry = debounce_cache[name]
-    if cur_entry then
-        cur_entry.timer:stop()
-        if cur_entry.cancel then
-            cur_entry.cancel()
+    local entry = debounce_cache[name]
+    if entry then
+        entry.timer:stop()
+        if entry.cancel then
+            entry.cancel()
+            entry.cancel = nil
         end
+    else
+        entry = {
+            timer = vim.uv.new_timer(),
+            cancel = nil
+        }
+        debounce_cache[name] = entry
     end
 
-    local entry = {
-        timer = vim.uv.new_timer(),
-        cancel = nil
-    }
-
-    debounce_cache[name] = entry
     entry.timer:start( ms, 0, vim.schedule_wrap(function()
         entry.cancel = func()
     end))
