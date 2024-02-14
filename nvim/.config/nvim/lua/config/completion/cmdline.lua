@@ -24,11 +24,11 @@ local state = {
 }
 
 local function open_win()
-    if not state.window.bufnr then
+    if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
         state.window.bufnr = vim.api.nvim_create_buf(false, true)
     end
 
-    if not state.window.id then
+    if not state.window.id or not vim.api.nvim_win_is_valid(state.window.id) then
         state.window.id = vim.api.nvim_open_win(state.window.bufnr, false, {
             relative = 'editor',
             border = M.config.window.border,
@@ -42,7 +42,7 @@ local function open_win()
 end
 
 local function close_win()
-    if state.window.id then
+    if state.window.id and vim.api.nvim_win_is_valid(state.window.id) then
         vim.api.nvim_win_close(state.window.id, true)
         state.window.id = nil
     end
@@ -224,7 +224,7 @@ local function teardown_handlers()
     state.completion.last = nil
     local in_cmdwin = vim.fn.getcmdwintype() ~= ''
 
-    if state.window.id then
+    if state.window.id and vim.api.nvim_win_is_valid(state.window.id) then
         -- FIXME: wait for nvim-0.10.0 so this is not needed, lower versions do not allow win_close in cmdwin
         if in_cmdwin and vim.fn.has('nvim-0.10.0') == 0 then
             vim.api.nvim_win_hide(state.window.id)
@@ -234,7 +234,7 @@ local function teardown_handlers()
         state.window.id = nil
     end
 
-    if state.window.bufnr and not in_cmdwin then
+    if state.window.bufnr and not in_cmdwin and vim.api.nvim_buf_is_valid(state.window.bufnr)  then
         vim.api.nvim_buf_delete(state.window.bufnr, { force = true })
         state.window.bufnr = nil
     end
@@ -276,20 +276,6 @@ function M.setup(config)
 
     -- Wild menu needs to be always disabled otherwise its in background for no reason
     vim.o.wildmenu = false
-
-    -- Map default wildchar behaviour
-    if M.config.set_vim_settings then
-        vim.o.wildchar = vim.fn.char2nr('<Tab>')
-        vim.keymap.set('c', '<Tab>', function()
-            state.completion.current = state.completion.current + 1
-            update_cmdline()
-        end, { desc = 'Next cmdline completion using wildchar'})
-
-        vim.keymap.set('c', '<S-Tab>', function()
-            state.completion.current = state.completion.current - 1
-            update_cmdline()
-        end, { desc = 'Prev cmdline completion using wildchar'})
-    end
 
     state.timer = vim.uv.new_timer()
     state.ns.selection = vim.api.nvim_create_namespace('CmdlineCompletionSelection')
