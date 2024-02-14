@@ -195,15 +195,18 @@ local function text_changed(client, bufnr)
         cleanup_windows(client, bufnr)
     end
 
-    local triggerKind = vim.lsp.protocol.CompletionTriggerKind.Invoked
-    local triggerChar = ''
-
     if vim.tbl_contains(client.server_capabilities.completionProvider.triggerCharacters or {}, char) then
-        triggerKind = vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter
-        triggerChar = char
+        params.context = {
+            triggerKind = vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter,
+            triggerCharacter = char
+        }
+    else
+        params.context = {
+            triggerKind = vim.lsp.protocol.CompletionTriggerKind.Invoked,
+            triggerCharacter = ''
+        }
     end
 
-    params.context = { triggerKind = triggerKind, triggerCharacter = triggerChar }
     debounce('completion', debounce_time, function()
         return request(client, methods.textDocument_completion, params, handle(client, line, col, completion_handler), bufnr)
     end)
