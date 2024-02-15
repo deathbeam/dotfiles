@@ -167,7 +167,7 @@ local function signature_handler(client, line, col, result, ctx)
 
     local fbuf, fwin = vim.lsp.util.open_floating_preview(lines, 'markdown', {
         focusable = false,
-        close_events = { 'CursorMoved' },
+        close_events = { 'CursorMoved', 'BufLeave', 'BufWinLeave' },
         border = M.config.window.border,
     })
 
