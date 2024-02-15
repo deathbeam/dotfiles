@@ -190,7 +190,7 @@ local function text_changed(client, bufnr)
     local params = vim.lsp.util.make_position_params()
     local sig_found = false
 
-    for _, c in ipairs(client.server_capabilities.signatureHelpProvider.triggerCharacters or {}) do
+    for _, c in ipairs(vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters') or {}) do
         if string.find(before_line, "[" .. c .. "]") then
             params.context = {
                 triggerKind = vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter,
