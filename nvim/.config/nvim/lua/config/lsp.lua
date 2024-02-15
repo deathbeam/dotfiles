@@ -71,13 +71,14 @@ vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
         return
     end
 
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local client_name = client and client.name or ""
     local token = progress.token
     local value = progress.value
 
     if value.kind == "begin" then
-        local client = vim.lsp.get_client_by_id(ctx.client_id)
         series[token] = {
-            client = client and client.name or "",
+            client = client_name,
             title = value.title or "",
             message = value.message or "",
             percentage = value.percentage or 0
@@ -92,24 +93,20 @@ vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
         })
     elseif value.kind == "report" then
         local cur = series[token]
-        if cur then
-            log({
-                client = cur.client,
-                title = value.title or cur.title,
-                message = value.message or cur.message,
-                percentage = value.percentage or cur.percentage
-            })
-        end
+        log({
+            client = client_name or (cur and cur.client),
+            title = value.title or (cur and cur.title),
+            message = value.message or (cur and cur.message),
+            percentage = value.percentage or (cur and cur.percentage)
+        })
     elseif value.kind == "end" then
         local cur = series[token]
-        if cur then
-            log({
-                client = cur.client,
-                title = value.title or value.message or cur.title or cur.message,
-                message = "Done"
-            })
-            series[token] = nil
-        end
+        log({
+            client = client_name or (cur and cur.client),
+            title = value.title or (cur and cur.title),
+            message = (value.message or (cur and cur.message)) .. " - Done",
+        })
+        series[token] = nil
     end
 end
 
