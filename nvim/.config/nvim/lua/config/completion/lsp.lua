@@ -140,6 +140,8 @@ local function completion_handler(client, line, col, result, ctx)
     local cmp_start = vim.fn.match(line:sub(1, col), '\\k*$')
     local prefix = line:sub(cmp_start + 1, col)
     local items = vim.lsp._completion._lsp_to_complete_items(result, prefix)
+    -- Remove snippets
+    items = vim.tbl_filter(function (item) return item.kind ~= "Snippet" end, items)
     vim.schedule(function()
         local mode = vim.api.nvim_get_mode()['mode']
         if mode == 'i' or mode == 'ic' then
