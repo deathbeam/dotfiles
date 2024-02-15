@@ -8,9 +8,22 @@ local lsp_capabilities = utils.make_capabilities()
 
 desc("<leader>c", "[C]ode")
 
+-- Set signs
 for name, icon in pairs(require("config.icons").diagnostics) do
     vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
 end
+
+-- Set border
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
+
+-- Better diagnostics
+vim.diagnostic.config({
+    severity_sort = true,
+    update_in_insert = true,
+    float = {
+        border = "single"
+    }
+})
 
 local function inlay_hints(buf, value)
     local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
