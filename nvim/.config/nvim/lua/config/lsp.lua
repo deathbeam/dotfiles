@@ -49,19 +49,22 @@ local function log(msg)
         out = out .. " - " .. message
     end
 
-    vim.api.nvim_command([[echo "]] .. out .. [["]])
+    vim.api.nvim_command(string.format('echo "%s"', string.sub(out, 1, vim.v.echospace)))
 end
 
 local series = {}
 vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
-    local client = vim.lsp.get_client_by_id(ctx.client_id)
-    local client_name = client.name or ""
+    if err then
+        return
+    end
+
     local token = progress.token
     local value = progress.value
 
     if value.kind == "begin" then
+        local client = vim.lsp.get_client_by_id(ctx.client_id)
         series[token] = {
-            client = client_name ,
+            client = client and client.name or "",
             title = value.title or "",
             message = value.message or "",
             percentage = value.percentage or 0
@@ -69,27 +72,31 @@ vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
 
         local cur = series[token]
         log({
-            client = client_name or cur.client_name,
+            client = cur.client,
             title = cur.title,
             message = cur.message .. " - Starting",
             percentage = cur.percentage
         })
     elseif value.kind == "report" then
         local cur = series[token]
-        log({
-            client = client_name or cur.client_name,
-            title = value.title or cur.title,
-            message = value.message or cur.message,
-            percentage = value.percentage or cur.percentage
-        })
+        if cur then
+            log({
+                client = cur.client,
+                title = value.title or cur.title,
+                message = value.message or cur.message,
+                percentage = value.percentage or cur.percentage
+            })
+        end
     elseif value.kind == "end" then
         local cur = series[token]
-        log({
-            client = client_name or cur.client_name,
-            title = value.title or value.message or cur.title or cur.message,
-            message = "Done"
-        })
-        series[token] = nil
+        if cur then
+            log({
+                client = cur.client,
+                title = value.title or value.message or cur.title or cur.message,
+                message = "Done"
+            })
+            series[token] = nil
+        end
     end
 end
 

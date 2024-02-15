@@ -36,13 +36,6 @@ function StatusLineInactive()
     }
 end
 
-au("User", {
-    pattern = {"LspProgressStatusUpdated"},
-    callback = function()
-        vim.cmd("redrawstatus!")
-    end
-})
-
 au({"WinEnter", "BufEnter"}, {
     pattern = {"*"},
     callback = function()
