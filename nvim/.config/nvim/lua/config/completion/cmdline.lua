@@ -49,7 +49,7 @@ local function close_win()
 end
 
 local function is_cmdline()
-    return vim.fn.getcmdwintype() == '' and vim.v.event.cmdtype == ':'
+    return vim.fn.getcmdwintype() == '' and vim.v.event.cmdtype == ':' and vim.fn.mode() == 'c'
 end
 
 local function highlight_selection()
