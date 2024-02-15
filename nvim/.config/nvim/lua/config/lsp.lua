@@ -46,7 +46,20 @@ local function log(msg)
     end
 
     if message ~= "" then
-        out = out .. " - " .. message
+        if title ~= "" and vim.startswith(message, title) then
+            message = string.sub(message, string.len(title) + 1)
+        end
+
+        message = message:gsub("%s*%d+%%", "")
+        message = message:gsub("^%s*-", "")
+        message = vim.trim(message)
+        if message ~= "" then
+            if title ~= "" then
+                out = out .. " - " .. message
+            else
+                out = out .. " " .. message
+            end
+        end
     end
 
     vim.api.nvim_command(string.format('echo "%s"', string.sub(out, 1, vim.v.echospace)))
