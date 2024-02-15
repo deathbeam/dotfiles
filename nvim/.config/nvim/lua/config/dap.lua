@@ -25,8 +25,8 @@ dapui.setup {
     layouts = {
         {
             elements = {
+                "repl",
                 "scopes",
-                "breakpoints",
                 "stacks",
                 "watches"
             },
@@ -36,7 +36,6 @@ dapui.setup {
         {
             elements = {
                 "console",
-                "repl"
             },
             position = "bottom",
             size = 0.25
