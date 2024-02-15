@@ -120,9 +120,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
-[submodule "vim/.vim/pack/bundle/start/lsp-progress.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/lsp-progress.nvim
-	url = https://github.com/linrongbin16/lsp-progress.nvim
 [submodule "vim/.vim/pack/bundle/start/quickfix-reflector.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/quickfix-reflector.vim
 	url = https://github.com/stefandtw/quickfix-reflector.vim

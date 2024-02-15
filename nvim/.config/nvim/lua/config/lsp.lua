@@ -25,6 +25,75 @@ vim.diagnostic.config({
     }
 })
 
+-- Echo LSP progress
+local function log(msg)
+    local client = msg.client or ""
+    local title = msg.title or ""
+    local message = msg.message or ""
+    local percentage = msg.percentage or 0
+
+    local out = ""
+    if client ~= "" then
+        out = out .. "[" .. client .. "]"
+    end
+
+    if percentage > 0 then
+        out = out .. " [" .. percentage .. "%]"
+    end
+
+    if title ~= "" then
+        out = out .. " " .. title
+    end
+
+    if message ~= "" then
+        out = out .. " - " .. message
+    end
+
+    vim.api.nvim_command([[echo "]] .. out .. [["]])
+end
+
+local series = {}
+vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
+    local client = vim.lsp.get_client_by_id(ctx.client_id)
+    local client_name = client.name or ""
+    local token = progress.token
+    local value = progress.value
+
+    if value.kind == "begin" then
+        series[token] = {
+            client = client_name ,
+            title = value.title or "",
+            message = value.message or "",
+            percentage = value.percentage or 0
+        }
+
+        local cur = series[token]
+        log({
+            client = client_name or cur.client_name,
+            title = cur.title,
+            message = cur.message .. " - Starting",
+            percentage = cur.percentage
+        })
+    elseif value.kind == "report" then
+        local cur = series[token]
+        log({
+            client = client_name or cur.client_name,
+            title = value.title or cur.title,
+            message = value.message or cur.message,
+            percentage = value.percentage or cur.percentage
+        })
+    elseif value.kind == "end" then
+        local cur = series[token]
+        log({
+            client = client_name or cur.client_name,
+            title = value.title or value.message or cur.title or cur.message,
+            message = "Done"
+        })
+        series[token] = nil
+    end
+end
+
+-- Inlay hints
 local function inlay_hints(buf, value)
     local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
     if type(ih) == "function" then

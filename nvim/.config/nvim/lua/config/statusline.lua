@@ -1,6 +1,4 @@
 local au = require("config.utils").au
-local lspprogress = require('lsp-progress')
-lspprogress.setup()
 
 function StatusLineActive()
     return table.concat {
@@ -18,8 +16,6 @@ function StatusLineActive()
         [[%2*]],
         -- left/right separator
         [[%= ]],
-        -- lsp progress
-        lspprogress.progress(),
         -- color 3
         [[ %3*]],
         -- cursor info
