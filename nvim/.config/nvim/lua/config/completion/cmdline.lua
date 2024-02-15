@@ -195,6 +195,15 @@ local function cmdline_changed()
     vim.cmd('redraw')
 end
 
+local function changed_handlers()
+    if not is_cmdline() then
+        return
+    end
+
+    state.timer:stop()
+    state.timer:start(M.config.debounce_delay, 0, vim.schedule_wrap(cmdline_changed))
+end
+
 local function setup_handlers()
     if not is_cmdline() then
         return
@@ -214,7 +223,7 @@ local function setup_handlers()
         state.window.data[#state.window.data + 1] = (' '):rep(vim.o.columns)
     end
 
-    cmdline_changed()
+    changed_handlers()
 end
 
 local function teardown_handlers()
@@ -233,20 +242,6 @@ local function teardown_handlers()
         end
         state.window.id = nil
     end
-
-    if state.window.bufnr and not in_cmdwin and vim.api.nvim_buf_is_valid(state.window.bufnr)  then
-        vim.api.nvim_buf_delete(state.window.bufnr, { force = true })
-        state.window.bufnr = nil
-    end
-end
-
-local function changed_handlers()
-    if not is_cmdline() then
-        return
-    end
-
-    state.timer:stop()
-    state.timer:start(M.config.debounce_delay, 0, vim.schedule_wrap(cmdline_changed))
 end
 
 M.config = {
