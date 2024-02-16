@@ -137,7 +137,7 @@ return {
         mason = { "bashls" },
     },
     {
-        language = { "vim" },
+        language = { "vim", "vimdoc" },
         mason = { "vimls" },
     },
     {
