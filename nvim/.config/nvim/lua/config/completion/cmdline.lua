@@ -231,15 +231,9 @@ local function teardown_handlers()
     state.window.data = {}
     state.completion.data = {}
     state.completion.last = nil
-    local in_cmdwin = vim.fn.getcmdwintype() ~= ''
 
     if state.window.id and vim.api.nvim_win_is_valid(state.window.id) then
-        -- FIXME: wait for nvim-0.10.0 so this is not needed, lower versions do not allow win_close in cmdwin
-        if in_cmdwin and vim.fn.has('nvim-0.10.0') == 0 then
-            vim.api.nvim_win_hide(state.window.id)
-        else
-            vim.api.nvim_win_close(state.window.id, true)
-        end
+        vim.api.nvim_win_close(state.window.id, true)
         state.window.id = nil
     end
 end
