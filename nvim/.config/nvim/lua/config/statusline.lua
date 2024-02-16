@@ -14,14 +14,14 @@ function StatusLineActive()
         get_icon(),
         -- file type
         [[ %y]],
+        -- modified flag
+        [[%m]],
         -- full path
         [[ %<%F]],
-        -- modified flag 
-        [[%m ]],
         -- color 2
         [[%2*]],
         -- left/right separator
-        [[%= ]],
+        [[%=]],
         -- color 3
         [[ %3*]],
         -- cursor info
@@ -33,10 +33,10 @@ function StatusLineInactive()
     return table.concat {
         -- file type
         [[ %y]],
+        -- modified flag
+        [[%m]],
         -- full path
-        [[ %<%F]],
-        -- modified flag 
-        [[ %m]],
+        [[ %<%F]]
     }
 end
 
