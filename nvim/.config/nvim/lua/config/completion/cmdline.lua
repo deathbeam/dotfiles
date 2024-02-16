@@ -39,6 +39,9 @@ local function open_win()
             col = 0,
         })
     end
+
+    -- Clear window
+    vim.api.nvim_buf_set_lines(state.window.bufnr, 0, state.window.height, false, state.window.data)
 end
 
 local function close_win()
@@ -121,9 +124,6 @@ local function cmdline_changed()
 
     -- Recreate window if we closed it before
     open_win()
-
-    -- Clear window
-    vim.api.nvim_buf_set_lines(state.window.bufnr, 0, state.window.height, false, state.window.data)
 
     -- Get completions
     local input = vim.fn.getcmdline()
@@ -223,6 +223,7 @@ local function setup_handlers()
         state.window.data[#state.window.data + 1] = (' '):rep(vim.o.columns)
     end
 
+    open_win()
     changed_handlers()
 end
 
