@@ -239,8 +239,6 @@ function M.capabilities()
         textDocument = {
             completion = {
                 completionItem = {
-                    -- No snippets, fuck em
-                    snippetSupport = false,
                     -- Fetch additional info for completion items
                     resolveSupport = {
                         properties = {
