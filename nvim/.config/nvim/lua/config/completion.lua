@@ -13,12 +13,12 @@ vim.keymap.set("i", "<Tab>", function()
     end
 end, { expr = true, replace_keycodes = true })
 
-require('config.completion.lsp').setup {
+require('autocomplete.lsp').setup {
     window = {
         border = "single"
     },
 }
-require('config.completion.cmd').setup {
+require('autocomplete.cmd').setup {
     close_on_done = false,
     mappings = {
         accept = "<Tab>",
