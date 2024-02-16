@@ -7,6 +7,11 @@ if !has('nvim')
   source $VIMRUNTIME/defaults.vim
 endif
 
+" Reset all auto commands
+augroup VimRc
+  autocmd!
+augroup END
+
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
 set nowritebackup
@@ -73,14 +78,14 @@ let g:netrw_banner=0
 nmap - <CMD>Explore<CR>
 
 " Automatically rebalance windows on vim resize
-autocmd VimResized * wincmd =
+autocmd VimRc VimResized * wincmd =
 
 " Restore cursor position on buf enter
-autocmd BufRead * autocmd FileType <buffer> ++once
+autocmd VimRc BufRead * autocmd FileType <buffer> ++once
       \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 
 " Disable relative numbers in quickfix
-autocmd BufWinEnter quickfix set norelativenumber
+autocmd VimRc BufWinEnter quickfix set norelativenumber
 
 " }}}
 
@@ -103,7 +108,7 @@ set smartindent
 set fileformats=unix,dos,mac
 
 " Auto comments are annoying, disable them
-autocmd FileType * set formatoptions-=cro
+autocmd VimRc FileType * set formatoptions-=cro
 
 " }}}
 
@@ -167,7 +172,7 @@ function! ToggleZoom(zoom)
   endif
 endfunction
 
-autocmd WinEnter * silent! :call ToggleZoom(v:false)
+autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
 nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
 
 " Emacs like keybindings for the command line (:) and insert mode are better

@@ -1,5 +1,5 @@
 local wk = require("which-key")
-local group = vim.api.nvim_create_augroup('VimRc', { clear = true })
+local group = vim.api.nvim_create_augroup('NeoVimRc', { clear = true })
 
 local M = {}
 
