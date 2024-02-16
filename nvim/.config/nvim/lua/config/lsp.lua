@@ -14,7 +14,7 @@ for name, icon in pairs(require("config.icons").diagnostics) do
 end
 
 -- Set border
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded", })
+vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single", })
 
 -- Better diagnostics
 vim.diagnostic.config({
