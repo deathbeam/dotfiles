@@ -14,7 +14,7 @@ vim.keymap.set("i", "<Tab>", function()
 end, { expr = true })
 
 require('config.completion.lsp').setup {}
-require('config.completion.cmdline').setup {
+require('config.completion.cmd').setup {
     close_on_done = false,
     mappings = {
         accept = "<Tab>",

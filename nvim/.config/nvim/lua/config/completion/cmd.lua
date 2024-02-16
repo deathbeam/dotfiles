@@ -16,14 +16,11 @@ local state = {
     },
     window = {
         id = nil,
-        bufnr = nil,
-        width = 0,
-        height = 0,
-        data = {}
+        bufnr = nil
     }
 }
 
-local function open_win()
+local function open_win(height)
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
         state.window.bufnr = vim.api.nvim_create_buf(false, true)
     end
@@ -34,14 +31,11 @@ local function open_win()
             border = M.config.window.border,
             style = 'minimal',
             width = vim.o.columns,
-            height = state.window.height,
+            height = height,
             row = vim.o.lines - 2,
             col = 0,
         })
     end
-
-    -- Clear window
-    vim.api.nvim_buf_set_lines(state.window.bufnr, 0, state.window.height, false, state.window.data)
 end
 
 local function close_win()
@@ -122,8 +116,22 @@ local function cmdline_changed()
         return
     end
 
+    local window_height = M.config.window.rows
+    if window_height < 1 then
+        window_height = math.floor(vim.o.lines * window_height)
+    end
+
+    local col_width = math.floor(vim.o.columns / M.config.window.columns)
+
     -- Recreate window if we closed it before
-    open_win()
+    open_win(window_height)
+
+    -- Clear window
+    local window_data = {}
+    for _ = 0, window_height do
+        window_data[#window_data + 1] = (' '):rep(vim.o.columns)
+    end
+    vim.api.nvim_buf_set_lines(state.window.bufnr, 0, window_height, false, window_data)
 
     -- Get completions
     local input = vim.fn.getcmdline()
@@ -139,8 +147,8 @@ local function cmdline_changed()
     end
 
     local i = 1
-    for line = 0, state.window.height - 1 do
-        for col = 0, math.floor(vim.o.columns / state.window.width) - 1 do
+    for line = 0, window_height - 1 do
+        for col = 0, math.floor(vim.o.columns / col_width) - 1 do
             if i > #completions then
                 break
             end
@@ -157,19 +165,19 @@ local function cmdline_changed()
             end
             shortened = ' ' .. shortened .. ' '
 
-            if string.len(shortened) >= state.window.width then
-                shortened = string.sub(shortened, 1, state.window.width - 4) .. '...'
+            if string.len(shortened) >= col_width then
+                shortened = string.sub(shortened, 1, col_width - 4) .. '...'
             end
 
-            local end_col = col * state.window.width + string.len(shortened)
+            local end_col = col * col_width + string.len(shortened)
             if end_col > vim.o.columns then
                 break
             end
 
-            vim.api.nvim_buf_set_text(state.window.bufnr, line, col * state.window.width, line, end_col, { shortened })
+            vim.api.nvim_buf_set_text(state.window.bufnr, line, col * col_width, line, end_col, { shortened })
 
             local data = {
-                start = { line, col * state.window.width },
+                start = { line, col * col_width },
                 finish = { line, end_col },
                 completion = completion,
             }
@@ -190,7 +198,7 @@ local function cmdline_changed()
         end
     end
 
-    vim.api.nvim_win_set_height(state.window.id, math.min(math.floor(#completions / (math.floor(vim.o.columns / state.window.width))), state.window.height))
+    vim.api.nvim_win_set_height(state.window.id, math.min(math.floor(#completions / (math.floor(vim.o.columns / col_width))), window_height))
     highlight_selection()
     vim.cmd('redraw')
 end
@@ -211,25 +219,11 @@ local function setup_handlers()
 
     state.completion.menuone = string.find(vim.o.completeopt, 'menuone')
     state.completion.noselect = string.find(vim.o.completeopt, 'noselect')
-
-    state.window.height = M.config.window.rows
-    if state.window.height < 1 then
-        state.window.height = math.floor(vim.o.lines * state.window.height)
-    end
-
-    state.window.width = math.floor(vim.o.columns / M.config.window.columns)
-    state.window.data = {}
-    for _ = 0, state.window.height do
-        state.window.data[#state.window.data + 1] = (' '):rep(vim.o.columns)
-    end
-
-    open_win()
     changed_handlers()
 end
 
 local function teardown_handlers()
     state.timer:stop()
-    state.window.data = {}
     state.completion.data = {}
     state.completion.last = nil
 

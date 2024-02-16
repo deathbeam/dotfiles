@@ -49,13 +49,19 @@ local function request(client, method, params, handler, bufnr)
     end
 end
 
-local function get_client(bufnr)
-    local clients = vim.lsp.get_clients({ bufnr, method = methods.textDocument_completion })
-    if #clients == 0 then
-        return nil
-    end
+local function with_client(callback)
+    return function(args)
+        local bufnr = args.buf
+        local clients = vim.lsp.get_clients({ bufnr, method = methods.textDocument_completion })
+        if #clients == 0 then
+            return
+        end
 
-    return clients[1]
+        local client = clients[1]
+        if client then
+            callback(client, bufnr)
+        end
+    end
 end
 
 local function apply_text_edits(client, edits, bufnr)
@@ -109,7 +115,7 @@ local function complete_changed(client, bufnr)
         return request(client, methods.completionItem_resolve, item, function(_, result)
             local info = vim.fn.complete_info()
 
-            -- FIXME: Preview popup is kinda garbage so we need to reload it like this
+            -- FIXME: Preview popup do not auto resizes to fit new content so have to reset it like this
             if info.preview_winid and vim.api.nvim_win_is_valid(info.preview_winid) then
                 vim.api.nvim_win_close(info.preview_winid, true)
             end
@@ -264,29 +270,23 @@ function M.setup(config)
     state.ns = vim.api.nvim_create_namespace('LspCompletion')
     local group = vim.api.nvim_create_augroup('LspCompletion', {})
 
-    vim.api.nvim_create_autocmd('TextChangedI', { group = group, callback = function(args)
-        local bufnr = args.buf
-        local client = get_client(bufnr)
-        if client then
-            text_changed(client, bufnr)
-        end
-    end })
+    vim.api.nvim_create_autocmd('TextChangedI', {
+        desc = 'Auto show LSP completion',
+        group = group,
+        callback = with_client(text_changed)
+    })
 
-    vim.api.nvim_create_autocmd('CompleteDone', { group = group, callback = function(args)
-        local bufnr = args.buf
-        local client = get_client(bufnr)
-        if client then
-            complete_done(client, bufnr)
-        end
-    end })
+    vim.api.nvim_create_autocmd('CompleteDone', {
+        desc = 'Auto apply LSP completion edits after selection',
+        group = group,
+        callback = with_client(complete_done)
+    })
 
-    vim.api.nvim_create_autocmd('CompleteChanged', { group = group, callback = function(args)
-        local bufnr = args.buf
-        local client = get_client(bufnr)
-        if client then
-            complete_changed(client, bufnr)
-        end
-    end })
+    vim.api.nvim_create_autocmd('CompleteChanged', {
+        desc = 'Auto update LSP completion info',
+        group = group,
+        callback = with_client(complete_changed)
+    })
 end
 
 return M
