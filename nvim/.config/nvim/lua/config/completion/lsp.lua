@@ -25,7 +25,7 @@ local function debounce(name, ms, func)
         state.debounce_cache[name] = entry
     end
 
-    entry.timer:start( ms, 0, vim.schedule_wrap(function()
+    entry.timer:start(ms, 0, vim.schedule_wrap(function()
         entry.cancel = func()
     end))
 end
@@ -132,11 +132,9 @@ local function completion_handler(client, line, col, result, ctx)
     local cmp_start = vim.fn.match(line:sub(1, col), '\\k*$')
     local prefix = line:sub(cmp_start + 1, col)
     local items = vim.lsp._completion._lsp_to_complete_items(result, prefix)
-    -- Remove snippets
     items = vim.tbl_filter(function (item) return item.kind ~= "Snippet" end, items)
     vim.schedule(function()
-        local mode = vim.api.nvim_get_mode()['mode']
-        if mode == 'i' or mode == 'ic' then
+        if vim.fn.mode() == 'i' then
             vim.fn.complete(cmp_start + 1, items)
         end
     end)
