@@ -6,6 +6,10 @@
 if !has('nvim')
   source $VIMRUNTIME/defaults.vim
 endif
+" Reset all auto commands
+augroup VimRc
+  autocmd!
+augroup END
 
 " Turn backup off, since most stuff is in SVN, git et.c anyway...
 set nobackup
@@ -61,6 +65,9 @@ set number
 set relativenumber
 set numberwidth=3
 
+" Color column
+set colorcolumn=+1
+
 " Folds
 set foldtext=""
 set foldlevel=99
@@ -68,6 +75,16 @@ set foldlevel=99
 " Better file browser
 let g:netrw_banner=0
 nmap - <CMD>Explore<CR>
+
+" Automatically rebalance windows on vim resize
+autocmd VimRc VimResized * <CMD>wincmd =
+
+" Restore cursor position on buf enter
+autocmd VimRc BufRead * autocmd FileType <buffer> ++once
+      \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
+
+" Disable relative numbers in quickfix
+autocmd VimRc BufWinEnter quickfix set norelativenumber
 
 " }}}
 
@@ -90,7 +107,7 @@ set smartindent
 set fileformats=unix,dos,mac
 
 " Auto comments are annoying, disable them
-autocmd FileType * set formatoptions-=cro
+autocmd VimRc FileType * set formatoptions-=cro
 
 " }}}
 
@@ -144,14 +161,37 @@ nmap <silent> <leader>" <CMD>vsplit<CR>
 nmap <silent> <leader>% <CMD>split<CR>
 nmap <silent> <leader>x <CMD>close<CR>
 
+function! ToggleZoom(zoom)
+  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
+      exec t:restore_zoom.cmd
+      unlet t:restore_zoom
+  elseif a:zoom
+      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
+      exec "normal \<C-W>\|\<C-W>_"
+  endif
+endfunction
+
+autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
+nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
+
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>
 noremap! <C-E> <End>
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
 
-" Useful system mappings
+" Sudo save
 command! W w !sudo tee % > /dev/null
+
+" Mark mappings
+nnoremap <silent> dm     <CMD>execute 'delmarks '.nr2char(getchar())<CR>
+nnoremap <silent> dm<CR> <CMD>delm a-zA-Z0-9<CR>
+
+" Quickfix mappings
+nnoremap <silent> <leader>q <CMD>copen<CR>
+nnoremap <silent> <leader>Q <CMD>cclose<CR>
+nnoremap <silent> ]q <CMD>cnext<CR>
+nnoremap <silent> {q <CMD>cprev<CR>
 
 " }}}
 

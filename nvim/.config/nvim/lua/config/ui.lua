@@ -1,6 +1,5 @@
 local utils = require("config.utils")
 local au = utils.au
-local nmap = utils.nmap
 
 -- Set base16 colorscheme
 vim.opt.termguicolors = true
@@ -55,84 +54,9 @@ au("FileType", {
     end
 })
 
--- Quickfix mappings
-nmap("<leader>q", "<cmd>copen<CR>", "Open [Q]uickfix")
-nmap("]q", "<cmd>cnext<CR>", "Goto next [Q]uickfix entry")
-nmap("[q", "<cmd>cprev<CR>", "Goto previous [Q]uickfix entry")
-
-au("BufWinEnter", {
-    pattern = "quickfix",
-    desc = "Set quickfix options",
-    callback = function()
-        vim.opt_local.relativenumber = false
-    end
-})
-
--- Mark mappings
-nmap("dm", function() vim.api.nvim_buf_set_mark(0, vim.fn.nr2char(vim.fn.getchar()), 0, 0, {}) end, "Delete [M]ark")
-nmap("dm<CR>", "<cmd>delm a-zA-Z0-9<CR>", "Delete [M]ark")
-
 -- Tmux bindings
 require("tmux").setup {
     copy_sync = {
         enable = false
     }
 }
-
--- Set colorcolumn to textwidth
-au({ "BufEnter", "WinEnter" }, {
-    desc = "Set colorcolumn",
-    callback = function()
-        vim.opt_local.colorcolumn = "" .. vim.opt_local.textwidth:get()
-    end
-})
-
--- Automatically rebalance windows on vim resize
-au("VimResized", {
-    desc = "Rebalance windows",
-    callback = function()
-        vim.cmd("wincmd =")
-    end
-})
-
--- Restore cursor position
-au('BufRead', {
-    desc = "Restore cursor position outer",
-    callback = function(opts)
-        au('BufWinEnter', {
-            desc = "Restore cursor position inner",
-            once = true,
-            buffer = opts.buf,
-            callback = function()
-                local ft = vim.bo[opts.buf].filetype
-                local last_known_line = vim.api.nvim_buf_get_mark(opts.buf, '"')[1]
-                if
-                    not (ft:match('commit') and ft:match('rebase'))
-                    and last_known_line > 1
-                    and last_known_line <= vim.api.nvim_buf_line_count(opts.buf)
-                then
-                    vim.api.nvim_feedkeys([[g`"]], 'nx', false)
-                end
-            end,
-        })
-    end,
-})
-
--- Toggle zoom
-local restore_zoom = {}
-local function toggle_zoom(zoom)
-    if restore_zoom.win and (zoom or restore_zoom.win ~= vim.fn.winnr()) then
-        vim.cmd(restore_zoom.cmd)
-        restore_zoom = {}
-    elseif zoom then
-        restore_zoom = { win = vim.fn.winnr(), cmd = vim.fn.winrestcmd() }
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<C-W>|<C-W>_", true, true, true), "n", true)
-    end
-end
-au("WinEnter", {
-    desc = "Restore zoom",
-    callback = function()
-        toggle_zoom(false)
-    end
-})
-nmap("<leader>z", function() toggle_zoom(true) end, "Toggle [Z]oom")

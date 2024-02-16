@@ -3,6 +3,7 @@ local M = {}
 local state = {
     ns = nil,
     signature_window = nil,
+    skip_next = false,
     debounce_cache = {}
 }
 
@@ -85,10 +86,6 @@ local function complete_done(client, bufnr)
         return
     end
 
-    if item.textEdit then
-        apply_text_edits(client, { item.textEdit }, bufnr)
-    end
-
     if #(item.additionalTextEdits or {}) == 0 then
         debounce('textEdits', M.config.debounce_delay, function()
             return request(client, methods.completionItem_resolve, item, function(_, result)
@@ -98,6 +95,8 @@ local function complete_done(client, bufnr)
     else
         apply_text_edits(client, item.additionalTextEdits, bufnr)
     end
+
+    state.skip_next = true
 end
 
 local function complete_changed(client, bufnr)
@@ -187,6 +186,12 @@ local function signature_handler(client, line, col, result, ctx)
 end
 
 local function text_changed(client, bufnr)
+    -- We do not want to trigger completion again if we just accepted a completion
+    if state.skip_next then
+        state.skip_next = false
+        return
+    end
+
     local line = vim.api.nvim_get_current_line()
     local col = vim.api.nvim_win_get_cursor(0)[2]
     if col == 0 or #line == 0 then
@@ -195,9 +200,10 @@ local function text_changed(client, bufnr)
 
     local before_line = line:sub(1, col)
     local char = line:sub(col, col)
-    local params = vim.lsp.util.make_position_params()
+    local params = vim.lsp.util.make_position_params(0, client.offset_encoding)
     local sig_found = false
 
+    -- Try to find signature help trigger character in current line
     for _, c in ipairs(vim.tbl_get(client.server_capabilities, 'signatureHelpProvider', 'triggerCharacters') or {}) do
         if string.find(before_line, "[" .. c .. "]") then
             params.context = {
@@ -218,6 +224,7 @@ local function text_changed(client, bufnr)
         close_signature_window()
     end
 
+    -- Check if we are triggering completion automatically or on trigger character
     if vim.tbl_contains(client.server_capabilities.completionProvider.triggerCharacters or {}, char) then
         params.context = {
             triggerKind = vim.lsp.protocol.CompletionTriggerKind.TriggerCharacter,
@@ -237,7 +244,7 @@ end
 
 M.config = {
     window = {
-        border = 'single',
+        border = nil, -- Signature border style
     },
     debounce_delay = 100
 }
@@ -247,19 +254,17 @@ function M.capabilities()
         textDocument = {
             completion = {
                 completionItem = {
+                    -- No snippets, fuck em
                     snippetSupport = false,
+                    -- Fetch additional info for completion items
                     resolveSupport = {
-                        properties = { 'edit', 'documentation', 'detail', 'additionalTextEdits' },
+                        properties = {
+                            'documentation',
+                            'detail',
+                            'additionalTextEdits'
+                        },
                     },
-                },
-                completionList = {
-                    itemDefaults = {
-                        'editRange',
-                        'insertTextFormat',
-                        'insertTextMode',
-                        'data',
-                    },
-                },
+                }
             },
         },
     }

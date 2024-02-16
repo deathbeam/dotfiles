@@ -7,13 +7,17 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 vim.o.completeopt = 'menuone,noinsert,popup'
 vim.keymap.set("i", "<Tab>", function()
     if vim.fn.pumvisible() ~= 0 then
-        return vim.api.nvim_replace_termcodes("<C-y>", true, true, true)
+        return "<C-y>"
     else
-        return vim.api.nvim_replace_termcodes("<Tab>", true, true, true)
+        return "<Tab>"
     end
-end, { expr = true })
+end, { expr = true, replace_keycodes = true })
 
-require('config.completion.lsp').setup {}
+require('config.completion.lsp').setup {
+    window = {
+        border = "single"
+    },
+}
 require('config.completion.cmd').setup {
     close_on_done = false,
     mappings = {

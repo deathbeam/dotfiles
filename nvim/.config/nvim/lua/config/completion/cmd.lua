@@ -252,7 +252,6 @@ M.config = {
     },
     debounce_delay = 100,
     close_on_done = true, -- Close completion window when done (accept/reject)
-    set_vim_settings = true, -- Set wildchar to <Tab> and create mappings for <Tab> and <S-Tab>
 }
 
 function M.setup(config)
