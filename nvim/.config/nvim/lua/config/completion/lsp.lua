@@ -65,21 +65,6 @@ local function with_client(callback)
     end
 end
 
-local function apply_text_edits(client, edits, bufnr)
-    if not edits or vim.tbl_isempty(edits) then
-        return
-    end
-
-    -- Use extmark to track relevant cursor position after text edits
-    local cur_pos = vim.api.nvim_win_get_cursor(0)
-    local extmark_id = vim.api.nvim_buf_set_extmark(0, state.ns, cur_pos[1] - 1, cur_pos[2], {})
-    local offset_encoding = client.offset_encoding
-    vim.lsp.util.apply_text_edits(edits, bufnr, offset_encoding)
-    local extmark_data = vim.api.nvim_buf_get_extmark_by_id(0, state.ns, extmark_id, {})
-    pcall(vim.api.nvim_buf_del_extmark, 0, state.ns, extmark_id)
-    pcall(vim.api.nvim_win_set_cursor, 0, { extmark_data[1] + 1, extmark_data[2] })
-end
-
 local function complete_done(client, bufnr)
     local item = vim.tbl_get(vim.v, 'completed_item', 'user_data', 'nvim', 'lsp', 'completion_item')
     if not item then
@@ -89,11 +74,13 @@ local function complete_done(client, bufnr)
     if #(item.additionalTextEdits or {}) == 0 then
         debounce('textEdits', M.config.debounce_delay, function()
             return request(client, methods.completionItem_resolve, item, function(_, result)
-                apply_text_edits(client, result.additionalTextEdits, bufnr)
+                if #(result.additionalTextEdits or {}) ~= 0 then
+                    vim.lsp.util.apply_text_edits(result.additionalTextEdits, bufnr, client.offset_encoding)
+                end
             end, bufnr)
         end)
     else
-        apply_text_edits(client, item.additionalTextEdits, bufnr)
+        vim.lsp.util.apply_text_edits(item.additionalTextEdits, bufnr, client.offset_encoding)
     end
 
     state.skip_next = true
