@@ -77,7 +77,7 @@ let g:netrw_banner=0
 nmap - <CMD>Explore<CR>
 
 " Automatically rebalance windows on vim resize
-autocmd VimRc VimResized * <CMD>wincmd =
+autocmd VimResized * wincmd =
 
 " Restore cursor position on buf enter
 autocmd VimRc BufRead * autocmd FileType <buffer> ++once
