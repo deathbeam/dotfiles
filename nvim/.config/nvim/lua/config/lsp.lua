@@ -19,7 +19,6 @@ vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { 
 -- Better diagnostics
 vim.diagnostic.config({
     severity_sort = true,
-    update_in_insert = true,
     float = {
         border = "single"
     }

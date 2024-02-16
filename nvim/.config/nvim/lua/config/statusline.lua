@@ -1,13 +1,19 @@
 local au = require("config.utils").au
+local icons = require("nvim-web-devicons")
+
+local function get_icon()
+    local filename = vim.fn.expand("%:t")
+    return icons.get_icon(filename, nil, { default = true })
+end
 
 function StatusLineActive()
     return table.concat {
         -- color 1
-        [[%1*]],
-        -- file format
-        [[ %{&ff}]],
+        [[%1* ]],
+        -- icon
+        get_icon(),
         -- file type
-        [[%y]],
+        [[ %y]],
         -- full path
         [[ %<%F]],
         -- modified flag 
@@ -25,10 +31,8 @@ end
 
 function StatusLineInactive()
     return table.concat {
-        -- file format
-        [[ %{&ff}]],
         -- file type
-        [[%y]],
+        [[ %y]],
         -- full path
         [[ %<%F]],
         -- modified flag 
