@@ -1,12 +1,12 @@
-local icons = require("config.icons")
+local icons = require('config.icons')
 vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open }
 
 local function icon(sign, len)
     sign = sign or {}
     len = len or 2
-    local text = vim.fn.strcharpart(sign.text or "", 0, len) ---@type string
-    text = text .. string.rep(" ", len - vim.fn.strchars(text))
-    return sign.texthl and ("%#" .. sign.texthl .. "#" .. text .. "%*") or text
+    local text = vim.fn.strcharpart(sign.text or '', 0, len) ---@type string
+    text = text .. string.rep(' ', len - vim.fn.strchars(text))
+    return sign.texthl and ('%#' .. sign.texthl .. '#' .. text .. '%*') or text
 end
 
 local function get_sign(buf, lnum)
@@ -16,11 +16,11 @@ local function get_sign(buf, lnum)
         -1,
         { lnum - 1, 0 },
         { lnum - 1, -1 },
-        { details = true, type = "sign" }
+        { details = true, type = 'sign' }
     )
     for _, extmark in pairs(extmarks) do
         signs[#signs + 1] = {
-            name = extmark[4].sign_hl_group or "",
+            name = extmark[4].sign_hl_group or '',
             text = extmark[4].sign_text,
             texthl = extmark[4].sign_hl_group,
             priority = extmark[4].priority,
@@ -42,8 +42,8 @@ local function get_mark(buf, lnum)
     local marks = vim.fn.getmarklist(buf)
     vim.list_extend(marks, vim.fn.getmarklist())
     for _, mark in ipairs(marks) do
-        if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match("[a-zA-Z]") then
-            return { text = mark.mark:sub(2), texthl = "DiagnosticHint" }
+        if mark.pos[1] == buf and mark.pos[2] == lnum and mark.mark:match('[a-zA-Z]') then
+            return { text = mark.mark:sub(2), texthl = 'DiagnosticHint' }
         end
     end
 end
@@ -52,7 +52,7 @@ local function get_fold(win, lnum)
     local fold = nil
     vim.api.nvim_win_call(win, function()
         if vim.fn.foldclosed(lnum) >= 0 then
-            fold = { text = vim.opt.fillchars:get().foldclose, texthl = "FoldColumn" }
+            fold = { text = vim.opt.fillchars:get().foldclose, texthl = 'FoldColumn' }
         elseif vim.fn.foldlevel(lnum) > vim.fn.foldlevel(lnum - 1) then
             fold = { text = vim.opt.fillchars:get().foldopen }
         end
@@ -63,9 +63,9 @@ end
 function StatusColumn()
     local win = vim.g.statusline_winid
     local buf = vim.api.nvim_win_get_buf(win)
-    local show_signs = vim.wo[win].signcolumn ~= "no"
+    local show_signs = vim.wo[win].signcolumn ~= 'no'
 
-    local components = { "", "", "" } -- left, middle, right
+    local components = { '', '', '' } -- left, middle, right
 
     if show_signs then
         local sign = get_sign(buf, vim.v.lnum)
@@ -85,13 +85,13 @@ function StatusColumn()
     local is_relnum = vim.wo[win].relativenumber
     if (is_num or is_relnum) and vim.v.virtnum == 0 then
         if vim.v.relnum == 0 then
-            components[1] = is_num and "%l" or "%r" -- the current line
+            components[1] = is_num and '%l' or '%r' -- the current line
         else
-            components[1] = is_relnum and "%r" or "%l" -- other lines
+            components[1] = is_relnum and '%r' or '%l' -- other lines
         end
     end
 
-    components[1] = "%=" .. components[1] .. " " -- right align
+    components[1] = '%=' .. components[1] .. ' ' -- right align
     return table.concat(components)
 end
 

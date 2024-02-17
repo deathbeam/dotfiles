@@ -1,4 +1,4 @@
-local au = require("config.utils").au
+local au = require('config.utils').au
 local root_cache = {}
 
 local function getparent(p)
@@ -7,7 +7,7 @@ end
 
 local function find_root(markers)
     local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
-    local bufdirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub("oil://", "")
+    local bufdirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub('oil://', '')
     if root_cache[bufdirname] then
         return root_cache[bufdirname]
     end
@@ -15,7 +15,7 @@ local function find_root(markers)
     local dirname = bufdirname
     while getparent(dirname) ~= dirname do
         for _, marker in ipairs(markers) do
-            if vim.loop.fs_stat(dirname .. "/" .. marker) then
+            if vim.loop.fs_stat(dirname .. '/' .. marker) then
                 root_cache[bufdirname] = dirname
                 return dirname
             end
@@ -42,9 +42,9 @@ local root_patterns = {
     'gradlew',
 }
 
-au({ "VimEnter", "BufEnter" }, {
-    desc = "Find root directory",
-    pattern = "*",
+au({ 'VimEnter', 'BufEnter' }, {
+    desc = 'Find root directory',
+    pattern = '*',
     nested = true,
     callback = function()
         local root_dir = find_root(root_patterns)

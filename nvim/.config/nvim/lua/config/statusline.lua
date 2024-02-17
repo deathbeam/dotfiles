@@ -1,13 +1,13 @@
-local au = require("config.utils").au
-local icons = require("nvim-web-devicons")
+local au = require('config.utils').au
+local icons = require('nvim-web-devicons')
 
 local function get_icon()
-    local filename = vim.fn.expand("%:t")
+    local filename = vim.fn.expand('%:t')
     return icons.get_icon(filename, nil, { default = true })
 end
 
 function StatusLineActive()
-    return table.concat {
+    return table.concat({
         -- color 1
         [[%1* ]],
         -- icon
@@ -25,31 +25,31 @@ function StatusLineActive()
         -- color 3
         [[ %3*]],
         -- cursor info
-        [[ %l/%L-%v 0x%04B ]]
-    }
+        [[ %l/%L-%v 0x%04B ]],
+    })
 end
 
 function StatusLineInactive()
-    return table.concat {
+    return table.concat({
         -- file type
         [[ %y]],
         -- modified flag
         [[%m]],
         -- full path
-        [[ %<%F]]
-    }
+        [[ %<%F]],
+    })
 end
 
-au({"WinEnter", "BufEnter"}, {
-    pattern = {"*"},
+au({ 'WinEnter', 'BufEnter' }, {
+    pattern = { '*' },
     callback = function()
-        vim.opt_local.statusline = "%!v:lua.StatusLineActive()"
-    end
+        vim.opt_local.statusline = '%!v:lua.StatusLineActive()'
+    end,
 })
 
-au({"WinLeave","BufLeave"}, {
-    pattern = {"*"},
+au({ 'WinLeave', 'BufLeave' }, {
+    pattern = { '*' },
     callback = function()
-        vim.opt_local.statusline = "%!v:lua.StatusLineInactive()"
-    end
+        vim.opt_local.statusline = '%!v:lua.StatusLineInactive()'
+    end,
 })

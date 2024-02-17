@@ -1,55 +1,55 @@
-local fzf_lua = require("fzf-lua")
-local languages = require("config.languages")
-local utils = require("config.utils")
+local fzf_lua = require('fzf-lua')
+local languages = require('config.languages')
+local utils = require('config.utils')
 local nmap = utils.nmap
 local desc = utils.desc
 local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
-desc("<leader>c", "[C]ode")
+desc('<leader>c', '[C]ode')
 
 -- Set signs
-for name, icon in pairs(require("config.icons").diagnostics) do
-    vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
+for name, icon in pairs(require('config.icons').diagnostics) do
+    vim.fn.sign_define('DiagnosticSign' .. name, { text = icon, texthl = 'Diagnostic' .. name })
 end
 
 -- Set borders
-vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single", })
-vim.diagnostic.config({ severity_sort = true, float = { border = "single" } })
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+vim.diagnostic.config({ severity_sort = true, float = { border = 'single' } })
 
 -- Echo LSP progress
 local function log(msg)
-    local client = msg.client or ""
-    local title = msg.title or ""
-    local message = msg.message or ""
+    local client = msg.client or ''
+    local title = msg.title or ''
+    local message = msg.message or ''
     local percentage = msg.percentage or 0
 
-    local out = ""
-    if client ~= "" then
-        out = out .. "[" .. client .. "]"
+    local out = ''
+    if client ~= '' then
+        out = out .. '[' .. client .. ']'
     end
 
     if percentage > 0 then
-        out = out .. " [" .. percentage .. "%]"
+        out = out .. ' [' .. percentage .. '%]'
     end
 
-    if title ~= "" then
-        out = out .. " " .. title
+    if title ~= '' then
+        out = out .. ' ' .. title
     end
 
-    if message ~= "" then
-        if title ~= "" and vim.startswith(message, title) then
+    if message ~= '' then
+        if title ~= '' and vim.startswith(message, title) then
             message = string.sub(message, string.len(title) + 1)
         end
 
-        message = message:gsub("%s*%d+%%", "")
-        message = message:gsub("^%s*-", "")
+        message = message:gsub('%s*%d+%%', '')
+        message = message:gsub('^%s*-', '')
         message = vim.trim(message)
-        if message ~= "" then
-            if title ~= "" then
-                out = out .. " - " .. message
+        if message ~= '' then
+            if title ~= '' then
+                out = out .. ' - ' .. message
             else
-                out = out .. " " .. message
+                out = out .. ' ' .. message
             end
         end
     end
@@ -64,78 +64,84 @@ vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
     end
 
     local client = vim.lsp.get_client_by_id(ctx.client_id)
-    local client_name = client and client.name or ""
+    local client_name = client and client.name or ''
     local token = progress.token
     local value = progress.value
 
-    if value.kind == "begin" then
+    if value.kind == 'begin' then
         series[token] = {
             client = client_name,
-            title = value.title or "",
-            message = value.message or "",
-            percentage = value.percentage or 0
+            title = value.title or '',
+            message = value.message or '',
+            percentage = value.percentage or 0,
         }
 
         local cur = series[token]
         log({
             client = cur.client,
             title = cur.title,
-            message = cur.message .. " - Starting",
-            percentage = cur.percentage
+            message = cur.message .. ' - Starting',
+            percentage = cur.percentage,
         })
-    elseif value.kind == "report" then
+    elseif value.kind == 'report' then
         local cur = series[token]
         log({
             client = client_name or (cur and cur.client),
             title = value.title or (cur and cur.title),
             message = value.message or (cur and cur.message),
-            percentage = value.percentage or (cur and cur.percentage)
+            percentage = value.percentage or (cur and cur.percentage),
         })
-    elseif value.kind == "end" then
+    elseif value.kind == 'end' then
         local cur = series[token]
         log({
             client = client_name or (cur and cur.client),
             title = value.title or (cur and cur.title),
-            message = (value.message or (cur and cur.message)) .. " - Done",
+            message = (value.message or (cur and cur.message)) .. ' - Done',
         })
         series[token] = nil
     end
 end
 
-au("LspAttach", {
-    desc = "LSP actions",
+au('LspAttach', {
+    desc = 'LSP actions',
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client and (client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider) then
+        if
+            client
+            and (
+                client.server_capabilities.inlayHintProvider
+                or client.server_capabilities.signatureHelpProvider
+            )
+        then
             vim.lsp.inlay_hint.enable(event.buf, true)
         end
 
-        nmap("K", vim.lsp.buf.hover, "Documentation", event.buf)
-        nmap("gd", vim.lsp.buf.definition, "[G]oto [D]efinition", event.buf)
-        nmap("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration", event.buf)
-        nmap("gi", vim.lsp.buf.implementation, "[G]oto [I]mplementation", event.buf)
-        nmap("go", vim.lsp.buf.type_definition, "[G]oto [O]verload", event.buf)
-        nmap("gr", vim.lsp.buf.references, "[G]oto [R]eferences", event.buf)
-        nmap("gs", vim.lsp.buf.signature_help, "[G]oto [S]ignature Help", event.buf)
-        nmap("gl", vim.diagnostic.open_float, "[G]oto [L]ine Diagnostics", event.buf)
-        nmap("[d", vim.diagnostic.goto_prev, "Goto previous [D]iagnostic", event.buf)
-        nmap("]d", vim.diagnostic.goto_next, "Goto next [D]iagnostic", event.buf)
+        nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
+        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition', event.buf)
+        nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration', event.buf)
+        nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation', event.buf)
+        nmap('go', vim.lsp.buf.type_definition, '[G]oto [O]verload', event.buf)
+        nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences', event.buf)
+        nmap('gs', vim.lsp.buf.signature_help, '[G]oto [S]ignature Help', event.buf)
+        nmap('gl', vim.diagnostic.open_float, '[G]oto [L]ine Diagnostics', event.buf)
+        nmap('[d', vim.diagnostic.goto_prev, 'Goto previous [D]iagnostic', event.buf)
+        nmap(']d', vim.diagnostic.goto_next, 'Goto next [D]iagnostic', event.buf)
 
         -- find
-        nmap("<leader>fd", fzf_lua.lsp_document_diagnostics, "[F]ind [D]iagnostics", event.buf)
-        nmap("<leader>fD", fzf_lua.lsp_workspace_diagnostics, "[F]ind all [D]iagnostics", event.buf)
-        nmap("<leader>fs", fzf_lua.lsp_document_symbols, "[F]ind [S]ymbols", event.buf)
-        nmap("<leader>fS", fzf_lua.lsp_live_workspace_symbols, "[F]ind all [S]ymbols", event.buf)
+        nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, '[F]ind [D]iagnostics', event.buf)
+        nmap('<leader>fD', fzf_lua.lsp_workspace_diagnostics, '[F]ind all [D]iagnostics', event.buf)
+        nmap('<leader>fs', fzf_lua.lsp_document_symbols, '[F]ind [S]ymbols', event.buf)
+        nmap('<leader>fS', fzf_lua.lsp_live_workspace_symbols, '[F]ind all [S]ymbols', event.buf)
 
         -- code
-        nmap("<leader>cr", vim.lsp.buf.rename, "[C]ode [R]ename", event.buf)
-        nmap("<leader>cf", vim.lsp.buf.format, "[C]ode [F]ormat", event.buf)
-        nmap("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction", event.buf)
-    end
+        nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename', event.buf)
+        nmap('<leader>cf', vim.lsp.buf.format, '[C]ode [F]ormat', event.buf)
+        nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', event.buf)
+    end,
 })
 
-local lspconfig = require("lspconfig")
-require("mason-lspconfig").setup_handlers {
+local lspconfig = require('lspconfig')
+require('mason-lspconfig').setup_handlers({
     function(server)
         local settings = nil
         local ignore = nil
@@ -152,5 +158,5 @@ require("mason-lspconfig").setup_handlers {
             capabilities = lsp_capabilities,
             settings = settings,
         })
-    end
-}
+    end,
+})
