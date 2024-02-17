@@ -5,6 +5,7 @@ require('copilot').setup({
   },
   suggestion = {
     auto_trigger = true,
+    hide_during_completion = false,
     keymap = {
       accept = "<S-Tab>",
       next = false,

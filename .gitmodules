@@ -135,7 +135,8 @@
 	branch = globbed-files
 [submodule "nvim/.config/nvim/pack/bundle/start/copilot.lua"]
 	path = nvim/.config/nvim/pack/bundle/start/copilot.lua
-	url = https://github.com/zbirenbaum/copilot.lua
+    url = https://github.com/deathbeam/copilot.lua
+    branch = always-show
 [submodule "nvim/.config/nvim/pack/bundle/start/autocomplete.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/autocomplete.nvim
 	url = https://github.com/deathbeam/autocomplete.nvim
