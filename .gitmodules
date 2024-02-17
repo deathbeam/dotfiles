@@ -133,9 +133,9 @@
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/deathbeam/zsh-autocomplete
 	branch = globbed-files
-[submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
-	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
-	url = https://github.com/github/copilot.vim
+[submodule "nvim/.config/nvim/pack/bundle/start/copilot.lua"]
+	path = nvim/.config/nvim/pack/bundle/start/copilot.lua
+	url = https://github.com/zbirenbaum/copilot.lua
 [submodule "nvim/.config/nvim/pack/bundle/start/autocomplete.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/autocomplete.nvim
 	url = https://github.com/deathbeam/autocomplete.nvim

@@ -1,7 +1,18 @@
 -- Copilot autosuggestions
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_hide_during_completion = 0
-vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
+require('copilot').setup({
+  panel = {
+    enabled = false,
+  },
+  suggestion = {
+    auto_trigger = true,
+    keymap = {
+      accept = "<S-Tab>",
+      next = false,
+      prev = false,
+      dismiss = false,
+    },
+  },
+})
 
 -- Completion
 vim.o.completeopt = 'menuone,noinsert,popup'
