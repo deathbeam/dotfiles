@@ -173,7 +173,7 @@ function! ToggleZoom(zoom)
 endfunction
 
 autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
-nnoremap <silent> <leader>z :call ToggleZoom(v:true)<CR>
+nnoremap <silent> <leader>z <CMD>call ToggleZoom(v:true)<CR>
 
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>
