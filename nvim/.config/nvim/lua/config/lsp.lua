@@ -13,16 +13,9 @@ for name, icon in pairs(require("config.icons").diagnostics) do
     vim.fn.sign_define("DiagnosticSign" .. name, { text = icon, texthl = "Diagnostic" .. name })
 end
 
--- Set border
+-- Set borders
 vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "single", })
-
--- Better diagnostics
-vim.diagnostic.config({
-    severity_sort = true,
-    float = {
-        border = "single"
-    }
-})
+vim.diagnostic.config({ severity_sort = true, float = { border = "single" } })
 
 -- Echo LSP progress
 local function log(msg)
@@ -109,25 +102,12 @@ vim.lsp.handlers['$/progress'] = function(err, progress, ctx)
     end
 end
 
--- Inlay hints
-local function inlay_hints(buf, value)
-    local ih = vim.lsp.buf.inlay_hint or vim.lsp.inlay_hint
-    if type(ih) == "function" then
-        ih(buf, value)
-    elseif type(ih) == "table" and ih.enable then
-        if value == nil then
-            value = not ih.is_enabled(buf)
-        end
-        ih.enable(buf, value)
-    end
-end
-
 au("LspAttach", {
     desc = "LSP actions",
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
         if client and (client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider) then
-            inlay_hints(event.buf, true)
+            vim.lsp.inlay_hint.enable(event.buf, true)
         end
 
         nmap("K", vim.lsp.buf.hover, "Documentation", event.buf)
