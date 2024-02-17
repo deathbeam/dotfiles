@@ -31,8 +31,8 @@ end, { expr = true, replace_keycodes = true })
 require('autocomplete.signature').setup({ border = 'single' })
 require('autocomplete.lsp').setup({})
 require('autocomplete.cmd').setup({
-    close_on_done = false,
     mappings = {
         accept = '<Tab>',
     },
+    close_on_done = false,
 })
