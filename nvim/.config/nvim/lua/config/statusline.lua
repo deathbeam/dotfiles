@@ -17,7 +17,7 @@ function StatusLineActive()
         -- modified flag
         [[%m]],
         -- full path
-        [[ %<%F]],
+        [[ %<%F ]],
         -- color 2
         [[%2*]],
         -- left/right separator
