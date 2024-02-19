@@ -54,9 +54,6 @@
 [submodule "vim/.vim/pack/bundle/start/vim-commentary"]
 	path = nvim/.config/nvim/pack/bundle/start/vim-commentary
 	url = https://github.com/tpope/vim-commentary
-[submodule "tmux/.tmux/pack/bundle/start/tmux-fzf"]
-	path = tmux/.tmux/pack/bundle/start/tmux-fzf
-	url = https://github.com/sainnhe/tmux-fzf
 [submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
