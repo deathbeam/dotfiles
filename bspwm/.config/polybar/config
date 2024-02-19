@@ -22,7 +22,8 @@ module-margin-right = 2
 
 background = ${colors.base01}
 foreground = ${colors.base05}
-font-0 = Terminess Nerd Font:size=12;1
+font-0 = monospace:size=14:antialias=false:autohint=false;2
+font-1 = Terminess Nerd Font:size=14:antialias=false:autohint=false;2
 
 modules-left = bspwm title
 modules-right = tray wifi wired volume backlight memory cpu battery date
@@ -114,6 +115,7 @@ animation-charging-framerate = 750
 
 [module/title]
 type = internal/xwindow
+label-maxlen = 150
 
 [module/backlight]
 type = internal/backlight
