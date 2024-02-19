@@ -39,7 +39,7 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 
 # Adjust font and font size
 c.fonts.default_family = "monospace"
-c.fonts.default_size = "16pt"
+c.fonts.default_size = "14pt"
 c.fonts.web.family.standard = c.fonts.default_family
 c.fonts.web.size.default = 16
 
