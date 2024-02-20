@@ -84,7 +84,7 @@ nmap('<leader>fk', fzf_lua.keymaps, '[F]ind [K]eymaps')
 vim.g.loaded_netrw = 1
 vim.g.loaded_netrwPlugin = 1
 
-local netrw_bufname
+local loaded_buffs = {}
 au('BufEnter', {
     pattern = "*",
     callback = function(args)
@@ -97,21 +97,32 @@ au('BufEnter', {
         end
 
         -- prevents reopening of file-browser if exiting without selecting a file
-        if netrw_bufname == bufname then
-            netrw_bufname = nil
+        if loaded_buffs[bufname] then
             return
-        else
-            netrw_bufname = bufname
         end
 
+        loaded_buffs[bufname] = true
+
         -- ensure no buffers remain with the directory name
-        vim.api.nvim_buf_set_option(args.buf, "bufhidden", "wipe")
+        vim.api.nvim_set_option_value("bufhidden", "wipe", { buf = args.buf })
+        vim.api.nvim_set_option_value("buflisted", false, { buf = args.buf })
 
         vim.schedule(function()
             fzf_lua.files({
                 cwd = vim.fn.expand "%:p:h",
             })
         end)
+    end
+})
+
+au('BufLeave', {
+    pattern = "*",
+    callback = function(args)
+        local bufname = vim.api.nvim_buf_get_name(args.buf)
+        if vim.fn.isdirectory(bufname) == 0 then
+            return
+        end
+        loaded_buffs[bufname] = nil
     end
 })
 
