@@ -1,4 +1,5 @@
 local utils = require('config.utils')
+local au = utils.au
 local nmap = utils.nmap
 local desc = utils.desc
 
@@ -78,3 +79,44 @@ nmap('<leader>fC', fzf_lua.git_commits, '[F]ind All [C]ommits')
 nmap('<leader>fb', fzf_lua.buffers, '[F]ind [B]uffers')
 nmap('<leader>fh', fzf_lua.oldfiles, '[F]ind [H]istory')
 nmap('<leader>fk', fzf_lua.keymaps, '[F]ind [K]eymaps')
+
+-- Set as file explorer
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+local netrw_bufname
+au('BufEnter', {
+    pattern = "*",
+    callback = function(args)
+        if vim.bo[args.buf].filetype == "netrw" then
+            return
+        end
+        local bufname = vim.api.nvim_buf_get_name(args.buf)
+        if vim.fn.isdirectory(bufname) == 0 then
+            return
+        end
+
+        -- prevents reopening of file-browser if exiting without selecting a file
+        if netrw_bufname == bufname then
+            netrw_bufname = nil
+            return
+        else
+            netrw_bufname = bufname
+        end
+
+        -- ensure no buffers remain with the directory name
+        vim.api.nvim_buf_set_option(args.buf, "bufhidden", "wipe")
+
+        vim.schedule(function()
+            fzf_lua.files({
+                cwd = vim.fn.expand "%:p:h",
+            })
+        end)
+    end
+})
+
+nmap('-', function()
+    fzf_lua.files({
+        cwd = vim.fn.expand "%:p:h",
+    })
+end, '[F]ind [F]iles in current directory')
