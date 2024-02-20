@@ -18,7 +18,7 @@ local prompts = {
         key = 't'
     },
     {
-        prompt = 'Briefly explain how selected code works then generate documentation.',
+        prompt = 'Briefly explain how selected code works then generate documentation using comments. Make sure to document it properly if it is function or method or class.',
         desc = '[D]ocumentation',
         key = 'd'
     },
