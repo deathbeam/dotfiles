@@ -73,6 +73,9 @@ set colorcolumn=+1
 set foldtext=""
 set foldlevel=99
 
+" Less annoying messages
+set shortmess+=cCI
+
 " Better file browser
 let g:netrw_banner=0
 nmap - <CMD>Explore<CR>
