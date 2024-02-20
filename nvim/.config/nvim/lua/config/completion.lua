@@ -1,21 +1,9 @@
 local icons = require('config.icons')
 
 -- Copilot autosuggestions
-require('copilot').setup({
-    panel = {
-        enabled = false,
-    },
-    suggestion = {
-        auto_trigger = true,
-        hide_during_completion = false,
-        keymap = {
-            accept = '<S-Tab>',
-            next = false,
-            prev = false,
-            dismiss = false,
-        },
-    },
-})
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_hide_during_completion = 0
+vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
 -- Enable popup menu and set options
 vim.o.completeopt = 'menuone,noinsert,popup'
