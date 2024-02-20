@@ -14,7 +14,7 @@ vim.keymap.set('i', '<CR>', function()
 end, { expr = true, replace_keycodes = true })
 
 require('autocomplete.signature').setup({
-    border = 'single'
+    border = 'single',
 })
 
 require('autocomplete.lsp').setup({
