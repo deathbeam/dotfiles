@@ -178,8 +178,8 @@ nnoremap <silent> <leader>z <CMD>call ToggleZoom(v:true)<CR>
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>
 noremap! <C-E> <End>
-cnoremap <C-P> <Up>
-cnoremap <C-N> <Down>
+noremap! <C-P> <Up>
+noremap! <C-N> <Down>
 
 " Sudo save
 command! W w !sudo tee % > /dev/null
