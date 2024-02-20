@@ -13,6 +13,9 @@ fzf_lua.setup({
         border = 'none',
         width = 1,
         height = 1,
+        preview = {
+            horizontal = 'right:45%',
+        },
     },
     fzf_opts = {
         ['--info'] = false,
