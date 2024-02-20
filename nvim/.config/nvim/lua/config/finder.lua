@@ -6,15 +6,17 @@ desc('<leader>f', '[F]inder')
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({
-    'fzf-tmux',
+    'default',
     file_icon_padding = ' ',
+    winopts = {
+        border = "none",
+        width = 1,
+        height = 1
+    },
     fzf_opts = {
         ['--info'] = false,
         ['--border'] = false,
         ['--preview-window'] = false,
-    },
-    fzf_tmux_opts = {
-        ['-p'] = '100%,100%',
     },
     files = {
         fzf_opts = {
@@ -32,15 +34,17 @@ fzf_lua.setup({
         code_actions = {
             -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
             previewer = false,
-            fzf_tmux_opts = {
-                ['-p'] = false,
+            winopts = {
+                width = 0.6,
+                height = 0.3
             },
         },
     },
     dap = {
         configurations = {
-            fzf_tmux_opts = {
-                ['-p'] = false,
+            winopts = {
+                width = 0.6,
+                height = 0.3
             },
         },
     },
