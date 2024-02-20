@@ -4,7 +4,9 @@ vim.g.copilot_hide_during_completion = 0
 vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
 -- Copilot chat
-require("CopilotChat").setup({})
+require("CopilotChat").setup({
+    temperature = 0.1
+})
 
 local prompts = {
     {
