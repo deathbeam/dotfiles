@@ -19,6 +19,7 @@ install:
 		+MasonToolsInstallSync \
 		+MasonToolsUpdateSync \
 		+TSUpdateSync \
+		+UpdateRemotePlugins \
 		+'helptags ALL' \
 		+qall
 
