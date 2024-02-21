@@ -14,29 +14,9 @@ set NERDTree
 " vinegar emulation with Idea
 nnoremap - :action ActivateProjectToolWindow<cr>
 
-" built-in navigation to navigated items works better
-nnoremap <c-o> :action Back<cr>
-nnoremap <c-i> :action Forward<cr>
-
-" unimpaired mappings
-nnoremap [<space> O<esc>j
-nnoremap ]<space> o<esc>k
-nnoremap [q :action PreviousOccurence<cr>
-nnoremap ]q :action NextOccurence<cr>
-nnoremap [l :action GotoPreviousError<cr>
-nnoremap ]l :action GotoNextError<cr>
-nnoremap [m :action MethodUp<cr>
-nnoremap ]m :action MethodDown<cr>
-nnoremap [c :action VcsShowPrevChangeMarker<cr>
-nnoremap ]c :action VcsShowNextChangeMarker<cr>
-
-" Building
-nnoremap <space>mf :action Compile<cr>
-nnoremap <space>mF :action CompileProject<cr>
-
-" Testing
-nnoremap <space>mt :action RunClass<cr>
-nnoremap <space>mT :action RunConfiguration<cr>
+" Debugging
+nnoremap <space>dt :action RunClass<cr>
+nnoremap <space>dT :action RunConfiguration<cr>
 
 " GoTo navigation
 nnoremap [d :action GotoPreviousError<cr>
