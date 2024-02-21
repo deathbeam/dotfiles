@@ -7,7 +7,6 @@ desc('<leader>f', 'Find')
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({
-    'default',
     file_icon_padding = ' ',
     winopts = {
         border = 'none',
