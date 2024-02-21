@@ -13,8 +13,8 @@ local function python_setup()
         python_dap.setup(path)
     end
 
-    nmap('<leader>dt', python_dap.test_method, '[D]ebug [T]est Method', 0)
-    nmap('<leader>dT', python_dap.test_class, '[D]ebug [T]est Class', 0)
+    nmap('<leader>dt', python_dap.test_method, 'Debug Test Method', 0)
+    nmap('<leader>dT', python_dap.test_class, 'Debug Test Class', 0)
 end
 
 au('FileType', {

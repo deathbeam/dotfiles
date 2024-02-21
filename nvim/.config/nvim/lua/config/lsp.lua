@@ -6,7 +6,7 @@ local desc = utils.desc
 local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
-desc('<leader>c', '[C]ode')
+desc('<leader>c', 'Code')
 
 -- Set signs
 for name, icon in pairs(require('config.icons').diagnostics) do
@@ -34,26 +34,26 @@ au('LspAttach', {
         end
 
         nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
-        nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition', event.buf)
-        nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration', event.buf)
-        nmap('gi', vim.lsp.buf.implementation, '[G]oto [I]mplementation', event.buf)
-        nmap('go', vim.lsp.buf.type_definition, '[G]oto [O]verload', event.buf)
-        nmap('gr', vim.lsp.buf.references, '[G]oto [R]eferences', event.buf)
-        nmap('gs', vim.lsp.buf.signature_help, '[G]oto [S]ignature Help', event.buf)
-        nmap('gl', vim.diagnostic.open_float, '[G]oto [L]ine Diagnostics', event.buf)
-        nmap('[d', vim.diagnostic.goto_prev, 'Goto previous [D]iagnostic', event.buf)
-        nmap(']d', vim.diagnostic.goto_next, 'Goto next [D]iagnostic', event.buf)
+        nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
+        nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
+        nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
+        nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
+        nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
+        nmap('gs', vim.lsp.buf.signature_help, 'Goto Signature Help', event.buf)
+        nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics', event.buf)
+        nmap('[d', vim.diagnostic.goto_prev, 'Goto previous Diagnostic', event.buf)
+        nmap(']d', vim.diagnostic.goto_next, 'Goto next Diagnostic', event.buf)
 
         -- find
-        nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, '[F]ind [D]iagnostics', event.buf)
-        nmap('<leader>fD', fzf_lua.lsp_workspace_diagnostics, '[F]ind all [D]iagnostics', event.buf)
-        nmap('<leader>fs', fzf_lua.lsp_document_symbols, '[F]ind [S]ymbols', event.buf)
-        nmap('<leader>fS', fzf_lua.lsp_live_workspace_symbols, '[F]ind all [S]ymbols', event.buf)
+        nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, 'Find Diagnostics', event.buf)
+        nmap('<leader>fD', fzf_lua.lsp_workspace_diagnostics, 'Find all Diagnostics', event.buf)
+        nmap('<leader>fs', fzf_lua.lsp_document_symbols, 'Find Symbols', event.buf)
+        nmap('<leader>fS', fzf_lua.lsp_live_workspace_symbols, 'Find all Symbols', event.buf)
 
         -- code
-        nmap('<leader>cr', vim.lsp.buf.rename, '[C]ode [R]ename', event.buf)
-        nmap('<leader>cf', vim.lsp.buf.format, '[C]ode [F]ormat', event.buf)
-        nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction', event.buf)
+        nmap('<leader>cr', vim.lsp.buf.rename, 'Code Rename', event.buf)
+        nmap('<leader>cf', vim.lsp.buf.format, 'Code Format', event.buf)
+        nmap('<leader>ca', vim.lsp.buf.code_action, 'Code Action', event.buf)
     end,
 })
 

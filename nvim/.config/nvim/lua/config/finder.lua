@@ -3,7 +3,7 @@ local au = utils.au
 local nmap = utils.nmap
 local desc = utils.desc
 
-desc('<leader>f', '[F]inder')
+desc('<leader>f', 'Find')
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({
@@ -67,21 +67,21 @@ vim.lsp.handlers['workspace/symbol'] = fzf_lua.lsp_workspace_symbols
 vim.lsp.handlers['callHierarchy/incomingCalls'] = fzf_lua.lsp_incoming_calls
 vim.lsp.handlers['callHierarchy/outgoingCalls'] = fzf_lua.lsp_outgoing_calls
 
-nmap('<leader>fg', fzf_lua.grep_project, '[F]ind [G]rep')
+nmap('<leader>fg', fzf_lua.grep_project, 'Find Grep')
 nmap('<leader>fG', function()
     fzf_lua.grep_project({
         prompt = 'GitGrep❯ ',
         cmd = 'git grep --line-number --column --color=always',
     })
-end, '[F]ind Git [G]rep')
-nmap('<leader>ff', fzf_lua.files, '[F]ind [F]iles')
-nmap('<leader>fF', fzf_lua.git_files, '[F]ind Git [F]iles')
-nmap('<leader>fa', fzf_lua.commands, '[F]ind [A]ctions')
-nmap('<leader>fc', fzf_lua.git_bcommits, '[F]ind [C]ommits')
-nmap('<leader>fC', fzf_lua.git_commits, '[F]ind All [C]ommits')
-nmap('<leader>fb', fzf_lua.buffers, '[F]ind [B]uffers')
-nmap('<leader>fh', fzf_lua.oldfiles, '[F]ind [H]istory')
-nmap('<leader>fk', fzf_lua.keymaps, '[F]ind [K]eymaps')
+end, 'Find Git Grep')
+nmap('<leader>ff', fzf_lua.files, 'Find Files')
+nmap('<leader>fF', fzf_lua.git_files, 'Find Git Files')
+nmap('<leader>fa', fzf_lua.commands, 'Find Actions')
+nmap('<leader>fc', fzf_lua.git_bcommits, 'Find Commits')
+nmap('<leader>fC', fzf_lua.git_commits, 'Find All Commits')
+nmap('<leader>fb', fzf_lua.buffers, 'Find Buffers')
+nmap('<leader>fh', fzf_lua.oldfiles, 'Find History')
+nmap('<leader>fk', fzf_lua.keymaps, 'Find Keymaps')
 
 -- Disable netrw
 vim.g.loaded_netrw = 1

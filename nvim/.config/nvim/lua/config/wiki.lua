@@ -2,7 +2,7 @@ local utils = require('config.utils')
 local desc = utils.desc
 local au = utils.au
 
-desc('<leader>w', '[W]iki')
+desc('<leader>w', 'Wiki')
 
 vim.g.vimwiki_list = { {
     path = '~/vimwiki/',
