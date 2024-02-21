@@ -49,8 +49,13 @@ set showmatch
 " Always use vertical diffs
 set diffopt+=vertical
 
-" Always show some lines under
+" Always show some lines around
 set scrolloff=8
+set sidescrolloff=8
+
+" Split like normal humain being
+set splitbelow
+set splitright
 
 " Disable text wrap
 set nowrap
