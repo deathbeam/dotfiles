@@ -17,7 +17,7 @@ require('autocomplete.signature').setup({
     border = 'single',
 })
 
-require('autocomplete.lsp').setup({
+require('autocomplete.buffer').setup({
     entry_mapper = function(entry)
         local kind = entry.kind
         local icon = icons.kinds[kind]
