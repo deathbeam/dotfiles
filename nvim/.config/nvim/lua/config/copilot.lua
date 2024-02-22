@@ -12,21 +12,23 @@ vim.keymap.set(
 )
 
 -- Copilot chat
-require('CopilotChat').setup()
+require('CopilotChat').setup({
+    show_help = 'no',
+})
 
 local prompts = {
     {
-        prompt = 'Explain how it works.',
+        prompt = 'Briefly explain how selected code works.',
         desc = 'Explain',
         key = 'e',
     },
     {
-        prompt = 'Briefly explain how selected code works then generate unit tests.',
+        prompt = 'Generate unit tests for selected code.',
         desc = 'Generate Tests',
         key = 't',
     },
     {
-        prompt = 'Briefly explain how selected code works then generate documentation using comments. Make sure to document it properly if it is function or method or class.',
+        prompt = 'Generate documentation for selected code using comments. Make sure to use proper documentation format for language of the code block. Also document paramater and return types.',
         desc = 'Documentation',
         key = 'd',
     },
@@ -41,7 +43,7 @@ local prompts = {
         key = 'o',
     },
     {
-        prompt = 'Simplify and improve readablilty',
+        prompt = 'Simplify the code and improve readablilty',
         desc = 'Simplify',
         key = 's',
     },
@@ -53,6 +55,8 @@ vim.keymap.set(
     '<cmd>CopilotChatFixDiagnostic<CR>',
     { desc = 'Code Fix Diagnostic' }
 )
+
+vim.keymap.set({ 'n', 'v' }, '<leader>aa', ':CopilotChatInPlace<CR>', { desc = 'AI Chat' })
 
 for _, prompt in ipairs(prompts) do
     vim.keymap.set(
