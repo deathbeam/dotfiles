@@ -2,9 +2,8 @@
 
 selected_project=$(find ~/git -mindepth 1 -maxdepth 1 -type d | fzf-tmux \
     -p100%,100% -m --reverse \
-    --preview-window=follow:~20 \
     --prompt='Open session > ' \
-    --preview="tree {}")
+    --preview="tree -C -L 3 --dirsfirst {}")
 
 if [[ -z $selected_project ]]; then
     exit 0
