@@ -10,7 +10,7 @@ end, { expr = true, replace_keycodes = true })
 
 -- Disable <CR> to accept (this really should be a mapping, so stupid)
 vim.keymap.set('i', '<CR>', function()
-    return vim.fn.pumvisible() ~= 0 and '<Esc>o' or '<CR>'
+    return vim.fn.pumvisible() ~= 0 and '<C-e><CR>' or '<CR>'
 end, { expr = true, replace_keycodes = true })
 
 require('autocomplete.signature').setup({
