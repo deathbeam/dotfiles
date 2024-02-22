@@ -25,10 +25,10 @@ dapui.setup({
     layouts = {
         {
             elements = {
-                'repl',
                 'scopes',
                 'stacks',
                 'watches',
+                'repl',
             },
             position = 'left',
             size = 0.25,
