@@ -64,7 +64,7 @@ yay --noconfirm -S --mflags --skipinteg \
   flashplugin qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar \
-  mpv discord boosteroid calibre \
+  mpv yt-dlp discord boosteroid calibre \
   postman intellij-idea-ue-eap
 
 echo '==> Installing dotfiles'
