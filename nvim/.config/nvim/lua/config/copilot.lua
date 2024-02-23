@@ -18,32 +18,32 @@ require('CopilotChat').setup({
 
 local prompts = {
     {
-        prompt = 'Briefly explain how selected code works.',
+        prompt = 'Explain how the selected code works.',
         desc = 'Explain',
         key = 'e',
     },
     {
-        prompt = 'Generate unit tests for selected code.',
+        prompt = 'Generate unit tests for the selected code.',
         desc = 'Generate Tests',
         key = 't',
     },
     {
-        prompt = 'Generate documentation for selected code using comments. Make sure to use proper documentation format for language of the code block. Also document paramater and return types.',
+        prompt = 'Add documentation comments to the selected code.',
         desc = 'Documentation',
         key = 'd',
     },
     {
-        prompt = 'Find possible errors and fix them for me.',
+        prompt = 'Propose a fix for the problems in the selected code.',
         desc = 'Fix',
         key = 'f',
     },
     {
-        prompt = 'Optimize the code to improve performance and readablilty.',
+        prompt = 'Optimize the selected code to improve performance and readablilty.',
         desc = 'Optimize',
         key = 'o',
     },
     {
-        prompt = 'Simplify the code and improve readablilty',
+        prompt = 'Simplify the selected code and improve readablilty',
         desc = 'Simplify',
         key = 's',
     },
