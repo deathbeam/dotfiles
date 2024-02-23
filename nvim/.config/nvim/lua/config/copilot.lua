@@ -57,6 +57,7 @@ vim.keymap.set(
 )
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', ':CopilotChatInPlace<CR>', { desc = 'AI Chat' })
+vim.keymap.set({ 'n' }, '<leader>ar', '<cmd>CopilotChatReset<CR>', { desc = 'AI Reset' })
 
 for _, prompt in ipairs(prompts) do
     vim.keymap.set(
