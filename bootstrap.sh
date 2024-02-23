@@ -67,19 +67,20 @@ yay --noconfirm -S --mflags --skipinteg \
   mpv yt-dlp discord boosteroid calibre \
   postman intellij-idea-ue-eap
 
-echo '==> Installing dotfiles'
-git clone https://github.com/deathbeam/dotfiles ~/.dotfiles || true
-cd ~/.dotfiles
-make
-cd ~
-
-echo '==> Installing packages from source'
 mkdir -p ~/git
 cd ~/git
 
+echo '==> Installing dotfiles'
+git clone https://github.com/deathbeam/dotfiles || true
+cd dotfiles
+make
+cd ..
+
+echo '==> Installing packages from source'
+
 git clone git://git.suckless.org/st || true
 cd st
-git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/st.diff
+git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
 cp config.def.h config.h
 sudo make clean install
 cd ..
@@ -87,7 +88,7 @@ cd ..
 git clone git://git.suckless.org/slock || true
 cd slock
 cp config.def.h config.h
-git apply --ignore-space-change --ignore-whitespace ~/.dotfiles/x11/slock.diff
+git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/slock.diff
 sudo make install
 cd ..
 
