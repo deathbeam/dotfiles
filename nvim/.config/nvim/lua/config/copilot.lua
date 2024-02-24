@@ -14,6 +14,7 @@ vim.keymap.set(
 -- Copilot chat
 require('CopilotChat').setup({
     show_help = 'no',
+    clear_chat_on_new_prompt = 'yes',
 })
 
 local prompts = {
