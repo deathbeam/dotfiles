@@ -7,19 +7,15 @@ desc('<leader>f', 'Find')
 
 local fzf_lua = require('fzf-lua')
 fzf_lua.setup({
+    'fzf-tmux',
     file_icon_padding = ' ',
-    winopts = {
-        border = 'none',
-        width = 1,
-        height = 1,
-        preview = {
-            horizontal = 'right:45%',
-        },
-    },
     fzf_opts = {
         ['--info'] = false,
         ['--border'] = false,
         ['--preview-window'] = false,
+    },
+    fzf_tmux_opts = {
+        ['-d'] = '100%',
     },
     files = {
         fzf_opts = {
@@ -37,17 +33,15 @@ fzf_lua.setup({
         code_actions = {
             -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
             previewer = false,
-            winopts = {
-                width = 0.6,
-                height = 0.3,
+            fzf_tmux_opts = {
+                ['-d'] = '45%',
             },
         },
     },
     dap = {
         configurations = {
-            winopts = {
-                width = 0.6,
-                height = 0.3,
+            fzf_tmux_opts = {
+                ['-d'] = '45%',
             },
         },
     },
@@ -88,6 +82,15 @@ vim.g.loaded_netrwPlugin = 1
 
 local loaded_buffs = {}
 
+local function open_files()
+    fzf_lua.files({
+        cwd = vim.fn.expand('%:p:h'),
+    })
+end
+
+-- Use - for opening explorer in current directory
+nmap('-', open_files)
+
 -- Open fzf in the directory when opening a directory buffer
 au('BufEnter', {
     pattern = '*',
@@ -114,11 +117,7 @@ au('BufEnter', {
         vim.api.nvim_set_option_value('buflisted', false, { buf = args.buf })
 
         -- Open fzf in the directory
-        vim.schedule(function()
-            fzf_lua.files({
-                cwd = vim.fn.expand('%:p:h'),
-            })
-        end)
+        vim.schedule(open_files)
     end,
 })
 
@@ -133,10 +132,3 @@ au('BufLeave', {
         loaded_buffs[bufname] = nil
     end,
 })
-
--- Use - for opening explorer in current directory
-nmap('-', function()
-    fzf_lua.files({
-        cwd = vim.fn.expand('%:p:h'),
-    })
-end)

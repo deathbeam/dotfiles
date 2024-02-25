@@ -61,7 +61,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aa', ':CopilotChatInPlace<CR>', { desc = '
 
 for _, prompt in ipairs(prompts) do
     vim.keymap.set(
-        {'n', 'v'},
+        { 'n', 'v' },
         string.format('<leader>a%s', prompt.key),
         string.format(':CopilotChatVisual %s<CR>', prompt.prompt),
         { desc = 'AI ' .. prompt.desc }

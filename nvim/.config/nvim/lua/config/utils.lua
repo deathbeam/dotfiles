@@ -62,8 +62,7 @@ end
 
 M.make_capabilities = function()
     local capabilities = vim.lsp.protocol.make_client_capabilities()
-    capabilities =
-        vim.tbl_deep_extend('force', capabilities, require('autocomplete.capabilities'))
+    capabilities = vim.tbl_deep_extend('force', capabilities, require('autocomplete.capabilities'))
     return capabilities
 end
 
