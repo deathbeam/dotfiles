@@ -25,7 +25,7 @@ function get_marked_sessions() {
 selected_project=$(get_marked_sessions | fzf-tmux \
     --ansi -p100%,100% -m --reverse \
     --prompt='Open session > ' \
-    --preview='tree -C -L 3 --dirsfirst {}')
+    --preview='ls --group-directories-first --color=always -lahG {}')
 
 if [[ -z $selected_project ]]; then
     exit 0
