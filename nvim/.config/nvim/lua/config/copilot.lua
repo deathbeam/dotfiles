@@ -58,17 +58,10 @@ vim.keymap.set(
 )
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', ':CopilotChatInPlace<CR>', { desc = 'AI Chat' })
-vim.keymap.set({ 'n' }, '<leader>ar', '<cmd>CopilotChatReset<CR>', { desc = 'AI Reset' })
 
 for _, prompt in ipairs(prompts) do
     vim.keymap.set(
-        'n',
-        string.format('<leader>a%s', prompt.key),
-        string.format('<cmd>CopilotChat %s<CR>', prompt.prompt),
-        { desc = 'AI ' .. prompt.desc }
-    )
-    vim.keymap.set(
-        'v',
+        {'n', 'v'},
         string.format('<leader>a%s', prompt.key),
         string.format(':CopilotChatVisual %s<CR>', prompt.prompt),
         { desc = 'AI ' .. prompt.desc }
