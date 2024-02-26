@@ -30,7 +30,7 @@ local function find_after_last_separator(bufnr, separator)
     return vim.trim(table.concat(result, '\n'))
 end
 
-local function get_selection(start, finish, full_lines)
+local function get_selection_lines(start, finish, full_lines)
     local start_line, start_col = start[2], start[3]
     local finish_line, finish_col = finish[2], finish[3]
 
@@ -39,7 +39,7 @@ local function get_selection(start, finish, full_lines)
             finish_line, finish_col, start_line, start_col
     end
 
-    local lines = vim.fn.getline(start_line, finish_line)
+    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, finish_line, false)
     if #lines == 0 then
         return
     end
@@ -57,12 +57,13 @@ local function get_current_selection()
     if mode:lower() == 'v' then
         local start = vim.fn.getpos('v')
         local finish = vim.fn.getpos('.')
-        local lines = get_selection(start, finish, mode == 'V')
+        local lines = get_selection_lines(start, finish, mode == 'V')
         if lines then
             return table.concat(lines, '\n')
         end
+        return ''
     end
-    return nil
+    return vim.fn.getreg('"')
 end
 
 local function append(str)
@@ -91,7 +92,7 @@ function M.open()
         vim.keymap.set('n', '<CR>', function()
             local input = find_after_last_separator(state.window.bufnr, '---')
             if input ~= '' then
-                M.ask(input)
+                M.ask(input, true)
             end
         end, { buffer = state.window.bufnr })
     end
@@ -118,10 +119,16 @@ function M.close()
     end
 end
 
-function M.ask(str)
+function M.ask(str, skip_selection)
     M.open()
-    local selection = get_current_selection()
-    local filetype = vim.bo.filetype
+    local selection = ''
+    local filetype = ''
+
+    if not skip_selection then
+        selection = get_current_selection()
+        filetype = vim.bo.filetype
+    end
+
     return state.copilot:ask(str, {
         code_excerpt = selection,
         code_language = filetype,
