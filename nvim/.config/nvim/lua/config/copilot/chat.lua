@@ -1,4 +1,5 @@
 local Copilot = require('config.copilot.copilot')
+local spinner = require('config.copilot.spinner')
 
 local M = {}
 local state = {
@@ -133,12 +134,14 @@ function M.ask(str, skip_selection)
         code_excerpt = selection,
         code_language = filetype,
         on_start = function()
+            spinner.show(state.window.bufnr)
             append('**copilot:** ')
         end,
         on_done = function()
             append('\n\n---\n\n')
             -- This updates cursor to the very end
             append('')
+            spinner.hide(state.window.bufnr)
         end,
         on_progress = append,
     })
