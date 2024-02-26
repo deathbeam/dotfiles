@@ -11,7 +11,7 @@ vim.keymap.set(
     { expr = true, replace_keycodes = false }
 )
 
-local chat = require("config.copilot.chat")
+local chat = require('config.copilot.chat')
 chat.setup()
 
 local prompts = {
@@ -48,12 +48,7 @@ local prompts = {
 }
 
 for _, prompt in ipairs(prompts) do
-    vim.keymap.set(
-        { 'n', 'v' },
-        string.format('<leader>a%s', prompt.key),
-        function()
-            chat.ask(prompt.prompt)
-        end,
-        { desc = 'AI ' .. prompt.desc }
-    )
+    vim.keymap.set({ 'n', 'v' }, string.format('<leader>a%s', prompt.key), function()
+        chat.ask(prompt.prompt)
+    end, { desc = 'AI ' .. prompt.desc })
 end

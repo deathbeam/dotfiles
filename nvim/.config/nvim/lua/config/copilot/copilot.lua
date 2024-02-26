@@ -1,4 +1,4 @@
-local curl = require("plenary.curl")
+local curl = require('plenary.curl')
 
 COPILOT_INSTRUCTIONS = [[You are an AI programming assistant.
 When asked for you name, you must respond with "GitHub Copilot".
@@ -34,17 +34,19 @@ You should always generate short suggestions for the next user turns that are re
 ]]
 
 local function uuid()
-    local template ='xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
-    return (string.gsub(template, '[xy]', function (c)
-        local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
-        return string.format('%x', v)
-    end))
+    local template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
+    return (
+        string.gsub(template, '[xy]', function(c)
+            local v = (c == 'x') and math.random(0, 0xf) or math.random(8, 0xb)
+            return string.format('%x', v)
+        end)
+    )
 end
 
 local function machine_id()
     local length = 65
-    local hex_chars = "0123456789abcdef"
-    local hex = ""
+    local hex_chars = '0123456789abcdef'
+    local hex = ''
     for _ = 1, length do
         hex = hex .. hex_chars:sub(math.random(1, #hex_chars), math.random(1, #hex_chars))
     end
@@ -52,34 +54,44 @@ local function machine_id()
 end
 
 local function get_cached_token()
-    local userdata = vim.fn.json_decode(vim.fn.readfile(vim.fn.expand("~/.config/github-copilot/hosts.json")))
-    return userdata["github.com"].oauth_token
+    local userdata =
+        vim.fn.json_decode(vim.fn.readfile(vim.fn.expand('~/.config/github-copilot/hosts.json')))
+    return userdata['github.com'].oauth_token
 end
 
-local function generate_request(chat_history, code_excerpt, code_language, system_prompt, model, temperature)
+local function generate_request(
+    chat_history,
+    code_excerpt,
+    code_language,
+    system_prompt,
+    model,
+    temperature
+)
     local messages = {
         {
             content = system_prompt,
-            role = "system"
-        }
+            role = 'system',
+        },
     }
 
     for _, message in ipairs(chat_history) do
         table.insert(messages, {
             content = message.content,
-            role = message.role
+            role = message.role,
         })
     end
 
-    if code_excerpt and code_excerpt ~= "" then
+    if code_excerpt and code_excerpt ~= '' then
         -- Insert selection before current prompt, e.g last -1
         table.insert(messages, #messages, {
-            content = "\nActive selection:\n```" .. code_language .. "\n" .. code_excerpt .. "\n```",
-            role = "system"
+            content = '\nActive selection:\n```'
+                .. code_language
+                .. '\n'
+                .. code_excerpt
+                .. '\n```',
+            role = 'system',
         })
     end
-
-    vim.print(messages)
 
     return {
         intent = true,
@@ -88,22 +100,22 @@ local function generate_request(chat_history, code_excerpt, code_language, syste
         stream = true,
         temperature = temperature,
         top_p = 1,
-        messages = messages
+        messages = messages,
     }
 end
 
 local function generate_headers(token, sessionid, machineid)
     return {
-        ["authorization"] = "Bearer " .. token,
-        ["x-request-id"] = uuid(),
-        ["vscode-sessionid"] = sessionid,
-        ["machineid"] = machineid,
-        ["editor-version"] = "vscode/1.85.1",
-        ["editor-plugin-version"] = "copilot-chat/0.12.2023120701",
-        ["openai-organization"] = "github-copilot",
-        ["openai-intent"] = "conversation-panel",
-        ["content-type"] = "application/json",
-        ["user-agent"] = "GitHubCopilotChat/0.12.2023120701"
+        ['authorization'] = 'Bearer ' .. token,
+        ['x-request-id'] = uuid(),
+        ['vscode-sessionid'] = sessionid,
+        ['machineid'] = machineid,
+        ['editor-version'] = 'vscode/1.85.1',
+        ['editor-plugin-version'] = 'copilot-chat/0.12.2023120701',
+        ['openai-organization'] = 'github-copilot',
+        ['openai-intent'] = 'conversation-panel',
+        ['content-type'] = 'application/json',
+        ['user-agent'] = 'GitHubCopilotChat/0.12.2023120701',
     }
 end
 
@@ -122,6 +134,7 @@ function Copilot.new()
     self.token = nil
     self.sessionid = nil
     self.machineid = machine_id()
+    self.current_job = nil
     return self
 end
 
@@ -130,38 +143,49 @@ function Copilot:reset()
 end
 
 function Copilot:authenticate()
-    local url = "https://api.github.com/copilot_internal/v2/token"
+    local url = 'https://api.github.com/copilot_internal/v2/token'
     local headers = {
-        authorization = "token " .. self.github_token,
-        accept = "application/json",
-        ["editor-version"] = "vscode/1.85.1",
-        ["editor-plugin-version"] = "copilot-chat/0.12.2023120701",
-        ["user-agent"] = "GitHubCopilotChat/0.12.2023120701"
+        authorization = 'token ' .. self.github_token,
+        accept = 'application/json',
+        ['editor-version'] = 'vscode/1.85.1',
+        ['editor-plugin-version'] = 'copilot-chat/0.12.2023120701',
+        ['user-agent'] = 'GitHubCopilotChat/0.12.2023120701',
     }
 
     self.sessionid = uuid() .. tostring(math.floor(os.time() * 1000))
-    local response = curl.get(url, {headers = headers})
+    local response = curl.get(url, { headers = headers })
     self.token = vim.json.decode(response.body)
 end
 
 function Copilot:ask(prompt, opts)
-    if not self.token or (self.token.expires_at and self.token.expires_at <= math.floor(os.time())) then
+    if
+        not self.token or (self.token.expires_at and self.token.expires_at <= math.floor(os.time()))
+    then
         self:authenticate()
     end
 
     table.insert(self.history, {
         content = prompt,
-        role = "user"
+        role = 'user',
     })
 
     opts = opts or {}
     local code_excerpt = opts.code_excerpt
-    local code_language = opts.code_language or ""
+    local code_language = opts.code_language or ''
     local system_prompt = opts.system_prompt or COPILOT_INSTRUCTIONS
-    local model = opts.model or "gpt-4"
+    local model = opts.model or 'gpt-4'
     local temperature = opts.temperature or 0.1
+    local on_start = opts.on_start
     local on_done = opts.on_done
     local on_progress = opts.on_progress
+
+    if self.current_job then
+        self.current_job:shutdown()
+        self.current_job = nil
+        if on_done then
+            on_done('job cancelled')
+        end
+    end
 
     if on_progress then
         on_progress(prompt)
@@ -171,8 +195,8 @@ function Copilot:ask(prompt, opts)
         on_done(prompt)
     end
 
-    if on_progress then
-        on_progress("**copilot:** ")
+    if on_start then
+        on_start()
     end
 
     local data = generate_request(
@@ -184,11 +208,11 @@ function Copilot:ask(prompt, opts)
         temperature
     )
 
-    local url = "https://api.githubcopilot.com/chat/completions"
+    local url = 'https://api.githubcopilot.com/chat/completions'
     local headers = generate_headers(self.token.token, self.sessionid, self.machineid)
-    local full_response = ""
+    local full_response = ''
 
-    return curl.post(url, {
+    self.current_job = curl.post(url, {
         headers = headers,
         body = vim.json.encode(data),
         stream = function(err, line)
@@ -201,17 +225,17 @@ function Copilot:ask(prompt, opts)
                 return
             end
 
-            line = line:gsub("data: ", "")
-            if line == "" then
+            line = line:gsub('data: ', '')
+            if line == '' then
                 return
-            elseif line == "[DONE]" then
+            elseif line == '[DONE]' then
                 if on_done then
                     on_done(full_response)
                 end
 
                 table.insert(self.history, {
                     content = full_response,
-                    role = "system"
+                    role = 'system',
                 })
                 return
             end
@@ -219,8 +243,8 @@ function Copilot:ask(prompt, opts)
             local success, content = pcall(vim.json.decode, line, {
                 luanil = {
                     object = true,
-                    array = true
-                }
+                    array = true,
+                },
             })
 
             if not success then
@@ -241,8 +265,12 @@ function Copilot:ask(prompt, opts)
             end
 
             full_response = full_response .. content
-        end
-    })
+        end,
+    }):after(function()
+        self.current_job = nil
+    end)
+
+    return self.current_job
 end
 
 return Copilot
