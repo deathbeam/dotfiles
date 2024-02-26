@@ -101,12 +101,15 @@ local function show_help()
     state.spinner:finish()
     append('\n')
     state.spinner:set(
-        "Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
+        "> Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
         -1
     )
 end
 
 function M.open(opts)
+    opts = opts or {}
+    local just_created = false
+
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
         state.window.bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_name(state.window.bufnr, 'copilot-chat')
@@ -121,6 +124,7 @@ function M.open(opts)
                 M.ask(input, '')
             end
         end, { buffer = state.window.bufnr })
+        just_created = true
     end
 
     if not state.spinner then
@@ -154,7 +158,10 @@ function M.open(opts)
         vim.wo[state.window.id].cursorline = true
         vim.wo[state.window.id].conceallevel = 2
         vim.wo[state.window.id].concealcursor = 'niv'
-        show_help()
+
+        if just_created then
+            show_help()
+        end
     end
 
     vim.api.nvim_set_current_win(state.window.id)

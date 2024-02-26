@@ -14,7 +14,7 @@ local spinner_frames = {
 }
 
 local Spinner = util.class(function(self, bufnr)
-    self.ns = vim.api.nvim_create_namespace('spinner')
+    self.ns = vim.api.nvim_create_namespace('copilot-spinner')
     self.bufnr = bufnr
     self.timer = nil
     self.index = 1
@@ -29,19 +29,16 @@ function Spinner:set(text, offset)
             return
         end
 
-        vim.api.nvim_buf_set_extmark(
-            self.bufnr,
-            self.ns,
-            vim.api.nvim_buf_line_count(self.bufnr) - 1 + offset,
-            0,
-            {
-                id = self.ns,
-                virt_text = { { text, 'DiagnosticSignHint' } },
-                virt_text_pos = offset ~= 0 and 'inline' or 'eol',
-                hl_mode = 'combine',
-                priority = 100,
-            }
-        )
+        local line = vim.api.nvim_buf_line_count(self.bufnr) - 1 + offset
+        line = math.max(0, line)
+
+        vim.api.nvim_buf_set_extmark(self.bufnr, self.ns, line, 0, {
+            id = self.ns,
+            virt_text = { { text, 'DiagnosticSignHint' } },
+            virt_text_pos = offset ~= 0 and 'inline' or 'eol',
+            hl_mode = 'combine',
+            priority = 100,
+        })
     end)
 end
 
