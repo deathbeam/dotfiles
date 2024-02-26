@@ -17,6 +17,17 @@ local spinner_frames = {
 local spinner_index = 1
 local spinner_timer = nil
 
+local function set(bufnr, text, offset)
+    offset = offset or 0
+    vim.api.nvim_buf_set_extmark(bufnr, ns, vim.api.nvim_buf_line_count(bufnr) - 1 + offset, 0, {
+        id = ns,
+        virt_text = { { text, 'DiagnosticSignHint' } },
+        virt_text_pos = offset ~= 0 and 'inline' or 'eol',
+        hl_mode = 'combine',
+        priority = 100,
+    })
+end
+
 --- Show a spinner virtual text
 ---@param bufnr integer
 function M.show(bufnr)
@@ -25,13 +36,7 @@ function M.show(bufnr)
         0,
         100,
         vim.schedule_wrap(function()
-            vim.api.nvim_buf_set_extmark(bufnr, ns, vim.api.nvim_buf_line_count(bufnr) - 1, 0, {
-                id = ns,
-                virt_text = { { spinner_frames[spinner_index], 'DiagnosticSignHint' } },
-                virt_text_pos = 'eol',
-                hl_mode = 'combine',
-                priority = 100,
-            })
+            set(bufnr, spinner_frames[spinner_index])
             spinner_index = spinner_index % #spinner_frames + 1
         end)
     )
@@ -39,13 +44,18 @@ end
 
 --- Hide the spinner.
 ---@param bufnr integer
-function M.hide(bufnr)
+function M.hide(bufnr, replacement, offset)
     if spinner_timer then
         spinner_timer:stop()
         spinner_timer:close()
         spinner_timer = nil
         vim.schedule(function()
             vim.api.nvim_buf_del_extmark(bufnr, ns, ns)
+            if replacement then
+                set(bufnr, replacement, offset)
+            else
+                vim.api.nvim_buf_del_extmark(bufnr, ns, ns)
+            end
         end)
     end
 end

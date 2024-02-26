@@ -141,7 +141,11 @@ function M.ask(str, skip_selection)
             append('\n\n---\n\n')
             -- This updates cursor to the very end
             append('')
-            spinner.hide(state.window.bufnr)
+            spinner.hide(
+                state.window.bufnr,
+                'Ask a question here and then press <CR> in normal mode to send it.',
+                -1
+            )
         end,
         on_progress = append,
     })
