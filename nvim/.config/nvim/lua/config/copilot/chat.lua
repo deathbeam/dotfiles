@@ -60,6 +60,10 @@ local function get_current_selection()
         local start = vim.fn.getpos('v')
         local finish = vim.fn.getpos('.')
         local lines = get_selection_lines(start, finish, mode == 'V')
+
+        -- Switch to vim normal mode from visual mode
+        vim.api.nvim_feedkeys('<Esc>', 'n', true)
+
         if lines then
             return table.concat(lines, '\n')
         end
@@ -90,41 +94,61 @@ local function append(str)
 end
 
 local function show_help()
+    if not state.spinner then
+        return
+    end
+
+    state.spinner:finish()
     append('\n')
     state.spinner:set(
-        'Type here and then press <CR> in normal mode to send it or press q to close.',
+        "Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
         -1
     )
 end
 
-function M.open()
+function M.open(opts)
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
         state.window.bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_name(state.window.bufnr, 'copilot-chat')
         vim.bo[state.window.bufnr].filetype = 'markdown'
         vim.treesitter.start(state.window.bufnr, 'markdown')
 
+        vim.keymap.set('n', '<Esc>', M.reset, { buffer = state.window.bufnr })
+        vim.keymap.set('n', 'q', M.close, { buffer = state.window.bufnr })
         vim.keymap.set('n', '<CR>', function()
             local input = find_after_last_separator(state.window.bufnr, '---')
             if input ~= '' then
                 M.ask(input, '')
             end
         end, { buffer = state.window.bufnr })
+    end
 
-        vim.keymap.set('n', 'q', function()
-            M.close()
-        end, { buffer = state.window.bufnr })
-
+    if not state.spinner then
         state.spinner = Spinner(state.window.bufnr)
     end
 
     if not state.window.id or not vim.api.nvim_win_is_valid(state.window.id) then
-        state.window.id = vim.api.nvim_open_win(state.window.bufnr, false, {
-            vertical = true,
+        local win_opts = {
             style = 'minimal',
-            height = 2,
-        })
+        }
 
+        local layout = opts.layout or 'vertical'
+
+        if layout == 'vertical' then
+            win_opts.vertical = true
+        elseif layout == 'horizontal' then
+            win_opts.vertical = false
+        elseif layout == 'float' then
+            win_opts.relative = 'editor'
+            win_opts.border = opts.border or 'single'
+            win_opts.title = opts.title or "Copilot Chat ('q' to close, '<Esc>' to clear)"
+            win_opts.row = math.floor(vim.o.lines * 0.2)
+            win_opts.col = math.floor(vim.o.columns * 0.1)
+            win_opts.width = math.floor(vim.o.columns * 0.8)
+            win_opts.height = math.floor(vim.o.lines * 0.6)
+        end
+
+        state.window.id = vim.api.nvim_open_win(state.window.bufnr, false, win_opts)
         vim.wo[state.window.id].wrap = true
         vim.wo[state.window.id].linebreak = true
         vim.wo[state.window.id].cursorline = true
@@ -132,6 +156,8 @@ function M.open()
         vim.wo[state.window.id].concealcursor = 'niv'
         show_help()
     end
+
+    vim.api.nvim_set_current_win(state.window.id)
 end
 
 function M.close()
@@ -152,7 +178,7 @@ function M.ask(str, opts)
     opts = opts or {}
     local selection = opts.selection or get_current_selection()
     local filetype = opts.filetype or vim.bo.filetype
-    M.open()
+    M.open(opts)
 
     return state.copilot:ask(str, {
         selection = selection,
@@ -163,7 +189,6 @@ function M.ask(str, opts)
         end,
         on_done = function()
             append('\n\n---\n')
-            state.spinner:finish()
             show_help()
         end,
         on_progress = append,
@@ -175,6 +200,7 @@ function M.reset()
     if state.window.bufnr and vim.api.nvim_buf_is_valid(state.window.bufnr) then
         vim.api.nvim_buf_set_lines(state.window.bufnr, 0, -1, true, {})
     end
+    show_help()
 end
 
 function M.setup()
