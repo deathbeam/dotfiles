@@ -59,14 +59,7 @@ local function get_cached_token()
     return userdata['github.com'].oauth_token
 end
 
-local function generate_request(
-    chat_history,
-    code_excerpt,
-    code_language,
-    system_prompt,
-    model,
-    temperature
-)
+local function generate_request(chat_history, system_prompt, model, temperature)
     local messages = {
         {
             content = system_prompt,
@@ -75,22 +68,7 @@ local function generate_request(
     }
 
     for _, message in ipairs(chat_history) do
-        table.insert(messages, {
-            content = message.content,
-            role = message.role,
-        })
-    end
-
-    if code_excerpt and code_excerpt ~= '' then
-        -- Insert selection before current prompt, e.g last -1
-        table.insert(messages, #messages, {
-            content = '\nActive selection:\n```'
-                .. code_language
-                .. '\n'
-                .. code_excerpt
-                .. '\n```',
-            role = 'system',
-        })
+        table.insert(messages, message)
     end
 
     return {
@@ -164,11 +142,6 @@ function Copilot:ask(prompt, opts)
         self:authenticate()
     end
 
-    table.insert(self.history, {
-        content = prompt,
-        role = 'user',
-    })
-
     opts = opts or {}
     local code_excerpt = opts.code_excerpt
     local code_language = opts.code_language or ''
@@ -178,6 +151,22 @@ function Copilot:ask(prompt, opts)
     local on_start = opts.on_start
     local on_done = opts.on_done
     local on_progress = opts.on_progress
+
+    if code_excerpt and code_excerpt ~= '' then
+        table.insert(self.history, {
+            content = '\nActive selection:\n```'
+                .. code_language
+                .. '\n'
+                .. code_excerpt
+                .. '\n```',
+            role = 'system',
+        })
+    end
+
+    table.insert(self.history, {
+        content = prompt,
+        role = 'user',
+    })
 
     if self.current_job then
         self.current_job:shutdown()
@@ -199,14 +188,7 @@ function Copilot:ask(prompt, opts)
         on_start()
     end
 
-    local data = generate_request(
-        self.history,
-        code_excerpt,
-        code_language,
-        system_prompt,
-        model,
-        temperature
-    )
+    local data = generate_request(self.history, system_prompt, model, temperature)
 
     local url = 'https://api.githubcopilot.com/chat/completions'
     local headers = generate_headers(self.token.token, self.sessionid, self.machineid)
