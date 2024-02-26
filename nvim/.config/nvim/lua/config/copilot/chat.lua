@@ -1,9 +1,10 @@
 local Copilot = require('config.copilot.copilot')
-local spinner = require('config.copilot.spinner')
+local Spinner = require('config.copilot.spinner')
 
 local M = {}
 local state = {
     copilot = nil,
+    spinner = nil,
     window = {
         id = nil,
         bufnr = nil,
@@ -62,13 +63,17 @@ local function get_current_selection()
         if lines then
             return table.concat(lines, '\n')
         end
-        return ''
     end
     return vim.fn.getreg('"')
 end
 
 local function append(str)
     vim.schedule(function()
+        if not vim.api.nvim_win_is_valid(state.window.id) then
+            state.copilot:stop()
+            return
+        end
+
         local last_line = vim.api.nvim_buf_line_count(state.window.bufnr) - 1
         local last_line_content = vim.api.nvim_buf_get_lines(state.window.bufnr, -2, -1, false)
         local last_column = #last_line_content[1]
@@ -93,9 +98,11 @@ function M.open()
         vim.keymap.set('n', '<CR>', function()
             local input = find_after_last_separator(state.window.bufnr, '---')
             if input ~= '' then
-                M.ask(input, true)
+                M.ask(input, '')
             end
         end, { buffer = state.window.bufnr })
+
+        state.spinner = Spinner(state.window.bufnr)
     end
 
     if not state.window.id or not vim.api.nvim_win_is_valid(state.window.id) then
@@ -118,31 +125,29 @@ function M.close()
         vim.api.nvim_win_close(state.window.id, true)
         state.window.id = nil
     end
+
+    if state.spinner then
+        state.spinner:finish()
+    end
 end
 
-function M.ask(str, skip_selection)
+function M.ask(str, selection, filetype)
     M.open()
-    local selection = ''
-    local filetype = ''
 
-    if not skip_selection then
-        selection = get_current_selection()
-        filetype = vim.bo.filetype
-    end
+    selection = selection or get_current_selection()
+    filetype = filetype or vim.bo.filetype
 
     return state.copilot:ask(str, {
-        code_excerpt = selection,
-        code_language = filetype,
+        selection = selection,
+        filetype = filetype,
         on_start = function()
-            spinner.start(state.window.bufnr)
+            state.spinner:start()
             append('**copilot:** ')
         end,
         on_done = function()
             append('\n\n---\n\n')
-            -- This updates cursor to the very end
             append('')
-            spinner.finish(
-                state.window.bufnr,
+            state.spinner:finish(
                 'Ask a question here and then press <CR> in normal mode to send it.',
                 -1
             )

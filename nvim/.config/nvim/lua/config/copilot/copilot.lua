@@ -1,4 +1,5 @@
 local curl = require('plenary.curl')
+local util = require('config.copilot.util')
 
 COPILOT_INSTRUCTIONS = [[You are an AI programming assistant.
 When asked for you name, you must respond with "GitHub Copilot".
@@ -59,14 +60,7 @@ local function get_cached_token()
     return userdata['github.com'].oauth_token
 end
 
-local function generate_request(
-    chat_history,
-    code_excerpt,
-    code_language,
-    system_prompt,
-    model,
-    temperature
-)
+local function generate_request(history, selection, filetype, system_prompt, model, temperature)
     local messages = {
         {
             content = system_prompt,
@@ -74,18 +68,14 @@ local function generate_request(
         },
     }
 
-    for _, message in ipairs(chat_history) do
+    for _, message in ipairs(history) do
         table.insert(messages, message)
     end
 
-    if code_excerpt ~= '' then
+    if selection ~= '' then
         -- Insert the active selection before last prompt
         table.insert(messages, #messages, {
-            content = '\nActive selection:\n```'
-                .. code_language
-                .. '\n'
-                .. code_excerpt
-                .. '\n```',
+            content = '\nActive selection:\n```' .. selection .. '\n' .. filetype .. '\n```',
             role = 'system',
         })
     end
@@ -116,28 +106,14 @@ local function generate_headers(token, sessionid, machineid)
     }
 end
 
-local Copilot = {}
-Copilot.__index = Copilot
-setmetatable(Copilot, {
-    __call = function(cls, ...)
-        return cls.new(...)
-    end,
-})
-
-function Copilot.new()
-    local self = setmetatable({}, Copilot)
+local Copilot = util.class(function(self)
     self.github_token = get_cached_token()
     self.history = {}
     self.token = nil
     self.sessionid = nil
     self.machineid = machine_id()
     self.current_job = nil
-    return self
-end
-
-function Copilot:reset()
-    self.history = {}
-end
+end)
 
 function Copilot:authenticate()
     local url = 'https://api.github.com/copilot_internal/v2/token'
@@ -162,8 +138,8 @@ function Copilot:ask(prompt, opts)
     end
 
     opts = opts or {}
-    local code_excerpt = opts.code_excerpt or ''
-    local code_language = opts.code_language or ''
+    local selection = opts.selection or ''
+    local filetype = opts.filetype or ''
     local system_prompt = opts.system_prompt or COPILOT_INSTRUCTIONS
     local model = opts.model or 'gpt-4'
     local temperature = opts.temperature or 0.1
@@ -176,18 +152,18 @@ function Copilot:ask(prompt, opts)
         role = 'user',
     })
 
+    -- If we already have running job, cancel it and notify the user
     if self.current_job then
-        self.current_job:shutdown()
-        self.current_job = nil
+        self:stop()
         if on_done then
             on_done('job cancelled')
         end
     end
 
+    -- Notify the user about current prompt
     if on_progress then
         on_progress(prompt)
     end
-
     if on_done then
         on_done(prompt)
     end
@@ -198,16 +174,10 @@ function Copilot:ask(prompt, opts)
 
     local url = 'https://api.githubcopilot.com/chat/completions'
     local headers = generate_headers(self.token.token, self.sessionid, self.machineid)
-    local data = generate_request(
-        self.history,
-        code_excerpt,
-        code_language,
-        system_prompt,
-        model,
-        temperature
-    )
-    local full_response = ''
+    local data =
+        generate_request(self.history, selection, filetype, system_prompt, model, temperature)
 
+    local full_response = ''
     self.current_job = curl.post(url, {
         headers = headers,
         body = vim.json.encode(data),
@@ -260,6 +230,7 @@ function Copilot:ask(prompt, opts)
                 on_progress(content)
             end
 
+            -- Collect full response incrementally so we can insert it to history later
             full_response = full_response .. content
         end,
     }):after(function()
@@ -267,6 +238,18 @@ function Copilot:ask(prompt, opts)
     end)
 
     return self.current_job
+end
+
+function Copilot:stop()
+    if self.current_job then
+        self.current_job:shutdown()
+        self.current_job = nil
+    end
+end
+
+function Copilot:reset()
+    self.history = {}
+    self:stop()
 end
 
 return Copilot
