@@ -28,9 +28,7 @@ local function set(bufnr, text, offset)
     })
 end
 
---- Show a spinner virtual text
----@param bufnr integer
-function M.show(bufnr)
+function M.start(bufnr)
     spinner_timer = vim.loop.new_timer()
     spinner_timer:start(
         0,
@@ -42,9 +40,7 @@ function M.show(bufnr)
     )
 end
 
---- Hide the spinner.
----@param bufnr integer
-function M.hide(bufnr, replacement, offset)
+function M.finish(bufnr, replacement, offset)
     if spinner_timer then
         spinner_timer:stop()
         spinner_timer:close()

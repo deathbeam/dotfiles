@@ -134,14 +134,14 @@ function M.ask(str, skip_selection)
         code_excerpt = selection,
         code_language = filetype,
         on_start = function()
-            spinner.show(state.window.bufnr)
+            spinner.start(state.window.bufnr)
             append('**copilot:** ')
         end,
         on_done = function()
             append('\n\n---\n\n')
             -- This updates cursor to the very end
             append('')
-            spinner.hide(
+            spinner.finish(
                 state.window.bufnr,
                 'Ask a question here and then press <CR> in normal mode to send it.',
                 -1
