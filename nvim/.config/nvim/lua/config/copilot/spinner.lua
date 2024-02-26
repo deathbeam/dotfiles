@@ -50,7 +50,6 @@ function M.hide(bufnr, replacement, offset)
         spinner_timer:close()
         spinner_timer = nil
         vim.schedule(function()
-            vim.api.nvim_buf_del_extmark(bufnr, ns, ns)
             if replacement then
                 set(bufnr, replacement, offset)
             else
