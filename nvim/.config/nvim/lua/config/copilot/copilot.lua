@@ -171,6 +171,10 @@ function Copilot:ask(prompt, opts)
         on_done(prompt)
     end
 
+    if on_progress then
+        on_progress("**copilot:** ")
+    end
+
     local data = generate_request(
         self.history,
         code_excerpt,
