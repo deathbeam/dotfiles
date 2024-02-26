@@ -101,7 +101,7 @@ local function show_help()
     state.spinner:finish()
     append('\n')
     state.spinner:set(
-        "> Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
+        "Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
         -1
     )
 end
