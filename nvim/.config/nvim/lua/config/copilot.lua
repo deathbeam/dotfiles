@@ -47,6 +47,10 @@ local prompts = {
     },
 }
 
+vim.keymap.set('n', '<leader>aa', function()
+    chat.open()
+end, { desc = 'AI Open' })
+
 for _, prompt in ipairs(prompts) do
     vim.keymap.set({ 'n', 'v' }, string.format('<leader>a%s', prompt.key), function()
         chat.ask(prompt.prompt)

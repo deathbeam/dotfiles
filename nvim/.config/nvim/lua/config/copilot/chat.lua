@@ -89,17 +89,30 @@ local function append(str)
     end)
 end
 
+local function show_help()
+    append('\n')
+    state.spinner:set(
+        'Type here and then press <CR> in normal mode to send it or press q to close.',
+        -1
+    )
+end
+
 function M.open()
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
         state.window.bufnr = vim.api.nvim_create_buf(false, true)
         vim.api.nvim_buf_set_name(state.window.bufnr, 'copilot-chat')
         vim.bo[state.window.bufnr].filetype = 'markdown'
         vim.treesitter.start(state.window.bufnr, 'markdown')
+
         vim.keymap.set('n', '<CR>', function()
             local input = find_after_last_separator(state.window.bufnr, '---')
             if input ~= '' then
                 M.ask(input, '')
             end
+        end, { buffer = state.window.bufnr })
+
+        vim.keymap.set('n', 'q', function()
+            M.close()
         end, { buffer = state.window.bufnr })
 
         state.spinner = Spinner(state.window.bufnr)
@@ -109,7 +122,7 @@ function M.open()
         state.window.id = vim.api.nvim_open_win(state.window.bufnr, false, {
             vertical = true,
             style = 'minimal',
-            height = 1,
+            height = 2,
         })
 
         vim.wo[state.window.id].wrap = true
@@ -117,6 +130,7 @@ function M.open()
         vim.wo[state.window.id].cursorline = true
         vim.wo[state.window.id].conceallevel = 2
         vim.wo[state.window.id].concealcursor = 'niv'
+        show_help()
     end
 end
 
@@ -128,14 +142,17 @@ function M.close()
 
     if state.spinner then
         state.spinner:finish()
+        state.spinner = nil
     end
+
+    state.copilot:stop()
 end
 
-function M.ask(str, selection, filetype)
+function M.ask(str, opts)
+    opts = opts or {}
+    local selection = opts.selection or get_current_selection()
+    local filetype = opts.filetype or vim.bo.filetype
     M.open()
-
-    selection = selection or get_current_selection()
-    filetype = filetype or vim.bo.filetype
 
     return state.copilot:ask(str, {
         selection = selection,
@@ -145,12 +162,9 @@ function M.ask(str, selection, filetype)
             append('**copilot:** ')
         end,
         on_done = function()
-            append('\n\n---\n\n')
-            append('')
-            state.spinner:finish(
-                'Ask a question here and then press <CR> in normal mode to send it.',
-                -1
-            )
+            append('\n\n---\n')
+            state.spinner:finish()
+            show_help()
         end,
         on_progress = append,
     })
