@@ -16,6 +16,10 @@ local state = {
     },
 }
 
+local function is_copilot_reply(input)
+    return vim.startswith(vim.trim(input), '**' .. M.config.name .. ':** ')
+end
+
 local function get_prompt_kind(name)
     if vim.startswith(name, 'COPILOT_') then
         return 'system'
@@ -60,14 +64,15 @@ local function find_lines_between_separator_at_cursor(bufnr, separator)
     local line_count = #lines
     local last_separator_line = 1
     local next_separator_line = line_count
+    local pattern = '^' .. separator .. '%w*$'
 
     -- Find the last occurrence of the separator
     for i, line in ipairs(lines) do
-        if i > cursor_line and string.find(line, separator) then
+        if i > cursor_line and string.find(line, pattern) then
             next_separator_line = i - 1
             break
         end
-        if string.find(line, separator) then
+        if string.find(line, pattern) then
             last_separator_line = i + 1
         end
     end
@@ -217,7 +222,7 @@ function M.open(config)
             vim.keymap.set('n', config.mappings.submit_prompt, function()
                 local input, start_line, end_line, line_count =
                     find_lines_between_separator_at_cursor(state.window.bufnr, M.config.separator)
-                if input ~= '' then
+                if input ~= '' and not is_copilot_reply(input) then
                     -- If we are entering the input at the end, replace it
                     if line_count == end_line then
                         vim.api.nvim_buf_set_lines(

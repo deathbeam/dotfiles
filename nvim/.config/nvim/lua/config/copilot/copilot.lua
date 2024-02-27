@@ -144,8 +144,10 @@ function Copilot:ask(prompt, opts)
         on_progress('SYSTEM PROMPT:\n```\n' .. system_prompt .. '```\n')
 
         if selection ~= '' then
-            on_progress('CODE:\n```' .. filetype .. '\n' .. selection .. '\n```\n')
+            on_progress('CODE:\n```' .. filetype .. '\n' .. selection .. '\n```')
         end
+
+        on_done('')
     end
 
     table.insert(self.history, {

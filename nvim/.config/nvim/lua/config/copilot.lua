@@ -13,6 +13,7 @@ vim.keymap.set(
 
 local chat = require('config.copilot.chat')
 chat.setup({
+    disable_extra_info = false,
     window = {
         layout = 'horizontal',
     },
