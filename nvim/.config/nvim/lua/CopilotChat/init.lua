@@ -192,8 +192,12 @@ end
 ---@param config (table | nil)
 function M.open(config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
-    local selection = type(config.selection) == 'function' and config.selection()
-        or config.selection
+    local selection = nil
+    if type(config.selection) == 'function' then
+        selection = config.selection()
+    else
+        selection = config.selection
+    end
     state.selection = selection or {}
 
     local just_created = false
@@ -440,14 +444,31 @@ function M.setup(config)
     log.logfile = logfile
 
     for name, prompt in pairs(M.get_prompts(true)) do
-        vim.api.nvim_create_user_command('CopilotChat' .. name, function()
-            M.ask(prompt.prompt, prompt)
+        vim.api.nvim_create_user_command('CopilotChat' .. name, function(args)
+            local input = prompt.prompt
+            if args.args and vim.trim(args.args) ~= '' then
+                input = input .. ' ' .. args.args
+            end
+            M.ask(input, prompt)
         end, {
             nargs = '*',
+            force = true,
             range = true,
             desc = prompt.description or ('CopilotChat.nvim ' .. name),
         })
     end
+
+    vim.api.nvim_create_user_command('CopilotChat', function(args)
+        local input = ''
+        if args.args and vim.trim(args.args) ~= '' then
+            input = input .. ' ' .. args.args
+        end
+        M.ask(input)
+    end, {
+        nargs = '*',
+        force = true,
+        range = true,
+    })
 end
 
 return M
