@@ -1,15 +1,13 @@
 local Copilot = require('config.copilot.copilot')
 local Spinner = require('config.copilot.spinner')
 local prompts = require('config.copilot.prompts')
+local select = require('config.copilot.select')
 
 local M = {}
 local state = {
-    buffer = nil,
-    selection = nil,
-    filetype = nil,
-
     copilot = nil,
     spinner = nil,
+    selection = nil,
     window = {
         id = nil,
         bufnr = nil,
@@ -53,53 +51,6 @@ local function find_lines_between_separator_at_cursor(bufnr, separator)
         last_separator_line,
         next_separator_line,
         line_count
-end
-
-local function get_selection_lines(start, finish, full_lines)
-    local start_line, start_col = start[2], start[3]
-    local finish_line, finish_col = finish[2], finish[3]
-
-    if start_line > finish_line or (start_line == finish_line and start_col > finish_col) then
-        start_line, start_col, finish_line, finish_col =
-            finish_line, finish_col, start_line, start_col
-    end
-
-    local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, finish_line, false)
-    if #lines == 0 then
-        return nil, 0, 0, 0, 0
-    end
-
-    if full_lines then
-        start_col = 0
-        finish_col = #lines[#lines]
-    else
-        lines[#lines] = string.sub(lines[#lines], 1, finish_col)
-        lines[1] = string.sub(lines[1], start_col)
-    end
-
-    return table.concat(lines, '\n'), start_line, start_col, finish_line, finish_col
-end
-
-local function get_current_selection()
-    local mode = vim.fn.mode()
-    if mode:lower() == 'v' then
-        local start = vim.fn.getpos('v')
-        local finish = vim.fn.getpos('.')
-        -- Switch to vim normal mode from visual mode
-        vim.api.nvim_feedkeys('<Esc>', 'n', true)
-        local lines, start_row, start_col, end_row, end_col =
-            get_selection_lines(start, finish, mode == 'V')
-        return {
-            lines = lines,
-            start_row = start_row,
-            start_col = start_col,
-            end_row = end_row,
-            end_col = end_col,
-        }
-    end
-    return {
-        lines = vim.fn.getreg('"'),
-    }
 end
 
 local function update_prompts(prompt)
@@ -207,9 +158,7 @@ end
 
 function M.open(config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
-    state.buffer = config.buffer or vim.api.nvim_get_current_buf()
-    state.selection = config.selection or get_current_selection()
-    state.filetype = config.filetype or vim.bo.filetype
+    state.selection = config.selection or select.visual() or select.unnamed() or {}
 
     local just_created = false
 
@@ -252,11 +201,7 @@ function M.open(config)
                             { '' }
                         )
                     end
-                    M.ask(input, {
-                        selection = state.selection,
-                        filetype = state.filetype,
-                        buffer = state.buffer,
-                    })
+                    M.ask(input, { selection = state.selection })
                 end
             end, { buffer = state.window.bufnr })
         end
@@ -264,9 +209,11 @@ function M.open(config)
         if config.mappings.submit_code then
             vim.keymap.set('n', config.mappings.submit_code, function()
                 if
-                    not state.buffer
+                    not state.selection
+                    or not state.selection.buffer
                     or not state.selection.start_row
                     or not state.selection.end_row
+                    or not vim.api.nvim_buf_is_valid(state.selection.buffer)
                 then
                     return
                 end
@@ -274,7 +221,7 @@ function M.open(config)
                 local input = find_lines_between_separator_at_cursor(state.window.bufnr, '```')
                 if input ~= '' then
                     vim.api.nvim_buf_set_text(
-                        state.buffer,
+                        state.selection.buffer,
                         state.selection.start_row - 1,
                         state.selection.start_col,
                         state.selection.end_row - 1,
@@ -351,7 +298,7 @@ function M.ask(prompt, config)
 
     return state.copilot:ask(updated_prompt, {
         selection = state.selection.lines,
-        filetype = state.filetype,
+        filetype = state.selection.filetype,
         system_prompt = system_prompt,
         model = config.model,
         temperature = config.temperature,
