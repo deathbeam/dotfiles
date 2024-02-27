@@ -81,7 +81,6 @@ local function append(str)
         local last_line = vim.api.nvim_buf_line_count(state.window.bufnr) - 1
         local last_line_content = vim.api.nvim_buf_get_lines(state.window.bufnr, -2, -1, false)
         local last_column = #last_line_content[1]
-        vim.api.nvim_win_set_cursor(state.window.id, { last_line + 1, last_column })
         vim.api.nvim_buf_set_text(
             state.window.bufnr,
             last_line,
@@ -90,6 +89,12 @@ local function append(str)
             last_column,
             vim.split(str, '\n')
         )
+
+        -- Get new position of text and update cursor
+        last_line = vim.api.nvim_buf_line_count(state.window.bufnr) - 1
+        last_line_content = vim.api.nvim_buf_get_lines(state.window.bufnr, -2, -1, false)
+        last_column = #last_line_content[1]
+        vim.api.nvim_win_set_cursor(state.window.id, { last_line + 1, last_column })
     end)
 end
 
