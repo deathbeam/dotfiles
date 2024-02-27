@@ -15,7 +15,7 @@ local chat = require('CopilotChat')
 chat.setup({
     disable_extra_info = false,
     window = {
-        layout = 'horizontal',
+        layout = 'float',
     },
 })
 
