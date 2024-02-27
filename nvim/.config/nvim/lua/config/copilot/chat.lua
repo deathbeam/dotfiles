@@ -315,9 +315,6 @@ function M.ask(prompt, config)
             show_help()
         end,
         on_progress = append,
-        on_error = function(err)
-            vim.print(err)
-        end,
     })
 end
 
@@ -360,6 +357,12 @@ M.config = {
 
 function M.setup(config)
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
+
+    log.setup({
+        plugin = M.config.name,
+        level = debug and 'trace' or 'error',
+    }, true)
+
     state.copilot = Copilot()
 
     for name, prompt in pairs(M.config.prompts) do
@@ -367,11 +370,6 @@ function M.setup(config)
             M.ask(prompt)
         end)
     end
-
-    log.setup({
-        plugin = M.config.name,
-        level = debug and 'trace' or 'error',
-    }, true)
 end
 
 return M

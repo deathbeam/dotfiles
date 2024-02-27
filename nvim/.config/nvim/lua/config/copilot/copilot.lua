@@ -1,6 +1,7 @@
 local curl = require('plenary.curl')
 local class = require('config.copilot.utils').class
 local prompts = require('config.copilot.prompts')
+local log = require('config.copilot.vlog')
 
 local function uuid()
     local template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
@@ -123,12 +124,20 @@ function Copilot:ask(prompt, opts)
     then
         local err = self:authenticate()
         if err then
+            log.error('Failed to authenticate: ' .. tostring(err))
             if on_error then
                 on_error(err)
             end
             return
         end
     end
+
+    log.debug('System prompt: ' .. system_prompt)
+    log.debug('Prompt: ' .. prompt)
+    log.debug('Selection: ' .. selection)
+    log.debug('Filetype: ' .. filetype)
+    log.debug('Model: ' .. model)
+    log.debug('Temperature: ' .. temperature)
 
     table.insert(self.history, {
         content = prompt,
@@ -166,6 +175,7 @@ function Copilot:ask(prompt, opts)
         body = vim.json.encode(data),
         stream = function(err, line)
             if err then
+                log.error('Failed to stream response: ' .. tostring(err))
                 on_error(err)
                 return
             end
@@ -178,6 +188,7 @@ function Copilot:ask(prompt, opts)
             if line == '' then
                 return
             elseif line == '[DONE]' then
+                log.debug('Full response: ' .. full_response)
                 if on_done then
                     on_done(full_response)
                 end
@@ -197,6 +208,7 @@ function Copilot:ask(prompt, opts)
             })
 
             if not ok then
+                log.error('Failed parse response: ' .. tostring(err))
                 on_error(content)
                 return
             end
@@ -210,6 +222,7 @@ function Copilot:ask(prompt, opts)
                 return
             end
 
+            log.debug('Token: ' .. content)
             if on_progress then
                 on_progress(content)
             end
