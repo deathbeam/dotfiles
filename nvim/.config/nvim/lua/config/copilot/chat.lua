@@ -158,7 +158,9 @@ end
 
 function M.open(config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
-    state.selection = config.selection or select.visual() or select.unnamed() or {}
+    local selection = type(config.selection) == 'function' and config.selection()
+        or config.selection
+    state.selection = selection or {}
 
     local just_created = false
 
@@ -334,6 +336,9 @@ M.config = {
     name = 'copilot',
     separator = '---',
     prompts = {},
+    selection = function()
+        return select.visual() or select.unnamed()
+    end,
     window = {
         layout = 'vertical',
         width = 0.8,
