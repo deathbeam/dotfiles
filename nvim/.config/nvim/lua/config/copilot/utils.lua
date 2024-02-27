@@ -1,3 +1,4 @@
+local log = require('plenary.log')
 local M = {}
 
 --- Create class
@@ -18,6 +19,25 @@ function M.class(fn)
         return self
     end
     return out
+end
+
+-- The CopilotChat.nvim is built using remote plugins.
+-- This is the path to the rplugin.vim file.
+-- Refer https://neovim.io/doc/user/remote_plugin.html#%3AUpdateRemotePlugins
+-- @return string
+function M.get_remote_plugins_path()
+    local os = vim.loop.os_uname().sysname
+    if os == 'Linux' or os == 'Darwin' then
+        return '~/.local/share/nvim/rplugin.vim'
+    else
+        return '~/AppData/Local/nvim/rplugin.vim'
+    end
+end
+
+--- Get the log file path
+---@return string
+function M.get_log_file_path()
+    return log.logfile
 end
 
 return M

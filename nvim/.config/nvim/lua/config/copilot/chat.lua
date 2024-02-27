@@ -1,8 +1,9 @@
+local log = require('plenary.log')
 local Copilot = require('config.copilot.copilot')
 local Spinner = require('config.copilot.spinner')
 local prompts = require('config.copilot.prompts')
 local select = require('config.copilot.select')
-local log = require('config.copilot.vlog')
+local debugwindow = require('config.copilot.debugwindow')
 
 local M = {}
 local state = {
@@ -331,6 +332,10 @@ function M.ask(prompt, config)
 
     M.open(config)
 
+    if config.clear_chat_on_new_prompt then
+        M.reset()
+    end
+
     if state.selection.prompt_extra then
         updated_prompt = updated_prompt .. ' ' .. state.selection.prompt_extra
     end
@@ -368,6 +373,7 @@ M.config = {
     model = 'gpt-4',
     temperature = 0.1,
     debug = false,
+    clear_chat_on_new_prompt = false,
     name = 'CopilotChat',
     separator = '---',
     prompts = {
@@ -399,13 +405,16 @@ M.config = {
 
 function M.setup(config)
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
+    state.copilot = Copilot()
+    debugwindow.setup()
 
-    log.setup({
+    local logfile = string.format('%s/%s.log', vim.fn.stdpath('state'), 'CopilotChat.nvim')
+    log.new({
         plugin = M.config.name,
         level = debug and 'trace' or 'error',
+        outfile = logfile,
     }, true)
-
-    state.copilot = Copilot()
+    log.logfile = logfile
 
     for name, prompt in pairs(get_prompts(true)) do
         vim.api.nvim_create_user_command(
@@ -413,7 +422,11 @@ function M.setup(config)
             function()
                 M.ask(prompt.prompt, prompt)
             end,
-            { nargs = '*', range = true, desc = prompt.description or ('CopilotChat.nvim ' .. name) }
+            {
+                nargs = '*',
+                range = true,
+                desc = prompt.description or ('CopilotChat.nvim ' .. name),
+            }
         )
     end
 end

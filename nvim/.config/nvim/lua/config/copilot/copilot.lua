@@ -1,7 +1,7 @@
+local log = require('plenary.log')
 local curl = require('plenary.curl')
 local class = require('config.copilot.utils').class
 local prompts = require('config.copilot.prompts')
-local log = require('config.copilot.vlog')
 
 local function uuid()
     local template = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'
