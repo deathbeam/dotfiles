@@ -12,52 +12,45 @@ vim.keymap.set(
 )
 
 local chat = require('CopilotChat')
+local select = require('CopilotChat.select')
+
 chat.setup({
     disable_extra_info = false,
     window = {
-        layout = 'float',
+        layout = 'vertical',
     },
+    prompts = {
+        FixDiagnostic = {
+            prompt = 'Please assist with the following diagnostic issue in file:',
+            selection = select.diagnostics,
+            mapping = '<leader>ar',
+        },
+        Explain = {
+            prompt = 'Explain how the selected code works.',
+            mapping = '<leader>ae',
+        },
+        Tests = {
+            prompt = 'Generate unit tests for the selected code.',
+            mapping = '<leader>at',
+        },
+        Documentation = {
+            prompt = 'Add documentation comments to the selected code.',
+            mapping = '<leader>ad',
+        },
+        Fix = {
+            prompt = 'Propose a fix for the problems in the selected code.',
+            mapping = '<leader>af',
+        },
+        Optimize = {
+            prompt = 'Optimize the selected code to improve performance and readablilty.',
+            mapping = '<leader>ao',
+        },
+        Simplify = {
+            prompt = 'Simplify the selected code and improve readablilty',
+            mapping = '<leader>as',
+        },
+    }
 })
 
-local prompts = {
-    {
-        prompt = 'Explain how the selected code works.',
-        desc = 'Explain',
-        key = 'e',
-    },
-    {
-        prompt = 'Generate unit tests for the selected code.',
-        desc = 'Generate Tests',
-        key = 't',
-    },
-    {
-        prompt = 'Add documentation comments to the selected code.',
-        desc = 'Documentation',
-        key = 'd',
-    },
-    {
-        prompt = 'Propose a fix for the problems in the selected code.',
-        desc = 'Fix',
-        key = 'f',
-    },
-    {
-        prompt = 'Optimize the selected code to improve performance and readablilty.',
-        desc = 'Optimize',
-        key = 'o',
-    },
-    {
-        prompt = 'Simplify the selected code and improve readablilty',
-        desc = 'Simplify',
-        key = 's',
-    },
-}
-
-vim.keymap.set({ 'n', 'v' }, '<leader>aa', function()
-    chat.open()
-end, { desc = 'AI Open' })
-
-for _, prompt in ipairs(prompts) do
-    vim.keymap.set({ 'n', 'v' }, string.format('<leader>a%s', prompt.key), function()
-        chat.ask(prompt.prompt)
-    end, { desc = 'AI ' .. prompt.desc })
-end
+vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
