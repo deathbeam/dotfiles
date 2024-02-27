@@ -1,4 +1,4 @@
-local util = require('config.copilot.util')
+local class = require('config.copilot.utils').class
 
 local spinner_frames = {
     '⠋',
@@ -13,7 +13,7 @@ local spinner_frames = {
     '⠏',
 }
 
-local Spinner = util.class(function(self, bufnr)
+local Spinner = class(function(self, bufnr)
     self.ns = vim.api.nvim_create_namespace('copilot-spinner')
     self.bufnr = bufnr
     self.timer = nil

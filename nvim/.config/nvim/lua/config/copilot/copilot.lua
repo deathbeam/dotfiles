@@ -1,5 +1,5 @@
 local curl = require('plenary.curl')
-local util = require('config.copilot.util')
+local class = require('config.copilot.utils').class
 local prompts = require('config.copilot.prompts')
 
 local function uuid()
@@ -76,7 +76,7 @@ local function generate_headers(token, sessionid, machineid)
     }
 end
 
-local Copilot = util.class(function(self)
+local Copilot = class(function(self)
     self.github_token = get_cached_token()
     self.history = {}
     self.token = nil

@@ -25,7 +25,8 @@ local function get_selection_lines(start, finish, full_lines)
     return table.concat(lines, '\n'), start_line, start_col, finish_line, finish_col
 end
 
--- Select and process current visual selection
+--- Select and process current visual selection
+--- @return table|nil
 function M.visual()
     local mode = vim.fn.mode()
     if mode:lower() ~= 'v' then
@@ -52,7 +53,8 @@ function M.visual()
     }
 end
 
--- Select and process contents of unnamed register ('"')
+--- Select and process contents of unnamed register ('"')
+--- @return table|nil
 function M.unnamed()
     local lines = vim.fn.getreg('"')
 
@@ -67,7 +69,8 @@ function M.unnamed()
     }
 end
 
--- Select and process whole buffer
+--- Select and process whole buffer
+--- @return table|nil
 function M.buffer()
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
@@ -83,6 +86,33 @@ function M.buffer()
         start_col = 0,
         end_row = #lines,
         end_col = #lines[#lines],
+    }
+end
+
+--- Select diagnostics for the current line
+--- It uses the built-in LSP client in Neovim to get the diagnostics.
+--- @return table|nil
+function M.diagnostics()
+    local buffer = vim.api.nvim_get_current_buf()
+    local cursor = vim.api.nvim_win_get_cursor(buffer)
+    local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(buffer, cursor[1] - 1)
+
+    if #line_diagnostics == 0 then
+        return nil
+    end
+
+    local diagnostics = {}
+    for _, diagnostic in ipairs(line_diagnostics) do
+        table.insert(diagnostics, diagnostic.message)
+    end
+
+    local result = table.concat(diagnostics, '. ')
+    result = result:gsub('^%s*(.-)%s*$', '%1'):gsub('\n', ' ')
+
+    return {
+        buffer = buffer,
+        filetype = vim.bo.filetype,
+        lines = result,
     }
 end
 
