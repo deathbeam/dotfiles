@@ -77,6 +77,27 @@ local function generate_headers(token, sessionid, machineid)
     }
 end
 
+local function authenticate(github_token)
+    local url = 'https://api.github.com/copilot_internal/v2/token'
+    local headers = {
+        authorization = 'token ' .. github_token,
+        accept = 'application/json',
+        ['editor-version'] = 'vscode/1.85.1',
+        ['editor-plugin-version'] = 'copilot-chat/0.12.2023120701',
+        ['user-agent'] = 'GitHubCopilotChat/0.12.2023120701',
+    }
+
+    local sessionid = uuid() .. tostring(math.floor(os.time() * 1000))
+    local response = curl.get(url, { headers = headers })
+
+    if response.status ~= 200 then
+        return nil, nil, response.status
+    end
+
+    local token = vim.json.decode(response.body)
+    return sessionid, token, nil
+end
+
 local Copilot = class(function(self, show_extra_info)
     self.github_token = get_cached_token()
     self.show_extra_info = show_extra_info or false
@@ -87,27 +108,9 @@ local Copilot = class(function(self, show_extra_info)
     self.current_job = nil
 end)
 
-function Copilot:authenticate()
-    local url = 'https://api.github.com/copilot_internal/v2/token'
-    local headers = {
-        authorization = 'token ' .. self.github_token,
-        accept = 'application/json',
-        ['editor-version'] = 'vscode/1.85.1',
-        ['editor-plugin-version'] = 'copilot-chat/0.12.2023120701',
-        ['user-agent'] = 'GitHubCopilotChat/0.12.2023120701',
-    }
-
-    self.sessionid = uuid() .. tostring(math.floor(os.time() * 1000))
-    local response = curl.get(url, { headers = headers })
-
-    if response.status ~= 200 then
-        return response.status
-    end
-
-    self.token = vim.json.decode(response.body)
-    return nil
-end
-
+--- Ask a question to Copilot
+---@param prompt string: The prompt to send to Copilot
+---@param opts table: Options for the request
 function Copilot:ask(prompt, opts)
     opts = opts or {}
     local selection = opts.selection or ''
@@ -123,13 +126,16 @@ function Copilot:ask(prompt, opts)
     if
         not self.token or (self.token.expires_at and self.token.expires_at <= math.floor(os.time()))
     then
-        local err = self:authenticate()
+        local sessionid, token, err = authenticate(self.github_token)
         if err then
             log.error('Failed to authenticate: ' .. tostring(err))
             if on_error then
                 on_error(err)
             end
             return
+        else
+            self.sessionid = sessionid
+            self.token = token
         end
     end
 
@@ -248,6 +254,7 @@ function Copilot:ask(prompt, opts)
     return self.current_job
 end
 
+--- Stop the running job
 function Copilot:stop()
     if self.current_job then
         self.current_job:shutdown()
@@ -255,6 +262,7 @@ function Copilot:stop()
     end
 end
 
+--- Reset the history and stop any running job
 function Copilot:reset()
     self.history = {}
     self:stop()

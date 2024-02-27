@@ -3,7 +3,7 @@ local Copilot = require('config.copilot.copilot')
 local Spinner = require('config.copilot.spinner')
 local prompts = require('config.copilot.prompts')
 local select = require('config.copilot.select')
-local debugwindow = require('config.copilot.debugwindow')
+local debuginfo = require('config.copilot.debuginfo')
 
 local M = {}
 local state = {
@@ -156,7 +156,7 @@ local function show_help()
     state.spinner:set(out, -1)
 end
 
-function M.complete()
+local function complete()
     local line = vim.api.nvim_get_current_line()
     local col = vim.api.nvim_win_get_cursor(0)[2]
     if col == 0 or #line == 0 then
@@ -186,6 +186,8 @@ function M.complete()
     vim.fn.complete(cmp_start + 1, items)
 end
 
+--- Open the chat window.
+---@param config (table | nil)
 function M.open(config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
     local selection = type(config.selection) == 'function' and config.selection()
@@ -202,12 +204,7 @@ function M.open(config)
         just_created = true
 
         if config.mappings.complete then
-            vim.keymap.set(
-                'i',
-                config.mappings.complete,
-                M.complete,
-                { buffer = state.window.bufnr }
-            )
+            vim.keymap.set('i', config.mappings.complete, complete, { buffer = state.window.bufnr })
         end
 
         if config.mappings.reset then
@@ -305,6 +302,7 @@ function M.open(config)
     vim.api.nvim_set_current_win(state.window.id)
 end
 
+--- Close the chat window and stop the Copilot model.
 function M.close()
     if state.window.id and vim.api.nvim_win_is_valid(state.window.id) then
         vim.api.nvim_win_close(state.window.id, true)
@@ -319,6 +317,9 @@ function M.close()
     state.copilot:stop()
 end
 
+--- Ask a question to the Copilot model.
+---@param prompt (string)
+---@param config (table | nil)
 function M.ask(prompt, config)
     if not prompt then
         return
@@ -363,6 +364,7 @@ function M.ask(prompt, config)
     })
 end
 
+--- Reset the chat window and show the help message.
 function M.reset()
     state.copilot:reset()
     if state.window.bufnr and vim.api.nvim_buf_is_valid(state.window.bufnr) then
@@ -408,11 +410,24 @@ M.config = {
         submit_code = '<C-y>',
     },
 }
-
+--- Set up the plugin
+---@param config (table | nil)
+--       - system_prompt: (string?).
+--       - model: (string?) default: 'gpt-4'.
+--       - temperature: (number?) default: 0.1.
+--       - debug: (boolean?) default: false.
+--       - clear_chat_on_new_prompt: (boolean?) default: false.
+--       - disable_extra_info: (boolean?) default: true.
+--       - name: (string?) default: 'CopilotChat'.
+--       - separator: (string?) default: '---'.
+--       - prompts: (table?).
+--       - selection: (function | table | nil).
+--       - window: (table?).
+--       - mappings: (table?).
 function M.setup(config)
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
     state.copilot = Copilot(not M.config.disable_extra_info)
-    debugwindow.setup()
+    debuginfo.setup()
 
     local logfile = string.format('%s/%s.log', vim.fn.stdpath('state'), 'CopilotChat.nvim')
     log.new({
