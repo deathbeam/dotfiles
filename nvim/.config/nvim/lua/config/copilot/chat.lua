@@ -43,15 +43,18 @@ local function get_selection_lines(start, finish, full_lines)
 
     local lines = vim.api.nvim_buf_get_lines(0, start_line - 1, finish_line, false)
     if #lines == 0 then
-        return
+        return nil, 0, 0, 0, 0
     end
 
-    if not full_lines then
+    if full_lines then
+        start_col = 0
+        finish_col = #lines[#lines]
+    else
         lines[#lines] = string.sub(lines[#lines], 1, finish_col)
         lines[1] = string.sub(lines[1], start_col)
     end
 
-    return lines
+    return lines, start_line, start_col, finish_line, finish_col
 end
 
 local function get_current_selection()
