@@ -102,6 +102,29 @@ local function get_current_selection()
     }
 end
 
+local function update_prompts(prompt)
+    local prompts_to_use = {}
+    for name, p in pairs(prompts) do
+        prompts_to_use[name] = p
+    end
+    for name, p in pairs(M.config.prompts) do
+        prompts_to_use[name] = p
+    end
+
+    local system_prompt = nil
+    local result = string.gsub(prompt, [[/[%w_]+]], function(match)
+        match = string.sub(match, 2)
+        if vim.startswith(match, 'COPILOT_') then
+            system_prompt = match
+            return ''
+        end
+
+        return prompts_to_use[match] or ''
+    end)
+
+    return system_prompt, result
+end
+
 local function append(str)
     vim.schedule(function()
         if not vim.api.nvim_win_is_valid(state.window.id) then
@@ -129,7 +152,7 @@ local function append(str)
     end)
 end
 
-function M.show_help()
+local function show_help()
     if not state.spinner then
         return
     end
@@ -184,6 +207,10 @@ end
 
 function M.open(config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
+    state.buffer = config.buffer or vim.api.nvim_get_current_buf()
+    state.selection = config.selection or get_current_selection()
+    state.filetype = config.filetype or vim.bo.filetype
+
     local just_created = false
 
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
@@ -213,7 +240,7 @@ function M.open(config)
         if config.mappings.submit_prompt then
             vim.keymap.set('n', config.mappings.submit_prompt, function()
                 local input, start_line, end_line, line_count =
-                    find_lines_between_separator_at_cursor(state.window.bufnr, '---')
+                    find_lines_between_separator_at_cursor(state.window.bufnr, M.config.separator)
                 if input ~= '' then
                     -- If we are entering the input at the end, replace it
                     if line_count == end_line then
@@ -313,26 +340,28 @@ function M.close()
     state.copilot:stop()
 end
 
-function M.ask(str, config)
+function M.ask(prompt, config)
     config = vim.tbl_deep_extend('force', M.config, config or {})
-    state.buffer = config.buffer or vim.api.nvim_get_current_buf()
-    state.selection = config.selection or get_current_selection()
-    state.filetype = config.filetype or vim.bo.filetype
     M.open(config)
 
-    return state.copilot:ask(str, {
+    local system_prompt, updated_prompt = update_prompts(prompt)
+    if not system_prompt then
+        system_prompt = config.system_prompt
+    end
+
+    return state.copilot:ask(updated_prompt, {
         selection = state.selection.lines,
         filetype = state.filetype,
-        system_prompt = config.system_prompt,
+        system_prompt = system_prompt,
         model = config.model,
         temperature = config.temperature,
         on_start = function()
             state.spinner:start()
-            append('**copilot:** ')
+            append('**' .. M.config.name .. ':** ')
         end,
         on_done = function()
-            append('\n\n---\n\n')
-            M.show_help()
+            append('\n\n' .. M.config.separator .. '\n\n')
+            show_help()
         end,
         on_progress = append,
         on_error = function(err)
@@ -348,14 +377,15 @@ function M.reset()
     end
 
     append('\n')
-    M.show_help()
+    show_help()
 end
 
 M.config = {
     system_prompt = prompts.COPILOT_INSTRUCTIONS,
-    system_name = 'copilot',
     model = 'gpt-4',
     temperature = 0.1,
+    name = 'copilot',
+    separator = '---',
     prompts = {},
     window = {
         layout = 'vertical',

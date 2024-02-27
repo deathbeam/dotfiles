@@ -51,7 +51,7 @@ local prompts = {
     },
 }
 
-vim.keymap.set('n', '<leader>aa', function()
+vim.keymap.set({ 'n', 'v' }, '<leader>aa', function()
     chat.open()
 end, { desc = 'AI Open' })
 
