@@ -411,9 +411,7 @@ function M.setup(config)
         vim.api.nvim_create_user_command(
             'CopilotChat' .. name,
             function()
-                M.ask(prompt.prompt, {
-                    selection = prompt.selection,
-                })
+                M.ask(prompt.prompt, prompt)
             end,
             { nargs = '*', range = true, desc = prompt.description or ('CopilotChat.nvim ' .. name) }
         )
