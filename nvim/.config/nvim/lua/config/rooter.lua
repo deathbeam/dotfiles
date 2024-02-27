@@ -46,10 +46,13 @@ au({ 'VimEnter', 'BufEnter' }, {
     desc = 'Find root directory',
     pattern = '*',
     nested = true,
-    callback = function()
+    callback = function(args)
         local root_dir = find_root(root_patterns)
         if root_dir then
             vim.api.nvim_set_current_dir(root_dir)
+            if args.buf then
+                vim.b.workspace_folder = root_dir
+            end
         end
     end,
 })

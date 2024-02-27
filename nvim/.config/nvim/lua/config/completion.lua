@@ -1,7 +1,8 @@
 local icons = require('config.icons')
 
 -- Enable popup menu and set options
-vim.o.completeopt = 'menuone,noinsert,popup'
+-- vim.o.completeopt = 'menuone,noinsert,popup'
+vim.o.completeopt = 'menuone,noinsert'
 
 -- Tab to accept
 vim.keymap.set('i', '<Tab>', function()

@@ -1,5 +1,6 @@
 local Copilot = require('config.copilot.copilot')
 local Spinner = require('config.copilot.spinner')
+local prompts = require('config.copilot.prompts')
 
 local M = {}
 local state = {
@@ -14,6 +15,14 @@ local state = {
         bufnr = nil,
     },
 }
+
+local function get_prompt_kind(name)
+    if vim.startswith(name, 'COPILOT_') then
+        return 'system'
+    end
+
+    return 'user'
+end
 
 local function find_lines_between_separator_at_cursor(bufnr, separator)
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
@@ -120,23 +129,61 @@ local function append(str)
     end)
 end
 
-local function show_help()
+function M.show_help()
     if not state.spinner then
         return
     end
 
     state.spinner:finish()
-    append('\n')
-    state.spinner:set(
-        "Press 'q' to close, '<Esc>' to clear, "
-            .. "'<CR>' on top of prompt to submit prompt, "
-            .. "'<C-y>' on top of code block to apply the diff",
-        -1
-    )
+
+    local out = 'Press '
+
+    for name, key in pairs(M.config.mappings) do
+        if key then
+            out = out .. "'" .. key .. "' to " .. name .. ', \n'
+        end
+    end
+
+    state.spinner:set(out, -1)
 end
 
-function M.open(opts)
-    opts = opts or {}
+function M.complete()
+    local line = vim.api.nvim_get_current_line()
+    local col = vim.api.nvim_win_get_cursor(0)[2]
+    if col == 0 or #line == 0 then
+        return
+    end
+
+    local prefix, cmp_start = unpack(vim.fn.matchstrpos(line:sub(1, col), '\\/\\k*$'))
+    if not prefix then
+        return
+    end
+
+    local items = {}
+    local prompts_to_use = {}
+    for name, prompt in pairs(prompts) do
+        prompts_to_use[name] = prompt
+    end
+    for name, prompt in pairs(M.config.prompts) do
+        prompts_to_use[name] = prompt
+    end
+
+    for name, prompt in pairs(prompts_to_use) do
+        items[#items + 1] = {
+            word = '/' .. name,
+            kind = get_prompt_kind(name),
+            info = prompt,
+            icase = 1,
+            dup = 0,
+            empty = 0,
+        }
+    end
+
+    vim.fn.complete(cmp_start + 1, items)
+end
+
+function M.open(config)
+    config = vim.tbl_deep_extend('force', M.config, config or {})
     local just_created = false
 
     if not state.window.bufnr or not vim.api.nvim_buf_is_valid(state.window.bufnr) then
@@ -144,48 +191,72 @@ function M.open(opts)
         vim.api.nvim_buf_set_name(state.window.bufnr, 'copilot-chat')
         vim.bo[state.window.bufnr].filetype = 'markdown'
         vim.treesitter.start(state.window.bufnr, 'markdown')
+        just_created = true
 
-        vim.keymap.set('n', '<Esc>', M.reset, { buffer = state.window.bufnr })
-        vim.keymap.set('n', 'q', M.close, { buffer = state.window.bufnr })
-        vim.keymap.set('n', '<CR>', function()
-            local input, start_line, end_line, line_count =
-                find_lines_between_separator_at_cursor(state.window.bufnr, '---')
-            if input ~= '' then
-                -- If we are entering the input at the end, replace it
-                if line_count == end_line then
-                    vim.api.nvim_buf_set_lines(
-                        state.window.bufnr,
-                        start_line,
-                        end_line,
-                        false,
-                        { '' }
+        if config.mappings.complete then
+            vim.keymap.set(
+                'i',
+                config.mappings.complete,
+                M.complete,
+                { buffer = state.window.bufnr }
+            )
+        end
+
+        if config.mappings.reset then
+            vim.keymap.set('n', config.mappings.reset, M.reset, { buffer = state.window.bufnr })
+        end
+
+        if config.mappings.close then
+            vim.keymap.set('n', 'q', M.close, { buffer = state.window.bufnr })
+        end
+
+        if config.mappings.submit_prompt then
+            vim.keymap.set('n', config.mappings.submit_prompt, function()
+                local input, start_line, end_line, line_count =
+                    find_lines_between_separator_at_cursor(state.window.bufnr, '---')
+                if input ~= '' then
+                    -- If we are entering the input at the end, replace it
+                    if line_count == end_line then
+                        vim.api.nvim_buf_set_lines(
+                            state.window.bufnr,
+                            start_line,
+                            end_line,
+                            false,
+                            { '' }
+                        )
+                    end
+                    M.ask(input, {
+                        selection = state.selection,
+                        filetype = state.filetype,
+                        buffer = state.buffer,
+                    })
+                end
+            end, { buffer = state.window.bufnr })
+        end
+
+        if config.mappings.submit_code then
+            vim.keymap.set('n', config.mappings.submit_code, function()
+                if
+                    not state.buffer
+                    or not state.selection.start_row
+                    or not state.selection.end_row
+                then
+                    return
+                end
+
+                local input = find_lines_between_separator_at_cursor(state.window.bufnr, '```')
+                if input ~= '' then
+                    vim.api.nvim_buf_set_text(
+                        state.buffer,
+                        state.selection.start_row - 1,
+                        state.selection.start_col,
+                        state.selection.end_row - 1,
+                        state.selection.end_col,
+                        vim.split(input, '\n')
                     )
                 end
-                M.ask(input, {
-                    selection = state.selection,
-                    filetype = state.filetype,
-                    buffer = state.buffer,
-                })
-            end
-        end, { buffer = state.window.bufnr })
-        vim.keymap.set('n', '<C-y>', function()
-            if not state.buffer or not state.selection.start_row or not state.selection.end_row then
-                return
-            end
-
-            local input = find_lines_between_separator_at_cursor(state.window.bufnr, '```')
-            if input ~= '' then
-                vim.api.nvim_buf_set_text(
-                    state.buffer,
-                    state.selection.start_row - 1,
-                    state.selection.start_col,
-                    state.selection.end_row - 1,
-                    state.selection.end_col,
-                    vim.split(input, '\n')
-                )
-            end
-        end, { buffer = state.window.bufnr })
-        just_created = true
+            end, { buffer = state.window.bufnr })
+        end
     end
 
     if not state.spinner then
@@ -197,7 +268,7 @@ function M.open(opts)
             style = 'minimal',
         }
 
-        local layout = opts.layout or 'vertical'
+        local layout = config.window.layout
 
         if layout == 'vertical' then
             win_opts.vertical = true
@@ -205,8 +276,8 @@ function M.open(opts)
             win_opts.vertical = false
         elseif layout == 'float' then
             win_opts.relative = 'editor'
-            win_opts.border = opts.border or 'single'
-            win_opts.title = opts.title or "Copilot Chat ('q' to close, '<Esc>' to clear)"
+            win_opts.border = config.window.border
+            win_opts.title = config.window.title
             win_opts.row = math.floor(vim.o.lines * 0.2)
             win_opts.col = math.floor(vim.o.columns * 0.1)
             win_opts.width = math.floor(vim.o.columns * 0.8)
@@ -221,7 +292,7 @@ function M.open(opts)
         vim.wo[state.window.id].concealcursor = 'niv'
 
         if just_created then
-            show_help()
+            M.reset()
         end
     end
 
@@ -242,26 +313,26 @@ function M.close()
     state.copilot:stop()
 end
 
-function M.ask(str, opts)
-    opts = opts or {}
-    state.buffer = opts.buffer or vim.api.nvim_get_current_buf()
-    state.selection = opts.selection or get_current_selection()
-    state.filetype = opts.filetype or vim.bo.filetype
-    M.open(opts)
+function M.ask(str, config)
+    config = vim.tbl_deep_extend('force', M.config, config or {})
+    state.buffer = config.buffer or vim.api.nvim_get_current_buf()
+    state.selection = config.selection or get_current_selection()
+    state.filetype = config.filetype or vim.bo.filetype
+    M.open(config)
 
     return state.copilot:ask(str, {
         selection = state.selection.lines,
         filetype = state.filetype,
-        system_prompt = opts.system_prompt,
-        model = opts.model,
-        temperature = opts.temperature,
+        system_prompt = config.system_prompt,
+        model = config.model,
+        temperature = config.temperature,
         on_start = function()
             state.spinner:start()
             append('**copilot:** ')
         end,
         on_done = function()
-            append('\n\n---\n')
-            show_help()
+            append('\n\n---\n\n')
+            M.show_help()
         end,
         on_progress = append,
         on_error = function(err)
@@ -275,10 +346,35 @@ function M.reset()
     if state.window.bufnr and vim.api.nvim_buf_is_valid(state.window.bufnr) then
         vim.api.nvim_buf_set_lines(state.window.bufnr, 0, -1, true, {})
     end
-    show_help()
+
+    append('\n')
+    M.show_help()
 end
 
-function M.setup()
+M.config = {
+    system_prompt = prompts.COPILOT_INSTRUCTIONS,
+    system_name = 'copilot',
+    model = 'gpt-4',
+    temperature = 0.1,
+    prompts = {},
+    window = {
+        layout = 'vertical',
+        width = 0.8,
+        height = 0.6,
+        border = 'single',
+        title = 'Copilot Chat',
+    },
+    mappings = {
+        close = 'q',
+        reset = '<C-l>',
+        complete = '<Tab>',
+        submit_prompt = '<CR>',
+        submit_code = '<C-y>',
+    },
+}
+
+function M.setup(config)
+    M.config = vim.tbl_deep_extend('force', M.config, config or {})
     state.copilot = Copilot()
 end
 
