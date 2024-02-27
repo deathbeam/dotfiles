@@ -1,4 +1,4 @@
-local utils = require('config.copilot.utils')
+local utils = require('CopilotChat.utils')
 local M = {}
 
 function M.setup()

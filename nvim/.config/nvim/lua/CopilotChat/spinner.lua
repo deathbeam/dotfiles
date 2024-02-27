@@ -1,4 +1,4 @@
-local class = require('config.copilot.utils').class
+local class = require('CopilotChat.utils').class
 
 local spinner_frames = {
     '⠋',

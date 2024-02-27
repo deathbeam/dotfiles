@@ -11,7 +11,7 @@ vim.keymap.set(
     { expr = true, replace_keycodes = false }
 )
 
-local chat = require('config.copilot.chat')
+local chat = require('CopilotChat')
 chat.setup({
     disable_extra_info = false,
     window = {

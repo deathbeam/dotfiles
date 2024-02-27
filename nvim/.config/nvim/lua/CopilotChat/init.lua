@@ -1,9 +1,9 @@
 local log = require('plenary.log')
-local Copilot = require('config.copilot.copilot')
-local Spinner = require('config.copilot.spinner')
-local prompts = require('config.copilot.prompts')
-local select = require('config.copilot.select')
-local debuginfo = require('config.copilot.debuginfo')
+local Copilot = require('CopilotChat.copilot')
+local Spinner = require('CopilotChat.spinner')
+local prompts = require('CopilotChat.prompts')
+local select = require('CopilotChat.select')
+local debuginfo = require('CopilotChat.debuginfo')
 
 local M = {}
 local state = {
@@ -26,35 +26,6 @@ local function get_prompt_kind(name)
     end
 
     return 'user'
-end
-
-local function get_prompts(skip_system)
-    local prompts_to_use = {}
-
-    if not skip_system then
-        for name, prompt in pairs(prompts) do
-            prompts_to_use[name] = {
-                prompt = prompt,
-                kind = get_prompt_kind(name),
-            }
-        end
-    end
-
-    for name, prompt in pairs(M.config.prompts) do
-        local val = prompt
-        if type(prompt) == 'string' then
-            val = {
-                prompt = prompt,
-                kind = get_prompt_kind(name),
-            }
-        elseif not val.kind then
-            val.kind = get_prompt_kind(name)
-        end
-
-        prompts_to_use[name] = val
-    end
-
-    return prompts_to_use
 end
 
 local function find_lines_between_separator_at_cursor(bufnr, separator)
@@ -90,7 +61,7 @@ local function find_lines_between_separator_at_cursor(bufnr, separator)
 end
 
 local function update_prompts(prompt)
-    local prompts_to_use = get_prompts()
+    local prompts_to_use = M.get_prompts()
 
     local system_prompt = nil
     local result = string.gsub(prompt, [[/[%w_]+]], function(match)
@@ -169,7 +140,7 @@ local function complete()
     end
 
     local items = {}
-    local prompts_to_use = get_prompts()
+    local prompts_to_use = M.get_prompts()
 
     for name, prompt in pairs(prompts_to_use) do
         items[#items + 1] = {
@@ -184,6 +155,37 @@ local function complete()
     end
 
     vim.fn.complete(cmp_start + 1, items)
+end
+
+--- Get the prompts to use.
+---@param skip_system (boolean?)
+function M.get_prompts(skip_system)
+    local prompts_to_use = {}
+
+    if not skip_system then
+        for name, prompt in pairs(prompts) do
+            prompts_to_use[name] = {
+                prompt = prompt,
+                kind = get_prompt_kind(name),
+            }
+        end
+    end
+
+    for name, prompt in pairs(M.config.prompts) do
+        local val = prompt
+        if type(prompt) == 'string' then
+            val = {
+                prompt = prompt,
+                kind = get_prompt_kind(name),
+            }
+        elseif not val.kind then
+            val.kind = get_prompt_kind(name)
+        end
+
+        prompts_to_use[name] = val
+    end
+
+    return prompts_to_use
 end
 
 --- Open the chat window.
@@ -437,7 +439,7 @@ function M.setup(config)
     }, true)
     log.logfile = logfile
 
-    for name, prompt in pairs(get_prompts(true)) do
+    for name, prompt in pairs(M.get_prompts(true)) do
         vim.api.nvim_create_user_command('CopilotChat' .. name, function()
             M.ask(prompt.prompt, prompt)
         end, {
