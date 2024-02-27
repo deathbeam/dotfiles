@@ -34,10 +34,12 @@ function Spinner:set(text, offset)
 
         vim.api.nvim_buf_set_extmark(self.bufnr, self.ns, line, 0, {
             id = self.ns,
-            virt_text = { { text, 'DiagnosticSignHint' } },
-            virt_text_pos = offset ~= 0 and 'inline' or 'eol',
             hl_mode = 'combine',
             priority = 100,
+            virt_text_pos = offset ~= 0 and 'inline' or 'eol',
+            virt_text = vim.tbl_map(function(t)
+                return { t, 'Comment' }
+            end, vim.split(text, '\n')),
         })
     end)
 end

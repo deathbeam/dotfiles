@@ -106,7 +106,9 @@ local function show_help()
     state.spinner:finish()
     append('\n')
     state.spinner:set(
-        "Type here and then press '<CR>' in normal mode to send it. Press 'q' to close, '<Esc>' to clear.",
+        "Press 'q' to close, '<Esc>' to clear, "
+            .. "'<CR>' on top of prompt to submit prompt or on top of code block to show diff, "
+            .. "'<C-CR>' on top of code block to apply the diff",
         -1
     )
 end
