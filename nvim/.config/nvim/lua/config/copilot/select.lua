@@ -25,6 +25,7 @@ local function get_selection_lines(start, finish, full_lines)
     return table.concat(lines, '\n'), start_line, start_col, finish_line, finish_col
 end
 
+-- Select and process current visual selection
 function M.visual()
     local mode = vim.fn.mode()
     if mode:lower() ~= 'v' then
@@ -51,6 +52,7 @@ function M.visual()
     }
 end
 
+-- Select and process contents of unnamed register ('"')
 function M.unnamed()
     local lines = vim.fn.getreg('"')
 
@@ -65,6 +67,7 @@ function M.unnamed()
     }
 end
 
+-- Select and process whole buffer
 function M.buffer()
     local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
 
