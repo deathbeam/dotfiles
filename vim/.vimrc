@@ -63,6 +63,9 @@ set nowrap
 " Always show the status line
 set laststatus=2
 
+" Never show tab line
+set showtabline=0
+
 " Show cursor line
 set cursorline
 
