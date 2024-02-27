@@ -26,27 +26,27 @@ chat.setup({
             mapping = '<leader>ar',
         },
         Explain = {
-            prompt = 'Explain how the selected code works.',
+            prompt = '/COPILOT_EXPLAIN /USER_EXPLAIN',
             mapping = '<leader>ae',
         },
         Tests = {
-            prompt = 'Generate unit tests for the selected code.',
+            prompt = '/COPILOT_TESTS /USER_TEST',
             mapping = '<leader>at',
         },
         Documentation = {
-            prompt = 'Add documentation comments to the selected code.',
+            prompt = '/USER_DOC',
             mapping = '<leader>ad',
         },
         Fix = {
-            prompt = 'Propose a fix for the problems in the selected code.',
+            prompt = '/COPILOT_DEVELOPER /USER_FIX',
             mapping = '<leader>af',
         },
         Optimize = {
-            prompt = 'Optimize the selected code to improve performance and readablilty.',
+            prompt = '/COPILOT_DEVELOPER Optimize the selected code to improve performance and readablilty.',
             mapping = '<leader>ao',
         },
         Simplify = {
-            prompt = 'Simplify the selected code and improve readablilty',
+            prompt = '/COPILOT_DEVELOPER Simplify the selected code and improve readablilty',
             mapping = '<leader>as',
         },
     }
