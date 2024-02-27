@@ -89,13 +89,38 @@ function M.buffer()
     }
 end
 
---- Select diagnostics for the current line
+--- Select and process current line
+--- @return table|nil
+function M.line()
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line = vim.api.nvim_get_current_line()
+
+    if not line or line == '' then
+        return nil
+    end
+
+    return {
+        buffer = vim.api.nvim_get_current_buf(),
+        filetype = vim.bo.filetype,
+        lines = line,
+        start_row = cursor[1],
+        start_col = 0,
+        end_row = cursor[1],
+        end_col = #line,
+    }
+end
+
+--- Select whole buffer and find diagnostics
 --- It uses the built-in LSP client in Neovim to get the diagnostics.
 --- @return table|nil
 function M.diagnostics()
-    local buffer = vim.api.nvim_get_current_buf()
-    local cursor = vim.api.nvim_win_get_cursor(buffer)
-    local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(buffer, cursor[1] - 1)
+    local select_buffer = M.buffer()
+    if not select_buffer then
+        return nil
+    end
+
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local line_diagnostics = vim.lsp.diagnostic.get_line_diagnostics(0, cursor[1] - 1)
 
     if #line_diagnostics == 0 then
         return nil
@@ -109,11 +134,9 @@ function M.diagnostics()
     local result = table.concat(diagnostics, '. ')
     result = result:gsub('^%s*(.-)%s*$', '%1'):gsub('\n', ' ')
 
-    return {
-        buffer = buffer,
-        filetype = vim.bo.filetype,
-        lines = result,
-    }
+    local file_name = vim.api.nvim_buf_get_name(0)
+    select_buffer.prompt_extra = file_name .. ':' .. cursor[1] .. '. ' .. result
+    return select_buffer
 end
 
 return M

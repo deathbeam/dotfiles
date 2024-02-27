@@ -3,7 +3,6 @@ local Spinner = require('config.copilot.spinner')
 local prompts = require('config.copilot.prompts')
 local select = require('config.copilot.select')
 local log = require('config.copilot.vlog')
-local utils = require('config.copilot.utils')
 
 local M = {}
 local state = {
@@ -22,6 +21,35 @@ local function get_prompt_kind(name)
     end
 
     return 'user'
+end
+
+local function get_prompts(skip_system)
+    local prompts_to_use = {}
+
+    if not skip_system then
+        for name, prompt in pairs(prompts) do
+            prompts_to_use[name] = {
+                prompt = prompt,
+                kind = get_prompt_kind(name),
+            }
+        end
+    end
+
+    for name, prompt in pairs(M.config.prompts) do
+        local val = prompt
+        if type(prompt) == 'string' then
+            val = {
+                prompt = prompt,
+                kind = get_prompt_kind(name),
+            }
+        elseif not val.kind then
+            val.kind = get_prompt_kind(name)
+        end
+
+        prompts_to_use[name] = val
+    end
+
+    return prompts_to_use
 end
 
 local function find_lines_between_separator_at_cursor(bufnr, separator)
@@ -56,23 +84,22 @@ local function find_lines_between_separator_at_cursor(bufnr, separator)
 end
 
 local function update_prompts(prompt)
-    local prompts_to_use = {}
-    for name, p in pairs(prompts) do
-        prompts_to_use[name] = p
-    end
-    for name, p in pairs(M.config.prompts) do
-        prompts_to_use[name] = p
-    end
+    local prompts_to_use = get_prompts()
 
     local system_prompt = nil
     local result = string.gsub(prompt, [[/[%w_]+]], function(match)
         match = string.sub(match, 2)
-        if vim.startswith(match, 'COPILOT_') then
-            system_prompt = match
-            return ''
+        local found = prompts_to_use[match]
+
+        if found then
+            if found.kind == 'user' then
+                return found.prompt
+            elseif found.kind == 'system' then
+                system_prompt = match
+            end
         end
 
-        return prompts_to_use[match] or ''
+        return ''
     end)
 
     return system_prompt, result
@@ -136,19 +163,14 @@ function M.complete()
     end
 
     local items = {}
-    local prompts_to_use = {}
-    for name, prompt in pairs(prompts) do
-        prompts_to_use[name] = prompt
-    end
-    for name, prompt in pairs(M.config.prompts) do
-        prompts_to_use[name] = prompt
-    end
+    local prompts_to_use = get_prompts()
 
     for name, prompt in pairs(prompts_to_use) do
         items[#items + 1] = {
             word = '/' .. name,
-            kind = get_prompt_kind(name),
-            info = prompt,
+            kind = prompt.kind,
+            info = prompt.prompt,
+            detail = prompt.description or '',
             icase = 1,
             dup = 0,
             empty = 0,
@@ -292,12 +314,25 @@ function M.close()
 end
 
 function M.ask(prompt, config)
+    if not prompt then
+        return
+    end
+
     config = vim.tbl_deep_extend('force', M.config, config or {})
-    M.open(config)
 
     local system_prompt, updated_prompt = update_prompts(prompt)
     if not system_prompt then
         system_prompt = config.system_prompt
+    end
+
+    if vim.trim(prompt) == '' then
+        return
+    end
+
+    M.open(config)
+
+    if state.selection.prompt_extra then
+        updated_prompt = updated_prompt .. ' ' .. state.selection.prompt_extra
     end
 
     return state.copilot:ask(updated_prompt, {
@@ -332,12 +367,19 @@ M.config = {
     system_prompt = prompts.COPILOT_INSTRUCTIONS,
     model = 'gpt-4',
     temperature = 0.1,
+    debug = false,
     name = 'CopilotChat',
     separator = '---',
-    prompts = {},
-    debug = false,
+    prompts = {
+        Explain = 'Explain how it works.',
+        Tests = 'Briefly explain how selected code works then generate unit tests.',
+        FixDiagnostic = {
+            prompt = 'Please assist with the following diagnostic issue in file:',
+            selection = select.diagnostics,
+        },
+    },
     selection = function()
-        return select.visual() or select.unnamed()
+        return select.visual() or select.line()
     end,
     window = {
         layout = 'vertical',
@@ -365,10 +407,16 @@ function M.setup(config)
 
     state.copilot = Copilot()
 
-    for name, prompt in pairs(M.config.prompts) do
-        utils.cmd(name, function()
-            M.ask(prompt)
-        end)
+    for name, prompt in pairs(get_prompts(true)) do
+        vim.api.nvim_create_user_command(
+            'CopilotChat' .. name,
+            function()
+                M.ask(prompt.prompt, {
+                    selection = prompt.selection,
+                })
+            end,
+            { nargs = '*', range = true, desc = prompt.description or ('CopilotChat.nvim ' .. name) }
+        )
     end
 end
 
