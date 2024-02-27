@@ -62,7 +62,17 @@ local function get_current_selection()
     if mode:lower() == 'v' then
         local start = vim.fn.getpos('v')
         local finish = vim.fn.getpos('.')
-        local lines = get_selection_lines(start, finish, mode == 'V')
+        local lines, start_row, start_col, end_row, end_col =
+            get_selection_lines(start, finish, mode == 'V')
+
+        -- vim.api.nvim_buf_set_text(
+        --     0,
+        --     start_row - 1,
+        --     start_col,
+        --     end_row - 1,
+        --     end_col,
+        --     { 'replaced' }
+        -- )
 
         -- Switch to vim normal mode from visual mode
         vim.api.nvim_feedkeys('<Esc>', 'n', true)
