@@ -13,9 +13,10 @@ local spinner_frames = {
     '⠏',
 }
 
-local Spinner = class(function(self, bufnr)
+local Spinner = class(function(self, bufnr, title)
     self.ns = vim.api.nvim_create_namespace('copilot-spinner')
     self.bufnr = bufnr
+    self.title = title
     self.timer = nil
     self.index = 1
 end)
@@ -65,6 +66,8 @@ function Spinner:finish()
 
             vim.api.nvim_buf_del_extmark(self.bufnr, self.ns, self.ns)
         end)
+
+        vim.notify('Done!', vim.log.levels.INFO, { title = self.title })
     end
 end
 

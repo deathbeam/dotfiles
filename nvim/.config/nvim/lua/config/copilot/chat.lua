@@ -2,6 +2,8 @@ local Copilot = require('config.copilot.copilot')
 local Spinner = require('config.copilot.spinner')
 local prompts = require('config.copilot.prompts')
 local select = require('config.copilot.select')
+local log = require('config.copilot.vlog')
+local utils = require('config.copilot.utils')
 
 local M = {}
 local state = {
@@ -236,7 +238,7 @@ function M.open(config)
     end
 
     if not state.spinner then
-        state.spinner = Spinner(state.window.bufnr)
+        state.spinner = Spinner(state.window.bufnr, M.config.name)
     end
 
     if not state.window.id or not vim.api.nvim_win_is_valid(state.window.id) then
@@ -333,9 +335,10 @@ M.config = {
     system_prompt = prompts.COPILOT_INSTRUCTIONS,
     model = 'gpt-4',
     temperature = 0.1,
-    name = 'copilot',
+    name = 'CopilotChat',
     separator = '---',
     prompts = {},
+    debug = false,
     selection = function()
         return select.visual() or select.unnamed()
     end,
@@ -358,6 +361,17 @@ M.config = {
 function M.setup(config)
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
     state.copilot = Copilot()
+
+    for name, prompt in pairs(M.config.prompts) do
+        utils.cmd(name, function()
+            M.ask(prompt)
+        end)
+    end
+
+    log.setup({
+        plugin = M.config.name,
+        level = debug and 'trace' or 'error',
+    }, true)
 end
 
 return M
