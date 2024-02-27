@@ -77,8 +77,9 @@ local function generate_headers(token, sessionid, machineid)
     }
 end
 
-local Copilot = class(function(self)
+local Copilot = class(function(self, show_extra_info)
     self.github_token = get_cached_token()
+    self.show_extra_info = show_extra_info or false
     self.history = {}
     self.token = nil
     self.sessionid = nil
@@ -138,6 +139,14 @@ function Copilot:ask(prompt, opts)
     log.debug('Filetype: ' .. filetype)
     log.debug('Model: ' .. model)
     log.debug('Temperature: ' .. temperature)
+
+    if self.show_extra_info and on_progress then
+        on_progress('SYSTEM PROMPT:\n```\n' .. system_prompt .. '```\n')
+
+        if selection ~= '' then
+            on_progress('CODE:\n```' .. filetype .. '\n' .. selection .. '\n```\n')
+        end
+    end
 
     table.insert(self.history, {
         content = prompt,

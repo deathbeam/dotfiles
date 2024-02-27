@@ -374,6 +374,7 @@ M.config = {
     temperature = 0.1,
     debug = false,
     clear_chat_on_new_prompt = false,
+    disable_extra_info = true,
     name = 'CopilotChat',
     separator = '---',
     prompts = {
@@ -405,7 +406,7 @@ M.config = {
 
 function M.setup(config)
     M.config = vim.tbl_deep_extend('force', M.config, config or {})
-    state.copilot = Copilot()
+    state.copilot = Copilot(not M.config.disable_extra_info)
     debugwindow.setup()
 
     local logfile = string.format('%s/%s.log', vim.fn.stdpath('state'), 'CopilotChat.nvim')
@@ -417,17 +418,13 @@ function M.setup(config)
     log.logfile = logfile
 
     for name, prompt in pairs(get_prompts(true)) do
-        vim.api.nvim_create_user_command(
-            'CopilotChat' .. name,
-            function()
-                M.ask(prompt.prompt, prompt)
-            end,
-            {
-                nargs = '*',
-                range = true,
-                desc = prompt.description or ('CopilotChat.nvim ' .. name),
-            }
-        )
+        vim.api.nvim_create_user_command('CopilotChat' .. name, function()
+            M.ask(prompt.prompt, prompt)
+        end, {
+            nargs = '*',
+            range = true,
+            desc = prompt.description or ('CopilotChat.nvim ' .. name),
+        })
     end
 end
 
