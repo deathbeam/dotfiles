@@ -3,6 +3,10 @@ local Spinner = require('config.copilot.spinner')
 
 local M = {}
 local state = {
+    buffer = nil,
+    selection = nil,
+    filetype = nil,
+
     copilot = nil,
     spinner = nil,
     window = {
@@ -11,25 +15,35 @@ local state = {
     },
 }
 
-local function find_after_last_separator(bufnr, separator)
+local function find_lines_between_separator_at_cursor(bufnr, separator)
     local lines = vim.api.nvim_buf_get_lines(bufnr, 0, -1, false)
-    local last_separator_line = 0
+    local cursor = vim.api.nvim_win_get_cursor(0)
+    local cursor_line = cursor[1]
+    local line_count = #lines
+    local last_separator_line = 1
+    local next_separator_line = line_count
 
     -- Find the last occurrence of the separator
     for i, line in ipairs(lines) do
+        if i > cursor_line and string.find(line, separator) then
+            next_separator_line = i - 1
+            break
+        end
         if string.find(line, separator) then
-            last_separator_line = i
+            last_separator_line = i + 1
         end
     end
 
-    -- Extract everything after the last separator
+    -- Extract everything between the last and next separator
     local result = {}
-    for i = last_separator_line + 1, #lines do
+    for i = last_separator_line, next_separator_line do
         table.insert(result, lines[i])
     end
 
-    vim.api.nvim_buf_set_lines(bufnr, last_separator_line + 1, #lines, false, { '' })
-    return vim.trim(table.concat(result, '\n'))
+    return vim.trim(table.concat(result, '\n')),
+        last_separator_line,
+        next_separator_line,
+        line_count
 end
 
 local function get_selection_lines(start, finish, full_lines)
@@ -54,7 +68,7 @@ local function get_selection_lines(start, finish, full_lines)
         lines[1] = string.sub(lines[1], start_col)
     end
 
-    return lines, start_line, start_col, finish_line, finish_col
+    return table.concat(lines, '\n'), start_line, start_col, finish_line, finish_col
 end
 
 local function get_current_selection()
@@ -62,26 +76,21 @@ local function get_current_selection()
     if mode:lower() == 'v' then
         local start = vim.fn.getpos('v')
         local finish = vim.fn.getpos('.')
-        local lines, start_row, start_col, end_row, end_col =
-            get_selection_lines(start, finish, mode == 'V')
-
-        -- vim.api.nvim_buf_set_text(
-        --     0,
-        --     start_row - 1,
-        --     start_col,
-        --     end_row - 1,
-        --     end_col,
-        --     { 'replaced' }
-        -- )
-
         -- Switch to vim normal mode from visual mode
         vim.api.nvim_feedkeys('<Esc>', 'n', true)
-
-        if lines then
-            return table.concat(lines, '\n')
-        end
+        local lines, start_row, start_col, end_row, end_col =
+            get_selection_lines(start, finish, mode == 'V')
+        return {
+            lines = lines,
+            start_row = start_row,
+            start_col = start_col,
+            end_row = end_row,
+            end_col = end_col,
+        }
     end
-    return vim.fn.getreg('"')
+    return {
+        lines = vim.fn.getreg('"'),
+    }
 end
 
 local function append(str)
@@ -120,8 +129,8 @@ local function show_help()
     append('\n')
     state.spinner:set(
         "Press 'q' to close, '<Esc>' to clear, "
-            .. "'<CR>' on top of prompt to submit prompt or on top of code block to show diff, "
-            .. "'<C-CR>' on top of code block to apply the diff",
+            .. "'<CR>' on top of prompt to submit prompt, "
+            .. "'<C-y>' on top of code block to apply the diff",
         -1
     )
 end
@@ -139,9 +148,41 @@ function M.open(opts)
         vim.keymap.set('n', '<Esc>', M.reset, { buffer = state.window.bufnr })
         vim.keymap.set('n', 'q', M.close, { buffer = state.window.bufnr })
         vim.keymap.set('n', '<CR>', function()
-            local input = find_after_last_separator(state.window.bufnr, '---')
+            local input, start_line, end_line, line_count =
+                find_lines_between_separator_at_cursor(state.window.bufnr, '---')
             if input ~= '' then
-                M.ask(input, '')
+                -- If we are entering the input at the end, replace it
+                if line_count == end_line then
+                    vim.api.nvim_buf_set_lines(
+                        state.window.bufnr,
+                        start_line,
+                        end_line,
+                        false,
+                        { '' }
+                    )
+                end
+                M.ask(input, {
+                    selection = state.selection,
+                    filetype = state.filetype,
+                    buffer = state.buffer,
+                })
+            end
+        end, { buffer = state.window.bufnr })
+        vim.keymap.set('n', '<C-y>', function()
+            if not state.buffer or not state.selection.start_row or not state.selection.end_row then
+                return
+            end
+
+            local input = find_lines_between_separator_at_cursor(state.window.bufnr, '```')
+            if input ~= '' then
+                vim.api.nvim_buf_set_text(
+                    state.buffer,
+                    state.selection.start_row - 1,
+                    state.selection.start_col,
+                    state.selection.end_row - 1,
+                    state.selection.end_col,
+                    vim.split(input, '\n')
+                )
             end
         end, { buffer = state.window.bufnr })
         just_created = true
@@ -203,13 +244,17 @@ end
 
 function M.ask(str, opts)
     opts = opts or {}
-    local selection = opts.selection or get_current_selection()
-    local filetype = opts.filetype or vim.bo.filetype
+    state.buffer = opts.buffer or vim.api.nvim_get_current_buf()
+    state.selection = opts.selection or get_current_selection()
+    state.filetype = opts.filetype or vim.bo.filetype
     M.open(opts)
 
     return state.copilot:ask(str, {
-        selection = selection,
-        filetype = filetype,
+        selection = state.selection.lines,
+        filetype = state.filetype,
+        system_prompt = opts.system_prompt,
+        model = opts.model,
+        temperature = opts.temperature,
         on_start = function()
             state.spinner:start()
             append('**copilot:** ')
@@ -219,6 +264,9 @@ function M.ask(str, opts)
             show_help()
         end,
         on_progress = append,
+        on_error = function(err)
+            vim.print(err)
+        end,
     })
 end
 

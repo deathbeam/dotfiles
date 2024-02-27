@@ -127,16 +127,16 @@ function Copilot:authenticate()
 
     self.sessionid = uuid() .. tostring(math.floor(os.time() * 1000))
     local response = curl.get(url, { headers = headers })
+
+    if response.status ~= 200 then
+        return response.status
+    end
+
     self.token = vim.json.decode(response.body)
+    return nil
 end
 
 function Copilot:ask(prompt, opts)
-    if
-        not self.token or (self.token.expires_at and self.token.expires_at <= math.floor(os.time()))
-    then
-        self:authenticate()
-    end
-
     opts = opts or {}
     local selection = opts.selection or ''
     local filetype = opts.filetype or ''
@@ -146,6 +146,19 @@ function Copilot:ask(prompt, opts)
     local on_start = opts.on_start
     local on_done = opts.on_done
     local on_progress = opts.on_progress
+    local on_error = opts.on_error
+
+    if
+        not self.token or (self.token.expires_at and self.token.expires_at <= math.floor(os.time()))
+    then
+        local err = self:authenticate()
+        if err then
+            if on_error then
+                on_error(err)
+            end
+            return
+        end
+    end
 
     table.insert(self.history, {
         content = prompt,
@@ -183,7 +196,7 @@ function Copilot:ask(prompt, opts)
         body = vim.json.encode(data),
         stream = function(err, line)
             if err then
-                vim.print(err)
+                on_error(err)
                 return
             end
 
@@ -206,14 +219,15 @@ function Copilot:ask(prompt, opts)
                 return
             end
 
-            local success, content = pcall(vim.json.decode, line, {
+            local ok, content = pcall(vim.json.decode, line, {
                 luanil = {
                     object = true,
                     array = true,
                 },
             })
 
-            if not success then
+            if not ok then
+                on_error(content)
                 return
             end
 
