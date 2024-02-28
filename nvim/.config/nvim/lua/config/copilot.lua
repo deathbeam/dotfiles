@@ -30,11 +30,11 @@ chat.setup({
             mapping = '<leader>ae',
         },
         Tests = {
-            prompt = '/COPILOT_TESTS /USER_TEST',
+            prompt = '/COPILOT_TESTS /USER_TESTS',
             mapping = '<leader>at',
         },
         Documentation = {
-            prompt = '/USER_DOC',
+            prompt = '/USER_DOCS',
             mapping = '<leader>ad',
         },
         Fix = {
