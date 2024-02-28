@@ -15,6 +15,11 @@ local chat = require('CopilotChat')
 local select = require('CopilotChat.select')
 
 chat.setup({
+    debug = true,
+    show_system_prompt = true,
+    window = {
+        layout = 'horizontal',
+    },
     prompts = {
         FixDiagnostic = {
             prompt = 'Please assist with the following diagnostic issue in file:',
