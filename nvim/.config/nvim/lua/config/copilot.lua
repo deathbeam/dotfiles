@@ -15,10 +15,6 @@ local chat = require('CopilotChat')
 local select = require('CopilotChat.select')
 
 chat.setup({
-    disable_extra_info = false,
-    window = {
-        layout = 'vertical',
-    },
     prompts = {
         FixDiagnostic = {
             prompt = 'Please assist with the following diagnostic issue in file:',
@@ -52,5 +48,5 @@ chat.setup({
     },
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
-vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
+vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'CopilotChat.nvim Toggle' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'CopilotChat.nvim Reset' })
