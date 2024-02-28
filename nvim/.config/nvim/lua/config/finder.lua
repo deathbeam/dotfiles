@@ -17,6 +17,11 @@ fzf_lua.setup({
     fzf_tmux_opts = {
         ['-d'] = '100%',
     },
+    previewers = {
+        codeaction_native = {
+            pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
+        },
+    },
     files = {
         fzf_opts = {
             ['--info'] = false,
@@ -31,8 +36,6 @@ fzf_lua.setup({
     },
     lsp = {
         code_actions = {
-            -- FIXME: wait for fix for https://github.com/mfussenegger/nvim-jdtls/issues/608
-            previewer = false,
             fzf_tmux_opts = {
                 ['-d'] = '45%',
             },

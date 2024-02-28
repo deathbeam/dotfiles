@@ -49,7 +49,7 @@ chat.setup({
             prompt = '/COPILOT_DEVELOPER Simplify the selected code and improve readablilty',
             mapping = '<leader>as',
         },
-    }
+    },
 })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })

@@ -22,6 +22,16 @@
   # You almost always want autocrlf=input unless you really know what you are doing.
   autocrlf = input
 
+  # Use delta as pager
+  pager = delta
+
+[delta]
+  navigate = true    # use n and N to move between diff sections
+  light = false      # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+
+[interactive]
+  diffFilter = delta --color-only
+
 [color]
   # Use colors in Git commands that are capable of colored output when
   # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
@@ -37,6 +47,8 @@
 
   # Use vimdiff as default diff tool
   tool = nvimdiff
+
+  colorMoved = default
 
 [diff "bin"]
   # Use `hexdump` to diff binary files
