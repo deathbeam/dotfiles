@@ -2,11 +2,12 @@ local dap = require('dap')
 local dap_utils = require('dap.utils')
 local registry = require('mason-registry')
 local au = require('config.utils').au
-local cache_vars = {}
+
+local dap_setup_done = false
 
 local function js_setup(language)
-    if not cache_vars.dap_setup then
-        cache_vars.dap_setup = true
+    if not dap_setup_done then
+        dap_setup_done = true
         require('dap-vscode-js').setup({
             debugger_path = registry.get_package('js-debug-adapter'):get_install_path(),
             adapters = {
@@ -19,7 +20,7 @@ local function js_setup(language)
         })
     end
 
-    dap.configurations[language] = {
+    return {
         {
             type = 'pwa-node',
             request = 'launch',
@@ -50,7 +51,7 @@ for _, language in ipairs({ 'typescript', 'javascript', 'typescriptreact', 'java
         pattern = { language },
         desc = 'Setup ' .. language,
         callback = function()
-            js_setup(language)
+            dap.configurations[language] = js_setup(language)
         end,
     })
 end
