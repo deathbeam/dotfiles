@@ -23,17 +23,19 @@ au('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if
-            client
-            and (
+        if client then
+            if
                 client.server_capabilities.inlayHintProvider
                 or client.server_capabilities.signatureHelpProvider
-            )
-        then
-            vim.lsp.inlay_hint.enable(event.buf, true)
+            then
+                vim.lsp.inlay_hint.enable(event.buf, true)
+            end
+
+            if client.server_capabilities.hoverProvider then
+                nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
+            end
         end
 
-        nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
         nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
         nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
         nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)

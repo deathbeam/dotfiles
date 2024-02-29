@@ -6,17 +6,17 @@ vim.cmd([[
 ]])
 
 local luarocks_path = {
-    vim.fs.joinpath("/usr", "share", "lua", "5.1", "?.lua"),
-    vim.fs.joinpath("/usr", "share", "lua", "5.1", "?", "init.lua"),
+    vim.fs.joinpath('/usr', 'share', 'lua', '5.1', '?.lua'),
+    vim.fs.joinpath('/usr', 'share', 'lua', '5.1', '?', 'init.lua'),
 }
 
 local luarocks_cpath = {
-    vim.fs.joinpath("/usr", "lib", "lua", "5.1", "?.so"),
-    vim.fs.joinpath("/usr", "lib64", "lua", "5.1", "?.so"),
+    vim.fs.joinpath('/usr', 'lib', 'lua', '5.1', '?.so'),
+    vim.fs.joinpath('/usr', 'lib64', 'lua', '5.1', '?.so'),
 }
 
-package.path = package.path .. ";" .. table.concat(luarocks_path, ";")
-package.cpath = package.cpath .. ";" .. table.concat(luarocks_cpath, ";")
+package.path = package.path .. ';' .. table.concat(luarocks_path, ';')
+package.cpath = package.cpath .. ';' .. table.concat(luarocks_cpath, ';')
 
 require('mason').setup()
 require('mason-tool-installer').setup({

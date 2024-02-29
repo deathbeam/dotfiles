@@ -166,5 +166,5 @@ return {
     },
     {
         language = { 'diff', 'gitcommit' },
-    }
+    },
 }

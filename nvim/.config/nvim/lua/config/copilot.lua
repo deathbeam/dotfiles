@@ -15,7 +15,6 @@ local chat = require('CopilotChat')
 
 chat.setup({
     name = 'Copilot',
-    debug = true,
     window = {
         layout = 'horizontal',
     },

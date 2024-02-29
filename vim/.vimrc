@@ -118,6 +118,9 @@ set smartindent
 " Use Unix as the standard file type
 set fileformats=unix,dos,mac
 
+" Better jumplist
+set jumpoptions=stack
+
 " Auto comments are annoying, disable them
 autocmd VimRc FileType * set formatoptions-=cro
 
