@@ -164,4 +164,7 @@ return {
         language = { 'html' },
         mason = { 'html' },
     },
+    {
+        language = { 'diff', 'gitcommit' },
+    }
 }
