@@ -12,7 +12,6 @@ vim.keymap.set(
 )
 
 local chat = require('CopilotChat')
-local select = require('CopilotChat.select')
 
 chat.setup({
     name = 'Copilot',
@@ -22,10 +21,12 @@ chat.setup({
     },
     prompts = {
         FixDiagnostic = {
-            prompt = 'Please assist with the following diagnostic issue in file:',
-            selection = select.diagnostics,
             mapping = '<leader>ar',
             description = 'AI Fix Diagnostic',
+        },
+        CommitStaged = {
+            mapping = '<leader>ac',
+            description = 'AI Generate Commit',
         },
         Explain = {
             prompt = '/COPILOT_EXPLAIN /USER_EXPLAIN',
