@@ -16,6 +16,7 @@ local select = require('CopilotChat.select')
 
 chat.setup({
     name = 'Copilot',
+    debug = true,
     window = {
         layout = 'horizontal',
     },
