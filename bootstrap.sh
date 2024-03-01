@@ -38,8 +38,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
-  python-pip python-dbus python-opengl python-virtualenv \
-  python-pynvim python-prompt_toolkit python-dotenv
+  python-pip python-dbus python-opengl python-virtualenv
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
