@@ -15,7 +15,7 @@ fzf_lua.setup({
         ['--preview-window'] = false,
     },
     fzf_tmux_opts = {
-        ['-d'] = '100%',
+        ['-p'] = '100%,100%',
     },
     previewers = {
         codeaction_native = {

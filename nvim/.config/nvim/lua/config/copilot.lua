@@ -12,6 +12,18 @@ vim.keymap.set(
 )
 
 local chat = require('CopilotChat')
+local actions = require('CopilotChat.actions')
+local integration = require('CopilotChat.integrations.fzflua')
+
+local function pick(pick_actions)
+    return function()
+        integration.pick(pick_actions(), {}, {
+            fzf_tmux_opts = {
+                ['-d'] = '45%',
+            },
+        })
+    end
+end
 
 chat.setup({
     name = 'Copilot',
@@ -62,3 +74,10 @@ chat.setup({
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ah', pick(actions.help_actions), { desc = 'AI Help Actions' })
+vim.keymap.set(
+    { 'n', 'v' },
+    '<leader>ap',
+    pick(actions.prompt_actions),
+    { desc = 'AI Prompt Actions' }
+)
