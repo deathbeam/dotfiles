@@ -143,3 +143,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/bigfile.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/bigfile.nvim
+	url = https://github.com/LunarVim/bigfile.nvim
