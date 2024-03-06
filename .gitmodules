@@ -140,3 +140,6 @@
 	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
     url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
     branch = canary
+[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim

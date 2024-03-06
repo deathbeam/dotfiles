@@ -80,58 +80,58 @@ nmap('<leader>fh', fzf_lua.oldfiles, 'Find History')
 nmap('<leader>fk', fzf_lua.keymaps, 'Find Keymaps')
 
 -- Disable netrw
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
 
-local loaded_buffs = {}
+-- local loaded_buffs = {}
 
-local function open_files()
-    fzf_lua.files({
-        cwd = vim.fn.expand('%:p:h'),
-    })
-end
+-- local function open_files()
+--     fzf_lua.files({
+--         cwd = vim.fn.expand('%:p:h'),
+--     })
+-- end
 
--- Use - for opening explorer in current directory
-nmap('-', open_files)
+-- -- Use - for opening explorer in current directory
+-- nmap('-', open_files)
 
--- Open fzf in the directory when opening a directory buffer
-au('BufEnter', {
-    pattern = '*',
-    callback = function(args)
-        -- If netrw is enabled just keep it, but it should be disabled
-        if vim.bo[args.buf].filetype == 'netrw' then
-            return
-        end
+-- -- Open fzf in the directory when opening a directory buffer
+-- au('BufEnter', {
+--     pattern = '*',
+--     callback = function(args)
+--         -- If netrw is enabled just keep it, but it should be disabled
+--         if vim.bo[args.buf].filetype == 'netrw' then
+--             return
+--         end
 
-        -- Get buffer name and check if it's a directory
-        local bufname = vim.api.nvim_buf_get_name(args.buf)
-        if vim.fn.isdirectory(bufname) == 0 then
-            return
-        end
+--         -- Get buffer name and check if it's a directory
+--         local bufname = vim.api.nvim_buf_get_name(args.buf)
+--         if vim.fn.isdirectory(bufname) == 0 then
+--             return
+--         end
 
-        -- Prevent reopening the explorer after it's been closed
-        if loaded_buffs[bufname] then
-            return
-        end
-        loaded_buffs[bufname] = true
+--         -- Prevent reopening the explorer after it's been closed
+--         if loaded_buffs[bufname] then
+--             return
+--         end
+--         loaded_buffs[bufname] = true
 
-        -- Do not list directory buffer and wipe it on leave
-        vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = args.buf })
-        vim.api.nvim_set_option_value('buflisted', false, { buf = args.buf })
+--         -- Do not list directory buffer and wipe it on leave
+--         vim.api.nvim_set_option_value('bufhidden', 'wipe', { buf = args.buf })
+--         vim.api.nvim_set_option_value('buflisted', false, { buf = args.buf })
 
-        -- Open fzf in the directory
-        vim.schedule(open_files)
-    end,
-})
+--         -- Open fzf in the directory
+--         vim.schedule(open_files)
+--     end,
+-- })
 
--- This makes sure that the explorer will open again after opening same buffer again
-au('BufLeave', {
-    pattern = '*',
-    callback = function(args)
-        local bufname = vim.api.nvim_buf_get_name(args.buf)
-        if vim.fn.isdirectory(bufname) == 0 then
-            return
-        end
-        loaded_buffs[bufname] = nil
-    end,
-})
+-- -- This makes sure that the explorer will open again after opening same buffer again
+-- au('BufLeave', {
+--     pattern = '*',
+--     callback = function(args)
+--         local bufname = vim.api.nvim_buf_get_name(args.buf)
+--         if vim.fn.isdirectory(bufname) == 0 then
+--             return
+--         end
+--         loaded_buffs[bufname] = nil
+--     end,
+-- })
