@@ -31,6 +31,26 @@ chat.setup({
         layout = 'horizontal',
     },
     prompts = {
+        Explain = {
+            mapping = '<leader>ae',
+            description = 'AI Explain',
+        },
+        Tests = {
+            mapping = '<leader>at',
+            description = 'AI Tests',
+        },
+        Fix = {
+            mapping = '<leader>af',
+            description = 'AI Fix',
+        },
+        Optimize = {
+            mapping = '<leader>ao',
+            description = 'AI Optimize',
+        },
+        Docs = {
+            mapping = '<leader>ad',
+            description = 'AI Documentation',
+        },
         FixDiagnostic = {
             mapping = '<leader>ar',
             description = 'AI Fix Diagnostic',
@@ -38,36 +58,6 @@ chat.setup({
         CommitStaged = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
-        },
-        Explain = {
-            prompt = '/COPILOT_EXPLAIN /USER_EXPLAIN',
-            mapping = '<leader>ae',
-            description = 'AI Explain',
-        },
-        Tests = {
-            prompt = '/COPILOT_TESTS /USER_TESTS',
-            mapping = '<leader>at',
-            description = 'AI Tests',
-        },
-        Documentation = {
-            prompt = '/COPILOT_DEVELOPER /USER_DOCS',
-            mapping = '<leader>ad',
-            description = 'AI Documentation',
-        },
-        Fix = {
-            prompt = '/COPILOT_DEVELOPER /USER_FIX',
-            mapping = '<leader>af',
-            description = 'AI Fix',
-        },
-        Optimize = {
-            prompt = '/COPILOT_DEVELOPER Optimize the selected code to improve performance and readablilty.',
-            mapping = '<leader>ao',
-            description = 'AI Optimize',
-        },
-        Simplify = {
-            prompt = '/COPILOT_DEVELOPER Simplify the selected code and improve readablilty',
-            mapping = '<leader>as',
-            description = 'AI Simplify',
         },
     },
 })
