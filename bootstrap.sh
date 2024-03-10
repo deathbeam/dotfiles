@@ -97,6 +97,9 @@ echo '==> Configuring system'
 sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf
 fc-cache -f
 
+# Increase inotify watches
+echo -e 'fs.inotify.max_user_watches=1000000\nfs.inotify.max_queued_events=1000000' | sudo tee -a /etc/sysctl.d/40-inotify.conf
+
 # Enable vbox access for current user
 sudo groupadd -f vboxsf
 sudo usermod -aG vboxsf "$USER"
