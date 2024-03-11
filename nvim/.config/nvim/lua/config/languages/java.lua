@@ -21,8 +21,7 @@ local function get_jdtls_paths()
 
     path.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
     path.java_agent = jdtls_install .. '/lombok.jar'
-    path.launcher_jar =
-        vim.trim(vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
+    path.launcher_jar = vim.trim(vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
     if vim.fn.has('mac') == 1 then
         path.platform_config = jdtls_install .. '/config_mac'
     elseif vim.fn.has('unix') == 1 then
@@ -34,17 +33,14 @@ local function get_jdtls_paths()
     path.bundles = {}
 
     local java_test_path = registry.get_package('java-test'):get_install_path()
-    local java_test_bundle =
-        vim.split(vim.fn.glob(java_test_path .. '/extension/server/*.jar'), '\n')
+    local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. '/extension/server/*.jar'), '\n')
     if java_test_bundle[1] ~= '' then
         vim.list_extend(path.bundles, java_test_bundle)
     end
 
     local java_debug_path = registry.get_package('java-debug-adapter'):get_install_path()
-    local java_debug_bundle = vim.split(
-        vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'),
-        '\n'
-    )
+    local java_debug_bundle =
+        vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(path.bundles, java_debug_bundle)
     end

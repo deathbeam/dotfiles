@@ -4,12 +4,7 @@ utils.desc('<leader>a', 'AI')
 -- Copilot autosuggestions
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_hide_during_completion = 0
-vim.keymap.set(
-    'i',
-    '<S-Tab>',
-    'copilot#Accept("\\<S-Tab>")',
-    { expr = true, replace_keycodes = false }
-)
+vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
 local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
@@ -63,9 +58,4 @@ chat.setup({
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ah', pick(actions.help_actions), { desc = 'AI Help Actions' })
-vim.keymap.set(
-    { 'n', 'v' },
-    '<leader>ap',
-    pick(actions.prompt_actions),
-    { desc = 'AI Prompt Actions' }
-)
+vim.keymap.set({ 'n', 'v' }, '<leader>ap', pick(actions.prompt_actions), { desc = 'AI Prompt Actions' })
