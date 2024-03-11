@@ -27,9 +27,7 @@ end
 
 chat.setup({
     name = 'Copilot',
-    window = {
-        layout = 'horizontal',
-    },
+    show_user_selection = false,
     prompts = {
         Explain = {
             mapping = '<leader>ae',
