@@ -127,7 +127,7 @@ autocmd VimRc FileType * set formatoptions-=cro
 " Very magic
 nnoremap / /\v
 vnoremap / /\v
-cnoremap s/ smagic/
+" cnoremap s/ smagic/
 
 " }}}
 
