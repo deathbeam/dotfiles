@@ -34,11 +34,12 @@ return {
     },
     {
         language = { 'python' },
-        mason = { 'pyright', 'debugpy' },
+        mason = { 'debugpy' },
         lsp_settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
-            python = {
+            basedpyright = {
                 analysis = {
+                    typeCheckingMode = 'basic',
                     diagnosticMode = 'workspace',
                     diagnosticSeverityOverrides = {
                         reportOptionalSubscript = 'none',
