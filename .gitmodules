@@ -146,3 +146,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/bigfile.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/bigfile.nvim
 	url = https://github.com/LunarVim/bigfile.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-nio"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-nio
+	url = https://github.com/nvim-neotest/nvim-nio
