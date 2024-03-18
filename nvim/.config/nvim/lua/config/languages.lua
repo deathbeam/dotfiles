@@ -40,7 +40,7 @@ return {
             basedpyright = {
                 analysis = {
                     typeCheckingMode = 'basic',
-                    diagnosticMode = 'workspace',
+                    diagnosticMode = 'openFilesOnly',
                     diagnosticSeverityOverrides = {
                         reportOptionalSubscript = 'none',
                         reportOptionalMemberAccess = 'none',
