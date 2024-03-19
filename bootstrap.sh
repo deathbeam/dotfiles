@@ -1,6 +1,20 @@
 #!/usr/bin/bash -l
 set -ex
 
+# Make swap
+echo '==> Creating swap file'
+
+# ext4
+dd if=/dev/zero of=/swapfile bs=1M count=4k
+chmod 0600 /swapfile
+mkswap -U clear /swapfile
+
+# btfrs
+# sudo btrfs filesystem mkswapfile --size 4g --uuid clear /swapfile
+
+swapon /swapfile
+echo -e '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
+
 # Install devel packages
 echo '==> Installing base-devel'
 sudo pacman --noconfirm -S base-devel
