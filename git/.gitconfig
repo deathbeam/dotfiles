@@ -1,86 +1,94 @@
 [apply]
-  # Detect whitespace errors when applying a patch
-  whitespace = fix
+    # Detect whitespace errors when applying a patch
+    whitespace = fix
 
 [core]
-  # Use custom `.gitignore`
-  excludesfile = ~/.gitignore
+    # Use custom `.gitignore`
+    excludesfile = ~/.gitignore
 
-  # Treat spaces before tabs and all kinds of trailing whitespace as an error
-  # [default] trailing-space: looks for spaces at the end of a line
-  # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-  whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    # Treat spaces before tabs and all kinds of trailing whitespace as an error
+    # [default] trailing-space: looks for spaces at the end of a line
+    # [default] space-before-tab: looks for spaces before tabs at the beginning of a line
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
 
-  # Make `git rebase` safer on macOS
-  # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-  trustctime = false
+    # Make `git rebase` safer on macOS
+    # More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
+    trustctime = false
 
-  # Prevent showing files whose names contain non-ASCII symbols as unversioned.
-  # http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
-  precomposeunicode = false
+    # Prevent showing files whose names contain non-ASCII symbols as unversioned.
+    # http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
+    precomposeunicode = false
 
-  # You almost always want autocrlf=input unless you really know what you are doing.
-  autocrlf = input
+    # You almost always want autocrlf=input unless you really know what you are doing.
+    autocrlf = input
 
 [color]
-  # Use colors in Git commands that are capable of colored output when
-  # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
-  ui = auto
+    # Use colors in Git commands that are capable of colored output when
+    # outputting to the terminal. (This is the default setting in Git ≥ 1.8.4.)
+    ui = auto
 
 [commit]
-  # Custom git message based on http://chris.beams.io/posts/git-commit/
-  template = ~/.gitmessage
+    # Custom git message based on http://chris.beams.io/posts/git-commit/
+    template = ~/.gitmessage
 
 [diff]
-  # Detect copies as well as renames
-  renames = copies
+    # Detect copies as well as renames
+    renames = copies
 
-  # Use vimdiff as default diff tool
-  tool = nvimdiff
+    # Use vimdiff as default diff tool
+    tool = nvimdiff
 
 [diff "bin"]
-  # Use `hexdump` to diff binary files
-  textconv = hexdump -v -C
+    # Use `hexdump` to diff binary files
+    textconv = hexdump -v -C
 
 [help]
-  # Automatically correct and execute mistyped commands
-  autocorrect = 1
+    # Automatically correct and execute mistyped commands
+    autocorrect = 1
 
 [merge]
-  # Include summaries of merged commits in newly created merge commit messages
-  log = true
+    # Include summaries of merged commits in newly created merge commit messages
+    log = true
 
-  # Use vimdiff as default merge tool
-  tool = nvimdiff
-  conflictstyle = diff3
+    # Use vimdiff as default merge tool
+    # tool = nvimdiff
+    tool = merge3
+
+[mergetool]
+    # Show prompt when calling merge tool
+    prompt = true
+
+[mergetool "merge3"]
+    # Use 3 windows only not 4 with base
+    cmd = nvim -d \"$LOCAL\" \"$MERGED\" \"$REMOTE\"
 
 [push]
-  # Push only current branch instead of all branches
-  default = current
+    # Push only current branch instead of all branches
+    default = current
 
-  # Make `git push` push relevant annotated tags when pushing branches out.
-  followTags = false
+    # Make `git push` push relevant annotated tags when pushing branches out.
+    followTags = false
 
 [fetch]
-  prune = true
+    prune = true
 
 [rebase]
-  autosquash = true
+    autosquash = true
 
 [difftool]
-  # Do not show prompt when calling diff tool
-  prompt = false
+    # Do not show prompt when calling diff tool
+    prompt = false
 
 [credential]
-  helper = store
+    helper = store
 
 [http]
-  postBuffer = 524288000
+    postBuffer = 524288000
 
 [user]
-  name = Tomas Slusny
-  email = slusnucky@gmail.com
+    name = Tomas Slusny
+    email = slusnucky@gmail.com
 
 [include]
   # Include user configuration
-  path = ~/.gitconfig.local
+    path = ~/.gitconfig.local

@@ -4,6 +4,9 @@ export PATH="$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.lu
 # Set go path to user home
 export GOPATH="$HOME/go"
 
+# Better pager
+export PAGER="less -F -X"
+
 # Set npm home to user home
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
