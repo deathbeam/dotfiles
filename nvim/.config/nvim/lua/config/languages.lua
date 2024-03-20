@@ -34,7 +34,7 @@ return {
     },
     {
         language = { 'python' },
-        mason = { 'debugpy' },
+        mason = { 'basedpyright', 'debugpy' },
         lsp_settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
             basedpyright = {

@@ -55,7 +55,6 @@ yay --noconfirm -S --mflags --skipinteg \
   python-pip python-dbus python-opengl python-virtualenv
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
-pip3 install --break-system-packages basedpyright
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
