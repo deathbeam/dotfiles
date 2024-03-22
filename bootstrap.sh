@@ -39,7 +39,7 @@ yay --noconfirm -S --mflags --skipinteg \
   alsa-utils alsa-plugins alsa-oss \
   pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
   stow zsh tmux ripgrep mlocate htop \
-  neovim-nightly-bin ctags bat fswatch \
+  neovim-nightly-bin ctags bat fswatch difftastic \
   dropbox pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
   tlp udisks2 rate-mirrors unzip
