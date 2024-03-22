@@ -12,7 +12,7 @@ local integration = require('CopilotChat.integrations.fzflua')
 
 local function pick(pick_actions)
     return function()
-        integration.pick(pick_actions(), {}, {
+        integration.pick(pick_actions(), {
             fzf_tmux_opts = {
                 ['-d'] = '45%',
             },
@@ -22,7 +22,7 @@ end
 
 chat.setup({
     name = 'Copilot',
-    show_user_selection = false,
+    auto_insert_mode = true,
     prompts = {
         Explain = {
             mapping = '<leader>ae',
