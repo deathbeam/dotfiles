@@ -22,7 +22,6 @@ end
 
 chat.setup({
     name = 'Copilot',
-    auto_insert_mode = true,
     prompts = {
         Explain = {
             mapping = '<leader>ae',

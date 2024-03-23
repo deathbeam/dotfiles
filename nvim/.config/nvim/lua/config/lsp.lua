@@ -17,31 +17,46 @@ end
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({ severity_sort = true, float = { border = 'single' } })
 
+-- Set diagnostic mappings
+nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics')
+nmap('[d', vim.diagnostic.goto_prev, 'Goto previous Diagnostic')
+nmap(']d', vim.diagnostic.goto_next, 'Goto next Diagnostic')
+
 require('lspecho').setup()
 
 au('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if client then
-            if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
-                vim.lsp.inlay_hint.enable(event.buf, true)
-            end
-
-            if client.server_capabilities.hoverProvider then
-                nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
-            end
+        if not client then
+            return
         end
 
-        nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
-        nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
-        nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
-        nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
-        nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
-        nmap('gs', vim.lsp.buf.signature_help, 'Goto Signature Help', event.buf)
-        nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics', event.buf)
-        nmap('[d', vim.diagnostic.goto_prev, 'Goto previous Diagnostic', event.buf)
-        nmap(']d', vim.diagnostic.goto_next, 'Goto next Diagnostic', event.buf)
+        if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
+            vim.lsp.inlay_hint.enable(event.buf, true)
+        end
+
+        if client.server_capabilities.hoverProvider then
+            nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
+        end
+        if client.server_capabilities.definitionProvider then
+            nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
+        end
+        if client.server_capabilities.declarationProvider then
+            nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
+        end
+        if client.server_capabilities.implementationProvider then
+            nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
+        end
+        if client.server_capabilities.typeDefinitionProvider then
+            nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
+        end
+        if client.server_capabilities.referencesProvider then
+            nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
+        end
+        if client.server_capabilities.signatureHelpProvider then
+            nmap('gs', vim.lsp.buf.signature_help, 'Goto Signature Help', event.buf)
+        end
 
         -- find
         nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, 'Find Diagnostics', event.buf)
