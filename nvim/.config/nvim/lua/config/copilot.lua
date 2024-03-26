@@ -24,6 +24,10 @@ chat.setup({
     mappings = {
         submit_prompt = {
             insert = ''
+        },
+        reset = {
+            normal = '',
+            insert = ''
         }
     },
     prompts = {
