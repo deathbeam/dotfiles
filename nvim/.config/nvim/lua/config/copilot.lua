@@ -21,7 +21,11 @@ local function pick(pick_actions)
 end
 
 chat.setup({
-    name = 'Copilot',
+    mappings = {
+        submit_prompt = {
+            insert = ''
+        }
+    },
     prompts = {
         Explain = {
             mapping = '<leader>ae',
