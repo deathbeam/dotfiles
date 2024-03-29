@@ -62,7 +62,7 @@
 	url = https://github.com/williamboman/mason-lspconfig.nvim
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
 	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
-	url = https://github.com/ibhagwan/fzf-lua
+	url = https://gitlab.com/ibhagwan/fzf-lua
 [submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
 	path = zsh/.zsh/pack/bundle/start/base16-fzf
 	url = https://github.com/tinted-theming/base16-fzf

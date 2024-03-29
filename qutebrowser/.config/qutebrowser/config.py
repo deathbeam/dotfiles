@@ -17,7 +17,7 @@ c.qt.args = [
 ]
 
 # Privacy
-c.content.webgl = False
+# c.content.webgl = False
 c.content.canvas_reading = True # Should be false but this breaks 9gag and other sites
 c.content.geolocation = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
