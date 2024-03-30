@@ -14,7 +14,19 @@ require('config.utils').nmap('<leader>s', function()
     local messages = vim.split(vim.fn.execute('messages', 'silent'), '\n')
     vim.api.nvim_buf_set_text(scratch_buffer, 0, 0, 0, 0, messages)
     vim.cmd('vertical sbuffer ' .. scratch_buffer)
-end)
+end, 'Show messages')
+
+require('config.utils').nmap('<leader>d', function()
+    local scratch_buffer = vim.api.nvim_create_buf(false, true)
+    local current_ft = vim.bo.filetype
+    vim.cmd('vertical sbuffer' .. scratch_buffer)
+    vim.bo[scratch_buffer].filetype = current_ft
+    vim.cmd('read ++edit #')
+    vim.cmd.normal('1G"_d_')
+    vim.cmd.diffthis()
+    vim.cmd.wincmd('p')
+    vim.cmd.diffthis()
+end, 'Diff with previous buffer')
 
 require('mason').setup()
 require('mason-tool-installer').setup({
