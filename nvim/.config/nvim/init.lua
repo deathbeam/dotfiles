@@ -8,6 +8,14 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
+require('config.utils').nmap('<leader>s', function()
+    local scratch_buffer = vim.api.nvim_create_buf(false, true)
+    vim.bo[scratch_buffer].filetype = 'vim'
+    local messages = vim.split(vim.fn.execute('messages', 'silent'), '\n')
+    vim.api.nvim_buf_set_text(scratch_buffer, 0, 0, 0, 0, messages)
+    vim.cmd('vertical sbuffer ' .. scratch_buffer)
+end)
+
 require('mason').setup()
 require('mason-tool-installer').setup({
     run_on_start = false,
