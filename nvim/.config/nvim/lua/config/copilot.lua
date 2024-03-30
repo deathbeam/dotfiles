@@ -21,6 +21,9 @@ local function pick(pick_actions)
 end
 
 chat.setup({
+    question_header = '',
+    answer_header = '**Copilot** ',
+    error_header = '**Error** ',
     mappings = {
         submit_prompt = {
             insert = '',
