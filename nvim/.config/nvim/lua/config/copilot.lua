@@ -23,12 +23,12 @@ end
 chat.setup({
     mappings = {
         submit_prompt = {
-            insert = ''
+            insert = '',
         },
         reset = {
             normal = '',
-            insert = ''
-        }
+            insert = '',
+        },
     },
     prompts = {
         Explain = {

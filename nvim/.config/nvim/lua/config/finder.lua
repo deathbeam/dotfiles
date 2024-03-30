@@ -17,11 +17,6 @@ fzf_lua.setup({
     fzf_tmux_opts = {
         ['-p'] = '100%,100%',
     },
-    previewers = {
-        codeaction_native = {
-            pager = [[delta --width=$COLUMNS --hunk-header-style="omit" --file-style="omit"]],
-        },
-    },
     files = {
         fzf_opts = {
             ['--info'] = false,
@@ -29,7 +24,6 @@ fzf_lua.setup({
     },
     grep = {
         prompt = 'Grep❯ ',
-        rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         fzf_opts = {
             ['--info'] = false,
         },
@@ -49,19 +43,29 @@ fzf_lua.setup({
         },
     },
 })
+
 fzf_lua.register_ui_select()
 
 -- https://github.com/ibhagwan/fzf-lua/issues/602
-vim.lsp.handlers['textDocument/codeAction'] = fzf_lua.lsp_code_actions
-vim.lsp.handlers['textDocument/definition'] = fzf_lua.lsp_definitions
-vim.lsp.handlers['textDocument/declaration'] = fzf_lua.lsp_declarations
-vim.lsp.handlers['textDocument/typeDefinition'] = fzf_lua.lsp_typedefs
-vim.lsp.handlers['textDocument/implementation'] = fzf_lua.lsp_implementations
-vim.lsp.handlers['textDocument/references'] = fzf_lua.lsp_references
-vim.lsp.handlers['textDocument/documentSymbol'] = fzf_lua.lsp_document_symbols
-vim.lsp.handlers['workspace/symbol'] = fzf_lua.lsp_workspace_symbols
-vim.lsp.handlers['callHierarchy/incomingCalls'] = fzf_lua.lsp_incoming_calls
-vim.lsp.handlers['callHierarchy/outgoingCalls'] = fzf_lua.lsp_outgoing_calls
+local function w(fn)
+    return function(...)
+        return fn({
+            ignore_current_line = true,
+            jump_to_single_result = true,
+            includeDeclaration = false,
+        }, ...)
+    end
+end
+vim.lsp.handlers['textDocument/codeAction'] = w(fzf_lua.lsp_code_actions)
+vim.lsp.handlers['textDocument/definition'] = w(fzf_lua.lsp_definitions)
+vim.lsp.handlers['textDocument/declaration'] = w(fzf_lua.lsp_declarations)
+vim.lsp.handlers['textDocument/typeDefinition'] = w(fzf_lua.lsp_typedefs)
+vim.lsp.handlers['textDocument/implementation'] = w(fzf_lua.lsp_implementations)
+vim.lsp.handlers['textDocument/references'] = w(fzf_lua.lsp_references)
+vim.lsp.handlers['textDocument/documentSymbol'] = w(fzf_lua.lsp_document_symbols)
+vim.lsp.handlers['workspace/symbol'] = w(fzf_lua.lsp_workspace_symbols)
+vim.lsp.handlers['callHierarchy/incomingCalls'] = w(fzf_lua.lsp_incoming_calls)
+vim.lsp.handlers['callHierarchy/outgoingCalls'] = w(fzf_lua.lsp_outgoing_calls)
 
 nmap('<leader>fg', fzf_lua.grep_project, 'Find Grep')
 nmap('<leader>fG', function()
