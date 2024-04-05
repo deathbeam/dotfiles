@@ -48,9 +48,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
 	url = https://github.com/nvim-treesitter/nvim-treesitter
-[submodule "vim/.vim/pack/bundle/start/vim-commentary"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-commentary
-	url = https://github.com/tpope/vim-commentary
 [submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
