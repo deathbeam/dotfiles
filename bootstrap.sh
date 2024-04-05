@@ -74,11 +74,11 @@ yay --noconfirm -S --mflags --skipinteg \
 echo '==> Installing X11 applications'
 yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
-  flashplugin qutebrowser python-adblock chromium-widevine \
+  qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar \
   mpv yt-dlp discord boosteroid calibre \
-  postman intellij-idea-ue-eap
+  postman
 
 mkdir -p ~/git
 cd ~/git
