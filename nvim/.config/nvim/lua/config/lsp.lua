@@ -39,10 +39,8 @@ au('LspAttach', {
         if client.server_capabilities.hoverProvider then
             nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
         end
-        if client.server_capabilities.definitionProvider then
+        if client.server_capabilities.definitionProvider or client.server_capabilities.declarationProvider then
             nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
-        end
-        if client.server_capabilities.declarationProvider then
             nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
         end
         if client.server_capabilities.implementationProvider then
