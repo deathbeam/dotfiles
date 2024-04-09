@@ -27,6 +27,9 @@ base16.load_from_shell()
 -- Load icons
 require('nvim-web-devicons').setup()
 
+-- Load colors
+require('nvim-highlight-colors').setup()
+
 -- File browser
 require('oil').setup({
     view_options = {
