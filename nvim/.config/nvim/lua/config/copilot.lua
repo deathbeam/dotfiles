@@ -22,8 +22,8 @@ end
 
 chat.setup({
     question_header = '',
-    answer_header = '**Copilot** ',
-    error_header = '**Error** ',
+    answer_header = '',
+    error_header = '',
     mappings = {
         submit_prompt = {
             insert = '',
