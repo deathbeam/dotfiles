@@ -38,6 +38,10 @@ chat.setup({
             mapping = '<leader>ae',
             description = 'AI Explain',
         },
+        Review = {
+            mapping = '<leader>ar',
+            description = 'AI Review',
+        },
         Tests = {
             mapping = '<leader>at',
             description = 'AI Tests',
@@ -53,10 +57,6 @@ chat.setup({
         Docs = {
             mapping = '<leader>ad',
             description = 'AI Documentation',
-        },
-        FixDiagnostic = {
-            mapping = '<leader>ar',
-            description = 'AI Fix Diagnostic',
         },
         CommitStaged = {
             mapping = '<leader>ac',

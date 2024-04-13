@@ -178,7 +178,7 @@ nnoremap <silent> dm<CR> <CMD>delm a-zA-Z0-9<CR>
 nnoremap <silent> <leader>q <CMD>copen<CR>
 nnoremap <silent> <leader>Q <CMD>cclose<CR>
 nnoremap <silent> ]q <CMD>cnext<CR>
-nnoremap <silent> {q <CMD>cprev<CR>
+nnoremap <silent> [q <CMD>cprev<CR>
 
 " }}}
 
