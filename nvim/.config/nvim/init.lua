@@ -1,5 +1,5 @@
 -- Enable experimental loader
-vim.loader.enable()
+-- vim.loader.enable()
 
 -- Load existing vimrc
 vim.cmd([[
