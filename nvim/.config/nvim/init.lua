@@ -8,7 +8,7 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-require('config.utils').nmap('<leader>s', function()
+require('config.utils').nmap('<leader>m', function()
     local scratch_buffer = vim.api.nvim_create_buf(false, true)
     vim.bo[scratch_buffer].filetype = 'vim'
     local messages = vim.split(vim.fn.execute('messages', 'silent'), '\n')
@@ -16,7 +16,7 @@ require('config.utils').nmap('<leader>s', function()
     vim.cmd('vertical sbuffer ' .. scratch_buffer)
 end, 'Show messages')
 
-require('config.utils').nmap('<leader>d', function()
+require('config.utils').nmap('<leader>u', function()
     local scratch_buffer = vim.api.nvim_create_buf(false, true)
     local current_ft = vim.bo.filetype
     vim.cmd('vertical sbuffer' .. scratch_buffer)
