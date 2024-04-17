@@ -78,9 +78,10 @@ function setproxy {
   export HTTPS_PROXY=$http_proxy
   export FTP_PROXY=$http_proxy
   export RSYNC_PROXY=$http_proxy
-  parts=(${(s/:/)1})
-  host=${parts[1]}
-  port=${parts[2]}
+
+  reversed_proxy=$(echo $1 | rev)
+  host=$(echo $reversed_proxy | cut -d: -f2- | rev)
+  port=$(echo $reversed_proxy | cut -d: -f1 | rev)
   export JDK_JAVA_OPTIONS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
 }
 
