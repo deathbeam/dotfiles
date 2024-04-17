@@ -24,6 +24,7 @@ chat.setup({
     question_header = '',
     answer_header = '',
     error_header = '',
+    show_folds = false,
     mappings = {
         submit_prompt = {
             insert = '',
@@ -63,6 +64,14 @@ chat.setup({
             description = 'AI Generate Commit',
         },
     },
+})
+
+utils.au('BufEnter', {
+    pattern = 'copilot-*',
+    callback = function()
+        vim.opt_local.relativenumber = false
+        vim.opt_local.number = false
+    end
 })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
