@@ -17,7 +17,7 @@ echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
-  acpi redshift \
+  acpi geoclue2 redshift \
   stow zsh tmux ripgrep mlocate htop \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
