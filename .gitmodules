@@ -31,9 +31,6 @@
 [submodule "zsh/.zsh/bundle/zsh-completions"]
 	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh/.zsh/bundle/ssh"]
-	path = zsh/.zsh/pack/bundle/start/ssh
-	url = https://github.com/zimfw/ssh
 [submodule "zsh/.zsh/bundle/pure"]
 	path = zsh/.zsh/pack/bundle/start/pure
 	url = https://github.com/sindresorhus/pure

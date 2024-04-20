@@ -32,6 +32,10 @@ xsetroot -cursor_name left_ptr
 # Remap caps lock to control and escape
 setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
 
+# Set gpg agent tty
+export GPG_TTY=$(tty)
+gpg-connect-agent updatestartuptty /bye >/dev/null
+
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
   feh --bg-scale ~/.wallpaper
