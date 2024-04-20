@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 tmux_sessions=$(tmux list-sessions -F '#S')
-all_sessions=$(find ~/git -mindepth 1 -maxdepth 1 -type d | sort)
+all_sessions=$(find ~/git -mindepth 1 -maxdepth 1 -type d ; find ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*' | sort)
 
 function session_name() {
     basename $1 | tr . _
