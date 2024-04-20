@@ -59,8 +59,7 @@ fi
 if command -v xsel >/dev/null 2>&1; then
   alias c='xsel --clipboard --input'
   alias p='xsel --clipboard --output'
-fi
-if command -v xclip >/dev/null 2>&1; then
+elif command -v xclip >/dev/null 2>&1; then
   alias c='xclip -selection clipboard'
   alias p='xclip -selection clipboard -o'
 fi

@@ -39,7 +39,7 @@ pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archi
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xdotool xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape xtitle \
-  xclip autocutsel clipnotify \
+  xclip xsel autocutsel clipnotify \
   alsa-utils \
   upower
 
