@@ -95,7 +95,18 @@ sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf
 fc-cache -f
 
 # Increase inotify watches
-echo -e 'fs.inotify.max_user_watches=1000000\nfs.inotify.max_queued_events=1000000' | sudo tee -a /etc/sysctl.d/40-inotify.conf
+sudo tee -a /etc/sysctl.d/40-inotify.conf <<EOF
+fs.inotify.max_user_watches=1000000
+fs.inotify.max_queued_events=1000000
+EOF
+
+# Enable suspend-then-hibernate
+sudo tee -a /etc/systemd/logind.conf <<EOF
+IdleAction=suspend-then-hibernate
+IdleActionSec=15min
+HibernateDelaySec=30min
+EOF
+sudo systemctl restart systemd-logind
 
 # Enable vbox access for current user
 sudo groupadd -f vboxsf
@@ -117,3 +128,5 @@ xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
 echo "$USER" | chsh -s /bin/zsh
+
+
