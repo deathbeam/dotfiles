@@ -60,6 +60,10 @@ if command -v xsel >/dev/null 2>&1; then
   alias c='xsel --clipboard --input'
   alias p='xsel --clipboard --output'
 fi
+if command -v xclip >/dev/null 2>&1; then
+  alias c='xclip -selection clipboard'
+  alias p='xclip -selection clipboard -o'
+fi
 
 # Arch utilities
 alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'
@@ -149,7 +153,7 @@ export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
 # Adjust git aliases
-unalias gh # Conflict with github-cli
+unalias gh 2>/dev/null # Conflict with github-cli
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'

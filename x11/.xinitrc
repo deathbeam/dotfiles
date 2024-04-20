@@ -46,11 +46,6 @@ if command -v autocutsel >/dev/null 2>&1; then
   autocutsel -s CLIPBOARD -fork &
 fi
 
-# Start clipboard manager daemon
-if command -v clipmenud >/dev/null 2>&1; then
-  clipmenud &
-fi
-
 # Start location daemon
 if [ -f /usr/lib/geoclue-2.0/demos/agent ]; then
   /usr/lib/geoclue-2.0/demos/agent &

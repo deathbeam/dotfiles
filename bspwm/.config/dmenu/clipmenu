@@ -1,20 +1,16 @@
 #!/usr/bin/env bash
 shopt -s nullglob globstar
 
-cache_dir=$(clipctl cache-dir)
-cache_file=$cache_dir/line_cache
-
 list_clips() {
-    LC_ALL=C sort -rnk 1 < "$cache_file" | cut -d' ' -f2- | awk '!seen[$0]++'
+    cb hs | jq -r '.[].content | if type=="array" then .[].path else if type=="object" then .path else . end end | gsub("\n";"\\\\N")'
 }
 
 chosen_line=$(list_clips \
     | ~/.config/dmenu/fzfmenu "$@" \
-    --preview="bat -n --color=always --decorations=always \"$cache_dir/\$(cksum <<< {})\"" \
+    --delimiter=: \
+    --preview="echo {} | sed 's/\\\\N/\\n/g'" \
     --preview-window=right:40%)
 
 [[ $chosen_line ]] || exit 1
-file=$cache_dir/$(cksum <<< "$chosen_line")
-[[ -f "$file" ]] || exit 2
-
-xsel --clipboard --input < "$file"
+chosen_line=$(echo "$chosen_line" | sed 's/\\N/\n/g')
+cb cp "$chosen_line"
