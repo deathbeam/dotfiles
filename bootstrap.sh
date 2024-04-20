@@ -78,7 +78,7 @@ yay --noconfirm -S --mflags --skipinteg \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar \
-  mpv yt-dlp discord boosteroid calibre \
+  mpv yt-dlp discord boosteroid stremio steam calibre \
   postman
 
 mkdir -p ~/git
