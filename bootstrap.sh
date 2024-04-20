@@ -13,38 +13,16 @@ cd yay
 makepkg -si --noconfirm
 cd $cur_dir
 
-
-## Install base system (only use if you skipped archinstall)
-if [ "$1" == "true" ]; then
-    # Make swap
-    echo '==> Creating swap file'
-    dd if=/dev/zero of=/swapfile bs=1M count=4k
-    chmod 0600 /swapfile
-    mkswap -U clear /swapfile
-
-    swapon /swapfile
-    echo -e '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
-
-    echo '==> Installing base-devel'
-    sudo pacman --noconfirm -S base-devel
-
-    echo '==> Installing base graphical packages'
-    yay --noconfirm -S --mflags --skipinteg \
-      xorg-server xorg-apps xorg-xinit xorg-fonts-misc xf86-input-libinput \
-      alsa-utils alsa-plugins alsa-oss \
-      pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
-fi
-
 echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
   stow zsh tmux ripgrep mlocate htop \
-  neovim-nightly-bin ctags bat fswatch difftastic \
-  dropbox pass pass-otp zbar \
+  neovim-nightly-bin ctags less bat fswatch difftastic \
+  pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
-  tlp udisks2 rate-mirrors unzip
+  tlp udisks2 rate-mirrors unzip fuse2
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -60,11 +38,10 @@ pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archi
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
-  xdotool xorg-xdpyinfo xorg-xrandr xorg-xsetroot alsa-utils fuse2 xsel xclip autocutsel clipnotify clipmenu-git \
-  xcape xtitle screenkey slop \
-  redshift-qt \
-  upower \
-  udiskie
+  xdotool xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape xtitle \
+  xsel xclip autocutsel clipnotify \
+  alsa-utils \
+  upower
 
 echo '==> Installing font packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -78,6 +55,11 @@ yay --noconfirm -S --mflags --skipinteg \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar \
+  redshift-qt \
+  clipmenu-git \
+  udiskie \
+  dropbox \
+  slop screenkey \
   mpv yt-dlp discord boosteroid stremio steam calibre \
   postman
 

@@ -32,11 +32,6 @@ xsetroot -cursor_name left_ptr
 # Remap caps lock to control and escape
 setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
 
-# Update mouse stuff
-xinput disable 'Wacom HID 50F0 Finger touch' # disable touch screen
-xinput --set-prop 'MSFT0001:02 06CB:7F8F Touchpad' 'libinput Accel Speed' 0 # touchpad
-xinput --set-prop 15 'libinput Accel Speed' 0 # mouse
-
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
   feh --bg-scale ~/.wallpaper
