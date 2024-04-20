@@ -1,24 +1,6 @@
 #!/usr/bin/bash -l
 set -ex
 
-# Make swap
-echo '==> Creating swap file'
-
-# ext4
-dd if=/dev/zero of=/swapfile bs=1M count=4k
-chmod 0600 /swapfile
-mkswap -U clear /swapfile
-
-# btfrs
-# sudo btrfs filesystem mkswapfile --size 4g --uuid clear /swapfile
-
-swapon /swapfile
-echo -e '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
-
-# Install devel packages
-echo '==> Installing base-devel'
-sudo pacman --noconfirm -S base-devel
-
 # Install AUR helper
 echo '==> Installing AUR helper'
 cur_dir=$PWD
@@ -31,13 +13,33 @@ cd yay
 makepkg -si --noconfirm
 cd $cur_dir
 
+
+## Install base system (only use if you skipped archinstall)
+if [ "$1" == "true" ]; then
+    # Make swap
+    echo '==> Creating swap file'
+    dd if=/dev/zero of=/swapfile bs=1M count=4k
+    chmod 0600 /swapfile
+    mkswap -U clear /swapfile
+
+    swapon /swapfile
+    echo -e '/swapfile none swap defaults 0 0' | sudo tee -a /etc/fstab
+
+    echo '==> Installing base-devel'
+    sudo pacman --noconfirm -S base-devel
+
+    echo '==> Installing base graphical packages'
+    yay --noconfirm -S --mflags --skipinteg \
+      xorg-server xorg-apps xorg-xinit xorg-fonts-misc xf86-input-libinput \
+      alsa-utils alsa-plugins alsa-oss \
+      pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
+fi
+
 echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
   freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
   xdg-utils xdg-user-dirs \
   acpi redshift \
-  alsa-utils alsa-plugins alsa-oss \
-  pipewire pipewire-alsa pipewire-jack pipewire-pulse gst-plugin-pipewire libpulse wireplumber
   stow zsh tmux ripgrep mlocate htop \
   neovim-nightly-bin ctags bat fswatch difftastic \
   dropbox pass pass-otp zbar \
@@ -58,9 +60,8 @@ pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archi
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
-  xorg-server xorg-apps xorg-xinit \
-  xorg-fonts-misc xsel xclip autocutsel clipnotify clipmenu-git \
-  xf86-input-libinput xcape xtitle screenkey slop \
+  xsel xclip autocutsel clipnotify clipmenu-git \
+  xcape xtitle screenkey slop \
   redshift-qt \
   upower \
   udiskie
