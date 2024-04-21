@@ -100,12 +100,12 @@ fs.inotify.max_queued_events=1000000
 EOF
 
 # Enable suspend-then-hibernate
-sudo tee -a /etc/systemd/logind.conf <<EOF
-IdleAction=suspend-then-hibernate
-IdleActionSec=15min
-HibernateDelaySec=30min
-EOF
-sudo systemctl restart systemd-logind
+# sudo tee -a /etc/systemd/logind.conf <<EOF
+# IdleAction=suspend-then-hibernate
+# IdleActionSec=15min
+# HibernateDelaySec=30min
+# EOF
+# sudo systemctl restart systemd-logind
 
 # Enable vbox access for current user
 sudo groupadd -f vboxsf
