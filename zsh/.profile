@@ -1,3 +1,7 @@
+if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
+  exec startx
+fi
+
 # Adjust path to use various bin folders
 export PATH="$PATH:$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.gem/ruby/2.6.0/bin/:$HOME/go/bin:$HOME/Apps/"
 

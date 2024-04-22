@@ -1,6 +1,12 @@
 #!/bin/bash
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
+   --color=border:#268bd2
+   --border=none
+   --margin 0,0
+   --preview-window=border-sharp:wrap
+   --no-separator
+   --info=inline-right
    --cycle
    --print-query
    --no-multi
@@ -38,6 +44,7 @@ prompt() {
   : > $FILE_CHOICES
   st -c FZFMenu -n FZFMenu -T "$TITLE" \
     -e "$SHELL" -c "
+      source ~/.fzf.zsh
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
       export BAT_THEME=base16-256;
