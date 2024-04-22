@@ -81,5 +81,7 @@ if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
 fi
 
+st -e /bin/zsh -ic "tmux new-session -A -s default" &
+
 # And finally, start our WM
 exec bspwm
