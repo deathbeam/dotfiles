@@ -33,7 +33,7 @@ au('LspAttach', {
         end
 
         if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
-            vim.lsp.inlay_hint.enable(event.buf, true)
+            vim.lsp.inlay_hint.enable(true)
         end
 
         if client.server_capabilities.hoverProvider then
