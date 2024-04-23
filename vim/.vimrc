@@ -61,7 +61,9 @@ set splitright
 set nowrap
 
 " Always show the status line
-set laststatus=2
+set rulerformat=%=%t\ %#Comment#%l,%c%V
+set statusline=%{repeat('─',winwidth('.'))}%=\ %t\ %#Comment#%l,%c%V\ %=
+set laststatus=0
 
 " Never show tab line
 set showtabline=0
