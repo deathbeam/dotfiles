@@ -71,7 +71,7 @@ utils.au('BufEnter', {
     callback = function()
         vim.opt_local.relativenumber = false
         vim.opt_local.number = false
-    end
+    end,
 })
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })

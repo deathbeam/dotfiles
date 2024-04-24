@@ -23,7 +23,7 @@ function StatusLineActive()
         -- left/right separator
         [[%=]],
         -- color 3
-        [[ %3*]],
+        [[%3*]],
         -- cursor info
         [[ %l/%L-%v 0x%04B ]],
     })
@@ -36,9 +36,13 @@ function StatusLineInactive()
         -- modified flag
         [[%m]],
         -- full path
-        [[ %<%F]],
+        [[ %<%F ]],
     })
 end
+
+vim.cmd([[
+set fillchars=stl:─,stlnc:─
+]])
 
 au({ 'WinEnter', 'BufEnter' }, {
     pattern = { '*' },
