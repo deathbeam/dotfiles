@@ -7,18 +7,14 @@ local base16 = require('base16-colorscheme')
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
-        local base0D = base16.colors.base0D
         local base00 = base16.colors.base00
         local base03 = base16.colors.base03
 
-        vim.api.nvim_set_hl(0, 'StatusLine', { fg = base00, underline = false })
-        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03, underline = false })
+        vim.api.nvim_set_hl(0, 'StatusLine', { fg = base03 })
+        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
         vim.api.nvim_set_hl(0, 'LineNr', { fg = base03 })
         vim.api.nvim_set_hl(0, 'VertSplit', { fg = base03 })
         vim.api.nvim_set_hl(0, 'WinSeparator', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'User1', { underline = false, bg = base0D, fg = base00 })
-        vim.api.nvim_set_hl(0, 'User2', { underline = false, fg = base0D })
-        vim.api.nvim_set_hl(0, 'User3', { underline = false, fg = base03 })
     end,
 })
 base16.load_from_shell()

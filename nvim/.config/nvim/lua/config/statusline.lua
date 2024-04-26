@@ -40,10 +40,6 @@ function StatusLineInactive()
     })
 end
 
-vim.cmd([[
-set fillchars=stl:─,stlnc:─
-]])
-
 au({ 'WinEnter', 'BufEnter' }, {
     pattern = { '*' },
     callback = function()

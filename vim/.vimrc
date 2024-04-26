@@ -60,8 +60,11 @@ set splitright
 " Disable text wrap
 set nowrap
 
-" Always show the status line
-set laststatus=2
+" Hide status line
+set laststatus=0
+set noruler
+set statusline==%{repeat('─',winwidth('.')-1)}
+set fillchars=stl:─,stlnc:─
 
 " Never show tab line
 set showtabline=0
