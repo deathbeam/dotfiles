@@ -2,6 +2,9 @@ local au = require('config.utils').au
 
 function StatusLineActive()
     return table.concat({
+        -- prefix
+        [[%2*]],
+        '──',
         -- color 1
         [[%1*]],
         -- file type
@@ -18,11 +21,16 @@ function StatusLineActive()
         [[%3*]],
         -- cursor info
         [[ %l/%L-%v 0x%04B ]],
+        -- suffix
+        [[%2*]],
+        '──',
     })
 end
 
 function StatusLineInactive()
     return table.concat({
+        -- prefix
+        '──',
         -- file type
         [[ %y]],
         -- modified flag
