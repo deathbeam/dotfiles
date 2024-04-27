@@ -12,15 +12,16 @@ fi
 source ~/.profile
 
 # Set DPI
-if [[ -z "${HDPI}" ]]; then
-  xrandr -s 1920x1080
-  export DPI=96
-  export POLYBAR_BAR_HEIGHT=40
-else
-  export GDK_SCALE=2
-  export GDK_DPI_SCALE=0.5
-  export DPI=196
-  export POLYBAR_BAR_HEIGHT=80
+export DPI=96
+export POLYBAR_BAR_HEIGHT=40
+export GDK_SCALE=1
+export QT_SCALE_FACTOR=1
+
+if [[ -n $SCALE_FACTOR ]]; then
+    export DPI=$(echo "$DPI * $SCALE_FACTOR" | bc)
+    export POLYBAR_BAR_HEIGHT=$(echo "$POLYBAR_BAR_HEIGHT * $SCALE_FACTOR" | bc)
+    export GDK_SCALE=$(echo "$GDK_SCALE * $SCALE_FACTOR" | bc)
+    export QT_SCALE_FACTOR=$(echo "$QT_SCALE_FACTOR * $SCALE_FACTOR" | bc)
 fi
 
 xrandr --dpi ${DPI}
@@ -66,14 +67,19 @@ if command -v dropbox >/dev/null 2>&1; then
   dropbox start &
 fi
 
+# Start steam
+if command -v steam >/dev/null 2>&1; then
+  steam -silent &
+fi
+
+# Start discod
+if command -v discord >/dev/null 2>&1; then
+  discord --start-minimized &
+fi
+
 # Start udiskie
 if command -v udiskie >/dev/null 2>&1; then
   udiskie --tray &
-fi
-
-# Start screenkey
-if command -v screenkey >/dev/null 2>&1; then
-  screenkey &
 fi
 
 # Start key manager daemon

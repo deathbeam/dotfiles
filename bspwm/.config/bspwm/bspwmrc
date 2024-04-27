@@ -26,6 +26,11 @@ screenwidth="$((screenwidth - 2))"
 screenheight=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 2)
 screenheight="$((screenheight - 2))"
 winheight=350
+if [[ -n $SCALE_FACTOR ]]; then
+    winheight=$(echo "$winheight * $SCALE_FACTOR" | bc)
+    winheight=${winheight%.*}
+fi
+
 offsety="$((screenheight - $winheight))"
 bspc rule -a \*:FZFMenu state=floating sticky=on rectangle="$screenwidth"x"$winheight"+0+"$offsety"
 

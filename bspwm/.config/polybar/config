@@ -5,9 +5,10 @@ include-file = $BASE16_POLYBAR_PATH
 monitor = ${env:MONITOR:}
 wm-restack = bspwm
 override-redirect = false
-width = 100%
+width = 10iz
 height = ${env:POLYBAR_BAR_HEIGHT:40}
-dpi = -1
+dpi-x = ${env:DPI:-1}
+dpi-y = ${env:DPI:-1}
 offset-x = 0
 offset-y = 0
 bottom = false
@@ -22,8 +23,8 @@ module-margin-right = 2
 
 background = ${colors.base01}
 foreground = ${colors.base05}
-font-0 = monospace:size=18:antialias=false:autohint=false;2
-font-1 = Terminess Nerd Font:size=14:antialias=false:autohint=false;2
+font-0 = monospace:size=12:antialias=false:autohint=false;2
+font-1 = Terminess Nerd Font:size=12:antialias=true:autohint=true;2
 
 modules-left = bspwm title
 modules-right = tray wifi wired volume backlight memory cpu battery date

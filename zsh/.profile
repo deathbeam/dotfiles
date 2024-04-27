@@ -1,5 +1,5 @@
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-  exec startx
+  exec env SCALE_FACTOR=1.5 startx
 fi
 
 # Adjust path to use various bin folders
@@ -45,5 +45,7 @@ export BASE16_POLYBAR_PATH=~/.config/polybar/base16-polybar/colors/base16-${BASE
 
 # Auto scale for QT5 apps
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
+export QT_SCALE_FACTOR_ROUNDING_POLICY=PassThrough
+export QT_ENABLE_HIGHDPI_SCALING=1
 
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"

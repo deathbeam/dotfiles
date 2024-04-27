@@ -22,7 +22,7 @@ yay --noconfirm -S --mflags --skipinteg \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
-  tlp udisks2 rate-mirrors unzip fuse2
+  tlp udisks2 rate-mirrors unzip fuse2 bc
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -58,8 +58,7 @@ yay --noconfirm -S --mflags --skipinteg \
   redshift-qt \
   udiskie \
   dropbox \
-  slop screenkey \
-  mpv yt-dlp discord boosteroid stremio steam calibre \
+  mpv yt-dlp vesktop boosteroid stremio steam calibre \
   postman
 
 mkdir -p ~/git
