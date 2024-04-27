@@ -22,7 +22,7 @@ yay --noconfirm -S --mflags --skipinteg \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
-  tlp udisks2 rate-mirrors unzip fuse2 bc
+  tlp udisks2 rate-mirrors unzip fuse2 bc brightnessctl
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \

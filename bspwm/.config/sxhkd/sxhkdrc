@@ -79,17 +79,16 @@ XF86AudioMicMute
 # Increase birghtness
 XF86KbdBrightnessUp
 XF86MonBrightnessUp
-  sudo light -A 5
+  brightnessctl s +5%
 
 # Decrease birghtness
 XF86KbdBrightnessDown
 XF86MonBrightnessDown
-  sudo light -U 5
+  brightnessctl s 5%-
 
 # Print screen
 Print
-  import ~/screenshot.png; \
-  xclip -selection clipboard -t image/png -i ~/screenshot.png
+  import ~/screenshot.png && xclip -selection clipboard -t image/png -i ~/screenshot.png
 
 #
 # bspwm hotkeys

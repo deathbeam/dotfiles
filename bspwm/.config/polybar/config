@@ -63,7 +63,7 @@ label-private = p
 
 [module/wifi]
 type = internal/network
-interface = wlp63s0
+interface = wlan0
 interval = 3.0
 format-connected = <label-connected>
 label-connected =   %essid%
@@ -90,7 +90,7 @@ ramp-headphones-0 = 
 
 [module/battery]
 type = internal/battery
-battery = BAT1
+battery = BAT0
 full-at = 90
 
 label-charging = +%percentage%%
@@ -120,7 +120,7 @@ label-maxlen = 70
 
 [module/backlight]
 type = internal/backlight
-card = intel_backlight
+card = nvidia_wmi_ec_backlight
 format =  <label>
 
 [module/tray]
