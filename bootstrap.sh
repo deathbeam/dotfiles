@@ -15,6 +15,7 @@ cd $cur_dir
 
 echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
+  mkinitcpio-firmware \
   net-tools \
   xdg-utils xdg-user-dirs \
   stow zsh tmux ripgrep mlocate htop \
