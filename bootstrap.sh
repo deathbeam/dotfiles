@@ -23,7 +23,7 @@ yay --noconfirm -S --mflags --skipinteg \
   pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
   tlp udisks2 rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip
+  p7zip man-db
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -107,17 +107,15 @@ EOF
 # EOF
 # sudo systemctl restart systemd-logind
 
-# Enable vbox access for current user
+# Modify groups
 sudo groupadd -f vboxsf
 sudo usermod -aG vboxsf "$USER"
-
-# Enable docker for current user
 sudo groupadd -f docker
 sudo usermod -aG docker "$USER"
-
-# Add nogroup group for current user
-sudo groupadd nogroup
+sudo groupadd -f nogroup
 sudo usermod -aG nogroup "$USER"
+sudo groupadd -f video
+sudo usermod -aG video "$USER"
 
 # Update XDG
 xdg-user-dirs-update
