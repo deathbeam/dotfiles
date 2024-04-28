@@ -13,7 +13,7 @@ offset-x = 0
 offset-y = 0
 bottom = false
 border-bottom-size = 0
-spacing = 1
+spacing = 0
 underline-size = 0
 overline-size = 0
 padding-left = 0
@@ -27,11 +27,11 @@ font-0 = monospace:size=12:antialias=false:autohint=false;2
 font-1 = Terminess Nerd Font:size=12:antialias=true:autohint=true;2
 
 modules-left = bspwm title
-modules-right = tray wifi wired volume backlight memory cpu battery date
+modules-right = tray wifi wired cpu memory volume backlight battery date
 
 [module/bspwm]
 type = internal/bspwm
-format = <label-state> <label-mode>
+format = <label-state><label-mode>
 
 label-dimmed-foreground = ${colors.base04}
 
@@ -47,19 +47,51 @@ label-empty-padding = 1
 
 label-urgent = %name%
 label-urgent-background = ${colors.base08}
+label-urgent-foreground = ${colors.base00}
 label-urgent-padding = 1
 
 label-occupied = %name%
 label-occupied-padding = 1
 
 label-monocle = m
+label-monocle-background = ${colors.base0C}
+label-monocle-foreground = ${colors.base00}
+label-monocle-padding = 1
+
 label-tiled = t
+label-tiled-background = ${colors.base0B}
+label-tiled-foreground = ${colors.base00}
+label-tiled-padding = 1
+
 label-fullscreen = F
+label-fullscreen-background = ${colors.base0B}
+label-fullscreen-foreground = ${colors.base00}
+label-fullscreen-padding = 1
+
 label-floating = f
+label-floating-background = ${colors.base0F}
+label-floating-foreground = ${colors.base00}
+label-floating-padding = 1
+
 label-pseudotiled = P
+label-pseudotiled-background = ${colors.base0B}
+label-pseudotiled-foreground = ${colors.base00}
+label-pseudotiled-padding = 1
+
 label-locked = l
+label-locked-background = ${colors.base0B}
+label-locked-foreground = ${colors.base00}
+label-locked-padding = 1
+
 label-sticky = s
+label-sticky-background = ${colors.base0B}
+label-sticky-foreground = ${colors.base00}
+label-sticky-padding = 1
+
 label-private = p
+label-private-background = ${colors.base0B}
+label-private-foreground = ${colors.base00}
+label-private-padding = 1
 
 [module/wifi]
 type = internal/network
@@ -76,12 +108,12 @@ label-connected =  %{T3}%local_ip%%{T-}
 
 [module/date]
 type = internal/date
-date =  %Y-%m-%d  %H:%M
+date =   %Y-%m-%d   %H:%M
 interval = 5
 
 [module/volume]
 type = internal/alsa
-format-volume = <ramp-volume> <label-volume>
+format-volume = <ramp-volume>  <label-volume>
 label-volume = %percentage%
 label-muted = 
 ramp-volume-0 = 
@@ -97,9 +129,9 @@ label-charging = +%percentage%%
 label-discharging = -%percentage%%
 label-full = %percentage%%
 
-format-charging = <animation-charging> <label-charging>
-format-discharging = <ramp-capacity> <label-discharging>
-format-full = <ramp-capacity> <label-full>
+format-charging = <animation-charging>  <label-charging>
+format-discharging = <ramp-capacity>  <label-discharging>
+format-full = <ramp-capacity>  <label-full>
 
 ramp-capacity-0 = 
 ramp-capacity-1 = 
@@ -129,8 +161,8 @@ tray-spacing = 2px
 
 [module/cpu]
 type = internal/cpu
-format =  <label>
+format =   <label>
 
 [module/memory]
 type = internal/memory
-format = 󰍛 <label>
+format =   <label>
