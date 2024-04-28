@@ -15,15 +15,14 @@ cd $cur_dir
 
 echo '==> Installing extra packages'
 yay --noconfirm -S --mflags --skipinteg \
-  freetype2 libxft libxrandr libxinerama libxext libglvnd net-tools \
+  net-tools \
   xdg-utils xdg-user-dirs \
-  acpi geoclue2 redshift \
   stow zsh tmux ripgrep mlocate htop \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
-  tlp udisks2 rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip man-db
+  tlp rate-mirrors unzip fuse2 bc brightnessctl \
+  p7zip man-db alsa-utils \
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -37,18 +36,15 @@ yay --noconfirm -S --mflags --skipinteg \
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
+echo '==> Installing font packages'
+yay --noconfirm -S --mflags --skipinteg \
+  fonts-meta-base \
+  terminus-font terminus-font-ttf ttf-terminus-nerd
+
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
   xdotool xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape xtitle \
-  xclip xsel autocutsel clipboard-bin \
-  alsa-utils \
-  upower
-
-echo '==> Installing font packages'
-yay --noconfirm -S --mflags --skipinteg \
-  freetype2 cairo libxft \
-  fonts-meta-base \
-  terminus-font terminus-font-ttf ttf-terminus-nerd
+  xclip xsel autocutsel clipboard-bin
 
 echo '==> Installing X11 applications'
 yay --noconfirm -S --mflags --skipinteg \
@@ -56,7 +52,7 @@ yay --noconfirm -S --mflags --skipinteg \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar \
-  redshift-qt \
+  geoclue2 redshift redshift-qt \
   udiskie \
   dropbox \
   mpv yt-dlp vesktop boosteroid stremio steam calibre \
