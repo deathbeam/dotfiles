@@ -165,4 +165,4 @@ rivertile -view-padding 6 -outer-padding 6 &
 way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &
 
 # Start waybar
-waybar &
+riverctl spawn waybar
