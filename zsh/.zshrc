@@ -73,7 +73,21 @@ alias arch-update='yay -Syu --noconfirm'
 # Set proxy
 function setproxy {
   export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
-  export http_proxy=http://$1
+
+  reversed_proxy=$(echo $1 | rev)
+  host=$(echo $reversed_proxy | cut -d: -f2- | rev)
+  port=$(echo $reversed_proxy | cut -d: -f1 | rev)
+
+  if [ -n "$2" ] && [ -n "$3" ]; then
+    user=$2
+    password=$3
+    export http_proxy="http://$user:$password@$1"
+    export JDK_JAVA_OPTIONS="-Dhttp.proxyHost='$host' -Dhttp.proxyPort='$port' -Dhttps.proxyHost='$host' -Dhttps.proxyPort='$port' -Dhttp.nonProxyHosts='$no_proxy' -Dhttp.proxyUser='$user' -Dhttp.proxyPassword='$password' -Dhttps.proxyUser='$user' -Dhttps.proxyPassword='$password'"
+  else
+    export http_proxy="http://$1"
+    export JDK_JAVA_OPTIONS="-Dhttp.proxyHost='$host' -Dhttp.proxyPort='$port' -Dhttps.proxyHost='$host' -Dhttps.proxyPort='$port' -Dhttp.nonProxyHosts='$no_proxy'"
+  fi
+
   export https_proxy=$http_proxy
   export ftp_proxy=$http_proxy
   export rsync_proxy=$http_proxy
@@ -81,11 +95,6 @@ function setproxy {
   export HTTPS_PROXY=$http_proxy
   export FTP_PROXY=$http_proxy
   export RSYNC_PROXY=$http_proxy
-
-  reversed_proxy=$(echo $1 | rev)
-  host=$(echo $reversed_proxy | cut -d: -f2- | rev)
-  port=$(echo $reversed_proxy | cut -d: -f1 | rev)
-  export JDK_JAVA_OPTIONS="-Dhttp.proxyHost=$host -Dhttp.proxyPort=$port -Dhttps.proxyHost=$host -Dhttps.proxyPort=$port"
 }
 
 # Unset proxy
