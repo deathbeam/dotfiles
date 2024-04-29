@@ -17,15 +17,16 @@ fzf_lua.setup({
         ['-p'] = '100%,100%',
     },
     files = {
-        fzf_opts = {
-            ['--info'] = false,
+        formatter = "path.filename_first",
+    },
+    git = {
+        files = {
+            formatter = "path.filename_first",
         },
     },
     grep = {
         prompt = 'Grep❯ ',
-        fzf_opts = {
-            ['--info'] = false,
-        },
+        formatter = "path.filename_first",
     },
     lsp = {
         code_actions = {
