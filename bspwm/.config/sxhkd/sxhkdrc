@@ -26,6 +26,10 @@ super + x
 super + c
   ~/.config/dmenu/clipmenu -p "clip"
 
+# steam menu
+super + v
+  ~/.config/dmenu/steammenu -p "steam"
+
 # lock screen
 super + e
   slock
