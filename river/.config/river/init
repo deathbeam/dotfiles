@@ -103,29 +103,20 @@ riverctl border-color-unfocused 0x586e75
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
 
-# Declare a passthrough mode. This mode has only a single mapping to return to
-# normal mode. This makes it useful for testing a nested wayland compositor
-riverctl declare-mode passthrough
-
-# Super+F11 to enter passthrough mode
-riverctl map normal Super F11 enter-mode passthrough
-
-# Super+F11 to return to normal mode
-riverctl map passthrough Super F11 enter-mode normal
-
 # Make all views with an app-id that starts with "float" and title "foo" start floating.
 riverctl rule-add -app-id 'float*' -title 'foo' float
 
 # Make all views with app-id "bar" and any title use client-side decorations
 riverctl rule-add -app-id "bar" csd
 
-# Set the default layout generator to be rivertile and start it.
-# River will send the process group of the init executable SIGTERM on exit.
+# Set the default layout generator to be rivertile and start it
 riverctl default-layout rivertile
-rivertile -view-padding 6 -outer-padding 6 &
+rivertile -view-padding 0 -outer-padding 0 &
 
-# Set way-displays
-way-displays > /tmp/way-displays.${XDG_VTNR}.${USER}.log 2>&1 &
+# Configure scale
+if [[ -n $SCALE_FACTOR ]]; then
+    wlr-randr --output eDP-2 --scale $SCALE_FACTOR
+fi
 
 # Start waybar
-riverctl spawn waybar
+riverctl spawn yambar
