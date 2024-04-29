@@ -24,8 +24,6 @@ if [[ -n $SCALE_FACTOR ]]; then
     export QT_SCALE_FACTOR=$(echo "$QT_SCALE_FACTOR * $SCALE_FACTOR" | bc)
 fi
 
-xrandr --setprovideroutputsource modesetting NVIDIA-0
-xrandr --auto
 xrandr --dpi ${DPI}
 xrdb -D"DPI=$DPI" -merge ~/.Xresources
 

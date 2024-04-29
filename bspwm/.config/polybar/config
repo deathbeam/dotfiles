@@ -27,7 +27,7 @@ font-0 = monospace:size=12:antialias=false:autohint=false;2
 font-1 = Terminess Nerd Font:size=12:antialias=true:autohint=true;2
 
 modules-left = bspwm title
-modules-right = tray wifi wired cpu memory volume backlight battery date
+modules-right = tray wifi wired cpu memory nvidia-smi volume backlight battery date
 
 [module/bspwm]
 type = internal/bspwm
@@ -166,3 +166,9 @@ format =   <label>
 [module/memory]
 type = internal/memory
 format =   <label>
+
+[module/nvidia-smi]
+type = custom/script
+format =   <label>
+exec = nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{ print ""$1"%"}'
+interval = 5
