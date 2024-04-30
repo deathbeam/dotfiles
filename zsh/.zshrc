@@ -182,6 +182,11 @@ function () {
 set_theme $BASE16_THEME_DEFAULT true
 export BAT_THEME="base16-256"
 
+# Load asdf
+if [ -d /opt/asdf-vm ]; then
+  . /opt/asdf-vm/asdf.sh
+fi
+
 # }}}
 
 # User configuration {{{

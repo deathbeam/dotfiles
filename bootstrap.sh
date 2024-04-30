@@ -29,7 +29,7 @@ echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm github-cli azure-cli docker docker-compose lazygit
+  maven npm github-cli azure-cli docker docker-compose lazygit asdf-vm
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \

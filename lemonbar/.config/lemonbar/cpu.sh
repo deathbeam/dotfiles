@@ -1,21 +1,37 @@
 #!/bin/sh
 
-# Get the first line with aggregate of all CPUs
-cpu_last=($(head -n1 /proc/stat))
-idle_last=${cpu_last[4]}
+# File to store the previous CPU info
+file="/tmp/cpu_usage"
 
-# Sleep for a second
-sleep 1
+if [ -f "$file" ]
+then
+  # Get the previous CPU info
+  prev_cpu_info=($(cat "$file"))
+  PREV_TOTAL=${prev_cpu_info[0]}
+  PREV_IDLE=${prev_cpu_info[1]}
+else
+  # This is the first time this script is run
+  PREV_TOTAL=0
+  PREV_IDLE=0
+fi
 
-# Get the same line again
-cpu_now=($(head -n1 /proc/stat))
-idle_now=${cpu_now[4]}
+# Get the total CPU statistics, discarding the 'cpu ' prefix.
+CPU=($(sed -n 's/^cpu\s//p' /proc/stat))
+IDLE=${CPU[3]} # Just the idle CPU time.
 
-# Calculate the CPU usage
-idle_delta=$((idle_now - idle_last))
-total_delta=$((cpu_now[1]+cpu_now[2]+cpu_now[3]+cpu_now[4]-cpu_last[1]-cpu_last[2]-cpu_last[3]-cpu_last[4]))
+# Calculate the total CPU time.
+TOTAL=0
+for VALUE in "${CPU[@]:0:8}"; do
+TOTAL=$((TOTAL+VALUE))
+done
 
-# Calculate the CPU usage percentage
-cpu_usage=$((100*( (total_delta) - (idle_delta) ) / (total_delta) ))
+# Calculate the CPU usage since we last checked.
+DIFF_IDLE=$((IDLE-PREV_IDLE))
+DIFF_TOTAL=$((TOTAL-PREV_TOTAL))
+DIFF_USAGE=$(((1000*(DIFF_TOTAL-DIFF_IDLE)/DIFF_TOTAL+5)/10))
 
-echo $cpu_usage
+# Print the CPU usage
+echo $DIFF_USAGE
+
+# Store the current CPU info for the next run
+echo "$TOTAL $IDLE" > "$file"
