@@ -41,7 +41,7 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 c.fonts.default_family = "monospace"
 c.fonts.default_size = "12pt"
 c.fonts.web.family.standard = c.fonts.default_family
-c.fonts.web.size.default = 12
+c.fonts.web.size.default = 16
 
 # Tabs
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
