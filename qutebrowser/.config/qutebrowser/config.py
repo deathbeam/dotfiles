@@ -39,9 +39,9 @@ c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
 
 # Adjust font and font size
 c.fonts.default_family = "monospace"
-c.fonts.default_size = "14pt"
+c.fonts.default_size = "12pt"
 c.fonts.web.family.standard = c.fonts.default_family
-c.fonts.web.size.default = 16
+c.fonts.web.size.default = 12
 
 # Tabs
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
@@ -343,7 +343,3 @@ c.colors.tabs.selected.even.fg = base00
 
 # Background color of selected even tabs.
 c.colors.tabs.selected.even.bg = base0D
-
-# Background color for webpages if unset (or empty to use the theme's
-# color).
-# c.colors.webpage.bg = base00
