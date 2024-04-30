@@ -2,4 +2,4 @@
 set -ex
 
 yay --noconfirm -S --mflags --skipinteg \
-    river wlr-randr yambar alacritty
+    river wlr-randr zelbar alacritty
