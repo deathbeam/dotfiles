@@ -53,14 +53,19 @@ if [ -f /usr/lib/geoclue-2.0/demos/agent ]; then
   /usr/lib/geoclue-2.0/demos/agent &
 fi
 
+# Start redshift
+if command -v redshift >/dev/null 2>&1; then
+  redshift &
+fi
+
 # Start notification daemon
 if command -v dunst >/dev/null 2>&1; then
   dunst &
 fi
 
-# Start redshift
-if command -v redshift-qt >/dev/null 2>&1; then
-  redshift-qt &
+# Start udiskie
+if command -v udiskie >/dev/null 2>&1; then
+  udiskie &
 fi
 
 # Start dropbox
@@ -73,22 +78,20 @@ if command -v steam >/dev/null 2>&1; then
   steam -silent &
 fi
 
-# Start discod
+# Start discord
 if command -v discord >/dev/null 2>&1; then
   discord --start-minimized &
 fi
 
-# Start udiskie
-if command -v udiskie >/dev/null 2>&1; then
-  udiskie --tray &
+# Open terminal with tmux
+if command -v st >/dev/null 2>&1; then
+  st -e /bin/zsh -ic "tmux new-session -A -s default" &
 fi
 
 # Start key manager daemon
 if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
 fi
-
-st -e /bin/zsh -ic "tmux new-session -A -s default" &
 
 # And finally, start our WM
 exec bspwm

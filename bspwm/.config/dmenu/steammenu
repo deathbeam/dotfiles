@@ -7,5 +7,5 @@ done | ~/.config/dmenu/fzfmenu "$@")
 appid=$(echo "$selected_game" | grep -oP '^\d+')
 
 if [ -n "$appid" ]; then
-    steam -applaunch "$appid"
+    steam -silent -applaunch "$appid"
 fi

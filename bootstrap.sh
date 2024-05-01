@@ -23,7 +23,7 @@ yay --noconfirm -S --mflags --skipinteg \
   pass pass-otp zbar \
   httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
   tlp rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip man-db alsa-utils \
+  p7zip man-db alsa-utils
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -53,7 +53,7 @@ yay --noconfirm -S --mflags --skipinteg \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd polybar lemonbar-xft \
-  geoclue2 redshift redshift-qt \
+  geoclue2 redshift \
   udiskie \
   dropbox \
   mpv yt-dlp vesktop boosteroid stremio steam calibre \
