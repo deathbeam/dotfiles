@@ -28,6 +28,7 @@ export BAR_HEIGHT=$(apply_scale_factor 40)
 export GDK_SCALE=$(apply_scale_factor 1)
 export QT_SCALE_FACTOR=$(apply_scale_factor 1)
 
+# Set DPI and merge Xresources
 xrandr --auto
 xrandr --dpi ${DPI}
 xrdb -D"DPI=$DPI" -merge ~/.Xresources
