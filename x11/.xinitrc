@@ -93,5 +93,8 @@ if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
 fi
 
+# Start bar
+~/.config/bar/bar.sh &
+
 # And finally, start our WM
 exec bspwm

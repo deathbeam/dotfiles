@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-for m in $(polybar --list-monitors | cut -d":" -f1); do
+for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
   bspc monitor $m -d 1 2 3 4 5 6
 done
 
@@ -33,6 +33,3 @@ fi
 
 offsety="$((screenheight - $winheight))"
 bspc rule -a \*:FZFMenu state=floating sticky=on rectangle="$screenwidth"x"$winheight"+0+"$offsety"
-
-# Start polybar
-~/.config/polybar/start.sh

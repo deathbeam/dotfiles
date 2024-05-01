@@ -66,9 +66,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
 	path = zsh/.zsh/pack/bundle/start/base16-shell
 	url = https://github.com/tinted-theming/base16-shell
-[submodule "bspwm/.config/polybar/base16-polybar"]
-	path = bspwm/.config/polybar/base16-polybar
-	url = https://github.com/tinted-theming/base16-polybar
 [submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim

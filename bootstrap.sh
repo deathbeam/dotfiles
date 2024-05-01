@@ -52,7 +52,7 @@ yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
-  bspwm sxhkd polybar lemonbar-xft \
+  bspwm sxhkd lemonbar-xft \
   geoclue2 redshift \
   udiskie \
   dropbox \
