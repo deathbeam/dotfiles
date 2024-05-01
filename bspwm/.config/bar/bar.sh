@@ -148,4 +148,4 @@ bspc subscribe report > "$PANEL_FIFO" &
 WIDTH=$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -d'x' -f1)
 while read -r line; do
     echo "%{l}$(bspwm) $(title) %{r}$(wifi) $(cpu) $(mem) $(gpu) $(vol) $(bright) $(bat) $(clock) "
-done < "$PANEL_FIFO" | lemonbar -f 'Terminess Nerd Font:size=12' -B $COLOR_BG -F $COLOR_FG -g ${WIDTH}x60+0+0
+done < "$PANEL_FIFO" | lemonbar -f 'Terminess Nerd Font:size=12' -B $COLOR_BG -F $COLOR_FG -g ${WIDTH}x${BAR_HEIGHT}+0+0
