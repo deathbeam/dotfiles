@@ -11,18 +11,22 @@ fi
 # Load profile
 source ~/.profile
 
-# Set DPI
-export DPI=96
-export BAR_HEIGHT=40
-export GDK_SCALE=1
-export QT_SCALE_FACTOR=1
+# Apply scale factor to all variables
+function apply_scale_factor() {
+    if [[ -z $SCALE_FACTOR ]]; then
+        echo $1
+        return
+    fi
 
-if [[ -n $SCALE_FACTOR ]]; then
-    export DPI=$(echo "$DPI * $SCALE_FACTOR" | bc)
-    export BAR_HEIGHT=$(echo "$BAR_HEIGHT * $SCALE_FACTOR" | bc)
-    export GDK_SCALE=$(echo "$GDK_SCALE * $SCALE_FACTOR" | bc)
-    export QT_SCALE_FACTOR=$(echo "$QT_SCALE_FACTOR * $SCALE_FACTOR" | bc)
-fi
+    local new_val=$(echo "$1 * $SCALE_FACTOR" | bc)
+    new_val=${new_val%.*}
+    echo $new_val
+}
+
+export DPI=$(apply_scale_factor 96)
+export BAR_HEIGHT=$(apply_scale_factor 40)
+export GDK_SCALE=$(apply_scale_factor 1)
+export QT_SCALE_FACTOR=$(apply_scale_factor 1)
 
 xrandr --auto
 xrandr --dpi ${DPI}
