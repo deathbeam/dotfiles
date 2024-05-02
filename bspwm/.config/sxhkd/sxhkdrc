@@ -71,6 +71,22 @@ Print
   import ~/screenshot.png && xclip -selection clipboard -t image/png -i ~/screenshot.png
 
 #
+# asus keys
+#
+
+# Open control center
+XF86Launch1
+  rog-control-center
+
+# Next arua effect
+XF86Launch3
+  asusctl led-mode -n
+
+# Next fan mode
+XF86Launch4
+  asusctl profile -n
+
+#
 # bspwm hotkeys
 #
 
