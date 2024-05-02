@@ -1,5 +1,8 @@
 [env]
 TERM = "xterm-256color"
 
+[scrolling]
+history = 0
+
 [font]
-size = 9
+size = 12.0

@@ -24,6 +24,7 @@ export DPI=$(apply_scale_factor 96)
 export BAR_HEIGHT=$(apply_scale_factor 40)
 export GDK_SCALE=${SCALE_FACTOR:-1}
 export QT_SCALE_FACTOR=$GDK_SCALE
+export WINIT_X11_SCALE_FACTOR=$GDK_SCALE
 
 # Set DPI and merge Xresources
 xrandr --auto
