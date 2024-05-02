@@ -57,7 +57,7 @@ yay --noconfirm -S --mflags --skipinteg \
   udiskie \
   dropbox \
   mpv yt-dlp vesktop boosteroid stremio steam calibre \
-  postman
+  postman alacritty
 
 mkdir -p ~/git
 cd ~/git
@@ -69,13 +69,6 @@ make
 cd ..
 
 echo '==> Installing packages from source'
-
-git clone git://git.suckless.org/st || true
-cd st
-git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
-cp config.def.h config.h
-sudo make clean install
-cd ..
 
 git clone git://git.suckless.org/slock || true
 cd slock

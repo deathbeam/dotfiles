@@ -42,7 +42,7 @@ run_menu() {
 
 prompt() {
   : > $FILE_CHOICES
-  st -c FZFMenu -n FZFMenu -T "$TITLE" \
+  alacritty --class FZFMenu -T "$TITLE" \
     -e "$SHELL" -c "
       source ~/.fzf.zsh
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;

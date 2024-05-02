@@ -86,8 +86,8 @@ if command -v discord >/dev/null 2>&1; then
 fi
 
 # Open terminal with tmux
-if command -v st >/dev/null 2>&1; then
-  st -e /bin/zsh -ic "tmux new-session -A -s default" &
+if command -v alacritty >/dev/null 2>&1; then
+  alacritty -e /bin/zsh -ic "tmux new-session -A -s default" &
 fi
 
 # Start key manager daemon

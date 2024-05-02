@@ -4,7 +4,7 @@
 
 # terminal emulator + tmux
 super + Return
-  st -e $SHELL -ic "tmux new-session -A -s default"
+  alacritty -e $SHELL -ic "tmux new-session -A -s default"
 
 # switcher menu
 super + Tab
