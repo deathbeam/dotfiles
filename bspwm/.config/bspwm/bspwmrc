@@ -20,6 +20,10 @@ bspc config gapless_monocle      false
 # Focus follows mouse
 bspc config focus_follows_pointer true
 
+# Move stuff with mouse
+bspc config pointer_action1 move
+bspc config pointer_action3 resize_corner
+
 # Menu
 screenwidth=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 1)
 screenwidth="$((screenwidth - 2))"

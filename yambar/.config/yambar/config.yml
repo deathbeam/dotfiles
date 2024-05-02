@@ -1,0 +1,66 @@
+bar:
+  height: 60
+  location: top
+  spacing: 5
+  margin: 15
+
+  font: Terminess Nerd Font:size=24
+
+  foreground: 93A1A1ff
+  background: 073642ff
+
+  border:
+    width: 0
+
+  left:
+    # -
+    #   script:
+    #     path: ~/.config/yambar/bspwm.sh
+    -
+      xwindow:
+        content:
+          string: {text: "{application}: {title}"}
+    -
+      foreign-toplevel:
+        content:
+          map:
+            conditions:
+              activated:
+                - string: {text: "{app-id}: {title}"}
+  right:
+    -
+      network:
+        poll-interval: 1000
+        content:
+          map:
+            default: {empty: {}}
+            conditions:
+              name == wlan0:
+                - string: {text: "  "}
+                - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
+    -
+      alsa:
+        card: hw:PCH
+        mixer: Master
+        content:
+          - string: {text: "  "}
+          - string: {text: "{percent}%"}
+    -
+      backlight:
+        name: nvidia_wmi_ec_backlight
+        content:
+          - string: {text: " "}
+          - string: {text: "{percent}%"}
+    -
+      battery:
+        name: BAT0
+        content:
+          - string: {text: "  "}
+          - string: {text: "{capacity}%"}
+    -
+      clock:
+        date-format: "%Y-%m-%d"
+        time-format: "%H:%M"
+        content:
+          - string: {text: "  "}
+          - string: {text: "{date} {time}"}
