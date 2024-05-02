@@ -70,6 +70,13 @@ cd ..
 
 echo '==> Installing packages from source'
 
+git clone git://git.suckless.org/st || true
+cd st
+git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
+cp config.def.h config.h
+sudo make clean install
+cd ..
+
 git clone git://git.suckless.org/slock || true
 cd slock
 cp config.def.h config.h

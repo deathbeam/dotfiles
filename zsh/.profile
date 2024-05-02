@@ -34,6 +34,9 @@ export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"
 export BASE16_THEME_DEFAULT="solarized-dark"
 export BASE16_FZF_PATH=~/.zsh/pack/bundle/start/base16-fzf
 
+# Set the default terminal emulator
+export TERMINAL="alacritty"
+
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1

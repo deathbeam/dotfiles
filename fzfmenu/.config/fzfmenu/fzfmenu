@@ -20,6 +20,10 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
 FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
 FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
 TITLE="fzf-menu"
+TERM_CLASS="-c"
+if [ "$TERMINAL" = "alacritty" ]; then
+   TERM_CLASS="--class"
+fi
 
 kill_old() {
   xdotool search --class FZFMenu windowkill
@@ -43,7 +47,7 @@ run_menu() {
 
 prompt() {
   : > $FILE_CHOICES
-  alacritty --class FZFMenu -T "$TITLE" \
+  $TERMINAL $TERM_CLASS FZFMenu -T "$TITLE" \
     -e "$SHELL" -c "
       source ~/.fzf.zsh
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
