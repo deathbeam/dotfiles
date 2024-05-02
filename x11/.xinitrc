@@ -40,7 +40,7 @@ fi
 
 # Start gammastep
 if command -v gammastep >/dev/null 2>&1; then
-  gammastep &
+  gammastep -m randr &
 fi
 
 # Start notification daemon
@@ -79,7 +79,7 @@ if command -v sxhkd >/dev/null 2>&1; then
 fi
 
 # Start bar
-~/.config/bar/bar.sh &
+~/.config/bar/bar &
 
 # And finally, start our WM
 exec bspwm
