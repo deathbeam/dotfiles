@@ -8,6 +8,12 @@ function session_name() {
 }
 
 function get_marked_sessions() {
+    for session in $tmux_sessions; do
+        local name="$(session_name $session)"
+        if [[ $all_sessions != *$name* ]]; then
+            echo -e "\033[0;32m$session\033[0m"
+        fi
+    done
     for session in $all_sessions; do
         local name="$(session_name $session)"
         if [[ $tmux_sessions == *$name* ]]; then
@@ -25,6 +31,8 @@ function get_marked_sessions() {
 selected_project=$(get_marked_sessions | fzf-tmux \
     --ansi -p100%,100% -m --reverse \
     --prompt='Open session > ' \
+    --bind="ctrl-s:print-query" \
+    --header='<ctrl-s> to use query' \
     --preview='ls --group-directories-first --color=always -lahG {}')
 
 if [[ -z $selected_project ]]; then
