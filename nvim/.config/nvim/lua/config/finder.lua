@@ -26,6 +26,7 @@ fzf_lua.setup({
     },
     grep = {
         prompt = 'Grep❯ ',
+        rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         formatter = "path.filename_first",
     },
     lsp = {
