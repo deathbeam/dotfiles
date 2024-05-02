@@ -8,9 +8,6 @@ if [ -d /etc/X11/xinit/xinitrc.d ]; then
   unset f
 fi
 
-# Load profile
-source ~/.profile
-
 # Apply scale factor to all variables
 function apply_scale_factor() {
     if [[ -z $SCALE_FACTOR ]]; then
@@ -25,8 +22,8 @@ function apply_scale_factor() {
 
 export DPI=$(apply_scale_factor 96)
 export BAR_HEIGHT=$(apply_scale_factor 40)
-export GDK_SCALE=$(apply_scale_factor 1)
-export QT_SCALE_FACTOR=$(apply_scale_factor 1)
+export GDK_SCALE=${SCALE_FACTOR:-1}
+export QT_SCALE_FACTOR=$GDK_SCALE
 
 # Set DPI and merge Xresources
 xrandr --auto
