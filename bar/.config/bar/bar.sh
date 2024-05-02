@@ -21,39 +21,73 @@ COLOR_STATE_FG=$COLOR_FREE_FG
 COLOR_STATE_BG=$COLOR_FREE_BG
 
 function bat {
-    echo " $($p/bat.sh)%"
+    local v="$($p/bat.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function cpu {
-    echo " $($p/cpu.sh)%"
+    local v="$($p/cpu.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function mem {
-    echo " $($p/mem.sh)%"
+    local v="$($p/mem.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function gpu {
-    echo " $($p/gpu.sh)%"
+    local v="$($p/gpu.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function vol {
-    echo " $($p/vol.sh)%"
+    local v="$($p/vol.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function bright {
-    echo " $($p/bright.sh)%"
+    local v="$($p/bright.sh)"
+    if [ -n "$v" ]; then
+        echo " $v%"
+    fi
 }
 
 function clock {
-    echo " $($p/clock.sh)"
+    local v="$($p/clock.sh)"
+    if [ -n "$v" ]; then
+        echo " $v"
+    fi
 }
 
 function title {
-    echo "$($p/title.sh)"
+    local v="$($p/title.sh)"
+    if [ -n "$v" ]; then
+        echo "$v"
+    fi
+}
+
+function wired {
+    local v="$($p/wired.sh)"
+    if [ -n "$v" ]; then
+        echo " $v"
+    fi
 }
 
 function wifi {
-    echo " $($p/wifi.sh)"
+    local v="$($p/wifi.sh)"
+    if [ -n "$v" ]; then
+        echo " $v"
+    fi
 }
 
 function bspwm {
@@ -147,5 +181,5 @@ bspc subscribe report > "$PANEL_FIFO" &
 # Get screen width
 WIDTH=$(xdpyinfo | awk '/dimensions:/ {print $2}' | cut -d'x' -f1)
 while read -r line; do
-    echo "%{l}$(bspwm) $(title) %{r}$(wifi) $(cpu) $(mem) $(gpu) $(vol) $(bright) $(bat) $(clock) "
+    echo "%{l}$(bspwm) $(title) %{r}$(wired) $(wifi) $(cpu) $(mem) $(gpu) $(vol) $(bright) $(bat) $(clock) "
 done < "$PANEL_FIFO" | lemonbar -f 'Terminess Nerd Font:size=12' -B $COLOR_BG -F $COLOR_FG -g ${WIDTH}x${BAR_HEIGHT}+0+0

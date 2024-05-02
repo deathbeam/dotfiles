@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+shopt -s nullglob globstar
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 processes="$(ps -eo %cpu,%mem,pid,user,cmd h)"
 echo "$processes" \
@@ -7,7 +9,7 @@ echo "$processes" \
     | awk '{print $1+$2, $0}' \
     | sort -k 1 -n -r \
     | cut -d ' ' -f 2- \
-    | ~/.config/dmenu/fzfmenu "$@" \
+    | $scriptpath/fzfmenu "$@" \
     --header="CPU% MEM% PID     USER     CMD" \
     --preview="echo {} | tr -s ' ' | cut -d ' ' -f 6-" \
     --preview-window=down,3,wrap \

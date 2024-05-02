@@ -1,11 +1,13 @@
 #!/usr/bin/env bash
+shopt -s nullglob globstar
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 ids=($(bspc query -N -n .leaf.\!hidden))
 options="$(xtitle "${ids[@]}" | awk '{ print ++i": "$0 }')"
 
 [[ -n "$options" ]] || exit
 
-id_index="$(<<< "$options" ~/.config/dmenu/fzfmenu "$@" | cut -d: -f1)"
+id_index="$(<<< "$options" $scriptpath/fzfmenu "$@" | cut -d: -f1)"
 if [ $id_index -gt 0 ]; then
   bspc node "${ids[$((id_index - 1))]}" -f
 fi

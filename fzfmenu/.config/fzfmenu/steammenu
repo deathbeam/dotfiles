@@ -1,8 +1,10 @@
 #!/usr/bin/env bash
+shopt -s nullglob globstar
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 selected_game=$(for file in ~/.steam/steam/steamapps/*.acf; do
     echo "$(grep -oP '"appid"\s+"\K\d+' "$file"): $(grep -oP '"name"\s+"\K[^"]+' "$file")"
-done | ~/.config/dmenu/fzfmenu "$@")
+done | $scriptpath/fzfmenu "$@")
 
 appid=$(echo "$selected_game" | grep -oP '^\d+')
 

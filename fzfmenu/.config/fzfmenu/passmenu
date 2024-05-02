@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 shopt -s nullglob globstar
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 typeit=0
 if [[ $1 == "--type" ]]; then
@@ -12,7 +13,7 @@ password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | ~/.config/dmenu/fzfmenu "$@")
+password=$(printf '%s\n' "${password_files[@]}" | $scriptpath/fzfmenu "$@")
 
 [[ -n $password ]] || exit
 

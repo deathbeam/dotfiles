@@ -8,27 +8,27 @@ super + Return
 
 # switcher menu
 super + Tab
-  ~/.config/dmenu/windowsmenu -p "switch"
+  ~/.config/fzfmenu/windowsmenu -p "switch"
 
 # program menu
 super + space
-  ~/.config/dmenu/runmenu -p "run"
+  ~/.config/fzfmenu/runmenu -p "run"
 
 # password menu
 super + z
-  ~/.config/dmenu/passmenu -p "pass"
+  ~/.config/fzfmenu/passmenu -p "pass"
 
 # process menu
 super + x
-  ~/.config/dmenu/procmenu -p "proc"
+  ~/.config/fzfmenu/procmenu -p "proc"
 
 # clipboard menu
 super + c
-  ~/.config/dmenu/clipmenu -p "clip"
+  ~/.config/fzfmenu/clipmenu -p "clip"
 
 # steam menu
 super + v
-  ~/.config/dmenu/steammenu -p "steam"
+  ~/.config/fzfmenu/steammenu -p "steam"
 
 # lock screen
 super + e

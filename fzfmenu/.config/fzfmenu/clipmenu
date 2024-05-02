@@ -1,12 +1,13 @@
 #!/usr/bin/env bash
 shopt -s nullglob globstar
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 list_clips() {
     cb hs | jq -r '.[].content | if type=="array" then .[].path else if type=="object" then .path else . end end | gsub("\n";"\\\\N")'
 }
 
 chosen_line=$(list_clips \
-    | ~/.config/dmenu/fzfmenu "$@" \
+    | $scriptpath/fzfmenu "$@" \
     --delimiter=: \
     --preview="echo {} | sed 's/\\\\N/\\n/g'" \
     --preview-window=right:40%)
