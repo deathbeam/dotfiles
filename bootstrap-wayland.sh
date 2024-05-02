@@ -1,4 +1,4 @@
 #!/usr/bin/bash -l
 set -ex
 
-yay --noconfirm -S --mflags --skipinteg hyprland xdg-desktop-portal-hyprland swaybg
+yay --noconfirm -S --mflags --skipinteg hyprland xdg-desktop-portal-hyprland swaybg wl-clipboard
