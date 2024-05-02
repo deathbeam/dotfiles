@@ -21,7 +21,7 @@ yay --noconfirm -S --mflags --skipinteg \
   stow zsh tmux ripgrep mlocate htop \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
-  httpie sshpass ntp stoken openvpn vpn-slice openconnect wget jq \
+  httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
   tlp rate-mirrors unzip fuse2 bc brightnessctl \
   p7zip man-db alsa-utils
 
