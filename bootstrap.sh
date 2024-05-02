@@ -53,7 +53,7 @@ yay --noconfirm -S --mflags --skipinteg \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
   bspwm sxhkd lemonbar-xft-git \
-  geoclue2 redshift \
+  geoclue2 gammastep \
   udiskie \
   dropbox \
   mpv yt-dlp vesktop boosteroid stremio steam calibre \

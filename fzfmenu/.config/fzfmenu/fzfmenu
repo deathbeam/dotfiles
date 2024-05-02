@@ -1,4 +1,5 @@
 #!/bin/bash
+scriptpath=$(dirname "$(readlink -f "$0")")
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
    --color=border:#268bd2
@@ -48,7 +49,7 @@ prompt() {
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
       export BAT_THEME=base16-256;
-      ~/.config/dmenu/closeonfocuslost.sh &;
+      $scriptpath/closeonfocuslost.sh &;
       fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null
   [ -s "$FILE_CHOICES" ] || exit 1
 }
