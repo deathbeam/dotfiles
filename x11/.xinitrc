@@ -64,8 +64,8 @@ if command -v steam >/dev/null 2>&1; then
 fi
 
 # Start discord
-if command -v discord >/dev/null 2>&1; then
-  discord --start-minimized &
+if command -v vesktop >/dev/null 2>&1; then
+  vesktop --start-minimized &
 fi
 
 # Open terminal with tmux
@@ -79,7 +79,9 @@ if command -v sxhkd >/dev/null 2>&1; then
 fi
 
 # Start bar
-~/.config/bar/bar &
+if command -v yambar >/dev/null 2>&1; then
+  yambar &
+fi
 
 # And finally, start our WM
 exec bspwm

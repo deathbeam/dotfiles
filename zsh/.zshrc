@@ -69,6 +69,7 @@ alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'
 alias arch-update-mirrors='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
 alias arch-remove-orphans='yay -Rns $(yay -Qtdq)'
 alias arch-update='yay -Syu --noconfirm'
+alias yayr='yay -Rnsc'
 
 # Set proxy
 function setproxy {
