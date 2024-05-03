@@ -16,9 +16,6 @@ xrdb -D"DPI=$DPI" -merge ~/.Xresources
 # Change mouse cursor from X11 X to normal one
 xsetroot -cursor_name left_ptr
 
-# Remap caps lock to control and escape
-setxkbmap -option 'caps:ctrl_modifier' && xcape -e 'Caps_Lock=Escape' &
-
 # Set gpg agent tty
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null

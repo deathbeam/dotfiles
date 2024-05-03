@@ -44,7 +44,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
-  xdotool xdo xtitle xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape \
+  xdotool xdo xtitle xorg-xdpyinfo xorg-xrandr xorg-xsetroot \
   xclip xsel autocutsel clipboard-bin
 
 echo '==> Installing X11 applications'
@@ -57,7 +57,7 @@ yay --noconfirm -S --mflags --skipinteg \
   udiskie \
   dropbox \
   mpv yt-dlp vesktop boosteroid stremio steam calibre \
-  postman alacritty
+  postman alacritty evremap
 
 mkdir -p ~/git
 cd ~/git
@@ -96,13 +96,12 @@ fs.inotify.max_user_watches=1000000
 fs.inotify.max_queued_events=1000000
 EOF
 
-# Enable suspend-then-hibernate
-# sudo tee -a /etc/systemd/logind.conf <<EOF
-# IdleAction=suspend-then-hibernate
-# IdleActionSec=15min
-# HibernateDelaySec=30min
-# EOF
-# sudo systemctl restart systemd-logind
+# Symlink configs
+sudo ln -s ~/git/dotfiles/evremap/.config/evremap/evremap.toml /etc/evremap.toml
+
+# Enable services
+sudo systemctl enable evremap.service
+sudo systemctl enable tlp.service
 
 # Modify groups
 sudo groupadd -f vboxsf
@@ -113,6 +112,8 @@ sudo groupadd -f nogroup
 sudo usermod -aG nogroup "$USER"
 sudo groupadd -f video
 sudo usermod -aG video "$USER"
+sudo groupadd -f input
+sudo usermod -aG input "$USER"
 
 # Update XDG
 xdg-user-dirs-update
