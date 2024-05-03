@@ -35,16 +35,18 @@ super + e
   slock
 
 #
-# media keys
+# special keys
 #
 
+# Print screen
+Print
+  import ~/screenshot.png && xclip -selection clipboard -t image/png -i ~/screenshot.png
+
 # Raise volume
-# note: also ensures audio is enabled
 XF86AudioRaiseVolume
   amixer -q set Master 5%+ on
 
 # Lower volume
-# note:  intentionally does not unmute
 XF86AudioLowerVolume
   amixer -q set Master 5%-
 
@@ -65,14 +67,6 @@ XF86MonBrightnessUp
 XF86KbdBrightnessDown
 XF86MonBrightnessDown
   brightnessctl s 5%-
-
-# Print screen
-Print
-  import ~/screenshot.png && xclip -selection clipboard -t image/png -i ~/screenshot.png
-
-#
-# asus keys
-#
 
 # Open control center
 XF86Launch1
