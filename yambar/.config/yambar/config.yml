@@ -87,48 +87,6 @@ bar:
                       conditions:
                         title != "":
                           string: {text: "{title}", max: 80, margin: *margin}
-    # -
-    #   river:
-    #     content:
-    #       map:
-    #         conditions:
-    #           id <= 5 && urgent:
-    #             string:
-    #               text: "{id}"
-    #               margin: *margin
-    #               foreground: *color_bg
-    #               deco: {background: {color: *color_urgent}}
-    #           id <= 5 && visible:
-    #             string:
-    #               text: "{id}"
-    #               margin: *margin
-    #               foreground: *color_bg
-    #               deco: {background: {color: *color_active}}
-    #           id <= 5 && occupied:
-    #             string:
-    #               text: "{id}"
-    #               margin: *margin
-    #           id <= 5 && ~occupied:
-    #             string:
-    #               text: "{id}"
-    #               margin: *margin
-    #               deco: {background: {color: *color_inactive}}
-    # -
-    #   xwindow:
-    #     content:
-    #       map:
-    #         conditions:
-    #           title != "":
-    #             - string: {text: "{application}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-    #             - string: {text: "{title}", margin: *margin}
-    # -
-    #   foreign-toplevel:
-    #     content:
-    #       map:
-    #         conditions:
-    #           activated && title != "":
-    #             - string: {text: "{app-id}", foreground: *color_bg, deco: {background: {color: *color_active}}}
-    #             - string: {text: "{title}"}
   right:
     -
       network:

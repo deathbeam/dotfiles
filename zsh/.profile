@@ -68,5 +68,5 @@ export QT_SCALE_FACTOR=$GDK_SCALE
 export WINIT_X11_SCALE_FACTOR=$GDK_SCALE
 
 if [ -z "$DISPLAY" ] && [ "$XDG_VTNR" = 1 ]; then
-  exec startx
+  # exec startx
 fi
