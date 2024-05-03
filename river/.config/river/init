@@ -1,5 +1,27 @@
 #!/bin/sh
 
+export LIBVA_DRIVER_NAME=nvidia
+export XDG_SESSION_TYPE=wayland
+export GBM_BACKEND=nvidia-drm
+export __GLX_VENDOR_LIBRARY_NAME=nvidia
+export GDK_BACKEND=wayland,x11
+export SDL_VIDEODRIVER=wayland
+export CLUTTER_BACKEND=wayland
+export MOZ_ENABLE_WAYLAND=1
+export MOZ_DISABLE_RDD_SANDBOX=1
+export QT_QPA_PLATFORM=wayland
+export WLR_NO_HARDWARE_CURSORS=1
+export __NV_PRIME_RENDER_OFFLOAD=1
+export __VK_LAYER_NV_optimus=NVIDIA_only
+export PROTON_ENABLE_NGX_UPDATER=1
+export NVD_BACKEND=direct
+export __GL_GSYNC_ALLOWED=1
+export __GL_VRR_ALLOWED=1
+export WLR_DRM_NO_ATOMIC=1
+export WLR_USE_LIBINPUT=1
+export __GL_MaxFramesAllowed=1
+export QT_SCALE_FACTOR=1
+
 # Super+w to close or kill the current view
 riverctl map normal Super W close
 
@@ -58,7 +80,7 @@ riverctl map-pointer normal Super BTN_RIGHT resize-view
 # Super + Middle Mouse Button to toggle float
 riverctl map-pointer normal Super BTN_MIDDLE toggle-float
 
-for i in $(seq 1 9)
+for i in $(seq 1 5)
 do
     tags=$((1 << ($i - 1)))
 
@@ -81,9 +103,6 @@ all_tags=$(((1 << 32) - 1))
 riverctl map normal Super 0 set-focused-tags $all_tags
 riverctl map normal Super+Shift 0 set-view-tags $all_tags
 
-# Super+Return to open terminal
-riverctl map normal Super Return spawn alacritty
-
 # Various media key mapping examples for both normal and locked mode which do not have a modifier
 for mode in normal locked
 do
@@ -97,8 +116,8 @@ done
 
 # Set background and border color
 riverctl background-color 0x002b36
-riverctl border-color-focused 0x93a1a1
-riverctl border-color-unfocused 0x586e75
+riverctl border-color-focused 0x268bd2
+riverctl border-color-unfocused 0x073642
 
 # Set keyboard repeat rate
 riverctl set-repeat 50 300
@@ -114,12 +133,33 @@ riverctl default-layout rivertile
 rivertile -view-padding 0 -outer-padding 0 &
 
 # Configure scale
-if [[ -n $SCALE_FACTOR ]]; then
-    wlr-randr --output eDP-2 --scale $SCALE_FACTOR
-fi
+wlr-randr --output eDP-2 --scale $SCALE_FACTOR
+screenwidth=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 1)
+screenwidth="$((screenwidth - 2))"
+screenheight=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 2)
+screenheight="$((screenheight - 2))"
+winheight=$(echo "350 * $SCALE_FACTOR" | bc)
+winheight=${winheight%.*}
+offsety="$((screenheight - $winheight))"
 
-# Start waybar
+riverctl rule-add -app-id 'FZFMenu' float
+riverctl rule-add -app-id 'FZFMenu' position  0 $offsety
+riverctl rule-add -app-id 'FZFMenu' dimensions $screenwidth $winheight
+
+# Application mappings
+riverctl map normal Super Return spawn "alacritty -e $SHELL -ic 'tmux new-session -A -s default'"
+riverctl map normal Super Tab spawn "~/.config/fzfmenu/windowsmenu -p 'switch'"
+riverctl map normal Super space spawn "~/.config/fzfmenu/runmenu -p 'run'"
+riverctl map normal Super z spawn "~/.config/fzfmenu/passmenu -p 'pass'"
+riverctl map normal Super x spawn "~/.config/fzfmenu/procmenu -p 'proc'"
+riverctl map normal Super c spawn "~/.config/fzfmenu/clipmenu -p 'clip'"
+riverctl map normal Super v spawn "~/.config/fzfmenu/steammenu -p 'steam'"
+
+riverctl spawn "swaybg -i $HOME/.wallpaper"
+riverctl spawn /usr/lib/geoclue-2.0/demos/agent
+riverctl spawn dunst
 riverctl spawn yambar
-
-# Start terminal
-riverctl spawn alacritty
+riverctl spawn gammastep
+riverctl spawn udiskie
+riverctl spawn dropbox
+riverctl spawn "alacritty -e $SHELL -ic 'tmux new-session -A -s default'"

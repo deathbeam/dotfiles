@@ -3,54 +3,102 @@ color_fg: &color_fg 93A1A1ff
 color_active: &color_active 268BD2ff
 color_inactive: &color_inactive 002B36ff
 color_urgent: &color_urgent DC322Fff
+margin: &margin 15
 
 bar:
   location: top
   font: Terminess Nerd Font:size=26
   height: 60
+  spacing: 0
+  margin: 0
 
   foreground: *color_fg
   background: *color_bg
 
   border:
     width: 0
+    margin: 0
 
   left:
-    # -
-    #   script:
-    #     path: ~/.config/yambar/bspwm.sh
+    -
+      script:
+        path: ~/.config/yambar/bspwm.sh
+        content:
+          - map:
+              conditions:
+                tag1_state == occupied:
+                  string: {text: 1, margin: *margin}
+                tag1_state == empty:
+                  string: {text: 1, deco: {background: {color: *color_inactive}}, margin: *margin}
+                tag1_state == urgent:
+                  string: {text: 1, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                tag1_state == focused:
+                  string: {text: 1, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+          - map:
+              conditions:
+                tag2_state == occupied:
+                  string: {text: 2, margin: *margin}
+                tag2_state == empty:
+                  string: {text: 2, deco: {background: {color: *color_inactive}}, margin: *margin}
+                tag2_state == urgent:
+                  string: {text: 2, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                tag2_state == focused:
+                  string: {text: 2, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+          - map:
+              conditions:
+                tag3_state == occupied:
+                  string: {text: 3, margin: *margin}
+                tag3_state == empty:
+                  string: {text: 3, deco: {background: {color: *color_inactive}}, margin: *margin}
+                tag3_state == urgent:
+                  string: {text: 3, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                tag3_state == focused:
+                  string: {text: 3, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+          - map:
+              conditions:
+                tag4_state == occupied:
+                  string: {text: 4, margin: *margin}
+                tag4_state == empty:
+                  string: {text: 4, deco: {background: {color: *color_inactive}}, margin: *margin}
+                tag4_state == urgent:
+                  string: {text: 4, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                tag4_state == focused:
+                  string: {text: 4, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+          - map:
+              conditions:
+                tag5_state == occupied:
+                  string: {text: 5, margin: *margin}
+                tag5_state == empty:
+                  string: {text: 5, deco: {background: {color: *color_inactive}}, margin: *margin}
+                tag5_state == urgent:
+                  string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                tag5_state == focused:
+                  string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
     -
       river:
-        anchors:
-          -
-            base: &river_base
-              left-margin: 15
-              right-margin: 15
-              conditions:
-                id == 1: {string: {text: 1}}
-                id == 2: {string: {text: 2}}
-                id == 3: {string: {text: 3}}
-                id == 4: {string: {text: 4}}
-                id == 5: {string: {text: 5}}
         content:
           map:
             conditions:
-              urgent:
-                map:
-                  <<: *river_base
+              id <= 5 && urgent:
+                string:
+                  text: "{id}"
+                  margin: *margin
                   foreground: *color_bg
                   deco: {background: {color: *color_urgent}}
-              visible:
-                map:
-                  <<: *river_base
+              id <= 5 && visible:
+                string:
+                  text: "{id}"
+                  margin: *margin
                   foreground: *color_bg
                   deco: {background: {color: *color_active}}
-              occupied:
-                map:
-                  <<: *river_base
-              ~occupied:
-                map:
-                  <<: *river_base
+              id <= 5 && occupied:
+                string:
+                  text: "{id}"
+                  margin: *margin
+              id <= 5 && ~occupied:
+                string:
+                  text: "{id}"
+                  margin: *margin
                   deco: {background: {color: *color_inactive}}
     -
       xwindow:
@@ -58,14 +106,14 @@ bar:
           map:
             conditions:
               title != "":
-                - string: {text: "{application}", foreground: *color_bg, deco: {background: {color: *color_active}}}
-                - string: {text: "{title}"}
+                - string: {text: "{application}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                - string: {text: "{title}", margin: *margin}
     -
       foreign-toplevel:
         content:
           map:
             conditions:
-              title != "":
+              activated && title != "":
                 - string: {text: "{app-id}", foreground: *color_bg, deco: {background: {color: *color_active}}}
                 - string: {text: "{title}"}
   right:
@@ -77,31 +125,43 @@ bar:
             default: {empty: {}}
             conditions:
               name == wlan0:
-                - string: {text: "  "}
-                - string: {text: "{ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s"}
+                string: {text: "  {ssid} {dl-speed:mb}/{ul-speed:mb} Mb/s", margin: *margin}
+    -
+      cpu:
+        content:
+          map:
+            conditions:
+              id < 0:
+                string: {text: "  {cpu}%", margin: *margin}
+    -
+      mem:
+        content:
+          string: {text: "  {percent_used}%", margin: *margin}
+    -
+      script:
+        path: ~/.config/yambar/gpu.sh
+        poll-interval: 1000
+        content:
+          string: {text: "  {percent}%", margin: 15}
     -
       alsa:
         card: hw:PCH
         mixer: Master
         content:
-          - string: {text: "  "}
-          - string: {text: "{percent}%"}
+          string: {text: "  {percent}%", margin: *margin}
     -
       backlight:
         name: nvidia_wmi_ec_backlight
         content:
-          - string: {text: " "}
-          - string: {text: "{percent}%"}
+          string: {text: " {percent}%", margin: *margin}
     -
       battery:
         name: BAT0
         content:
-          - string: {text: "  "}
-          - string: {text: "{capacity}%"}
+          string: {text: "  {capacity}%", margin: *margin}
     -
       clock:
         date-format: "%Y-%m-%d"
         time-format: "%H:%M"
         content:
-          - string: {text: "  "}
-          - string: {text: "{date} {time}"}
+          string: {text: "  {date} {time}", margin: *margin}

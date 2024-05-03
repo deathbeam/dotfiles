@@ -54,13 +54,15 @@ prompt() {
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
       export BAT_THEME=base16-256;
 
-      {
-        local window_id=\$(xdotool getwindowfocus)
-        while [ \"\$(xdotool getwindowfocus)\" = \"\$window_id\" ]; do
-            sleep 0.1
-        done
-        xdotool windowkill \$window_id
-      } &
+      if [ "\$XDG_SESSION_TYPE" != "wayland" ]; then
+          {
+            local window_id=\$(xdotool getwindowfocus)
+            while [ \"\$(xdotool getwindowfocus)\" = \"\$window_id\" ]; do
+                sleep 0.1
+            done
+            xdotool windowkill \$window_id
+          } &
+      fi
 
       fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null
   [ -s "$FILE_CHOICES" ] || exit 1
