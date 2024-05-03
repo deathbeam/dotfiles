@@ -1,4 +1,4 @@
-device_name = "AT Translated Set 2 keyboard"
+device_name = "Asus Keyboard"
 
 [[dual_role]]
 input = "KEY_CAPSLOCK"

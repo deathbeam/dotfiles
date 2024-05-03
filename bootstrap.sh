@@ -97,7 +97,7 @@ fs.inotify.max_queued_events=1000000
 EOF
 
 # Symlink configs
-sudo ln -s ~/git/dotfiles/evremap/.config/evremap/evremap.toml /etc/evremap.toml
+sudo ln -s ~/git/dotfiles/evremap/evremap.toml /etc/evremap.toml
 
 # Enable services
 sudo systemctl enable evremap.service
