@@ -2,6 +2,16 @@
 shopt -s nullglob globstar
 scriptpath=$(dirname "$(readlink -f "$0")")
 
+if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
+    window=$(hyprctl clients -j \
+        | jq -r '.[] | select(.monitor != -1) | "\(.address) \(.workspace.name) \(.title)"' \
+        | $scriptpath/fzfmenu "$@")
+
+    [ -z "$window" ] && exit
+    exec hyprctl dispatch focuswindow address:$(echo "$window" | awk '{print $1}')
+    return
+fi
+
 ids=($(bspc query -N -n .leaf.\!hidden))
 options="$(xtitle "${ids[@]}" | awk '{ print ++i": "$0 }')"
 

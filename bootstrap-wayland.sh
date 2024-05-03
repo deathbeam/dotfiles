@@ -3,4 +3,4 @@ set -ex
 
 yay --noconfirm -S --mflags --skipinteg \
     hyprland xdg-desktop-portal-hyprland qt6-wayland \
-    swaybg swaylock wl-clipboard slurp grim
+    swaybg swaylock wl-clipboard cliphist slurp grim
