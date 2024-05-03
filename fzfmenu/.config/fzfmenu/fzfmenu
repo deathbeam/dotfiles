@@ -26,7 +26,7 @@ if [ "$TERMINAL" = "st" ]; then
 fi
 
 kill_old() {
-  pgrep -x fzfmenu | grep -v "^$$\$" | xargs kill
+  pgrep -x fzfmenu | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
 }
 
 scan_args() {
