@@ -44,7 +44,7 @@ yay --noconfirm -S --mflags --skipinteg \
 
 echo '==> Installing X11 packages'
 yay --noconfirm -S --mflags --skipinteg \
-  xdotool xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape xtitle \
+  xdotool xdo xtitle xorg-xdpyinfo xorg-xrandr xorg-xsetroot xorg-xinputxcape \
   xclip xsel autocutsel clipboard-bin
 
 echo '==> Installing X11 applications'
