@@ -65,4 +65,15 @@ while [ $# -gt 0 ] ; do
     esac
     shift
 done
-echo "$wm $(xtitle)"
+
+window_id=$(xdotool getactivewindow)
+if [ -z "$window_id" ]; then
+    echo "$wm"
+    exit 0
+fi
+
+pid=$(xdotool getwindowpid "$window_id")
+process_name=$(ps -p "$pid" -o comm=)
+window_title=$(xdotool getwindowname "$window_id")
+title="$window_title"
+echo "$wm%{B${COLOR_ACTIVE}}%{F${COLOR_BG}} $process_name %{B-}%{F-} $window_title"
