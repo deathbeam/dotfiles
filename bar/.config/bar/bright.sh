@@ -1,3 +1,3 @@
 #!/bin/sh
 
-brightnessctl get
+cat /sys/class/backlight/*/actual_brightness

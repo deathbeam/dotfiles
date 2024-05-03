@@ -1,5 +1,9 @@
 #!/bin/sh
 
+if ! command -v bspc > /dev/null; then
+    exit 1
+fi
+
 COLOR_FREE_FG=$COLOR_FG
 COLOR_FREE_BG=$COLOR_INACTIVE
 COLOR_A_FREE_FG=$COLOR_FREE_BG
