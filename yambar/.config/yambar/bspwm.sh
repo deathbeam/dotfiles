@@ -1,8 +1,7 @@
 #!/bin/sh
 
+IFS=':'
 bspc subscribe report | while read line; do
-    oldIFS=$IFS
-    IFS=':'
     for tag in $line; do
         case $tag in
             f*)
@@ -26,5 +25,4 @@ bspc subscribe report | while read line; do
         esac
     done
     echo ""
-    IFS=$oldIFS
 done

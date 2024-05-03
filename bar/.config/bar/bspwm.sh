@@ -17,63 +17,76 @@ COLOR_FOCUSED_MONITOR_BG=$COLOR_BG
 COLOR_STATE_FG=$COLOR_FREE_FG
 COLOR_STATE_BG=$COLOR_FREE_BG
 
-num_mon=$(bspc query -M | wc -l)
 line=$(bspc wm -g)
-wm=
+workspaces=
+monitor=
 IFS=':'
-set -- ${line#?}
-while [ $# -gt 0 ] ; do
-    item=$1
+for item in $line; do
     name=${item#?}
+    bg=''
+    fg=''
     case $item in
-        [fFoOuU]*)
-            case $item in
-                f*)
-                    # free desktop
-                    FG=$COLOR_FREE_FG
-                    BG=$COLOR_FREE_BG
-                    UL=$BG
-                    ;;
-                F*)
-                    # active free desktop
-                    FG=$COLOR_A_FREE_FG
-                    BG=$COLOR_A_FREE_BG
-                    ;;
-                o*)
-                    # occupied desktop
-                    FG=$COLOR_OCCUPIED_FG
-                    BG=$COLOR_OCCUPIED_BG
-                    ;;
-                O*)
-                    # active occupied desktop
-                    FG=$COLOR_A_OCCUPIED_FG
-                    BG=$COLOR_A_OCCUPIED_BG
-                    ;;
-                u*)
-                    # urgent desktop
-                    FG=$COLOR_URGENT_FG
-                    BG=$COLOR_URGENT_BG
-                    ;;
-                U*)
-                    # active urgent desktop
-                    FG=$COLOR_URGENT_FG
-                    BG=$COLOR_URGENT_BG
-                    ;;
-            esac
-            wm="${wm}%{F${FG}}%{B${BG}} ${name} %{B-}%{F-}"
+        W[mM]*)
+            # monitor
+            monitor=${name#?}
             ;;
+        f*)
+            # free desktop
+            fg=$COLOR_FREE_FG
+            bg=$COLOR_FREE_BG
+            ;;
+        F*)
+            # active free desktop
+            fg=$COLOR_A_FREE_FG
+            bg=$COLOR_A_FREE_BG
+            ;;
+        o*)
+            # occupied desktop
+            fg=$COLOR_OCCUPIED_FG
+            bg=$COLOR_OCCUPIED_BG
+            ;;
+        O*)
+            # active occupied desktop
+            fg=$COLOR_A_OCCUPIED_FG
+            bg=$COLOR_A_OCCUPIED_BG
+            ;;
+        u*)
+            # urgent desktop
+            fg=$COLOR_URGENT_FG
+            bg=$COLOR_URGENT_BG
+            ;;
+        U*)
+            # active urgent desktop
+            fg=$COLOR_URGENT_FG
+            bg=$COLOR_URGENT_BG
+            ;;
+        [LT]*)
+            # layout, state
+            if [ -n "$name" ]; then
+                layout="$layout${name}"
+            fi
     esac
-    shift
+    if [ -n "$bg" ]; then
+        workspaces="${workspaces}%{F${fg}}%{B${bg}} ${name} %{B-}%{F-}"
+    fi
 done
+
+if [ -z "$layout" ]; then
+    layout="--"
+fi
+if [ ${#layout} -lt 2 ]; then
+    layout="$layout-"
+fi
+layout="%{F${COLOR_FREE_FG}}%{B${COLOR_FREE_BG}} ${layout} %{B-}%{F-}"
 
 window_id=$(xdotool getactivewindow)
 if [ -z "$window_id" ]; then
-    echo "$wm"
-    exit 0
+    echo " $monitor $layout$workspaces"
+    return
 fi
 
 pid=$(xdotool getwindowpid "$window_id")
 process_name=$(ps -p "$pid" -o comm=)
 window_title=$(xdotool getwindowname "$window_id")
 title="$window_title"
-echo "$wm%{B${COLOR_ACTIVE}}%{F${COLOR_BG}} $process_name %{B-}%{F-} $window_title"
+echo " $monitor $layout$workspaces%{B${COLOR_ACTIVE}}%{F${COLOR_BG}} $process_name %{B-}%{F-} $window_title"
