@@ -60,11 +60,6 @@ if command -v steam >/dev/null 2>&1; then
   steam -silent &
 fi
 
-# Start discord
-if command -v vesktop >/dev/null 2>&1; then
-  vesktop --start-minimized &
-fi
-
 # Open terminal with tmux
 if command -v $TERMINAL >/dev/null 2>&1; then
   $TERMINAL -e /bin/zsh -ic "tmux new-session -A -s default" &
