@@ -2,12 +2,6 @@
 shopt -s nullglob globstar
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-typeit=0
-if [[ $1 == "--type" ]]; then
-	typeit=1
-	shift
-fi
-
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
@@ -17,12 +11,8 @@ password=$(printf '%s\n' "${password_files[@]}" | $scriptpath/fzfmenu "$@")
 
 [[ -n $password ]] || exit
 
-if [[ $typeit -eq 0 ]]; then
-  if [[ "$password" == OTP/* ]]; then
-    pass otp -c "$password" 2>/dev/null
-  else
-    pass show -c "$password" 2>/dev/null
-  fi
+if [[ "$password" == OTP/* ]]; then
+    exec pass otp -c "$password"
 else
-	pass show "$password" | { read -r pass; printf %s "$pass"; } | xdotool type --clearmodifiers --file -
+    exec pass show -c "$password"
 fi

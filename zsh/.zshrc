@@ -56,13 +56,24 @@ if command -v nvim >/dev/null 2>&1; then
 fi
 
 # Alias copy/paste
-if command -v xsel >/dev/null 2>&1; then
-  alias c='xsel --clipboard --input'
-  alias p='xsel --clipboard --output'
-elif command -v xclip >/dev/null 2>&1; then
-  alias c='xclip -selection clipboard'
-  alias p='xclip -selection clipboard -o'
-fi
+function vcopy {
+  if [ command -v wl-copy >/dev/null 2>&1 ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+    wl-copy
+  elif command -v xsel >/dev/null 2>&1; then
+    xsel --clipboard --input
+  elif command -v xclip >/dev/null 2>&1; then
+    xclip -selection clipboard
+  fi
+}
+function vpaste {
+  if [ command -v wl-paste >/dev/null 2>&1 ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+    wl-paste
+  elif command -v xsel >/dev/null 2>&1; then
+    xsel --clipboard --output
+  elif command -v xclip >/dev/null 2>&1; then
+    xclip -selection clipboard -o
+  fi
+}
 
 # Arch utilities
 alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'

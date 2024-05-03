@@ -26,7 +26,7 @@ if [ "$TERMINAL" = "st" ]; then
 fi
 
 kill_old() {
-  xdotool search --class FZFMenu windowkill
+  pgrep -x fzfmenu | grep -v "^$$\$" | xargs kill
 }
 
 scan_args() {
@@ -64,7 +64,10 @@ prompt() {
           } &
       fi
 
-      fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null
+      fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null &
+  pid=$!
+  trap "kill -9 $pid" SIGTERM
+  wait $pid
   [ -s "$FILE_CHOICES" ] || exit 1
 }
 

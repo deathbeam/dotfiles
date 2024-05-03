@@ -9,5 +9,5 @@ done | $scriptpath/fzfmenu "$@")
 appid=$(echo "$selected_game" | grep -oP '^\d+')
 
 if [ -n "$appid" ]; then
-    steam -silent -applaunch "$appid"
+    exec steam -silent -applaunch "$appid"
 fi
