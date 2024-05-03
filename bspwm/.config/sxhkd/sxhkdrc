@@ -8,7 +8,7 @@ super + Return
 
 # switcher menu
 super + Tab
-  ~/.config/fzfmenu/windowsmenu -p "switch"
+  ~/.config/fzfmenu/switchmenu -p "switch"
 
 # program menu
 super + space
