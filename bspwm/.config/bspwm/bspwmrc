@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
-  bspc monitor $m -d 1 2 3 4 5 6
+  bspc monitor $m -d 1 2 3 4 5
 done
 
 bspc config normal_border_color  "#073642"

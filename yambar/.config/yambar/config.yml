@@ -1,13 +1,16 @@
+color_bg: &color_bg 073642ff
+color_fg: &color_fg 93A1A1ff
+color_active: &color_active 268BD2ff
+color_inactive: &color_inactive 002B36ff
+color_urgent: &color_urgent DC322Fff
+
 bar:
-  height: 60
   location: top
-  spacing: 5
-  margin: 15
+  font: Terminess Nerd Font:size=26
+  height: 60
 
-  font: Terminess Nerd Font:size=24
-
-  foreground: 93A1A1ff
-  background: 073642ff
+  foreground: *color_fg
+  background: *color_bg
 
   border:
     width: 0
@@ -17,16 +20,54 @@ bar:
     #   script:
     #     path: ~/.config/yambar/bspwm.sh
     -
+      river:
+        anchors:
+          -
+            base: &river_base
+              left-margin: 15
+              right-margin: 15
+              conditions:
+                id == 1: {string: {text: 1}}
+                id == 2: {string: {text: 2}}
+                id == 3: {string: {text: 3}}
+                id == 4: {string: {text: 4}}
+                id == 5: {string: {text: 5}}
+        content:
+          map:
+            conditions:
+              urgent:
+                map:
+                  <<: *river_base
+                  foreground: *color_bg
+                  deco: {background: {color: *color_urgent}}
+              visible:
+                map:
+                  <<: *river_base
+                  foreground: *color_bg
+                  deco: {background: {color: *color_active}}
+              occupied:
+                map:
+                  <<: *river_base
+              ~occupied:
+                map:
+                  <<: *river_base
+                  deco: {background: {color: *color_inactive}}
+    -
       xwindow:
         content:
-          string: {text: "{application}: {title}"}
+          map:
+            conditions:
+              title != "":
+                - string: {text: "{application}", foreground: *color_bg, deco: {background: {color: *color_active}}}
+                - string: {text: "{title}"}
     -
       foreign-toplevel:
         content:
           map:
             conditions:
-              activated:
-                - string: {text: "{app-id}: {title}"}
+              title != "":
+                - string: {text: "{app-id}", foreground: *color_bg, deco: {background: {color: *color_active}}}
+                - string: {text: "{title}"}
   right:
     -
       network:

@@ -120,3 +120,6 @@ fi
 
 # Start waybar
 riverctl spawn yambar
+
+# Start terminal
+riverctl spawn alacritty
