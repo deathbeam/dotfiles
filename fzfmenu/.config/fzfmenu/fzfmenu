@@ -3,7 +3,7 @@ scriptpath=$(dirname "$(readlink -f "$0")")
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
    --color=border:#268bd2
-   --border=none
+   --border=top
    --margin 0,0
    --preview-window=border-sharp:wrap
    --no-separator
@@ -12,7 +12,6 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
    --print-query
    --no-multi
    --reverse
-   --no-border
    --no-separator
    --info=inline-right
 "
