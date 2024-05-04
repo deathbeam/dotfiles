@@ -1,5 +1,6 @@
 #!/usr/bin/bash -l
 set -ex
+shopt -s nullglob globstar
 
 # Install AUR helper
 echo '==> Installing AUR helper'
@@ -97,3 +98,16 @@ xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
 chsh -s /bin/zsh "$USER"
+
+# Ask user if they want to setup optional services
+echo '==> Setting up optional services'
+scriptpath=$(dirname "$(readlink -f "$0")")
+for file in "$scriptpath"/bootstrap-*.sh
+do
+    name=$(basename "$file" .sh)
+    name=${name#bootstrap-}
+    read -p "Do you want to setup $name? (y/n) " answer
+    if [[ $answer = [yY] ]]; then
+        bash "$file"
+    fi
+done
