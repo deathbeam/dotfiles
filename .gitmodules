@@ -1,6 +1,3 @@
-[submodule "tmux/.tmux/bundle/tmux-yank"]
-	path = tmux/.tmux/pack/bundle/start/tmux-yank
-	url = https://github.com/tmux-plugins/tmux-yank
 [submodule "tmux/.tmux/bundle/tmux-continuum"]
 	path = tmux/.tmux/pack/bundle/start/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
