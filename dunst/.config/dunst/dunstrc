@@ -3,7 +3,6 @@
 [global]
 alignment = left
 markup = full
-bounce_freq = 0
 dmenu = ~/.config/fzfmenu/fzfmenu -p dunst:
 font = monospace 12
 history_length = 20
@@ -21,7 +20,6 @@ show_age_threshold = 60
 show_indicators = yes
 shrink = no
 sort = yes
-startup_notification = true
 sticky_history = yes
 transparency = 0
 word_wrap = yes
