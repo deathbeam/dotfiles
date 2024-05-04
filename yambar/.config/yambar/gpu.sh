@@ -4,7 +4,7 @@ if [ command -v nvidia-smi &> /dev/null ]; then
     exit 1
 fi
 
-utilization=$(nvidia-smi --query-gpu=utilization.gpu --format=csv,noheader,nounits | awk '{ print ""$1""}')
-echo "percent|int|$utilization"
-echo ""
-
+nvidia-smi -lms 1000 --query-gpu=utilization.gpu --format=csv,noheader,nounits | while read -r line; do
+    echo "percent|int|$line"
+    echo ""
+done

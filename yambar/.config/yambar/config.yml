@@ -86,7 +86,6 @@ bar:
         poll-interval: 1000
         content:
           map:
-            default: {empty: {}}
             conditions:
               name == wlan0:
                 string: {text: "  {ssid}", margin: *margin}
@@ -104,7 +103,6 @@ bar:
     -
       script:
         path: ~/.config/yambar/gpu.sh
-        poll-interval: 1000
         content:
           string: {text: "  {percent}%", margin: 15}
     -
@@ -129,3 +127,12 @@ bar:
         time-format: "%H:%M"
         content:
           string: {text: "  {date} {time}", margin: *margin}
+    -
+      script:
+        path: ~/.config/yambar/arch.sh
+        poll-interval: 900000
+        content:
+          map:
+            conditions:
+              updates > 0:
+                string: {text: "  {updates}", foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
