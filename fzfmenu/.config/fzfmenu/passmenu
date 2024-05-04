@@ -1,4 +1,5 @@
 #!/bin/sh
+shopt -s nullglob globstar
 scriptpath=$(dirname "$(readlink -f "$0")")
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
