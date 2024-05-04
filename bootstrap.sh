@@ -78,6 +78,11 @@ sudo ln -s ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
 sudo systemctl enable keyd
 sudo systemctl enable tlp
 
+# Alter pacman options
+sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
+sudo sed -i '/\[options\]/a ILoveCandy' /etc/pacman.conf
+sudo sed -i '/\[options\]/a ParallelDownloads = 10' /etc/pacman.conf
+
 # Modify groups
 sudo groupadd -f vboxsf
 sudo usermod -aG vboxsf "$USER"
