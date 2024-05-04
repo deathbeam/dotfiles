@@ -25,9 +25,6 @@ bspc config focus_follows_pointer true
 bspc config pointer_action1 move
 bspc config pointer_action3 resize_corner
 
-# Adjustments
-bspc config ignore_ewmh_fullscreen all
-
 # Menu
 screenwidth=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 1)
 screenheight=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 2)
