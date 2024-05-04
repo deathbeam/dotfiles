@@ -13,9 +13,10 @@ bspc config window_gap           0
 # Split ratio
 bspc config split_ratio          0.52
 
-# Preserve border and gap settings
+# Monocle settings
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
+bspc config single_monocle       true
 
 # Focus follows mouse
 bspc config focus_follows_pointer true
@@ -23,6 +24,9 @@ bspc config focus_follows_pointer true
 # Move stuff with mouse
 bspc config pointer_action1 move
 bspc config pointer_action3 resize_corner
+
+# Adjustments
+bspc config ignore_ewmh_fullscreen all
 
 # Menu
 screenwidth=$(xdpyinfo | grep dimensions | awk '{print $2}' | cut -d x -f 1)
