@@ -7,7 +7,7 @@ cur_dir=$PWD
 rm -rf /tmp/aur_install
 mkdir -p /tmp/aur_install
 cd /tmp/aur_install
-sudo pacman --noconfirm --needed -S git sudo go
+sudo pacman --noconfirm --needed -S git go
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
@@ -23,13 +23,13 @@ yay --noconfirm -S --mflags --skipinteg \
   pass pass-otp zbar \
   httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
   tlp rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip man-db alsa-utils
+  p7zip man-db alsa-utils keyd
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
-  maven npm github-cli azure-cli docker docker-compose lazygit asdf-vm
+  maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit
 
 echo '==> Installing python packages'
 yay --noconfirm -S --mflags --skipinteg \
@@ -37,45 +37,26 @@ yay --noconfirm -S --mflags --skipinteg \
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
-echo '==> Installing font packages'
+echo '==> Installing desktop packages'
 yay --noconfirm -S --mflags --skipinteg \
   fonts-meta-base \
-  terminus-font terminus-font-ttf ttf-terminus-nerd
-
-echo '==> Installing X11 packages'
-yay --noconfirm -S --mflags --skipinteg \
-  xdotool xdo xtitle xorg-xdpyinfo xorg-xrandr xorg-xsetroot \
-  xclip xsel autocutsel clipboard-bin
-
-echo '==> Installing X11 applications'
-yay --noconfirm -S --mflags --skipinteg \
-  feh zathura zathura-pdf-mupdf imagemagick \
-  qutebrowser python-adblock chromium-widevine \
-  libnotify dunst \
-  bspwm sxhkd i3lock yambar \
-  geoclue2 gammastep \
+  terminus-font terminus-font-ttf ttf-terminus-nerd \
   udiskie \
-  dropbox \
-  mpv yt-dlp vesktop boosteroid stremio steam calibre \
-  postman alacritty evremap
-
-mkdir -p ~/git
-cd ~/git
+  gammastep geoclue2 \
+  dunst \
+  yambar \
+  alacritty \
+  zathura zathura-pdf-mupdf \
+  qutebrowser python-adblock chromium-widevine \
+  mpv yt-dlp \
+  dropbox vesktop boosteroid stremio steam calibre postman
 
 echo '==> Installing dotfiles'
+mkdir -p ~/git
+cd ~/git
 git clone https://github.com/deathbeam/dotfiles || true
 cd dotfiles
 make
-cd ..
-
-echo '==> Installing packages from source'
-
-git clone git://git.suckless.org/st || true
-cd st
-git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
-cp config.def.h config.h
-sudo make clean install
-cd ..
 
 echo '==> Configuring system'
 
@@ -90,11 +71,11 @@ fs.inotify.max_queued_events=1000000
 EOF
 
 # Symlink configs
-sudo ln -s ~/git/dotfiles/evremap/evremap.toml /etc/evremap.toml
+sudo ln -s ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
 
 # Enable services
-sudo systemctl enable evremap.service
-sudo systemctl enable tlp.service
+sudo systemctl enable keyd
+sudo systemctl enable tlp
 
 # Modify groups
 sudo groupadd -f vboxsf

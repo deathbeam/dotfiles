@@ -1,6 +1,0 @@
-device_name = "Asus Keyboard"
-
-[[dual_role]]
-input = "KEY_CAPSLOCK"
-hold = ["KEY_LEFTCTRL"]
-tap = ["KEY_ESC"]
