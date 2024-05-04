@@ -99,7 +99,11 @@ xdg-settings set default-web-browser qutebrowser.desktop
 # Change default shell
 chsh -s /bin/zsh "$USER"
 
-# Ask user if they want to setup optional services
+# Ask user if they want to setup optional services if we are in interactive session
+if [ ! -t 0 ]; then
+    exit 0
+fi
+
 echo '==> Setting up optional services'
 scriptpath=$(dirname "$(readlink -f "$0")")
 for file in "$scriptpath"/bootstrap-*.sh
