@@ -52,7 +52,7 @@ yay --noconfirm -S --mflags --skipinteg \
   feh zathura zathura-pdf-mupdf imagemagick \
   qutebrowser python-adblock chromium-widevine \
   libnotify dunst \
-  bspwm sxhkd yambar \
+  bspwm sxhkd i3lock yambar \
   geoclue2 gammastep \
   udiskie \
   dropbox \
@@ -75,13 +75,6 @@ cd st
 git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
 cp config.def.h config.h
 sudo make clean install
-cd ..
-
-git clone git://git.suckless.org/slock || true
-cd slock
-cp config.def.h config.h
-git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/slock.diff
-sudo make install
 cd ..
 
 echo '==> Configuring system'
@@ -122,4 +115,4 @@ xdg-user-dirs-update
 xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
-echo "$USER" | chsh -s /bin/zsh
+chsh -s /bin/zsh "$USER"

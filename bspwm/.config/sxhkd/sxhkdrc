@@ -32,7 +32,7 @@ super + v
 
 # lock screen
 super + e
-  slock
+  i3lock -i ~/.wallpaper
 
 #
 # special keys
