@@ -16,6 +16,7 @@ echo '==> Installing Asus packages'
 yay --noconfirm -Sy --mflags --skipinteg \
     asusctl power-profiles-daemon supergfxctl switcheroo-control rog-control-center
 
+echo '==> Configuring Asus'
 sudo systemctl enable power-profiles-daemon
 sudo systemctl enable supergfxd
 sudo systemctl enable switcheroo-control
