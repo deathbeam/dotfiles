@@ -1,5 +1,4 @@
-#!/usr/bin/env bash
-shopt -s nullglob globstar
+#!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
 processes="$(ps -eo %cpu,%mem,pid,user,cmd h)"

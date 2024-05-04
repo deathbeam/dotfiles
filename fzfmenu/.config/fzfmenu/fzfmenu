@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
 export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
