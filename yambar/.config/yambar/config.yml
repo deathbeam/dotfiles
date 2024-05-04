@@ -7,17 +7,10 @@ margin: &margin 15
 
 bar:
   location: top
-  font: Terminess Nerd Font:size=24
+  font: monospace:size=24
   height: 60
-  spacing: 0
-  margin: 0
-
   foreground: *color_fg
   background: *color_bg
-
-  border:
-    width: 0
-    margin: 0
 
   left:
     -

@@ -55,11 +55,6 @@ if command -v dropbox >/dev/null 2>&1; then
   dropbox start &
 fi
 
-# Start steam
-if command -v steam >/dev/null 2>&1; then
-  steam -silent &
-fi
-
 # Open terminal with tmux
 if command -v $TERMINAL >/dev/null 2>&1; then
   $TERMINAL -e /bin/zsh -ic "tmux new-session -A -s default" &
