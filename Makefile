@@ -11,6 +11,10 @@ update:
 	git submodule update --init --recursive
 	git submodule update --recursive --remote
 
+steam:
+	asdf plugin-add protonge
+	asdf install protonge latest
+
 install:
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	gh extension install github/gh-copilot || true
