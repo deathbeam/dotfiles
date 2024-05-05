@@ -1,34 +1,34 @@
 #!/usr/bin/env bash
 
 tmux_sessions=$(tmux list-sessions -F '#S')
-all_sessions=$(find ~/git -mindepth 1 -maxdepth 1 -type d ; find ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*' | sort)
+project_directories=$(find ~/git -mindepth 1 -maxdepth 1 -type d ; find ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*')
 
 function session_name() {
     basename $1 | tr . _
 }
 
+function directory_name() {
+    basename $1 | tr _ .
+}
+
 function get_marked_sessions() {
     for session in $tmux_sessions; do
-        local name="$(session_name $session)"
-        if [[ $all_sessions != *$name* ]]; then
+        local name="$(directory_name $session)"
+        if [[ $project_directories != *$name* ]]; then
             echo -e "\033[0;32m$session\033[0m"
         fi
     done
-    for session in $all_sessions; do
+    for session in $project_directories; do
         local name="$(session_name $session)"
         if [[ $tmux_sessions == *$name* ]]; then
             echo -e "\033[0;34m$session\033[0m"
-        fi
-    done
-    for session in $all_sessions; do
-        local name="$(session_name $session)"
-        if [[ $tmux_sessions != *$name* ]]; then
+        else
             echo $session
         fi
     done
 }
 
-selected_project=$(get_marked_sessions | fzf-tmux \
+selected_project=$(get_marked_sessions | sort | fzf-tmux \
     --ansi -p100%,100% -m --reverse \
     --prompt='Open session > ' \
     --bind="ctrl-s:print-query" \
@@ -39,8 +39,7 @@ if [[ -z $selected_project ]]; then
     exit 0
 fi
 
-# Remove * from selected project
-selected_name=$(basename "$selected_project" | tr . _)
+selected_name=$(session_name "$selected_project")
 
 if ! tmux has-session -t=$selected_name 2> /dev/null; then
     tmux new-session -ds $selected_name -c $selected_project
