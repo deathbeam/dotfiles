@@ -32,7 +32,7 @@ endif
 
 " Set title
 set title
-set titlestring=%F
+set titlestring=%F\ [%l/%L-%v]
 
 " Faster update time
 set updatetime=100
