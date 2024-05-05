@@ -30,10 +30,6 @@ endif
 
 " User interface {{{
 
-" Set title
-set title
-set titlestring=%F\ %m[%l/%L-%v]
-
 " Faster update time
 set updatetime=100
 
@@ -65,6 +61,10 @@ set laststatus=0
 set noruler
 set statusline==%{repeat('─',winwidth('.')-1)}
 set fillchars=stl:─,stlnc:─
+
+" Use title instead of statusline
+set title
+set titlestring=%F\ %m[%l/%L-%v]
 
 " Never show tab line
 set showtabline=0
