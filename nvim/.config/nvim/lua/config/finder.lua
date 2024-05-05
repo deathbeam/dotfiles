@@ -5,8 +5,7 @@ local desc = utils.desc
 desc('<leader>f', 'Find')
 
 local fzf_lua = require('fzf-lua')
-fzf_lua.setup({
-    'fzf-tmux',
+fzf_lua.setup({ 'fzf-tmux',
     file_icon_padding = ' ',
     fzf_opts = {
         ['--info'] = false,
@@ -16,18 +15,12 @@ fzf_lua.setup({
     fzf_tmux_opts = {
         ['-p'] = '100%,100%',
     },
-    files = {
+    defaults = {
         formatter = "path.filename_first",
-    },
-    git = {
-        files = {
-            formatter = "path.filename_first",
-        },
     },
     grep = {
         prompt = 'Grep❯ ',
         rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
-        formatter = "path.filename_first",
     },
     lsp = {
         code_actions = {
