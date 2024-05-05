@@ -1,7 +1,15 @@
 #!/bin/sh
 
+PANEL_FIFO="/tmp/bspwm_panel_fifo"
+[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
+mkfifo "$PANEL_FIFO"
+
+xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
+bspc subscribe report > "$PANEL_FIFO" &
+
 IFS=':'
-bspc subscribe report | while read line; do
+while read l; do
+    line=$(bspc wm -g)
     monitor=
     layout=
     for tag in $line; do
@@ -56,4 +64,4 @@ bspc subscribe report | while read line; do
     fi
 
     echo ""
-done
+done < "$PANEL_FIFO"
