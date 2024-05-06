@@ -11,6 +11,7 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
     window_address=${window_info[0]}
     title=${window_info[1]}
     process=${window_info[2]}
+    process=$(echo "$process" | awk -F'.' '{print $NF}')
     xwayland=${window_info[3]}
     floating=${window_info[4]}
     fullscreen=${window_info[5]}
