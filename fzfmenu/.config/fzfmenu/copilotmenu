@@ -10,7 +10,7 @@ $TERMINAL $TERM_CLASS FZFMenu -e tmux new-session -A -s copilot "
     tmux set-option -t copilot pane-border-status off;
     tmux set-option -t copilot status off;
     tmux set-option -t copilot detach-on-destroy on;
-    exec nvim -c 'lua require(\"CopilotChat\").open({window={layout=\"replace\"}})';
+    exec nvim -c 'lua require(\"CopilotChat\").open({selection=require(\"CopilotChat.select\").unnamed,window={layout=\"replace\"}})';
 " &
 pid=$!
 trap "kill -9 $pid" SIGTERM
