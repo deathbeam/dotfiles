@@ -4,19 +4,23 @@ urgent_workspace=
 
 # socat -U - UNIX-CONNECT:/tmp/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock | while read -r line; do
 socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock | while read -r line; do
+    window=$(hyprctl activewindow -j)
+
     if [[ "$line" == urgent* ]]; then
-        urgent_window=$(echo "$line" | awk -F'>>' '{print $2}')
-        windows=$(hyprctl clients -j)
-        urgent_workspace=$(echo "${windows}" | jq -r --arg address "0x$urgent_window" '.[] | select(.address == $address) | .workspace.id')
+        urgent_window="0x$(echo "$line" | awk -F'>>' '{print $2}')"
+        window_address=$(echo "${window}" | jq -r '.address')
+
+        if [ "$window_address" != "$urgent_window" ]; then
+            windows=$(hyprctl clients -j)
+            urgent_workspace=$(echo "${windows}" | jq -r --arg address "$urgent_window" '.[] | select(.address == $address) | .workspace.id')
+        fi
     elif [[ "$line" == workspacev2* ]]; then
-        workspace_id_and_name=$(echo "$line" | awk -F'>>' '{print $2}')
-        workspace_id=$(echo "$workspace_id_and_name" | awk -F',' '{print $1}')
+        workspace_id=$(echo "$line" | awk -F'>>' '{split($2,a,","); print a[1]}')
         if [ "$workspace_id" = "$urgent_workspace" ]; then
             urgent_workspace=
         fi
     fi
 
-    window=$(hyprctl activewindow -j)
     workspace=$(hyprctl activeworkspace -j)
     workspaces=$(hyprctl workspaces -j)
     monitor=$(echo "${workspace}" | jq -r '.monitor')
