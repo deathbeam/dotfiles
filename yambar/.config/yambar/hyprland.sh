@@ -1,55 +1,59 @@
 #!/bin/sh
+urgent_workspace_id=-1
 
-urgent_workspace=
-
-# socat -U - UNIX-CONNECT:/tmp/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock | while read -r line; do
 socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock | while read -r line; do
-    window=$(hyprctl activewindow -j)
+    # Read active winow data
+    window_info=()
+    while IFS= read -r l
+    do
+        window_info+=("$l")
+    done < <(hyprctl activewindow -j | jq -r '.address // "", .title // "", .class // "", .xwayland // false, .floating // false, .fullscreen // false, .fullscreenMode // 0')
+    window_address=${window_info[0]}
+    title=${window_info[1]}
+    process=${window_info[2]}
+    xwayland=${window_info[3]}
+    floating=${window_info[4]}
+    fullscreen=${window_info[5]}
+    monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
 
+    # Read active workspace data
+    workspace_info=()
+    while IFS= read -r l
+    do
+        workspace_info+=("$l")
+    done < <(hyprctl activeworkspace -j | jq -r '.id // -1, .monitor // ""')
+    workspace_id=${workspace_info[0]}
+    monitor=${workspace_info[1]}
+
+    # Check if the workspace exists
+    declare -A workspace_exists
+    for workspace in $(hyprctl workspaces -j | jq -r '.[].id'); do
+        workspace_exists[$workspace]=1
+    done
+
+    # If we received urgent window event mark urgent workspace
     if [[ "$line" == urgent* ]]; then
-        urgent_window="0x$(echo "$line" | awk -F'>>' '{print $2}')"
-        window_address=$(echo "${window}" | jq -r '.address')
+        urgent_window_address="0x$(echo "$line" | awk -F'>>' '{print $2}')"
 
-        if [ "$window_address" != "$urgent_window" ]; then
+        if [ "$window_address" != "$urgent_window_address" ]; then
             windows=$(hyprctl clients -j)
-            urgent_workspace=$(echo "${windows}" | jq -r --arg address "$urgent_window" '.[] | select(.address == $address) | .workspace.id')
-        fi
-    elif [[ "$line" == workspacev2* ]]; then
-        workspace_id=$(echo "$line" | awk -F'>>' '{split($2,a,","); print a[1]}')
-        if [ "$workspace_id" = "$urgent_workspace" ]; then
-            urgent_workspace=
+            urgent_workspace_id=$(echo "${windows}" | jq -r --arg address "$urgent_window_address" '.[] | select(.address == $address) | .workspace.id')
         fi
     fi
 
-    workspace=$(hyprctl activeworkspace -j)
-    workspaces=$(hyprctl workspaces -j)
-    monitor=$(echo "${workspace}" | jq -r '.monitor')
-    xwayland=$(echo "${window}" | jq -r '.xwayland')
-    monocle=false
-    floating=false
-    fullscreen=false
-    title=
-    process=
-
-    if [ "$window" != "{}" ]; then
-        title=$(echo "${window}" | jq -r '.title')
-        process=$(echo "${window}" | jq -r '.class' | rev | cut -d '.' -f 1 | rev)
-        floating=$(echo "${window}" | jq -r '.floating')
-        fullscreen=$(echo "${window}" | jq -r '.fullscreen')
-        fullscreenMode=$(echo "${window}" | jq -r '.fullscreenMode')
-        if [ "$fullscreen" = "true" ] && [ "$fullscreenMode" = "1" ]; then
-            monocle=true
-            fullscreen=false
-        fi
+    # If we are already on urgent workspace unset it
+    if [ "$workspace_id" = "$urgent_workspace_id" ]; then
+        urgent_workspace_id=-1
     fi
 
+    # Mark workspaces as either empty, urgent, focused or occupied
     for i in $(seq 1 5); do
         workspace_status="empty"
-        if [ "$i" = "$urgent_workspace" ]; then
+        if [ $i -eq $urgent_workspace_id ]; then
             workspace_status="urgent"
-        elif [ $i -eq $(echo "${workspace}" | jq -r '.id') ]; then
+        elif [ $i -eq $workspace_id ]; then
             workspace_status="focused"
-        elif echo "${workspaces}" | jq -e --argjson num $i '.[] | select(.id == $num)' > /dev/null; then
+        elif [ ${workspace_exists[$i]} ]; then
             workspace_status="occupied"
         fi
         echo "ws${i}_state|string|${workspace_status}"
