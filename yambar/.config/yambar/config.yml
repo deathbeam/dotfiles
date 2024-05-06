@@ -3,6 +3,7 @@ color_fg: &color_fg 93A1A1ff
 color_active: &color_active 268BD2ff
 color_inactive: &color_inactive 002B36ff
 color_urgent: &color_urgent DC322Fff
+color_warning: &color_warning B58900ff
 margin: &margin 15
 
 bar:
@@ -83,6 +84,8 @@ bar:
                           string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                   - map:
                       conditions:
+                        process != "" && xwayland:
+                          string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_warning}}, margin: *margin}
                         process != "":
                           string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                   - map:

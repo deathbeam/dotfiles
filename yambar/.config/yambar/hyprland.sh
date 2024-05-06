@@ -20,6 +20,7 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
     workspace=$(hyprctl activeworkspace -j)
     workspaces=$(hyprctl workspaces -j)
     monitor=$(echo "${workspace}" | jq -r '.monitor')
+    xwayland=$(echo "${window}" | jq -r '.xwayland')
     monocle=false
     floating=false
     fullscreen=false
@@ -54,6 +55,7 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
     echo "monocle|bool|${monocle}"
     echo "floating|bool|${floating}"
     echo "fullscreen|bool|${fullscreen}"
+    echo "xwayland|bool|${xwayland}"
     echo "process|string|${process}"
     echo "title|string|${title}"
     echo ""
