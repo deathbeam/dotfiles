@@ -106,7 +106,7 @@ bar:
         content:
           map:
             conditions:
-              percent:
+              percent >= 0:
                 string: {text: "  {percent}%", margin: 15}
     -
       alsa:
