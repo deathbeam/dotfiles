@@ -11,16 +11,25 @@ IFS=':'
 while read l; do
     line=$(bspc wm -g)
     monitor=
-    layout=
+    monocle=false
+    floating=false
+    fullscreen=false
     for tag in $line; do
         name=${tag#?}
         case $tag in
             W[mM]*)
                 monitor=${name#?}
                 ;;
-            [LT]*)
-                if [ -n "$name" ]; then
-                    layout="$layout${name}"
+            L*)
+                if [ "$name" = "M" ]; then
+                    monocle=true
+                fi
+                ;;
+            T*)
+                if [ "$name" = "=" ]; then
+                    fullscreen=true
+                elif [ "$name" = "F" ]; then
+                    floating=true
                 fi
                 ;;
             f*)
@@ -44,15 +53,10 @@ while read l; do
         esac
     done
 
-    if [ -z "$layout" ]; then
-        layout="--"
-    fi
-    if [ ${#layout} -lt 2 ]; then
-        layout="$layout-"
-    fi
-
     echo "monitor|string|$monitor"
-    echo "layout|string|$layout"
+    echo "monocle|bool|$monocle"
+    echo "floating|bool|$floating"
+    echo "fullscreen|bool|$fullscreen"
 
     window_id=$(xdotool getactivewindow)
     if [ -n "$window_id" ]; then

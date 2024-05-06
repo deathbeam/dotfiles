@@ -21,7 +21,16 @@ bar:
               conditions:
                 monitor != "":
                   - string: {text: "{monitor}", margin: *margin}
-                  - string: {text: "{layout}", deco: {background: {color: *color_inactive}}, margin: *margin}
+                  - map:
+                      conditions:
+                        fullscreen:
+                          string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                        floating:
+                          string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                        monocle:
+                          string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                        ~monocle:
+                          string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
                   - map:
                       conditions:
                         ws1_state == occupied:
