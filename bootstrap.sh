@@ -24,7 +24,7 @@ yay --noconfirm -S --mflags --skipinteg \
   pass pass-otp zbar \
   httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
   tlp rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip man-db alsa-utils keyd
+  p7zip man-db alsa-utils keyd fastfetch
 
 echo '==> Installing development packages'
 yay --noconfirm -S --mflags --skipinteg \
