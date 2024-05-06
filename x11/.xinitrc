@@ -70,6 +70,11 @@ if command -v VBoxClient-all >/dev/null 2>&1; then
   VBoxClient-all &
 fi
 
+# Start vmware stuff
+if command -v vmware-user-suid-wrapper >/dev/null 2>&1; then
+  vmware-user-suid-wrapper &
+fi
+
 # Start bar
 if command -v yambar >/dev/null 2>&1; then
   yambar &
