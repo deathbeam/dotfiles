@@ -104,7 +104,10 @@ bar:
       script:
         path: ~/.config/yambar/gpu.sh
         content:
-          string: {text: "  {percent}%", margin: 15}
+          map:
+            conditions:
+              percent:
+                string: {text: "  {percent}%", margin: 15}
     -
       alsa:
         card: hw:PCH
