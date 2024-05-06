@@ -34,10 +34,8 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
     # If we received urgent window event mark urgent workspace
     if [[ "$line" == urgent* ]]; then
         urgent_window_address="0x$(echo "$line" | awk -F'>>' '{print $2}')"
-
         if [ "$window_address" != "$urgent_window_address" ]; then
-            windows=$(hyprctl clients -j)
-            urgent_workspace_id=$(echo "${windows}" | jq -r --arg address "$urgent_window_address" '.[] | select(.address == $address) | .workspace.id')
+            urgent_workspace_id=$(hyprctl clients -j | jq -r --arg address "$urgent_window_address" '.[] | select(.address == $address) | .workspace.id')
         fi
     fi
 
