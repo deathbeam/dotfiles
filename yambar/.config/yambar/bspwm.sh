@@ -1,12 +1,5 @@
 #!/bin/sh
 
-PANEL_FIFO="/tmp/bspwm_panel_fifo"
-[ -e "$PANEL_FIFO" ] && rm "$PANEL_FIFO"
-mkfifo "$PANEL_FIFO"
-
-xtitle -sf 'T%s\n' > "$PANEL_FIFO" &
-bspc subscribe report > "$PANEL_FIFO" &
-
 IFS=':'
 while read l; do
     line=$(bspc wm -g)
@@ -68,4 +61,4 @@ while read l; do
     fi
 
     echo ""
-done < "$PANEL_FIFO"
+done < <(exec xtitle -sf 'T%s\n' & exec bspc subscribe report)
