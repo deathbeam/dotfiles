@@ -65,6 +65,11 @@ if command -v sxhkd >/dev/null 2>&1; then
   sxhkd &
 fi
 
+# Start vbox additions
+if command -v VBoxClient-all >/dev/null 2>&1; then
+  VBoxClient-all &
+fi
+
 # Start bar
 if command -v yambar >/dev/null 2>&1; then
   yambar &
