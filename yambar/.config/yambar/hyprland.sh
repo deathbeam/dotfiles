@@ -26,7 +26,7 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
     monitor=${workspace_info[1]}
 
     # Check if the workspace exists
-    declare -A workspace_exists
+    workspace_exists=()
     for workspace in $(hyprctl workspaces -j | jq -r '.[].id'); do
         workspace_exists[$workspace]=1
     done
@@ -46,13 +46,14 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
 
     # Mark workspaces as either empty, urgent, focused or occupied
     for i in $(seq 1 5); do
-        workspace_status="empty"
         if [ $i -eq $urgent_workspace_id ]; then
             workspace_status="urgent"
         elif [ $i -eq $workspace_id ]; then
             workspace_status="focused"
         elif [ ${workspace_exists[$i]} ]; then
             workspace_status="occupied"
+        else
+            workspace_status="empty"
         fi
         echo "ws${i}_state|string|${workspace_status}"
     done
