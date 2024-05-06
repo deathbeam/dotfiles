@@ -29,7 +29,7 @@ socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.
 
     if [ "$window" != "{}" ]; then
         title=$(echo "${window}" | jq -r '.title')
-        process=$(echo "${window}" | jq -r '.class')
+        process=$(echo "${window}" | jq -r '.class' | rev | cut -d '.' -f 1 | rev)
         floating=$(echo "${window}" | jq -r '.floating')
         fullscreen=$(echo "${window}" | jq -r '.fullscreen')
         fullscreenMode=$(echo "${window}" | jq -r '.fullscreenMode')
