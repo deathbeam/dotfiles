@@ -5,6 +5,7 @@ if [ "$TERMINAL" = "st" ]; then
    TERM_CLASS="-n"
 fi
 
+pgrep -x copilotmenu | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
 $TERMINAL $TERM_CLASS FZFMenu -e tmux new-session -A -s copilot "
     tmux set-option -t copilot pane-border-status off;
     tmux set-option -t copilot status off;
