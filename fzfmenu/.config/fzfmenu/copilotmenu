@@ -9,10 +9,9 @@ pgrep -x copilotmenu | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
 $TERMINAL $TERM_CLASS FZFMenu -e tmux new-session -A -s copilot "
     tmux set-option -t copilot pane-border-status off;
     tmux set-option -t copilot status off;
-    tmux set-hook -t copilot session-closed 'run-shell \"pgrep -x copilotmenu | xargs kill\"';
+    tmux set-option -t copilot detach-on-destroy on;
     exec nvim -c 'lua require(\"CopilotChat\").open({window={layout=\"replace\"}})';
 " &
-
 pid=$!
 trap "kill -9 $pid" SIGTERM
 wait $pid
