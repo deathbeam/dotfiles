@@ -30,6 +30,10 @@ super + c
 super + v
   ~/.config/fzfmenu/steammenu -p "steam"
 
+# copilot menu
+super + b
+  ~/.config/fzfmenu/copilotmenu
+
 # lock screen
 super + e
   i3lock -i ~/.wallpaper

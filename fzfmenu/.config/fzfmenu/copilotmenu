@@ -1,0 +1,17 @@
+#!/bin/sh
+
+TERM_CLASS="--class"
+if [ "$TERMINAL" = "st" ]; then
+   TERM_CLASS="-n"
+fi
+
+$TERMINAL $TERM_CLASS FZFMenu -e tmux new-session -A -s copilot "
+    tmux set-option -t copilot pane-border-status off;
+    tmux set-option -t copilot status off;
+    tmux set-hook -t copilot session-closed 'run-shell \"pgrep -x copilotmenu | xargs kill\"';
+    exec nvim -c 'lua require(\"CopilotChat\").open({window={layout=\"replace\"}})';
+" &
+
+pid=$!
+trap "kill -9 $pid" SIGTERM
+wait $pid
