@@ -19,7 +19,7 @@ yay --noconfirm -S --mflags --skipinteg \
   mkinitcpio-firmware \
   net-tools \
   xdg-utils xdg-user-dirs \
-  stow zsh tmux ripgrep mlocate htop \
+  stow zsh tmux ripgrep mlocate btop \
   neovim-nightly-bin ctags less bat fswatch difftastic \
   pass pass-otp zbar \
   httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
