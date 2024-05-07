@@ -53,6 +53,7 @@ bindkey '^[' edit-command-line
 if command -v nvim >/dev/null 2>&1; then
   alias vim=nvim
   alias vimdiff='nvim -d'
+  alias nvimf='nvim -c "FzfLua files"'
 fi
 
 # Alias copy/paste
