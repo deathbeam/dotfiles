@@ -4,6 +4,7 @@ utils.desc('<leader>a', 'AI')
 -- Copilot autosuggestions
 vim.g.copilot_no_tab_map = true
 vim.g.copilot_hide_during_completion = 0
+vim.g.copilot_proxy_strict_ssl = 0
 vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
 local chat = require('CopilotChat')
@@ -24,6 +25,7 @@ chat.setup({
     question_header = '',
     answer_header = '',
     error_header = '',
+    allow_insecure = true,
     show_folds = false,
     mappings = {
         submit_prompt = {
