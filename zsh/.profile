@@ -41,6 +41,9 @@ export TERMINAL="alacritty"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1
 
+# Node no ssl
+export NODE_TLS_REJECT_UNAUTHORIZED=0
+
 # Set scaling
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
