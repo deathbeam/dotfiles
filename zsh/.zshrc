@@ -58,7 +58,7 @@ fi
 
 # Alias copy/paste
 function vcopy {
-  if [ command -v wl-copy >/dev/null 2>&1 ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+  if command -v wl-copy >/dev/null 2>&1 && [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     wl-copy
   elif command -v xsel >/dev/null 2>&1; then
     xsel --clipboard --input
@@ -67,7 +67,7 @@ function vcopy {
   fi
 }
 function vpaste {
-  if [ command -v wl-paste >/dev/null 2>&1 ] && [ "$XDG_SESSION_TYPE" == "wayland" ]; then
+  if command -v wl-paste >/dev/null 2>&1 && [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     wl-paste
   elif command -v xsel >/dev/null 2>&1; then
     xsel --clipboard --output
