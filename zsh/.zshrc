@@ -76,12 +76,19 @@ function vpaste {
   fi
 }
 
-# Arch utilities
-alias arch-show-unnecessary='pacman -Qqd | pacman -Rsu --print -'
-alias arch-update-mirrors='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
-alias arch-remove-orphans='yay -Rns $(yay -Qtdq)'
-alias arch-update='yay -Syu'
-alias yayr='yay -Rnsc'
+# Arch aliases
+# Show unnecessary packages
+alias pas='yay -Qqd | yay -Rsu --print -'
+# Upadte mirrors
+alias pam='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
+# Remove orphaned packages
+alias pac='yay -Rns $(paru -Qtdq)'
+# Update system
+alias pau='yay -Syu --devel'
+# Remove package
+alias par='yay -Rnsc'
+# Install package
+alias pai='yay -S'
 
 # Set proxy
 function setproxy {

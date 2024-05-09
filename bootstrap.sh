@@ -2,20 +2,19 @@
 set -ex
 shopt -s nullglob globstar
 
+# Prepare git dir
+mkdir -p ~/git
+cd ~/git
+
 # Install AUR helper
 echo '==> Installing AUR helper'
-cur_dir=$PWD
-rm -rf /tmp/aur_install
-mkdir -p /tmp/aur_install
-cd /tmp/aur_install
-sudo pacman --noconfirm --needed -S git go
+sudo pacman --noconfirm --needed -S git
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
-cd $cur_dir
 
 echo '==> Installing extra packages'
-yay --noconfirm -S --mflags --skipinteg \
+yay -S --noconfirm --mflags --skipinteg \
   mkinitcpio-firmware \
   net-tools \
   xdg-utils xdg-user-dirs \
@@ -27,19 +26,18 @@ yay --noconfirm -S --mflags --skipinteg \
   p7zip man-db alsa-utils keyd fastfetch socat
 
 echo '==> Installing development packages'
-yay --noconfirm -S --mflags --skipinteg \
+yay -S --noconfirm --mflags --skipinteg \
   jdk8-openjdk openjdk8-doc openjdk8-src \
   jdk-openjdk openjdk-doc openjdk-src \
   maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit
 
 echo '==> Installing python packages'
-yay --noconfirm -S --mflags --skipinteg \
+yay -S --noconfirm --mflags --skipinteg \
   python-pip python-dbus python-opengl python-virtualenv
-
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
 echo '==> Installing desktop packages'
-yay --noconfirm -S --mflags --skipinteg \
+yay -S --noconfirm --mflags --skipinteg \
   fonts-meta-base \
   terminus-font terminus-font-ttf ttf-terminus-nerd \
   udiskie \
@@ -53,7 +51,6 @@ yay --noconfirm -S --mflags --skipinteg \
   dropbox vesktop boosteroid stremio steam calibre postman
 
 echo '==> Installing dotfiles'
-mkdir -p ~/git
 cd ~/git
 git clone https://github.com/deathbeam/dotfiles || true
 cd dotfiles
