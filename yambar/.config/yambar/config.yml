@@ -26,7 +26,8 @@ bar:
                 list:
                   spacing: 0
                   items:
-                    - string: {text: "{monitor}", margin: *margin}
+                    - string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    # - string: {text: "{monitor}", margin: *margin}
                     - map:
                         conditions:
                           fullscreen:
