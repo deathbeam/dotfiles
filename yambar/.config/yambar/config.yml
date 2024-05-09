@@ -149,7 +149,7 @@ bar:
           string: {text: "  {date} {time}", margin: *margin}
     -
       script:
-        path: ~/.config/yambar/arch.shgit@codeberg.org:deathbeam/yambar.git
+        path: ~/.config/yambar/arch.sh
         poll-interval: 900000
         content:
           map:
