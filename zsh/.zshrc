@@ -82,7 +82,7 @@ alias pas='yay -Qqd | yay -Rsu --print -'
 # Upadte mirrors
 alias pam='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
 # Remove orphaned packages
-alias pac='yay -Rns $(paru -Qtdq)'
+alias pac='yay -Rns $(yay -Qtdq)'
 # Update system
 alias pau='yay -Syu'
 # Remove package
