@@ -14,9 +14,8 @@ pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
 
 echo '==> Installing Asus packages'
 yay -S --noconfirm --mflags --skipinteg \
-    asusctl power-profiles-daemon supergfxctl switcheroo-control rog-control-center
+    asusctl rog-control-center power-profiles-daemon
 
 echo '==> Configuring Asus'
+sudo systemctl enable asusd
 sudo systemctl enable power-profiles-daemon
-sudo systemctl enable supergfxd
-sudo systemctl enable switcheroo-control
