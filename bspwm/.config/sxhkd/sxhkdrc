@@ -4,35 +4,35 @@
 
 # terminal emulator + tmux
 super + Return
-  $TERMINAL -e $SHELL -ic "tmux new-session -A -s default"
+  terminal
 
 # switcher menu
 super + Tab
-  ~/.config/fzfmenu/switchmenu -p "switch"
+  switchmenu -p "switch"
 
 # program menu
 super + space
-  ~/.config/fzfmenu/runmenu -p "run"
+  runmenu -p "run"
 
 # password menu
 super + z
-  ~/.config/fzfmenu/passmenu -p "pass"
+  passmenu -p "pass"
 
 # process menu
 super + x
-  ~/.config/fzfmenu/procmenu -p "proc"
+  procmenu -p "proc"
 
 # clipboard menu
 super + c
-  ~/.config/fzfmenu/clipmenu -p "clip"
+  clipmenu -p "clip"
 
 # steam menu
 super + v
-  ~/.config/fzfmenu/steammenu -p "steam"
+  steammenu -p "steam"
 
 # copilot menu
 super + b
-  ~/.config/fzfmenu/copilotmenu
+  copilotchat
 
 # lock screen
 super + e
