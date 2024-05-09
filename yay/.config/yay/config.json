@@ -1,0 +1,5 @@
+{
+	"removemake": "yes",
+	"devel": true,
+	"combinedupgrade": true
+}

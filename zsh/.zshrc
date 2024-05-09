@@ -84,7 +84,7 @@ alias pam='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
 # Remove orphaned packages
 alias pac='yay -Rns $(paru -Qtdq)'
 # Update system
-alias pau='yay -Syu --devel'
+alias pau='yay -Syu'
 # Remove package
 alias par='yay -Rnsc'
 # Install package
