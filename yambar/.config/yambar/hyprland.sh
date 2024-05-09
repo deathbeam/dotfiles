@@ -1,7 +1,19 @@
 #!/bin/sh
 urgent_workspace_id=-1
 
-socat -U - UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock | while read -r line; do
+tmp_sock="/tmp/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
+runtime_sock="${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
+
+if [ -S "$tmp_sock" ]; then
+    sock="$tmp_sock"
+elif [ -S "$runtime_sock" ]; then
+    sock="$runtime_sock"
+else
+    echo "error|socket not found"
+    exit 1
+fi
+
+socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     # Read active winow data
     window_info=()
     while IFS= read -r l
