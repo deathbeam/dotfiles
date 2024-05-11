@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 
 IFS=':'
 while read l; do

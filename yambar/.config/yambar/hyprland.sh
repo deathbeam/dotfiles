@@ -1,4 +1,5 @@
 #!/bin/sh
+set -e
 urgent_workspace_id=-1
 
 tmp_sock="/tmp/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/.socket2.sock"
