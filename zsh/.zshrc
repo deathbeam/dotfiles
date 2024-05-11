@@ -78,7 +78,7 @@ function vpaste {
 
 # Arch aliases
 # Show unnecessary packages
-alias pas='yay -Qqd | yay -Rsu --print -'
+alias pan='yay -Qqd | yay -Rsu --print -'
 # Upadte mirrors
 alias pam='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
 # Remove orphaned packages
