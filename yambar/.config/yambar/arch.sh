@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 # Check for updates in the official repositories
 official_updates=$(checkupdates 2>/dev/null | wc -l)

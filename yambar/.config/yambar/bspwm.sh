@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 IFS=':'
 while read l; do
@@ -47,6 +46,7 @@ while read l; do
         esac
     done
 
+    echo "xwayland|bool|false"
     echo "monitor|string|$monitor"
     echo "monocle|bool|$monocle"
     echo "floating|bool|$floating"

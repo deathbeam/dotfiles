@@ -1,5 +1,4 @@
 #!/bin/sh
-set -e
 
 if [ command -v nvidia-smi &> /dev/null ]; then
     echo "percent|int|-1"
