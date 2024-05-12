@@ -3,6 +3,7 @@ set -ex
 
 echo '==> Installing X11 packages'
 yay -S --noconfirm --mflags --skipinteg \
+  xorg-server \
   xdo xdotool xtitle xorg-xdpyinfo xorg-xrandr xorg-xsetroot \
   xclip xsel autocutsel clipboard-bin \
   bspwm sxhkd i3lock imagemagick feh
