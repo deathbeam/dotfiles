@@ -65,6 +65,6 @@ function apply_scale_factor() {
 
 export DPI=$(apply_scale_factor 96)
 export BAR_HEIGHT=$(apply_scale_factor 40)
-export GDK_SCALE=${SCALE_FACTOR:-1}
+export GDK_SCALE=$SCALE_FACTOR
 export QT_SCALE_FACTOR=$GDK_SCALE
 export WINIT_X11_SCALE_FACTOR=$GDK_SCALE
