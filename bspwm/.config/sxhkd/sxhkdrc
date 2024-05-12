@@ -36,7 +36,7 @@ super + b
 
 # lock screen
 super + e
-  i3lock -i ~/.wallpaper
+  lockscreen
 
 #
 # special keys
