@@ -6,4 +6,8 @@ yay -S --noconfirm --mflags --skipinteg \
     nvidia-beta nvidia-utils-beta lib32-nvidia-utils-beta libva-nvidia-driver
 
 echo '==> Configuring Nvidia'
-sudo systemctl enable nvidia-powerd.service
+sudo systemctl enable \
+    nvidia-suspend \
+    nvidia-hibernate \
+    nvidia-resume \
+    nvidia-powerd

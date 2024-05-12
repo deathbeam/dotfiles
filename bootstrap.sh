@@ -72,8 +72,9 @@ EOF
 sudo ln -s ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
 
 # Enable services
-sudo systemctl enable keyd
-sudo systemctl enable tlp
+sudo systemctl enable \
+    keyd \
+    tlp
 
 # Alter pacman options
 sudo sed -i '/\[options\]/a Color' /etc/pacman.conf

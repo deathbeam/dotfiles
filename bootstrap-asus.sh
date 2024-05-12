@@ -17,5 +17,6 @@ yay -S --noconfirm --mflags --skipinteg \
     asusctl rog-control-center power-profiles-daemon
 
 echo '==> Configuring Asus'
-sudo systemctl enable asusd
-sudo systemctl enable power-profiles-daemon
+sudo systemctl enable \
+    asusd \
+    power-profiles-daemon
