@@ -20,7 +20,7 @@ yay -S --noconfirm --mflags --skipinteg \
   xdg-utils xdg-user-dirs \
   stow zsh tmux ripgrep mlocate btop \
   neovim-nightly-bin ctags less bat fswatch difftastic \
-  pass pass-otp zbar \
+  pass pass-otp \
   httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
   tlp rate-mirrors unzip fuse2 bc brightnessctl \
   p7zip man-db alsa-utils keyd fastfetch socat

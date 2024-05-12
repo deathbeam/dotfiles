@@ -86,7 +86,7 @@ alias pac='yay -Rns $(yay -Qtdq)'
 # Update system
 alias pau='yay -Syu'
 # Remove package
-alias par='yay -Rnsc'
+alias par='yay -Rnsu'
 # Install package
 alias pai='yay -S'
 
