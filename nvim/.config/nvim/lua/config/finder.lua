@@ -1,5 +1,6 @@
 local utils = require('config.utils')
 local nmap = utils.nmap
+local nvmap = utils.nvmap
 local desc = utils.desc
 
 desc('<leader>f', 'Find')
@@ -71,7 +72,7 @@ end, 'Find Git Grep')
 nmap('<leader>ff', fzf_lua.files, 'Find Files')
 nmap('<leader>fF', fzf_lua.git_files, 'Find Git Files')
 nmap('<leader>fa', fzf_lua.commands, 'Find Actions')
-nmap('<leader>fc', fzf_lua.git_bcommits, 'Find Commits')
+nvmap('<leader>fc', fzf_lua.git_bcommits, 'Find Commits')
 nmap('<leader>fC', fzf_lua.git_commits, 'Find All Commits')
 nmap('<leader>fb', fzf_lua.buffers, 'Find Buffers')
 nmap('<leader>fh', fzf_lua.oldfiles, 'Find History')
