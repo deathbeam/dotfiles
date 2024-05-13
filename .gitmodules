@@ -139,6 +139,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-highlight-colors"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-highlight-colors
 	url = https://github.com/brenoprata10/nvim-highlight-colors
-[submodule "nvim/.config/nvim/pack/bundle/start/vim-fugitive"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
+[submodule "nvim/.config/nvim/pack/bundle/start/diffview.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/diffview.nvim
+	url = https://github.com/sindrets/diffview.nvim

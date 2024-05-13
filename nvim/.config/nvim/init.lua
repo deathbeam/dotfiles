@@ -41,6 +41,7 @@ require('mason-tool-installer').setup({
 require('config.rooter')
 require('config.ui')
 require('config.wiki')
+require('config.git')
 require('config.statuscolumn')
 require('config.finder')
 require('config.treesitter')
