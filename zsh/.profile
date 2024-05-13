@@ -37,6 +37,9 @@ export BASE16_FZF_PATH=~/.zsh/pack/bundle/start/base16-fzf
 # Set the default terminal emulator
 export TERMINAL="alacritty"
 
+# Set path to wallpaper
+export WALLPAPER="$HOME/.wallpaper"
+
 # Fix Java window resizing in TWM
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1

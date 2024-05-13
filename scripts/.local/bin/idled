@@ -1,4 +1,0 @@
-#!/bin/sh
-swayidle -w timeout 300 'lockscreen' \
-            timeout 600 'systemctl suspend' \
-            before-sleep 'lockscreen' &
