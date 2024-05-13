@@ -4,14 +4,19 @@ export PATH="$HOME/.local/bin:$HOME/.config/bin:$HOME/.cargo/bin:$HOME/.luarocks
 # Set go path to user home
 export GOPATH="$HOME/go"
 
-# Better pager
-export PAGER="less -F -X"
-
 # Set npm home to user home
 export NPM_CONFIG_PREFIX="$HOME/.npm-global"
 
 # Set JAVA_HOME
 export JAVA_HOME=/usr/lib/jvm/default
+
+# Preferred editor for local and remote sessions
+export EDITOR="nvim"
+export VISUAL="$EDITOR"
+
+# Better pager
+export PAGER="less"
+export MANPAGER="$EDITOR +Man!"
 
 # Set the default Less options.
 # Mouse-wheel scrolling has been disabled by -X (disable screen clearing).
@@ -21,10 +26,6 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 # Manually set your language environment
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
-
-# Preferred editor for local and remote sessions
-export EDITOR="nvim"
-export VISUAL="$EDITOR"
 
 # Use GPG agent for SSH
 export SSH_AGENT_PID=""
