@@ -28,11 +28,11 @@ socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     process=$(echo "$process" | awk -F'.' '{print $NF}')
     xwayland=${window_info[3]}
     floating=${window_info[4]}
-    fullscreen=${window_info[5]}
     monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
+    fullscreen=$([ "$monocle" = true ] && echo "false" || echo "${window_info[5]}")
 
     # Toggle gammastep on fullscreen change
-    if [ "$fullscreen" = true ] && [ "$monocle" = false ] && [ "$was_fullscreen" = false ]; then
+    if [ "$fullscreen" = true ] && [ "$was_fullscreen" = false ]; then
         was_fullscreen=true
         pkill -USR1 gammastep
     elif [ "$fullscreen" = false ] && [ "$was_fullscreen" = true ]; then
