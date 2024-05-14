@@ -3,8 +3,8 @@
 scriptpath=$(dirname $(realpath $0))
 
 if [ -n "$(pgrep -x bspwm)" ]; then
-    $scriptpath/bspwm.sh
+    exec $scriptpath/bspwm.sh
 elif [ -n "$(pgrep -x Hyprland)" ]; then
-    $scriptpath/hyprland.sh
+    exec $scriptpath/hyprland.sh
 fi
 
