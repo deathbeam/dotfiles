@@ -31,8 +31,8 @@ socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
     fullscreen=$([ "$monocle" = true ] && echo "false" || echo "${window_info[5]}")
 
-    # Toggle gammastep on fullscreen change
-    if [ "$fullscreen" = true ] && [ "$was_fullscreen" = false ]; then
+    # Toggle gammastep on fullscreen change (only for xwayland windows, so steam)
+    if [ "$fullscreen" = true ] && [ "$xwayland" = true ] && [ "$was_fullscreen" = false ]; then
         was_fullscreen=true
         pkill -USR1 gammastep
     elif [ "$fullscreen" = false ] && [ "$was_fullscreen" = true ]; then
