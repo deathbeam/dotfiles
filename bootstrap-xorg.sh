@@ -11,6 +11,6 @@ yay -S --noconfirm --mflags --skipinteg \
 cd ~/git
 git clone git://git.suckless.org/st || true
 cd st
-git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/x11/st.diff
+git apply --ignore-space-change --ignore-whitespace ~/git/dotfiles/bspwm/st.diff
 cp config.def.h config.h
 sudo make clean install
