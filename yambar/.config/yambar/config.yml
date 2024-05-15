@@ -134,7 +134,7 @@ bar:
           string: {text: "  {percent}%", margin: *margin}
     -
       backlight:
-        name: nvidia_wmi_ec_backlight
+        name: nvidia_0
         content:
           string: {text: " {percent}%", margin: *margin}
     -
