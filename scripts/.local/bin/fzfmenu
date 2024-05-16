@@ -18,7 +18,7 @@ export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
 
 FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
 FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
-TITLE="fzf-menu"
+TITLE=""
 TERM_CLASS="--class"
 if [ "$TERMINAL" = "st" ]; then
    TERM_CLASS="-n"
@@ -40,21 +40,22 @@ show() {
 }
 
 run_menu() {
-  kill_old
   scan_args > $FILE_ARGS
+  kill_old
   prompt "$@"
   show
 }
 
 prompt() {
   : > $FILE_CHOICES
-  $TERMINAL $TERM_CLASS FZFMenu -T "$TITLE" \
+  $TERMINAL $TERM_CLASS shellmenu -T "$TITLE" \
     -e "$SHELL" -c "
       source ~/.fzf.zsh
       source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
       source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
       export BAT_THEME=$BAT_THEME;
-      fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES" 2> /dev/null &
+      exec fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES
+  " &
   pid=$!
   trap "kill -9 $pid" SIGTERM
   wait $pid
@@ -65,7 +66,7 @@ main() {
   while :; do
     case $1 in
       -l) shift ;;
-      -p) shift && TITLE="$TITLE: $1" && PROMPT="--prompt \"$1 > \"" ;;
+      -p) shift && TITLE="$1" && PROMPT="--prompt \"$1 > \"" ;;
       -q) shift && QUERY="-q \"$1\"" ;;
       *) break ;;
     esac

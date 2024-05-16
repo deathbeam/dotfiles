@@ -35,7 +35,7 @@ if [[ -n $SCALE_FACTOR ]]; then
 fi
 
 offsety="$((screenheight - $winheight))"
-bspc rule -a \*:FZFMenu state=floating sticky=on border=off rectangle="$screenwidth"x"$winheight"+0+"$offsety"
+bspc rule -a \*:shellmenu state=floating sticky=on border=off rectangle="$screenwidth"x"$winheight"+0+"$offsety"
 
 wid=$(xdo id -m -a "yambar")
 xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" "$wid"
