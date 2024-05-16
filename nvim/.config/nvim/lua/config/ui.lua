@@ -3,14 +3,11 @@ local au = utils.au
 local nmap = utils.nmap
 
 -- Set base16 colorscheme
-vim.opt.termguicolors = true
 local base16 = require('base16-colorscheme')
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
-        local base00 = base16.colors.base00
         local base03 = base16.colors.base03
-
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = base03 })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
         vim.api.nvim_set_hl(0, 'LineNr', { fg = base03 })
@@ -24,7 +21,9 @@ base16.load_from_shell()
 require('nvim-web-devicons').setup()
 
 -- Load colors
-require('nvim-highlight-colors').setup()
+require('nvim-highlight-colors').setup {
+    enable_named_colors = false,
+}
 
 -- File browser
 require('oil').setup({
