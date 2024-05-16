@@ -13,42 +13,50 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
 
+echo '==> Installing sound packages'
+yay -S --noconfirm --mflags --skipinteg \
+    pipewire \
+    pipewire-alsa \
+    pipewire-jack \
+    pipewire-pulse \
+    gst-plugin-pipewire \
+    libpulse \
+    wireplumber
+
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
-  mkinitcpio-firmware \
-  net-tools \
-  xdg-utils xdg-user-dirs \
-  stow zsh tmux ripgrep mlocate btop \
-  neovim-git ctags less bat fswatch difftastic \
-  pass pass-otp \
-  httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
-  tlp rate-mirrors unzip fuse2 bc brightnessctl \
-  p7zip man-db alsa-utils keyd fastfetch socat
+    mkinitcpio-firmware \
+    net-tools \
+    xdg-utils xdg-user-dirs \
+    stow zsh tmux ripgrep mlocate btop \
+    neovim-git ctags less bat fswatch difftastic \
+    pass pass-otp \
+    httpie sshpass stoken openvpn vpn-slice openconnect wget jq \
+    tlp rate-mirrors unzip fuse2 bc brightnessctl \
+    p7zip man-db alsa-utils keyd fastfetch socat
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
-  jdk8-openjdk openjdk8-doc openjdk8-src \
-  jdk-openjdk openjdk-doc openjdk-src \
-  maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit
+    jdk8-openjdk openjdk8-doc openjdk8-src \
+    jdk-openjdk openjdk-doc openjdk-src \
+    maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit \
+    python-pip python-dbus python-opengl python-virtualenv
 
-echo '==> Installing python packages'
-yay -S --noconfirm --mflags --skipinteg \
-  python-pip python-dbus python-opengl python-virtualenv
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 
 echo '==> Installing desktop packages'
 yay -S --noconfirm --mflags --skipinteg \
-  fonts-meta-base \
-  terminus-font terminus-font-ttf ttf-terminus-nerd \
-  udiskie \
-  gammastep geoclue2 \
-  dunst \
-  yambar \
-  alacritty \
-  zathura zathura-pdf-mupdf \
-  qutebrowser python-adblock chromium-widevine \
-  mpv yt-dlp \
-  dropbox vesktop boosteroid stremio steam calibre postman
+    fonts-meta-base \
+    terminus-font terminus-font-ttf ttf-terminus-nerd \
+    udiskie \
+    gammastep geoclue2 \
+    dunst \
+    yambar \
+    alacritty \
+    zathura zathura-pdf-mupdf \
+    qutebrowser python-adblock chromium-widevine \
+    mpv yt-dlp \
+    dropbox vesktop boosteroid stremio steam calibre postman
 
 echo '==> Installing dotfiles'
 cd ~/git
