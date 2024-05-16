@@ -6,7 +6,8 @@ local desc = utils.desc
 desc('<leader>f', 'Find')
 
 local fzf_lua = require('fzf-lua')
-fzf_lua.setup({ 'fzf-tmux',
+fzf_lua.setup({
+    'fzf-tmux',
     file_icon_padding = ' ',
     fzf_opts = {
         ['--info'] = false,
@@ -17,7 +18,7 @@ fzf_lua.setup({ 'fzf-tmux',
         ['-p'] = '100%,100%',
     },
     defaults = {
-        formatter = "path.filename_first",
+        formatter = 'path.filename_first',
     },
     grep = {
         prompt = 'Grep❯ ',

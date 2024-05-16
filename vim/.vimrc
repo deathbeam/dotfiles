@@ -143,6 +143,8 @@ let g:mapleader = ' '
 
 " Stupid highlight
 nmap <silent> <Esc> <CMD>noh<CR>
+nmap <silent> n nzzzv
+nmap <silent> N Nzzzv
 
 " Navigation
 nmap <silent> <leader>" <CMD>vsplit<CR>
