@@ -136,6 +136,3 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-nio"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-nio
 	url = https://github.com/nvim-neotest/nvim-nio
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-highlight-colors"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-highlight-colors
-	url = https://github.com/brenoprata10/nvim-highlight-colors
