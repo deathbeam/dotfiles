@@ -4,8 +4,8 @@ for m in $(xrandr --query | grep " connected" | cut -d" " -f1); do
   bspc monitor $m -d 1 2 3 4 5
 done
 
-bspc config normal_border_color  "#073642"
-bspc config active_border_color  "#073642"
+bspc config normal_border_color  "#657B83"
+bspc config active_border_color  "#657B83"
 bspc config focused_border_color "#268bd2"
 bspc config border_width         1
 bspc config window_gap           0
