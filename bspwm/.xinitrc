@@ -37,7 +37,7 @@ fi
 
 # Start gammastep
 if command -v gammastep >/dev/null 2>&1; then
-  gammastep -r -m randr &
+  gammastep -m randr &
 fi
 
 # Start notification daemon
