@@ -21,11 +21,6 @@ set noswapfile
 " means that you can undo even when you close a buffer/VIM
 set undofile
 
-" Use system clipboard
-if has('clipboard')
-  set clipboard=unnamedplus
-endif
-
 " }}}
 
 " User interface {{{

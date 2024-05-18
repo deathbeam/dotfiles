@@ -5,6 +5,30 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
+local utils = require('config.utils')
+local au = utils.au
+
+-- sync system clipboard and vim clipboard
+au({ "FocusGained", "VimEnter" }, {
+    callback = function()
+        local content = vim.fn.getreg("+")
+        if content and content ~= "" then
+            vim.fn.setreg('"', content)
+        end
+    end,
+})
+au("TextYankPost", {
+    callback = function()
+        if vim.v.event.operator ~= "y" then
+            return
+        end
+        local content = vim.fn.getreg('"')
+        if content and content ~= "" then
+            vim.fn.setreg("+", content)
+        end
+    end,
+})
+
 require('config.utils').nmap('<leader>m', function()
     local scratch_buffer = vim.api.nvim_create_buf(false, true)
     vim.bo[scratch_buffer].filetype = 'vim'
