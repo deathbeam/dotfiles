@@ -4,6 +4,7 @@ local nmap = utils.nmap
 
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
+vim.opt.termguicolors = true
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
