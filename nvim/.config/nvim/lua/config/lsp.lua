@@ -1,12 +1,8 @@
-local fzf_lua = require('fzf-lua')
 local languages = require('config.languages')
 local utils = require('config.utils')
 local nmap = utils.nmap
-local desc = utils.desc
 local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
-
-desc('<leader>c', 'Code')
 
 -- Set signs
 for name, icon in pairs(require('config.icons').diagnostics) do
@@ -17,13 +13,13 @@ end
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({ severity_sort = true, float = { border = 'single' } })
 
--- Set diagnostic mappings
-nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics')
-nmap('[d', vim.diagnostic.goto_prev, 'Goto previous Diagnostic')
-nmap(']d', vim.diagnostic.goto_next, 'Goto next Diagnostic')
-
+-- Echo LSP messages
 require('lspecho').setup()
 
+-- Set diagnostic mappings
+nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics')
+
+-- :h lsp-defaults
 au('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
@@ -49,23 +45,9 @@ au('LspAttach', {
         if client.server_capabilities.typeDefinitionProvider then
             nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
         end
-        if client.server_capabilities.referencesProvider then
-            nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
-        end
-        if client.server_capabilities.signatureHelpProvider then
-            nmap('gs', vim.lsp.buf.signature_help, 'Goto Signature Help', event.buf)
-        end
-
-        -- find
-        nmap('<leader>fd', fzf_lua.lsp_document_diagnostics, 'Find Diagnostics', event.buf)
-        nmap('<leader>fD', fzf_lua.lsp_workspace_diagnostics, 'Find all Diagnostics', event.buf)
-        nmap('<leader>fs', fzf_lua.lsp_document_symbols, 'Find Symbols', event.buf)
-        nmap('<leader>fS', fzf_lua.lsp_live_workspace_symbols, 'Find all Symbols', event.buf)
 
         -- code
-        nmap('<leader>cr', vim.lsp.buf.rename, 'Code Rename', event.buf)
-        nmap('<leader>cf', vim.lsp.buf.format, 'Code Format', event.buf)
-        nmap('<leader>ca', vim.lsp.buf.code_action, 'Code Action', event.buf)
+        nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
     end,
 })
 
