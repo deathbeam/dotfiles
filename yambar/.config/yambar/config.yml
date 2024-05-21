@@ -8,8 +8,8 @@ margin: &margin 15
 
 bar:
   location: top
-  font: monospace:size=32
-  height: 60
+  font: monospace:size=18
+  height: 40
   foreground: *color_fg
   background: *color_bg
 
