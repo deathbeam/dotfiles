@@ -51,6 +51,8 @@ au('LspAttach', {
 
         -- code
         nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
+        nmap('cra', vim.lsp.buf.code_action, 'Code Actions', event.buf)
+        nmap('crr', vim.lsp.buf.rename, 'Rename', event.buf)
     end,
 })
 
