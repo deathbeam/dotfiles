@@ -42,6 +42,9 @@ au('LspAttach', {
             nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
             nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
         end
+        if client.server_capabilities.referencesProvider then
+            nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
+        end
         if client.server_capabilities.implementationProvider then
             nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
         end
