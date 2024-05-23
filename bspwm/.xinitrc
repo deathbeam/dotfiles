@@ -20,6 +20,11 @@ xsetroot -cursor_name left_ptr
 export GPG_TTY=$(tty)
 gpg-connect-agent updatestartuptty /bye >/dev/null
 
+# Hidden tray
+if command -v hiddentray >/dev/null 2>&1; then
+  hiddentray &
+fi
+
 # Set nice wallpaper
 if command -v feh >/dev/null 2>&1; then
   feh --bg-scale ~/.wallpaper

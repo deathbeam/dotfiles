@@ -1,0 +1,8 @@
+#!/bin/sh
+
+stalonetray &
+sleep 2
+TRAY_WINDOW=$(xdotool search --class stalonetray)
+if [ -n "$TRAY_WINDOW" ]; then
+  xdotool windowunmap $TRAY_WINDOW
+fi
