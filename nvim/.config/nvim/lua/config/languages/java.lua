@@ -40,7 +40,7 @@ local function get_jdtls_paths()
 
     local java_debug_path = registry.get_package('java-debug-adapter'):get_install_path()
     local java_debug_bundle =
-        vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
+    vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(path.bundles, java_debug_bundle)
     end
@@ -49,7 +49,7 @@ local function get_jdtls_paths()
     return path
 end
 
-local function jdtls_on_attach(client, bufnr)
+local function jdtls_on_attach(_, bufnr)
     jdtls_dap.setup_dap({ hotcodereplace = 'auto' })
     jdtls_dap.setup_dap_main_class_configs()
 
@@ -57,74 +57,73 @@ local function jdtls_on_attach(client, bufnr)
     nmap('<leader>dT', jdtls.test_class, 'Debug Test Class', bufnr)
 end
 
-local function java_setup()
-    if not cache_vars.dap_setup then
-        cache_vars.dap_setup = true
-        dap.configurations.java = {
-            {
-                type = 'java',
-                request = 'attach',
-                name = 'Attach remote',
-                hostName = 'localhost',
-                port = 5005,
-            },
-        }
-    end
-
-    local cwd = vim.fn.getcwd()
-    local path = get_jdtls_paths()
-    local data_dir = path.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t')
-
-    -- The command that starts the language server
-    -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
-    -- Also see: https://github.com/redhat-developer/vscode-java/blob/master/src/javaServerStarter.ts
-    local cmd = {
-        'java',
-        '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-        '-Dosgi.bundles.defaultStartLevel=4',
-        '-Declipse.product=org.eclipse.jdt.ls.core.product',
-        '-Djava.import.generatesMetadataFilesAtProjectRoot=false',
-        '-Xlog:disable',
-        '-Xms1g',
-        '--add-modules=ALL-SYSTEM',
-        '--add-opens',
-        'java.base/java.util=ALL-UNNAMED',
-        '--add-opens',
-        'java.base/java.lang=ALL-UNNAMED',
-        '-javaagent:' .. path.java_agent,
-        '-jar',
-        path.launcher_jar,
-        '-configuration',
-        path.platform_config,
-        '-data',
-        data_dir,
-    }
-
-    -- This starts a new client & server,
-    -- or attaches to an existing client & server depending on the `root_dir`.
-    jdtls.start_or_attach({
-        cmd = cmd,
-        settings = vim.tbl_filter(function(language)
-            return vim.tbl_contains(language.language, 'java')
-        end, languages)[1].lsp_settings,
-        on_attach = jdtls_on_attach,
-        capabilities = lsp_capabilities,
-        root_dir = cwd,
-        flags = {
-            allow_incremental_sync = true,
-        },
-        init_options = {
-            bundles = path.bundles,
-        },
-        handlers = {
-            ['language/status'] = function() end,
-            -- FIXME: Maybe check this again? https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jdtls.lua#L117
-        },
-    })
-end
-
 au('FileType', {
     pattern = { 'java' },
     desc = 'Setup java',
-    callback = java_setup,
+    callback = function()
+        if not cache_vars.dap_setup then
+            cache_vars.dap_setup = true
+            dap.configurations.java = {
+                {
+                    type = 'java',
+                    request = 'attach',
+                    name = 'Attach remote',
+                    hostName = 'localhost',
+                    port = 5005,
+                },
+            }
+        end
+
+        local cwd = vim.fn.getcwd()
+        local path = get_jdtls_paths()
+        local data_dir = path.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t')
+
+        -- The command that starts the language server
+        -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
+        -- Also see: https://github.com/redhat-developer/vscode-java/blob/master/src/javaServerStarter.ts
+        local cmd = {
+            'java',
+            '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+            '-Dosgi.bundles.defaultStartLevel=4',
+            '-Declipse.product=org.eclipse.jdt.ls.core.product',
+            '-Djava.import.generatesMetadataFilesAtProjectRoot=false',
+            '-Xlog:disable',
+            '-Xms1g',
+            '--add-modules=ALL-SYSTEM',
+            '--add-opens',
+            'java.base/java.util=ALL-UNNAMED',
+            '--add-opens',
+            'java.base/java.lang=ALL-UNNAMED',
+            '-javaagent:' .. path.java_agent,
+            '-jar',
+            path.launcher_jar,
+            '-configuration',
+            path.platform_config,
+            '-data',
+            data_dir,
+        }
+
+        -- This starts a new client & server,
+        -- or attaches to an existing client & server depending on the `root_dir`.
+        jdtls.start_or_attach({
+            cmd = cmd,
+            settings = vim.tbl_filter(function(language)
+                return vim.tbl_contains(language.language, 'java')
+            end, languages)[1].lsp_settings,
+            on_attach = jdtls_on_attach,
+            capabilities = lsp_capabilities,
+            root_dir = cwd,
+            flags = {
+                allow_incremental_sync = true,
+            },
+            init_options = {
+                bundles = path.bundles,
+            },
+            handlers = {
+                ['language/status'] = function() end,
+                -- FIXME: Maybe check this again? https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jdtls.lua#L117
+            },
+        })
+    end
+    ,
 })

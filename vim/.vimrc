@@ -96,6 +96,10 @@ autocmd VimRc BufRead * autocmd FileType <buffer> ++once
 " Disable relative numbers in quickfix
 autocmd VimRc BufWinEnter quickfix set norelativenumber
 
+" Sync system clipboard and vim clipboard
+autocmd VimRc FocusGained,VimEnter * let @"=getreg('+')
+autocmd VimRc TextYankPost * if v:event.operator ==# 'y' | let @+=getreg('"') | endif
+
 " }}}
 
 " Text, tab and indent related {{{
@@ -153,7 +157,6 @@ function! ToggleZoom(zoom)
       exec "normal \<C-W>\|\<C-W>_"
   endif
 endfunction
-
 autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
 nnoremap <silent> <leader>z <CMD>call ToggleZoom(v:true)<CR>
 
@@ -162,6 +165,9 @@ noremap! <C-A> <Home>
 noremap! <C-E> <End>
 noremap! <C-P> <Up>
 noremap! <C-N> <Down>
+
+" Nice mapping for messages as buffer
+nnoremap <leader>m :new \| setlocal buftype=nofile bufhidden=wipe \| silent execute 'redir @a' \| silent messages \| silent execute 'redir END' \| put a<CR>
 
 " Sudo save
 command! W w !sudo tee % > /dev/null
