@@ -23,8 +23,12 @@ vim.diagnostic.config({
 -- Echo LSP messages
 require('lspecho').setup()
 
--- Set diagnostic mappings
-nmap('gl', vim.diagnostic.open_float, 'Goto Line Diagnostics')
+au('CursorHold', {
+    desc = 'Show diagnostics',
+    callback = function()
+        vim.diagnostic.open_float()
+    end,
+})
 
 -- :h lsp-defaults
 au('LspAttach', {
@@ -59,7 +63,7 @@ au('LspAttach', {
             nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
         end
 
-        -- code
+        -- code refactor
         nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
         nmap('cra', vim.lsp.buf.code_action, 'Code Actions', event.buf)
         nmap('crr', vim.lsp.buf.rename, 'Rename', event.buf)
