@@ -4,14 +4,21 @@ local nmap = utils.nmap
 local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
--- Set signs
-for name, icon in pairs(require('config.icons').diagnostics) do
-    vim.fn.sign_define('DiagnosticSign' .. name, { text = icon, texthl = 'Diagnostic' .. name })
-end
-
--- Set borders
+-- Set stuff
+local icons = require('config.icons').diagnostics
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
-vim.diagnostic.config({ severity_sort = true, float = { border = 'single' } })
+vim.diagnostic.config({
+    severity_sort = true,
+    float = { border = 'single' },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons.Error,
+            [vim.diagnostic.severity.WARN] = icons.Warn,
+            [vim.diagnostic.severity.INFO] = icons.Info,
+            [vim.diagnostic.severity.HINT] = icons.Hint,
+        }
+    }
+})
 
 -- Echo LSP messages
 require('lspecho').setup()
