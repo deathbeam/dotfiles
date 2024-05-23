@@ -37,7 +37,17 @@ require('config.utils').nmap('<leader>m', function()
     vim.cmd('vertical sbuffer ' .. scratch_buffer)
 end, 'Show messages')
 
-require('mason').setup()
+require('config.registry')
+require('mason').setup {
+    ui = {
+        border = "single",
+    },
+    registries = {
+        "github:mason-org/mason-registry",
+        "lua:config.registry",
+    },
+}
+
 require('mason-tool-installer').setup({
     run_on_start = false,
     ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(

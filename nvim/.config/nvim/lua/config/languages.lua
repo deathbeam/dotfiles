@@ -1,3 +1,8 @@
+local function exepath(expr)
+	local ep = vim.fn.exepath(expr)
+	return ep ~= "" and ep or nil
+end
+
 return {
     {
         language = { 'javascript', 'typescript' },
@@ -34,24 +39,7 @@ return {
     },
     {
         language = { 'python' },
-        mason = { 'basedpyright', 'debugpy' },
-        lsp_settings = {
-            -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
-            basedpyright = {
-                analysis = {
-                    typeCheckingMode = 'basic',
-                    diagnosticMode = 'openFilesOnly',
-                    diagnosticSeverityOverrides = {
-                        reportOptionalSubscript = 'none',
-                        reportOptionalMemberAccess = 'none',
-                        reportOptionalCall = 'none',
-                        reportOptionalIterable = 'none',
-                        reportOptionalContextManager = 'none',
-                        reportOptionalOperand = 'none',
-                    },
-                },
-            },
-        },
+        mason = { 'pylance', 'debugpy' },
     },
     {
         language = { 'java' },
