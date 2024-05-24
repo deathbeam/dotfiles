@@ -1,5 +1,5 @@
-require("config.registry.pylance")
+require('config.registry.pylance')
 
 return {
-    pylance = "config.registry.pylance",
+    pylance = 'config.registry.pylance',
 }

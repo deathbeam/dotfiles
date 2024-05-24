@@ -4,7 +4,10 @@ local nmap = utils.nmap
 local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
--- Set stuff
+-- Echo LSP messages
+require('lspecho').setup()
+
+-- Configure diagnostics
 local icons = require('config.icons').diagnostics
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({
@@ -16,13 +19,9 @@ vim.diagnostic.config({
             [vim.diagnostic.severity.WARN] = icons.Warn,
             [vim.diagnostic.severity.INFO] = icons.Info,
             [vim.diagnostic.severity.HINT] = icons.Hint,
-        }
-    }
+        },
+    },
 })
-
--- Echo LSP messages
-require('lspecho').setup()
-
 au('CursorHold', {
     desc = 'Show diagnostics',
     callback = function()
@@ -38,6 +37,9 @@ au('LspAttach', {
         if not client then
             return
         end
+
+        -- disable semantic tokens
+        client.server_capabilities.semanticTokensProvider = nil
 
         if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
             vim.lsp.inlay_hint.enable(true)
@@ -60,13 +62,13 @@ au('LspAttach', {
             nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
         end
         if client.server_capabilities.typeDefinitionProvider then
-            nmap('go', vim.lsp.buf.type_definition, 'Goto Overload', event.buf)
+            nmap('gy', vim.lsp.buf.type_definition, 'Goto Type Definition', event.buf)
         end
 
         -- code refactor
         nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
         nmap('cra', vim.lsp.buf.code_action, 'Code Actions', event.buf)
-        nmap('crr', vim.lsp.buf.rename, 'Rename', event.buf)
+        nmap('crr', vim.lsp.buf.rename, 'Code Rename', event.buf)
     end,
 })
 

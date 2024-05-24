@@ -1,13 +1,13 @@
 require('config.registry')
-require('mason').setup {
+require('mason').setup({
     ui = {
-        border = "single",
+        border = 'single',
     },
     registries = {
-        "github:mason-org/mason-registry",
-        "lua:config.registry",
+        'github:mason-org/mason-registry',
+        'lua:config.registry',
     },
-}
+})
 
 require('mason-tool-installer').setup({
     run_on_start = false,

@@ -1,6 +1,6 @@
 local function exepath(expr)
-	local ep = vim.fn.exepath(expr)
-	return ep ~= "" and ep or nil
+    local ep = vim.fn.exepath(expr)
+    return ep ~= '' and ep or nil
 end
 
 return {
@@ -40,6 +40,31 @@ return {
     {
         language = { 'python' },
         mason = { 'pylance', 'debugpy' },
+        lsp_settings = {
+            -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
+            -- See: https://code.visualstudio.com/docs/python/settings-reference
+            python = {
+                analysis = {
+                    inlayHints = {
+                        variableTypes = true,
+                        functionReturnTypes = true,
+                        callArgumentNames = true,
+                        pytestParameters = true,
+                    },
+                    typeCheckingMode = 'basic',
+                    diagnosticMode = 'openFilesOnly',
+                    autoImportCompletions = true,
+                    diagnosticSeverityOverrides = {
+                        reportOptionalSubscript = 'none',
+                        reportOptionalMemberAccess = 'none',
+                        reportOptionalCall = 'none',
+                        reportOptionalIterable = 'none',
+                        reportOptionalContextManager = 'none',
+                        reportOptionalOperand = 'none',
+                    },
+                },
+            },
+        },
     },
     {
         language = { 'java' },

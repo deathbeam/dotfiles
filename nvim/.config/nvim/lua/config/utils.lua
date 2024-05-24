@@ -68,7 +68,7 @@ end
 
 M.exepath = function(expr)
     local ep = vim.fn.exepath(expr)
-    return ep ~= "" and ep or nil
+    return ep ~= '' and ep or nil
 end
 
 return M

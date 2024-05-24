@@ -40,7 +40,7 @@ local function get_jdtls_paths()
 
     local java_debug_path = registry.get_package('java-debug-adapter'):get_install_path()
     local java_debug_bundle =
-    vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
+        vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(path.bundles, java_debug_bundle)
     end
@@ -124,6 +124,5 @@ au('FileType', {
                 -- FIXME: Maybe check this again? https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jdtls.lua#L117
             },
         })
-    end
-    ,
+    end,
 })
