@@ -2,10 +2,10 @@ local exepath = require('config.utils').exepath
 
 return {
     {
-        language = { 'javascript', 'typescript' },
+        treesitter = { 'javascript', 'typescript' },
         mason = { 'typescript-language-server', 'js-debug-adapter' },
-        lsp = 'tsserver',
-        lsp_settings = {
+        lsp = { 'tsserver' },
+        settings = {
             -- See: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
             implicitProjectConfiguration = {
                 checkJs = true,
@@ -36,10 +36,10 @@ return {
         },
     },
     {
-        language = { 'python' },
+        treesitter = { 'python' },
         mason = { 'pylance', 'debugpy' },
-        lsp = 'pylance',
-        lsp_settings = {
+        lsp = { 'pylance' },
+        settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
             -- See: https://code.visualstudio.com/docs/python/settings-reference
             python = {
@@ -67,9 +67,9 @@ return {
         },
     },
     {
-        language = { 'java' },
+        treesitter = { 'java' },
         mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
-        lsp_settings = {
+        settings = {
             -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
             -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
             java = {
@@ -127,10 +127,10 @@ return {
         },
     },
     {
-        language = { 'lua' },
+        treesitter = { 'lua' },
         mason = { 'lua-language-server' },
-        lsp = 'lua_ls',
-        lsp_settings = {
+        lsp = { 'lua_ls' },
+        settings = {
             Lua = {
                 runtime = {
                     version = 'LuaJIT',
@@ -147,46 +147,46 @@ return {
         },
     },
     {
-        language = { 'gdscript' },
-        lsp = 'gdscript',
+        treesitter = { 'gdscript' },
+        lsp = { 'gdscript' },
     },
     {
-        language = { 'bash' },
+        treesitter = { 'bash' },
         mason = { 'bash-language-server' },
-        lsp = 'bashls',
+        lsp = { 'bashls' },
     },
     {
-        language = { 'vim', 'vimdoc' },
+        treesitter = { 'vim', 'vimdoc' },
         mason = { 'vim-language-server' },
-        lsp = 'vimls',
+        lsp = { 'vimls' },
     },
     {
-        language = { 'yaml' },
+        treesitter = { 'yaml' },
         mason = { 'yaml-language-server' },
-        lsp = 'yamlls',
+        lsp = { 'yamlls' },
     },
     {
-        language = { 'css' },
+        treesitter = { 'css' },
         mason = { 'css-lsp' },
-        lsp = 'cssls',
+        lsp = { 'cssls' },
     },
     {
-        language = { 'html' },
+        treesitter = { 'html' },
         mason = { 'html-lsp' },
-        lsp = 'html'
+        lsp = { 'html' },
     },
     {
-        language = { 'markdown' },
+        treesitter = { 'markdown' },
         mason = { 'marksman' },
-        lsp = 'marksman'
+        lsp = { 'marksman' },
     },
     {
-        language = { 'json' },
+        treesitter = { 'json' },
     },
     {
-        language = { 'xml' },
+        treesitter = { 'xml' },
     },
     {
-        language = { 'diff', 'gitcommit' },
+        treesitter = { 'diff', 'gitcommit' },
     },
 }

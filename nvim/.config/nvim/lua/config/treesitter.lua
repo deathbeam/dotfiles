@@ -1,10 +1,10 @@
 require('nvim-treesitter.configs').setup({
     ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
         function(server)
-            return server.language
+            return server.treesitter
         end,
         vim.tbl_filter(function(server)
-            return server.language
+            return server.treesitter
         end, require('config.languages'))
     ))),
     sync_install = true,
