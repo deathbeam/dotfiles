@@ -1,12 +1,10 @@
-local function exepath(expr)
-    local ep = vim.fn.exepath(expr)
-    return ep ~= '' and ep or nil
-end
+local exepath = require('config.utils').exepath
 
 return {
     {
         language = { 'javascript', 'typescript' },
-        mason = { 'tsserver', 'js-debug-adapter' },
+        mason = { 'typescript-language-server', 'js-debug-adapter' },
+        lsp = 'tsserver',
         lsp_settings = {
             -- See: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
             implicitProjectConfiguration = {
@@ -40,10 +38,12 @@ return {
     {
         language = { 'python' },
         mason = { 'pylance', 'debugpy' },
+        lsp = 'pylance',
         lsp_settings = {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
             -- See: https://code.visualstudio.com/docs/python/settings-reference
             python = {
+                pythonPath = exepath('python3') or exepath('python') or 'python',
                 analysis = {
                     inlayHints = {
                         variableTypes = true,
@@ -69,7 +69,6 @@ return {
     {
         language = { 'java' },
         mason = { 'jdtls', 'java-debug-adapter', 'java-test' },
-        lsp_ignore = true,
         lsp_settings = {
             -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
             -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
@@ -129,7 +128,8 @@ return {
     },
     {
         language = { 'lua' },
-        mason = { 'lua_ls' },
+        mason = { 'lua-language-server' },
+        lsp = 'lua_ls',
         lsp_settings = {
             Lua = {
                 runtime = {
@@ -147,36 +147,44 @@ return {
         },
     },
     {
+        language = { 'gdscript' },
+        lsp = 'gdscript',
+    },
+    {
         language = { 'bash' },
-        mason = { 'bashls' },
+        mason = { 'bash-language-server' },
+        lsp = 'bashls',
     },
     {
         language = { 'vim', 'vimdoc' },
-        mason = { 'vimls' },
+        mason = { 'vim-language-server' },
+        lsp = 'vimls',
+    },
+    {
+        language = { 'yaml' },
+        mason = { 'yaml-language-server' },
+        lsp = 'yamlls',
+    },
+    {
+        language = { 'css' },
+        mason = { 'css-lsp' },
+        lsp = 'cssls',
+    },
+    {
+        language = { 'html' },
+        mason = { 'html-lsp' },
+        lsp = 'html'
     },
     {
         language = { 'markdown' },
         mason = { 'marksman' },
-    },
-    {
-        language = { 'yaml' },
-        mason = { 'yamlls' },
+        lsp = 'marksman'
     },
     {
         language = { 'json' },
-        mason = { 'jsonls' },
     },
     {
         language = { 'xml' },
-        mason = { 'lemminx' },
-    },
-    {
-        language = { 'css' },
-        mason = { 'cssls' },
-    },
-    {
-        language = { 'html' },
-        mason = { 'html' },
     },
     {
         language = { 'diff', 'gitcommit' },

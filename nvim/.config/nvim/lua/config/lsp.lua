@@ -72,23 +72,13 @@ au('LspAttach', {
     end,
 })
 
+-- Setup LSP servers
 local lspconfig = require('lspconfig')
-require('mason-lspconfig').setup_handlers({
-    function(server)
-        local settings = nil
-        local ignore = nil
-        for _, server_config in ipairs(languages) do
-            if server_config.mason and vim.tbl_contains(server_config.mason, server) then
-                settings = server_config.lsp_settings
-                ignore = server_config.lsp_ignore
-            end
-        end
-        if ignore then
-            return
-        end
-        lspconfig[server].setup({
+for _, language in ipairs(languages) do
+    if language.lsp then
+        lspconfig[language.lsp].setup({
             capabilities = lsp_capabilities,
-            settings = settings,
+            settings = language.lsp_settings,
         })
-    end,
-})
+    end
+end

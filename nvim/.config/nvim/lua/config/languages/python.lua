@@ -1,28 +1,9 @@
 local registry = require('mason-registry')
 local python_dap = require('dap-python')
 local utils = require('config.utils')
-local languages = require('config.languages')
-local lspconfig = require('lspconfig')
 local nmap = utils.nmap
 local au = utils.au
-local exepath = utils.exepath
-local lsp_capabilities = utils.make_capabilities()
 local cache_vars = {}
-
-lspconfig.pylance.setup({
-    capabilities = lsp_capabilities,
-    before_init = function(_, config)
-        if not config.settings.python then
-            config.settings.python = {}
-        end
-        if not config.settings.python.pythonPath then
-            config.settings.python.pythonPath = exepath('python3') or exepath('python') or 'python'
-        end
-    end,
-    settings = vim.tbl_filter(function(language)
-        return vim.tbl_contains(language.language, 'python')
-    end, languages)[1].lsp_settings,
-})
 
 au('FileType', {
     pattern = { 'python' },

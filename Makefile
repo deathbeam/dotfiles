@@ -17,6 +17,7 @@ install:
 	asdf plugin-add protonge && asdf install protonge latest || true
 	nvim --headless \
 		+MasonUpdate \
+		+MasonToolsClean \
 		+MasonToolsInstallSync \
 		+MasonToolsUpdateSync \
 		+TSUpdateSync \

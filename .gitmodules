@@ -48,9 +48,6 @@
 [submodule "vim/.vim/pack/bundle/start/mason.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/mason.nvim
 	url = https://github.com/williamboman/mason.nvim
-[submodule "vim/.vim/pack/bundle/start/mason-lspconfig.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/mason-lspconfig.nvim
-	url = https://github.com/williamboman/mason-lspconfig.nvim
 [submodule "vim/.vim/pack/bundle/start/fzf-lua"]
 	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
