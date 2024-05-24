@@ -121,7 +121,9 @@ set smartindent
 set fileformats=unix,dos,mac
 
 " Better jumplist
-set jumpoptions=stack
+if has('nvim')
+    set jumpoptions=stack
+endif
 
 " Auto comments are annoying, disable them
 autocmd VimRc FileType * set formatoptions-=cro
