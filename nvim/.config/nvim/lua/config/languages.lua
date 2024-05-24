@@ -1,5 +1,3 @@
-local exepath = require('config.utils').exepath
-
 return {
     {
         treesitter = { 'javascript', 'typescript' },
@@ -43,7 +41,7 @@ return {
             -- See: https://github.com/microsoft/pyright/blob/main/docs/settings.md
             -- See: https://code.visualstudio.com/docs/python/settings-reference
             python = {
-                pythonPath = exepath('python3') or exepath('python') or 'python',
+                pythonPath = vim.fn.exepath('python'),
                 analysis = {
                     inlayHints = {
                         variableTypes = true,
