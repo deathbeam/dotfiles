@@ -24,7 +24,7 @@ M.map = function(mode, keys, func, dot, desc, buffer)
         end
     end
 
-    vim.keymap.set(mode, keys, func, { buffer = buffer, desc = desc, remap = true })
+    vim.keymap.set(mode, keys, func, { buffer = buffer, desc = desc, remap = true, nowait = true })
 end
 
 M.nmap = function(keys, func, desc, buffer)
