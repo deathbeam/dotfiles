@@ -108,7 +108,7 @@ au('FileType', {
         jdtls.start_or_attach({
             cmd = cmd,
             settings = vim.tbl_filter(function(language)
-                return vim.tbl_contains(language.mason, 'jdtls')
+                return language.mason and vim.tbl_contains(language.mason, 'jdtls')
             end, languages)[1].settings,
             on_attach = jdtls_on_attach,
             capabilities = lsp_capabilities,
