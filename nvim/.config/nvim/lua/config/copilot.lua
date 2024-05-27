@@ -26,7 +26,6 @@ chat.setup({
     answer_header = '',
     error_header = '',
     allow_insecure = true,
-    show_folds = false,
     mappings = {
         submit_prompt = {
             insert = '',
