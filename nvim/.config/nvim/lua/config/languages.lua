@@ -1,35 +1,36 @@
 return {
     {
         treesitter = { 'javascript', 'typescript' },
-        mason = { 'typescript-language-server', 'js-debug-adapter' },
-        lsp = { 'tsserver' },
+        mason = { 'vtsls', 'js-debug-adapter' },
+        lsp = { 'vtsls' },
         settings = {
             -- See: https://github.com/typescript-language-server/typescript-language-server/blob/master/docs/configuration.md
-            implicitProjectConfiguration = {
-                checkJs = true,
-                target = 'ES2022',
+            -- See: https://github.com/yioneko/vtsls/blob/main/packages/service/conjfiguration.schema.json
+            ["js/ts"] = {
+                implicitProjectConfig = {
+                    checkJs = true,
+                    target = 'ES2022',
+                }
             },
             javascript = {
                 inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = 'all',
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = false,
-                },
+                    parameterNames = { enabled = "literals" },
+                    parameterTypes = { enabled = true },
+                    variableTypes = { enabled = true },
+                    propertyDeclarationTypes = { enabled = true },
+                    functionLikeReturnTypes = { enabled = true },
+                    enumMemberValues = { enabled = true },
+                }
             },
             typescript = {
                 inlayHints = {
-                    includeInlayEnumMemberValueHints = true,
-                    includeInlayFunctionLikeReturnTypeHints = true,
-                    includeInlayFunctionParameterTypeHints = true,
-                    includeInlayParameterNameHints = 'all',
-                    includeInlayParameterNameHintsWhenArgumentMatchesName = true,
-                    includeInlayPropertyDeclarationTypeHints = true,
-                    includeInlayVariableTypeHints = false,
-                },
+                    parameterNames = { enabled = "literals" },
+                    parameterTypes = { enabled = true },
+                    variableTypes = { enabled = true },
+                    propertyDeclarationTypes = { enabled = true },
+                    functionLikeReturnTypes = { enabled = true },
+                    enumMemberValues = { enabled = true },
+                }
             },
         },
     },
