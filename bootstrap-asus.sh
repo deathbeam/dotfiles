@@ -7,10 +7,10 @@ sudo tee -a /etc/pacman.conf <<EOF
 Server = https://arch.asus-linux.org
 EOF
 
-pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
-pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
-pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
-pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+sudo pacman-key --recv-keys 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+sudo pacman-key --lsign-key 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
+sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
 
 echo '==> Installing Asus packages'
 yay -S --noconfirm --mflags --skipinteg \

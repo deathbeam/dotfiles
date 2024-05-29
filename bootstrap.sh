@@ -109,7 +109,7 @@ xdg-user-dirs-update
 xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
-chsh -s /bin/zsh "$USER"
+sudo chsh -s /bin/zsh "$USER"
 
 # Ask user if they want to setup optional services if we are in interactive session
 if [ ! -t 0 ]; then
