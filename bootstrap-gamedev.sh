@@ -3,6 +3,7 @@ set -ex
 
 echo '==> Installing Gamedev packages'
 yay -S --noconfirm --mflags --skipinteg \
-    godot-git \
     aseprite \
+    magicavoxel \
+    godot-git \
     trenchbroom-bin qt5-svg
