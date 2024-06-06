@@ -1,0 +1,26 @@
+#!/bin/bash -e
+if [[ "$1" == '-D' ]]; then
+  DELETE=1
+else
+  DELETE=0
+fi
+
+REMOTE_BRANCHES="`mktemp`"
+LOCAL_BRANCHES="`mktemp`"
+DANGLING_BRANCHES="`mktemp`"
+git for-each-ref --format="%(refname)" refs/remotes/origin/ | \
+  sed 's#^refs/remotes/origin/##' > "$REMOTE_BRANCHES"
+git for-each-ref --format="%(refname)" refs/heads/ | \
+  sed 's#^refs/heads/##' > "$LOCAL_BRANCHES"
+grep -vxF -f "$REMOTE_BRANCHES" "$LOCAL_BRANCHES" | \
+  sort -V > "$DANGLING_BRANCHES"
+rm -f "$REMOTE_BRANCHES" "$LOCAL_BRANCHES"
+
+if [[ $DELETE -ne 0 ]]; then
+  cat "$DANGLING_BRANCHES" | while read -r B; do
+    git branch -D "$B"
+  done
+else
+  cat "$DANGLING_BRANCHES"
+fi
+rm -f "$DANGLING_BRANCHES"

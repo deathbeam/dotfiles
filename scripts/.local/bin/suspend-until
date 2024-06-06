@@ -1,0 +1,28 @@
+#!/bin/bash
+
+if [ $# -lt 1 ]; then
+    echo "Usage: suspend_until HH:MM"
+    exit
+fi
+
+# Check whether specified time today or tomorrow
+DESIRED=$((`date +%s -d "$1"`))
+NOW=$((`date +%s`))
+if [ $DESIRED -lt $NOW ]; then
+    DESIRED=$((`date +%s -d "$1"` + 24*60*60))
+fi
+
+# Kill rtcwake if already running
+sudo killall rtcwake
+
+# Set RTC wakeup time
+# N.B. change "mem" for the suspend option
+# find this by "man rtcwake"
+sudo rtcwake -l -v -m mem -t $DESIRED
+
+# Wait a bit
+sleep 5
+
+# Play sound
+amixer -q set Master 100% on
+ffplay -loop 0 -volume 100 -nodisp "~/.alarm"
