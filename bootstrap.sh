@@ -56,7 +56,7 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock chromium-widevine \
     mpv yt-dlp \
-    dropbox vesktop boosteroid stremio steam calibre postman \
+    dropbox dropbox-cli vesktop boosteroid stremio steam calibre postman \
     stalonetray xdotool
 
 echo '==> Installing dotfiles'
