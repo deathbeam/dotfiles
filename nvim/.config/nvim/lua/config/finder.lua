@@ -19,10 +19,12 @@ fzf_lua.setup({
     },
     defaults = {
         formatter = 'path.filename_first',
+        multiline = 1,
     },
     grep = {
+        rg_opts = ' --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         prompt = 'Grep❯ ',
-        rg_opts = '--hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
+        no_column_hide = true,
     },
     lsp = {
         code_actions = {
