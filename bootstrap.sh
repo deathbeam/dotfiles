@@ -51,7 +51,7 @@ yay -S --noconfirm --mflags --skipinteg \
     udiskie \
     gammastep geoclue2 \
     dunst \
-    yambar \
+    yambar-git \
     alacritty \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock chromium-widevine \

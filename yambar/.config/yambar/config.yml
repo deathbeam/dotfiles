@@ -8,25 +8,25 @@ margin: &margin 15
 
 bar:
   location: top
-  font: monospace:size=18
-  height: 40
+  font: monospace:size=${BAR_FONT_SIZE}
+  height: ${BAR_HEIGHT}
   foreground: *color_fg
   background: *color_bg
 
   left:
+    - label:
+        content:
+          string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
     -
       script:
         path: ~/.config/yambar/wm.sh
         content:
           map:
-            default:
-              string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
             conditions:
               monitor != "":
                 list:
                   spacing: 0
                   items:
-                    - string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     # - string: {text: "{monitor}", margin: *margin}
                     - map:
                         conditions:
