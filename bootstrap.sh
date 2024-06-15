@@ -33,7 +33,7 @@ yay -S --noconfirm --mflags --skipinteg \
     pass pass-otp \
     httpie sshpass stoken openvpn vpn-slice openconnect tinyproxy wget jq \
     tlp rate-mirrors unzip fuse2 bc brightnessctl \
-    p7zip man-db alsa-utils keyd fastfetch socat
+    p7zip man-db alsa-utils keyd fastfetch socat systemd-resolvconf
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
