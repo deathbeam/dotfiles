@@ -8,7 +8,7 @@ cd ~/git
 
 # Install AUR helper
 echo '==> Installing AUR helper'
-sudo pacman --noconfirm --needed -S git
+sudo pacman --noconfirm --needed -S git git-lfs
 git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
