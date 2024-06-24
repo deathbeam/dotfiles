@@ -2,6 +2,9 @@
 set -ex
 
 echo '==> Installing Wayland packages'
+yay -S --asdeps --noconfirm --mflags --skipinteg \
+    hyprutils-git hyprlang-git hyprcursor-git hyprwayland-scanner-git
+
 yay -S --noconfirm --mflags --skipinteg \
-    hyprwayland-scanner-git hyprutils-git hyprland-git xorg-xwayland-git xdg-desktop-portal-hyprland qt6-wayland \
+    hyprland-git xorg-xwayland xdg-desktop-portal-hyprland qt6-wayland \
     swaybg swaylock wl-clipboard cliphist slurp grim
