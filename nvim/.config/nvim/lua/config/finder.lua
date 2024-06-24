@@ -65,9 +65,9 @@ vim.lsp.handlers['workspace/symbol'] = w(fzf_lua.lsp_workspace_symbols)
 vim.lsp.handlers['callHierarchy/incomingCalls'] = w(fzf_lua.lsp_incoming_calls)
 vim.lsp.handlers['callHierarchy/outgoingCalls'] = w(fzf_lua.lsp_outgoing_calls)
 
-nmap('<leader>fg', fzf_lua.grep_project, 'Find Grep')
+nmap('<leader>fg', fzf_lua.live_grep_glob, 'Find Grep')
 nmap('<leader>fG', function()
-    fzf_lua.grep_project({
+    fzf_lua.live_grep_glob({
         prompt = 'GitGrep❯ ',
         cmd = 'git grep --line-number --column --color=always',
     })
