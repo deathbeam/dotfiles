@@ -7,7 +7,6 @@ c.url.start_pages = c.url.default_page
 # Enable plugins
 c.content.plugins = True
 c.qt.args = [
-    'ppapi-widevine-path=/usr/lib/qt/plugins/ppapi/libwidevinecdmadapter.so',
     'widevine-path=/usr/lib/chromium/libwidevinecdm.so',
     'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
@@ -16,12 +15,24 @@ c.qt.args = [
     'enable-zero-copy'
 ]
 
+# Save
+c.auto_save.session = True
+
 # Privacy
-# c.content.webgl = False
-c.content.canvas_reading = True # Should be false but this breaks 9gag and other sites
+c.content.canvas_reading = False # Breaks 9gag and other sites, fuck them
 c.content.geolocation = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
 c.content.cookies.accept = "no-unknown-3rdparty"
+c.content.headers.user_agent = "Mozilla/5.0 (X11; Linux x86_64; rv:68.0) Gecko/20100101 Firefox/68.0"
+c.content.headers.accept_language = "en-US,en;q=0.5"
+
+# Adblock
+c.content.blocking.enabled = True
+c.content.blocking.method = 'both'
+c.content.blocking.adblock.lists = [
+    'https://easylist.to/easylist/easylist.txt',
+    'https://easylist.to/easylist/easyprivacy.txt'
+]
 
 # Dark mode
 c.colors.webpage.preferred_color_scheme = 'dark'
@@ -30,12 +41,6 @@ c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.threshold.foreground = 150
 c.colors.webpage.darkmode.threshold.background = 100
 c.colors.webpage.darkmode.policy.images = 'always'
-
-# Adblock
-c.content.blocking.enabled = True
-c.content.blocking.method = 'auto'
-c.content.blocking.adblock.lists = ['https://easylist.to/easylist/easylist.txt',
-                                    'https://easylist.to/easylist/easyprivacy.txt']
 
 # Adjust font and font size
 c.fonts.default_family = "monospace"
