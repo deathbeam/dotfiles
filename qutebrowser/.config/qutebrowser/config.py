@@ -19,7 +19,7 @@ c.qt.args = [
 c.auto_save.session = True
 
 # Privacy
-c.content.canvas_reading = False # Breaks 9gag and other sites, fuck them
+c.content.canvas_reading = True # Breaks 9gag, wolt if False
 c.content.geolocation = False
 c.content.webrtc_ip_handling_policy = "default-public-interface-only"
 c.content.cookies.accept = "no-unknown-3rdparty"
