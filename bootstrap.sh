@@ -43,6 +43,7 @@ yay -S --noconfirm --mflags --skipinteg \
     python-pip python-dbus python-opengl python-virtualenv
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
+npm install -g httpyac
 
 echo '==> Installing desktop packages'
 yay -S --noconfirm --mflags --skipinteg \
