@@ -86,10 +86,13 @@ alias pam='rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist'
 alias pac='yay -Rns $(yay -Qtdq)'
 # Update system
 alias pau='yay -Syu'
+alias pauu='yay -Syu --noconfirm'
 # Remove package
 alias par='yay -Rnsu'
+alias parr='yay -Rnsu --noconfirm'
 # Install package
 alias pai='yay -S'
+alias paii='yay -S --noconfirm'
 
 # Set proxy
 function setproxy {
