@@ -67,14 +67,15 @@ helper = store
 [http]
 postBuffer = 524288000
 
+[filter "lfs"]
+required = true
+clean = git-lfs clean -- %f
+smudge = git-lfs smudge -- %f
+process = git-lfs filter-process
+
 [user]
 name = Tomas Slusny
 email = slusnucky@gmail.com
 
 [include]
 path = ~/.gitconfig.local
-[filter "lfs"]
-	required = true
-	clean = git-lfs clean -- %f
-	smudge = git-lfs smudge -- %f
-	process = git-lfs filter-process
