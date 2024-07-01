@@ -48,7 +48,7 @@ au('LspAttach', {
         client.server_capabilities.semanticTokensProvider = nil
 
         if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
-            vim.lsp.inlay_hint.enable(true)
+            -- vim.lsp.inlay_hint.enable(true)
             nmap('gh', function()
                 vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
             end, 'Inlay Hints', event.buf)
