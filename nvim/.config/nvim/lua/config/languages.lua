@@ -73,7 +73,7 @@ return {
             -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
             java = {
                 configuration = {
-                    updateBuildConfiguration = 'interactive',
+                    updateBuildConfiguration = 'automatic',
                 },
                 eclipse = {
                     downloadSources = true,
@@ -81,31 +81,11 @@ return {
                 maven = {
                     downloadSources = true,
                 },
-                references = {
-                    includeAccessors = true,
-                    includeDecompiledSources = true,
-                },
                 format = {
                     enabled = true,
                 },
                 signatureHelp = {
                     enabled = true,
-                },
-                inlayHints = {
-                    parameterNames = {
-                        enabled = 'all',
-                    },
-                },
-                completion = {
-                    favoriteStaticMembers = {
-                        'org.hamcrest.MatcherAssert.assertThat',
-                        'org.hamcrest.Matchers.*',
-                        'org.hamcrest.CoreMatchers.*',
-                        'org.junit.jupiter.api.Assertions.*',
-                        'java.util.Objects.requireNonNull',
-                        'java.util.Objects.requireNonNullElse',
-                        'org.mockito.Mockito.*',
-                    },
                 },
                 contentProvider = {
                     preferred = 'fernflower',
@@ -117,9 +97,6 @@ return {
                     },
                 },
                 codeGeneration = {
-                    toString = {
-                        template = '${object.className}{${member.name()}=${member.value}, ${otherMembers}}',
-                    },
                     useBlocks = true,
                 },
             },
