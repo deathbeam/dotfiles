@@ -12,7 +12,11 @@ local icons = require('config.icons').diagnostics
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({
     severity_sort = true,
+    virtual_text = false,
     float = { border = 'single' },
+    jump = {
+        _highest = true
+    },
     signs = {
         text = {
             [vim.diagnostic.severity.ERROR] = icons.Error,
