@@ -15,7 +15,7 @@ vim.diagnostic.config({
     virtual_text = false,
     float = { border = 'single' },
     jump = {
-        _highest = true
+        _highest = true,
     },
     signs = {
         text = {
