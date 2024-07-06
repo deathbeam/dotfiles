@@ -45,9 +45,6 @@ export WALLPAPER="$HOME/.wallpaper"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1
 
-# Node no ssl
-export NODE_TLS_REJECT_UNAUTHORIZED=0
-
 # Set scaling
 export QT_AUTO_SCREEN_SCALE_FACTOR=1
 export QT_ENABLE_HIGHDPI_SCALING=1
@@ -71,5 +68,6 @@ export DPI=$(apply_scale_factor 96)
 export BAR_HEIGHT=$(apply_scale_factor 40)
 export BAR_FONT_SIZE=$(apply_scale_factor 20)
 export GDK_SCALE=$SCALE_FACTOR
-export QT_SCALE_FACTOR=$GDK_SCALE
-export WINIT_X11_SCALE_FACTOR=$GDK_SCALE
+export QT_SCALE_FACTOR=$SCALE_FACTOR
+export WINIT_X11_SCALE_FACTOR=$SCALE_FACTOR
+export STEAM_FORCE_DESKTOPUI_SCALING=$SCALE_FACTOR
