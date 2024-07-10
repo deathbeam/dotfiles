@@ -25,4 +25,4 @@ sleep 5
 
 # Play sound
 amixer -q set Master 100% on
-ffplay -loop 0 -volume 100 -nodisp "~/.alarm"
+ffplay -loop 0 -volume 100 -nodisp "$HOME/.alarm"
