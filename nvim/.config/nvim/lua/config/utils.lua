@@ -57,7 +57,7 @@ M.au = function(event, opts)
 end
 
 M.desc = function(key, desc)
-    wk.register({ [key] = { name = desc, _ = 'which_key_ignore' } })
+    wk.add({ key, desc = desc })
 end
 
 M.make_capabilities = function()

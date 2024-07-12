@@ -21,6 +21,9 @@ base16.load_from_shell()
 -- Load icons
 require('nvim-web-devicons').setup()
 
+-- Which key, i guess
+require('which-key').setup()
+
 -- File browser
 require('oil').setup({
     view_options = {

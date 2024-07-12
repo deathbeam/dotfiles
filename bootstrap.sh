@@ -26,7 +26,7 @@ yay -S --noconfirm --mflags --skipinteg \
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     mkinitcpio-firmware \
-    net-tools \
+    net-tools dosfstools \
     xdg-utils xdg-user-dirs \
     stow zsh tmux ripgrep mlocate btop \
     neovim-nightly-bin ctags less bat fswatch difftastic \
