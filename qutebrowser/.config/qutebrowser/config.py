@@ -7,7 +7,6 @@ c.url.start_pages = c.url.default_page
 # Enable plugins
 c.content.plugins = True
 c.qt.args = [
-    'widevine-path=/usr/lib/chromium/libwidevinecdm.so',
     'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
     'enable-accelerated-video-decode',
