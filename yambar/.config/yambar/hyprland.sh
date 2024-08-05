@@ -69,7 +69,7 @@ socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     fi
 
     # Mark workspaces as either empty, urgent, focused or occupied
-    for i in $(seq 1 5); do
+    for i in $(seq 1 9); do
         if [ $i -eq $urgent_workspace_id ]; then
             workspace_status="urgent"
         elif [ $i -eq $workspace_id ]; then
