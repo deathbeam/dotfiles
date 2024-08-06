@@ -90,6 +90,46 @@ bar:
                             string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
+                          ws6_state == occupied:
+                            string: {text: 6, margin: *margin}
+                          ws6_state == empty:
+                            string: {text: 6, deco: {background: {color: *color_inactive}}, margin: *margin}
+                          ws6_state == urgent:
+                            string: {text: 6, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                          ws6_state == focused:
+                            string: {text: 6, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    - map:
+                        conditions:
+                          ws7_state == occupied:
+                            string: {text: 7, margin: *margin}
+                          ws7_state == empty:
+                            string: {text: 7, deco: {background: {color: *color_inactive}}, margin: *margin}
+                          ws7_state == urgent:
+                            string: {text: 7, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                          ws7_state == focused:
+                            string: {text: 7, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    - map:
+                        conditions:
+                          ws8_state == occupied:
+                            string: {text: 8, margin: *margin}
+                          ws8_state == empty:
+                            string: {text: 8, deco: {background: {color: *color_inactive}}, margin: *margin}
+                          ws8_state == urgent:
+                            string: {text: 8, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                          ws8_state == focused:
+                            string: {text: 8, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    - map:
+                        conditions:
+                          ws9_state == occupied:
+                            string: {text: 9, margin: *margin}
+                          ws9_state == empty:
+                            string: {text: 9, deco: {background: {color: *color_inactive}}, margin: *margin}
+                          ws9_state == urgent:
+                            string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                          ws9_state == focused:
+                            string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    - map:
+                        conditions:
                           process != "" && xwayland:
                             string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_warning}}, margin: *margin}
                           process != "":
