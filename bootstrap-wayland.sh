@@ -7,4 +7,4 @@ yay -S --asdeps --noconfirm --mflags --skipinteg \
 
 yay -S --noconfirm --mflags --skipinteg \
     hyprland-git xorg-xwayland xclip xdg-desktop-portal-hyprland qt6-wayland \
-    swaybg swaylock wl-clipboard cliphist slurp grim
+    swaybg swaylock wl-clipboard cliphist slurp grim hyprpicker grimblast-git
