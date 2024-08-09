@@ -1,16 +1,11 @@
 local icons = require('config.icons')
 
 -- Enable popup menu and set options
-vim.o.completeopt = 'menu,menuone,noinsert,fuzzy,popup'
+vim.o.completeopt = 'menu,menuone,noselect,noinsert,fuzzy,popup'
 
 -- Tab to accept
 vim.keymap.set('i', '<Tab>', function()
     return vim.fn.pumvisible() ~= 0 and '<C-y>' or '<Tab>'
-end, { expr = true, replace_keycodes = true })
-
--- Disable <CR> to accept (this really should be a mapping, so stupid)
-vim.keymap.set('i', '<CR>', function()
-    return vim.fn.pumvisible() ~= 0 and '<C-e><CR>' or '<CR>'
 end, { expr = true, replace_keycodes = true })
 
 require('autocomplete.signature').setup({
