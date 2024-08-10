@@ -2,7 +2,6 @@ local fzf_lua = require('fzf-lua')
 local utils = require('config.utils')
 local nmap = utils.nmap
 local rnmap = utils.rnmap
-local nvmap = utils.rnvmap
 local desc = utils.desc
 local au = utils.au
 
@@ -15,76 +14,34 @@ for name, sign in pairs(icons.dap) do
 end
 
 local dap = require('dap')
-local dapui = require('dapui')
-local dapui_windows = require('dapui.windows')
-require('nvim-dap-virtual-text').setup()
-dapui.setup({
-    controls = {
-        enabled = false,
-    },
-    layouts = {
-        {
-            elements = {
-                'scopes',
-                'stacks',
-                'watches',
-                'repl',
-            },
-            position = 'left',
-            size = 0.25,
-        },
-        {
-            elements = {
-                'console',
-            },
-            position = 'bottom',
-            size = 0.25,
-        },
-    },
+local widgets = require('dap.ui.widgets')
+local autocompl = require('dap.ext.autocompl')
+
+require('nvim-dap-virtual-text').setup({})
+au('FileType', {
+    pattern = { 'dap-repl' },
+    desc = 'Setup dap repl',
+    callback = autocompl.attach
 })
 
-dap.listeners.before.attach.dapui_config = function()
-    dapui.open({ reset = true })
-end
-dap.listeners.before.launch.dapui_config = function()
-    dapui.open({ reset = true })
-end
-
-au('VimResized', {
-    desc = 'DAP UI resize',
-    callback = function()
-        for _, win_layout in ipairs(dapui_windows.layouts) do
-            win_layout:resize({ reset = true })
-        end
-    end,
-})
-
-rnmap('<leader>d<space>', function()
-    if dap.session() then
-        dap.continue()
-    end
-end, 'Debug Continue')
+-- General workflow
+rnmap('<leader>dd', dap.continue, 'Debug Continue')
 rnmap('<leader>dj', dap.step_over, 'Debug Step Over (down)')
 rnmap('<leader>dk', dap.step_back, 'Debug Step Back (up)')
 rnmap('<leader>dl', dap.step_into, 'Debug Step Into (right)')
 rnmap('<leader>dh', dap.step_out, 'Debug Step Out (left)')
 
-nmap('<leader>dd', fzf_lua.dap_configurations, 'Debug Configurations')
-nmap('<leader>dx', function()
-    dap.terminate()
-    dapui.close()
-end, 'Debug Exit')
+-- Widgets
+nmap('<leader>d<space>', dap.repl.toggle, 'Debug REPL')
+nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'Debug Scopes')
+nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'Debug Frames')
+nmap('<leader>de', function() widgets.centered_float(widgets.expressions) end, 'Debug Expressions')
+nmap('<leader>dt', function() widgets.centered_float(widgets.threads) end, 'Debug Threads')
+
+-- Debugging
+nmap('<leader>dx', dap.terminate, 'Debug Exit')
 nmap('<leader>dr', dap.restart, 'Debug Restart')
-rnmap('<leader>db', dap.toggle_breakpoint, 'Debug Breakpoint')
-nmap('<leader>dB', function()
-    dap.set_breakpoint(vim.fn.input('Condition: '))
-end, 'Debug Conditional Breakpoint')
-nmap('<leader>dL', function()
-    dap.set_breakpoint(nil, nil, vim.fn.input('Log message: '))
-end, 'Debug Log Point')
-nvmap('<leader>dw', dapui.elements.watches.add, 'Debug Watch')
-nvmap('<leader>de', dapui.eval, 'Debug Evaluate')
-nmap('<leader>du', function()
-    dapui.toggle({ reset = true })
-end, 'Debug UI')
+nmap('<leader>db', dap.toggle_breakpoint, 'Debug Breakpoint')
+nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input('Condition: ')) end, 'Debug Conditional Breakpoint')
+nmap('<leader>dL', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log: ')) end, 'Debug Log Point')
 nmap('<leader>fp', fzf_lua.dap_breakpoints, 'Find Breakpoints')

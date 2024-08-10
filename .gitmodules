@@ -78,9 +78,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap
 	url = https://github.com/mfussenegger/nvim-dap
-[submodule "vim/.vim/pack/bundle/start/nvim-dap-ui"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-ui
-	url = https://github.com/rcarriga/nvim-dap-ui
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
@@ -127,9 +124,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/bigfile.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/bigfile.nvim
 	url = https://github.com/LunarVim/bigfile.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-nio"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-nio
-	url = https://github.com/nvim-neotest/nvim-nio
 [submodule "nvim/.config/nvim/pack/bundle/start/vim-fugitive"]
 	path = nvim/.config/nvim/pack/bundle/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive
