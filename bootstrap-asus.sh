@@ -14,9 +14,10 @@ sudo pacman-key --finger 8F654886F17D497FEFE3DB448B15A6B0E9A3FA35
 
 echo '==> Installing Asus packages'
 yay -S --noconfirm --mflags --skipinteg \
-    asusctl rog-control-center power-profiles-daemon
+    asusctl rog-control-center power-profiles-daemon thermald-git
 
 echo '==> Configuring Asus'
 sudo systemctl enable \
     asusd \
-    power-profiles-daemon
+    power-profiles-daemon \
+    thermald
