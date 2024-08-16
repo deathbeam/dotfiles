@@ -21,7 +21,7 @@ socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     while IFS= read -r l
     do
         window_info+=("$l")
-    done < <(hyprctl activewindow -j | jq -r '.address // "", .title // "", .class // "", .xwayland // false, .floating // false, .fullscreen // false, .fullscreenMode // 0')
+    done < <(hyprctl activewindow -j | jq -r '.address // "", .title // "", .class // "", .xwayland // false, .floating // false, .fullscreen // 0, .fullscreenMode // 0')
     window_address=${window_info[0]}
     title=${window_info[1]}
     process=${window_info[2]}
@@ -29,7 +29,7 @@ socat -U - "UNIX-CONNECT:$sock" | while read -r line; do
     xwayland=${window_info[3]}
     floating=${window_info[4]}
     monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
-    fullscreen=$([ "$monocle" = true ] && echo "false" || echo "${window_info[5]}")
+    fullscreen=$([ "$monocle" = true ] && echo "false" || ([ "${window_info[5]}" = "2" ] && echo "true" || echo "false"))
 
     # Toggle gammastep on fullscreen change (only for xwayland windows, so steam)
     if [ "$fullscreen" = true ] && [ "$xwayland" = true ] && [ "$was_fullscreen" = false ]; then
