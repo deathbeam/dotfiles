@@ -16,12 +16,17 @@ end
 local dap = require('dap')
 local widgets = require('dap.ui.widgets')
 local autocompl = require('dap.ext.autocompl')
+local terminal = require('config.dap.terminal')
+
+dap.defaults.fallback.terminal_win_cmd = ':lua require("config.dap.terminal").open()'
 
 require('nvim-dap-virtual-text').setup({})
 au('FileType', {
     pattern = { 'dap-repl' },
     desc = 'Setup dap repl',
-    callback = autocompl.attach
+    callback = function()
+        autocompl.attach()
+    end
 })
 
 -- General workflow
@@ -33,13 +38,18 @@ rnmap('<leader>dh', dap.step_out, 'Debug Step Out (left)')
 
 -- Widgets
 nmap('<leader>d<space>', dap.repl.toggle, 'Debug REPL')
+nmap('<leader>dc', terminal.toggle, 'Debug Console')
 nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'Debug Scopes')
 nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'Debug Frames')
 nmap('<leader>de', function() widgets.centered_float(widgets.expressions) end, 'Debug Expressions')
 nmap('<leader>dt', function() widgets.centered_float(widgets.threads) end, 'Debug Threads')
 
 -- Debugging
-nmap('<leader>dx', dap.terminate, 'Debug Exit')
+nmap('<leader>dx', function()
+    dap.terminate()
+    terminal.close()
+    dap.repl.close()
+end, 'Debug Exit')
 nmap('<leader>dr', dap.restart, 'Debug Restart')
 nmap('<leader>db', dap.toggle_breakpoint, 'Debug Breakpoint')
 nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input('Condition: ')) end, 'Debug Conditional Breakpoint')
