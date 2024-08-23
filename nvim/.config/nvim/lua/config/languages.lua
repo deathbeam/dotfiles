@@ -165,4 +165,7 @@ return {
     {
         treesitter = { 'diff', 'gitcommit' },
     },
+    {
+        treesitter = { 'http' }
+    }
 }
