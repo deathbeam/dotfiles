@@ -28,6 +28,7 @@ yay -S --noconfirm --mflags --skipinteg \
     mkinitcpio-firmware \
     net-tools dosfstools \
     xdg-utils xdg-user-dirs \
+    iw \
     stow zsh tmux ripgrep mlocate btop \
     neovim-nightly-bin ctags less bat fswatch difftastic \
     pass pass-otp \
@@ -111,6 +112,9 @@ xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
 sudo chsh -s /bin/zsh "$USER"
+
+# Disable power save
+sudo iw dev wlan0 set power_save off
 
 # Ask user if they want to setup optional services if we are in interactive session
 if [ ! -t 0 ]; then
