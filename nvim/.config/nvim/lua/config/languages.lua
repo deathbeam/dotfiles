@@ -152,7 +152,7 @@ return {
         lsp = { 'html' },
     },
     {
-        treesitter = { 'markdown' },
+        treesitter = { 'markdown', 'markdown_inline' },
         mason = { 'marksman' },
         lsp = { 'marksman' },
     },
