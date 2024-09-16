@@ -103,6 +103,11 @@ return {
         },
     },
     {
+        treesitter = { 'c_sharp' },
+        mason = { 'csharp-language-server' },
+        lsp = { 'csharp_ls' },
+    },
+    {
         treesitter = { 'lua' },
         mason = { 'lua-language-server' },
         lsp = { 'lua_ls' },
