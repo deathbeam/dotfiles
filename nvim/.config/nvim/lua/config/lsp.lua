@@ -51,6 +51,11 @@ au('LspAttach', {
         -- disable semantic tokens
         client.server_capabilities.semanticTokensProvider = nil
 
+        -- enable completion
+        -- vim.lsp.completion.enable(true, client.id, event.buf, {
+        --     autotrigger = true
+        -- })
+
         if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
             -- vim.lsp.inlay_hint.enable(true)
             nmap('gh', function()

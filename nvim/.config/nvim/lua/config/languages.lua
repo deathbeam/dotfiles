@@ -108,6 +108,10 @@ return {
         lsp = { 'csharp_ls' },
     },
     {
+        mason = { 'haxe-language-server' },
+        lsp = { 'haxe_language_server' },
+    },
+    {
         treesitter = { 'lua' },
         mason = { 'lua-language-server' },
         lsp = { 'lua_ls' },
