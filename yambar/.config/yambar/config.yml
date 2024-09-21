@@ -148,16 +148,16 @@ bar:
               name == wlan0:
                 string: {text: "  {ssid}", margin: *margin}
     -
+      mem:
+        content:
+          string: {text: "  {percent_used}%", margin: *margin}
+    -
       cpu:
         content:
           map:
             conditions:
               id < 0:
                 string: {text: "  {cpu}%", margin: *margin}
-    -
-      mem:
-        content:
-          string: {text: "  {percent_used}%", margin: *margin}
     -
       script:
         path: ~/.config/yambar/gpu.sh
