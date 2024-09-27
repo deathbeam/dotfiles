@@ -41,7 +41,8 @@ yay -S --noconfirm --mflags --skipinteg \
     jdk8-openjdk openjdk8-doc openjdk8-src \
     jdk-openjdk openjdk-doc openjdk-src \
     maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit \
-    python-pip python-dbus python-opengl python-virtualenv
+    python-pip python-dbus python-opengl python-virtualenv \
+    dotnet-sdk aspnet-runtime
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac

@@ -1,5 +1,5 @@
 # Adjust path to use various bin folders
-export PATH="$HOME/.local/bin:$HOME/.local/work/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/Apps/:$PATH"
+export PATH="$HOME/.local/bin:$HOME/.local/work/bin:$HOME/.cargo/bin:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.dotnet/tools:$HOME/Apps/:$PATH"
 
 # Set go path to user home
 export GOPATH="$HOME/go"
