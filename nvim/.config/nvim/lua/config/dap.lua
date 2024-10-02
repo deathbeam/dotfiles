@@ -2,6 +2,7 @@ local fzf_lua = require('fzf-lua')
 local utils = require('config.utils')
 local nmap = utils.nmap
 local rnmap = utils.rnmap
+local nvmap = utils.nvmap
 local desc = utils.desc
 local au = utils.au
 
@@ -45,12 +46,12 @@ end, 'Debug Scopes')
 nmap('<leader>df', function()
     widgets.centered_float(widgets.frames)
 end, 'Debug Frames')
-nmap('<leader>de', function()
-    widgets.centered_float(widgets.expression)
-end, 'Debug Expressions')
 nmap('<leader>dt', function()
     widgets.centered_float(widgets.threads)
 end, 'Debug Threads')
+nvmap('<leader>de', function()
+    widgets.centered_float(widgets.expression)
+end, 'Debug Expression')
 
 -- Debugging
 nmap('<leader>dx', function()
