@@ -26,7 +26,7 @@ au('FileType', {
     desc = 'Setup dap repl',
     callback = function()
         autocompl.attach()
-    end
+    end,
 })
 
 -- General workflow
@@ -39,10 +39,18 @@ rnmap('<leader>dh', dap.step_out, 'Debug Step Out (left)')
 -- Widgets
 nmap('<leader>d<space>', dap.repl.toggle, 'Debug REPL')
 nmap('<leader>dc', terminal.toggle, 'Debug Console')
-nmap('<leader>ds', function() widgets.centered_float(widgets.scopes) end, 'Debug Scopes')
-nmap('<leader>df', function() widgets.centered_float(widgets.frames) end, 'Debug Frames')
-nmap('<leader>de', function() widgets.centered_float(widgets.expressions) end, 'Debug Expressions')
-nmap('<leader>dt', function() widgets.centered_float(widgets.threads) end, 'Debug Threads')
+nmap('<leader>ds', function()
+    widgets.centered_float(widgets.scopes)
+end, 'Debug Scopes')
+nmap('<leader>df', function()
+    widgets.centered_float(widgets.frames)
+end, 'Debug Frames')
+nmap('<leader>de', function()
+    widgets.centered_float(widgets.expression)
+end, 'Debug Expressions')
+nmap('<leader>dt', function()
+    widgets.centered_float(widgets.threads)
+end, 'Debug Threads')
 
 -- Debugging
 nmap('<leader>dx', function()
@@ -52,6 +60,10 @@ nmap('<leader>dx', function()
 end, 'Debug Exit')
 nmap('<leader>dr', dap.restart, 'Debug Restart')
 nmap('<leader>db', dap.toggle_breakpoint, 'Debug Breakpoint')
-nmap('<leader>dB', function() dap.set_breakpoint(vim.fn.input('Condition: ')) end, 'Debug Conditional Breakpoint')
-nmap('<leader>dL', function() dap.set_breakpoint(nil, nil, vim.fn.input('Log: ')) end, 'Debug Log Point')
+nmap('<leader>dB', function()
+    dap.set_breakpoint(vim.fn.input('Condition: '))
+end, 'Debug Conditional Breakpoint')
+nmap('<leader>dL', function()
+    dap.set_breakpoint(nil, nil, vim.fn.input('Log: '))
+end, 'Debug Log Point')
 nmap('<leader>fp', fzf_lua.dap_breakpoints, 'Find Breakpoints')

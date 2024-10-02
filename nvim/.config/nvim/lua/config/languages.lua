@@ -104,7 +104,7 @@ return {
     },
     {
         treesitter = { 'c_sharp' },
-        mason = { 'csharp-language-server' },
+        mason = { 'csharp-language-server', 'netcoredbg' },
         lsp = { 'csharp_ls' },
     },
     {
@@ -175,6 +175,6 @@ return {
         treesitter = { 'diff', 'gitcommit' },
     },
     {
-        treesitter = { 'http' }
-    }
+        treesitter = { 'http' },
+    },
 }
