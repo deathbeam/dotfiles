@@ -35,6 +35,7 @@ au('FileType', {
                 type = 'coreclr',
                 name = 'Attach',
                 request = 'attach',
+                console = 'integratedTerminal',
                 processId = dap_utils.pick_process,
             },
         }
@@ -44,6 +45,7 @@ au('FileType', {
                 type = 'coreclr',
                 name = 'launch - ' .. dll_path,
                 request = 'launch',
+                console = 'integratedTerminal',
                 program = function()
                     dotnet_build_project()
                     return dll_path
