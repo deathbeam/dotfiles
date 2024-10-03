@@ -3,9 +3,10 @@ set -ex
 
 echo '==> Installing Nvidia packages'
 yay -S --noconfirm --mflags --skipinteg \
-    dkms nvidia-beta-dkms nvidia-settings-beta \
-    nvidia-utils-beta lib32-nvidia-utils-beta \
-    opencl-nvidia-beta lib32-opencl-nvidia-beta \
+    dkms \
+    nvidia-dkms nvidia-settings \
+    nvidia-utils lib32-nvidia-utils \
+    opencl-nvidia lib32-opencl-nvidia \
     libva-nvidia-driver
 
 echo '==> Configuring Nvidia'
