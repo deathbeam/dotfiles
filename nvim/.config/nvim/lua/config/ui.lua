@@ -24,6 +24,9 @@ require('nvim-web-devicons').setup()
 -- Which key, i guess
 require('which-key').setup()
 
+-- Better quickfix
+require('bqf').setup()
+
 -- File browser
 require('oil').setup({
     view_options = {

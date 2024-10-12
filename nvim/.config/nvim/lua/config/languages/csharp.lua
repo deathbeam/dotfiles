@@ -4,16 +4,37 @@ local utils = require('config.utils')
 local registry = require('mason-registry')
 local au = utils.au
 
-local function dotnet_build_project()
+local function dotnet_build_project(callback)
     local path = vim.fn.getcwd() .. '/'
-    local cmd = 'dotnet build -c Debug ' .. path .. ' > /dev/null'
-    print('Building project: ' .. cmd)
-    local f = os.execute(cmd)
-    if f == 0 then
-        print('\nBuild: ✔️ ')
-    else
-        print('\nBuild: ❌ (code: ' .. f .. ')')
+    local cmd = { 'dotnet', 'build', '-c', 'Debug', path }
+
+    vim.api.nvim_out_write('Building project: ' .. table.concat(cmd, ' ') .. '\n')
+
+    local function on_exit(result)
+        if result.code == 0 then
+            vim.api.nvim_out_write('Build: ✔️\n')
+        else
+            vim.api.nvim_out_write('Build: ❌ (code: ' .. result.code .. ')\n')
+        end
+
+        if callback then
+            callback(result.code)
+        end
     end
+
+    vim.system(cmd, {
+        text = true,
+        stdout = vim.schedule_wrap(function(_, data)
+            if data then
+                vim.api.nvim_out_write(data)
+            end
+        end),
+        stderr = vim.schedule_wrap(function(_, data)
+            if data then
+                vim.api.nvim_out_write(data)
+            end
+        end),
+    }, vim.schedule_wrap(on_exit))
 end
 
 local function dotnet_get_dll_paths()
@@ -24,11 +45,15 @@ au('FileType', {
     pattern = { 'cs' },
     desc = 'Setup csharp',
     callback = function()
-        dap.adapters.coreclr = {
-            type = 'executable',
-            command = registry.get_package('netcoredbg'):get_install_path() .. '/netcoredbg',
-            args = { '--interpreter=vscode' },
-        }
+        dap.adapters.coreclr = function(callback, _)
+            dotnet_build_project(function()
+                callback({
+                    type = 'executable',
+                    command = registry.get_package('netcoredbg'):get_install_path() .. '/netcoredbg',
+                    args = { '--interpreter=vscode' },
+                })
+            end)
+        end
 
         dap.configurations.cs = {
             {
@@ -46,10 +71,7 @@ au('FileType', {
                 name = 'launch - ' .. dll_path,
                 request = 'launch',
                 console = 'integratedTerminal',
-                program = function()
-                    dotnet_build_project()
-                    return dll_path
-                end,
+                program = dll_path,
             })
         end
     end,

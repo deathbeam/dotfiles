@@ -130,3 +130,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/vim-polyglot"]
 	path = nvim/.config/nvim/pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-bqf"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-bqf
+	url = https://github.com/kevinhwang91/nvim-bqf
