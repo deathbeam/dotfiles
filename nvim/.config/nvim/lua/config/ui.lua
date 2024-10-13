@@ -25,7 +25,11 @@ require('nvim-web-devicons').setup()
 require('which-key').setup()
 
 -- Better quickfix
-require('bqf').setup()
+require('bqf').setup({
+    preview = {
+        border = 'single',
+    }
+})
 
 -- File browser
 require('oil').setup({
