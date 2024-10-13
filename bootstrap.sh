@@ -60,7 +60,8 @@ yay -S --noconfirm --mflags --skipinteg \
     qutebrowser python-adblock chromium-widevine \
     mpv yt-dlp \
     dropbox dropbox-cli vesktop boosteroid stremio steam calibre postman \
-    stalonetray xdotool krita
+    stalonetray xdotool krita \
+    gpu-gpu-screen-recorder
 
 echo '==> Installing dotfiles'
 cd ~/git

@@ -1,0 +1,16 @@
+#!/bin/bash
+
+current_date=$(date +"%Y-%m-%d_%H-%M-%S")
+output_dir="$HOME/Videos/Record/"
+
+# Check if gpu-screen-recorder is running
+if pgrep -f "gpu-screen-recorder" > /dev/null
+then
+    # If running, stop the recording
+    killall -SIGINT gpu-screen-recorder
+    notify-send "Screen Recording" "Recording stopped."
+else
+    # If not running, start the recording
+    notify-send "Screen Recording" "Recording started."
+    gpu-screen-recorder -w screen -f 60 -a default_output -o "${output_dir}/${current_date}.mp4"
+fi
