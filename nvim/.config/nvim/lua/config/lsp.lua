@@ -44,7 +44,7 @@ au('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if not client then
+        if not client or string.find(client.name:lower(), 'copilot') then
             return
         end
 
@@ -56,29 +56,28 @@ au('LspAttach', {
         --     autotrigger = true
         -- })
 
-        if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
-            -- vim.lsp.inlay_hint.enable(true)
-            nmap('gh', function()
-                vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-            end, 'Inlay Hints', event.buf)
-        end
+        -- if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
+        nmap('gh', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+        end, 'Inlay Hints', event.buf)
+        -- end
 
-        if client.server_capabilities.hoverProvider then
-            nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
-        end
-        if client.server_capabilities.definitionProvider or client.server_capabilities.declarationProvider then
-            nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
-            nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
-        end
-        if client.server_capabilities.referencesProvider then
-            nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
-        end
-        if client.server_capabilities.implementationProvider then
-            nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
-        end
-        if client.server_capabilities.typeDefinitionProvider then
-            nmap('gy', vim.lsp.buf.type_definition, 'Goto Type Definition', event.buf)
-        end
+        -- if client.server_capabilities.hoverProvider then
+        nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
+        -- end
+        -- if client.server_capabilities.definitionProvider or client.server_capabilities.declarationProvider then
+        nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
+        nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
+        -- end
+        -- if client.server_capabilities.referencesProvider then
+        nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
+        -- end
+        -- if client.server_capabilities.implementationProvider then
+        nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
+        -- end
+        -- if client.server_capabilities.typeDefinitionProvider then
+        nmap('gy', vim.lsp.buf.type_definition, 'Goto Type Definition', event.buf)
+        -- end
 
         -- code refactor
         nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
@@ -92,6 +91,7 @@ local lspconfig = require('lspconfig')
 for _, language in ipairs(languages) do
     for _, lsp in ipairs(language.lsp or {}) do
         lspconfig[lsp].setup({
+            cmd = language.cmd,
             capabilities = lsp_capabilities,
             settings = language.settings,
         })
