@@ -126,3 +126,5 @@ au('FileType', {
         })
     end,
 })
+
+vim.g.java_ignore_markdown = true
