@@ -1,8 +1,6 @@
 local dap = require('dap')
 local dap_utils = require('dap.utils')
-local utils = require('config.utils')
 local registry = require('mason-registry')
-local au = utils.au
 
 local function dotnet_build_project(callback)
     local path = vim.fn.getcwd() .. '/'
@@ -41,38 +39,32 @@ local function dotnet_get_dll_paths()
     return vim.fn.glob(vim.fn.getcwd() .. '/bin/Debug/**/*.dll', false, true)
 end
 
-au('FileType', {
-    pattern = { 'cs' },
-    desc = 'Setup csharp',
-    callback = function()
-        dap.adapters.coreclr = function(callback, _)
-            dotnet_build_project(function()
-                callback({
-                    type = 'executable',
-                    command = registry.get_package('netcoredbg'):get_install_path() .. '/netcoredbg',
-                    args = { '--interpreter=vscode' },
-                })
-            end)
-        end
+dap.adapters.coreclr = function(callback, _)
+    dotnet_build_project(function()
+        callback({
+            type = 'executable',
+            command = registry.get_package('netcoredbg'):get_install_path() .. '/netcoredbg',
+            args = { '--interpreter=vscode' },
+        })
+    end)
+end
 
-        dap.configurations.cs = {
-            {
-                type = 'coreclr',
-                name = 'Attach',
-                request = 'attach',
-                console = 'integratedTerminal',
-                processId = dap_utils.pick_process,
-            },
-        }
+dap.configurations.cs = {
+    {
+        type = 'coreclr',
+        name = 'Attach',
+        request = 'attach',
+        console = 'integratedTerminal',
+        processId = dap_utils.pick_process,
+    },
+}
 
-        for _, dll_path in ipairs(dotnet_get_dll_paths()) do
-            table.insert(dap.configurations.cs, {
-                type = 'coreclr',
-                name = 'launch - ' .. dll_path,
-                request = 'launch',
-                console = 'integratedTerminal',
-                program = dll_path,
-            })
-        end
-    end,
-})
+for _, dll_path in ipairs(dotnet_get_dll_paths()) do
+    table.insert(dap.configurations.cs, {
+        type = 'coreclr',
+        name = 'launch - ' .. dll_path,
+        request = 'launch',
+        console = 'integratedTerminal',
+        program = dll_path,
+    })
+end
