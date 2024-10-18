@@ -24,14 +24,16 @@ dap.configurations.python = {
   {
     type = 'python',
     request = 'launch',
-    name = 'Launch a debugging session',
+    console = 'integratedTerminal',
+    name = 'Launch',
     program = "${file}",
     pythonPath = 'python'
   },
   {
     type = 'python',
     request = 'attach',
-    name = 'Attach a debugging session',
+    console = 'integratedTerminal',
+    name = 'Attach to remote',
     connect = function()
         local host = vim.fn.input('Host [127.0.0.1]: ')
         host = host ~= '' and host or '127.0.0.1'

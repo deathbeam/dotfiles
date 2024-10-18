@@ -52,9 +52,9 @@ end
 dap.configurations.cs = {
     {
         type = 'coreclr',
-        name = 'Attach',
         request = 'attach',
         console = 'integratedTerminal',
+        name = 'Attach to process',
         processId = dap_utils.pick_process,
     },
 }
@@ -62,9 +62,9 @@ dap.configurations.cs = {
 for _, dll_path in ipairs(dotnet_get_dll_paths()) do
     table.insert(dap.configurations.cs, {
         type = 'coreclr',
-        name = 'launch - ' .. dll_path,
         request = 'launch',
         console = 'integratedTerminal',
+        name = 'Launch - ' .. dll_path,
         program = dll_path,
     })
 end
