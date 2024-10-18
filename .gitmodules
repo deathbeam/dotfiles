@@ -124,9 +124,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/bigfile.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/bigfile.nvim
 	url = https://github.com/LunarVim/bigfile.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/vim-fugitive"]
-	path = nvim/.config/nvim/pack/bundle/start/vim-fugitive
-	url = https://github.com/tpope/vim-fugitive
 [submodule "nvim/.config/nvim/pack/bundle/start/vim-polyglot"]
 	path = nvim/.config/nvim/pack/bundle/start/vim-polyglot
 	url = https://github.com/sheerun/vim-polyglot
