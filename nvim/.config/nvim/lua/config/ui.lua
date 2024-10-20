@@ -31,11 +31,6 @@ require('bqf').setup({
     }
 })
 
--- Todos
-require('todo-comments').setup()
-
-nmap('<leader>ft', require("todo-comments.fzf").todo, 'Find Todos')
-
 -- File browser
 require('oil').setup({
     view_options = {
