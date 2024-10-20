@@ -127,3 +127,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf
+[submodule "nvim/.config/nvim/pack/bundle/start/todo-comments.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/todo-comments.nvim
+	url = https://github.com/folke/todo-comments.nvim

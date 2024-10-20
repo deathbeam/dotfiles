@@ -27,9 +27,14 @@ require('which-key').setup()
 -- Better quickfix
 require('bqf').setup({
     preview = {
-        border = 'single',
+        border = 'single'
     }
 })
+
+-- Todos
+require('todo-comments').setup()
+
+nmap('<leader>ft', require("todo-comments.fzf").todo, 'Find Todos')
 
 -- File browser
 require('oil').setup({
