@@ -40,9 +40,13 @@ echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
     jdk8-openjdk openjdk8-doc openjdk8-src \
     jdk-openjdk openjdk-doc openjdk-src \
-    maven npm asdf-vm docker docker-compose github-cli azure-cli lazygit \
     python-pip python-dbus python-opengl python-virtualenv \
-    dotnet-sdk aspnet-runtime
+    dotnet-sdk aspnet-runtime \
+    maven npm asdf-vm \
+    github-cli lazygit \
+    docker docker-compose \
+    azure-cli kubctl k9s \
+    postman
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac
@@ -57,11 +61,11 @@ yay -S --noconfirm --mflags --skipinteg \
     yambar-git \
     alacritty \
     zathura zathura-pdf-mupdf \
-    qutebrowser python-adblock chromium-widevine \
+    qutebrowser python-adblock \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop boosteroid stremio steam calibre postman \
+    dropbox dropbox-cli vesktop boosteroid stremio steam calibre \
     stalonetray xdotool krita \
-    gpu-gpu-screen-recorder
+    gpu-screen-recorder-git
 
 echo '==> Installing dotfiles'
 cd ~/git
