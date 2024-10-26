@@ -106,9 +106,11 @@ return {
         treesitter = { 'c_sharp' },
         mason = { 'csharp-language-server', 'netcoredbg' },
         lsp = { 'csharp_ls' },
-        -- mason = { 'omnisharp', 'netcoredbg' },
-        -- lsp = { 'omnisharp' },
-        -- cmd = { "dotnet", vim.fn.stdpath "data" .. "/mason/packages/omnisharp/libexec/OmniSharp.dll" },
+    },
+    {
+        treesitter = { 'c' },
+        mason = { 'clangd' },
+        lsp = { 'clangd' },
     },
     {
         mason = { 'haxe-language-server' },
