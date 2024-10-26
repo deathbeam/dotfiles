@@ -1,17 +1,16 @@
 // ==UserScript==
-// @name         YouTube去广告 YouTube AD Blocker
+// @name         youtube-adb
 // @name:zh-CN   YouTube去广告
 // @name:zh-TW   YouTube去廣告
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
-// @namespace    https://github.com/iamfugui/YouTubeADB
-// @version      6.03
-// @description         这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。This is a script that removes ads on YouTube, it's lightweight and efficient, capable of smoothly removing interface and video ads, including 6s ads.
-// @description:zh-CN   这是一个去除YouTube广告的脚本，轻量且高效，它能丝滑的去除界面广告和视频广告，包括6s广告。
-// @description:zh-TW   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
-// @description:zh-HK   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
-// @description:zh-MO   這是一個去除YouTube廣告的腳本，輕量且高效，它能絲滑地去除界面廣告和視頻廣告，包括6s廣告。
-// @author       iamfugui
+// @namespace    https://github.com/iamfugui/youtube-adb
+// @version      6.20
+// @description         A script to remove YouTube ads, including static ads and video ads, without interfering with the network and ensuring safety.
+// @description:zh-CN   脚本用于移除YouTube广告，包括静态广告和视频广告。不会干扰网络，安全。
+// @description:zh-TW   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
+// @description:zh-HK   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
+// @description:zh-MO   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
 // @match        *://*.youtube.com/*
 // @exclude      *://accounts.youtube.com/*
 // @exclude      *://www.youtube.com/live_chat_replay*
@@ -22,11 +21,13 @@
 // @downloadURL https://update.greasyfork.org/scripts/459541/YouTube%E5%8E%BB%E5%B9%BF%E5%91%8A.user.js
 // @updateURL https://update.greasyfork.org/scripts/459541/YouTube%E5%8E%BB%E5%B9%BF%E5%91%8A.meta.js
 // ==/UserScript==
+
 (function() {
     `use strict`;
 
+    let video;
     //界面广告选择器
-    const cssSeletorArr = [
+    const cssSelectorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
         `ytd-rich-item-renderer.style-scope.ytd-rich-grid-row #content:has(.ytd-display-ad-renderer)`,//首页视频排版广告.
         `.video-ads.ytp-ad-module`,//播放器底部广告.
@@ -36,10 +37,10 @@
         `#related ytd-ad-slot-renderer`,//播放页评论区右侧视频排版广告.
         `ytd-ad-slot-renderer`,//搜索页广告.
         `yt-mealbar-promo-renderer`,//播放页会员推荐广告.
+        `ytd-popup-container:has(a[href="/premium"])`,//会员拦截广告
         `ad-slot-renderer`,//M播放页第三方推荐广告
         `ytm-companion-ad-renderer`,//M可跳过的视频广告链接处
     ];
-
     window.dev=false;//开发使用
 
     /**
@@ -80,7 +81,7 @@
     function setRunFlag(name){
         let style = document.createElement(`style`);
         style.id = name;
-        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
+        (document.head || document.body).appendChild(style);//将节点附加到HTML.
     }
 
     /**
@@ -120,21 +121,21 @@
 
         //设置移除广告样式.
         let style = document.createElement(`style`);//创建style元素.
-        (document.querySelector(`head`) || document.querySelector(`body`)).appendChild(style);//将节点附加到HTML.
-        style.appendChild(document.createTextNode(generateRemoveADCssText(cssSeletorArr)));//附加样式节点到元素节点.
+        (document.head || document.body).appendChild(style);//将节点附加到HTML.
+        style.appendChild(document.createTextNode(generateRemoveADCssText(cssSelectorArr)));//附加样式节点到元素节点.
         log(`生成屏蔽页面广告节点成功`);
     }
 
     /**
     * 生成去除广告的css文本
-    * @param {Array} cssSeletorArr 待设置css选择器数组
+    * @param {Array} cssSelectorArr 待设置css选择器数组
     * @return {String}
     */
-    function generateRemoveADCssText(cssSeletorArr){
-        cssSeletorArr.forEach((seletor,index)=>{
-            cssSeletorArr[index]=`${seletor}{display:none!important}`;//遍历并设置样式.
+    function generateRemoveADCssText(cssSelectorArr){
+        cssSelectorArr.forEach((selector,index)=>{
+            cssSelectorArr[index]=`${selector}{display:none!important}`;//遍历并设置样式.
         });
-        return cssSeletorArr.join(` `);//拼接成字符串.
+        return cssSelectorArr.join(` `);//拼接成字符串.
     }
 
     /**
@@ -181,33 +182,83 @@
         this.dispatchEvent(touchEndEvent);
     }
 
+
+    /**
+    * 获取dom
+    * @return {undefined}
+    */
+    function getVideoDom(){
+        video = document.querySelector(`.ad-showing video`) || document.querySelector(`video`);
+    }
+
+
+    /**
+    * 自动播放
+    * @return {undefined}
+    */
+    function playAfterAd(){
+        if(video.paused && video.currentTime<1){
+            video.play();
+            log(`自动播放视频`);
+        }
+    }
+
+
+    /**
+    * 移除YT拦截广告拦截弹窗并且关闭关闭遮罩层
+    * @return {undefined}
+    */
+    function closeOverlay(){
+        //移除YT拦截广告拦截弹窗
+        const premiumContainers = [...document.querySelectorAll(`ytd-popup-container`)];
+        const matchingContainers = premiumContainers.filter(container => container.querySelector(`a[href="/premium"]`));
+
+        if(matchingContainers.length>0){
+            matchingContainers.forEach(container => container.remove());
+            log(`移除YT拦截器`);
+        }
+
+        // 获取所有具有指定标签的元素
+        const backdrops = document.querySelectorAll(`tp-yt-iron-overlay-backdrop`);
+        // 查找具有特定样式的元素
+        const targetBackdrop = Array.from(backdrops).find(
+            (backdrop) => backdrop.style.zIndex === `2201`
+        );
+        // 如果找到该元素，清空其类并移除 open 属性
+        if (targetBackdrop) {
+            targetBackdrop.className = ``; // 清空所有类
+            targetBackdrop.removeAttribute(`opened`); // 移除 open 属性
+            log(`关闭遮罩层`);
+        }
+    }
+
+
     /**
     * 跳过广告
     * @return {undefined}
     */
     function skipAd(mutationsList, observer) {
-        let video = document.querySelector(`.ad-showing video`) || document.querySelector(`video`);//获取视频节点
-        let skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-skip-ad-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
-        let shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`) || document.querySelector(`.ytp-ad-button-icon`);
+        const skipButton = document.querySelector(`.ytp-ad-skip-button`) || document.querySelector(`.ytp-skip-ad-button`) || document.querySelector(`.ytp-ad-skip-button-modern`);
+        const shortAdMsg = document.querySelector(`.video-ads.ytp-ad-module .ytp-ad-player-overlay`) || document.querySelector(`.ytp-ad-button-icon`);
+
+        if((skipButton || shortAdMsg) && window.location.href.indexOf(`https://m.youtube.com/`) === -1){ //移动端静音有bug
+            video.muted = true;
+        }
 
         if(skipButton){
-            //移动端静音有bug
-            if( window.location.href.indexOf("https://m.youtube.com/") === -1){
-                video.muted = true;
-            }
-            if(video.currentTime>0.5){
+            const delayTime = 0.5;
+            setTimeout(skipAd,delayTime*1000);//如果click和call没有跳过更改，直接更改广告时间
+            if(video.currentTime>delayTime){
                 video.currentTime = video.duration;//强制
-                log(`特殊账号跳过按钮广告~~~~~~~~~~~~~`);
+                log(`特殊账号跳过按钮广告`);
                 return;
             }
             skipButton.click();//PC
             nativeTouch.call(skipButton);//Phone
-            log(`按钮跳过广告~~~~~~~~~~~~~`);
+            log(`按钮跳过广告`);
         }else if(shortAdMsg){
-            video.currentTime = video.duration;
-            log(`强制结束了该广告~~~~~~~~~~~~~`);
-        }else{
-            log(`######广告不存在######`);
+            video.currentTime = video.duration;//强制
+            log(`强制结束了该广告`);
         }
 
     }
@@ -222,33 +273,12 @@
             log(`去除播放中的广告功能已在运行`);
             return false
         }
-        let observer;//监听器
-        let timerID;//定时器
 
-        //开始监听
-        function startObserve(){
-            //广告节点监听
-            const targetNode = document.querySelector(`.video-ads.ytp-ad-module`);
-            if(!targetNode){
-                log(`正在寻找待监听的目标节点`);
-                return false;
-            }
-            //监听视频中的广告并处理
-            const config = {childList: true, subtree: true };// 监听目标节点本身与子树下节点的变动
-            observer = new MutationObserver(skipAd);// 创建一个观察器实例并设置处理广告的回调函数
-            observer.observe(targetNode, config);// 以上述配置开始观察广告节点
-            timerID=setInterval(skipAd, 500);//漏网鱼
-        }
-
-        //轮询任务
-        let startObserveID = setInterval(()=>{
-            if(observer && timerID){
-                clearInterval(startObserveID);
-            }else{
-                startObserve();
-            }
-        },16);
-
+        //监听视频中的广告并处理
+        const targetNode = document.body;//直接监听body变动
+        const config = {childList: true, subtree: true };// 监听目标节点本身与子树下节点的变动
+        const observer = new MutationObserver(()=>{getVideoDom();closeOverlay();skipAd();playAfterAd();});//处理视频广告相关
+        observer.observe(targetNode, config);// 以上述配置开始观察广告节点
         log(`运行去除播放中的广告功能成功`);
     }
 
@@ -261,11 +291,11 @@
     }
 
     if (document.readyState === `loading`) {
-        log(`YouTube去广告脚本即将调用:`);
         document.addEventListener(`DOMContentLoaded`, main);// 此时加载尚未完成
+        log(`YouTube去广告脚本即将调用:`);
     } else {
-        log(`YouTube去广告脚本快速调用:`);
         main();// 此时`DOMContentLoaded` 已经被触发
+        log(`YouTube去广告脚本快速调用:`);
     }
 
 })();
