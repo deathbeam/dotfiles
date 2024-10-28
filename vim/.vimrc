@@ -103,9 +103,6 @@ autocmd VimRc BufWinEnter quickfix set norelativenumber
 autocmd VimRc FocusGained,VimEnter * let @"=getreg('+')
 autocmd VimRc TextYankPost * if v:event.operator ==# 'y' | let @+=getreg('"') | endif
 
-" Not ass formatting for xml files
-au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ --nocompact\ -\ 2>/dev/null
-
 " }}}
 
 " Text, tab and indent related {{{
@@ -121,7 +118,7 @@ set tabstop=2
 set textwidth=80
 
 " Better automatic indentation
-set smartindent
+" set smartindent
 
 " Use Unix as the standard file type
 set fileformats=unix,dos,mac
