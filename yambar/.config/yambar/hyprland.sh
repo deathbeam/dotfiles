@@ -19,7 +19,7 @@ socat -U - "UNIX-CONNECT:${XDG_RUNTIME_DIR}/hypr/${HYPRLAND_INSTANCE_SIGNATURE}/
     monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
     fullscreen=$([ "$monocle" = true ] && echo "false" || ([ "${window_info[5]}" = "2" ] && echo "true" || echo "false"))
 
-    # Toggle gammastep on fullscreen change (only for xwayland windows, so steam)
+    # Toggle gammastep on fullscreen change
     if [ "$fullscreen" = true ] && [ "$was_fullscreen" = false ]; then
         was_fullscreen=true
         pkill -USR1 gammastep
