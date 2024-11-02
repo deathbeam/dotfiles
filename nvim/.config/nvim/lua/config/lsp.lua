@@ -7,6 +7,9 @@ local lsp_capabilities = utils.make_capabilities()
 -- Echo LSP messages
 require('lspecho').setup()
 
+-- Debug print
+require('debugprint').setup()
+
 -- Configure diagnostics
 local icons = require('config.icons').diagnostics
 vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
