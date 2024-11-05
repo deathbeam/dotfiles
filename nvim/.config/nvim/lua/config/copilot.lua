@@ -22,6 +22,7 @@ local function pick(pick_actions)
 end
 
 chat.setup({
+    debug = true,
     model = 'claude-3.5-sonnet',
     question_header = '',
     answer_header = '',
