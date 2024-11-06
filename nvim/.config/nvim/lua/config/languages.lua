@@ -113,8 +113,9 @@ return {
         lsp = { 'clangd' },
     },
     {
-        mason = { 'haxe-language-server' },
-        lsp = { 'haxe_language_server' },
+        treesitter = { 'nim' },
+        mason = { 'nimlangserver' },
+        lsp = { 'nim_langserver' },
     },
     {
         treesitter = { 'lua' },
@@ -135,10 +136,6 @@ return {
                 },
             },
         },
-    },
-    {
-        treesitter = { 'gdscript' },
-        lsp = { 'gdscript' },
     },
     {
         treesitter = { 'bash' },
