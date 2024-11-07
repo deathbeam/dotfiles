@@ -114,7 +114,8 @@ return {
     },
     {
         treesitter = { 'nim' },
-        mason = { 'nimlangserver' },
+        -- needs manual install, choosenim-bin, nimlangserver-git
+        -- mason = { 'nimlangserver' },
         lsp = { 'nim_langserver' },
     },
     {
