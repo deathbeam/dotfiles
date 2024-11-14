@@ -24,9 +24,9 @@ end
 chat.setup({
     log_level = 'warn',
     model = 'claude-3.5-sonnet',
-    question_header = '',
-    answer_header = '',
-    error_header = '',
+    question_header = '   ',
+    answer_header = '   ',
+    error_header = '   ',
     allow_insecure = true,
     mappings = {
         reset = {
