@@ -9,6 +9,7 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
+local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
 
 local function pick(pick_actions)
@@ -28,6 +29,9 @@ chat.setup({
     answer_header = '   ',
     error_header = '   ',
     allow_insecure = true,
+    selection = function(source)
+        return select.visual(source) or select.buffer(source)
+    end,
     mappings = {
         reset = {
             normal = '',
