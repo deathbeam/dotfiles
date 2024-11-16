@@ -42,7 +42,11 @@ fzf_lua.setup({
     },
 })
 
-fzf_lua.register_ui_select()
+fzf_lua.register_ui_select({
+    fzf_tmux_opts = {
+        ['-d'] = '45%',
+    },
+})
 
 -- https://github.com/ibhagwan/fzf-lua/issues/602
 local function w(fn)
