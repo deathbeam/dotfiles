@@ -3,6 +3,10 @@ return {
         Closed = '',
         Open = '',
     },
+    ui = {
+        User = ' ',
+        Bot = ' ',
+    },
     dap = {
         Stopped = { '󰁕 ', 'DiagnosticWarn' },
         Breakpoint = ' ',

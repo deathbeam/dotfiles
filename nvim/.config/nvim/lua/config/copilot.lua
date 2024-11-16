@@ -1,4 +1,5 @@
 local utils = require('config.utils')
+local icons = require('config.icons')
 utils.desc('<leader>a', 'AI')
 
 -- Copilot autosuggestions
@@ -7,6 +8,7 @@ vim.g.copilot_hide_during_completion = 0
 vim.g.copilot_proxy_strict_ssl = 0
 vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
 
+-- Copilot chat
 local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
 local integration = require('CopilotChat.integrations.fzflua')
@@ -14,9 +16,9 @@ local integration = require('CopilotChat.integrations.fzflua')
 chat.setup({
     log_level = 'info',
     model = 'claude-3.5-sonnet',
-    question_header = '   ',
-    answer_header = '   ',
-    error_header = '   ',
+    question_header = ' ' .. icons.ui.User .. ' ',
+    answer_header = ' ' .. icons.ui.Bot .. ' ',
+    error_header = ' ' .. icons.diagnostics.Warn .. ' ',
     mappings = {
         reset = {
             normal = '',
