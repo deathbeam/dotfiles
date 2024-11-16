@@ -12,20 +12,23 @@ function directory_name() {
 }
 
 function get_marked_sessions() {
-    for session in $tmux_sessions; do
-        local name="$(directory_name $session)"
-        if [[ $project_directories != *$name* ]]; then
-            echo -e "\033[0;32m$session\033[0m"
+    # First, handle existing tmux sessions that don't have corresponding directories
+    while IFS= read -r session; do
+        dir_name="$(directory_name "$session")"
+        if ! echo "$project_directories" | grep -q "$dir_name"; then
+            echo -e "\033[0;36m$session\033[0m"
         fi
-    done
-    for session in $project_directories; do
-        local name="$(session_name $session)"
-        if [[ $tmux_sessions == *$name* ]]; then
-            echo -e "\033[0;34m$session\033[0m"
+    done <<< "$tmux_sessions"
+
+    # Then, handle directories, marking those that have sessions
+    while IFS= read -r directory; do
+        sess_name="$(session_name "$directory")"
+        if echo "$tmux_sessions" | grep -q "^${sess_name}$"; then
+            echo -e "\033[0;36m$directory\033[0m"
         else
-            echo $session
+            echo "$directory"
         fi
-    done
+    done <<< "$project_directories"
 }
 
 selected_project=$(get_marked_sessions | sort | fzf-tmux \
@@ -33,7 +36,16 @@ selected_project=$(get_marked_sessions | sort | fzf-tmux \
     --prompt='Open session > ' \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to use query' \
-    --preview='ls --group-directories-first --color=always -lahG {}')
+    --preview='
+        session_name=$(basename {} | tr . _)
+        if tmux has-session -t=$session_name 2>/dev/null; then
+            # -e captures SGR escape sequences (colors)
+            # -J disables word-wrap
+            tmux capture-pane -e -J -t $session_name:1.1 -p
+        else
+            ls --group-directories-first --color=always -lahG {}
+        fi
+    ')
 
 if [[ -z $selected_project ]]; then
     exit 0
