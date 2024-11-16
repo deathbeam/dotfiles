@@ -9,18 +9,7 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
-local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
-
-local function pick(pick_actions)
-    return function()
-        integration.pick(pick_actions(), {
-            fzf_tmux_opts = {
-                ['-d'] = '45%',
-            },
-        })
-    end
-end
 
 chat.setup({
     log_level = 'info',
@@ -28,10 +17,6 @@ chat.setup({
     question_header = '   ',
     answer_header = '   ',
     error_header = '   ',
-    allow_insecure = true,
-    selection = function(source)
-        return select.visual(source) or select.buffer(source)
-    end,
     mappings = {
         reset = {
             normal = '',
@@ -85,4 +70,16 @@ utils.au('BufEnter', {
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set({ 'n', 'v' }, '<leader>as', chat.stop, { desc = 'AI Reset' })
-vim.keymap.set({ 'n', 'v' }, '<leader>ap', pick(actions.prompt_actions), { desc = 'AI Prompts' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
+    integration.pick(actions.prompt_actions(), {
+        fzf_tmux_opts = {
+            ['-d'] = '45%',
+        },
+    })
+end, { desc = 'AI Prompts' })
+vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
+    local input = vim.fn.input('Question: ')
+    if input ~= '' then
+        chat.ask(input)
+    end
+end, { desc = 'AI Quick Chat' })
