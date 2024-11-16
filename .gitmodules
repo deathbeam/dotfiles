@@ -130,3 +130,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/render-markdown.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/render-markdown.nvim
+	url = https://github.com/MeanderingProgrammer/render-markdown.nvim

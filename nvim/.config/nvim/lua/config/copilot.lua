@@ -23,7 +23,7 @@ local function pick(pick_actions)
 end
 
 chat.setup({
-    log_level = 'warn',
+    log_level = 'info',
     model = 'claude-3.5-sonnet',
     question_header = '   ',
     answer_header = '   ',
@@ -68,6 +68,10 @@ chat.setup({
             description = 'AI Generate Commit',
         },
     },
+})
+
+require('render-markdown').setup({
+    file_types = { 'markdown', 'copilot-chat' },
 })
 
 utils.au('BufEnter', {

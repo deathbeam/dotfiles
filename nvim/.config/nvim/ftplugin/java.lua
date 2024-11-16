@@ -116,4 +116,3 @@ jdtls.start_or_attach({
         -- FIXME: Maybe check this again? https://github.com/neovim/nvim-lspconfig/blob/master/lua/lspconfig/server_configurations/jdtls.lua#L117
     },
 })
-

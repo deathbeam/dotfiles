@@ -27,8 +27,8 @@ require('which-key').setup()
 -- Better quickfix
 require('bqf').setup({
     preview = {
-        border = 'single'
-    }
+        border = 'single',
+    },
 })
 
 -- File browser
