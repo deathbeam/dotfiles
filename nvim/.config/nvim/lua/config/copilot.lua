@@ -80,8 +80,11 @@ vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
     })
 end, { desc = 'AI Prompts' })
 vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
-    local input = vim.fn.input('Question: ')
-    if input ~= '' then
-        chat.ask(input)
-    end
+    vim.ui.input({
+        prompt = 'AI Question> ',
+    }, function(input)
+        if input and input ~= '' then
+            chat.ask(input)
+        end
+    end)
 end, { desc = 'AI Quick Chat' })
