@@ -19,7 +19,7 @@ chat.setup({
     model = 'claude-3.5-sonnet',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
-    error_header = ' ' .. icons.diagnostics.Warn .. ' ',
+    error_header = '> [!ERROR] Error',
     context = 'buffer',
     selection = select.visual,
     mappings = {
