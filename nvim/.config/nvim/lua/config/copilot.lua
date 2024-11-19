@@ -77,7 +77,8 @@ utils.au('BufEnter', {
     end,
 })
 
-vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
+vim.keymap.set({ 'n' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
+vim.keymap.set({ 'v' }, '<leader>aa', chat.open, { desc = 'AI Open' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set({ 'n', 'v' }, '<leader>as', chat.stop, { desc = 'AI Stop' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
