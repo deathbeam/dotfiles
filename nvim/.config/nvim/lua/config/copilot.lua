@@ -79,7 +79,7 @@ utils.au('BufEnter', {
 
 vim.keymap.set({ 'n', 'v' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
-vim.keymap.set({ 'n', 'v' }, '<leader>as', chat.stop, { desc = 'AI Reset' })
+vim.keymap.set({ 'n', 'v' }, '<leader>as', chat.stop, { desc = 'AI Stop' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
     integration.pick(actions.prompt_actions(), {
         fzf_tmux_opts = {
