@@ -19,7 +19,7 @@ chat.setup({
     model = 'claude-3.5-sonnet',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
-    error_header = '> [!ERROR] Error',
+    error_header = '> ' .. icons.diagnostics.Warn .. ' ',
     context = 'buffer',
     selection = select.visual,
     mappings = {
@@ -61,12 +61,6 @@ chat.setup({
             description = 'AI Generate Commit',
         },
     },
-})
-
-require('mini.diff').setup()
-
-require('render-markdown').setup({
-    file_types = { 'markdown', 'copilot-chat' },
 })
 
 utils.au('BufEnter', {
