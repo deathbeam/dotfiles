@@ -22,7 +22,7 @@ fzf_lua.setup({
         multiline = 1,
     },
     grep = {
-        rg_opts = ' --hidden --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
+        rg_opts = ' --hidden --glob "!.git/" --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         prompt = 'Grep❯ ',
         no_column_hide = true,
     },

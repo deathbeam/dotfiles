@@ -31,6 +31,15 @@ require('bqf').setup({
     },
 })
 
+au('FileType', {
+    pattern = 'qf',
+    desc = 'Set quickfix options',
+    callback = function()
+        vim.opt_local.number = false
+        vim.opt_local.relativenumber = false
+    end,
+})
+
 -- File browser
 require('oil').setup({
     view_options = {
