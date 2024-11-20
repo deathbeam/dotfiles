@@ -54,7 +54,9 @@ if command -v nvim >/dev/null 2>&1; then
   alias vim=nvim
   alias vimdiff='nvim -d'
   alias nvimf='nvim -c "FzfLua files"'
-  alias nvimg='nvim --listen /tmp/godot.pipe'
+  alias nviml='nvim --listen /tmp/nvim.pipe'
+  alias vimf='nvimf'
+  alias viml='nviml'
 fi
 
 # Alias copy/paste
