@@ -1,7 +1,6 @@
 #!/bin/sh
 
 urgent_workspace_id=-1
-was_fullscreen=false
 
 # Wrapper function to handle the main loop
 handle_events() {
@@ -30,15 +29,6 @@ handle_events() {
         floating=${window_info[4]}
         monocle=$([ ${window_info[6]} -eq 1 ] && echo "true" || echo "false")
         fullscreen=$([ "$monocle" = true ] && echo "false" || ([ "${window_info[5]}" = "2" ] && echo "true" || echo "false"))
-
-        # Toggle gammastep on fullscreen change
-        if [ "$fullscreen" = true ] && [ "$was_fullscreen" = false ]; then
-            was_fullscreen=true
-            pkill -USR1 gammastep
-        elif [ "$fullscreen" = false ] && [ "$was_fullscreen" = true ]; then
-            was_fullscreen=false
-            pkill -USR1 gammastep
-        fi
 
         # Read active workspace data
         workspace_info=()

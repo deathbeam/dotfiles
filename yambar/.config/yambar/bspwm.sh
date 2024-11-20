@@ -1,6 +1,5 @@
 #!/bin/sh
 
-was_fullscreen=false
 IFS=':'
 while read l; do
     line=$(bspc wm -g)
@@ -46,15 +45,6 @@ while read l; do
                 ;;
         esac
     done
-
-    # Toggle gammastep on fullscreen change
-    if [ "$fullscreen" = true ] && [ "$was_fullscreen" = false ]; then
-        was_fullscreen=true
-        pkill -USR1 gammastep
-    elif [ "$fullscreen" = false ] && [ "$was_fullscreen" = true ]; then
-        was_fullscreen=false
-        pkill -USR1 gammastep
-    fi
 
     echo "xwayland|bool|false"
     echo "monitor|string|$monitor"
