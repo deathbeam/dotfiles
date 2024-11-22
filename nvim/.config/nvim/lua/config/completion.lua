@@ -1,21 +1,13 @@
 local icons = require('config.icons')
 
 -- Enable popup menu and set options
-vim.o.completeopt = 'menuone,noselect,noinsert,fuzzy,popup'
+vim.o.completeopt = 'menuone,noinsert,fuzzy,popup'
 vim.o.completeitemalign = 'kind,abbr,menu'
 
 -- Tab to accept
 vim.keymap.set('i', '<Tab>', function()
-    if vim.fn.pumvisible() ~= 0 then
-        if vim.fn.complete_info().selected == -1 then
-            return '<C-n><C-y>'  -- Select first item and confirm
-        else
-            return '<C-y>'       -- Confirm current selection
-        end
-    end
-
-    return '<Tab>'              -- Normal tab behavior if no popup
-end, { expr = true, replace_keycodes = true, noremap = true })
+    return vim.fn.pumvisible() ~= 0 and '<C-y>' or '<Tab>'
+end, { expr = true, replace_keycodes = true })
 
 require('autocomplete.signature').setup({
     border = 'single',
