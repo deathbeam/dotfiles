@@ -14,6 +14,7 @@ require('autocomplete.signature').setup({
 })
 
 require('autocomplete.buffer').setup({
+    border = 'single',
     entry_mapper = function(entry)
         local kind = entry.kind
         local icon = icons.kinds[kind]
