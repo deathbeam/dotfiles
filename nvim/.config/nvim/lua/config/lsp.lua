@@ -33,12 +33,20 @@ vim.diagnostic.config({
 au('CursorHold', {
     desc = 'Show diagnostics',
     callback = function()
-        for _, winid in pairs(vim.api.nvim_tabpage_list_wins(0)) do
-            if vim.api.nvim_win_get_config(winid).zindex then
-                return
+        -- Check if there's any visible floating window
+        vim.diagnostic.open_float()
+        local has_float = false
+        for _, win in pairs(vim.api.nvim_list_wins()) do
+            if vim.api.nvim_win_get_config(win).relative ~= '' then
+                has_float = true
+                break
             end
         end
-        vim.diagnostic.open_float()
+
+        -- Only show diagnostic float if no floating window is visible
+        if not has_float then
+            vim.diagnostic.open_float()
+        end
     end,
 })
 

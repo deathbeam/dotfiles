@@ -55,14 +55,14 @@ hideResolved = true
 default = current
 followTags = false
 
-[fetch]
-prune = true
+; [fetch]
+; prune = true
 
 [rebase]
 autosquash = true
 
-[credential]
-helper = store
+; [credential]
+; helper = store
 
 [http]
 postBuffer = 524288000
