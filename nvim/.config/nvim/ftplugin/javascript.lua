@@ -3,16 +3,20 @@ local dap_utils = require('dap.utils')
 local registry = require('mason-registry')
 local dap_vscode_js = require('dap-vscode-js')
 
-dap_vscode_js.setup({
-    debugger_path = registry.get_package('js-debug-adapter'):get_install_path(),
-    adapters = {
-        'pwa-node',
-        'pwa-chrome',
-        'pwa-msedge',
-        'node-terminal',
-        'pwa-extensionHost',
-    },
-})
+if not vim.g.js_adapter then
+    dap_vscode_js.setup({
+        debugger_path = registry.get_package('js-debug-adapter'):get_install_path(),
+        adapters = {
+            'pwa-node',
+            'pwa-chrome',
+            'pwa-msedge',
+            'node-terminal',
+            'pwa-extensionHost',
+        },
+    })
+
+    vim.g.js_adapter = true
+end
 
 for _, language in ipairs({ 'typescript', 'javascript', 'typescriptreact', 'javascriptreact' }) do
     dap.configurations[language] = {
