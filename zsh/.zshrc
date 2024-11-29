@@ -93,8 +93,8 @@ alias pauu='yay -Syu --noconfirm'
 alias par='yay -Rnsu'
 alias parr='yay -Rnsu --noconfirm'
 # Install package
-alias pai='yay -S'
-alias paii='yay -S --noconfirm'
+alias pai='yay -Sy'
+alias paii='yay -Sy --noconfirm'
 
 # Set proxy
 function setproxy {
