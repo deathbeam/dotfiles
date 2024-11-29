@@ -15,7 +15,7 @@ local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
 
 chat.setup({
-    log_level = 'warn',
+    log_level = 'info',
     model = 'claude-3.5-sonnet',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
