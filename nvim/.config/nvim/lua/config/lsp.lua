@@ -16,7 +16,10 @@ vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { 
 vim.diagnostic.config({
     severity_sort = true,
     virtual_text = false,
-    float = { border = 'single' },
+    float = {
+        border = 'single',
+        focusable = false,
+    },
     jump = {
         _highest = true,
     },
@@ -34,7 +37,6 @@ au('CursorHold', {
     desc = 'Show diagnostics',
     callback = function()
         -- Check if there's any visible floating window
-        vim.diagnostic.open_float()
         local has_float = false
         for _, win in pairs(vim.api.nvim_list_wins()) do
             if vim.api.nvim_win_get_config(win).relative ~= '' then
