@@ -14,7 +14,7 @@ au('ColorScheme', {
         vim.api.nvim_set_hl(0, 'LineNr', { fg = base03 })
         vim.api.nvim_set_hl(0, 'VertSplit', { fg = base03 })
         vim.api.nvim_set_hl(0, 'WinSeparator', { fg = base03 })
-        vim.api.nvim_set_hl(0, "DiagnosticUnnecessary", { })
+        vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {})
     end,
 })
 base16.load_from_shell()

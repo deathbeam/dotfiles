@@ -4,9 +4,6 @@
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule "vim/.vim/bundle/vimwiki"]
-	path = nvim/.config/nvim/pack/bundle/start/vimwiki
-	url = https://github.com/vimwiki/vimwiki
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
 	url = https://github.com/junegunn/fzf

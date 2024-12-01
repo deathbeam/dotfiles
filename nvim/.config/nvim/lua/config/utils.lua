@@ -56,8 +56,12 @@ M.au = function(event, opts)
     return vim.api.nvim_create_autocmd(event, opts)
 end
 
-M.desc = function(key, desc)
-    wk.add({ key, desc = desc })
+M.desc = function(key, desc, icon)
+    local opts = { key, desc = desc }
+    if icon then
+        opts.icon = icon
+    end
+    wk.add(opts)
 end
 
 M.make_capabilities = function()

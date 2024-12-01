@@ -6,6 +6,7 @@ return {
     ui = {
         User = ' ',
         Bot = ' ',
+        Wiki = '󰈙',
     },
     dap = {
         Stopped = { '󰁕 ', 'DiagnosticWarn' },
