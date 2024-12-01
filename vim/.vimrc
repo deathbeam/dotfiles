@@ -96,8 +96,9 @@ autocmd VimRc VimResized * wincmd =
 autocmd VimRc BufRead * autocmd FileType <buffer> ++once
       \ if &ft !~# 'commit\|rebase' && line("'\"") > 1 && line("'\"") <= line("$") | exe 'normal! g`"' | endif
 
-" Disable relative numbers in quickfix
+" Disable numbers in quickfix
 autocmd VimRc BufWinEnter quickfix set norelativenumber
+autocmd VimRc BufWinEnter quickfix set nonumber
 
 " Sync system clipboard and vim clipboard
 autocmd VimRc FocusGained,VimEnter * let @"=getreg('+')

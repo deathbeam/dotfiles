@@ -22,23 +22,11 @@ base16.load_from_shell()
 -- Load icons
 require('nvim-web-devicons').setup()
 
--- Which key, i guess
-require('which-key').setup()
-
 -- Better quickfix
 require('bqf').setup({
     preview = {
         border = 'single',
     },
-})
-
-au('FileType', {
-    pattern = 'qf',
-    desc = 'Set quickfix options',
-    callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-    end,
 })
 
 -- File browser
