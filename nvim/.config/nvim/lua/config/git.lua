@@ -12,7 +12,6 @@ gitsigns.setup({
     signcolumn = false,
     numhl = true,
     on_attach = function(bufnr)
-        print('Gitsigns attached to buffer ' .. bufnr)
         nmap(']c', function()
             if vim.wo.diff then
                 vim.cmd.normal({ ']c', bang = true })
