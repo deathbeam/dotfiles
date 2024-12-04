@@ -127,3 +127,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim
