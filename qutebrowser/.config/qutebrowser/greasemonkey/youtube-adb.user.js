@@ -5,7 +5,7 @@
 // @name:zh-HK   YouTube去廣告
 // @name:zh-MO   YouTube去廣告
 // @namespace    https://github.com/iamfugui/youtube-adb
-// @version      6.20
+// @version      6.21
 // @description         A script to remove YouTube ads, including static ads and video ads, without interfering with the network and ensuring safety.
 // @description:zh-CN   脚本用于移除YouTube广告，包括静态广告和视频广告。不会干扰网络，安全。
 // @description:zh-TW   腳本用於移除 YouTube 廣告，包括靜態廣告和視頻廣告。不會干擾網路，安全。
@@ -29,7 +29,7 @@
     //界面广告选择器
     const cssSelectorArr = [
         `#masthead-ad`,//首页顶部横幅广告.
-        `ytd-rich-item-renderer.style-scope.ytd-rich-grid-row #content:has(.ytd-display-ad-renderer)`,//首页视频排版广告.
+        `ytd-rich-item-renderer:has(ytd-ad-slot-renderer)`,//首页视频排版广告.
         `.video-ads.ytp-ad-module`,//播放器底部广告.
         `tp-yt-paper-dialog:has(yt-mealbar-promo-renderer)`,//播放页会员促销广告.
         `ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]`,//播放页右上方推荐广告.
@@ -298,4 +298,45 @@
         log(`YouTube去广告脚本快速调用:`);
     }
 
+    let resumeVideo = () => {
+        const videoelem = document.body.querySelector('video.html5-main-video')
+        if (videoelem && videoelem.paused) {
+             console.log('resume video')
+             videoelem.play()
+        }
+    }
+
+    let removePop = node => {
+        const elpopup = node.querySelector('.ytd-popup-container > .ytd-popup-container > .ytd-enforcement-message-view-model')
+
+        if (elpopup) {
+            elpopup.parentNode.remove()
+            console.log('remove popup', elpopup)
+            const bdelems = document
+                .getElementsByTagName('tp-yt-iron-overlay-backdrop')
+            for (var x = (bdelems || []).length; x--;)
+                bdelems[x].remove()
+            resumeVideo()
+        }
+
+        if (node.tagName.toLowerCase() === 'tp-yt-iron-overlay-backdrop') {
+            node.remove()
+            resumeVideo()
+            console.log('remove backdrop', node)
+        }
+    }
+
+    let obs = new MutationObserver(mutations => mutations.forEach(mutation => {
+        if (mutation.type === 'childList') {
+            Array.from(mutation.addedNodes)
+                .filter(node => node.nodeType === 1)
+                .map(node => removePop(node))
+        }
+    }))
+
+    // have the observer observe foo for changes in children
+    obs.observe(document.body, {
+        childList: true,
+        subtree: true
+    })
 })();
