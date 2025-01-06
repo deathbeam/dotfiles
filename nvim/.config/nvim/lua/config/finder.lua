@@ -13,9 +13,7 @@ fzf_lua.setup({
         ['--info'] = false,
         ['--border'] = false,
         ['--preview-window'] = 'border-sharp',
-    },
-    fzf_tmux_opts = {
-        ['-p'] = '100%,100%',
+        ['--tmux'] = '100%,100%',
     },
     defaults = {
         formatter = 'path.filename_first',
@@ -28,23 +26,23 @@ fzf_lua.setup({
     },
     lsp = {
         code_actions = {
-            fzf_tmux_opts = {
-                ['-d'] = '45%',
+            fzf_opts = {
+                ['--tmux'] = 'bottom,50%',
             },
         },
     },
     dap = {
         configurations = {
-            fzf_tmux_opts = {
-                ['-d'] = '45%',
+            fzf_opts = {
+                ['--tmux'] = 'bottom,50%',
             },
         },
     },
 })
 
 fzf_lua.register_ui_select({
-    fzf_tmux_opts = {
-        ['-d'] = '45%',
+    fzf_opts = {
+        ['--tmux'] = 'bottom,50%',
     },
 })
 
