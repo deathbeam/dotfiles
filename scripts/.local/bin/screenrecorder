@@ -11,6 +11,6 @@ then
     notify-send "Screen Recording" "Recording stopped."
 else
     # If not running, start the recording
-    # notify-send "Screen Recording" "Recording started."
-    gpu-screen-recorder -w portal -f 60 -a default_output -o "${output_dir}/${current_date}.mp4"
+    notify-send "Screen Recording" "Recording started."
+    gpu-screen-recorder -w screen -f 60 -a default_output -o "${output_dir}/${current_date}.mp4"
 fi
