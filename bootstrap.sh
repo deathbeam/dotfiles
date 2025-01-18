@@ -42,6 +42,7 @@ yay -S --noconfirm --mflags --skipinteg \
     jdk-openjdk openjdk-doc openjdk-src \
     python-pip python-dbus python-opengl python-virtualenv \
     dotnet-sdk aspnet-runtime \
+    local-lua-debugger-vscode-git \
     maven npm asdf-vm \
     github-cli lazygit \
     docker docker-compose \
