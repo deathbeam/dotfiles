@@ -36,21 +36,11 @@ vim.diagnostic.config({
 au('CursorHold', {
     desc = 'Show diagnostics',
     callback = function()
-        vim.diagnostic.open_float()
+        if vim.api.nvim_get_mode().mode ~= 'n' then
+            return
+        end
 
-        -- Check if there's any visible floating window
-        -- local has_float = false
-        -- for _, win in pairs(vim.api.nvim_list_wins()) do
-        --     if vim.api.nvim_win_get_config(win).relative ~= '' then
-        --         has_float = true
-        --         break
-        --     end
-        -- end
-        --
-        -- -- Only show diagnostic float if no floating window is visible
-        -- if not has_float then
-        --     vim.diagnostic.open_float()
-        -- end
+        vim.diagnostic.open_float()
     end,
 })
 
