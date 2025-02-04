@@ -56,12 +56,21 @@ local function w(fn)
         }, ...)
     end
 end
+
+-- Doesnt actually work because of https://github.com/neovim/neovim/pull/30877/files
+-- vim.lsp.handlers['textDocument/definition'] = w(fzf_lua.lsp_definitions)
+-- vim.lsp.handlers['textDocument/declaration'] = w(fzf_lua.lsp_declarations)
+-- vim.lsp.handlers['textDocument/typeDefinition'] = w(fzf_lua.lsp_typedefs)
+-- vim.lsp.handlers['textDocument/implementation'] = w(fzf_lua.lsp_implementations)
+-- vim.lsp.handlers['textDocument/references'] = w(fzf_lua.lsp_references)
+
+nmap('gd', w(fzf_lua.lsp_definitions), 'Goto Definition')
+nmap('gD', w(fzf_lua.lsp_declarations), 'Goto Declaration')
+nmap('gi', w(fzf_lua.lsp_implementations), 'Goto Implementation')
+nmap('gy', w(fzf_lua.lsp_typedefs), 'Goto Type Definition')
+nmap('gr', w(fzf_lua.lsp_references), 'Goto References')
+
 vim.lsp.handlers['textDocument/codeAction'] = w(fzf_lua.lsp_code_actions)
-vim.lsp.handlers['textDocument/definition'] = w(fzf_lua.lsp_definitions)
-vim.lsp.handlers['textDocument/declaration'] = w(fzf_lua.lsp_declarations)
-vim.lsp.handlers['textDocument/typeDefinition'] = w(fzf_lua.lsp_typedefs)
-vim.lsp.handlers['textDocument/implementation'] = w(fzf_lua.lsp_implementations)
-vim.lsp.handlers['textDocument/references'] = w(fzf_lua.lsp_references)
 vim.lsp.handlers['textDocument/documentSymbol'] = w(fzf_lua.lsp_document_symbols)
 vim.lsp.handlers['workspace/symbol'] = w(fzf_lua.lsp_workspace_symbols)
 vim.lsp.handlers['callHierarchy/incomingCalls'] = w(fzf_lua.lsp_incoming_calls)

@@ -61,28 +61,11 @@ au('LspAttach', {
         --     autotrigger = true
         -- })
 
-        -- if client.server_capabilities.inlayHintProvider or client.server_capabilities.signatureHelpProvider then
         nmap('gh', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, 'Inlay Hints', event.buf)
-        -- end
 
-        -- if client.server_capabilities.hoverProvider then
         nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
-        -- end
-        -- if client.server_capabilities.definitionProvider or client.server_capabilities.declarationProvider then
-        nmap('gd', vim.lsp.buf.definition, 'Goto Definition', event.buf)
-        nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration', event.buf)
-        -- end
-        -- if client.server_capabilities.referencesProvider then
-        nmap('gr', vim.lsp.buf.references, 'Goto References', event.buf)
-        -- end
-        -- if client.server_capabilities.implementationProvider then
-        nmap('gi', vim.lsp.buf.implementation, 'Goto Implementation', event.buf)
-        -- end
-        -- if client.server_capabilities.typeDefinitionProvider then
-        nmap('gy', vim.lsp.buf.type_definition, 'Goto Type Definition', event.buf)
-        -- end
 
         -- code refactor
         nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
