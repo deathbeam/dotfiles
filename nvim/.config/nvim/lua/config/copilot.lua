@@ -25,6 +25,9 @@ chat.setup({
             normal = '',
             insert = '',
         },
+        show_diff = {
+            full_diff = true,
+        }
     },
     prompts = {
         Yarrr = {
