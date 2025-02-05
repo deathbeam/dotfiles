@@ -22,7 +22,7 @@ chat.setup({
     selection = select.visual,
     sticky = {
         '/COPILOT_GENERATE',
-        '#files:full'
+        '#buffers'
     },
     mappings = {
         reset = {
