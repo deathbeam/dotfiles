@@ -54,7 +54,7 @@ set nowrap
 " Hide status line
 set laststatus=0
 set noruler
-set statusline==%{repeat('─',winwidth('.')-1)}
+set statusline=%{repeat('─',winwidth('.')-1)}
 set fillchars=stl:─,stlnc:─
 
 " Use title instead of statusline
