@@ -4,7 +4,7 @@ vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open 
 local function icon(sign, len)
     sign = sign or {}
     len = len or 2
-    local text = vim.fn.strcharpart(sign.text or '', 0, len) ---@type string
+    local text = vim.fn.strcharpart(sign.text or '', 0, len)
     text = text .. string.rep(' ', len - vim.fn.strchars(text))
     return sign.texthl and ('%#' .. sign.texthl .. '#' .. text .. '%*') or text
 end
@@ -61,30 +61,23 @@ local function get_fold(win, lnum)
 end
 
 function StatusColumn()
-    local win = vim.g.statusline_winid
-    local buf = vim.api.nvim_win_get_buf(win)
-    local show_signs = vim.wo[win].signcolumn ~= 'no'
-
     local components = { '', '', '' } -- left, middle, right
 
-    if show_signs then
+    local win = vim.g.statusline_winid
+    local show_signs = vim.wo[win].signcolumn ~= 'no'
+
+    -- Line numbers
+    components[1] = '%=%l'
+
+    -- Merged signs
+    if show_signs and vim.v.virtnum == 0 then
+        local buf = vim.api.nvim_win_get_buf(win)
         local sign = get_sign(buf, vim.v.lnum)
         local fold = get_fold(win, vim.v.lnum)
         local mark = get_mark(buf, vim.v.lnum)
-
-        if vim.v.virtnum ~= 0 then
-            sign = nil
-        else
-            sign = sign or mark or fold
-        end
-
-        components[2] = icon(sign)
+        components[2] = icon(sign or mark or fold)
     end
 
-    -- Line numbers
-    components[1] = '%l'
-
-    components[1] = '%=' .. components[1] .. ' ' -- right align
     return table.concat(components)
 end
 
