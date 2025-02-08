@@ -15,7 +15,7 @@ local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
 
 chat.setup({
-    model = 'gemini-2.0-flash-001',
+    model = 'claude-3.5-sonnet',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
