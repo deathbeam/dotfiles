@@ -77,6 +77,10 @@ au('LspAttach', {
 -- Setup LSP servers
 local lspconfig = require('lspconfig')
 for _, language in ipairs(languages) do
+    if language.setup then
+        language.setup()
+    end
+
     for _, lsp in ipairs(language.lsp or {}) do
         lspconfig[lsp].setup({
             cmd = language.cmd,

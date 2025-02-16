@@ -104,8 +104,8 @@ return {
     },
     {
         treesitter = { 'c_sharp' },
-        mason = { 'csharp-language-server', 'netcoredbg' },
-        lsp = { 'csharp_ls' },
+        mason = { 'roslyn', 'netcoredbg' },
+        setup = require('roslyn').setup,
     },
     {
         treesitter = { 'c' },

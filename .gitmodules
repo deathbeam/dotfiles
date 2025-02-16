@@ -130,3 +130,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/roslyn.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/roslyn.nvim
+	url = https://github.com/seblyng/roslyn.nvim
