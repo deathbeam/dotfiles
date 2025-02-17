@@ -66,6 +66,7 @@ chat.setup({
         Commit = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
+            selection = select.buffer,
         },
     },
     providers = {
@@ -74,10 +75,6 @@ chat.setup({
                 return {
                     ['Content-Type'] = 'application/json',
                 }
-            end,
-
-            get_token = function()
-                return '', nil
             end,
 
             get_models = function()
@@ -94,8 +91,6 @@ chat.setup({
                         name = model.name,
                         version = "latest",
                         tokenizer = "o200k_base",
-                        max_prompt_tokens = 4096,
-                        max_output_tokens = 4096,
                     })
                 end
 
@@ -103,17 +98,9 @@ chat.setup({
             end,
 
             prepare_input = function(inputs, opts)
-                local messages = {}
-                for _, input in ipairs(inputs) do
-                    table.insert(messages, {
-                        role = input.role,
-                        content = input.content
-                    })
-                end
-
                 return {
                     model = opts.model,
-                    messages = messages,
+                    messages = inputs,
                     stream = true,
                 }
             end,
