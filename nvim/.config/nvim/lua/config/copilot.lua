@@ -13,9 +13,11 @@ local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
 local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
+local cutils = require('CopilotChat.utils')
 
 chat.setup({
     model = 'claude-3.5-sonnet',
+    debug = true,
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
@@ -66,6 +68,61 @@ chat.setup({
             description = 'AI Generate Commit',
         },
     },
+    providers = {
+        ollama = {
+            get_headers = function()
+                return {
+                    ['Content-Type'] = 'application/json',
+                }
+            end,
+
+            get_token = function()
+                return '', nil
+            end,
+
+            get_models = function()
+                local response = cutils.curl_get('http://localhost:11434/api/tags')
+
+                if not response or response.status ~= 200 then
+                    error('Failed to fetch models: ' .. tostring(response and response.status))
+                end
+
+                local models = {}
+                for _, model in ipairs(vim.json.decode(response.body)['models']) do
+                    table.insert(models, {
+                        id = model.name,
+                        name = model.name,
+                        version = "latest",
+                        tokenizer = "o200k_base",
+                        max_prompt_tokens = 4096,
+                        max_output_tokens = 4096,
+                    })
+                end
+
+                return models
+            end,
+
+            prepare_input = function(inputs, opts)
+                local messages = {}
+                for _, input in ipairs(inputs) do
+                    table.insert(messages, {
+                        role = input.role,
+                        content = input.content
+                    })
+                end
+
+                return {
+                    model = opts.model,
+                    messages = messages,
+                    stream = true,
+                }
+            end,
+
+            get_url = function()
+                return 'http://localhost:11434/api/chat'
+            end,
+        }
+    }
 })
 
 utils.au('BufEnter', {
@@ -92,8 +149,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
         prompt = 'AI Question> ',
     }, function(input)
-        if input and input ~= '' then
-            chat.ask(input)
-        end
-    end)
+            if input and input ~= '' then
+                chat.ask(input)
+            end
+        end)
 end, { desc = 'AI Question' })
