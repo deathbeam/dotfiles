@@ -17,7 +17,6 @@ local cutils = require('CopilotChat.utils')
 
 chat.setup({
     model = 'claude-3.5-sonnet',
-    debug = true,
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
@@ -71,14 +70,16 @@ chat.setup({
     },
     providers = {
         ollama = {
+            embeddings = 'copilot_embeddings',
+
             get_headers = function()
                 return {
                     ['Content-Type'] = 'application/json',
                 }
             end,
 
-            get_models = function()
-                local response = cutils.curl_get('http://localhost:11434/api/tags')
+            get_models = function(headers)
+                local response = cutils.curl_get('http://localhost:11434/api/tags', { headers = headers })
 
                 if not response or response.status ~= 200 then
                     error('Failed to fetch models: ' .. tostring(response and response.status))
