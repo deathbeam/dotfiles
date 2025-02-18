@@ -29,6 +29,15 @@ require('bqf').setup({
     },
 })
 
+-- Toggle quickfix
+nmap('<leader>q', function()
+    if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
+        vim.cmd.cclose()
+    else
+        vim.cmd.copen()
+    end
+end)
+
 -- File browser
 require('oil').setup({
     view_options = {

@@ -71,6 +71,7 @@ chat.setup({
     },
     providers = {
         ollama = {
+            disabled = true,
             embeddings = 'copilot_embeddings',
 
             get_headers = function()
