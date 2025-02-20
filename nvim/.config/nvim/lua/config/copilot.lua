@@ -77,58 +77,67 @@ chat.setup({
             prepare_input = providers.copilot.prepare_input,
             prepare_output = providers.copilot.prepare_output,
 
-            get_headers = function()
-                return {
-                    ['Content-Type'] = 'application/json',
-                }
-            end,
-
             get_models = function(headers)
-                local response = cutils.curl_get('http://localhost:11434/api/tags', { headers = headers })
-                if not response or response.status ~= 200 then
-                    error('Failed to fetch models: ' .. tostring(response and response.status))
+                local response, err = cutils.curl_get('http://localhost:11434/api/tags', {
+                    headers = headers,
+                    json_response = true
+                })
+
+                if err then
+                    error(err)
                 end
 
-                local models = {}
-                for _, model in ipairs(vim.json.decode(response.body).models) do
-                    table.insert(models, {
+                return vim.tbl_map(function(model)
+                    return {
                         id = model.name,
                         name = model.name,
-                    })
-                end
-                return models
+                    }
+                end, response.body.models)
             end,
 
             get_url = function()
                 return 'http://localhost:11434/api/chat'
             end,
         },
-        lmstudio = {
-            embed = 'copilot_embeddings',
 
-            prepare_input = providers.copilot.prepare_input,
+        lmstudio = {
             prepare_output = providers.copilot.prepare_output,
 
-            get_headers = function()
-                return {
-                    ['Content-Type'] = 'application/json',
-                }
-            end,
-
             get_models = function(headers)
-                local response = cutils.curl_get('http://localhost:1234/v1/models', { headers = headers })
-                if not response or response.status ~= 200 then
-                    error('Failed to fetch models: ' .. tostring(response and response.status))
+                local response, err = cutils.curl_get('http://localhost:1234/v1/models', {
+                    headers = headers,
+                    json_response = true
+                })
+
+                if err then
+                    error(err)
                 end
 
-                local models = {}
-                for _, model in ipairs(vim.json.decode(response.body).data) do
-                    table.insert(models, {
+                return vim.tbl_map(function(model)
+                    return {
                         id = model.id,
                         name = model.id,
-                    })
+                    }
+                end, response.body.data)
+            end,
+
+            embed = function(inputs, headers)
+                local response, err = cutils.curl_post('http://localhost:1234/v1/embeddings', {
+                  headers = headers,
+                  json_request = true,
+                  json_response = true,
+                  body = {
+                    dimensions = 512,
+                    input = inputs,
+                    model = 'text-embedding-nomic-embed-text-v1.5',
+                  },
+                })
+
+                if err then
+                  error(err)
                 end
-                return models
+
+                return response.body.data
             end,
 
             get_url = function()
