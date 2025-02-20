@@ -16,5 +16,5 @@ dap.configurations.lua = {
             local port = tonumber(vim.fn.input('Port [9966]: ')) or 9966
             return { host = host, port = port }
         end,
-    }
+    },
 }

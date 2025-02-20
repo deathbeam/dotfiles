@@ -1,6 +1,9 @@
 # Adjust path to use various bin folders
 export PATH="$HOME/.local/bin:$HOME/.local/work/bin:$HOME/.nimble/bin:$HOME/.cargo/bin:$HOME/.local/share/gem/ruby/3.3.0/bin/:$HOME/.gem/ruby/3.3.0/bin/:$HOME/.luarocks/bin/:$HOME/.npm-global/bin/:$HOME/.dotnet/tools:$HOME/Apps/:$PATH"
 
+# Added by LM Studio CLI (lms)
+export PATH="$PATH:$HOME/.lmstudio/bin"
+
 # Set go path to user home
 export GOPATH="$HOME/go"
 

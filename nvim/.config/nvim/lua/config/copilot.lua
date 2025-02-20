@@ -13,6 +13,7 @@ local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
 local select = require('CopilotChat.select')
 local integration = require('CopilotChat.integrations.fzflua')
+local providers = require('CopilotChat.config.providers')
 local cutils = require('CopilotChat.utils')
 
 chat.setup({
@@ -24,7 +25,7 @@ chat.setup({
     selection = select.visual,
     sticky = {
         '/COPILOT_GENERATE',
-        '#buffers'
+        '#buffers',
     },
     mappings = {
         reset = {
@@ -33,7 +34,7 @@ chat.setup({
         },
         show_diff = {
             full_diff = true,
-        }
+        },
     },
     prompts = {
         Yarrr = {
@@ -71,8 +72,10 @@ chat.setup({
     },
     providers = {
         ollama = {
-            disabled = true,
-            embeddings = 'copilot_embeddings',
+            embed = 'copilot_embeddings',
+
+            prepare_input = providers.copilot.prepare_input,
+            prepare_output = providers.copilot.prepare_output,
 
             get_headers = function()
                 return {
@@ -82,37 +85,57 @@ chat.setup({
 
             get_models = function(headers)
                 local response = cutils.curl_get('http://localhost:11434/api/tags', { headers = headers })
-
                 if not response or response.status ~= 200 then
                     error('Failed to fetch models: ' .. tostring(response and response.status))
                 end
 
                 local models = {}
-                for _, model in ipairs(vim.json.decode(response.body)['models']) do
+                for _, model in ipairs(vim.json.decode(response.body).models) do
                     table.insert(models, {
                         id = model.name,
                         name = model.name,
-                        version = "latest",
-                        tokenizer = "o200k_base",
                     })
                 end
-
                 return models
-            end,
-
-            prepare_input = function(inputs, opts)
-                return {
-                    model = opts.model,
-                    messages = inputs,
-                    stream = true,
-                }
             end,
 
             get_url = function()
                 return 'http://localhost:11434/api/chat'
             end,
-        }
-    }
+        },
+        lmstudio = {
+            embed = 'copilot_embeddings',
+
+            prepare_input = providers.copilot.prepare_input,
+            prepare_output = providers.copilot.prepare_output,
+
+            get_headers = function()
+                return {
+                    ['Content-Type'] = 'application/json',
+                }
+            end,
+
+            get_models = function(headers)
+                local response = cutils.curl_get('http://localhost:1234/v1/models', { headers = headers })
+                if not response or response.status ~= 200 then
+                    error('Failed to fetch models: ' .. tostring(response and response.status))
+                end
+
+                local models = {}
+                for _, model in ipairs(vim.json.decode(response.body).data) do
+                    table.insert(models, {
+                        id = model.id,
+                        name = model.id,
+                    })
+                end
+                return models
+            end,
+
+            get_url = function()
+                return 'http://localhost:1234/v1/chat/completions'
+            end,
+        },
+    },
 })
 
 utils.au('BufEnter', {
@@ -139,8 +162,8 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
         prompt = 'AI Question> ',
     }, function(input)
-            if input and input ~= '' then
-                chat.ask(input)
-            end
-        end)
+        if input and input ~= '' then
+            chat.ask(input)
+        end
+    end)
 end, { desc = 'AI Question' })
