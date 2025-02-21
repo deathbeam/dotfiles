@@ -71,7 +71,11 @@ chat.setup({
         },
     },
     providers = {
+        github_models = {
+            disabled = true,
+        },
         ollama = {
+            disabled = true,
             embed = 'copilot_embeddings',
 
             prepare_input = providers.copilot.prepare_input,
@@ -101,6 +105,7 @@ chat.setup({
         },
 
         lmstudio = {
+            prepare_input = providers.copilot.prepare_input,
             prepare_output = providers.copilot.prepare_output,
 
             get_models = function(headers)
