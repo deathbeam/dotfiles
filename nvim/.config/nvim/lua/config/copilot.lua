@@ -75,9 +75,7 @@ chat.setup({
             disabled = true,
         },
         ollama = {
-            disabled = true,
             embed = 'copilot_embeddings',
-
             prepare_input = providers.copilot.prepare_input,
             prepare_output = providers.copilot.prepare_output,
 
