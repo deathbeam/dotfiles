@@ -80,7 +80,7 @@ chat.setup({
             get_models = function(headers)
                 local response, err = cutils.curl_get('http://localhost:11434/api/tags', {
                     headers = headers,
-                    json_response = true
+                    json_response = true,
                 })
 
                 if err then
@@ -106,7 +106,7 @@ chat.setup({
             get_models = function(headers)
                 local response, err = cutils.curl_get('http://localhost:1234/v1/models', {
                     headers = headers,
-                    json_response = true
+                    json_response = true,
                 })
 
                 if err then
@@ -123,18 +123,18 @@ chat.setup({
 
             embed = function(inputs, headers)
                 local response, err = cutils.curl_post('http://localhost:1234/v1/embeddings', {
-                  headers = headers,
-                  json_request = true,
-                  json_response = true,
-                  body = {
-                    dimensions = 512,
-                    input = inputs,
-                    model = 'text-embedding-nomic-embed-text-v1.5',
-                  },
+                    headers = headers,
+                    json_request = true,
+                    json_response = true,
+                    body = {
+                        dimensions = 512,
+                        input = inputs,
+                        model = 'text-embedding-nomic-embed-text-v1.5',
+                    },
                 })
 
                 if err then
-                  error(err)
+                    error(err)
                 end
 
                 return response.body.data

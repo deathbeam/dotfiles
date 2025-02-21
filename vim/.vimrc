@@ -157,17 +157,17 @@ nmap <silent> <leader>" <CMD>vsplit<CR>
 nmap <silent> <leader>% <CMD>split<CR>
 nmap <silent> <leader>x <CMD>close<CR>
 
-function! ToggleZoom(zoom)
-  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
-      exec t:restore_zoom.cmd
-      unlet t:restore_zoom
-  elseif a:zoom
-      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
-      exec "normal \<C-W>\|\<C-W>_"
-  endif
-endfunction
-autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
-nnoremap <silent> <leader>z <CMD>call ToggleZoom(v:true)<CR>
+"function! ToggleZoom(zoom)
+"  if exists("t:restore_zoom") && (a:zoom == v:true || t:restore_zoom.win != winnr())
+"      exec t:restore_zoom.cmd
+"      unlet t:restore_zoom
+"  elseif a:zoom
+"      let t:restore_zoom = { 'win': winnr(), 'cmd': winrestcmd() }
+"      exec "normal \<C-W>\|\<C-W>_"
+"  endif
+"endfunction
+"autocmd VimRc WinEnter * silent! :call ToggleZoom(v:false)
+"nnoremap <silent> <leader>z <CMD>call ToggleZoom(v:true)<CR>
 
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>

@@ -22,6 +22,22 @@ base16.load_from_shell()
 -- Load icons
 require('nvim-web-devicons').setup()
 
+-- Toggle zen mode
+local zen_mode = require('zen-mode')
+
+nmap('<leader>z', function()
+    zen_mode.toggle({
+        window = {
+            width = 0.85,
+        },
+        plugins = {
+            alacritty = {
+                enabled = true,
+            },
+        },
+    })
+end)
+
 -- Better quickfix
 require('bqf').setup({
     preview = {
