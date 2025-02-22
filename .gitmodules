@@ -84,9 +84,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-base16
 	url = https://github.com/RRethy/nvim-base16
-[submodule "vim/.vim/pack/bundle/start/nvim-treesitter-textobjects"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects
-	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
@@ -115,18 +112,9 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/bigfile.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/bigfile.nvim
-	url = https://github.com/LunarVim/bigfile.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-bqf"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-bqf
 	url = https://github.com/kevinhwang91/nvim-bqf
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
-	url = https://github.com/nvim-treesitter/nvim-treesitter-context
-[submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
-	url = https://github.com/andrewferrier/debugprint.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
@@ -136,3 +124,9 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/zen-mode.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/zen-mode.nvim
 	url = https://github.com/folke/zen-mode.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
+	url = https://github.com/nvim-treesitter/nvim-treesitter-context
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects
+	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects

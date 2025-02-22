@@ -99,33 +99,43 @@ au('InsertEnter', {
     end,
 })
 
-au('CursorMoved', {
-    callback = function()
-        -- No bloat lua adpatation of: https://github.com/romainl/vim-cool
-        local view, rpos = vim.fn.winsaveview(), vim.fn.getpos('.')
-        -- Move the cursor to a position where (whereas in active search) pressing `n`
-        -- brings us to the original cursor position, in a forward search / that means
-        -- one column before the match, in a backward search ? we move one col forward
-        vim.cmd(
-            string.format(
-                'silent! keepjumps go%s',
-                (vim.fn.line2byte(view.lnum) + view.col + 1 - (vim.v.searchforward == 1 and 2 or 0))
-            )
-        )
-        -- Attempt to goto next match, if we're in an active search cursor position
-        -- should be equal to original cursor position
-        local ok, _ = pcall(vim.cmd, 'silent! keepjumps norm! n')
-        local insearch = ok
-            and (function()
-                local npos = vim.fn.getpos('.')
-                return npos[2] == rpos[2] and npos[3] == rpos[3]
-            end)()
-        -- restore original view and position
-        vim.fn.winrestview(view)
-        if not insearch then
-            vim.schedule(function()
-                vim.cmd('nohlsearch')
-            end)
+-- Big files fast
+au('BufReadPre', {
+    pattern = '*',
+    desc = 'Disable features on big files',
+    callback = function(args)
+        local bufnr = args.buf
+        local size = vim.fn.getfsize(vim.fn.expand('%'))
+
+        if size < 1024 * 1024 then
+            return
         end
+
+        vim.api.nvim_buf_set_var(bufnr, "bigfile_disable", 1)
+
+        -- Disable treesitter
+        require('nvim-treesitter.configs').get_module('indent').disable = function()
+            return vim.api.nvim_buf_get_var(bufnr, "bigfile_disable") == 1
+        end
+
+        -- Disable autoindent
+        vim.bo.indentexpr = ''
+        vim.bo.autoindent = false
+        vim.bo.smartindent = false
+        -- Disable folding
+        vim.opt_local.foldmethod = 'manual'
+        vim.opt_local.foldexpr = '0'
+        -- Disable statuscolumn
+        vim.opt_local.statuscolumn = ''
+        -- Disable search highlight
+        vim.opt_local.hlsearch = false
+        -- Disable line wrapping
+        vim.opt_local.wrap = false
+        -- Disable cursorline
+        vim.opt_local.cursorline = false
+        -- Disable swapfile
+        vim.opt_local.swapfile = false
+        -- Disable spell checking
+        vim.opt_local.spell = false
     end,
 })
