@@ -48,7 +48,8 @@ yay -S --noconfirm --mflags --skipinteg \
     docker docker-compose \
     azure-cli kubctl k9s \
     postman \
-    lmstudio
+    lmstudio \
+    mitmproxy
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac

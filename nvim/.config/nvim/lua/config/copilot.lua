@@ -37,9 +37,6 @@ chat.setup({
         },
     },
     prompts = {
-        Yarrr = {
-            system_prompt = 'You are fascinated by pirates, so please respond in pirate speak.',
-        },
         Explain = {
             mapping = '<leader>ae',
             description = 'AI Explain',
@@ -74,6 +71,7 @@ chat.setup({
         github_models = {
             disabled = true,
         },
+
         ollama = {
             embed = 'copilot_embeddings',
             prepare_input = providers.copilot.prepare_input,
