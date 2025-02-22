@@ -11,7 +11,8 @@ c.qt.args = [
     'enable-gpu-rasterization',
     'enable-accelerated-video-decode',
     'enable-quic',
-    'enable-zero-copy'
+    'enable-zero-copy',
+    'enable-features=VaapiVideoDecoder,VaapiVideoEncoder'
 ]
 
 # Save
@@ -30,7 +31,8 @@ c.content.blocking.enabled = True
 c.content.blocking.method = 'both'
 c.content.blocking.adblock.lists = [
     'https://easylist.to/easylist/easylist.txt',
-    'https://easylist.to/easylist/easyprivacy.txt'
+    'https://easylist.to/easylist/easyprivacy.txt',
+    'https://secure.fanboy.co.nz/fanboy-annoyance.txt'
 ]
 
 # Dark mode
