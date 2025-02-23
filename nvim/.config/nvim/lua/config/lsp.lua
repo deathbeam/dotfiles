@@ -5,7 +5,9 @@ local au = utils.au
 local lsp_capabilities = utils.make_capabilities()
 
 -- Echo LSP messages
-require('lspecho').setup()
+require('lspecho').setup({
+    attach_log = true,
+})
 
 -- Configure diagnostics
 local icons = require('config.icons').diagnostics
