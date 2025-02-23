@@ -1,18 +1,17 @@
 local icons = require('config.icons')
 local utils = require('config.utils')
+local config = require('config.plugins').wiki
 local nmap = utils.nmap
 local desc = utils.desc
 
 desc('<leader>w', 'Wiki', icons.ui.Wiki)
 
 local Wiki = {}
-local wiki_dir = vim.fn.expand('~/vimwiki')
-local diary_dir = wiki_dir .. '/diary'
 
 -- Open today's diary entry
 function Wiki.today()
     local today = os.date('%Y-%m-%d')
-    local file = diary_dir .. '/' .. today .. '.md'
+    local file = config.dir .. '/diary/' .. today .. '.md'
     vim.cmd('edit ' .. file)
 end
 
@@ -20,7 +19,7 @@ end
 function Wiki.list_diary()
     require('fzf-lua').files({
         prompt = 'Diary > ',
-        cwd = diary_dir,
+        cwd = config.dir .. '/diary',
         cmd = 'ls -1 | sort -r', -- Sort by date
         file_ignore_patterns = {
             '^[^0-9].*', -- Only show date-formatted files
@@ -32,7 +31,7 @@ end
 function Wiki.list_wiki()
     require('fzf-lua').files({
         prompt = 'Wiki > ',
-        cwd = wiki_dir,
+        cwd = config.dir,
         file_ignore_patterns = {
             'diary/.*', -- Exclude diary directory
         },
@@ -46,7 +45,7 @@ function Wiki.new(title)
     end
     if title ~= '' then
         local filename = title:gsub(' ', '_') .. '.md'
-        vim.cmd('edit ' .. wiki_dir .. '/' .. filename)
+        vim.cmd.edit(config.dir .. '/' .. filename)
     end
 end
 

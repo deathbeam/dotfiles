@@ -21,6 +21,10 @@ set noswapfile
 " means that you can undo even when you close a buffer/VIM
 set undofile
 
+" Do not store garbage in session
+set sessionoptions-=blank
+set sessionoptions-=help
+
 " }}}
 
 " User interface {{{

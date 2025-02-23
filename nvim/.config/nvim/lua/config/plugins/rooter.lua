@@ -1,23 +1,5 @@
-local config = {
-    dirs = {
-        '.git',
-        '.git/',
-        '_darcs/',
-        '.hg/',
-        '.bzr/',
-        '.svn/',
-        '.editorconfig',
-        'Makefile',
-        '.pylintrc',
-        'requirements.txt',
-        'setup.py',
-        'package.json',
-        'mvnw',
-        'gradlew',
-    },
-}
-
 local au = require('config.utils').au
+local config = require('config.plugins').rooter
 local root_cache = {}
 
 local function find_root(markers)
