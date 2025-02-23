@@ -5,10 +5,13 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
+require('config.plugins.bigfile')
+require('config.plugins.rooter')
+require('config.plugins.session')
+require('config.plugins.wiki')
+
 require('config.mason')
-require('config.rooter')
 require('config.ui')
-require('config.wiki')
 require('config.statuscolumn')
 require('config.finder')
 require('config.treesitter')

@@ -1,3 +1,22 @@
+local config = {
+    dirs = {
+        '.git',
+        '.git/',
+        '_darcs/',
+        '.hg/',
+        '.bzr/',
+        '.svn/',
+        '.editorconfig',
+        'Makefile',
+        '.pylintrc',
+        'requirements.txt',
+        'setup.py',
+        'package.json',
+        'mvnw',
+        'gradlew',
+    },
+}
+
 local au = require('config.utils').au
 local root_cache = {}
 
@@ -22,23 +41,7 @@ au({ 'VimEnter', 'BufEnter' }, {
     pattern = '*',
     nested = true,
     callback = function(args)
-        local root_dir = find_root({
-            '.git',
-            '.git/',
-            '_darcs/',
-            '.hg/',
-            '.bzr/',
-            '.svn/',
-            '.editorconfig',
-            'Makefile',
-            '.pylintrc',
-            'requirements.txt',
-            'setup.py',
-            'package.json',
-            'mvnw',
-            'gradlew',
-        })
-
+        local root_dir = find_root(config.dirs)
         if root_dir then
             vim.api.nvim_set_current_dir(root_dir)
             if args.buf then
