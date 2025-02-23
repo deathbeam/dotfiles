@@ -4,6 +4,10 @@ local session_dir = vim.fn.stdpath('data') .. '/sessions/'
 vim.fn.mkdir(session_dir, 'p')
 
 local function get_session_file()
+    if vim.fn.argc() > 0 or vim.g.headless then
+        return nil
+    end
+
     local cwd = vim.fn.getcwd()
     vim.notify('Checking session for directory: ' .. cwd, vim.log.levels.DEBUG)
 
@@ -37,15 +41,13 @@ au('VimLeavePre', {
 au('VimEnter', {
     desc = 'Restore session on enter',
     callback = function()
-        if vim.fn.argc() == 0 then
-            local session_file = get_session_file()
-            if session_file and vim.fn.filereadable(session_file) == 1 then
-                vim.notify('Loading session from: ' .. session_file, vim.log.levels.INFO)
-                vim.cmd('silent! source ' .. session_file)
-                vim.cmd('silent! doautoall BufRead')
-                vim.cmd('silent! doautoall FileType')
-                vim.cmd('silent! doautoall BufEnter')
-            end
+        local session_file = get_session_file()
+        if session_file and vim.fn.filereadable(session_file) == 1 then
+            vim.notify('Loading session from: ' .. session_file, vim.log.levels.INFO)
+            vim.cmd('silent! source ' .. session_file)
+            vim.cmd('silent! doautoall BufRead')
+            vim.cmd('silent! doautoall FileType')
+            vim.cmd('silent! doautoall BufEnter')
         end
     end,
 })
