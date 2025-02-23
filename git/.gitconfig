@@ -63,6 +63,12 @@ autosquash = true
 
 ; [credential]
 ; helper = store
+[credential "https://github.com"]
+helper =
+helper = !/usr/bin/gh auth git-credential
+[credential "https://gist.github.com"]
+helper =
+helper = !/usr/bin/gh auth git-credential
 
 [http]
 postBuffer = 524288000
@@ -75,6 +81,15 @@ process = git-lfs filter-process
 
 [alias]
 addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
+wt = worktree
+wtl = worktree list
+wtc = worktree prune
+# Create worktree from branch name
+wtb = "!f() { git worktree add ./worktrees/$1 $1; }; f"
+# Create worktree from PR number
+wtp = "!f() { git fetch origin pull/$1/head:pr/$1 && git worktree add ./worktrees/pr-$1 pr/$1; }; f"
+# Remove worktree
+wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
 
 [user]
 name = Tomas Slusny
@@ -82,9 +97,3 @@ email = slusnucky@gmail.com
 
 [include]
 path = ~/.gitconfig.local
-[credential "https://github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
-[credential "https://gist.github.com"]
-	helper = 
-	helper = !/usr/bin/gh auth git-credential
