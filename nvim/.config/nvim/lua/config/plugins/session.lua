@@ -4,7 +4,7 @@ local session_dir = vim.fn.stdpath('data') .. '/sessions/'
 vim.fn.mkdir(session_dir, 'p')
 
 local function get_session_file()
-    if vim.fn.argc() > 0 or vim.g.headless then
+    if vim.fn.argc() > 0 or vim.tbl_isempty(vim.api.nvim_list_uis()) then
         return nil
     end
 
