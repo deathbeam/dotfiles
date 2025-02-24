@@ -12,7 +12,6 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 local chat = require('CopilotChat')
 local actions = require('CopilotChat.actions')
 local select = require('CopilotChat.select')
-local integration = require('CopilotChat.integrations.fzflua')
 local providers = require('CopilotChat.config.providers')
 local cutils = require('CopilotChat.utils')
 
@@ -179,11 +178,7 @@ vim.keymap.set({ 'n' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set({ 'n' }, '<leader>as', chat.stop, { desc = 'AI Stop' })
 vim.keymap.set({ 'n' }, '<leader>am', chat.select_model, { desc = 'AI Model' })
 vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
-    integration.pick(actions.prompt_actions(), {
-        fzf_tmux_opts = {
-            ['-d'] = '45%',
-        },
-    })
+    actions.pick(actions.prompt_actions())
 end, { desc = 'AI Prompts' })
 vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
