@@ -1,99 +1,105 @@
+# Core
 [apply]
-# Detect whitespace errors when applying a patch
-whitespace = fix
+    whitespace = fix
 
 [core]
-# Use custom `.gitignore`
-excludesfile = ~/.gitignore
+    excludesfile = ~/.gitignore
+    whitespace = space-before-tab,-indent-with-non-tab,trailing-space
+    autocrlf = input
 
-# Treat spaces before tabs and all kinds of trailing whitespace as an error
-# [default] trailing-space: looks for spaces at the end of a line
-# [default] space-before-tab: looks for spaces before tabs at the beginning of a line
-whitespace = space-before-tab,-indent-with-non-tab,trailing-space
-
-# Make `git rebase` safer on macOS
-# More info: <http://www.git-tower.com/blog/make-git-rebase-safe-on-osx/>
-trustctime = false
-
-# Prevent showing files whose names contain non-ASCII symbols as unversioned.
-# http://michael-kuehnel.de/git/2014/11/21/git-mac-osx-and-german-umlaute.html
-precomposeunicode = false
-
-# You almost always want autocrlf=input unless you really know what you are doing.
-autocrlf = input
-
-[help]
-autocorrect = 1
-
+# UI stuff
 [color]
-ui = auto
-
+    ui = auto
+[column]
+    ui = auto
+[branch]
+    sort = -committerdate
+[tag]
+    sort = version:refname
 [commit]
-template = ~/.gitmessage
+    template = ~/.gitmessage
+    verbose = true
 
+# Diff and merge
 [diff]
-tool = nvimdiff
-; external = difft
+    algorithm = histogram
+    colorMoved = true
+    mnemonicPrefix = true
+    renames = true
+
+    tool = nvimdiff
 
 [diff "bin"]
-textconv = hexdump -v -C
+    textconv = hexdump -v -C
 
 [difftool]
-prompt = true
-trustExitCode = true
+    prompt = true
+    trustExitCode = true
 
 [merge]
-log = true
-tool = nvimdiff1
+    log = true
+    tool = nvimdiff1
 
 [mergetool]
-prompt = true
-trustExitCode = true
-hideResolved = true
+    prompt = true
+    trustExitCode = true
+    hideResolved = true
+
+# Push/pull/rebase
 
 [push]
-default = current
-followTags = false
+    autoSetupRemote = true
+    followTags = true
 
-; [fetch]
-; prune = true
+[pull]
+    rebase = true
+
+[fetch]
+    prune = true
+    all = true
 
 [rebase]
-autosquash = true
+    autoSquash = true
+    autoStash = true
+    updateRefs = true
+
+[rerere]
+    enabled = true
+    autoupdate = true
 
 ; [credential]
 ; helper = store
 [credential "https://github.com"]
-helper =
-helper = !/usr/bin/gh auth git-credential
+    helper =
+    helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-helper =
-helper = !/usr/bin/gh auth git-credential
+    helper =
+    helper = !/usr/bin/gh auth git-credential
 
 [http]
-postBuffer = 524288000
+    postBuffer = 524288000
 
 [filter "lfs"]
-required = true
-clean = git-lfs clean -- %f
-smudge = git-lfs smudge -- %f
-process = git-lfs filter-process
+    required = true
+    clean = git-lfs clean -- %f
+    smudge = git-lfs smudge -- %f
+    process = git-lfs filter-process
 
 [alias]
-addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
-wt = worktree
-wtl = worktree list
-wtc = worktree prune
+    addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
+    wt = worktree
+    wtl = worktree list
+    wtc = worktree prune
 # Create worktree from branch name
-wtb = "!f() { git worktree add ./worktrees/$1 $1; }; f"
+    wtb = "!f() { git worktree add ./worktrees/$1 $1; }; f"
 # Create worktree from PR number
-wtp = "!f() { git fetch origin pull/$1/head:pr/$1 && git worktree add ./worktrees/pr-$1 pr/$1; }; f"
+    wtp = "!f() { git fetch origin pull/$1/head:pr/$1 && git worktree add ./worktrees/pr-$1 pr/$1; }; f"
 # Remove worktree
-wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
+    wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
 
 [user]
-name = Tomas Slusny
-email = slusnucky@gmail.com
+    name = Tomas Slusny
+    email = slusnucky@gmail.com
 
 [include]
-path = ~/.gitconfig.local
+    path = ~/.gitconfig.local
