@@ -24,8 +24,8 @@
 [diff]
     algorithm = histogram
     colorMoved = true
+    colorMovedWS = allow-indentation-change
     mnemonicPrefix = true
-    renames = true
 
     tool = nvimdiff
 
