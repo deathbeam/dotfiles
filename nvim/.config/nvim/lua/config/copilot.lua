@@ -16,7 +16,7 @@ local providers = require('CopilotChat.config.providers')
 local cutils = require('CopilotChat.utils')
 
 chat.setup({
-    model = 'claude-3.5-sonnet',
+    model = 'claude-3.7-sonnet',
     debug = false,
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
