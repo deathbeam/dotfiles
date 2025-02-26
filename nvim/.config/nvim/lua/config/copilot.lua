@@ -10,7 +10,6 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 -- Copilot chat
 local chat = require('CopilotChat')
-local actions = require('CopilotChat.actions')
 local select = require('CopilotChat.select')
 local providers = require('CopilotChat.config.providers')
 local cutils = require('CopilotChat.utils')
@@ -176,10 +175,9 @@ vim.keymap.set({ 'n' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'v' }, '<leader>aa', chat.open, { desc = 'AI Open' })
 vim.keymap.set({ 'n' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set({ 'n' }, '<leader>as', chat.stop, { desc = 'AI Stop' })
-vim.keymap.set({ 'n' }, '<leader>am', chat.select_model, { desc = 'AI Model' })
-vim.keymap.set({ 'n', 'v' }, '<leader>ap', function()
-    actions.pick(actions.prompt_actions())
-end, { desc = 'AI Prompts' })
+vim.keymap.set({ 'n' }, '<leader>am', chat.select_model, { desc = 'AI Models' })
+vim.keymap.set({ 'n' }, '<leader>ag', chat.select_agent, { desc = 'AI Agents' })
+vim.keymap.set({ 'n', 'v' }, '<leader>ap', chat.select_prompt, { desc = 'AI Prompts' })
 vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
         prompt = 'AI Question> ',
