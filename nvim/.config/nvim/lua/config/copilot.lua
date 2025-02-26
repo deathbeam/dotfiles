@@ -17,6 +17,7 @@ local cutils = require('CopilotChat.utils')
 chat.setup({
     model = 'claude-3.7-sonnet',
     debug = false,
+    references_display = 'write',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
