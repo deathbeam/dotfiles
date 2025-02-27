@@ -112,9 +112,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-bqf"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-bqf
-	url = https://github.com/kevinhwang91/nvim-bqf
 [submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
@@ -130,3 +127,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-textobjects
 	url = https://github.com/nvim-treesitter/nvim-treesitter-textobjects
+[submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
+	url = https://github.com/stevearc/quicker.nvim

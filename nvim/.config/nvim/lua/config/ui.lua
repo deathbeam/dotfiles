@@ -39,20 +39,27 @@ nmap('<leader>z', function()
 end)
 
 -- Better quickfix
-require('bqf').setup({
-    preview = {
-        border = 'single',
+local quicker = require('quicker')
+quicker.setup({
+    follow = {
+        enabled = true
+    },
+    keys = {
+        {
+            ">",
+            quicker.expand,
+            desc = "Expand quickfix context",
+        },
+        {
+            "<",
+            quicker.collapse,
+            desc = "Collapse quickfix context",
+        },
     },
 })
 
 -- Toggle quickfix
-nmap('<leader>q', function()
-    if vim.fn.getqflist({ winid = 0 }).winid ~= 0 then
-        vim.cmd.cclose()
-    else
-        vim.cmd.copen()
-    end
-end)
+nmap('<leader>q', quicker.toggle)
 
 -- File browser
 require('oil').setup({
