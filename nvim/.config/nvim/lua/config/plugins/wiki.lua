@@ -1,6 +1,9 @@
+local config = {
+    dir = vim.fn.expand('~/vimwiki'),
+}
+
 local icons = require('config.icons')
 local utils = require('config.utils')
-local config = require('config.plugins').wiki
 local nmap = utils.nmap
 local desc = utils.desc
 

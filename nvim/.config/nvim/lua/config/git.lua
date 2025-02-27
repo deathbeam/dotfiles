@@ -39,7 +39,6 @@ gitsigns.setup({
             gitsigns.reset_hunk({ vim.fn.line('.'), vim.fn.line('v') })
         end, 'Reset hunk', bufnr)
         nmap('<leader>gR', gitsigns.reset_buffer, 'Reset buffer', bufnr)
-        nmap('<leader>gu', gitsigns.undo_stage_hunk, 'Undo stage hunk', bufnr)
         nmap('<leader>gp', gitsigns.preview_hunk, 'Preview hunk', bufnr)
         nmap('<leader>gb', function()
             gitsigns.blame_line({ full = true })

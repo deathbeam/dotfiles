@@ -1,5 +1,10 @@
+local config = {
+    dirs = {
+        vim.fn.expand('~/git'),
+    },
+}
+
 local au = require('config.utils').au
-local config = require('config.plugins').session
 local session_dir = vim.fn.stdpath('data') .. '/sessions/'
 vim.fn.mkdir(session_dir, 'p')
 

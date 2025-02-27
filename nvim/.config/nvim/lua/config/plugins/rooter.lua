@@ -1,7 +1,25 @@
-local au = require('config.utils').au
-local config = require('config.plugins').rooter
-local root_cache = {}
+local config = {
+    dirs = {
+        '.git',
+        '.git/',
+        '_darcs/',
+        '.hg/',
+        '.bzr/',
+        '.svn/',
+        '.editorconfig',
+        'Makefile',
+        '.pylintrc',
+        'requirements.txt',
+        'setup.py',
+        'package.json',
+        'mvnw',
+        'gradlew',
+    },
+}
 
+local au = require('config.utils').au
+
+local root_cache = {}
 local function find_root(markers)
     local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_get_current_buf())
     local bufdirname = vim.fn.fnamemodify(bufname, ':p:h'):gsub('oil://', '')
@@ -17,7 +35,6 @@ local function find_root(markers)
     return nil
 end
 
--- Find root directory
 au({ 'VimEnter', 'BufEnter' }, {
     desc = 'Find root directory',
     pattern = '*',
