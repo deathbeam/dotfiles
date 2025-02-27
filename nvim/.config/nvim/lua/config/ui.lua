@@ -42,18 +42,18 @@ end)
 local quicker = require('quicker')
 quicker.setup({
     follow = {
-        enabled = true
+        enabled = true,
     },
     keys = {
         {
-            ">",
+            '>',
             quicker.expand,
-            desc = "Expand quickfix context",
+            desc = 'Expand quickfix context',
         },
         {
-            "<",
+            '<',
             quicker.collapse,
-            desc = "Collapse quickfix context",
+            desc = 'Collapse quickfix context',
         },
     },
 })

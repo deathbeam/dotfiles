@@ -2,6 +2,7 @@ local languages = require('config.languages')
 local utils = require('config.utils')
 local nmap = utils.nmap
 local au = utils.au
+local desc = utils.desc
 local lsp_capabilities = utils.make_capabilities()
 
 -- Echo LSP messages
@@ -60,16 +61,24 @@ au('LspAttach', {
         --     autotrigger = true
         -- })
 
-        nmap('gh', function()
+        nmap('grh', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, 'Inlay Hints', event.buf)
 
-        nmap('K', vim.lsp.buf.hover, 'Documentation', event.buf)
-
-        -- code refactor
-        nmap('crf', vim.lsp.buf.format, 'Code Format', event.buf)
-        nmap('cra', vim.lsp.buf.code_action, 'Code Actions', event.buf)
-        nmap('crr', vim.lsp.buf.rename, 'Code Rename', event.buf)
+        -- lsp mappings
+        -- defaults:
+        -- gO - document symbol
+        -- gq - format
+        -- K - hover
+        desc('gr', 'LSP')
+        desc('grn', 'Rename')
+        desc('gra', 'Code Actions')
+        desc('grr', 'References')
+        desc('gri', 'Implementation')
+        nmap('grd', vim.lsp.buf.definition, 'Definition', event.buf)
+        nmap('grD', vim.lsp.buf.declaration, 'Declaration', event.buf)
+        nmap('gry', vim.lsp.buf.type_definition, 'Type Definition', event.buf)
+        nmap('grq', vim.diagnostic.setqflist, 'Diagnostics', event.buf)
     end,
 })
 
