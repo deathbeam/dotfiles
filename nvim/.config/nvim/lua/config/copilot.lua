@@ -183,7 +183,7 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
         prompt = 'AI Question> ',
     }, function(input)
-        if input and input ~= '' then
+        if input ~= '' then
             chat.ask(input)
         end
     end)

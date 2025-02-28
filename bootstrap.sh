@@ -49,7 +49,8 @@ yay -S --noconfirm --mflags --skipinteg \
     azure-cli kubctl k9s \
     postman \
     lmstudio \
-    mitmproxy
+    mitmproxy \
+    inferno
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac
