@@ -56,28 +56,25 @@ au('LspAttach', {
         -- disable semantic tokens
         client.server_capabilities.semanticTokensProvider = nil
 
-        -- enable completion
-        -- vim.lsp.completion.enable(true, client.id, event.buf, {
-        --     autotrigger = true
-        -- })
-
-        nmap('grh', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
-        end, 'Inlay Hints', event.buf)
-
         -- lsp mappings
         -- defaults:
         -- gO - document symbol
         -- gq - format
         -- K - hover
-        desc('gr', 'LSP')
-        desc('grn', 'Rename')
-        desc('gra', 'Code Actions')
-        desc('grr', 'References')
-        desc('gri', 'Implementation')
-        nmap('grd', vim.lsp.buf.definition, 'Definition', event.buf)
-        nmap('grD', vim.lsp.buf.declaration, 'Declaration', event.buf)
-        nmap('gry', vim.lsp.buf.type_definition, 'Type Definition', event.buf)
+        desc('<leader>c', 'Code')
+        nmap('<leader>ca', vim.lsp.buf.code_action, 'Code Action', event.buf)
+        nmap('<leader>cc', vim.lsp.codelens.run, 'Code Lens Run', event.buf)
+        nmap('<leader>cC', vim.lsp.codelens.refresh, 'Code Lens Refresh', event.buf)
+        nmap('<leader>cr', vim.lsp.buf.rename, 'Rename', event.buf)
+        nmap('<leader>ch', function()
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+        end, 'Inlay Hints', event.buf)
+
+        nmap('gr', vim.lsp.buf.references, 'References', event.buf)
+        nmap('gi', vim.lsp.buf.implementation, 'Implementation', event.buf)
+        nmap('gd', vim.lsp.buf.definition, 'Definition', event.buf)
+        nmap('gD', vim.lsp.buf.declaration, 'Declaration', event.buf)
+        nmap('gy', vim.lsp.buf.type_definition, 'Type Definition', event.buf)
         nmap('grq', vim.diagnostic.setqflist, 'Diagnostics', event.buf)
     end,
 })
