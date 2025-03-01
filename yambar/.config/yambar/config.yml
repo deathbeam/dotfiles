@@ -2,7 +2,7 @@ color_bg: &color_bg 073642ff
 color_fg: &color_fg 93A1A1ff
 color_active: &color_active 268BD2ff
 color_inactive: &color_inactive 002B36ff
-color_urgent: &color_urgent DC322Fff
+color_urgent: &color_urgent CB4B16ff
 color_warning: &color_warning B58900ff
 margin: &margin 15
 
@@ -190,10 +190,17 @@ bar:
           string: {text: "  {date} {time}", margin: *margin}
     -
       script:
-        path: ~/.config/yambar/arch.sh
-        poll-interval: 900000
+        path: ~/.config/yambar/notifications.sh
+        poll-interval: 60000
         content:
-          map:
-            conditions:
-              updates > 0:
-                string: {text: "  {updates}", foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+          list:
+            spacing: 0
+            items:
+              - map:
+                  conditions:
+                    updates > 0:
+                      string: {text: "  {updates}", foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+              - map:
+                  conditions:
+                    github > 0:
+                      string: {text: "  {github}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
