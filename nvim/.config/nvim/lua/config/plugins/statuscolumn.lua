@@ -1,6 +1,3 @@
-local icons = require('config.icons')
-vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open }
-
 local function icon(sign, len)
     sign = sign or {}
     len = len or 2

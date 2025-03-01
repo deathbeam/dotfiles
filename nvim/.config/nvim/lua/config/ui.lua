@@ -1,6 +1,7 @@
 local utils = require('config.utils')
 local au = utils.au
 local nmap = utils.nmap
+local icons = require('config.icons')
 
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
@@ -22,9 +23,11 @@ base16.load_from_shell()
 -- Load icons
 require('nvim-web-devicons').setup()
 
+-- Set fold icons
+vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open }
+
 -- Toggle zen mode
 local zen_mode = require('zen-mode')
-
 nmap('<leader>z', function()
     zen_mode.toggle({
         window = {
@@ -57,8 +60,6 @@ quicker.setup({
         },
     },
 })
-
--- Toggle quickfix
 nmap('<leader>q', quicker.toggle)
 
 -- File browser
@@ -69,6 +70,10 @@ require('oil').setup({
             return name == '..'
         end,
     },
+    win_options = {
+        number = false,
+        relativenumber = false,
+    },
     keymaps = {
         ['<C-s>'] = false,
         ['<C-h>'] = false,
@@ -78,17 +83,7 @@ require('oil').setup({
         ['<C-l>'] = false,
     },
 })
-
 nmap('-', '<CMD>Oil<CR>', 'Open parent directory')
-
-au('FileType', {
-    pattern = 'oil',
-    desc = 'Set oil options',
-    callback = function()
-        vim.opt_local.number = false
-        vim.opt_local.relativenumber = false
-    end,
-})
 
 -- Tmux bindings
 require('tmux').setup({
