@@ -23,7 +23,6 @@ chat.setup({
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
     selection = select.visual,
     sticky = {
-        '/COPILOT_GENERATE',
         '#buffers',
     },
     mappings = {
