@@ -67,8 +67,8 @@
     enabled = true
     autoupdate = true
 
-; [credential]
-; helper = store
+# [credential]
+# helper = store
 [credential "https://github.com"]
     helper =
     helper = !/usr/bin/gh auth git-credential
@@ -87,6 +87,7 @@
 
 [alias]
     addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
+# Worktree stuff
     wt = worktree
     wtl = worktree list
     wtc = worktree prune
@@ -96,6 +97,8 @@
     wtp = "!f() { git fetch origin pull/$1/head:pr/$1 && git worktree add ./worktrees/pr-$1 pr/$1; }; f"
 # Remove worktree
     wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
+# Branch cleanup
+    branch-cleanup = "!git-branch-cleanup"
 
 [user]
     name = Tomas Slusny
