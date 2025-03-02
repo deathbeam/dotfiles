@@ -66,6 +66,7 @@ au('LspAttach', {
         nmap('<leader>cc', vim.lsp.codelens.run, 'Code Lens Run', event.buf)
         nmap('<leader>cC', vim.lsp.codelens.refresh, 'Code Lens Refresh', event.buf)
         nmap('<leader>cr', vim.lsp.buf.rename, 'Rename', event.buf)
+        nmap('<leader>cd', vim.diagnostic.setqflist, 'Diagnostics', event.buf)
         nmap('<leader>ch', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, 'Inlay Hints', event.buf)
@@ -75,7 +76,6 @@ au('LspAttach', {
         nmap('gd', vim.lsp.buf.definition, 'Definition', event.buf)
         nmap('gD', vim.lsp.buf.declaration, 'Declaration', event.buf)
         nmap('gy', vim.lsp.buf.type_definition, 'Type Definition', event.buf)
-        nmap('grq', vim.diagnostic.setqflist, 'Diagnostics', event.buf)
     end,
 })
 
