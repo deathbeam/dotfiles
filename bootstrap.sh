@@ -50,7 +50,8 @@ yay -S --noconfirm --mflags --skipinteg \
     postman \
     lmstudio \
     mitmproxy \
-    inferno
+    inferno \
+    argocd
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac
