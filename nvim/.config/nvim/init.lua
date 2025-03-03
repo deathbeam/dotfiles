@@ -7,6 +7,7 @@ vim.cmd([[
 
 require('config.plugins.bigfile')
 require('config.plugins.rooter')
+require('config.plugins.diagnostics')
 require('config.plugins.session')
 require('config.plugins.wiki')
 require('config.plugins.statuscolumn')
