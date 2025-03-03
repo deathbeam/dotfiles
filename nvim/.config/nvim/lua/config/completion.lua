@@ -27,9 +27,4 @@ require('autocomplete.buffer').setup({
     end,
 })
 
-require('autocomplete.cmd').setup({
-    mappings = {
-        accept = '<Tab>',
-    },
-    close_on_done = false,
-})
+require('autocomplete.cmd').setup()

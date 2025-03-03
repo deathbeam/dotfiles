@@ -89,6 +89,9 @@ set mouse=
 " Less annoying messages
 set shortmess+=cCI
 
+" Fuzzy search
+set wildoptions+=fuzzy
+
 " Better file browser
 let g:netrw_banner=0
 nmap - <CMD>Explore<CR>
@@ -164,8 +167,8 @@ nmap <silent> <leader>x <CMD>close<CR>
 " Emacs like keybindings for the command line (:) and insert mode are better
 noremap! <C-A> <Home>
 noremap! <C-E> <End>
-noremap! <C-P> <Up>
-noremap! <C-N> <Down>
+"noremap! <C-P> <End><C-U><Up>
+"noremap! <C-N> <End><C-U><Down>
 
 " Nice mapping for messages as buffer
 nnoremap <leader>m :new \| setlocal buftype=nofile bufhidden=wipe \| silent execute 'redir @a' \| silent messages \| silent execute 'redir END' \| put a<CR>

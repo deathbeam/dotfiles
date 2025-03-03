@@ -37,7 +37,7 @@ au('VimLeavePre', {
     callback = function()
         local session_file = get_session_file()
         if session_file then
-            vim.notify('Saving session to: ' .. session_file, vim.log.levels.INFO)
+            vim.notify('Saving session...', vim.log.levels.INFO)
             vim.cmd('mksession! ' .. session_file)
         end
     end,
@@ -48,7 +48,7 @@ au('VimEnter', {
     callback = function()
         local session_file = get_session_file()
         if session_file and vim.fn.filereadable(session_file) == 1 then
-            vim.notify('Loading session from: ' .. session_file, vim.log.levels.INFO)
+            vim.notify('Loading session...', vim.log.levels.INFO)
             vim.cmd('silent! source ' .. session_file)
             vim.cmd('silent! doautoall BufRead')
             vim.cmd('silent! doautoall FileType')
