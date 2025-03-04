@@ -42,11 +42,10 @@ yay -S --noconfirm --mflags --skipinteg \
     jdk-openjdk openjdk-doc openjdk-src \
     python-pip python-dbus python-opengl python-virtualenv \
     dotnet-sdk aspnet-runtime \
-    local-lua-debugger-vscode-git \
     maven npm asdf-vm \
     github-cli lazygit \
     docker docker-compose \
-    azure-cli kubctl k9s \
+    azure-cli kubectl k9s \
     postman \
     lmstudio \
     mitmproxy \
@@ -68,8 +67,8 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop boosteroid stremio steam calibre \
-    stalonetray xdotool krita \
+    dropbox dropbox-cli vesktop stremio steam calibre \
+    stalonetray xdotool \
     gpu-screen-recorder-git
 
 echo '==> Installing dotfiles'
@@ -126,20 +125,3 @@ sudo chsh -s /bin/zsh "$USER"
 
 # Disable power save
 sudo iw dev wlan0 set power_save off
-
-# Ask user if they want to setup optional services if we are in interactive session
-if [ ! -t 0 ]; then
-    exit 0
-fi
-
-echo '==> Setting up optional services'
-scriptpath=$(dirname "$(readlink -f "$0")")
-for file in "$scriptpath"/bootstrap-*.sh
-do
-    name=$(basename "$file" .sh)
-    name=${name#bootstrap-}
-    read -p "Do you want to setup $name? (y/n) " answer
-    if [[ $answer = [yY] ]]; then
-        bash "$file"
-    fi
-done
