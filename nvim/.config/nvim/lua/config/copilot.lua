@@ -62,7 +62,6 @@ chat.setup({
         Commit = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
-            selection = select.buffer,
         },
     },
     providers = {
