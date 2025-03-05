@@ -5,7 +5,7 @@ if [ "$TERMINAL" = "st" ]; then
    TERM_CLASS="-n"
 fi
 
-pgrep -x copilotmenu | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
+pgrep -x copilotchat | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
 $TERMINAL $TERM_CLASS shellmenu -T "copilot chat" -e $SHELL -c "
     source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
     exec nvim -c 'lua require(\"CopilotChat\").open({context=\"register\",window={layout=\"replace\"}})';

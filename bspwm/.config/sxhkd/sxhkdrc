@@ -30,13 +30,13 @@ super + c
 super + v
   steammenu -p "steam"
 
-# btop menu
+# btop
 super + b
-  statsmenu
+  sysstats
 
-# copilot chat menu
+# copilot chat
 super + n
-  copilotmenu
+  copilotchat
 
 # lock screen
 super + e
