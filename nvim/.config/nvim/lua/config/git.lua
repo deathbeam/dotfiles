@@ -48,8 +48,29 @@ gitsigns.setup({
         nmap('<leader>gD', function()
             gitsigns.diffthis('~')
         end, 'Diff this (cached)', bufnr)
-
-        -- Text object
         map({ 'o', 'x' }, 'ig', ':<C-U>Gitsigns select_hunk<CR>', 'Select hunk', bufnr)
+
+        -- Diffs
+        local function diff_view(input)
+            local lib = require("diffview.lib")
+            local view = lib.get_current_view()
+            if view then
+                vim.cmd.DiffviewClose()
+            else
+                vim.cmd.DiffviewOpen(input)
+            end
+        end
+
+        nmap('<leader>go', function()
+            diff_view()
+        end, 'Diff view', bufnr)
+
+        nmap('<leader>gO', function()
+            vim.ui.input({
+                prompt = 'Diff ref: '
+            }, function(input)
+                diff_view(input)
+            end)
+        end, 'Diff view (git diff)', bufnr)
     end,
 })

@@ -130,3 +130,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
 	url = https://github.com/stevearc/quicker.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/diffview.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/diffview.nvim
+	url = https://github.com/sindrets/diffview.nvim
