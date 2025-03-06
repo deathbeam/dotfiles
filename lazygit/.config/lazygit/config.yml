@@ -7,7 +7,3 @@ gui:
 git:
   commit:
     signOff: true
-
-# git:
-#   paging:
-#     externalDiffCommand: difft --color=always --display=inline --syntax-highlight=on --tab-width=2

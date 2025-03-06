@@ -28,6 +28,7 @@
     mnemonicPrefix = true
 
     tool = nvimdiff
+    submodule = diff
 
 [diff "bin"]
     textconv = hexdump -v -C
