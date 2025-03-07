@@ -6,6 +6,16 @@ local au = utils.au
 local desc = utils.desc
 local lsp_capabilities = utils.make_capabilities()
 
+local function w(fn)
+    return function(...)
+        return fn({
+            ignore_current_line = true,
+            jump1 = true,
+            includeDeclaration = false,
+        }, ...)
+    end
+end
+
 -- Echo LSP messages
 require('lspecho').setup({
     attach_log = true,
@@ -13,7 +23,6 @@ require('lspecho').setup({
 
 -- Configure diagnostics
 local icons = require('config.icons').diagnostics
-vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
 vim.diagnostic.config({
     severity_sort = true,
     virtual_text = false,
@@ -57,31 +66,26 @@ au('LspAttach', {
         -- disable semantic tokens
         client.server_capabilities.semanticTokensProvider = nil
 
+        -- add border to hover
+        vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+
         -- lsp mappings
-        -- defaults:
-        -- gO - document symbol
-        -- gq - format
-        -- K - hover
         desc('<leader>c', 'Code')
-        nmap('<leader>ca', vim.lsp.buf.code_action, 'Code Action', event.buf)
-        nmap('<leader>cc', vim.lsp.codelens.run, 'Code Lens Run', event.buf)
-        nmap('<leader>cC', vim.lsp.codelens.refresh, 'Code Lens Refresh', event.buf)
         nmap('<leader>cr', vim.lsp.buf.rename, 'Rename', event.buf)
-        nmap('<leader>cq', vim.diagnostic.setqflist, 'Diagnostics Quickfix', event.buf)
         nmap('<leader>ch', function()
-            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
+            vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, 'Inlay Hints', event.buf)
+        nmap('<leader>ca', w(fzf.lsp_code_actions), 'Code Action', event.buf)
+        nmap('<leader>cd', w(fzf.lsp_document_diagnostics), 'Diagnostics')
+        nmap('<leader>cD', w(fzf.lsp_workspace_diagnostics), 'All Diagnostics')
+        nmap('<leader>cs', w(fzf.lsp_document_symbols), 'Symbols')
+        nmap('<leader>cS', w(fzf.lsp_live_workspace_symbols), 'All Symbols')
 
-        nmap('<leader>cd', fzf.lsp_document_diagnostics, 'Diagnostics')
-        nmap('<leader>cD', fzf.lsp_workspace_diagnostics, 'All Diagnostics')
-        nmap('<leader>cs', fzf.lsp_document_symbols, 'Symbols')
-        nmap('<leader>cS', fzf.lsp_live_workspace_symbols, 'All Symbols')
-
-        nmap('gr', vim.lsp.buf.references, 'References', event.buf)
-        nmap('gi', vim.lsp.buf.implementation, 'Implementation', event.buf)
-        nmap('gd', vim.lsp.buf.definition, 'Definition', event.buf)
-        nmap('gD', vim.lsp.buf.declaration, 'Declaration', event.buf)
-        nmap('gy', vim.lsp.buf.type_definition, 'Type Definition', event.buf)
+        nmap('gr', w(fzf.lsp_references), 'References', event.buf)
+        nmap('gi', w(fzf.lsp_implementations), 'Implementation', event.buf)
+        nmap('gd', w(fzf.lsp_definitions), 'Definition', event.buf)
+        nmap('gD', w(fzf.lsp_declarations), 'Declaration', event.buf)
+        nmap('gy', w(fzf.lsp_typedefs), 'Type Definition', event.buf)
     end,
 })
 

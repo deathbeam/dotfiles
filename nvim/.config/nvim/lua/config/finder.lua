@@ -51,19 +51,7 @@ fzf_lua.register_ui_select({
     },
 })
 
--- https://github.com/ibhagwan/fzf-lua/issues/602
-local function w(fn)
-    return function(...)
-        return fn({
-            ignore_current_line = true,
-            jump1 = true,
-            includeDeclaration = false,
-        }, ...)
-    end
-end
-
-vim.lsp.handlers['textDocument/codeAction'] = w(fzf_lua.lsp_code_actions)
-
+nmap('<leader><leader>', fzf_lua.resume, 'Find Resume')
 nmap('<leader>fg', fzf_lua.live_grep_glob, 'Find Grep')
 nmap('<leader>fG', function()
     fzf_lua.live_grep_glob({
@@ -71,7 +59,6 @@ nmap('<leader>fG', function()
         cmd = 'git grep --line-number --column --color=always',
     })
 end, 'Find Git Grep')
-nmap('<leader>fr', fzf_lua.resume, 'Find Resume')
 nmap('<leader>ff', fzf_lua.files, 'Find Files')
 nmap('<leader>fF', fzf_lua.git_files, 'Find Git Files')
 nmap('<leader>fa', fzf_lua.commands, 'Find Actions')
