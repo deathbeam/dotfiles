@@ -5,19 +5,28 @@ vim.cmd([[
   source ~/.vimrc
 ]])
 
-require('config.plugins.bigfile')
-require('config.plugins.rooter')
-require('config.plugins.diagnostics')
-require('config.plugins.session')
-require('config.plugins.wiki')
-require('config.plugins.statuscolumn')
+local function r(module)
+  local status_ok, loaded_module = pcall(require, module)
+  if not status_ok then
+    vim.notify("Error loading " .. module, vim.log.levels.ERROR)
+  end
+  return loaded_module
+end
 
-require('config.mason')
-require('config.ui')
-require('config.finder')
-require('config.treesitter')
-require('config.completion')
-require('config.lsp')
-require('config.dap')
-require('config.git')
-require('config.copilot')
+r('config.plugins.bigfile')
+r('config.plugins.rooter')
+r('config.plugins.diagnostics')
+r('config.plugins.session')
+r('config.plugins.wiki')
+r('config.plugins.statuscolumn')
+
+r('config.profile')
+r('config.mason')
+r('config.ui')
+r('config.finder')
+r('config.treesitter')
+r('config.completion')
+r('config.lsp')
+r('config.dap')
+r('config.git')
+r('config.copilot')

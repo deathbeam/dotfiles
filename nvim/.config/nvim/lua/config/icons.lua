@@ -7,7 +7,8 @@ return {
         User = ' ',
         Bot = ' ',
         Wiki = '󰈙',
-        Hunk = '󰏚',
+        Git = '',
+        Perf = '󰒪',
     },
     dap = {
         Stopped = { '󰁕 ', 'DiagnosticWarn' },

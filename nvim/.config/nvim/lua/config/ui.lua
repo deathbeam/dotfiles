@@ -100,13 +100,3 @@ au('InsertEnter', {
         end)
     end,
 })
-
--- Profiling
-local profile = require('plenary.profile')
-nmap('<leader>pp', function()
-    ---@diagnostic disable-next-line: param-type-mismatch
-    profile.start('profile.log', { flame = true })
-end, 'Start profiling')
-nmap('<leader>px', function()
-    profile.stop()
-end, 'Stop profiling')

@@ -10,7 +10,7 @@ local nvmap = utils.nvmap
 local vmap = utils.vmap
 local desc = utils.desc
 
-desc('<leader>g', 'Git', icons.ui.Hunk)
+desc('<leader>g', 'Git', icons.ui.Git)
 
 -- Diff view
 local function diff_view(input)
