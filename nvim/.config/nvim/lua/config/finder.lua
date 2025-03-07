@@ -1,7 +1,6 @@
 local utils = require('config.utils')
 local fzf = require('config.plugins.fzf')
 local nmap = utils.nmap
-local nvmap = utils.nvmap
 local desc = utils.desc
 
 desc('<leader>f', 'Find')
