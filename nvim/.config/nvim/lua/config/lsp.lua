@@ -1,3 +1,4 @@
+local fzf = require('fzf-lua')
 local languages = require('config.languages')
 local utils = require('config.utils')
 local nmap = utils.nmap
@@ -66,10 +67,15 @@ au('LspAttach', {
         nmap('<leader>cc', vim.lsp.codelens.run, 'Code Lens Run', event.buf)
         nmap('<leader>cC', vim.lsp.codelens.refresh, 'Code Lens Refresh', event.buf)
         nmap('<leader>cr', vim.lsp.buf.rename, 'Rename', event.buf)
-        nmap('<leader>cd', vim.diagnostic.setqflist, 'Diagnostics', event.buf)
+        nmap('<leader>cq', vim.diagnostic.setqflist, 'Diagnostics Quickfix', event.buf)
         nmap('<leader>ch', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({}))
         end, 'Inlay Hints', event.buf)
+
+        nmap('<leader>cd', fzf.lsp_document_diagnostics, 'Diagnostics')
+        nmap('<leader>cD', fzf.lsp_workspace_diagnostics, 'All Diagnostics')
+        nmap('<leader>cs', fzf.lsp_document_symbols, 'Symbols')
+        nmap('<leader>cS', fzf.lsp_live_workspace_symbols, 'All Symbols')
 
         nmap('gr', vim.lsp.buf.references, 'References', event.buf)
         nmap('gi', vim.lsp.buf.implementation, 'Implementation', event.buf)

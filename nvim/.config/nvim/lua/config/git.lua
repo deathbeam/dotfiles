@@ -1,17 +1,52 @@
 local gitsigns = require('gitsigns')
+local diffview = require('diffview')
+local fzf = require('fzf-lua')
+local diffviewlib = require('diffview.lib')
 local icons = require('config.icons')
 local utils = require('config.utils')
 local map = utils.map
 local nmap = utils.nmap
+local nvmap = utils.nvmap
 local vmap = utils.vmap
 local desc = utils.desc
 
 desc('<leader>g', 'Git', icons.ui.Hunk)
 
+-- Diff view
+local function diff_view(input)
+    local view = diffviewlib.get_current_view()
+    if view then
+        diffview.close()
+    else
+        diffview.open({ args = { input } })
+    end
+end
+
+nmap('<leader>go', function()
+    diff_view()
+end, 'Diff view')
+
+nmap('<leader>gO', function()
+    fzf.git_branches({
+        prompt = 'Diff branch> ',
+        actions = {
+            ['default'] = function(selected)
+                diff_view(selected[1])
+            end,
+        },
+    })
+end, 'Diff view branch')
+
 gitsigns.setup({
     signcolumn = false,
     numhl = true,
     on_attach = function(bufnr)
+        -- Finder
+        nmap('<leader>gt', fzf.git_status, 'Status', bufnr)
+        nvmap('<leader>gc', fzf.git_bcommits, 'Buffer Commits')
+        nmap('<leader>gC', fzf.git_commits, 'All Commits')
+
+        -- Navigation
         nmap(']g', function()
             if vim.wo.diff then
                 vim.cmd.normal({ ']c', bang = true })
@@ -27,6 +62,7 @@ gitsigns.setup({
                 gitsigns.nav_hunk('prev')
             end
         end, 'Goto previous hunk', bufnr)
+        map({ 'o', 'x' }, 'ig', ':<C-U>Gitsigns select_hunk<CR>', 'Select hunk', bufnr)
 
         -- Actions
         nmap('<leader>gs', gitsigns.stage_hunk, 'Stage hunk', bufnr)
@@ -48,29 +84,5 @@ gitsigns.setup({
         nmap('<leader>gD', function()
             gitsigns.diffthis('~')
         end, 'Diff this (cached)', bufnr)
-        map({ 'o', 'x' }, 'ig', ':<C-U>Gitsigns select_hunk<CR>', 'Select hunk', bufnr)
-
-        -- Diffs
-        local function diff_view(input)
-            local lib = require("diffview.lib")
-            local view = lib.get_current_view()
-            if view then
-                vim.cmd.DiffviewClose()
-            else
-                vim.cmd.DiffviewOpen(input)
-            end
-        end
-
-        nmap('<leader>go', function()
-            diff_view()
-        end, 'Diff view', bufnr)
-
-        nmap('<leader>gO', function()
-            vim.ui.input({
-                prompt = 'Diff ref: '
-            }, function(input)
-                diff_view(input)
-            end)
-        end, 'Diff view (git diff)', bufnr)
     end,
 })
