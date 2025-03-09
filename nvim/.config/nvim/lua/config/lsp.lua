@@ -77,7 +77,11 @@ au('LspAttach', {
         client.server_capabilities.semanticTokensProvider = nil
 
         -- add border to hover
-        vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = 'single' })
+        nmap('K', function()
+            vim.lsp.buf.hover({
+                border = 'single',
+            })
+        end, 'Hover', event.buf)
 
         -- lsp mappings
         desc('<leader>c', 'Code')
