@@ -23,7 +23,7 @@ function Wiki.list_diary()
     require('fzf-lua').files({
         prompt = 'Diary > ',
         cwd = config.dir .. '/diary',
-        cmd = 'ls -1 | sort -r', -- Sort by date
+        raw_cmd = 'ls -1 | sort -r', -- Sort by date
         file_ignore_patterns = {
             '^[^0-9].*', -- Only show date-formatted files
         },
