@@ -89,12 +89,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
-[submodule "nvim/.config/nvim/pack/bundle/start/autocomplete.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/autocomplete.nvim
-	url = https://github.com/deathbeam/autocomplete.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/lspecho.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/lspecho.nvim
-	url = https://github.com/deathbeam/lspecho.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
 	url = https://github.com/github/copilot.vim
@@ -126,3 +120,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
 	url = https://github.com/stevearc/quicker.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/myplugins.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/myplugins.nvim
+	url = https://github.com/deathbeam/myplugins.nvim

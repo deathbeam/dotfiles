@@ -1,5 +1,6 @@
 local fzf = require('fzf-lua')
 local languages = require('config.languages')
+local icons = require('config.icons')
 local utils = require('config.utils')
 local nmap = utils.nmap
 local au = utils.au
@@ -16,9 +17,24 @@ local function w(fn)
     end
 end
 
--- Echo LSP messages
-require('lspecho').setup({
-    attach_log = true,
+vim.diagnostic.config({
+    severity_sort = true,
+    virtual_text = false,
+    float = {
+        border = 'single',
+        focusable = false,
+    },
+    jump = {
+        _highest = true,
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons.Error,
+            [vim.diagnostic.severity.WARN] = icons.Warn,
+            [vim.diagnostic.severity.INFO] = icons.Info,
+            [vim.diagnostic.severity.HINT] = icons.Hint,
+        },
+    },
 })
 
 -- Setup LSP mappings
