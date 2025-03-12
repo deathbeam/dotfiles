@@ -6,19 +6,20 @@ vim.cmd([[
 ]])
 
 local function r(module)
-  local status_ok, loaded_module = pcall(require, module)
-  if not status_ok then
-    vim.notify("Error loading " .. module, vim.log.levels.ERROR)
-  end
-  return loaded_module
+    local status_ok, loaded_module = pcall(require, module)
+    if not status_ok then
+        vim.notify('Error loading ' .. module, vim.log.levels.ERROR)
+    end
+    return loaded_module
 end
 
 r('config.plugins.bigfile')
 r('config.plugins.rooter')
 r('config.plugins.diagnostics')
-r('config.plugins.session')
+-- r('config.plugins.session')
 r('config.plugins.wiki')
 r('config.plugins.statuscolumn')
+r('config.plugins.difftool')
 
 r('config.profile')
 r('config.mason')

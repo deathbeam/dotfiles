@@ -1,7 +1,5 @@
 local gitsigns = require('gitsigns')
-local diffview = require('diffview')
 local fzf = require('fzf-lua')
-local diffviewlib = require('diffview.lib')
 local icons = require('config.icons')
 local utils = require('config.utils')
 local map = utils.map
@@ -11,31 +9,6 @@ local vmap = utils.vmap
 local desc = utils.desc
 
 desc('<leader>g', 'Git', icons.ui.Git)
-
--- Diff view
-local function diff_view(input)
-    local view = diffviewlib.get_current_view()
-    if view then
-        diffview.close()
-    else
-        diffview.open({ args = { input } })
-    end
-end
-
-nmap('<leader>go', function()
-    diff_view()
-end, 'Diff view')
-
-nmap('<leader>gO', function()
-    fzf.git_branches({
-        prompt = 'Diff branch> ',
-        actions = {
-            ['default'] = function(selected)
-                diff_view(selected[1])
-            end,
-        },
-    })
-end, 'Diff view branch')
 
 gitsigns.setup({
     signcolumn = false,
