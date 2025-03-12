@@ -1,6 +1,27 @@
+local icons = require('config.icons').diagnostics
 local utils = require('config.utils')
 local au = utils.au
 local ns = vim.api.nvim_create_namespace('diagnostic_unnecessary_hl_override')
+
+vim.diagnostic.config({
+    severity_sort = true,
+    virtual_text = false,
+    float = {
+        border = 'single',
+        focusable = false,
+    },
+    jump = {
+        _highest = true,
+    },
+    signs = {
+        text = {
+            [vim.diagnostic.severity.ERROR] = icons.Error,
+            [vim.diagnostic.severity.WARN] = icons.Warn,
+            [vim.diagnostic.severity.INFO] = icons.Info,
+            [vim.diagnostic.severity.HINT] = icons.Hint,
+        },
+    },
+})
 
 -- Store original DiagnosticUnnecessary colors to reuse
 au('ColorScheme', {
@@ -12,8 +33,28 @@ au('ColorScheme', {
     end,
 })
 
-local lastlnum = nil
+au('CursorHold', {
+    desc = 'Show diagnostics',
+    callback = function()
+        if vim.api.nvim_get_mode().mode ~= 'n' then
+            return
+        end
 
+        for _, win in ipairs(vim.api.nvim_list_wins()) do
+            local config = vim.api.nvim_win_get_config(win)
+            if config.relative ~= '' and not config.hide then
+                local buf = vim.api.nvim_win_get_buf(win)
+                if buf and vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
+                    return
+                end
+            end
+        end
+
+        vim.diagnostic.open_float()
+    end,
+})
+
+local lastlnum = nil
 au({ 'DiagnosticChanged', 'CursorMoved' }, {
     callback = function(args)
         local bufnr = args.buf

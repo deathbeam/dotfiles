@@ -1,25 +1,23 @@
-local M = {}
-
-M.layout = {
+local layout = {
     left_win = nil,
     right_win = nil,
 }
 
 -- Set up a consistent layout with two diff windows and quickfix at bottom
-function M.setup_layout()
-    if M.layout.left_win and vim.api.nvim_win_is_valid(M.layout.left_win) then
+local function setup_layout()
+    if layout.left_win and vim.api.nvim_win_is_valid(layout.left_win) then
         return false
     end
 
     -- Save current window as left window
-    M.layout.left_win = vim.api.nvim_get_current_win()
+    layout.left_win = vim.api.nvim_get_current_win()
 
     -- Create right window
     vim.cmd('vsplit')
-    M.layout.right_win = vim.api.nvim_get_current_win()
+    layout.right_win = vim.api.nvim_get_current_win()
 end
 
-function M.edit_in(winnr, file)
+local function edit_in(winnr, file)
     vim.api.nvim_win_call(winnr, function()
         local current = vim.fs.abspath(vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(winnr)))
 
@@ -41,19 +39,19 @@ function M.edit_in(winnr, file)
     end)
 end
 
-function M.diff_files(left_file, right_file)
-    M.setup_layout()
+local function diff_files(left_file, right_file)
+    setup_layout()
 
-    M.edit_in(M.layout.left_win, left_file)
-    M.edit_in(M.layout.right_win, right_file)
+    edit_in(layout.left_win, left_file)
+    edit_in(layout.right_win, right_file)
 
     vim.cmd('diffoff!')
-    vim.api.nvim_win_call(M.layout.left_win, vim.cmd.diffthis)
-    vim.api.nvim_win_call(M.layout.right_win, vim.cmd.diffthis)
+    vim.api.nvim_win_call(layout.left_win, vim.cmd.diffthis)
+    vim.api.nvim_win_call(layout.right_win, vim.cmd.diffthis)
 end
 
-function M.diff_directories(left_dir, right_dir)
-    M.setup_layout()
+local function diff_directories(left_dir, right_dir)
+    setup_layout()
 
     -- Create a map of all relative paths
     local all_paths = {}
@@ -137,7 +135,7 @@ vim.api.nvim_create_autocmd('BufWinEnter', {
         end
 
         vim.schedule(function()
-            M.diff_files(entry.user_data.left, entry.user_data.right)
+            diff_files(entry.user_data.left, entry.user_data.right)
         end)
     end,
 })
@@ -148,9 +146,9 @@ vim.api.nvim_create_user_command('DiffTool', function(opts)
         local right = opts.fargs[2]
 
         if vim.fn.isdirectory(left) == 1 and vim.fn.isdirectory(right) == 1 then
-            M.diff_directories(left, right)
+            diff_directories(left, right)
         elseif vim.fn.filereadable(left) == 1 and vim.fn.filereadable(right) == 1 then
-            M.diff_files(left, right)
+            diff_files(left, right)
         else
             vim.notify('Both arguments must be files or directories', vim.log.levels.ERROR)
         end

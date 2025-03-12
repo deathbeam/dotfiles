@@ -21,49 +21,7 @@ require('lspecho').setup({
     attach_log = true,
 })
 
--- Configure diagnostics
-local icons = require('config.icons').diagnostics
-vim.diagnostic.config({
-    severity_sort = true,
-    virtual_text = false,
-    float = {
-        border = 'single',
-        focusable = false,
-    },
-    jump = {
-        _highest = true,
-    },
-    signs = {
-        text = {
-            [vim.diagnostic.severity.ERROR] = icons.Error,
-            [vim.diagnostic.severity.WARN] = icons.Warn,
-            [vim.diagnostic.severity.INFO] = icons.Info,
-            [vim.diagnostic.severity.HINT] = icons.Hint,
-        },
-    },
-})
-
-au('CursorHold', {
-    desc = 'Show diagnostics',
-    callback = function()
-        if vim.api.nvim_get_mode().mode ~= 'n' then
-            return
-        end
-
-        for _, win in ipairs(vim.api.nvim_list_wins()) do
-            local config = vim.api.nvim_win_get_config(win)
-            if config.relative ~= '' and not config.hide then
-                local buf = vim.api.nvim_win_get_buf(win)
-                if buf and vim.api.nvim_buf_is_valid(buf) and vim.api.nvim_buf_is_loaded(buf) then
-                    return
-                end
-            end
-        end
-
-        vim.diagnostic.open_float()
-    end,
-})
-
+-- Setup LSP mappings
 -- :h lsp-defaults
 au('LspAttach', {
     desc = 'LSP actions',
