@@ -3,7 +3,7 @@ local utils = require('config.utils')
 local nmap = utils.nmap
 local desc = utils.desc
 
-require('myplugins').setup {
+require('myplugins').setup({
     signature = {
         border = 'single',
     },
@@ -23,7 +23,7 @@ require('myplugins').setup {
     rooter = {},
     difftool = {},
     session = {},
-}
+})
 
 desc('<leader>w', 'Wiki', icons.ui.Wiki)
 local wiki = require('myplugins.wiki')

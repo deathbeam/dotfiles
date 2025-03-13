@@ -14,6 +14,7 @@ local function r(module)
     return loaded_module
 end
 
+r('config.myplugins')
 r('config.profile')
 r('config.mason')
 r('config.ui')
@@ -25,4 +26,3 @@ r('config.dap')
 r('config.git')
 r('config.copilot')
 r('config.statuscolumn')
-r('config.myplugins')

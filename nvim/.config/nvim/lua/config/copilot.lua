@@ -69,7 +69,71 @@ chat.setup({
             disabled = true,
         },
 
+        mistral = {
+            disabled = true,
+            prepare_input = providers.copilot.prepare_input,
+            prepare_output = providers.copilot.prepare_output,
+
+            get_headers = function()
+                local api_key = os.getenv('MISTRAL_API_KEY')
+                if not api_key then
+                    error('MISTRAL_API_KEY environment variable not set')
+                end
+
+                return {
+                    Authorization = 'Bearer ' .. api_key,
+                    ['Content-Type'] = 'application/json',
+                }
+            end,
+
+            get_models = function(headers)
+                local response, err = cutils.curl_get('https://api.mistral.ai/v1/models', {
+                    headers = headers,
+                    json_response = true,
+                })
+
+                if err then
+                    error(err)
+                end
+
+                return vim.iter(response.body.data)
+                    :filter(function(model)
+                        return model.capabilities.completion_chat
+                    end)
+                    :map(function(model)
+                        return {
+                            id = model.id,
+                            name = model.id,
+                        }
+                    end)
+                    :totable()
+            end,
+
+            embed = function(inputs, headers)
+                local response, err = cutils.curl_post('https://api.mistral.ai/v1/embeddings', {
+                    headers = headers,
+                    json_request = true,
+                    json_response = true,
+                    body = {
+                        model = 'mistral-embed',
+                        input = inputs,
+                    },
+                })
+
+                if err then
+                    error(err)
+                end
+
+                return response.body.data
+            end,
+
+            get_url = function()
+                return 'https://api.mistral.ai/v1/chat/completions'
+            end,
+        },
+
         ollama = {
+            disabled = true,
             prepare_input = providers.copilot.prepare_input,
             prepare_output = providers.copilot.prepare_output,
 
@@ -115,6 +179,7 @@ chat.setup({
         },
 
         lmstudio = {
+            disabled = true,
             prepare_input = providers.copilot.prepare_input,
             prepare_output = providers.copilot.prepare_output,
 
