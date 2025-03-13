@@ -64,6 +64,31 @@ chat.setup({
             selection = select.buffer,
         },
     },
+    contexts = {
+      vectorspace = {
+        description = 'Uses Vectorspace to search for semantically relevant content. Supports input (search query).',
+        input = function(callback)
+          vim.ui.input({
+            prompt = 'Enter search query> ',
+          }, callback)
+        end,
+        resolve = function(input, source, prompt)
+          if not input or input == '' then
+            input = prompt
+          end
+          local dir = cutils.win_cwd(source.winnr)
+          return cutils.curl_post('http://localhost:8000/query', {
+            json_request = true,
+            json_response = true,
+            body = {
+              dir = dir,
+              text = input,
+              max = 50
+            }
+          }).body
+        end,
+      },
+    },
     providers = {
         github_models = {
             disabled = true,
