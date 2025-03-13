@@ -22,7 +22,7 @@ require('myplugins').setup {
     bigfile = {},
     rooter = {},
     difftool = {},
-    -- session = {},
+    session = {},
 }
 
 desc('<leader>w', 'Wiki', icons.ui.Wiki)
