@@ -84,7 +84,11 @@ chat.setup({
             prompt = "Create or update the development plan for the selected code. Focus on architecture, implementation steps, and potential challenges.",
             system_prompt = COPILOT_PLAN,
             context = 'file:.copilot/plan.md',
+            progress = function()
+                return false
+            end,
             callback = function(response, source)
+                chat.chat:append('Plan updated successfully!', source.winnr)
                 local plan_file = source.cwd() .. '/.copilot/plan.md'
                 local dir = vim.fn.fnamemodify(plan_file, ':h')
                 vim.fn.mkdir(dir, 'p')
@@ -123,7 +127,7 @@ chat.setup({
     },
     providers = {
         github_models = {
-            disabled = true,
+            disabled = false,
         },
 
         mistral = {
