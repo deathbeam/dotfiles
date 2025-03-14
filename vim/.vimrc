@@ -159,6 +159,9 @@ nmap <silent> <Esc> <CMD>noh<CR>
 " Disable Enter key accepting autocomplete (stupid enter)
 inoremap <expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
 
+" why shift????
+noremap ; :
+
 " Navigation
 nmap <silent> <leader>" <CMD>vsplit<CR>
 nmap <silent> <leader>% <CMD>split<CR>

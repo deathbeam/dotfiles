@@ -18,6 +18,7 @@ local cutils = require('CopilotChat.utils')
 
 chat.setup({
     model = 'claude-3.7-sonnet',
+    debug = true,
     references_display = 'write',
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
@@ -25,10 +26,7 @@ chat.setup({
     selection = select.visual,
     context = 'buffers',
     mappings = {
-        reset = {
-            normal = '',
-            insert = '',
-        },
+        reset = false,
         show_diff = {
             full_diff = true,
         },
