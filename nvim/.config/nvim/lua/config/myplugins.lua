@@ -23,6 +23,7 @@ require('myplugins').setup({
     rooter = {},
     difftool = {},
     session = {},
+    quickfix = {},
 })
 
 desc('<leader>w', 'Wiki', icons.ui.Wiki)
