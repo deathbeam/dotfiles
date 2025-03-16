@@ -39,6 +39,7 @@ Always end with:
 chat.setup({
     model = 'claude-3.7-sonnet',
     references_display = 'write',
+    debug = true,
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
@@ -102,7 +103,7 @@ chat.setup({
     },
     contexts = {
       vectorspace = {
-        description = 'Uses Vectorspace to search for semantically relevant content. Supports input (search query).',
+        description = 'Semantic search through workspace using vector embeddings. Find relevant code with natural language queries. Supports input (query)',
         input = function(callback)
           vim.ui.input({
             prompt = 'Enter search query> ',
