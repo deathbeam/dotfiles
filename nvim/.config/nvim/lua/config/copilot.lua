@@ -103,23 +103,32 @@ chat.setup({
     },
     contexts = {
       vectorspace = {
-        description = 'Semantic search through workspace using vector embeddings. Find relevant code with natural language queries. Supports input (query)',
-        input = function(callback)
-          vim.ui.input({
-            prompt = 'Enter search query> ',
-          }, callback)
-        end,
+        description = 'Semantic search through workspace using vector embeddings. Find relevant code with natural language queries.',
+
+        schema = {
+          type = 'object',
+          required = { 'query' },
+          properties = {
+            query = {
+              type = 'string',
+              description = 'Natural language query to find relevant code.',
+            },
+            max = {
+              type = 'integer',
+              description = 'Maximum number of results to return.',
+              default = 10
+            },
+          },
+        },
+
         resolve = function(input, source, prompt)
-          if not input or input == '' then
-            input = prompt
-          end
           local embeddings = cutils.curl_post('http://localhost:8000/query', {
             json_request = true,
             json_response = true,
             body = {
               dir = source.cwd(),
-              text = input,
-              max = 50
+              text = input.query or prompt,
+              max = input.max
             }
           }).body
 

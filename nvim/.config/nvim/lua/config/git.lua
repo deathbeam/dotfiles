@@ -20,7 +20,7 @@ gitsigns.setup({
         nmap('<leader>gC', fzf.git_commits, 'All Commits')
 
         -- Navigation
-        nmap(']g', function()
+        nmap(']c', function()
             if vim.wo.diff then
                 vim.cmd.normal({ ']c', bang = true })
             else
@@ -28,7 +28,7 @@ gitsigns.setup({
             end
         end, 'Goto next hunk', bufnr)
 
-        nmap('[g', function()
+        nmap('[c', function()
             if vim.wo.diff then
                 vim.cmd.normal({ '[c', bang = true })
             else
