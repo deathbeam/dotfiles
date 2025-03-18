@@ -9,6 +9,7 @@ return {
         Wiki = '󰈙',
         Git = '',
         Perf = '󰒪',
+        Bookmark = '󰏚',
     },
     dap = {
         Stopped = { '󰁕 ', 'DiagnosticWarn' },

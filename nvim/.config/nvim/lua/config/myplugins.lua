@@ -23,14 +23,29 @@ require('myplugins').setup({
     rooter = {},
     difftool = {},
     session = {},
-    quickfix = {},
 })
 
-desc('<leader>w', 'Wiki', icons.ui.Wiki)
+local bookmarks = require('myplugins.bookmarks')
+desc('<leader>j', 'Bookmarks', icons.ui.Bookmark)
+nmap('<leader>jj', bookmarks.toggle_file, 'Bookmarks Toggle File')
+nmap('<leader>jl', bookmarks.toggle_line, 'Bookmarks Toggle Line')
+nmap('<leader>jk', bookmarks.load, 'Bookmarks Clear')
+nmap('<leader>jx', bookmarks.clear, 'Bookmarks Clear')
+nmap(']j', function()
+    bookmarks.load()
+    vim.cmd.cnext()
+end, 'Bookmarks Next')
+nmap('[j', function()
+    bookmarks.load()
+    vim.cmd.cprev()
+end, 'Bookmarks Previous')
+
 local wiki = require('myplugins.wiki')
+desc('<leader>w', 'Wiki', icons.ui.Wiki)
 nmap('<leader>wt', wiki.today, 'Wiki Today')
 nmap('<leader>wd', wiki.list_diary, 'Wiki Diary List')
 nmap('<leader>ww', wiki.list_wiki, 'Wiki List')
 nmap('<leader>wn', wiki.new, 'Wiki New')
 
-nmap('<leader>fu', require('myplugins.undotree').show, 'Find Undo History')
+local undotree = require('myplugins.undotree')
+nmap('<leader>fu', undotree.show, 'Find Undo History')
