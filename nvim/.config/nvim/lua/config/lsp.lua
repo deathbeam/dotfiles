@@ -37,12 +37,9 @@ vim.diagnostic.config({
     },
 })
 
--- Override the default LSP floating window to use a single border
 local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
----@diagnostic disable-next-line: duplicate-set-field
 function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
   opts = opts or {}
-  opts.border = "single"
   opts.focusable = false
   return orig_util_open_floating_preview(contents, syntax, opts, ...)
 end

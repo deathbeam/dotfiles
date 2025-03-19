@@ -3,6 +3,9 @@ local au = utils.au
 local nmap = utils.nmap
 local icons = require('config.icons')
 
+-- Set win border
+vim.o.winborder = 'single'
+
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
 vim.opt.termguicolors = true
