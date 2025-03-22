@@ -81,7 +81,7 @@ chat.setup({
             selection = select.buffer,
         },
         Plan = {
-            prompt = "Create or update the development plan for the selected code. Focus on architecture, implementation steps, and potential challenges.",
+            prompt = 'Create or update the development plan for the selected code. Focus on architecture, implementation steps, and potential challenges.',
             system_prompt = COPILOT_PLAN,
             context = 'file:.copilot/plan.md',
             progress = function()
@@ -97,52 +97,52 @@ chat.setup({
                     file:write(response)
                     file:close()
                 end
-            end
+            end,
         },
     },
     contexts = {
-      vectorspace = {
-        description = 'Semantic search through workspace using vector embeddings. Find relevant code with natural language queries.',
+        vectorspace = {
+            description = 'Semantic search through workspace using vector embeddings. Find relevant code with natural language queries.',
 
-        schema = {
-          type = 'object',
-          required = { 'query' },
-          properties = {
-            query = {
-              type = 'string',
-              description = 'Natural language query to find relevant code.',
+            schema = {
+                type = 'object',
+                required = { 'query' },
+                properties = {
+                    query = {
+                        type = 'string',
+                        description = 'Natural language query to find relevant code.',
+                    },
+                    max = {
+                        type = 'integer',
+                        description = 'Maximum number of results to return.',
+                        default = 10,
+                    },
+                },
             },
-            max = {
-              type = 'integer',
-              description = 'Maximum number of results to return.',
-              default = 10
-            },
-          },
+
+            resolve = function(input, source, prompt)
+                local embeddings = cutils.curl_post('http://localhost:8000/query', {
+                    json_request = true,
+                    json_response = true,
+                    body = {
+                        dir = source.cwd(),
+                        text = input.query or prompt,
+                        max = input.max,
+                    },
+                }).body
+
+                cutils.schedule_main()
+                return vim.iter(embeddings)
+                    :map(function(embedding)
+                        embedding.filetype = cutils.filetype(embedding.filename)
+                        return embedding
+                    end)
+                    :filter(function(embedding)
+                        return embedding.filetype
+                    end)
+                    :totable()
+            end,
         },
-
-        resolve = function(input, source, prompt)
-          local embeddings = cutils.curl_post('http://localhost:8000/query', {
-            json_request = true,
-            json_response = true,
-            body = {
-              dir = source.cwd(),
-              text = input.query or prompt,
-              max = input.max
-            }
-          }).body
-
-          cutils.schedule_main()
-          return vim.iter(embeddings)
-            :map(function(embedding)
-              embedding.filetype = cutils.filetype(embedding.filename)
-              return embedding
-            end)
-            :filter(function(embedding)
-              return embedding.filetype
-            end)
-            :totable()
-        end,
-      },
     },
     providers = {
         github_models = {

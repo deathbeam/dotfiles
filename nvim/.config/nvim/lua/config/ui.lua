@@ -44,27 +44,6 @@ nmap('<leader>z', function()
     })
 end)
 
--- Better quickfix
-local quicker = require('quicker')
-quicker.setup({
-    follow = {
-        enabled = true,
-    },
-    keys = {
-        {
-            '>',
-            quicker.expand,
-            desc = 'Expand quickfix context',
-        },
-        {
-            '<',
-            quicker.collapse,
-            desc = 'Collapse quickfix context',
-        },
-    },
-})
-nmap('<leader>q', quicker.toggle)
-
 -- File browser
 require('oil').setup({
     view_options = {

@@ -184,8 +184,7 @@ command! W w !sudo tee % > /dev/null
 "nnoremap <silent> dm<CR> <CMD>delm a-zA-Z0-9<CR>
 
 " Quickfix mappings
-nnoremap <silent> <leader>q <CMD>copen<CR>
-nnoremap <silent> <leader>Q <CMD>cclose<CR>
+nnoremap <leader>q :execute (getqflist({'winid':0}).winid != 0 ? 'cclose' : 'copen')<CR>
 nnoremap <silent> ]q <CMD>cnext<CR>
 nnoremap <silent> [q <CMD>cprev<CR>
 

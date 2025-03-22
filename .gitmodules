@@ -114,9 +114,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context
-[submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
-	url = https://github.com/stevearc/quicker.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/myplugins.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/myplugins.nvim
 	url = https://github.com/deathbeam/myplugins.nvim
