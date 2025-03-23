@@ -74,9 +74,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
-[submodule "vim/.vim/pack/bundle/start/mason-tool-installer.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/mason-tool-installer.nvim
-	url = https://github.com/WhoIsSethDaniel/mason-tool-installer.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-base16"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-base16
 	url = https://github.com/RRethy/nvim-base16
