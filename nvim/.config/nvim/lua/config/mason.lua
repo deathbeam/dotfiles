@@ -10,6 +10,8 @@ require('mason').setup({
 })
 
 vim.api.nvim_create_user_command('MasonUpdateSync', function()
+    vim.notify('Syncing packages...', vim.log.levels.INFO)
+
     local a = require('mason-core.async')
     local registry = require('mason-registry')
     local packages = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
@@ -41,7 +43,15 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                 end
             end
         end
+
+        for _, name in ipairs(registry.get_installed_package_names()) do
+            local pkg = registry.get_package(name)
+            if not vim.tbl_contains(packages, name) then
+                vim.notify('Uninstalling ' .. name, vim.log.levels.INFO)
+                pkg:uninstall()
+            end
+        end
     end)
 
-    vim.notify('MasonUpdateSync finished', vim.log.levels.INFO)
+    vim.notify('Succesfully synced ' .. #packages .. ' packages.', vim.log.levels.INFO)
 end, { force = true })
