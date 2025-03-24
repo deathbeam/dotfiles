@@ -36,9 +36,9 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                     pkg:check_new_version(resolve)
                 end)
                 if new_version then
-                    vim.notify('Updating ' .. name .. ' to ' .. version_info.latest, vim.log.levels.INFO)
+                    vim.notify('Updating ' .. name .. ' to ' .. version_info.latest_version, vim.log.levels.INFO)
                     a.wait(function(resolve)
-                        pkg:install({ version = version_info.latest }):once('closed', resolve)
+                        pkg:install({ version = version_info.latest_version }):once('closed', resolve)
                     end)
                 end
             end
