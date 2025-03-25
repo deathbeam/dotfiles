@@ -37,7 +37,7 @@ Always end with:
 chat.setup({
     model = 'claude-3.7-sonnet',
     references_display = 'write',
-    debug = true,
+    debug = false,
     question_header = ' ' .. icons.ui.User .. ' ',
     answer_header = ' ' .. icons.ui.Bot .. ' ',
     error_header = '> ' .. icons.diagnostics.Warn .. ' ',
