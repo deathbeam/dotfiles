@@ -183,11 +183,6 @@ command! W w !sudo tee % > /dev/null
 "nnoremap <silent> dm     <CMD>execute 'delmarks '.nr2char(getchar())<CR>
 "nnoremap <silent> dm<CR> <CMD>delm a-zA-Z0-9<CR>
 
-" Quickfix mappings
-nnoremap <leader>q :execute (getqflist({'winid':0}).winid != 0 ? 'cclose' : 'copen')<CR>
-nnoremap <silent> ]q <CMD>cnext<CR>
-nnoremap <silent> [q <CMD>cprev<CR>
-
 " }}}
 
 " User configuration {{{

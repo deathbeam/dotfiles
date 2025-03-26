@@ -105,9 +105,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/roslyn.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/roslyn.nvim
 	url = https://github.com/seblyng/roslyn.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/zen-mode.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/zen-mode.nvim
-	url = https://github.com/folke/zen-mode.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
 	url = https://github.com/nvim-treesitter/nvim-treesitter-context

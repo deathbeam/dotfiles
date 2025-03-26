@@ -23,6 +23,7 @@ require('myplugins').setup({
     rooter = {},
     difftool = {},
     session = {},
+    zoom = {}
 })
 
 local bookmarks = require('myplugins.bookmarks')
@@ -49,3 +50,6 @@ nmap('<leader>wn', wiki.new, 'Wiki New')
 
 local undotree = require('myplugins.undotree')
 nmap('<leader>fu', undotree.show, 'Find Undo History')
+
+local zoom = require('myplugins.zoom')
+nmap('<leader>z', zoom.toggle, 'Zoom')

@@ -29,21 +29,6 @@ require('nvim-web-devicons').setup()
 -- Set fold icons
 vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open }
 
--- Toggle zen mode
-local zen_mode = require('zen-mode')
-nmap('<leader>z', function()
-    zen_mode.toggle({
-        window = {
-            width = 0.85,
-        },
-        plugins = {
-            alacritty = {
-                enabled = true,
-            },
-        },
-    })
-end)
-
 -- File browser
 require('oil').setup({
     view_options = {
