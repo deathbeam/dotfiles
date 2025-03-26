@@ -4,7 +4,7 @@ clean:
 	find ~ -xtype l -print -delete
 
 link:
-	stow --target ~ --restow `ls -d */ | grep -v "^\."` 2> >(grep -v 'BUG in find_stowed_path? Absolute/relative mismatch' 1>&2)
+	stow --target ~ --restow `ls -d */`
 
 update:
 	git submodule sync --recursive
@@ -26,4 +26,4 @@ install:
 uninstall:
 	~/.fzf/uninstall
 	gh extension remove github/gh-copilot || true
-	stow --target ~ --delete `ls -d */ | grep -v "^\."` 2> >(grep -v 'BUG in find_stowed_path? Absolute/relative mismatch' 1>&2)
+	stow --target ~ --delete `ls -d */`
