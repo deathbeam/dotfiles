@@ -20,6 +20,9 @@ end
 vim.diagnostic.config({
     severity_sort = true,
     virtual_text = false,
+    virtual_lines = {
+        current_line = true,
+    },
     float = {
         border = 'single',
         focusable = false,
@@ -36,13 +39,6 @@ vim.diagnostic.config({
         },
     },
 })
-
-local orig_util_open_floating_preview = vim.lsp.util.open_floating_preview
-function vim.lsp.util.open_floating_preview(contents, syntax, opts, ...)
-    opts = opts or {}
-    opts.focusable = false
-    return orig_util_open_floating_preview(contents, syntax, opts, ...)
-end
 
 -- Setup LSP mappings
 -- :h lsp-defaults
