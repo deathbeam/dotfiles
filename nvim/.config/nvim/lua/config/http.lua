@@ -2,6 +2,8 @@ local M = {
     selected_env = nil,
     http_window = nil,
     http_buffer = nil,
+    ns_id = vim.api.nvim_create_namespace("HttpClient"),
+    status_mark_id = nil,
 }
 
 local function ensure_buffer()
@@ -12,6 +14,22 @@ local function ensure_buffer()
     local buf = vim.api.nvim_create_buf(false, true)
     vim.bo[buf].syntax = 'http_stat'
     M.http_buffer = buf
+end
+
+local function set_status(status, col)
+    -- Remove previous mark if exists
+    if M.status_mark_id then
+        vim.api.nvim_buf_del_extmark(M.http_buffer, M.ns_id, M.status_mark_id)
+    end
+
+    if not status then
+        return
+    end
+
+    M.status_mark_id = vim.api.nvim_buf_set_extmark(M.http_buffer, M.ns_id, 0, 0, {
+        virt_text = {{" " .. status .. " ", col}},
+        virt_text_pos = "overlay",
+    })
 end
 
 local function exec(file, line, env)
@@ -30,11 +48,16 @@ local function exec(file, line, env)
         table.insert(cmd, env)
     end
 
-    ensure_buffer()
+    -- Open and clear the window
+    M.open()
     vim.api.nvim_buf_set_lines(M.http_buffer, 0, -1, false, {})
+
+    -- Set status
+    set_status("PROCESSING", "DiffText")
+
     vim.system(cmd, {
         text = true,
-        stdout = vim.schedule_wrap(function(err, data)
+        stdout = vim.schedule_wrap(function(_, data)
             if not data then
                 return
             end
@@ -43,7 +66,13 @@ local function exec(file, line, env)
             local line_count = vim.api.nvim_buf_line_count(M.http_buffer)
             vim.api.nvim_buf_set_lines(M.http_buffer, line_count, line_count, false, lines)
         end)
-    })
+    }, vim.schedule_wrap(function(obj)
+        if obj.code ~= 0 then
+            set_status("ERROR", "DiffDelete")
+        else
+            set_status("DONE", "DiffAdd")
+        end
+    end))
 end
 
 function M.open()
@@ -112,7 +141,7 @@ function M.select_env()
     table.sort(envs)
 
     vim.ui.select(envs, {
-        prompt = "Select environment:",
+        prompt = "Select environment> ",
     }, function(choice)
         if choice then
             M.selected_env = choice
