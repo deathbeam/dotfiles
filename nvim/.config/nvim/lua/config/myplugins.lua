@@ -53,3 +53,10 @@ nmap('<leader>fu', undotree.show, 'Find Undo History')
 
 local zoom = require('myplugins.zoom')
 nmap('<leader>z', zoom.toggle, 'Zoom')
+
+local http = require("myplugins.httpyac")
+desc('<leader>h', 'HTTP')
+nmap('<leader>ho', http.toggle, 'HTTP Toggle')
+nmap('<leader>hh', http.run, 'HTTP Run')
+nmap('<leader>hH', http.run_all, 'HTTP Run All')
+nmap('<leader>he', http.select_env, 'HTTP Environment')
