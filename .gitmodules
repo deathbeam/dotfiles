@@ -114,6 +114,3 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treehopper"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treehopper
 	url = https://github.com/mfussenegger/nvim-treehopper
-[submodule "nvim/.config/nvim/pack/bundle/start/kulala.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/kulala.nvim
-	url = https://github.com/mistweaverco/kulala.nvim

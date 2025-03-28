@@ -23,7 +23,7 @@ require('myplugins').setup({
     rooter = {},
     difftool = {},
     session = {},
-    zoom = {}
+    zoom = {},
 })
 
 local bookmarks = require('myplugins.bookmarks')
