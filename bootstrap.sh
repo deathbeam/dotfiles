@@ -21,7 +21,8 @@ yay -S --noconfirm --mflags --skipinteg \
     pipewire-pulse \
     gst-plugin-pipewire \
     libpulse \
-    wireplumber
+    wireplumber \
+    alsa-utils
 
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
@@ -30,11 +31,11 @@ yay -S --noconfirm --mflags --skipinteg \
     xdg-utils xdg-user-dirs \
     iw \
     stow zsh tmux ripgrep mlocate btop \
-    tree-sitter-git neovim-git ctags less bat fswatch difftastic \
+    tree-sitter-git neovim-git ctags less bat fswatch \
     pass pass-otp \
-    httpie sshpass stoken openvpn vpn-slice openconnect tinyproxy wget jq \
+    sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget jq \
     tlp rate-mirrors unzip fuse2 bc brightnessctl \
-    p7zip man-db alsa-utils keyd fastfetch onefetch socat systemd-resolvconf pacman-contrib ncdu
+    p7zip man-db keyd fastfetch onefetch socat systemd-resolvconf pacman-contrib ncdu
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
@@ -45,12 +46,9 @@ yay -S --noconfirm --mflags --skipinteg \
     maven npm asdf-vm \
     github-cli lazygit \
     docker docker-compose \
-    azure-cli kubectl k9s \
-    postman \
-    lmstudio \
-    mitmproxy \
-    inferno \
-    argocd
+    azure-cli kubectl k9s argocd \
+    ollama \
+    mitmproxy
 
 pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 npm install -g httpyac

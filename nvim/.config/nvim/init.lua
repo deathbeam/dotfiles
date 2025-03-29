@@ -15,7 +15,6 @@ local function r(module)
 end
 
 r('config.myplugins')
-r('config.profile')
 r('config.mason')
 r('config.ui')
 r('config.finder')
