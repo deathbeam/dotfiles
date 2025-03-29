@@ -17,11 +17,7 @@ require('nvim-treesitter.configs').setup({
 })
 
 vim.treesitter.language.register('bash', 'zsh')
-
-vim.cmd([[
-  set foldmethod=expr
-  set foldexpr=nvim_treesitter#foldexpr()
-]])
+vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
 
 -- Treehopper mappings
 vim.cmd([[

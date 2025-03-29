@@ -50,6 +50,12 @@ au('LspAttach', {
             return
         end
 
+        -- enable lsp folding
+        if client:supports_method('textDocument/foldingRange') then
+          local win = vim.api.nvim_get_current_win()
+          vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
+        end
+
         -- disable semantic tokens
         client.server_capabilities.semanticTokensProvider = nil
 
