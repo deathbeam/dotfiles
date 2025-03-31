@@ -175,10 +175,10 @@ noremap! <C-E> <End>
 "noremap! <C-N> <End><C-U><Down>
 
 " Nice mapping for messages as buffer
-nnoremap <leader>m :new \| setlocal buftype=nofile bufhidden=wipe \| silent execute 'redir @a' \| silent messages \| silent execute 'redir END' \| put a<CR>
+nnoremap <leader>m :botright new +set\ buftype=nofile\ bufhidden=wipe <bar> put =execute('messages')<CR>
 
 " Sudo save
-command! W w !sudo tee % > /dev/null
+command! W execute 'w !sudo -S tee % > /dev/null'
 
 " Mark mappings
 "nnoremap <silent> dm     <CMD>execute 'delmarks '.nr2char(getchar())<CR>
