@@ -27,6 +27,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
         for _, name in ipairs(packages) do
             local pkg = registry.get_package(name)
             if not pkg:is_installed() then
+                a.scheduler()
                 vim.notify('Installing ' .. name, vim.log.levels.INFO)
                 a.wait(function(resolve)
                     pkg:install():once('closed', resolve)
@@ -36,6 +37,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                     pkg:check_new_version(resolve)
                 end)
                 if new_version then
+                    a.scheduler()
                     vim.notify('Updating ' .. name .. ' to ' .. version_info.latest_version, vim.log.levels.INFO)
                     a.wait(function(resolve)
                         pkg:install({ version = version_info.latest_version }):once('closed', resolve)
@@ -47,6 +49,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
         for _, name in ipairs(registry.get_installed_package_names()) do
             local pkg = registry.get_package(name)
             if not vim.tbl_contains(packages, name) then
+                a.scheduler()
                 vim.notify('Uninstalling ' .. name, vim.log.levels.INFO)
                 pkg:uninstall()
             end
