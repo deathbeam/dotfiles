@@ -43,7 +43,12 @@ yay -S --noconfirm --mflags --skipinteg \
     ollama \
     mitmproxy
 
-pip3 install --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
+echo '==> Installing python packages'
+pip3 install --user --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
+
+echo '==> Installing npm packages'
+mkdir -p ~/.npm-global
+npm config set prefix "$HOME/.npm-global"
 npm install -g httpyac
 
 echo '==> Installing desktop packages'
