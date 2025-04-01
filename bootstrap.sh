@@ -13,22 +13,12 @@ git clone https://aur.archlinux.org/yay.git
 cd yay
 makepkg -si --noconfirm
 
-echo '==> Installing sound packages'
-yay -S --noconfirm --mflags --skipinteg \
-    pipewire \
-    pipewire-alsa \
-    pipewire-jack \
-    pipewire-pulse \
-    gst-plugin-pipewire \
-    libpulse \
-    wireplumber \
-    alsa-utils
-
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     mkinitcpio-firmware \
     net-tools dosfstools \
     xdg-utils xdg-user-dirs \
+    alsa-utils \
     iw \
     stow zsh tmux ripgrep mlocate btop \
     tree-sitter-git neovim-git ctags less bat fswatch \
