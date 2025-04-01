@@ -17,7 +17,7 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo '==> Installing extra packages'
-yay -S --noconfirm --mflags --skipinteg \
+yay -S --noconfirm --mflags --skipinteg --assume-installed upd72020x-fw \
     mkinitcpio-firmware \
     net-tools dosfstools \
     xdg-utils xdg-user-dirs \
