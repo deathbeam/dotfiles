@@ -100,7 +100,8 @@ fi
 # Enable services
 sudo systemctl enable \
     keyd \
-    tlp
+    tlp \
+    docker
 
 # Alter pacman options
 grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
@@ -126,7 +127,7 @@ xdg-user-dirs-update
 xdg-settings set default-web-browser qutebrowser.desktop
 
 # Change default shell
-sudo chsh -s /bin/zsh "$USER"
+chsh -s /bin/zsh "$USER"
 
 # Disable power save
 sudo iw dev wlan0 set power_save off
