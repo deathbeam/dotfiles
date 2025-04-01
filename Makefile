@@ -4,6 +4,7 @@ clean:
 	find ~ -xtype l -print -delete
 
 link:
+	mkdir -p ~/.local/bin
 	stow --target ~ --restow `ls -d */`
 
 update:
