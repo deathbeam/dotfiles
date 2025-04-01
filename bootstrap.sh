@@ -70,17 +70,21 @@ make
 echo '==> Configuring system'
 
 # Enable bitmap fonts (we need them to correctly render Terminus)
-sudo rm -rf /etc/fonts/conf.d/70-no-bitmaps.conf
-fc-cache -f
+if [ -f "/etc/fonts/conf.d/70-no-bitmaps.conf" ]; then
+    sudo rm -f /etc/fonts/conf.d/70-no-bitmaps.conf
+    fc-cache -f
+fi
 
 # Increase inotify watches
-sudo tee -a /etc/sysctl.d/40-inotify.conf <<EOF
+if ! grep -q "fs.inotify.max_user_watches" /etc/sysctl.d/40-inotify.conf 2>/dev/null; then
+    sudo tee -a /etc/sysctl.d/40-inotify.conf <<EOF
 fs.inotify.max_user_watches=1000000
 fs.inotify.max_queued_events=1000000
 EOF
+fi
 
 # Symlink configs
-sudo ln -s ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
+[ -f "/etc/keyd/default.conf" ] || sudo ln -sf ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
 
 # Enable services
 sudo systemctl enable \
@@ -88,9 +92,9 @@ sudo systemctl enable \
     tlp
 
 # Alter pacman options
-sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
-sudo sed -i '/\[options\]/a ILoveCandy' /etc/pacman.conf
-sudo sed -i '/\[options\]/a ParallelDownloads = 10' /etc/pacman.conf
+grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
+grep -q "^ILoveCandy" /etc/pacman.conf || sudo sed -i '/\[options\]/a ILoveCandy' /etc/pacman.conf
+grep -q "^ParallelDownloads = 10" /etc/pacman.conf || sudo sed -i '/\[options\]/a ParallelDownloads = 10' /etc/pacman.conf
 
 # Modify groups
 sudo groupadd -f vboxsf
