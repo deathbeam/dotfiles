@@ -8,10 +8,13 @@ cd ~/git
 
 # Install AUR helper
 echo '==> Installing AUR helper'
-sudo pacman --noconfirm --needed -S git git-lfs
-git clone https://aur.archlinux.org/yay.git
-cd yay
-makepkg -si --noconfirm
+if ! command -v yay &> /dev/null; then
+    sudo pacman --noconfirm --needed -S git git-lfs
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd ..
+fi
 
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
@@ -60,7 +63,6 @@ yay -S --noconfirm --mflags --skipinteg \
     gpu-screen-recorder-git
 
 echo '==> Installing dotfiles'
-cd ~/git
 git clone https://github.com/deathbeam/dotfiles || true
 cd dotfiles
 make
