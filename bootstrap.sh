@@ -16,8 +16,14 @@ if ! command -v yay &> /dev/null; then
     cd ..
 fi
 
-echo '==> Installing extra packages'
+# Enable multilib repository
+if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
+    sudo sed -i "/^#\[multilib\]/,/^#Include/ s/^#//" /etc/pacman.conf
+    sudo pacman -Sy
+fi
+
 # mkinitcpio-firmware \ is broken
+echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     net-tools dosfstools \
     xdg-utils xdg-user-dirs \
@@ -63,7 +69,7 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop stremio steam calibre \
+    dropbox dropbox-cli vesktop-bin stremio steam calibre \
     stalonetray xdotool \
     gpu-screen-recorder-git
 
