@@ -17,8 +17,8 @@ if ! command -v yay &> /dev/null; then
 fi
 
 echo '==> Installing extra packages'
-yay -S --noconfirm --mflags --skipinteg --assume-installed upd72020x-fw \
-    mkinitcpio-firmware \
+# mkinitcpio-firmware \ is broken
+yay -S --noconfirm --mflags --skipinteg \
     net-tools dosfstools \
     xdg-utils xdg-user-dirs \
     alsa-utils \
