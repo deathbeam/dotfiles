@@ -1,12 +1,15 @@
+local packages = vim.iter(require('config.languages'))
+    :map(function(server)
+        return server.treesitter
+    end)
+    :filter(function(server)
+        return server
+    end)
+    :flatten()
+    :totable()
+
 require('nvim-treesitter.configs').setup({
-    ensure_installed = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
-        function(server)
-            return server.treesitter
-        end,
-        vim.tbl_filter(function(server)
-            return server.treesitter
-        end, require('config.languages'))
-    ))),
+    ensure_installed = packages,
     sync_install = true,
     highlight = {
         enable = true,

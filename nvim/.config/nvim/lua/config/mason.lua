@@ -14,14 +14,15 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
 
     local a = require('mason-core.async')
     local registry = require('mason-registry')
-    local packages = vim.tbl_values(vim.tbl_flatten(vim.tbl_map(
-        function(server)
+    local packages = vim.iter(require('config.languages'))
+        :map(function(server)
             return server.mason
-        end,
-        vim.tbl_filter(function(server)
-            return server.mason
-        end, require('config.languages'))
-    )))
+        end)
+        :filter(function(server)
+            return server
+        end)
+        :flatten()
+        :totable()
 
     a.run_blocking(function()
         for _, name in ipairs(packages) do
