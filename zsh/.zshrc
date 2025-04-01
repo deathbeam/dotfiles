@@ -219,5 +219,6 @@ fi
 
 # Load user config
 [ -f "$HOME/.zshrc.local" ] && source "$HOME/.zshrc.local"
+[ -f "$HOME/.zshrc.work" ] && source "$HOME/.zshrc.work"
 
 # }}}

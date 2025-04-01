@@ -54,6 +54,7 @@ export QT_ENABLE_HIGHDPI_SCALING=1
 export SCALE_FACTOR=1
 
 [[ -f "$HOME/.profile.local" ]] && source "$HOME/.profile.local"
+[[ -f "$HOME/.profile.work" ]] && source "$HOME/.profile.work"
 
 # Apply scale factor to all variables
 function apply_scale_factor() {
@@ -68,8 +69,8 @@ function apply_scale_factor() {
 }
 
 export DPI=$(apply_scale_factor 96)
-export BAR_HEIGHT=$(apply_scale_factor 40)
-export BAR_FONT_SIZE=$(apply_scale_factor 20)
+export BAR_HEIGHT=60
+export BAR_FONT_SIZE=30
 export GDK_SCALE=$SCALE_FACTOR
 export QT_SCALE_FACTOR=$SCALE_FACTOR
 export WINIT_X11_SCALE_FACTOR=$SCALE_FACTOR

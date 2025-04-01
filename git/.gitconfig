@@ -110,3 +110,4 @@
 
 [include]
     path = ~/.gitconfig.local
+    path = ~/.gitconfig.work
