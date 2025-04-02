@@ -32,7 +32,7 @@ yay -S --noconfirm --mflags --skipinteg \
     stow zsh tmux ripgrep mlocate btop \
     tree-sitter-git neovim-git ctags less bat fswatch \
     pass pass-otp \
-    sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget jq \
+    sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget jq jnv-bin \
     tlp rate-mirrors unzip fuse2 bc brightnessctl \
     p7zip man-db keyd fastfetch onefetch socat systemd-resolvconf pacman-contrib ncdu
 
