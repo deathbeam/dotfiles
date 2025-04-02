@@ -16,6 +16,9 @@ require('myplugins').setup({
             return entry
         end,
     },
+    lspecho = {
+        attach_log = true
+    },
     cmdcomplete = {},
     diagnostics = {},
 
