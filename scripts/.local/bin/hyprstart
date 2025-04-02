@@ -1,0 +1,19 @@
+#!/bin/sh
+
+# Check nvidia stuff
+if lspci | grep -q 'NVIDIA'; then
+    echo "NVIDIA GPU detected, setting NVIDIA-specific environment variables"
+    export NVD_BACKEND="direct"
+    export LIBVA_DRIVER_NAME="nvidia"
+    export PROTON_ENABLE_NGX_UPDATER=1
+    export GBM_BACKEND="nvidia-drm"
+    export __GL_GSYNC_ALLOWED=1
+    export __GL_VRR_ALLOWED=1
+    export __GL_MaxFramesAllowed=1
+    export __GLX_VENDOR_LIBRARY_NAME="nvidia"
+    export __VK_LAYER_NV_optimus="NVIDIA_only"
+    export __NV_PRIME_RENDER_OFFLOAD=1
+fi
+
+# Launch Hyprland
+exec Hyprland
