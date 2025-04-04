@@ -145,7 +145,7 @@ chat.setup({
     },
     providers = {
         github_models = {
-            disabled = true,
+            disabled = false,
         },
         ollama = {
             prepare_input = require('CopilotChat.config.providers').copilot.prepare_input,
