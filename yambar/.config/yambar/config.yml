@@ -176,7 +176,7 @@ bar:
       backlight:
         name: nvidia_0
         content:
-          string: {text: " {percent}%", margin: *margin}
+          string: {text: " {brightness}%", margin: *margin}
     -
       battery:
         name: BAT0
