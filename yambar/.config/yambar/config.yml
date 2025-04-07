@@ -173,8 +173,9 @@ bar:
         content:
           string: {text: "  {percent}%", margin: *margin}
     -
-      backlight:
-        name: nvidia_0
+      script:
+        path: ~/.config/yambar/brightness.sh
+        poll-interval: 1000
         content:
           string: {text: " {brightness}%", margin: *margin}
     -
