@@ -25,16 +25,16 @@ fi
 # mkinitcpio-firmware \ is broken
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
-    net-tools dosfstools \
     xdg-utils xdg-user-dirs \
+    net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat \
+    dosfstools fuse2 \
     alsa-utils \
-    iw \
     stow zsh tmux ripgrep mlocate btop \
-    tree-sitter-git neovim-git ctags less bat fswatch \
+    tree-sitter-git neovim-git ctags less bat fswatch jq jnv-bin \
     pass pass-otp \
-    sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget jq jnv-bin \
-    tlp rate-mirrors unzip fuse2 bc brightnessctl \
-    p7zip man-db keyd fastfetch onefetch socat systemd-resolvconf pacman-contrib ncdu
+    rate-mirrors unzip bc \
+    p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu \
+    brightnessctl power-profiles-daemon thermald-git
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
@@ -46,8 +46,7 @@ yay -S --noconfirm --mflags --skipinteg \
     github-cli \
     docker docker-compose \
     azure-cli kubectl k9s argocd azure-kubelogin \
-    ollama \
-    mitmproxy
+    ollama
 
 echo '==> Installing python packages'
 pip3 install --user --break-system-packages https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
@@ -100,8 +99,9 @@ fi
 # Enable services
 sudo systemctl enable \
     keyd \
-    tlp \
-    docker
+    docker \
+    power-profiles-daemon \
+    thermald
 
 # Alter pacman options
 grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
