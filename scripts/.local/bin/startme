@@ -15,5 +15,11 @@ if lspci | grep -q 'NVIDIA'; then
     export __NV_PRIME_RENDER_OFFLOAD=1
 fi
 
-# Launch Hyprland
-exec Hyprland
+# Launch compositor
+if command -v Hyprland &> /dev/null; then
+    exec Hyprland
+elif command -v bspwm &> /dev/null; then
+    exec startx
+else
+    exit 1
+fi
