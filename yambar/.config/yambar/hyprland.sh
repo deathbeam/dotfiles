@@ -19,7 +19,7 @@ handle_events() {
         while IFS= read -r l
         do
             window_info+=("$l")
-        done < <(echo "$read_window_info" | jq -r '.address // "", .title // "", .class // "", .xwayland // false, .floating // false, .fullscreen // 0, .fullscreenMode // 0')
+        done < <(echo "$read_window_info" | jq -r '.address // "", .title // "", .class // "", .xwayland // false, .floating // false, .fullscreen // 0, .fullscreenClient // 0')
 
         window_address=${window_info[0]}
         title=${window_info[1]}
