@@ -28,7 +28,7 @@ yay -S --noconfirm --mflags --skipinteg \
     xdg-utils xdg-user-dirs \
     net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat \
     dosfstools fuse2 \
-    alsa-utils \
+    alsa-utils vulkan-tools libva-utils \
     stow zsh tmux ripgrep mlocate btop \
     tree-sitter-git neovim-git ctags less bat fswatch jq jnv-bin \
     pass pass-otp \

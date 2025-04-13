@@ -1,0 +1,10 @@
+#!/bin/sh
+
+echo "Vulkan GPU Info"
+vulkaninfo | grep -i "version"
+
+echo "GLX Info"
+glxinfo | grep -i "renderer"
+
+echo "VAAPI Info"
+vainfo | grep -i "version"
