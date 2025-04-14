@@ -37,6 +37,9 @@ setopt NO_BG_NICE
 setopt NO_CHECK_JOBS
 setopt NO_HUP
 
+# GPG configuration
+export GPG_TTY=$(tty)
+
 # }}}
 
 # Mappings {{{
