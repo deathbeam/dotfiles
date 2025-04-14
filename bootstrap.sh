@@ -70,7 +70,7 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop-bin stremio steam calibre \
+    dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch calibre \
     stalonetray xdotool \
     gpu-screen-recorder-git
 
@@ -80,6 +80,9 @@ cd dotfiles
 make
 
 echo '==> Configuring system'
+
+# Add steamtinkerlaunch compat
+steamtinkerlaunch compat add
 
 # Enable bitmap fonts (we need them to correctly render Terminus)
 if [ -f "/etc/fonts/conf.d/70-no-bitmaps.conf" ]; then
