@@ -19,6 +19,7 @@ fi
 if command -v Hyprland &> /dev/null; then
     exec Hyprland
 elif command -v bspwm &> /dev/null; then
+    export QT_SCALE_FACTOR=$SCALE_FACTOR
     exec startx
 else
     exit 1
