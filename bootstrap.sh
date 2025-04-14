@@ -56,6 +56,7 @@ mkdir -p ~/.npm-global
 npm config set prefix "$HOME/.npm-global"
 npm install -g httpyac
 
+# gcr for pinentry-gnome3
 echo '==> Installing desktop packages'
 yay -S --noconfirm --mflags --skipinteg \
     fonts-meta-base \
@@ -65,6 +66,7 @@ yay -S --noconfirm --mflags --skipinteg \
     dunst \
     yambar-git \
     alacritty \
+    gcr \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     mpv yt-dlp \
