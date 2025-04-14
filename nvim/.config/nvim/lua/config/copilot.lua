@@ -36,8 +36,6 @@ Always end with:
 
 chat.setup({
     model = 'claude-3.7-sonnet',
-    references_display = 'write',
-    group = false,
     debug = true,
     temperature = 0,
     question_header = ' ' .. icons.ui.User .. ' ',
@@ -232,8 +230,11 @@ end, { desc = 'AI Question' })
 
 -- MCP hub
 local mcp = require('mcphub')
-
 mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, function()
+    if not chat.config.functions then
+        return
+    end
+
     local hub = mcp.get_hub_instance()
     if not hub then
         return
@@ -248,15 +249,50 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         })
     end, 4)
 
-    -- print("PROMPTS:")
-    -- vim.print(hub:get_prompts())
-    -- print("RESOURCES:")
-    -- vim.print(hub:get_resources())
+    local access_resource = async.wrap(function(server, uri, callback)
+        hub:access_resource(server, uri, {
+            callback = function(res, err)
+                callback(res, err)
+            end,
+        })
+    end, 3)
+
+    local resources = hub:get_resources()
+    for _, resource in ipairs(resources) do
+        local name = resource.name:lower():gsub(' ', '_'):gsub(':', '')
+        chat.config.functions[name] = {
+            uri = resource.uri,
+            description = resource.description,
+            resolve = function()
+                local res, err = access_resource(resource.server_name, resource.uri)
+                if err then
+                    error(err)
+                end
+
+                res = res or {}
+                local result = res.result or {}
+                local content = result.contents or {}
+                local out = {}
+
+                for _, message in ipairs(content) do
+                    if message.text then
+                        table.insert(out, {
+                            uri = message.uri,
+                            data = message.text,
+                            mimetype = message.mimeType,
+                        })
+                    end
+                end
+
+                return out
+            end
+        }
+    end
 
     local tools = hub:get_tools()
     for _, tool in ipairs(tools) do
-        chat.config.tools[tool.name] = {
-            group = tool.server_name,
+        chat.config.functions[tool.name] = {
+            agent = tool.server_name,
             description = tool.description,
             schema = tool.inputSchema,
             resolve = function(input)
@@ -273,12 +309,10 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
                 for _, message in ipairs(content) do
                     if message.type == 'text' then
                         table.insert(out, {
-                            type = message.type,
                             data = message.text
                         })
                     elseif message.type == 'resource' and message.resource and message.resource.text then
                         table.insert(out, {
-                            type = message.type,
                             uri = message.resource.uri,
                             data = message.resource.text,
                             mimetype = message.resource.mimeType,
@@ -291,6 +325,4 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         }
     end
 end)
-
-
 mcp.setup()
