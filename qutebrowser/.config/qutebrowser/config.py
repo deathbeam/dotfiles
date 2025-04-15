@@ -53,7 +53,7 @@ c.fonts.web.size.default = 16
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
 
 # Play videos with mpv
-config.bind('e', 'spawn --detach mpv {url}')
+config.bind('e', 'spawn --userscript /usr/share/qutebrowser/userscripts/view_in_mpv')
 config.bind('E', 'hint links spawn --detach mpv {hint-url}')
 
 # base16-qutebrowser (https://github.com/theova/base16-qutebrowser)

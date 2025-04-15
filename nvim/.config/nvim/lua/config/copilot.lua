@@ -262,7 +262,7 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         local name = resource.name:lower():gsub(' ', '_'):gsub(':', '')
         chat.config.functions[name] = {
             uri = resource.uri,
-            description = resource.description,
+            description = type(resource.description) == 'string' and resource.description or '',
             resolve = function()
                 local res, err = access_resource(resource.server_name, resource.uri)
                 if err then
@@ -292,7 +292,7 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
     local tools = hub:get_tools()
     for _, tool in ipairs(tools) do
         chat.config.functions[tool.name] = {
-            agent = tool.server_name,
+            group = tool.server_name,
             description = tool.description,
             schema = tool.inputSchema,
             resolve = function(input)
