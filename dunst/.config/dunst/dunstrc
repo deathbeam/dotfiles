@@ -1,6 +1,7 @@
 ; vim:ft=dosini
 
 [global]
+offset = 10x10
 alignment = left
 markup = full
 dmenu = ~/.config/fzfmenu/fzfmenu -p dunst:
