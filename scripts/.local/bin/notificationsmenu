@@ -1,0 +1,20 @@
+#!/bin/sh
+scriptpath=$(dirname "$(readlink -f "$0")")
+
+# Get notification history as JSON and parse with jq
+notifications="$(dunstctl history | jq -r '.data[] | .[] | "\(.id.data) \(.appname.data) \(.summary.data) \(.body.data)"')"
+
+# If notifications is empty, show a message and exit
+if [ -z "$notifications" ]; then
+    echo "No notifications found" >&2
+    exit 1
+fi
+
+echo "$notifications" \
+    | $scriptpath/fzfmenu "$@" \
+    --header="APP SUMMARY BODY" \
+    --with-nth=2.. \
+    --preview="echo {} | cut -d' ' -f3- | fold -s -w \$COLUMNS" \
+    --preview-window=down,3,wrap \
+    | cut -d ' ' -f 1 \
+    | xargs -I{} dunstctl history-pop {} 2>/dev/null

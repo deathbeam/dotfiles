@@ -2,11 +2,14 @@
 shopt -s nullglob globstar
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-selected_game=$(for file in ~/.steam/steam/steamapps/*.acf; do
+games="$(for file in ~/.steam/steam/steamapps/*.acf; do
     echo "$(grep -oP '"appid"\s+"\K\d+' "$file"): $(grep -oP '"name"\s+"\K[^"]+' "$file")"
-done | $scriptpath/fzfmenu "$@")
+done)"
 
-appid=$(echo "$selected_game" | grep -oP '^\d+')
+appid=$(echo "$games" | \
+    $scriptpath/fzfmenu "$@" \
+    --with-nth=2.. \
+    | grep -oP '^\d+')
 
 if [ -n "$appid" ]; then
     exec steam -silent -applaunch "$appid"

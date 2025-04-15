@@ -4,6 +4,7 @@ scriptpath=$(dirname "$(readlink -f "$0")")
 if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
     chosen_line=$(cliphist list \
         | $scriptpath/fzfmenu "$@" \
+        --with-nth=2.. \
         --preview="echo {} | cliphist decode" \
         --preview-window=right:40%)
 
