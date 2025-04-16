@@ -1,5 +1,6 @@
 color_bg: &color_bg 073642ff
 color_fg: &color_fg 93A1A1ff
+color_success: &color_success 859900ff
 color_active: &color_active 268BD2ff
 color_inactive: &color_inactive 002B36ff
 color_urgent: &color_urgent CB4B16ff
@@ -28,6 +29,10 @@ bar:
                   spacing: 0
                   items:
                     # - string: {text: "{monitor}", margin: *margin}
+                    - map:
+                        conditions:
+                          mode != DEFAULT:
+                            string: {text: "-- {mode} --", foreground: *color_success, margin: *margin}
                     - map:
                         conditions:
                           fullscreen:

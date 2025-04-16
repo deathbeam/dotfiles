@@ -15,7 +15,8 @@ update:
 install:
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	gh extension install github/gh-copilot || true
-	asdf plugin add protonge && asdf install protonge latest || true
+	asdf plugin update --all || true
+	hyprpm update || true
 	nvim --headless \
 		+MasonUpdate \
 		+MasonUpdateSync \

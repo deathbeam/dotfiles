@@ -83,6 +83,7 @@ handle_events() {
             echo "ws${i}_state|string|${workspace_status}"
         done
 
+        echo "mode|string|$(hyprctl submap | tr '[:lower:]' '[:upper:]')"
         echo "monitor|string|${monitor}"
         echo "monocle|bool|${monocle}"
         echo "floating|bool|${floating}"
