@@ -51,6 +51,9 @@ c.fonts.web.size.default = 16
 
 # Tabs
 c.tabs.padding = {"top": 5, "bottom": 5, "left": 5, "right": 5}
+c.tabs.title.format_pinned = c.tabs.title.format
+c.tabs.position = "left"
+c.tabs.pinned.shrink = False
 
 # Play videos with mpv
 config.bind('e', 'spawn --userscript /usr/share/qutebrowser/userscripts/view_in_mpv')
