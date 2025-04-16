@@ -71,6 +71,7 @@ yay -S --noconfirm --mflags --skipinteg \
     qutebrowser python-adblock \
     mpv yt-dlp \
     dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch calibre \
+    youtube-music-bin \
     stalonetray xdotool \
     gpu-screen-recorder-git
 
