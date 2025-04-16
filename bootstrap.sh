@@ -76,7 +76,6 @@ yay -S --noconfirm --mflags --skipinteg \
 
 echo '==> Installing asdf plugins'
 asdf plugin add protonge
-asdf install protonge latest
 
 echo '==> Installing dotfiles'
 git clone https://github.com/deathbeam/dotfiles || true
