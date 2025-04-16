@@ -2,17 +2,9 @@
 shopt -s nullglob globstar
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-    window=$(hyprctl clients -j \
-        | jq -r '.[] | select(.monitor != -1) | "\(.address) \(.title)"' \
-        | $scriptpath/fzfmenu "$@" --with-nth "2..")
+window=$(hyprctl clients -j \
+    | jq -r '.[] | select(.monitor != -1) | "\(.address) \(.title)"' \
+    | $scriptpath/fzfmenu "$@" --with-nth "2..")
 
-    [ -z "$window" ] && exit
-    exec hyprctl dispatch focuswindow address:$(echo "$window" | awk '{print $1}')
-else
-    ids=($(bspc query -N -n .leaf.\!hidden))
-    options="$(xtitle "${ids[@]}" | awk '{ print ++i" "$0 }')"
-    id_index=$(echo "$options" | $scriptpath/fzfmenu "$@" --with-nth "2.." | awk '{print $1}')
-    [ -z "$id_index" ] && exit
-    bspc node "${ids[$((id_index - 1))]}" -f
-fi
+[ -z "$window" ] && exit
+exec hyprctl dispatch focuswindow address:$(echo "$window" | awk '{print $1}')

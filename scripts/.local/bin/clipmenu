@@ -1,24 +1,11 @@
 #!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-if [ "$XDG_SESSION_TYPE" = "wayland" ]; then
-    chosen_line=$(cliphist list \
-        | $scriptpath/fzfmenu "$@" \
-        --with-nth=2.. \
-        --preview="echo {} | cliphist decode" \
-        --preview-window=right:40%)
-
-    [[ $chosen_line ]] || exit 1
-    echo "$chosen_line" | cliphist decode | wl-copy
-    return
-fi
-
-chosen_line=$(cb hs \
-    | jq -r '.[].content | if type=="array" then .[].path else if type=="object" then .path else . end end | gsub("\n";"\\\\N")' \
+chosen_line=$(cliphist list \
     | $scriptpath/fzfmenu "$@" \
-    --delimiter=: \
-    --preview="echo {} | sed 's/\\\\N/\\n/g'" \
+    --with-nth=2.. \
+    --preview="echo {} | cliphist decode" \
     --preview-window=right:40%)
 
 [[ $chosen_line ]] || exit 1
-echo "$chosen_line" | sed 's/\\N/\n/g' | cb cp
+echo "$chosen_line" | cliphist decode | wl-copy

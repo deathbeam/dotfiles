@@ -1,9 +1,0 @@
-quitOnTopLevelReturn: true
-
-gui:
-  border: single
-  scrollOffMargin: 8
-
-git:
-  commit:
-    signOff: true
