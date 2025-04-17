@@ -4,7 +4,9 @@ set -ex
 echo '==> Installing Wayland packages'
 yay -S --noconfirm --mflags --skipinteg \
     hyprland xorg-xwayland xclip xdg-desktop-portal-hyprland qt5-wayland qt6-wayland \
-    swaybg swaylock wl-clipboard cliphist slurp grim hyprpicker grimblast-git
+    swaybg swaylock wl-clipboard cliphist slurp grim hyprpicker grimblast-git \
+    cpio
 
+hyprpm update
 hyprpm add https://github.com/dawsers/hyprscroller
 hyprpm enable hyprscroller
