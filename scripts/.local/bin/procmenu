@@ -11,7 +11,7 @@ process=$(echo "$processes" \
     | $scriptpath/fzfmenu "$@" \
     --header="CPU% MEM% PID     USER     CMD" \
     --preview="echo {} | tr -s ' ' | cut -d ' ' -f 6-" \
-    --preview-window=down,3,wrap
+    --preview-window=down,3,wrap \
     | awk '{print $3}')
 
 [[ -n $process ]] || exit 1
