@@ -8,5 +8,5 @@ yay -S --noconfirm --mflags --skipinteg \
     cpio
 
 hyprpm update
-hyprpm add hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm add https://github.com/hyprwm/hyprland-plugins
 hyprpm enable hyprexpo
