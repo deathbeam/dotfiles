@@ -4,7 +4,7 @@ scriptpath=$(dirname "$(readlink -f "$0")")
 
 window=$(hyprctl clients -j \
     | jq -r 'group_by(.workspace.id) | .[] | . as $workspace | to_entries | .[]
-    | "\(.value.address) \(.value.workspace.id)-\(.key + 1): \(.value.title)"' \
+    | "\(.value.address) \(.value.workspace.id)\(.key + 1): \(.value.title)"' \
     | $scriptpath/fzfmenu "$@" --with-nth "2..")
 
 [[ -n $window ]] || exit 1
