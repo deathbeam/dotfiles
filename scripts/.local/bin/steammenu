@@ -11,6 +11,5 @@ appid=$(echo "$games" | \
     --with-nth=2.. \
     | grep -oP '^\d+')
 
-if [ -n "$appid" ]; then
-    exec steam -silent -applaunch "$appid"
-fi
+[[ -n $appid ]] || exit 1
+exec steam -silent -applaunch "$appid"

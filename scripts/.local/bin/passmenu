@@ -9,7 +9,7 @@ password_files=( "${password_files[@]%.gpg}" )
 
 password=$(printf '%s\n' "${password_files[@]}" | $scriptpath/fzfmenu "$@")
 
-[[ -n $password ]] || exit
+[[ -n $password ]] || exit 1
 
 if [[ "$password" == OTP/* ]]; then
     exec pass otp -c "$password"
