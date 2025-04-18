@@ -35,16 +35,6 @@ bar:
                             string: {text: "-- {mode} --", foreground: *color_success, margin: *margin}
                     - map:
                         conditions:
-                          fullscreen:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
-                          floating:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
-                          monocle:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
-                          ~monocle:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
-                    - map:
-                        conditions:
                           ws1_state == occupied:
                             string: {text: 1, margin: *margin}
                           ws1_state == empty:
@@ -135,10 +125,20 @@ bar:
                             string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
+                          fullscreen:
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                          floating:
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                          monocle:
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                          ~monocle:
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                    - map:
+                        conditions:
                           process != "" && xwayland:
-                            string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_warning}}, margin: *margin}
+                            string: {text: "{process}", foreground: *color_warning, deco: {background: {color: *color_inactive}}, margin: *margin}
                           process != "":
-                            string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: "{process}", foreground: *color_active, deco: {background: {color: *color_inactive}}, margin: *margin}
                     - map:
                         conditions:
                           title != "":
@@ -146,21 +146,34 @@ bar:
   right:
     -
       network:
-        poll-interval: 1000
+        poll-interval: 5000
         content:
           map:
             conditions:
-              name == wlan0:
+              type == wlan && state == up:
                 string: {text: "  {ssid}", margin: *margin}
+              type == ethernet && state == up:
+                string: {text: "  {ipv4}", margin: *margin}
     -
       mem:
         content:
-          string: {text: "  {percent_used}%", margin: *margin}
+          map:
+            conditions:
+              percent_used >= 80:
+                string: {text: "  {percent_used}%", foreground: *color_urgent, margin: *margin}
+              percent_used >= 65:
+                string: {text: "  {percent_used}%", foreground: *color_warning, margin: *margin}
+              percent_used >= 0:
+                string: {text: "  {percent_used}%", margin: *margin}
     -
       cpu:
         content:
           map:
             conditions:
+              id < 0 && cpu >= 80:
+                string: {text: "  {cpu}%", foreground: *color_urgent, margin: *margin}
+              id < 0 && cpu >= 65:
+                string: {text: "  {cpu}%", foreground: *color_warning, margin: *margin}
               id < 0:
                 string: {text: "  {cpu}%", margin: *margin}
     -
@@ -169,8 +182,12 @@ bar:
         content:
           map:
             conditions:
-              percent >= 0:
-                string: {text: "  {percent}%", margin: 15}
+              utilization >= 80 || temperature >= 80:
+                string: {text: "  {utilization}%|{temperature}°C", foreground: *color_urgent, margin: *margin}
+              utilization >= 65 || temperature >= 65:
+                string: {text: "  {utilization}%|{temperature}°C", foreground: *color_warning, margin: *margin}
+              utilization >= 0:
+                string: {text: "  {utilization}%|{temperature}°C", margin: *margin}
     -
       alsa:
         card: hw:PCH
@@ -187,7 +204,14 @@ bar:
       battery:
         name: BAT0
         content:
-          string: {text: "  {capacity}%", margin: *margin}
+          map:
+            conditions:
+              capacity <= 10:
+                string: {text: "  {capacity}%", foreground: *color_urgent, margin: *margin}
+              capacity <= 30:
+                string: {text: "  {capacity}%", foreground: *color_warning, margin: *margin}
+              capacity <= 100:
+                string: {text: "  {capacity}%", margin: *margin}
     -
       clock:
         date-format: "%Y-%m-%d"
@@ -205,8 +229,8 @@ bar:
               - map:
                   conditions:
                     updates > 0:
-                      string: {text: "  {updates}", foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
+                      string: {text: "  {updates}", foreground: *color_urgent, margin: *margin}
               - map:
                   conditions:
                     github > 0:
-                      string: {text: "  {github}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                      string: {text: "  {github}", foreground: *color_active, margin: *margin}
