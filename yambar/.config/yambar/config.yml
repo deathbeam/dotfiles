@@ -126,19 +126,19 @@ bar:
                     - map:
                         conditions:
                           fullscreen:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                           floating:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                           monocle:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                           ~monocle:
-                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
                           process != "" && xwayland:
-                            string: {text: "{process}", foreground: *color_warning, deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_warning}}, margin: *margin}
                           process != "":
-                            string: {text: "{process}", foreground: *color_active, deco: {background: {color: *color_inactive}}, margin: *margin}
+                            string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
                           title != "":
