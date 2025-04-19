@@ -6,6 +6,9 @@ local icons = require('config.icons')
 -- Set win border
 vim.o.winborder = 'single'
 
+-- Enable help stuff
+vim.g.helpful = 1
+
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
 vim.opt.termguicolors = true
