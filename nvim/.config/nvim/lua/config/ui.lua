@@ -15,13 +15,34 @@ vim.opt.termguicolors = true
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
-        local base03 = base16.colors.base03
-        vim.api.nvim_set_hl(0, 'StatusLine', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'LineNr', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'VertSplit', { fg = base03 })
-        vim.api.nvim_set_hl(0, 'WinSeparator', { fg = base03 })
+        local bright_black = base16.colors.base03
+        vim.api.nvim_set_hl(0, 'StatusLine', { fg = bright_black })
+        vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = bright_black })
+        vim.api.nvim_set_hl(0, 'LineNr', { fg = bright_black })
+        vim.api.nvim_set_hl(0, 'VertSplit', { fg = bright_black })
+        vim.api.nvim_set_hl(0, 'WinSeparator', { fg = bright_black })
         -- vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {})
+
+        local function blend_color(color_name, blend)
+            local color_int = vim.api.nvim_get_hl(0, { name = color_name }).fg
+            local bg_int = vim.api.nvim_get_hl(0, { name = 'Normal' }).bg
+
+            if not color_int or not bg_int then
+                return
+            end
+
+            local color = { (color_int / 65536) % 256, (color_int / 256) % 256, color_int % 256 }
+            local bg = { (bg_int / 65536) % 256, (bg_int / 256) % 256, bg_int % 256 }
+            local r = math.floor((color[1] * blend + bg[1] * (100 - blend)) / 100)
+            local g = math.floor((color[2] * blend + bg[2] * (100 - blend)) / 100)
+            local b = math.floor((color[3] * blend + bg[3] * (100 - blend)) / 100)
+            vim.api.nvim_set_hl(0, color_name, { bg = string.format('#%02x%02x%02x', r, g, b) })
+        end
+
+        blend_color('DiffAdd', 20)
+        blend_color('DiffDelete', 20)
+        blend_color('DiffChange', 20)
+        blend_color('DiffText', 20)
     end,
 })
 base16.load_from_shell()
