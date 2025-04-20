@@ -258,10 +258,12 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
     end, 3)
 
     local resources = hub:get_resources()
+    local resource_templates = hub:get_resource_templates()
+    vim.list_extend(resources, resource_templates)
     for _, resource in ipairs(resources) do
         local name = resource.name:lower():gsub(' ', '_'):gsub(':', '')
         chat.config.functions[name] = {
-            uri = resource.uri,
+            uri = resource.uri or resource.uriTemplate,
             description = type(resource.description) == 'string' and resource.description or '',
             resolve = function()
                 local res, err = access_resource(resource.server_name, resource.uri)
