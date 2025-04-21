@@ -70,7 +70,7 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch calibre \
+    dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch lutris calibre \
     youtube-music-bin \
     stalonetray xdotool \
     gpu-screen-recorder-git

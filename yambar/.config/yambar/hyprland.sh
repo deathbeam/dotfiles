@@ -50,7 +50,10 @@ handle_events() {
         fi
 
         for workspace in $(echo "$read_workspaces" | jq -r '.[].id'); do
-            workspace_exists[$workspace]=1
+            # Skip non-numeric and special workspaces
+            if [[ "$workspace" =~ ^[0-9]+$ ]]; then
+                workspace_exists[$workspace]=1
+            fi
         done
 
         # If we received urgent window event mark urgent workspace
