@@ -45,7 +45,7 @@ yay -S --noconfirm --mflags --skipinteg \
     maven npm asdf-vm python-poetry \
     github-cli \
     docker docker-compose \
-    azure-cli kubectl k9s argocd azure-kubelogin \
+    azure-cli kubectl k9s argocd azure-kubelogin temporal-cli \
     ollama
 
 echo '==> Installing python packages'
