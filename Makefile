@@ -14,6 +14,7 @@ update:
 
 install:
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
+	npm install -g mcp-hub@latest
 	gh extension install github/gh-copilot || true
 	asdf plugin update --all && asdf install protonge latest || true
 	hyprpm update || true
