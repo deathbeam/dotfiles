@@ -1,31 +1,33 @@
 ; vim:ft=dosini
 
 [global]
-offset = 10x10
-alignment = left
-markup = full
 dmenu = ~/.config/fzfmenu/fzfmenu -p dunst:
-font = monospace 12
-history_length = 20
+history_length = 100
 idle_threshold = 120
-ignore_newline = no
+
+# Limit notifications displayed at once and indicate hidden ones
+notification_limit = 5
 indicate_hidden = yes
-line_height = 0
-monitor = 0
+
+# Position on screen
+offset = (10, 10)
 follow = keyboard
+
+# Navigation
+mouse_left_click = do_action, close_current
+mouse_right_click = close_current
+mouse_middle_click = close_all
+
+# UI
+enable_recursive_icon_lookup = true
+markup = full
+font = monospace 12
 padding = 5
 horizontal_padding = 5
+frame_color = "#268bd2"
+frame_width = 1
 separator_color = frame
 separator_height = 1
-show_age_threshold = 60
-show_indicators = yes
-shrink = no
-sort = yes
-sticky_history = yes
-transparency = 0
-word_wrap = yes
-frame_width = 1
-frame_color = "#268bd2"
 
 [play_sound]
 summary = "*"
