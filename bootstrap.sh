@@ -117,6 +117,11 @@ grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pac
 grep -q "^ILoveCandy" /etc/pacman.conf || sudo sed -i '/\[options\]/a ILoveCandy' /etc/pacman.conf
 grep -q "^ParallelDownloads = 10" /etc/pacman.conf || sudo sed -i '/\[options\]/a ParallelDownloads = 10' /etc/pacman.conf
 
+# Modify systemd-networkd-wait-online.service to use --any parameter instead of waiting for all interfaces
+if grep -q "ExecStart=/usr/lib/systemd/systemd-networkd-wait-online$" /etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service; then
+    sudo sed -i 's|ExecStart=/usr/lib/systemd/systemd-networkd-wait-online|ExecStart=/usr/lib/systemd/systemd-networkd-wait-online --any|' /etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service
+fi
+
 # Modify groups
 sudo groupadd -f vboxsf
 sudo usermod -aG vboxsf "$USER"

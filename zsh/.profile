@@ -17,6 +17,9 @@ export JAVA_HOME=/usr/lib/jvm/default
 export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
+# Browser
+export BROWSER="qutebrowser"
+
 # Better pager
 export PAGER="less"
 export MANPAGER="$EDITOR +Man!"
