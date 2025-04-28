@@ -30,6 +30,7 @@ frame_color = "#268bd2"
 [play_sound]
 summary = "*"
 script = ~/.config/dunst/alert.sh
+msg_urgency = critical
 
 [urgency_low]
 background = "#002b36"
