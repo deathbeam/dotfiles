@@ -9,6 +9,9 @@ vim.o.winborder = 'single'
 -- Enable help stuff
 vim.g.helpful = 1
 
+-- Ext ui native
+require('vim._extui').enable({})
+
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
 vim.opt.termguicolors = true

@@ -13,7 +13,9 @@ c.qt.args = [
     'enable-accelerated-video-decode',
     'enable-quic',
     'enable-zero-copy',
-    'enable-features=VaapiVideoDecoder,VaapiVideoEncoder'
+    'enable-features=VaapiVideoDecoder,VaapiVideoEncoder',
+    'use-gl=angle',
+    'use-angle=default'
 ]
 
 # Save

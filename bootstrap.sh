@@ -30,7 +30,7 @@ yay -S --noconfirm --mflags --skipinteg \
     dosfstools fuse2 \
     alsa-utils vulkan-tools libva-utils \
     stow zsh tmux ripgrep mlocate btop \
-    tree-sitter-git neovim-git ctags less bat fswatch jq jnv-bin \
+    tree-sitter-git neovim-git ctags less bat fswatch jq jnv \
     pass pass-otp \
     rate-mirrors unzip bc \
     p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu \

@@ -175,9 +175,6 @@ noremap! <C-E> <End>
 "noremap! <C-P> <End><C-U><Up>
 "noremap! <C-N> <End><C-U><Down>
 
-" Nice mapping for messages as buffer
-nnoremap <leader>m :botright new +set\ buftype=nofile\ bufhidden=wipe <bar> put =execute('messages')<CR>
-
 " Sudo save
 command! W execute 'w !sudo -S tee % > /dev/null'
 
