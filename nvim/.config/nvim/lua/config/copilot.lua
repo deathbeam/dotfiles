@@ -35,7 +35,7 @@ Always end with:
 ]]
 
 chat.setup({
-    model = 'claude-3.7-sonnet',
+    model = 'gpt-4.1',
     debug = true,
     temperature = 0,
     question_header = ' ' .. icons.ui.User .. ' ',
