@@ -15,32 +15,40 @@ configs['pylance'] = {
     },
 }
 
-return Pkg.new({
-    name = 'pylance',
-    desc = [[Fast, feature-rich language support for Python]],
-    homepage = 'https://github.com/microsoft/pylance',
-    languages = { Pkg.Lang.Python },
-    categories = { Pkg.Cat.LSP },
-    install = function(ctx)
-        ctx.receipt:with_primary_source(ctx.receipt.unmanaged)
-        ctx.spawn.bash({
-            '-c',
-            ([[
+return {
+    name = "pylance",
+    description = "Fast, feature-rich language support for Python",
+    categories = { "LSP" },
+    homepage = "https://github.com/microsoft/pylance",
+    languages = { "python" },
+    licenses = { "Proprietary" },
+    source = {
+        id = "pkg:mason/pylance",
+        ---@param ctx InstallContext
+        install = function(ctx)
+            ctx.spawn.bash({
+                "-c",
+                [[
                 curl -s -c cookies.txt 'https://marketplace.visualstudio.com/items?itemName=ms-python.vscode-pylance' > /dev/null &&
-                curl -s "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/latest/vspackage"
-                 -j -b cookies.txt --compressed --output "pylance.vsix"
-            ]]):gsub('\n', ' '),
-        })
-        ctx.spawn.unzip({ 'pylance.vsix' })
-        ctx.spawn.bash({
-            '-c',
-            ([[
+                curl -s "https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-python/vsextensions/vscode-pylance/latest/vspackage" -j -b cookies.txt --compressed --output "pylance.vsix"
+                ]],
+            })
+            ctx.spawn.unzip({ "pylance.vsix" })
+            ctx.spawn.bash({
+                "-c",
+                [[
                 perl -pe 's/if\(!process.*?\)return!\[\];/if(false)return false;/g; s/throw new//g' extension/dist/server.bundle.js > extension/dist/server_nvim.js
-            ]]):gsub('\n', ' '),
-        })
-        ctx:link_bin(
-            'pylance',
-            ctx:write_node_exec_wrapper('pylance', path.concat({ 'extension', 'dist', 'server_nvim.js' }))
-        )
-    end,
-})
+                ]],
+            })
+            ctx.fs:mkdir("bin")
+            ctx.fs:write_file("bin/pylance", [[
+#!/usr/bin/env bash
+node "$(dirname "$0")/../extension/dist/server_nvim.js" "$@"
+            ]])
+            ctx.fs:chmod("+x", "bin/pylance")
+        end,
+    },
+    bin = {
+        ["pylance"] = "bin/pylance",
+    },
+}

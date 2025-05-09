@@ -1,6 +1,5 @@
 local dap = require('dap')
 local dap_utils = require('dap.utils')
-local registry = require('mason-registry')
 
 local function dotnet_build_project(callback)
     local path = vim.fn.getcwd() .. '/'
@@ -43,7 +42,7 @@ dap.adapters.coreclr = function(callback, _)
     dotnet_build_project(function()
         callback({
             type = 'executable',
-            command = registry.get_package('netcoredbg'):get_install_path() .. '/netcoredbg',
+            command = 'netcoredbg',
             args = { '--interpreter=vscode' },
         })
     end)

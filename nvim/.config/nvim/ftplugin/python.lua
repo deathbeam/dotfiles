@@ -1,12 +1,10 @@
 local dap = require('dap')
-local registry = require('mason-registry')
 
 dap.adapters.python = function(callback, config)
     if config.request == 'launch' then
         callback({
             type = 'executable',
-            command = registry.get_package('debugpy'):get_install_path() .. '/venv/bin/python',
-            args = { '-m', 'debugpy.adapter' },
+            command = 'debugpy-adapter'
         })
     else
         callback({

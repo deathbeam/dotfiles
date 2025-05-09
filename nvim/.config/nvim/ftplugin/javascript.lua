@@ -1,11 +1,10 @@
 local dap = require('dap')
 local dap_utils = require('dap.utils')
-local registry = require('mason-registry')
 local dap_vscode_js = require('dap-vscode-js')
 
 if not vim.g.js_adapter then
     dap_vscode_js.setup({
-        debugger_path = registry.get_package('js-debug-adapter'):get_install_path(),
+        debugger_cmd = 'js-debug-adapter',
         adapters = {
             'pwa-node',
             'pwa-chrome',

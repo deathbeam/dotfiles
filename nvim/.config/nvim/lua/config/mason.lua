@@ -5,6 +5,7 @@ require('mason').setup({
     },
     registries = {
         'github:mason-org/mason-registry',
+        'github:Crashdummyy/mason-registry',
         'lua:config.registry',
     },
 })
@@ -34,14 +35,13 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                     pkg:install():once('closed', resolve)
                 end)
             else
-                local new_version, version_info = a.wait(function(resolve)
-                    pkg:check_new_version(resolve)
-                end)
-                if new_version then
+                local installed_version = pkg:get_installed_version()
+                local latest_version = pkg:get_latest_version()
+                if latest_version and installed_version ~= latest_version then
                     a.scheduler()
-                    vim.notify('Updating ' .. name .. ' to ' .. version_info.latest_version, vim.log.levels.INFO)
+                    vim.notify('Updating ' .. name .. ' from ' .. installed_version .. ' to ' .. latest_version, vim.log.levels.INFO)
                     a.wait(function(resolve)
-                        pkg:install({ version = version_info.latest_version }):once('closed', resolve)
+                        pkg:install({ version = latest_version }):once('closed', resolve)
                     end)
                 end
             end
@@ -52,7 +52,9 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
             if not vim.tbl_contains(packages, name) then
                 a.scheduler()
                 vim.notify('Uninstalling ' .. name, vim.log.levels.INFO)
-                pkg:uninstall()
+                a.wait(function(resolve)
+                    pkg:uninstall():once('closed', resolve)
+                end)
             end
         end
     end)

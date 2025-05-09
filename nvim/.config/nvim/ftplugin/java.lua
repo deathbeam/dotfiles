@@ -11,7 +11,6 @@ local function prepare_jdtls()
     end
 
     local languages = require('config.languages')
-    local registry = require('mason-registry')
     local dap = require('dap')
 
     dap.configurations.java = {
@@ -29,32 +28,32 @@ local function prepare_jdtls()
     }
 
     local data = {}
-    local jdtls_install = registry.get_package('jdtls'):get_install_path()
+    local jdtls_path = vim.fn.expand("$MASON/share/jdtls")
+    local java_test_path = vim.fn.expand("$MASON/share/java-test")
+    local java_debug_path = vim.fn.expand("$MASON/share/java-debug-adapter")
 
     data.settings = vim.tbl_filter(function(language)
         return language.mason and vim.tbl_contains(language.mason, 'jdtls')
     end, languages)[1].settings
 
     data.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
-    data.java_agent = jdtls_install .. '/lombok.jar'
-    data.launcher_jar = vim.trim(vim.fn.glob(jdtls_install .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
+    data.java_agent = jdtls_path .. '/lombok.jar'
+    data.launcher_jar = vim.trim(vim.fn.glob(jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
     if vim.fn.has('mac') == 1 then
-        data.platform_config = jdtls_install .. '/config_mac'
+        data.platform_config = jdtls_path .. '/config_mac'
     elseif vim.fn.has('unix') == 1 then
-        data.platform_config = jdtls_install .. '/config_linux'
+        data.platform_config = jdtls_path .. '/config_linux'
     elseif vim.fn.has('win32') == 1 then
-        data.platform_config = jdtls_install .. '/config_win'
+        data.platform_config = jdtls_path .. '/config_win'
     end
 
     data.bundles = {}
 
-    local java_test_path = registry.get_package('java-test'):get_install_path()
     local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. '/extension/server/*.jar'), '\n')
     if java_test_bundle[1] ~= '' then
         vim.list_extend(data.bundles, java_test_bundle)
     end
 
-    local java_debug_path = registry.get_package('java-debug-adapter'):get_install_path()
     local java_debug_bundle =
         vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
