@@ -39,7 +39,10 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                 local latest_version = pkg:get_latest_version()
                 if latest_version and installed_version ~= latest_version then
                     a.scheduler()
-                    vim.notify('Updating ' .. name .. ' from ' .. installed_version .. ' to ' .. latest_version, vim.log.levels.INFO)
+                    vim.notify(
+                        'Updating ' .. name .. ' from ' .. installed_version .. ' to ' .. latest_version,
+                        vim.log.levels.INFO
+                    )
                     a.wait(function(resolve)
                         pkg:install({ version = latest_version }):once('closed', resolve)
                     end)

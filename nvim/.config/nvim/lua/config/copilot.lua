@@ -159,10 +159,13 @@ chat.setup({
             end,
 
             get_models = function(headers)
-                local response, err = require('CopilotChat.utils').curl_get('https://generativelanguage.googleapis.com/v1beta/openai/models', {
-                    headers = headers,
-                    json_response = true,
-                })
+                local response, err = require('CopilotChat.utils').curl_get(
+                    'https://generativelanguage.googleapis.com/v1beta/openai/models',
+                    {
+                        headers = headers,
+                        json_response = true,
+                    }
+                )
 
                 if err then
                     error(err)
@@ -180,15 +183,18 @@ chat.setup({
             end,
 
             embed = function(inputs, headers)
-                local response, err = require('CopilotChat.utils').curl_post('https://generativelanguage.googleapis.com/v1beta/openai/embeddings', {
-                    headers = headers,
-                    json_request = true,
-                    json_response = true,
-                    body = {
-                        input = inputs,
-                        model = 'text-embedding-004',
-                    },
-                })
+                local response, err = require('CopilotChat.utils').curl_post(
+                    'https://generativelanguage.googleapis.com/v1beta/openai/embeddings',
+                    {
+                        headers = headers,
+                        json_request = true,
+                        json_response = true,
+                        body = {
+                            input = inputs,
+                            model = 'text-embedding-004',
+                        },
+                    }
+                )
 
                 if err then
                     error(err)
@@ -200,7 +206,7 @@ chat.setup({
             get_url = function()
                 return 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions'
             end,
-        }
+        },
     },
 })
 
@@ -222,10 +228,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
     vim.ui.input({
         prompt = 'AI Question> ',
     }, function(input)
-            if input ~= '' then
-                chat.ask(input)
-            end
-        end)
+        if input ~= '' then
+            chat.ask(input)
+        end
+    end)
 end, { desc = 'AI Question' })
 
 -- MCP hub
@@ -287,7 +293,7 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
                 end
 
                 return out
-            end
+            end,
         }
     end
 
@@ -311,7 +317,7 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
                 for _, message in ipairs(content) do
                     if message.type == 'text' then
                         table.insert(out, {
-                            data = message.text
+                            data = message.text,
                         })
                     elseif message.type == 'resource' and message.resource and message.resource.text then
                         table.insert(out, {
@@ -323,7 +329,7 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
                 end
 
                 return out
-            end
+            end,
         }
     end
 end)

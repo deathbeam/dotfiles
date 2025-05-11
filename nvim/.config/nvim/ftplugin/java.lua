@@ -28,9 +28,9 @@ local function prepare_jdtls()
     }
 
     local data = {}
-    local jdtls_path = vim.fn.expand("$MASON/share/jdtls")
-    local java_test_path = vim.fn.expand("$MASON/share/java-test")
-    local java_debug_path = vim.fn.expand("$MASON/share/java-debug-adapter")
+    local jdtls_path = vim.fn.expand('$MASON/share/jdtls')
+    local java_test_path = vim.fn.expand('$MASON/share/java-test')
+    local java_debug_path = vim.fn.expand('$MASON/share/java-debug-adapter')
 
     data.settings = vim.tbl_filter(function(language)
         return language.mason and vim.tbl_contains(language.mason, 'jdtls')

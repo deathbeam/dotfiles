@@ -14,11 +14,16 @@ for name, sign in pairs(icons.dap) do
     vim.fn.sign_define('Dap' .. name, { text = sign[1], texthl = sign[2] or 'DiagnosticInfo' })
 end
 
+-- Debugprint
+require('debugprint').setup()
+local debugprint_printtag_operations = require('debugprint.printtag_operations')
+nmap('<leader>dp', debugprint_printtag_operations.show_debug_prints_fzf, 'Show Debug Prints')
+
+-- Dap
 local dap = require('dap')
 local widgets = require('dap.ui.widgets')
 local autocompl = require('dap.ext.autocompl')
 local terminal = require('config.dap.terminal')
-
 dap.defaults.fallback.terminal_win_cmd = ':lua require("config.dap.terminal").open()'
 
 require('nvim-dap-virtual-text').setup({})

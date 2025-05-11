@@ -4,7 +4,7 @@ dap.adapters.python = function(callback, config)
     if config.request == 'launch' then
         callback({
             type = 'executable',
-            command = 'debugpy-adapter'
+            command = 'debugpy-adapter',
         })
     else
         callback({

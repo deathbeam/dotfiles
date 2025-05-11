@@ -17,7 +17,7 @@ require('myplugins').setup({
         end,
     },
     lspecho = {
-        attach_log = true
+        attach_log = true,
     },
     cmdcomplete = {},
     diagnostics = {},
@@ -57,7 +57,7 @@ nmap('<leader>fu', undotree.show, 'Find Undo History')
 local zoom = require('myplugins.zoom')
 nmap('<leader>z', zoom.toggle, 'Zoom')
 
-local http = require("myplugins.httpyac")
+local http = require('myplugins.httpyac')
 desc('<leader>h', 'HTTP')
 nmap('<leader>ho', http.toggle, 'HTTP Toggle')
 nmap('<leader>hh', http.run, 'HTTP Run')
