@@ -196,9 +196,6 @@ alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'
 alias gcm='git commit --signoff --message'
 
-# Set virtualenv shared requirements txt
-export AUTOSWITCH_DEFAULT_REQUIREMENTS="$HOME/.requirements.txt"
-
 # Set theme last
 function () {
     local theme=$1
@@ -210,11 +207,6 @@ function () {
 } base16
 set_theme $BASE16_THEME_DEFAULT true
 export BAT_THEME="base16-256"
-
-# Load asdf
-if [ -d /opt/asdf-vm ]; then
-  . /opt/asdf-vm/asdf.sh
-fi
 
 # }}}
 
