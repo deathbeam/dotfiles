@@ -45,14 +45,14 @@
 	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
 	url = https://github.com/ibhagwan/fzf-lua
 [submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
-	path = zsh/.zsh/pack/bundle/start/base16-fzf
-	url = https://github.com/tinted-theming/base16-fzf
+	path = zsh/.zsh/pack/bundle/start/tinted-fzf
+	url = https://github.com/tinted-theming/tinted-fzf
 [submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-web-devicons
 	url = https://github.com/nvim-tree/nvim-web-devicons
 [submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
-	path = zsh/.zsh/pack/bundle/start/base16-shell
-	url = https://github.com/tinted-theming/base16-shell
+	path = zsh/.zsh/pack/bundle/start/tinted-shell
+	url = https://github.com/tinted-theming/tinted-shell
 [submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
 	url = https://github.com/aserowy/tmux.nvim
