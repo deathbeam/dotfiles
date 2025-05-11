@@ -1,21 +1,6 @@
 #!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-export FZF_DEFAULT_OPTS="$FZF_DEFAULT_OPTS
-   --color=border:#268bd2
-   --no-border
-   --margin 0,0
-   --preview-window=border-sharp:wrap
-   --no-separator
-   --info=inline-right
-   --cycle
-   --print-query
-   --no-multi
-   --reverse
-   --no-separator
-   --info=inline-right
-"
-
 FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
 FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
 TITLE=""
@@ -49,13 +34,20 @@ run_menu() {
 prompt() {
   : > $FILE_CHOICES
   $TERMINAL $TERM_CLASS shellmenu -T "$TITLE" \
-    -e "$SHELL" -c "
-      source ~/.profile
-      source ~/.fzf.zsh
-      source ~/.zsh/pack/bundle/start/base16-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
-      source ~/.zsh/pack/bundle/start/base16-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
-      export BAT_THEME=$BAT_THEME;
-      exec fzf $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES
+    -e "$SHELL" -ic "
+      exec fzf \
+          --no-border \
+          --margin 0,0 \
+          --preview-window=border-sharp:wrap \
+          --no-separator \
+          --info=inline-right \
+          --cycle \
+          --print-query \
+          --no-multi \
+          --reverse \
+          --no-separator \
+          --info=inline-right \
+          $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES
   " &
   pid=$!
   trap "kill -9 $pid" SIGTERM

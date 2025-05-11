@@ -205,7 +205,8 @@ function () {
         fast-theme $theme
     fi
 } base16
-set_theme $BASE16_THEME_DEFAULT true
+source ~/.zsh/pack/bundle/start/tinted-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
+source ~/.zsh/pack/bundle/start/tinted-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
 export BAT_THEME="base16-256"
 
 # }}}
