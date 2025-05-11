@@ -39,7 +39,6 @@ export LC_ALL="en_US.UTF-8"
 
 # Theme
 export BASE16_THEME_DEFAULT="solarized-dark"
-export BASE16_FZF_PATH=~/.zsh/pack/bundle/start/base16-fzf
 
 # Set the default terminal emulator
 export TERMINAL="alacritty"

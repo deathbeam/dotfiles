@@ -48,7 +48,7 @@ au('ColorScheme', {
         blend_color('DiffText', 20)
     end,
 })
-base16.load_from_shell()
+vim.cmd('colorscheme base16-' .. os.getenv('BASE16_THEME_DEFAULT'))
 
 -- Load icons
 require('nvim-web-devicons').setup()
