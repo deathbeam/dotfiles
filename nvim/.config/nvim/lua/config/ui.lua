@@ -24,7 +24,6 @@ au('ColorScheme', {
         vim.api.nvim_set_hl(0, 'LineNr', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'VertSplit', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'WinSeparator', { fg = bright_black })
-        -- vim.api.nvim_set_hl(0, 'DiagnosticUnnecessary', {})
 
         local function blend_color(color_name, blend)
             local color_int = vim.api.nvim_get_hl(0, { name = color_name }).fg
