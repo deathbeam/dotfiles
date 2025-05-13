@@ -38,24 +38,15 @@ local function prepare_jdtls()
 
     data.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
     data.java_agent = jdtls_path .. '/lombok.jar'
-    data.launcher_jar = vim.trim(vim.fn.glob(jdtls_path .. '/plugins/org.eclipse.equinox.launcher_*.jar'))
-    if vim.fn.has('mac') == 1 then
-        data.platform_config = jdtls_path .. '/config_mac'
-    elseif vim.fn.has('unix') == 1 then
-        data.platform_config = jdtls_path .. '/config_linux'
-    elseif vim.fn.has('win32') == 1 then
-        data.platform_config = jdtls_path .. '/config_win'
-    end
-
     data.bundles = {}
 
-    local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. '/extension/server/*.jar'), '\n')
+    local java_test_bundle = vim.split(vim.fn.glob(java_test_path .. '/*.jar'), '\n')
     if java_test_bundle[1] ~= '' then
         vim.list_extend(data.bundles, java_test_bundle)
     end
 
     local java_debug_bundle =
-        vim.split(vim.fn.glob(java_debug_path .. '/extension/server/com.microsoft.java.debug.plugin-*.jar'), '\n')
+        vim.split(vim.fn.glob(java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(data.bundles, java_debug_bundle)
     end
@@ -75,31 +66,14 @@ end
 
 local cwd = vim.fn.getcwd()
 local data = prepare_jdtls()
-local data_dir = data.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t')
 
 -- The command that starts the language server
 -- See: https://github.com/eclipse/eclipse.jdt.ls#running-from-the-command-line
 -- Also see: https://github.com/redhat-developer/vscode-java/blob/master/src/javaServerStarter.ts
 local cmd = {
-    'java',
-    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
-    '-Dosgi.bundles.defaultStartLevel=4',
-    '-Declipse.product=org.eclipse.jdt.ls.core.product',
-    '-Djava.import.generatesMetadataFilesAtProjectRoot=false',
-    '-Xlog:disable',
-    '-Xms1g',
-    '--add-modules=ALL-SYSTEM',
-    '--add-opens',
-    'java.base/java.util=ALL-UNNAMED',
-    '--add-opens',
-    'java.base/java.lang=ALL-UNNAMED',
-    '-javaagent:' .. data.java_agent,
-    '-jar',
-    data.launcher_jar,
-    '-configuration',
-    data.platform_config,
-    '-data',
-    data_dir,
+    'jdtls',
+    '--jvm-arg=-javaagent:' .. data.java_agent,
+    '-data', data.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t'),
 }
 
 -- This starts a new client & server,

@@ -35,7 +35,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                     pkg:install():once('closed', resolve)
                 end)
             else
-                local installed_version = pkg:get_installed_version()
+                local installed_version = pkg:get_installed_version() or ''
                 local latest_version = pkg:get_latest_version()
                 if latest_version and installed_version ~= latest_version then
                     a.scheduler()
