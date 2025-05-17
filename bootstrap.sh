@@ -23,6 +23,7 @@ if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
 fi
 
 # mkinitcpio-firmware \ is broken
+# thermald-git \ idk whats up with this
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     xdg-utils xdg-user-dirs \
@@ -34,7 +35,7 @@ yay -S --noconfirm --mflags --skipinteg \
     pass pass-otp \
     rate-mirrors unzip bc \
     p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu \
-    brightnessctl power-profiles-daemon thermald-git
+    brightnessctl power-profiles-daemon
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
