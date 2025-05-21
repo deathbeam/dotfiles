@@ -10,9 +10,10 @@ if lspci | grep -q 'NVIDIA'; then
     export __GL_GSYNC_ALLOWED=1
     export __GL_VRR_ALLOWED=1
     export __GL_MaxFramesAllowed=1
+    export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME="nvidia"
     export __VK_LAYER_NV_optimus="NVIDIA_only"
-    export __NV_PRIME_RENDER_OFFLOAD=1
+    export GAMEMODERUNEXEC="env __NV_PRIME_RENDER_OFFLOAD=1 __GLX_VENDOR_LIBRARY_NAME=nvidia __VK_LAYER_NV_optimus=NVIDIA_only"
 fi
 
 # Launch compositor
