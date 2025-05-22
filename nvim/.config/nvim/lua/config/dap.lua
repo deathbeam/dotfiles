@@ -17,7 +17,7 @@ end
 -- Debugprint
 require('debugprint').setup()
 local debugprint_printtag_operations = require('debugprint.printtag_operations')
-nmap('<leader>dp', debugprint_printtag_operations.show_debug_prints_fzf, 'Show Debug Prints')
+nmap('<leader>dp', debugprint_printtag_operations.show_debug_prints_fuzzy_finder, 'Show Debug Prints')
 
 -- Dap
 local dap = require('dap')
