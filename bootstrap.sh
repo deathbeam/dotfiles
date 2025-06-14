@@ -74,7 +74,8 @@ yay -S --noconfirm --mflags --skipinteg \
     dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch lutris calibre \
     youtube-music-bin \
     stalonetray xdotool \
-    gpu-screen-recorder-git
+    gpu-screen-recorder-git \
+    jamesdsp
 
 echo '==> Installing asdf plugins'
 asdf plugin add protonge
