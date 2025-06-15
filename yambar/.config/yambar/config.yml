@@ -193,7 +193,23 @@ bar:
         card: hw:PCH
         mixer: Master
         content:
-          string: {text: "  {percent}%", margin: *margin}
+          map:
+            conditions:
+              muted:
+                string: {text: " ", foreground: *color_urgent, margin: *margin}
+              ~muted:
+                string: {text: "  {percent}%", margin: *margin}
+    -
+      alsa:
+        card: hw:PCH
+        mixer: Capture
+        content:
+          map:
+            conditions:
+              muted:
+                string: {text: " ", foreground: *color_urgent, margin: *margin}
+              ~muted:
+                string: {text: " {percent}%", margin: *margin}
     -
       script:
         path: ~/.config/yambar/brightness.sh
