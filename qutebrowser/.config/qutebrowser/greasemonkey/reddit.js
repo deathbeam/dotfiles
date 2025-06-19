@@ -1,8 +1,6 @@
 (function() {
     'use strict';
-
-    var x = document.getElementsByClassName('infobar-toaster-container');
-    for (var y of x) {
+    for (var y of document.getElementsByClassName('infobar-toaster-container')) {
         y.remove();
     }
 })();
