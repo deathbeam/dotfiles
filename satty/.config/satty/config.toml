@@ -5,7 +5,6 @@ corner-roundness = 0
 initial-tool = "crop"
 copy-command = "wl-copy"
 annotation-size-factor = 2
-output-filename = "~/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"
 action-on-enter = "save-to-clipboard"
 save-after-copy = true
 default-hide-toolbars = false
