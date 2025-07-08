@@ -1,0 +1,50 @@
+#!/bin/python3
+
+from watchdog.observers import Observer
+from watchdog.events import FileSystemEventHandler
+from pathlib import Path
+import subprocess
+import time
+import os
+
+home = str(Path.home())
+txt_file = os.path.join(home, ".local", "share", "Steam", "steamapps", "common", "Path of Exile", "logs", "Client.txt")
+
+notifiactions = [
+    "reflecting mist",
+    "nameless seer"
+]
+
+class LogHandler(FileSystemEventHandler):
+    def __init__(self, file_path, keywords):
+        self.file_path = file_path
+        self.keywords = keywords
+        print(f"[INFO] Monitoring file: {self.file_path}")
+        print(f"[INFO] Keywords: {self.keywords}")
+        self._seek_end()
+
+    def _seek_end(self):
+        self.f = open(self.file_path, 'r', encoding='utf-8', errors='ignore')
+        self.f.seek(0, os.SEEK_END)
+        print("[INFO] Seeked to end of file.")
+
+    def on_modified(self, event):
+        if event.src_path != self.file_path:
+            return
+        for line in self.f:
+            for keyword in self.keywords:
+                if keyword.lower() in line.lower():
+                    print(f"[INFO] Found keyword '{keyword}' in line: {line.strip()}")
+                    subprocess.run(['notify-send', 'PoE Notifier', f"Found: {keyword}\n{line.strip()}"])
+
+if __name__ == "__main__":
+    event_handler = LogHandler(txt_file, notifiactions)
+    observer = Observer()
+    observer.schedule(event_handler, os.path.dirname(txt_file), recursive=False)
+    observer.start()
+    try:
+        while True:
+            time.sleep(1)
+    except KeyboardInterrupt:
+        observer.stop()
+    observer.join()

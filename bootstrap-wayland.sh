@@ -3,7 +3,9 @@ set -ex
 
 echo '==> Installing Wayland packages'
 yay -S --noconfirm --mflags --skipinteg \
-    hyprland xorg-xwayland xclip xdg-desktop-portal-hyprland qt5-wayland qt6-wayland \
+    xorg-xwayland xclip \
+    qt5-wayland qt6-wayland \
+    hyprland xdg-desktop-portal-hyprland \
     swaybg swaylock wl-clipboard cliphist grim slurp hyprpicker hyprshot satty \
     cpio
 
