@@ -1,8 +1,8 @@
 #!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-FILE_ARGS=/tmp/FZFMENU_FILE_ARGS
-FILE_CHOICES=/tmp/FZFMENU_FILE_CHOICES
+FILE_ARGS=$(mktemp /tmp/fzfmenu_args.XXXXXX)
+FILE_CHOICES=$(mktemp /tmp/fzfmenu_choices.XXXXXX)
 TITLE=""
 TERM_CLASS="--class"
 if [ "$TERMINAL" = "st" ]; then
@@ -21,18 +21,18 @@ scan_args() {
 }
 
 show() {
-  while IFS= read -r line; do echo "$line"; done < $FILE_CHOICES;
+  while IFS= read -r line; do echo "$line"; done < "$FILE_CHOICES";
 }
 
 run_menu() {
-  scan_args > $FILE_ARGS
+  scan_args > "$FILE_ARGS"
   kill_old
   prompt "$@"
   show
 }
 
 prompt() {
-  : > $FILE_CHOICES
+  : > "$FILE_CHOICES"
   $TERMINAL $TERM_CLASS shellmenu -T "$TITLE" \
     -e "$SHELL" -ic "
       exec fzf \
@@ -45,12 +45,10 @@ prompt() {
           --print-query \
           --no-multi \
           --reverse \
-          --no-separator \
-          --info=inline-right \
-          $PROMPT $QUERY $@ < $FILE_ARGS | tail -1 >! $FILE_CHOICES
+          $PROMPT $QUERY $@ < $FILE_ARGS | tail -n 1 >! $FILE_CHOICES
   " &
   pid=$!
-  trap "kill -9 $pid" SIGTERM
+  trap "kill -TERM $pid" SIGTERM
   wait $pid
   [ -s "$FILE_CHOICES" ] || exit 1
 }
@@ -72,4 +70,5 @@ main() {
   run_menu "$quoted_args"
 }
 
+trap 'rm -f "$FILE_ARGS" "$FILE_CHOICES"' EXIT
 main "$@"
