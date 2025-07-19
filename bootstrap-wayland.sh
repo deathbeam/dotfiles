@@ -6,7 +6,7 @@ yay -S --noconfirm --mflags --skipinteg \
     xorg-xwayland xclip \
     qt5-wayland qt6-wayland \
     hyprland xdg-desktop-portal-hyprland \
-    swaybg swaylock wl-clipboard cliphist grim slurp hyprpicker hyprshot satty \
+    swaybg swaylock wl-clipboard cliphist grim slurp satty \
     cpio
 
 hyprpm update
