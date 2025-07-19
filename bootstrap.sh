@@ -136,6 +136,8 @@ sudo groupadd -f video
 sudo usermod -aG video "$USER"
 sudo groupadd -f input
 sudo usermod -aG input "$USER"
+sudo groupadd -f keyd
+sudo usermod -aG keyd "$USER"
 
 # Update XDG
 xdg-user-dirs-update
