@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+
+if ! command -v gamescope >/dev/null 2>&1; then
+  echo "gamescope not found!" >&2; exit 1
+fi
+if ! command -v steam >/dev/null 2>&1; then
+  echo "steam not found!" >&2; exit 1
+fi
+
+if command -v hyprctl >/dev/null 2>&1; then
+  read WIDTH HEIGHT < <(hyprctl monitors -j | jq -r '.[0].width, .[0].height')
+else
+  WIDTH=2560
+  HEIGHT=1600
+fi
+
+gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync -f --rt -e -- steam -tenfoot

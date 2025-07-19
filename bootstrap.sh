@@ -72,7 +72,9 @@ yay -S --noconfirm --mflags --skipinteg \
     qutebrowser python-adblock \
     gimp \
     mpv yt-dlp \
-    dropbox dropbox-cli vesktop-bin stremio steam steamtinkerlaunch lutris calibre \
+    dropbox dropbox-cli vesktop-bin stremio \
+    gamescope steam steamtinkerlaunch lutris \
+    calibre \
     youtube-music-bin \
     stalonetray xdotool \
     gpu-screen-recorder-git \
