@@ -9,10 +9,13 @@ if ! command -v steam >/dev/null 2>&1; then
 fi
 
 if command -v hyprctl >/dev/null 2>&1; then
-  read WIDTH HEIGHT < <(hyprctl monitors -j | jq -r '.[0].width, .[0].height')
+  WIDTH=$(hyprctl monitors -j | jq -r '.[0].width')
+  HEIGHT=$(hyprctl monitors -j | jq -r '.[0].height')
 else
   WIDTH=2560
   HEIGHT=1600
 fi
+
+echo "Starting Steam in gamescope with resolution ${WIDTH}x${HEIGHT}..."
 
 gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync -f --rt -e -- steam -tenfoot
