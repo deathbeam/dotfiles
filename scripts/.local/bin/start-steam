@@ -18,4 +18,5 @@ fi
 
 echo "Starting Steam in gamescope with resolution ${WIDTH}x${HEIGHT}..."
 
-gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync -f --rt -e -- steam -tenfoot
+# --force-grab-cursor
+VKD3D_DISABLE_EXTENSIONS=VK_KHR_present_wait GAMESCOPE_WSI=0 gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync -f --rt -e -- steam -tenfoot
