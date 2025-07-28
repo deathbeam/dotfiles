@@ -94,8 +94,8 @@
 	url = https://github.com/nvim-lua/plenary.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
-    url = https://github.com/deathbeam/CopilotChat.nvim
-    branch = tools
+    url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
+    branch = main
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim

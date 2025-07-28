@@ -6,6 +6,7 @@ return {
     ui = {
         User = ' ',
         Bot = ' ',
+        Tool = '󰊳 ',
         Wiki = '󰈙',
         Git = '',
         Perf = '󰒪',

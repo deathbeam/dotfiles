@@ -38,10 +38,12 @@ chat.setup({
     model = 'gpt-4.1',
     debug = true,
     temperature = 0,
-    question_header = ' ' .. icons.ui.User .. ' ',
-    answer_header = ' ' .. icons.ui.Bot .. ' ',
-    error_header = '> ' .. icons.diagnostics.Warn .. ' ',
     sticky = '#buffers',
+    headers = {
+        user = ' ' .. icons.ui.User .. ' ',
+        assistant = ' ' .. icons.ui.Bot .. ' ',
+        tool = ' ' .. icons.ui.Tool .. ' ',
+    },
     mappings = {
         reset = false,
         show_diff = {
