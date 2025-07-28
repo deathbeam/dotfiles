@@ -237,7 +237,10 @@ vim.keymap.set({ 'n', 'v' }, '<leader>aq', function()
 end, { desc = 'AI Question' })
 
 -- MCP hub
+local async = require('plenary.async')
 local mcp = require('mcphub')
+mcp.setup()
+
 mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, function()
     if not chat.config.functions then
         return
@@ -248,7 +251,6 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         return
     end
 
-    local async = require('plenary.async')
     local call_tool = async.wrap(function(server, tool, input, callback)
         hub:call_tool(server, tool, input, {
             callback = function(res, err)
@@ -265,12 +267,21 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         })
     end, 3)
 
+    -- Remove existing mcphub functions
+    for k, v in pairs(chat.config.functions) do
+        if v._mcp then
+            chat.config.functions[k] = nil
+        end
+    end
+
+    -- Load mcphub resources
     local resources = hub:get_resources()
     local resource_templates = hub:get_resource_templates()
     vim.list_extend(resources, resource_templates)
     for _, resource in ipairs(resources) do
-        local name = resource.name:lower():gsub(' ', '_'):gsub(':', '')
+        local name = resource.server_name .. '_' .. resource.name:lower():gsub(' ', '_'):gsub(':', '')
         chat.config.functions[name] = {
+            _mcp = true,
             uri = resource.uri or resource.uriTemplate,
             description = type(resource.description) == 'string' and resource.description or '',
             resolve = function()
@@ -299,9 +310,12 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         }
     end
 
+    -- Load mcphub tools
     local tools = hub:get_tools()
     for _, tool in ipairs(tools) do
-        chat.config.functions[tool.name] = {
+        local name = tool.server_name .. '_' .. tool.name
+        chat.config.functions[name] = {
+            _mcp = true,
             group = tool.server_name,
             description = tool.description,
             schema = tool.inputSchema,
@@ -335,4 +349,3 @@ mcp.on({ 'servers_updated', 'tool_list_changed', 'resource_list_changed' }, func
         }
     end
 end)
-mcp.setup()
