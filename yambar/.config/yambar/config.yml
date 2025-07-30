@@ -237,7 +237,7 @@ bar:
     -
       script:
         path: ~/.config/yambar/notifications.sh
-        poll-interval: 86400000
+        poll-interval: 600000
         content:
           list:
             spacing: 0
