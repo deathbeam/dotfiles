@@ -103,6 +103,8 @@
     wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
 # Branch cleanup
     branch-cleanup = "!git-branch-cleanup"
+# Sync current branch with upstream remote (e.g., reset --hard to upstream/<branch>)
+    sync-upstream = "!f() { git fetch upstream && git reset --hard upstream/$(git rev-parse --abbrev-ref HEAD); }; f"
 
 [user]
     name = Tomas Slusny
