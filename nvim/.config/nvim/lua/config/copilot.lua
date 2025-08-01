@@ -27,6 +27,9 @@ chat.setup({
     },
     mappings = {
         reset = false,
+        complete = {
+            insert = '<Tab>'
+        },
         show_diff = {
             full_diff = true,
         },
