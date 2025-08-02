@@ -51,9 +51,9 @@ fzf.register_ui_select({
 })
 
 nmap('<leader><leader>', fzf.resume, 'Find Resume')
-nmap('<leader>fg', fzf.live_grep_glob, 'Find Grep')
+nmap('<leader>fg', fzf.live_grep, 'Find Grep')
 nmap('<leader>fG', function()
-    fzf.live_grep_glob({
+    fzf.live_grep({
         prompt = 'GitGrep❯ ',
         cmd = 'git grep --line-number --column --color=always',
     })

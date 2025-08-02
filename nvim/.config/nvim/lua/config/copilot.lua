@@ -11,9 +11,7 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 -- Copilot chat
 local chat = require('CopilotChat')
-local prompts = require('CopilotChat.config.prompts')
 local select = require('CopilotChat.select')
-local cutils = require('CopilotChat.utils')
 
 chat.setup({
     model = 'gpt-4.1',
