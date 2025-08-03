@@ -18,8 +18,15 @@ fzf.setup({
         formatter = 'path.filename_first',
         multiline = 1,
     },
+    files = {
+        rg_opts = '--files --hidden --ignore --glob "!.git" --sortr=modified',
+        fzf_opts = {
+            ["--scheme"] = "path",
+            ["--tiebreak"] = "index"
+        },
+    },
     grep = {
-        rg_opts = ' --hidden --glob "!.git/" --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
+        rg_opts = ' --hidden --ignore --glob "!.git/" --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         prompt = 'Grep❯ ',
         no_column_hide = true,
     },
