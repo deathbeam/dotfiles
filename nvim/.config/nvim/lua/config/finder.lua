@@ -22,7 +22,8 @@ fzf.setup({
         rg_opts = ' --files --hidden --ignore --glob "!.git" --sortr=modified',
         fzf_opts = {
             ["--scheme"] = "path",
-            ["--tiebreak"] = "index"
+            ["--tiebreak"] = "index",
+            -- ["--schema"] = "history"
         },
     },
     grep = {
