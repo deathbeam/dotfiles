@@ -19,7 +19,7 @@ fzf.setup({
         multiline = 1,
     },
     files = {
-        rg_opts = '--files --hidden --ignore --glob "!.git" --sortr=modified',
+        rg_opts = ' --files --hidden --ignore --glob "!.git" --sortr=modified',
         fzf_opts = {
             ["--scheme"] = "path",
             ["--tiebreak"] = "index"
