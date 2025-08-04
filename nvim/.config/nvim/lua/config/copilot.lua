@@ -15,7 +15,7 @@ local select = require('CopilotChat.select')
 
 chat.setup({
     model = 'gpt-4.1',
-    debug = true,
+    debug = false,
     temperature = 0,
     sticky = '#buffers',
     headers = {
