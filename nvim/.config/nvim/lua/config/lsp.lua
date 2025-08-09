@@ -59,7 +59,15 @@ au('LspAttach', {
         -- enable lsp completion
         if client:supports_method('textDocument/completion') then
             vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
-            vim.lsp.completion.enable(true, client.id, event.buf)
+            vim.lsp.completion.enable(true, client.id, event.buf, {
+                convert = function(item)
+                    local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
+                    local icon = icons.kinds[kind]
+                    return {
+                        kind = icon and icon .. ' ' .. kind or kind
+                    }
+                end
+            })
         end
 
         -- disable semantic tokens
