@@ -11,13 +11,14 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 
 -- Copilot chat
 local chat = require('CopilotChat')
-local select = require('CopilotChat.select')
-
 chat.setup({
     model = 'gpt-4.1',
     debug = false,
     temperature = 0,
-    sticky = '#buffers',
+    sticky = {
+        '#buffers',
+    },
+    chat_autocomplete = false,
     headers = {
         user = ' ' .. icons.ui.User .. ' ',
         assistant = ' ' .. icons.ui.Bot .. ' ',
@@ -60,77 +61,20 @@ chat.setup({
         Commit = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
-            selection = select.buffer,
+            selection = require('CopilotChat.select').buffer,
         }
     },
     providers = {
         github_models = {
             disabled = false,
         },
-        gemini = {
-            prepare_input = require('CopilotChat.config.providers').copilot.prepare_input,
-            prepare_output = require('CopilotChat.config.providers').copilot.prepare_output,
-
-            get_headers = function()
-                local api_key = assert(os.getenv('GEMINI_API_KEY'), 'GEMINI_API_KEY env not set')
-                return {
-                    Authorization = 'Bearer ' .. api_key,
-                    ['Content-Type'] = 'application/json',
-                }
-            end,
-
-            get_models = function(headers)
-                local response, err = require('CopilotChat.utils').curl_get(
-                    'https://generativelanguage.googleapis.com/v1beta/openai/models',
-                    {
-                        headers = headers,
-                        json_response = true,
-                    }
-                )
-
-                if err then
-                    error(err)
-                end
-
-                return vim.tbl_map(function(model)
-                    local id = model.id:gsub('^models/', '')
-                    return {
-                        id = id,
-                        name = id,
-                        streaming = true,
-                        tools = true,
-                    }
-                end, response.body.data)
-            end,
-
-            embed = function(inputs, headers)
-                local response, err = require('CopilotChat.utils').curl_post(
-                    'https://generativelanguage.googleapis.com/v1beta/openai/embeddings',
-                    {
-                        headers = headers,
-                        json_request = true,
-                        json_response = true,
-                        body = {
-                            input = inputs,
-                            model = 'text-embedding-004',
-                        },
-                    }
-                )
-
-                if err then
-                    error(err)
-                end
-
-                return response.body.data
-            end,
-
-            get_url = function()
-                return 'https://generativelanguage.googleapis.com/v1beta/openai/chat/completions'
-            end,
-        },
     },
 })
 
+-- Setup extensions
+require('config.copilot_extensions')
+
+-- Setup buffer
 utils.au('BufEnter', {
     pattern = 'copilot-*',
     callback = function()
@@ -139,6 +83,7 @@ utils.au('BufEnter', {
     end,
 })
 
+-- Setup keymaps
 vim.keymap.set({ 'n' }, '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set({ 'v' }, '<leader>aa', chat.open, { desc = 'AI Open' })
 vim.keymap.set({ 'n' }, '<leader>ax', chat.reset, { desc = 'AI Reset' })

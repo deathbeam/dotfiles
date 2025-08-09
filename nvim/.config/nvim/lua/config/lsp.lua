@@ -56,6 +56,12 @@ au('LspAttach', {
             vim.wo[win][0].foldexpr = 'v:lua.vim.lsp.foldexpr()'
         end
 
+        -- enable lsp completion
+        if client:supports_method('textDocument/completion') then
+            vim.bo[event.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+            vim.lsp.completion.enable(true, client.id, event.buf)
+        end
+
         -- disable semantic tokens
         client.server_capabilities.semanticTokensProvider = nil
 

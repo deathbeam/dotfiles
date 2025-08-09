@@ -42,7 +42,7 @@ set smartcase
 set showmatch
 
 " Always use vertical diffs
-set diffopt=internal,filler,closeoff,linematch:60,context:10,algorithm:histogram,indent-heuristic
+set diffopt=internal,filler,closeoff,linematch:60,inline:char,context:10,algorithm:histogram,indent-heuristic
 
 " Always show some lines around
 set scrolloff=8
@@ -140,6 +140,9 @@ endif
 " Auto comments are annoying, disable them
 autocmd VimRc FileType * set formatoptions-=cro
 
+" Disable auto folding in diff mode
+autocmd VimEnter * if &diff | exe 'windo set foldmethod=manual' | endif
+
 " Very magic
 vnoremap / <Esc>/\%V
 "nnoremap / /\v
@@ -174,9 +177,6 @@ noremap! <C-A> <Home>
 noremap! <C-E> <End>
 "noremap! <C-P> <End><C-U><Up>
 "noremap! <C-N> <End><C-U><Down>
-
-" Sudo save
-command! W execute 'w !sudo -S tee % > /dev/null'
 
 " Mark mappings
 "nnoremap <silent> dm     <CMD>execute 'delmarks '.nr2char(getchar())<CR>
