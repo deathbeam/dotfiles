@@ -10,12 +10,12 @@ vim.o.winborder = 'single'
 vim.g.helpful = 1
 
 -- Ext ui native
--- require('vim._extui').enable({
---     msg = {
---         target = 'msg',
---         timeout = 1000,
---     }
--- })
+require('vim._extui').enable({
+    msg = {
+        target = 'cmd',
+        timeout = 1000,
+    }
+})
 
 -- Set base16 colorscheme
 local base16 = require('base16-colorscheme')
