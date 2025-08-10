@@ -6,3 +6,8 @@ dynamic_padding = true
 
 [font]
 size = 12
+
+# [keyboard]
+# bindings = [
+#     { key = "V", mods = "Control", action = "ToggleViMode" }
+# ]

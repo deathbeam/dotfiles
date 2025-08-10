@@ -36,14 +36,7 @@ selected_project=$(get_marked_sessions | sort | fzf \
     --prompt='Open session > ' \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to use query' \
-    --preview='
-        session_name=$(basename {} | tr . _)
-        if [ -e /tmp/dtach-$session_name ]; then
-            echo "Active dtach session: $session_name"
-        else
-            ls --group-directories-first --color=always -lahG {}
-        fi
-    ')
+    --preview='ls --group-directories-first --color=always -lahG {}')
 
 if [[ -z $selected_project ]]; then
     exit 0
