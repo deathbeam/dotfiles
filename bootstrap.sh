@@ -30,7 +30,7 @@ yay -S --noconfirm --mflags --skipinteg \
     net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat \
     dosfstools fuse2 \
     alsa-utils vulkan-tools libva-utils \
-    stow zsh tmux ripgrep mlocate btop \
+    stow zsh tmux ripgrep mlocate btop starship \
     tree-sitter-git neovim-git ctags less bat fswatch jq jnv \
     pass pass-otp \
     rate-mirrors unzip bc \

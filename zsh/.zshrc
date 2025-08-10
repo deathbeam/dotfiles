@@ -182,6 +182,9 @@ bindkey -M menuselect '^P' reverse-menu-complete
 # Bind shift-tab to accept autosuggestions
 bindkey '^[[Z' autosuggest-accept
 
+# Configure prompt
+eval "$(starship init zsh)"
+
 # Configure FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--no-hscroll --color=border:#268bd2 --border=none --margin 0,0 --preview-window=border-sharp:wrap --no-separator --info=inline-right"
