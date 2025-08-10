@@ -71,7 +71,7 @@ yay -S --noconfirm --mflags --skipinteg \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
     gimp \
-    mpv yt-dlp \
+    mpv subliminal yt-dlp \
     dropbox dropbox-cli vesktop-bin stremio \
     gamescope steam steamtinkerlaunch lutris \
     calibre \
