@@ -8,10 +8,15 @@ local fzf = require('fzf-lua')
 fzf.setup({
     'fzf-tmux',
     file_icon_padding = ' ',
+    winopts = {
+        border = 'none',
+        preview = {
+            border = 'single'
+        }
+    },
     fzf_opts = {
         ['--info'] = false,
         ['--border'] = false,
-        ['--preview-window'] = 'border-sharp',
         ['--tmux'] = '100%,100%',
     },
     defaults = {
