@@ -182,12 +182,16 @@ bindkey -M menuselect '^P' reverse-menu-complete
 # Bind shift-tab to accept autosuggestions
 bindkey '^[[Z' autosuggest-accept
 
-# Load fzf after plugins to be able to override them
+# Configure FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--no-hscroll --color=border:#268bd2 --border=none --margin 0,0 --preview-window=border-sharp:wrap --no-separator --info=inline-right --bind 'ctrl-e:execute(echo {+} | xargs -o nvim)'"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
+
+# Configure dtach
+export DTACH_SWITCH_KEY=$'\x18'
+export DTACH_SWITCH_CMD="dtach-switch-session"
 
 # Adjust git aliases
 unalias gh 2>/dev/null # Conflict with github-cli

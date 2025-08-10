@@ -1,3 +1,4 @@
 #!/bin/sh
 
 exec $TERMINAL -e $SHELL -ic "tmux new-session -A -s default"
+# exec $TERMINAL -e $SHELL -ic "dtach -A /tmp/dtach-default -r winch $SHELL -c 'cd ~; exec $SHELL'"

@@ -52,4 +52,10 @@ fi
 selected_name=$(session_name "$selected_project")
 socket="/tmp/dtach-$selected_name"
 
-exec dtach -A "$socket" -r winch $SHELL -c "cd '$selected_project'; exec $SHELL"
+if [[ ! -e $socket ]]; then
+    dtach -n "$socket" -r winch $SHELL -c "cd '$selected_project'; exec $SHELL"
+fi
+
+echo $socket
+
+# exec dtach -A "$socket" -r winch $SHELL -c "cd '$selected_project'; exec $SHELL"
