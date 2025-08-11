@@ -7,7 +7,8 @@ yay -S --noconfirm --mflags --skipinteg \
     nvidia-open-dkms nvidia-settings \
     nvidia-utils lib32-nvidia-utils \
     opencl-nvidia lib32-opencl-nvidia \
-    libva-nvidia-driver
+    libva-nvidia-driver \
+    nvidia-container-toolkit
 
 echo '==> Configuring Nvidia'
 sudo systemctl enable \
