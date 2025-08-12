@@ -1,9 +1,45 @@
+require('CopilotChat.config').functions.plan = {
+    description = [[
+Store the provided markdown-formatted development plan as a file resource (.copilot/plan.md).
+Returns the plan file resource for future reference and actions.
+
+This plan can be updated iteratively as the project evolves.
+Use the latest saved plan as a reference for all future development actions and tool calls.
+]],
+    schema = {
+        type = "object",
+        properties = {
+            plan = { type = "string", description = "The markdown-formatted development plan to save or update." },
+        },
+        required = { "plan" },
+    },
+    resolve = function(input, source)
+        require('CopilotChat.utils').schedule_main()
+        local plan_file = source.cwd() .. '/.copilot/plan.md'
+        local dir = vim.fn.fnamemodify(plan_file, ':h')
+        vim.fn.mkdir(dir, 'p')
+        local file = io.open(plan_file, 'w')
+        if file then
+            file:write(input.plan)
+            file:close()
+        end
+        return {
+            {
+                uri = 'file://' .. plan_file,
+                name = '.copilot/plan.md',
+                mimetype = 'text/markdown',
+                data = input.plan,
+            }
+        }
+    end,
+}
+
 require('CopilotChat.config').prompts.Plan = {
-    prompt = 'Create or update the development plan for the selected code. Focus on architecture, implementation steps, and potential challenges.',
     system_prompt = [[
 You are a software architect and technical planner focused on clear, actionable development plans.
 
 When creating development plans:
+- ALWAYS use plan tool to store and retrieve current plan after each step
 - Start with a high-level overview
 - Break down into concrete implementation steps
 - Identify potential challenges and their solutions
@@ -19,22 +55,9 @@ Always end with:
 
 {BASE_INSTRUCTIONS}
 ]],
-    sticky = {
-        "#file:.copilot/plan.md",
+    tools = {
+        "copilot", "plan"
     },
-    callback = function(response, source)
-        local chat = require('CopilotChat').chat
-        response.content = 'Plan updated successfully'
-        chat:add_message(response, true)
-        local plan_file = source.cwd() .. '/.copilot/plan.md'
-        local dir = vim.fn.fnamemodify(plan_file, ':h')
-        vim.fn.mkdir(dir, 'p')
-        local file = io.open(plan_file, 'w')
-        if file then
-            file:write(response.content)
-            file:close()
-        end
-    end,
 }
 
 require('CopilotChat.config').providers.openwebui = {
