@@ -30,12 +30,12 @@ yay -S --noconfirm --mflags --skipinteg \
     net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat \
     dosfstools fuse2 \
     alsa-utils vulkan-tools libva-utils \
-    stow zsh tmux ripgrep mlocate btop starship \
+    stow zsh tmux ripgrep mlocate starship \
     tree-sitter-git neovim-git ctags less bat fswatch jq jnv \
     pass pass-otp \
     rate-mirrors unzip bc \
     p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu \
-    brightnessctl power-profiles-daemon
+    brightnessctl power-profiles-daemon syncthing
 
 echo '==> Installing development packages'
 yay -S --noconfirm --mflags --skipinteg \
@@ -116,6 +116,8 @@ sudo systemctl enable \
     docker \
     power-profiles-daemon \
     thermald
+
+systemctl enabel --user syncthing
 
 # Alter pacman options
 grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pacman.conf

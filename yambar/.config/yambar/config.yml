@@ -166,16 +166,18 @@ bar:
               percent_used >= 0:
                 string: {text: "  {percent_used}%", margin: *margin}
     -
-      cpu:
+      script:
+        path: ~/.config/yambar/cpu.sh
+        poll-interval: 2000
         content:
           map:
             conditions:
-              id < 0 && cpu >= 80:
-                string: {text: "  {cpu}%", foreground: *color_urgent, margin: *margin}
-              id < 0 && cpu >= 65:
-                string: {text: "  {cpu}%", foreground: *color_warning, margin: *margin}
-              id < 0:
-                string: {text: "  {cpu}%", margin: *margin}
+              utilization >= 80 || temperature >= 80:
+                string: {text: "  {utilization}%|{temperature}°C", foreground: *color_urgent, margin: *margin}
+              utilization >= 65 || temperature >= 65:
+                string: {text: "  {utilization}%|{temperature}°C", foreground: *color_warning, margin: *margin}
+              utilization >= 0:
+                string: {text: "  {utilization}%|{temperature}°C", margin: *margin}
     -
       script:
         path: ~/.config/yambar/gpu.sh

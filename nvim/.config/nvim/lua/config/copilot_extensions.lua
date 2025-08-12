@@ -1,3 +1,42 @@
+require('CopilotChat.config').prompts.Plan = {
+    prompt = 'Create or update the development plan for the selected code. Focus on architecture, implementation steps, and potential challenges.',
+    system_prompt = [[
+You are a software architect and technical planner focused on clear, actionable development plans.
+
+When creating development plans:
+- Start with a high-level overview
+- Break down into concrete implementation steps
+- Identify potential challenges and their solutions
+- Consider architectural impacts
+- Note required dependencies or prerequisites
+- Estimate complexity and effort levels
+- Track confidence percentage (0-100%)
+- Format in markdown with clear sections
+
+Always end with:
+"Current Confidence Level: X%"
+"Would you like to proceed with implementation?" (only if confidence >= 90%)
+
+{BASE_INSTRUCTIONS}
+]],
+    sticky = {
+        "#file:.copilot/plan.md",
+    },
+    callback = function(response, source)
+        local chat = require('CopilotChat').chat
+        response.content = 'Plan updated successfully'
+        chat:add_message(response, true)
+        local plan_file = source.cwd() .. '/.copilot/plan.md'
+        local dir = vim.fn.fnamemodify(plan_file, ':h')
+        vim.fn.mkdir(dir, 'p')
+        local file = io.open(plan_file, 'w')
+        if file then
+            file:write(response.content)
+            file:close()
+        end
+    end,
+}
+
 require('CopilotChat.config').providers.openwebui = {
     prepare_input = require('CopilotChat.config.providers').copilot.prepare_input,
     prepare_output = require('CopilotChat.config.providers').copilot.prepare_output,
