@@ -1,5 +1,6 @@
 local utils = require('config.utils')
 local nmap = utils.nmap
+local nvmap = utils.nvmap
 local desc = utils.desc
 
 desc('<leader>f', 'Find')
@@ -65,14 +66,7 @@ fzf.register_ui_select({
 
 nmap('<leader><leader>', fzf.resume, 'Find Resume')
 nmap('<leader>fg', fzf.live_grep, 'Find Grep')
-nmap('<leader>fG', function()
-    fzf.live_grep({
-        prompt = 'GitGrep❯ ',
-        cmd = 'git grep --line-number --column --color=always',
-    })
-end, 'Find Git Grep')
 nmap('<leader>ff', fzf.files, 'Find Files')
-nmap('<leader>fF', fzf.git_files, 'Find Git Files')
 nmap('<leader>fa', fzf.commands, 'Find Actions')
 nmap('<leader>fb', fzf.buffers, 'Find Buffers')
 nmap('<leader>fh', fzf.oldfiles, 'Find History')
@@ -81,3 +75,20 @@ nmap('<leader>fq', fzf.quickfix, 'Find Quickfix')
 nmap('<leader>f?', fzf.helptags, 'Find Help')
 nmap('<leader>fj', fzf.jumps, 'Find Jumps')
 nmap('<leader>fm', fzf.marks, 'Find Marks')
+
+-- Git
+nmap('<leader>fG', function()
+    fzf.live_grep({
+        prompt = 'GitGrep❯ ',
+        cmd = 'git grep --line-number --column --color=always',
+    })
+end, 'Find Git Grep')
+nmap('<leader>fF', fzf.git_files, 'Find Git Files')
+nvmap('<leader>fc', fzf.git_bcommits, 'Find Buffer Git Commits')
+nmap('<leader>fC', fzf.git_commits, 'Find All Git Commits')
+
+-- LSP
+nmap('<leader>fd', fzf.lsp_document_diagnostics, 'Find Diagnostics')
+nmap('<leader>fD', fzf.lsp_workspace_diagnostics, 'Find All Diagnostics')
+nmap('<leader>fs', fzf.lsp_document_symbols, 'Find Symbols')
+nmap('<leader>fS', fzf.lsp_live_workspace_symbols, 'Find All Symbols')

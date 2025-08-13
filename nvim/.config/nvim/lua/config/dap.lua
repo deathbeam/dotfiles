@@ -49,6 +49,7 @@ nmap('<leader>ds', widgets.sidebar(widgets.scopes).toggle, 'Debug Scopes')
 nmap('<leader>df', widgets.sidebar(widgets.frames).toggle, 'Debug Frames')
 nmap('<leader>dt', widgets.sidebar(widgets.threads).toggle, 'Debug Threads')
 nvmap('<leader>de', widgets.sidebar(widgets.expression).toggle, 'Debug Expression')
+nmap('<leader>dp', fzf_lua.dap_breakpoints, 'Breakpoints')
 
 -- Debugging
 nmap('<leader>dx', function()
@@ -64,4 +65,3 @@ end, 'Debug Conditional Breakpoint')
 nmap('<leader>dL', function()
     dap.set_breakpoint(nil, nil, vim.fn.input('Log: '))
 end, 'Debug Log Point')
-nmap('<leader>fp', fzf_lua.dap_breakpoints, 'Find Breakpoints')

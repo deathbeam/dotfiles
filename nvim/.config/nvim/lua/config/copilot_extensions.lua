@@ -52,8 +52,6 @@ When creating development plans:
 Always end with:
 "Current Confidence Level: X%"
 "Would you like to proceed with implementation?" (only if confidence >= 90%)
-
-{BASE_INSTRUCTIONS}
 ]],
     tools = {
         "copilot", "plan"

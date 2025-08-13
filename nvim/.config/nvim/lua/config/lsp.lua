@@ -80,10 +80,6 @@ au('LspAttach', {
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, 'Inlay Hints', event.buf)
         nmap('<leader>ca', w(fzf.lsp_code_actions), 'Code Action', event.buf)
-        nmap('<leader>cd', w(fzf.lsp_document_diagnostics), 'Diagnostics')
-        nmap('<leader>cD', w(fzf.lsp_workspace_diagnostics), 'All Diagnostics')
-        nmap('<leader>cs', w(fzf.lsp_document_symbols), 'Symbols')
-        nmap('<leader>cS', w(fzf.lsp_live_workspace_symbols), 'All Symbols')
 
         nmap('gr', w(fzf.lsp_references), 'References', event.buf)
         nmap('gi', w(fzf.lsp_implementations), 'Implementation', event.buf)

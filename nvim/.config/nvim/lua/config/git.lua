@@ -17,8 +17,6 @@ gitsigns.setup({
         -- Finder
         nmap('<leader>gt', fzf.git_status, 'Status', bufnr)
         nmap('<leader>gz', fzf.git_stash, 'Stash', bufnr)
-        nvmap('<leader>gc', fzf.git_bcommits, 'Buffer Commits')
-        nmap('<leader>gC', fzf.git_commits, 'All Commits')
 
         -- Navigation
         nmap(']c', function()
