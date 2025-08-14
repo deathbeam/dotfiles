@@ -141,7 +141,7 @@ endif
 autocmd VimRc FileType * set formatoptions-=cro
 
 " Disable auto folding in diff mode
-autocmd VimEnter * if &diff | exe 'windo set foldmethod=manual' | endif
+autocmd BufWinEnter * if &diff | setlocal foldmethod=manual | endif
 
 " Very magic
 vnoremap / <Esc>/\%V
