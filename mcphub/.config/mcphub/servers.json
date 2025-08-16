@@ -1,11 +1,17 @@
 {
   "servers": {
-    "github.com/modelcontextprotocol/servers/tree/main/src/memory": {
-      "args": ["-y", "@modelcontextprotocol/server-memory"],
+    "sequentialthinking": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-sequential-thinking"
+      ],
       "command": "npx"
     },
-    "github.com/modelcontextprotocol/servers/tree/main/src/sequentialthinking": {
-      "args": ["-y", "@modelcontextprotocol/server-sequential-thinking"],
+    "memory": {
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-memory"
+      ],
       "command": "npx"
     },
     "github": {
@@ -14,36 +20,15 @@
       },
       "url": "https://api.githubcopilot.com/mcp/"
     },
-    "puppeteer": {
+    "context7": {
       "args": [
-        "run",
-        "-i",
-        "--rm",
-        "--init",
-        "-e",
-        "DOCKER_CONTAINER=true",
-        "mcp/puppeteer"
+        "-y",
+        "@upstash/context7-mcp"
       ],
-      "autoApprove": [
-        "puppeteer_navigate",
-        "puppeteer_screenshot",
-        "puppeteer_click",
-        "puppeteer_fill",
-        "puppeteer_select",
-        "puppeteer_hover",
-        "puppeteer_evaluate"
-      ],
-      "command": "docker"
-    },
-    "redis": {
-      "args": [
-        "run",
-        "-i",
-        "--rm",
-        "mcp/redis",
-        "redis://host.docker.internal:6379"
-      ],
-      "command": "docker"
+      "command": "npx",
+      "env": {
+        "DEFAULT_MINIMUM_TOKENS": "6000"
+      }
     }
   }
 }
