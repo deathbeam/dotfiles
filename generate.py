@@ -82,7 +82,7 @@ def parse_zsh_aliases_functions():
         # Format aliases
         for alias in aliases:
             alias = alias.strip()
-            if re.match(r'^[a-zA-Z0-9]', alias):
+            if re.match(r'^[a-zA-Z0-9]', alias) and not alias.startswith('base16'):
                 split = alias.split('=', 1)
                 key = split[0].strip()
                 value = split[1].strip().replace('"', '').replace("'", "").replace('`', '')
