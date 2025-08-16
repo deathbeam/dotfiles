@@ -74,39 +74,54 @@ def get_neovim_leader_keymaps():
         keymaps.append(f"(Error: {e})")
     return keymaps
 
-def parse_zsh_aliases_functions(path):
-    def format_zsh_aliases(lines):
+def parse_zsh_aliases_functions():
+    def format_zsh_items(aliases, functions):
         """Format zsh aliases and functions for better readability"""
         formatted = []
-        for line in lines:
-            if line.startswith('alias '):
-                # Extract alias name and value
-                match = re.match(r'alias\s+([^=]+)=(.+)', line)
-                if match:
-                    name, value = match.groups()
-                    value = value.strip('\'"')
-                    formatted.append(f"`{name}`: {value}")
-            elif line.startswith('function '):
-                # Extract function name
-                match = re.match(r'function\s+([^{\s]+)', line)
-                if match:
-                    name = match.group(1).strip()
-                    if name and name != "()":
-                        formatted.append(f"`{name}`: function")
-        return sorted(formatted)
 
-    lines = []
-    logging.info(f"Parsing zsh aliases/functions from {path}...")
+        # Format aliases
+        for alias in aliases:
+            alias = alias.strip()
+            if re.match(r'^[a-zA-Z0-9]', alias):
+                split = alias.split('=', 1)
+                key = split[0].strip()
+                value = split[1].strip().replace('"', '').replace("'", "").replace('`', '')
+                formatted.append(f"`{key}`: `{value}`")
+
+        # Format functions
+        for func in functions:
+            func = func.strip()
+            if re.match(r'^[a-zA-Z0-9]', func):
+                formatted.append(f"`{func}`: function")
+
+        return formatted
+
+    aliases = []
+    functions = []
+    logging.info("Getting zsh aliases and functions...")
+
     try:
-        with open(path) as f:
-            for line in f:
-                if re.match(r'^\s*alias ', line) or re.match(r'^\s*function ', line):
-                    lines.append(line.strip())
-        logging.info("Zsh aliases/functions parsed.")
-    except Exception as e:
-        logging.error(f"Error parsing zshrc: {e}")
+        # Get aliases
+        result = subprocess.run(
+            ["zsh", "-ic", "alias"],
+            text=True, timeout=5, capture_output=True
+        )
+        if result.stdout:
+            aliases = [line for line in result.stdout.strip().split('\n') if line.strip()]
 
-    return format_zsh_aliases(lines)
+        # Get function names only
+        result = subprocess.run(
+            ["zsh", "-ic", "print -l ${(k)functions}"],
+            text=True, timeout=5, capture_output=True
+        )
+        if result.stdout:
+            functions = [line for line in result.stdout.strip().split('\n') if line.strip()]
+
+        logging.info("Zsh aliases/functions retrieved.")
+    except Exception as e:
+        logging.error(f"Error getting zsh aliases/functions: {e}")
+
+    return format_zsh_items(aliases, functions)
 
 def parse_tmux_keybindings(path):
     def format_tmux_keybindings(lines):
@@ -220,7 +235,7 @@ def main():
         f.write("# System Cheatsheet\n\n")
 
         f.write("## Zsh Aliases & Functions\n")
-        for line in parse_zsh_aliases_functions("zsh/.zshrc"):
+        for line in parse_zsh_aliases_functions():
             f.write(line + "  \n")
         f.write("\n")
 
