@@ -1,0 +1,193 @@
+// Color definitions
+$color-bg: #073642;
+$color-fg: #93A1A1;
+$color-success: #859900;
+$color-active: #268BD2;
+$color-inactive: #002B36;
+$color-urgent: #CB4B16;
+$color-warning: #B58900;
+$margin: 15px;
+
+// Base styles
+* {
+  all: unset;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+// Main bar
+.bar {
+  background-color: $color-bg;
+  color: $color-fg;
+  padding: 0;
+}
+
+// Left section
+.left {
+  .separator-active {
+    background-color: $color-active;
+    color: $color-bg;
+    padding: 0 $margin;
+  }
+
+  .workspaces {
+    .workspace {
+      padding: 0 $margin;
+      color: $color-fg;
+      background-color: transparent;
+
+      &.focused {
+        background-color: $color-active;
+        color: $color-bg;
+      }
+
+      &.urgent {
+        background-color: $color-urgent;
+        color: $color-bg;
+      }
+
+      &.occupied {
+        background-color: transparent;
+        color: $color-fg;
+      }
+
+      &.empty {
+        background-color: $color-inactive;
+        color: $color-fg;
+      }
+    }
+  }
+
+  .mode-indicator {
+    .mode {
+      color: $color-success;
+      padding: 0 $margin;
+    }
+  }
+
+  .layout-indicators {
+    .layout-icon {
+      &.active {
+        background-color: $color-active;
+        color: $color-bg;
+        padding: 0 $margin;
+      }
+    }
+  }
+
+  .window-info {
+    .process {
+      background-color: $color-active;
+      color: $color-bg;
+      padding: 0 $margin;
+
+      &.xwayland {
+        background-color: $color-warning;
+        color: $color-bg;
+      }
+    }
+
+    .title {
+      color: $color-fg;
+      padding: 0 $margin;
+    }
+  }
+}
+
+// Right section
+.right {
+  .network {
+    color: $color-fg;
+    padding: 0 $margin;
+  }
+
+  .memory {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.warning {
+      color: $color-warning;
+    }
+
+    &.critical {
+      color: $color-urgent;
+    }
+  }
+
+  .cpu {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.warning {
+      color: $color-warning;
+    }
+
+    &.critical {
+      color: $color-urgent;
+    }
+  }
+
+  .gpu {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.warning {
+      color: $color-warning;
+    }
+
+    &.critical {
+      color: $color-urgent;
+    }
+  }
+
+  .audio-output {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.muted {
+      color: $color-urgent;
+    }
+  }
+
+  .audio-input {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.muted {
+      color: $color-urgent;
+    }
+  }
+
+  .brightness {
+    color: $color-fg;
+    padding: 0 $margin;
+  }
+
+  .battery {
+    color: $color-fg;
+    padding: 0 $margin;
+
+    &.warning {
+      color: $color-warning;
+    }
+
+    &.critical {
+      color: $color-urgent;
+    }
+  }
+
+  .clock {
+    color: $color-fg;
+    padding: 0 $margin;
+  }
+
+  .updates {
+    color: $color-urgent;
+    padding: 0 $margin;
+  }
+
+  .github {
+    color: $color-active;
+    padding: 0 $margin;
+  }
+}

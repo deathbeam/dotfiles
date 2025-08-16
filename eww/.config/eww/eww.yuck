@@ -1,0 +1,235 @@
+;; Variables and polling
+(defpoll wm_data :interval "500ms"
+  "~/.config/eww/scripts/wm.sh")
+
+(defpoll cpu_data :interval "2s"
+  "~/.config/eww/scripts/cpu.sh")
+
+(defpoll gpu_data :interval "5s"
+  "~/.config/eww/scripts/gpu.sh")
+
+(defpoll brightness_data :interval "1s"
+  "~/.config/eww/scripts/brightness.sh")
+
+(defpoll notifications_data :interval "10m"
+  "~/.config/eww/scripts/notifications.sh")
+
+(defpoll memory_data :interval "5s"
+  "~/.config/eww/scripts/memory.sh")
+
+(defpoll network_data :interval "5s"
+  "~/.config/eww/scripts/network.sh")
+
+(defpoll battery_data :interval "10s"
+  "~/.config/eww/scripts/battery.sh")
+
+(defpoll audio_output :interval "1s"
+  "~/.config/eww/scripts/audio_output.sh")
+
+(defpoll audio_input :interval "1s"
+  "~/.config/eww/scripts/audio_input.sh")
+
+(defpoll current_time :interval "1s"
+  "date '+%Y-%m-%d %H:%M'")
+
+;; Workspace widget
+(defwidget workspaces []
+  (box :class "workspaces" :spacing 0
+    (button :class {wm_data.ws1_state == "focused" ? "workspace focused" :
+                   wm_data.ws1_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws1_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 1"
+      "1")
+    (button :class {wm_data.ws2_state == "focused" ? "workspace focused" :
+                   wm_data.ws2_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws2_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 2"
+      "2")
+    (button :class {wm_data.ws3_state == "focused" ? "workspace focused" :
+                   wm_data.ws3_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws3_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 3"
+      "3")
+    (button :class {wm_data.ws4_state == "focused" ? "workspace focused" :
+                   wm_data.ws4_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws4_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 4"
+      "4")
+    (button :class {wm_data.ws5_state == "focused" ? "workspace focused" :
+                   wm_data.ws5_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws5_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 5"
+      "5")
+    (button :class {wm_data.ws6_state == "focused" ? "workspace focused" :
+                   wm_data.ws6_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws6_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 6"
+      "6")
+    (button :class {wm_data.ws7_state == "focused" ? "workspace focused" :
+                   wm_data.ws7_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws7_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 7"
+      "7")
+    (button :class {wm_data.ws8_state == "focused" ? "workspace focused" :
+                   wm_data.ws8_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws8_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 8"
+      "8")
+    (button :class {wm_data.ws9_state == "focused" ? "workspace focused" :
+                   wm_data.ws9_state == "urgent" ? "workspace urgent" :
+                   wm_data.ws9_state == "occupied" ? "workspace occupied" :
+                   "workspace empty"}
+            :onclick "hyprctl dispatch workspace 9"
+      "9")))
+
+;; Mode indicator widget
+(defwidget mode-indicator []
+  (box :class "mode-indicator"
+    (label :class "mode"
+           :visible {wm_data.mode != "DEFAULT"}
+           :text "-- ${wm_data.mode} --")))
+
+;; Layout indicators widget
+(defwidget layout-indicators []
+  (box :class "layout-indicators" :spacing 0
+    (label :class "layout-icon active"
+           :visible {wm_data.fullscreen}
+           :text " ")
+    (label :class "layout-icon active"
+           :visible {wm_data.floating}
+           :text " ")
+    (label :class "layout-icon active"
+           :visible {wm_data.monocle}
+           :text " ")
+    (label :class "layout-icon active"
+           :visible {!wm_data.monocle && !wm_data.floating && !wm_data.fullscreen}
+           :text " ")))
+
+;; Process and title widget
+(defwidget window-info []
+  (box :class "window-info" :spacing 0
+    (label :class {wm_data.xwayland ? "process xwayland" : "process"}
+           :visible {wm_data.process != ""}
+           :text "${wm_data.process}")
+    (label :class "title"
+           :visible {wm_data.title != ""}
+           :text "${wm_data.title}"
+           :limit-width 75)))
+
+;; Memory widget
+(defwidget memory []
+  (label :class {memory_data.percent >= 80 ? "memory critical" :
+                memory_data.percent >= 65 ? "memory warning" :
+                "memory"}
+         :text "  ${memory_data.percent}%"))
+
+;; CPU widget
+(defwidget cpu []
+  (label :class {cpu_data.utilization >= 80 || cpu_data.temperature >= 80 ? "cpu critical" :
+                cpu_data.utilization >= 65 || cpu_data.temperature >= 65 ? "cpu warning" :
+                "cpu"}
+         :text "  ${cpu_data.utilization}%|${cpu_data.temperature}°C"))
+
+;; GPU widget
+(defwidget gpu []
+  (label :class {gpu_data.utilization >= 80 || gpu_data.temperature >= 80 ? "gpu critical" :
+                gpu_data.utilization >= 65 || gpu_data.temperature >= 65 ? "gpu warning" :
+                "gpu"}
+         :text "  ${gpu_data.utilization}%|${gpu_data.temperature}°C"))
+
+;; Network widget
+(defwidget network []
+  (label :class "network"
+         :text {network_data.type == "wifi" ? "  ${network_data.ssid}" :
+               network_data.type == "ethernet" ? "  ${network_data.ipv4}" :
+               "  Disconnected"}))
+
+;; Audio output widget
+(defwidget audio-output []
+  (label :class {audio_output.muted ? "audio-output muted" : "audio-output"}
+         :text {audio_output.muted ? " " : "  ${audio_output.volume}%"}))
+
+;; Audio input widget
+(defwidget audio-input []
+  (label :class {audio_input.muted ? "audio-input muted" : "audio-input"}
+         :text {audio_input.muted ? " " : " ${audio_input.volume}%"}))
+
+;; Brightness widget
+(defwidget brightness []
+  (label :class "brightness"
+         :text " ${brightness_data.brightness}%"))
+
+;; Battery widget
+(defwidget battery []
+  (label :class {battery_data.capacity <= 10 ? "battery critical" :
+                battery_data.capacity <= 30 ? "battery warning" :
+                "battery"}
+         :text "  ${battery_data.capacity}%"))
+
+;; Clock widget
+(defwidget clock []
+  (label :class "clock"
+         :text "  ${current_time}"))
+
+;; Notifications widgets
+(defwidget updates []
+  (label :class "updates"
+         :visible {notifications_data.updates > 0}
+         :text "  ${notifications_data.updates}"))
+
+(defwidget github []
+  (label :class "github"
+         :visible {notifications_data.github > 0}
+         :text "  ${notifications_data.github}"))
+
+;; Left section
+(defwidget left []
+  (box :class "left" :spacing 0 :halign "start"
+    (label :class "separator-active" :text " ")
+    (workspaces)
+    (mode-indicator)
+    (layout-indicators)
+    (window-info)))
+
+;; Right section
+(defwidget right []
+  (box :class "right" :spacing 0 :halign "end"
+    (network)
+    (memory)
+    (cpu)
+    (gpu)
+    (audio-output)
+    (audio-input)
+    (brightness)
+    (battery)
+    (clock)
+    (updates)
+    (github)))
+
+;; Main bar widget
+(defwidget bar []
+  (centerbox :class "bar"
+    (left)
+    (box)
+    (right)))
+
+;; Main window
+(defwindow bar
+  :monitor 0
+  :windowtype "dock"
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "30px"
+                      :anchor "top center")
+  :reserve (struts :side "top" :distance "30px")
+  :exclusive true
+  (bar))
