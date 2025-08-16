@@ -76,7 +76,6 @@ yay -S --noconfirm --mflags --skipinteg \
     gamescope steam steamtinkerlaunch lutris \
     calibre \
     youtube-music-bin \
-    stalonetray xdotool \
     gpu-screen-recorder-git \
     jamesdsp
 
