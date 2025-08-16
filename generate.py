@@ -166,7 +166,8 @@ def parse_hyprland_keybindings(path):
                     # Get additional args if present
                     if len(parts) > 3:
                         args = ', '.join(parts[3:]).strip()
-                        action = f"{action} `{args}`"
+                        if args:
+                            action = f"{action} `{args}`"
 
                     # Format modifier + key
                     if modifier:

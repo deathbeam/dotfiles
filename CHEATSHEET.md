@@ -89,7 +89,7 @@
 `SUPER_SHIFT+J`: movewindow `d`  
 `SUPER_SHIFT+K`: movewindow `u`  
 `SUPER_SHIFT+L`: movewindow `r`  
-`SUPER_SHIFT+escape`: exit ``  
+`SUPER_SHIFT+escape`: exit  
 `SUPER_SHIFT+grave`: movetoworkspace `special`  
 `XF86AudioLowerVolume`: exec `amixer -q set Master 5%-`  
 `XF86AudioMicMute`: exec `amixer -q set Capture toggle`  
