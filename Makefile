@@ -1,4 +1,4 @@
-default:update link install
+default:update link install cheatsheet
 
 clean:
 	find ~ -xtype l -print -delete
@@ -11,6 +11,9 @@ update:
 	git submodule sync --recursive
 	git submodule update --init --recursive
 	git submodule update --recursive --remote
+
+cheatsheet:
+	python3 generate.py
 
 install:
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish

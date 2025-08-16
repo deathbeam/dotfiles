@@ -30,8 +30,8 @@ yay -S --noconfirm --mflags --skipinteg \
     net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat traceroute \
     dosfstools fuse2 \
     alsa-utils vulkan-tools libva-utils \
-    stow zsh tmux ripgrep mlocate starship \
-    tree-sitter-git neovim-git ctags less bat fswatch jq jnv \
+    stow zsh tmux ripgrep mlocate starship tldr \
+    tree-sitter-git neovim-git python-pynvim ctags less bat fswatch jq jnv \
     pass pass-otp \
     rate-mirrors unzip bc \
     p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu \
