@@ -178,10 +178,6 @@ noremap! <C-E> <End>
 "noremap! <C-P> <End><C-U><Up>
 "noremap! <C-N> <End><C-U><Down>
 
-" Mark mappings
-"nnoremap <silent> dm     <CMD>execute 'delmarks '.nr2char(getchar())<CR>
-"nnoremap <silent> dm<CR> <CMD>delm a-zA-Z0-9<CR>
-
 " }}}
 
 " User configuration {{{

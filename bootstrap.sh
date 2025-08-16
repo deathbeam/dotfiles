@@ -27,7 +27,7 @@ fi
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     xdg-utils xdg-user-dirs \
-    net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat \
+    net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat traceroute \
     dosfstools fuse2 \
     alsa-utils vulkan-tools libva-utils \
     stow zsh tmux ripgrep mlocate starship \

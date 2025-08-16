@@ -23,24 +23,21 @@ require('myplugins').setup({
     bigfile = {},
     rooter = {},
     difftool = {},
-    session = {},
+    -- session = {},
     zoom = {},
 })
 
-local bookmarks = require('myplugins.bookmarks')
-desc('<leader>j', 'Bookmarks', icons.ui.Bookmark)
-nmap('<leader>jj', bookmarks.toggle_file, 'Bookmarks Toggle File')
-nmap('<leader>jl', bookmarks.toggle_line, 'Bookmarks Toggle Line')
-nmap('<leader>jk', bookmarks.load, 'Bookmarks Clear')
-nmap('<leader>jx', bookmarks.clear, 'Bookmarks Clear')
-nmap(']j', function()
-    bookmarks.load()
-    vim.cmd('silent! cnext')
-end, 'Bookmarks Next')
-nmap('[j', function()
-    bookmarks.load()
-    vim.cmd('silent! cprevious')
-end, 'Bookmarks Previous')
+-- local bookmarks = require('myplugins.bookmarks')
+-- desc('<leader>m', 'Bookmarks', icons.ui.Bookmark)
+-- nmap('<leader>mm', bookmarks.quickfix, 'Bookmarks Quickfix')
+-- nmap('<leader>md', bookmarks.delete_buffer, 'Bookmarks Delete Buffer')
+-- nmap('<leader>mD', bookmarks.delete_all, 'Bookmarks Delete All')
+-- nmap('\'', function()
+--     bookmarks.jump_to_mark(vim.fn.getcharstr())
+-- end, 'Bookmarks Jump to Mark')
+-- nmap('m', function()
+--     bookmarks.toggle_mark(vim.fn.getcharstr())
+-- end, 'Bookmarks Jump to Mark')
 
 local wiki = require('myplugins.wiki')
 desc('<leader>w', 'Wiki', icons.ui.Wiki)
