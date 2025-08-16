@@ -1,158 +1,175 @@
 # System Cheatsheet
 
 ## Zsh Aliases & Functions
-()(): function  
-gc: git commit --signoff --verbose  
-gcA: git commit --signoff --verbose --patch  
-gca: git commit --signoff --verbose --all  
-gcm: git commit --signoff --message  
-nvimf: nvim -c "FzfLua files  
-nviml: nvim --listen /tmp/nvim.pipe  
-pac: yay -Rns $(yay -Qtdq)  
-pai: yay -Sy  
-paii: yay -Sy --noconfirm  
-pam: rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist  
-pan: yay -Qqd | yay -Rsu --print -  
-par: yay -Rnsu  
-parr: yay -Rnsu --noconfirm  
-pau: yay -Syu  
-pauu: yay -Syu --noconfirm  
-recent_files()(): function  
-setproxy(): function  
-unsetproxy(): function  
-vcopy(): function  
-vim: nvim  
-vimdiff: nvim -d  
-vimf: nvimf  
-viml: nviml  
-vpaste(): function  
+`gcA`: git commit --signoff --verbose --patch  
+`gc`: git commit --signoff --verbose  
+`gca`: git commit --signoff --verbose --all  
+`gcm`: git commit --signoff --message  
+`nvimf`: nvim -c "FzfLua files  
+`nviml`: nvim --listen /tmp/nvim.pipe  
+`pac`: yay -Rns $(yay -Qtdq)  
+`pai`: yay -Sy  
+`paii`: yay -Sy --noconfirm  
+`pam`: rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist  
+`pan`: yay -Qqd | yay -Rsu --print -  
+`par`: yay -Rnsu  
+`parr`: yay -Rnsu --noconfirm  
+`pau`: yay -Syu  
+`pauu`: yay -Syu --noconfirm  
+`recent_files()`: function  
+`setproxy`: function  
+`unsetproxy`: function  
+`vcopy`: function  
+`vim`: nvim  
+`vimdiff`: nvim -d  
+`vimf`: nvimf  
+`viml`: nviml  
+`vpaste`: function  
 
 ## Tmux Keybindings
-%: split window  
-&: kill-window  
-'"': split window  
-C-space: send-prefix  
-C: new-session -c "#{pane_current_path}"  
-X: kill-session  
-c: new window  
-s: run shell command  
-v: capture-pane -S - \; save-buffer /tmp/tm...  
-x: kill-pane  
+`%`: split-window `-v -c #{pane_current_path}`  
+`&`: kill-window  
+`'"'`: split-window `-h -c #{pane_current_path}`  
+`C-space`: send-prefix  
+`C`: new-session `-c #{pane_current_path}`  
+`Escape` (copy-mode-vi): send-keys -X cancel  
+`M-Enter`: if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`  
+`X`: kill-session  
+`c`: new-window `-c #{pane_current_path}`  
+`s`: run-shell `-b $HOME/.tmux/switch-session.sh`  
+`v` (copy-mode-vi): send-keys -X begin-selection  
+`v`: capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`  
+`x`: kill-pane  
+`y` (copy-mode-vi): send-keys -X copy-selection-and-cancel  
 
 ## Hyprland Keybindings
-⊞+1: go to workspace 1  
-⊞+2: go to workspace 2  
-⊞+3: go to workspace 3  
-⊞+4: go to workspace 4  
-⊞+5: go to workspace 5  
-⊞+6: go to workspace 6  
-⊞+7: go to workspace 7  
-⊞+8: go to workspace 8  
-⊞+9: go to workspace 9  
-⊞+F: fullscreen 0  
-⊞+H: movefocus l  
-⊞+J: movefocus d  
-⊞+K: movefocus u  
-⊞+L: movefocus r  
-⊞+M: fullscreen 1  
-⊞+Print: run screenrecorder  
-⊞+R: submap resize  
-⊞+Return: run terminal  
-⊞+S: togglefloating  
-⊞+Tab: run switchmenu -p "switch"  
-⊞+W: killactive  
-⊞+c: run clipmenu -p "clip"  
-⊞+e: run swaylock -f -i $WALLPAPER  
-⊞+escape: run hyprctl reload  
-⊞+g: run pkill -USR1 gammastep  
-⊞+grave: togglespecialworkspace  
-⊞+n: run notificationsmenu -p "notifications"  
-⊞+space: run runmenu -p "run"  
-⊞+v: run steammenu -p "steam"  
-⊞+x: run procmenu -p "proc"  
-⊞+z: run passmenu -p "pass"  
-⊞+⇧+1: move to workspace 1  
-⊞+⇧+2: move to workspace 2  
-⊞+⇧+3: move to workspace 3  
-⊞+⇧+4: move to workspace 4  
-⊞+⇧+5: move to workspace 5  
-⊞+⇧+6: move to workspace 6  
-⊞+⇧+7: move to workspace 7  
-⊞+⇧+8: move to workspace 8  
-⊞+⇧+9: move to workspace 9  
-⊞+⇧+H: movewindow l  
-⊞+⇧+J: movewindow d  
-⊞+⇧+K: movewindow u  
-⊞+⇧+L: movewindow r  
-⊞+⇧+escape: exit   
-⊞+⇧+grave: move to workspace special  
+`Print`: exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"`  
+`Return`: submap `reset`  
+`SUPER+1`: workspace `1`  
+`SUPER+2`: workspace `2`  
+`SUPER+3`: workspace `3`  
+`SUPER+4`: workspace `4`  
+`SUPER+5`: workspace `5`  
+`SUPER+6`: workspace `6`  
+`SUPER+7`: workspace `7`  
+`SUPER+8`: workspace `8`  
+`SUPER+9`: workspace `9`  
+`SUPER+F`: fullscreen `0`  
+`SUPER+H`: movefocus `l`  
+`SUPER+J`: movefocus `d`  
+`SUPER+K`: movefocus `u`  
+`SUPER+L`: movefocus `r`  
+`SUPER+M`: fullscreen `1`  
+`SUPER+Print`: exec `screenrecorder`  
+`SUPER+R`: submap `resize`  
+`SUPER+Return`: exec `terminal`  
+`SUPER+S`: togglefloating  
+`SUPER+Tab`: exec `switchmenu -p "switch"`  
+`SUPER+W`: killactive  
+`SUPER+c`: exec `clipmenu -p "clip"`  
+`SUPER+e`: exec `swaylock -f -i $WALLPAPER`  
+`SUPER+escape`: exec `hyprctl reload`  
+`SUPER+g`: exec `pkill -USR1 gammastep`  
+`SUPER+grave`: togglespecialworkspace  
+`SUPER+n`: exec `notificationsmenu -p "notifications"`  
+`SUPER+space`: exec `runmenu -p "run"`  
+`SUPER+v`: exec `steammenu -p "steam"`  
+`SUPER+x`: exec `procmenu -p "proc"`  
+`SUPER+z`: exec `passmenu -p "pass"`  
+`SUPER_SHIFT+1`: movetoworkspace `1`  
+`SUPER_SHIFT+2`: movetoworkspace `2`  
+`SUPER_SHIFT+3`: movetoworkspace `3`  
+`SUPER_SHIFT+4`: movetoworkspace `4`  
+`SUPER_SHIFT+5`: movetoworkspace `5`  
+`SUPER_SHIFT+6`: movetoworkspace `6`  
+`SUPER_SHIFT+7`: movetoworkspace `7`  
+`SUPER_SHIFT+8`: movetoworkspace `8`  
+`SUPER_SHIFT+9`: movetoworkspace `9`  
+`SUPER_SHIFT+H`: movewindow `l`  
+`SUPER_SHIFT+J`: movewindow `d`  
+`SUPER_SHIFT+K`: movewindow `u`  
+`SUPER_SHIFT+L`: movewindow `r`  
+`SUPER_SHIFT+escape`: exit ``  
+`SUPER_SHIFT+grave`: movetoworkspace `special`  
+`XF86AudioLowerVolume`: exec `amixer -q set Master 5%-`  
+`XF86AudioMicMute`: exec `amixer -q set Capture toggle`  
+`XF86AudioMute`: exec `amixer -q set Master toggle`  
+`XF86AudioRaiseVolume`: exec `amixer -q set Master 5%+ on`  
+`XF86KbdBrightnessDown`: exec `asusctl -p`  
+`XF86KbdBrightnessUp`: exec `asusctl -n`  
+`XF86Launch1`: exec `rog-control-center`  
+`XF86Launch3`: exec `asusctl led-mode -n`  
+`XF86Launch4`: exec `asusctl profile -p`  
+`XF86MonBrightnessDown`: exec `brightnessctl s 5%-`  
+`XF86MonBrightnessUp`: exec `brightnessctl s +5%`  
+`escape`: submap `reset`  
 
 ## Neovim <leader> Keybindings
-nv <Space>ad: AI Documentation  
-nv <Space>ae: AI Explain  
-nv <Space>af: AI Fix  
-nv <Space>ac: AI Generate Commit  
-n <Space>am: AI Models  
-v <Space>aa: AI Open  
-nv <Space>ao: AI Optimize  
-nv <Space>ap: AI Prompts  
-nv <Space>aq: AI Question  
-n <Space>ax: AI Reset  
-nv <Space>ar: AI Review  
-n <Space>as: AI Stop  
-nv <Space>at: AI Tests  
-n <Space>aa: AI Toggle  
-n <Space>mD: Bookmarks Delete All  
-n <Space>md: Bookmarks Delete Buffer  
-n <Space>mq: Bookmarks Quickfix  
-n <Space>mm: Bookmarks Select  
-n <Space>dp: Breakpoints  
-n <Space>db: Debug Breakpoint  
-n <Space>dB: Debug Conditional Breakpoint  
-n <Space>dc: Debug Console  
-n <Space>dd: Debug Continue [R]  
-n <Space>dx: Debug Exit  
-nv <Space>de: Debug Expression  
-n <Space>df: Debug Frames  
-n <Space>dL: Debug Log Point  
-n <Space>d<Space>: Debug REPL  
-n <Space>dr: Debug Restart  
-n <Space>ds: Debug Scopes  
-n <Space>dk: Debug Step Back (up) [R]  
-n <Space>dl: Debug Step Into (right) [R]  
-n <Space>dh: Debug Step Out (left) [R]  
-n <Space>dj: Debug Step Over (down) [R]  
-n <Space>dt: Debug Threads  
-n <Space>fa: Find Actions  
-n <Space>fD: Find All Diagnostics  
-n <Space>fC: Find All Git Commits  
-n <Space>fS: Find All Symbols  
-nv <Space>fc: Find Buffer Git Commits  
-v <Space>fc: Find Buffer Git Commits No mapping found  
-n <Space>fb: Find Buffers  
-n <Space>fd: Find Diagnostics  
-n <Space>ff: Find Files  
-n <Space>fF: Find Git Files  
-n <Space>fG: Find Git Grep  
-n <Space>fg: Find Grep  
-n <Space>f?: Find Help  
-n <Space>fh: Find History  
-n <Space>fj: Find Jumps  
-n <Space>fk: Find Keymaps  
-n <Space>fm: Find Marks  
-n <Space>fq: Find Quickfix  
-n <Space><Space>: Find Resume  
-n <Space>fs: Find Symbols  
-n <Space>fu: Find Undo History  
-n <Space>he: HTTP Environment  
-n <Space>hh: HTTP Run  
-n <Space>hH: HTTP Run All  
-n <Space>ho: HTTP Toggle  
-n <Space>wd: Wiki Diary List  
-n <Space>ww: Wiki List  
-n <Space>wn: Wiki New  
-n <Space>wt: Wiki Today  
-n <Space>z: Zoom  
+**nv** `<Space>ad`: AI Documentation  
+**nv** `<Space>ae`: AI Explain  
+**nv** `<Space>af`: AI Fix  
+**nv** `<Space>ac`: AI Generate Commit  
+**n** `<Space>am`: AI Models  
+**v** `<Space>aa`: AI Open  
+**nv** `<Space>ao`: AI Optimize  
+**nv** `<Space>ap`: AI Prompts  
+**nv** `<Space>aq`: AI Question  
+**n** `<Space>ax`: AI Reset  
+**nv** `<Space>ar`: AI Review  
+**n** `<Space>as`: AI Stop  
+**nv** `<Space>at`: AI Tests  
+**n** `<Space>aa`: AI Toggle  
+**n** `<Space>mD`: Bookmarks Delete All  
+**n** `<Space>md`: Bookmarks Delete Buffer  
+**n** `<Space>mq`: Bookmarks Quickfix  
+**n** `<Space>mm`: Bookmarks Select  
+**n** `<Space>dp`: Breakpoints  
+**n** `<Space>db`: Debug Breakpoint  
+**n** `<Space>dB`: Debug Conditional Breakpoint  
+**n** `<Space>dc`: Debug Console  
+**n** `<Space>dd`: Debug Continue [R]  
+**n** `<Space>dx`: Debug Exit  
+**nv** `<Space>de`: Debug Expression  
+**n** `<Space>df`: Debug Frames  
+**n** `<Space>dL`: Debug Log Point  
+**n** `<Space>d<Space>`: Debug REPL  
+**n** `<Space>dr`: Debug Restart  
+**n** `<Space>ds`: Debug Scopes  
+**n** `<Space>dk`: Debug Step Back (up) [R]  
+**n** `<Space>dl`: Debug Step Into (right) [R]  
+**n** `<Space>dh`: Debug Step Out (left) [R]  
+**n** `<Space>dj`: Debug Step Over (down) [R]  
+**n** `<Space>dt`: Debug Threads  
+**n** `<Space>fa`: Find Actions  
+**n** `<Space>fD`: Find All Diagnostics  
+**n** `<Space>fC`: Find All Git Commits  
+**n** `<Space>fS`: Find All Symbols  
+**nv** `<Space>fc`: Find Buffer Git Commits  
+**v** `<Space>fc`: Find Buffer Git Commits No mapping found  
+**n** `<Space>fb`: Find Buffers  
+**n** `<Space>fd`: Find Diagnostics  
+**n** `<Space>ff`: Find Files  
+**n** `<Space>fF`: Find Git Files  
+**n** `<Space>fG`: Find Git Grep  
+**n** `<Space>fg`: Find Grep  
+**n** `<Space>f?`: Find Help  
+**n** `<Space>fh`: Find History  
+**n** `<Space>fj`: Find Jumps  
+**n** `<Space>fk`: Find Keymaps  
+**n** `<Space>fm`: Find Marks  
+**n** `<Space>fq`: Find Quickfix  
+**n** `<Space><Space>`: Find Resume  
+**n** `<Space>fs`: Find Symbols  
+**n** `<Space>fu`: Find Undo History  
+**n** `<Space>he`: HTTP Environment  
+**n** `<Space>hh`: HTTP Run  
+**n** `<Space>hH`: HTTP Run All  
+**n** `<Space>ho`: HTTP Toggle  
+**n** `<Space>wd`: Wiki Diary List  
+**n** `<Space>ww`: Wiki List  
+**n** `<Space>wn`: Wiki New  
+**n** `<Space>wt`: Wiki Today  
+**n** `<Space>z`: Zoom  
 
 ## Common Commands (tldr)
 ### ls

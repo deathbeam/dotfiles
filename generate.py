@@ -34,7 +34,7 @@ def get_neovim_leader_keymaps():
         result = []
         for (keys, desc), modes in sorted_items:
             mode_str = "".join(sorted(modes))
-            result.append(f"{mode_str} {keys}: {desc}")
+            result.append(f"**{mode_str}** `{keys}`: {desc}")
         return result
 
     keymaps = []
@@ -85,13 +85,14 @@ def parse_zsh_aliases_functions(path):
                 if match:
                     name, value = match.groups()
                     value = value.strip('\'"')
-                    formatted.append(f"{name}: {value}")
+                    formatted.append(f"`{name}`: {value}")
             elif line.startswith('function '):
                 # Extract function name
                 match = re.match(r'function\s+([^{\s]+)', line)
                 if match:
-                    name = match.group(1)
-                    formatted.append(f"{name}(): function")
+                    name = match.group(1).strip()
+                    if name and name != "()":
+                        formatted.append(f"`{name}`: function")
         return sorted(formatted)
 
     lines = []
@@ -114,46 +115,24 @@ def parse_tmux_keybindings(path):
         for line in lines:
             # Parse different bind formats
             if line.startswith('bind '):
-                parts = line.split(None, 2)  # Split into max 3 parts
-                if len(parts) >= 3:
-                    # Handle -T copy-mode-vi syntax
-                    if parts[1] == '-T':
-                        # bind -T copy-mode-vi v send-keys -X begin-selection
-                        if len(parts) >= 5:
-                            mode_parts = line.split(None, 4)
-                            if len(mode_parts) >= 5:
-                                mode = mode_parts[2]  # copy-mode-vi
-                                key = mode_parts[3]   # v
-                                action = mode_parts[4] # send-keys -X begin-selection
-                                formatted.append(f"{key} ({mode}): {action}")
-                    # Handle -n syntax
-                    elif parts[1] == '-n':
-                        # bind -n M-Enter if-shell ...
-                        if len(parts) >= 4:
-                            key_parts = line.split(None, 3)
-                            key = key_parts[2]  # M-Enter
-                            action = key_parts[3] # if-shell ...
-                            # Simplify long actions
-                            if len(action) > 60:
-                                action = action[:60] + "..."
-                            formatted.append(f"{key} (global): {action}")
-                    # Handle regular bind
-                    else:
-                        key = parts[1]
-                        action = parts[2]
-                        # Clean up common actions
-                        if action.startswith('new-window'):
-                            action = "new window"
-                        elif action.startswith('split-window'):
-                            action = "split window"
-                        elif action.startswith('send-keys'):
-                            action = action.replace('send-keys -X ', '')
-                        elif action.startswith('run-shell'):
-                            action = "run shell command"
-                        elif len(action) > 40:
-                            action = action[:40] + "..."
+                parts = line.split()
+                if parts[1] == '-T':
+                    mode = parts[2]
+                    key = parts[3]
+                    action = ' '.join(parts[4:])
+                    formatted.append(f"`{key}` ({mode}): {action}")
+                    continue
+                elif parts[1].startswith('-'):
+                    parts = parts[1:]
 
-                        formatted.append(f"{key}: {action}")
+                key = parts[1]
+                action = parts[2]
+                args = ''
+                if len(parts) > 3:
+                    args = ' '.join(parts[3:])
+                    args = args.replace('"', '').replace("'", "").replace('`', '')
+                    args = '`' + args.strip() + '`'
+                formatted.append(f"`{key}`: {action} {args}".strip())
 
         return sorted(formatted)
 
@@ -181,26 +160,19 @@ def parse_hyprland_keybindings(path):
                     # Extract modifier and key from first part
                     first_part = parts[0].replace('bind =', '').strip()
                     modifier = first_part
-
                     key = parts[1].strip()
                     action = parts[2].strip()
 
                     # Get additional args if present
                     if len(parts) > 3:
                         args = ', '.join(parts[3:]).strip()
-                        if action == 'exec':
-                            action = f"run {args}"
-                        elif action == 'workspace':
-                            action = f"go to workspace {args}"
-                        elif action == 'movetoworkspace':
-                            action = f"move to workspace {args}"
-                        else:
-                            action = f"{action} {args}"
+                        action = f"{action} `{args}`"
 
                     # Format modifier + key
-                    if modifier and key:
-                        key_combo = f"{modifier}+{key}".replace('SUPER', '⊞').replace('SHIFT', '⇧').replace('_', '+')
-                        formatted.append(f"{key_combo}: {action}")
+                    if modifier:
+                        key = f"{modifier}+{key}"
+
+                    formatted.append(f"`{key}`: {action}")
 
             # Handle binde (continuous) bindings
             elif line.startswith('binde '):
@@ -215,8 +187,8 @@ def parse_hyprland_keybindings(path):
                         args = ', '.join(parts[3:]).strip()
                         action = f"{action} {args}"
 
-                    key_combo = f"{modifier}+{key}".replace('SUPER', '⊞').replace('SHIFT', '⇧').replace('_', '+')
-                    formatted.append(f"{key_combo}: {action} (continuous)")
+                    key_combo = f"{modifier}+{key}"
+                    formatted.append(f"`{key_combo}`: {action} (continuous)")
 
         return sorted(formatted)
 
