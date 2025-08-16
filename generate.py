@@ -247,23 +247,23 @@ def main():
         f.write("# System Cheatsheet\n\n")
 
         f.write("## Zsh Aliases & Functions\n")
-        for line in parse_zsh_aliases_functions(str(Path.home() / "git/dotfiles/zsh/.zshrc")):
-            f.write(line + "\n")
+        for line in parse_zsh_aliases_functions("zsh/.zshrc"):
+            f.write(line + "  \n")
         f.write("\n")
 
         f.write("## Tmux Keybindings\n")
-        for line in parse_tmux_keybindings(str(Path.home() / "git/dotfiles/tmux/.tmux.conf")):
-            f.write(line + "\n")
+        for line in parse_tmux_keybindings("tmux/.tmux.conf"):
+            f.write(line + "  \n")
         f.write("\n")
 
         f.write("## Hyprland Keybindings\n")
-        for line in parse_hyprland_keybindings(str(Path.home() / "git/dotfiles/hyprland/.config/hypr/hyprland.conf")):
-            f.write(line + "\n")
+        for line in parse_hyprland_keybindings("hyprland/.config/hypr/hyprland.conf"):
+            f.write(line + "  \n")
         f.write("\n")
 
         f.write("## Neovim <leader> Keybindings\n")
         for line in get_neovim_leader_keymaps():
-            f.write(line + "\n")
+            f.write(line + "  \n")
         f.write("\n")
 
         f.write("## Common Commands (tldr)\n")

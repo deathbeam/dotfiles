@@ -1,158 +1,158 @@
 # System Cheatsheet
 
 ## Zsh Aliases & Functions
-()(): function
-gc: git commit --signoff --verbose
-gcA: git commit --signoff --verbose --patch
-gca: git commit --signoff --verbose --all
-gcm: git commit --signoff --message
-nvimf: nvim -c "FzfLua files
-nviml: nvim --listen /tmp/nvim.pipe
-pac: yay -Rns $(yay -Qtdq)
-pai: yay -Sy
-paii: yay -Sy --noconfirm
-pam: rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist
-pan: yay -Qqd | yay -Rsu --print -
-par: yay -Rnsu
-parr: yay -Rnsu --noconfirm
-pau: yay -Syu
-pauu: yay -Syu --noconfirm
-recent_files()(): function
-setproxy(): function
-unsetproxy(): function
-vcopy(): function
-vim: nvim
-vimdiff: nvim -d
-vimf: nvimf
-viml: nviml
-vpaste(): function
+()(): function  
+gc: git commit --signoff --verbose  
+gcA: git commit --signoff --verbose --patch  
+gca: git commit --signoff --verbose --all  
+gcm: git commit --signoff --message  
+nvimf: nvim -c "FzfLua files  
+nviml: nvim --listen /tmp/nvim.pipe  
+pac: yay -Rns $(yay -Qtdq)  
+pai: yay -Sy  
+paii: yay -Sy --noconfirm  
+pam: rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist  
+pan: yay -Qqd | yay -Rsu --print -  
+par: yay -Rnsu  
+parr: yay -Rnsu --noconfirm  
+pau: yay -Syu  
+pauu: yay -Syu --noconfirm  
+recent_files()(): function  
+setproxy(): function  
+unsetproxy(): function  
+vcopy(): function  
+vim: nvim  
+vimdiff: nvim -d  
+vimf: nvimf  
+viml: nviml  
+vpaste(): function  
 
 ## Tmux Keybindings
-%: split window
-&: kill-window
-'"': split window
-C-space: send-prefix
-C: new-session -c "#{pane_current_path}"
-X: kill-session
-c: new window
-s: run shell command
-v: capture-pane -S - \; save-buffer /tmp/tm...
-x: kill-pane
+%: split window  
+&: kill-window  
+'"': split window  
+C-space: send-prefix  
+C: new-session -c "#{pane_current_path}"  
+X: kill-session  
+c: new window  
+s: run shell command  
+v: capture-pane -S - \; save-buffer /tmp/tm...  
+x: kill-pane  
 
 ## Hyprland Keybindings
-⊞+1: go to workspace 1
-⊞+2: go to workspace 2
-⊞+3: go to workspace 3
-⊞+4: go to workspace 4
-⊞+5: go to workspace 5
-⊞+6: go to workspace 6
-⊞+7: go to workspace 7
-⊞+8: go to workspace 8
-⊞+9: go to workspace 9
-⊞+F: fullscreen 0
-⊞+H: movefocus l
-⊞+J: movefocus d
-⊞+K: movefocus u
-⊞+L: movefocus r
-⊞+M: fullscreen 1
-⊞+Print: run screenrecorder
-⊞+R: submap resize
-⊞+Return: run terminal
-⊞+S: togglefloating
-⊞+Tab: run switchmenu -p "switch"
-⊞+W: killactive
-⊞+c: run clipmenu -p "clip"
-⊞+e: run swaylock -f -i $WALLPAPER
-⊞+escape: run hyprctl reload
-⊞+g: run pkill -USR1 gammastep
-⊞+grave: togglespecialworkspace
-⊞+n: run notificationsmenu -p "notifications"
-⊞+space: run runmenu -p "run"
-⊞+v: run steammenu -p "steam"
-⊞+x: run procmenu -p "proc"
-⊞+z: run passmenu -p "pass"
-⊞+⇧+1: move to workspace 1
-⊞+⇧+2: move to workspace 2
-⊞+⇧+3: move to workspace 3
-⊞+⇧+4: move to workspace 4
-⊞+⇧+5: move to workspace 5
-⊞+⇧+6: move to workspace 6
-⊞+⇧+7: move to workspace 7
-⊞+⇧+8: move to workspace 8
-⊞+⇧+9: move to workspace 9
-⊞+⇧+H: movewindow l
-⊞+⇧+J: movewindow d
-⊞+⇧+K: movewindow u
-⊞+⇧+L: movewindow r
-⊞+⇧+escape: exit 
-⊞+⇧+grave: move to workspace special
+⊞+1: go to workspace 1  
+⊞+2: go to workspace 2  
+⊞+3: go to workspace 3  
+⊞+4: go to workspace 4  
+⊞+5: go to workspace 5  
+⊞+6: go to workspace 6  
+⊞+7: go to workspace 7  
+⊞+8: go to workspace 8  
+⊞+9: go to workspace 9  
+⊞+F: fullscreen 0  
+⊞+H: movefocus l  
+⊞+J: movefocus d  
+⊞+K: movefocus u  
+⊞+L: movefocus r  
+⊞+M: fullscreen 1  
+⊞+Print: run screenrecorder  
+⊞+R: submap resize  
+⊞+Return: run terminal  
+⊞+S: togglefloating  
+⊞+Tab: run switchmenu -p "switch"  
+⊞+W: killactive  
+⊞+c: run clipmenu -p "clip"  
+⊞+e: run swaylock -f -i $WALLPAPER  
+⊞+escape: run hyprctl reload  
+⊞+g: run pkill -USR1 gammastep  
+⊞+grave: togglespecialworkspace  
+⊞+n: run notificationsmenu -p "notifications"  
+⊞+space: run runmenu -p "run"  
+⊞+v: run steammenu -p "steam"  
+⊞+x: run procmenu -p "proc"  
+⊞+z: run passmenu -p "pass"  
+⊞+⇧+1: move to workspace 1  
+⊞+⇧+2: move to workspace 2  
+⊞+⇧+3: move to workspace 3  
+⊞+⇧+4: move to workspace 4  
+⊞+⇧+5: move to workspace 5  
+⊞+⇧+6: move to workspace 6  
+⊞+⇧+7: move to workspace 7  
+⊞+⇧+8: move to workspace 8  
+⊞+⇧+9: move to workspace 9  
+⊞+⇧+H: movewindow l  
+⊞+⇧+J: movewindow d  
+⊞+⇧+K: movewindow u  
+⊞+⇧+L: movewindow r  
+⊞+⇧+escape: exit   
+⊞+⇧+grave: move to workspace special  
 
 ## Neovim <leader> Keybindings
-nv <Space>ad: AI Documentation
-nv <Space>ae: AI Explain
-nv <Space>af: AI Fix
-nv <Space>ac: AI Generate Commit
-n <Space>am: AI Models
-v <Space>aa: AI Open
-nv <Space>ao: AI Optimize
-nv <Space>ap: AI Prompts
-nv <Space>aq: AI Question
-n <Space>ax: AI Reset
-nv <Space>ar: AI Review
-n <Space>as: AI Stop
-nv <Space>at: AI Tests
-n <Space>aa: AI Toggle
-n <Space>mD: Bookmarks Delete All
-n <Space>md: Bookmarks Delete Buffer
-n <Space>mq: Bookmarks Quickfix
-n <Space>mm: Bookmarks Select
-n <Space>dp: Breakpoints
-n <Space>db: Debug Breakpoint
-n <Space>dB: Debug Conditional Breakpoint
-n <Space>dc: Debug Console
-n <Space>dd: Debug Continue [R]
-n <Space>dx: Debug Exit
-nv <Space>de: Debug Expression
-n <Space>df: Debug Frames
-n <Space>dL: Debug Log Point
-n <Space>d<Space>: Debug REPL
-n <Space>dr: Debug Restart
-n <Space>ds: Debug Scopes
-n <Space>dk: Debug Step Back (up) [R]
-n <Space>dl: Debug Step Into (right) [R]
-n <Space>dh: Debug Step Out (left) [R]
-n <Space>dj: Debug Step Over (down) [R]
-n <Space>dt: Debug Threads
-n <Space>fa: Find Actions
-n <Space>fD: Find All Diagnostics
-n <Space>fC: Find All Git Commits
-n <Space>fS: Find All Symbols
-nv <Space>fc: Find Buffer Git Commits
-v <Space>fc: Find Buffer Git Commits No mapping found
-n <Space>fb: Find Buffers
-n <Space>fd: Find Diagnostics
-n <Space>ff: Find Files
-n <Space>fF: Find Git Files
-n <Space>fG: Find Git Grep
-n <Space>fg: Find Grep
-n <Space>f?: Find Help
-n <Space>fh: Find History
-n <Space>fj: Find Jumps
-n <Space>fk: Find Keymaps
-n <Space>fm: Find Marks
-n <Space>fq: Find Quickfix
-n <Space><Space>: Find Resume
-n <Space>fs: Find Symbols
-n <Space>fu: Find Undo History
-n <Space>he: HTTP Environment
-n <Space>hh: HTTP Run
-n <Space>hH: HTTP Run All
-n <Space>ho: HTTP Toggle
-n <Space>wd: Wiki Diary List
-n <Space>ww: Wiki List
-n <Space>wn: Wiki New
-n <Space>wt: Wiki Today
-n <Space>z: Zoom
+nv <Space>ad: AI Documentation  
+nv <Space>ae: AI Explain  
+nv <Space>af: AI Fix  
+nv <Space>ac: AI Generate Commit  
+n <Space>am: AI Models  
+v <Space>aa: AI Open  
+nv <Space>ao: AI Optimize  
+nv <Space>ap: AI Prompts  
+nv <Space>aq: AI Question  
+n <Space>ax: AI Reset  
+nv <Space>ar: AI Review  
+n <Space>as: AI Stop  
+nv <Space>at: AI Tests  
+n <Space>aa: AI Toggle  
+n <Space>mD: Bookmarks Delete All  
+n <Space>md: Bookmarks Delete Buffer  
+n <Space>mq: Bookmarks Quickfix  
+n <Space>mm: Bookmarks Select  
+n <Space>dp: Breakpoints  
+n <Space>db: Debug Breakpoint  
+n <Space>dB: Debug Conditional Breakpoint  
+n <Space>dc: Debug Console  
+n <Space>dd: Debug Continue [R]  
+n <Space>dx: Debug Exit  
+nv <Space>de: Debug Expression  
+n <Space>df: Debug Frames  
+n <Space>dL: Debug Log Point  
+n <Space>d<Space>: Debug REPL  
+n <Space>dr: Debug Restart  
+n <Space>ds: Debug Scopes  
+n <Space>dk: Debug Step Back (up) [R]  
+n <Space>dl: Debug Step Into (right) [R]  
+n <Space>dh: Debug Step Out (left) [R]  
+n <Space>dj: Debug Step Over (down) [R]  
+n <Space>dt: Debug Threads  
+n <Space>fa: Find Actions  
+n <Space>fD: Find All Diagnostics  
+n <Space>fC: Find All Git Commits  
+n <Space>fS: Find All Symbols  
+nv <Space>fc: Find Buffer Git Commits  
+v <Space>fc: Find Buffer Git Commits No mapping found  
+n <Space>fb: Find Buffers  
+n <Space>fd: Find Diagnostics  
+n <Space>ff: Find Files  
+n <Space>fF: Find Git Files  
+n <Space>fG: Find Git Grep  
+n <Space>fg: Find Grep  
+n <Space>f?: Find Help  
+n <Space>fh: Find History  
+n <Space>fj: Find Jumps  
+n <Space>fk: Find Keymaps  
+n <Space>fm: Find Marks  
+n <Space>fq: Find Quickfix  
+n <Space><Space>: Find Resume  
+n <Space>fs: Find Symbols  
+n <Space>fu: Find Undo History  
+n <Space>he: HTTP Environment  
+n <Space>hh: HTTP Run  
+n <Space>hH: HTTP Run All  
+n <Space>ho: HTTP Toggle  
+n <Space>wd: Wiki Diary List  
+n <Space>ww: Wiki List  
+n <Space>wn: Wiki New  
+n <Space>wt: Wiki Today  
+n <Space>z: Zoom  
 
 ## Common Commands (tldr)
 ### ls
