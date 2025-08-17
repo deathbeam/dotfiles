@@ -264,7 +264,7 @@ def main():
         f.write("\n")
 
         f.write("## Common Commands (tldr)\n")
-        for cmd in ["ls", "grep", "tmux", "nvim", "git", "docker", "yay", "pacman"]:
+        for cmd in ["ls", "grep", "tmux", "nvim", "git", "docker", "yay"]:
             f.write(f"### {cmd}\n")
             f.write(get_tldr_summary(cmd) + "\n\n")
     logging.info("Cheatsheet generation complete.")
