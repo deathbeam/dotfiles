@@ -1,7 +1,7 @@
 :root {
     --tridactyl-font-family: monospace;
-    --tridactyl-font-family-sans: sans-serif;
-    --tridactyl-font-size: 12pt;
+    --tridactyl-font-family-sans: monospace;
+    --tridactyl-font-size: 16pt;
     --tridactyl-small-font-size: calc(var(--tridactyl-font-size) * 0.75);
 
     --tridactyl-bg: #002b36;

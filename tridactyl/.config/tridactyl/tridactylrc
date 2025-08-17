@@ -1,3 +1,9 @@
+" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
+" vim: set filetype=tridactyl
+
+" Disable GUI
+guiset gui none
+
 " General Settings
 set update.lastchecktime 1755460612684
 set update.nag true
@@ -5,16 +11,9 @@ set update.nagwait 7
 set update.lastnaggedversion 1.14.0
 set update.checkintervalsecs 86400
 set configversion 2.0
-set theme auto
+set theme solarized
 set allowautofocus false
-
-" For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
-" vim: set filetype=tridactyl
 
 " Swap J and K because of vertical tabs
 bind J tabnext
 bind K tabprev
-
-" Gui
-guiset gui none
-colors solarized
