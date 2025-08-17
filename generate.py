@@ -79,42 +79,6 @@ def get_neovim_leader_keymaps():
         logging.error(f"Error extracting Neovim keymaps: {e}")
         keymaps.append(f"(Error: {e})")
     return keymaps
-    keymaps = []
-    vim_cmds = [
-        "nmap <leader>",
-        "vmap <leader>",
-        "xmap <leader>",
-        "imap <leader>"
-    ]
-    try:
-        logging.info("Extracting Neovim <leader> keymaps using :map commands...")
-        result = subprocess.run(
-            ["nvim", "--headless"] +
-            sum([["-c", cmd] for cmd in vim_cmds], []) +
-            ["+qall"],
-            text=True, timeout=5, capture_output=True
-        )
-
-        out = result.stdout.strip() + "\n" + result.stderr.strip()
-        formatted = []
-        buffer = []
-        keymap_re = re.compile(r'^[nvxi]\s+<.*>')
-
-        for line in out.splitlines():
-            if keymap_re.match(line):
-                if buffer:
-                    formatted.append(" ".join(buffer))
-                    buffer = []
-                buffer.append(line.strip())
-            elif line.strip():
-                buffer.append(line.strip())
-        if buffer:
-            formatted.append(" ".join(buffer))
-        return format_leader_keymaps(formatted)
-    except Exception as e:
-        logging.error(f"Error extracting Neovim keymaps: {e}")
-        keymaps.append(f"(Error: {e})")
-    return keymaps
 
 def parse_zsh_aliases_functions():
     def format_zsh_items(aliases, functions):
@@ -126,16 +90,16 @@ def parse_zsh_aliases_functions():
             if re.match(r'^[a-zA-Z0-9]', alias) and not alias.startswith('base16'):
                 split = alias.split('=', 1)
                 key = split[0].strip()
-                value = split[1].strip().replace('"', '').replace("'", "").replace('`', '')
-                rows.append(f"| `{key}` | `{value}` | alias |")
+                value = split[1].strip().replace('"', '').replace("'", "").replace('`', '').replace("|", "\\|")
+                rows.append(f"| alias | `{key}` | `{value}`")
         # Format functions
         for func in functions:
             func = func.strip()
             if re.match(r'^[a-zA-Z0-9]', func):
-                rows.append(f"| `{func}` | | function |")
+                rows.append(f"| function | `{func}` | |")
         table = [
-            "| Name | Value | Type |",
-            "|------|-------|------|",
+            "| Type | Name | Value |",
+            "|------|------|-------|",
             *rows
         ]
         return table
