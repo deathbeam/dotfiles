@@ -70,6 +70,7 @@ yay -S --noconfirm --mflags --skipinteg \
     gcr \
     zathura zathura-pdf-mupdf \
     qutebrowser python-adblock \
+    firefox firefox-tridactyl firefox-tridactyl-native \
     gimp \
     mpv subliminal yt-dlp \
     vesktop-bin stremio \

@@ -61,7 +61,6 @@ chat.setup({
         Commit = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
-            selection = require('CopilotChat.select').buffer,
         }
     },
     providers = {
