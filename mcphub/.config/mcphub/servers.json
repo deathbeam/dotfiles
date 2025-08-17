@@ -1,5 +1,14 @@
 {
   "servers": {
+    "vectorspace": {
+      "args": [
+        "run",
+        "--spec",
+        "python-vectorspace==0.0.6",
+        "vectorspace-mcp"
+      ],
+      "command": "pipx"
+    },
     "sequentialthinking": {
       "args": [
         "-y",
