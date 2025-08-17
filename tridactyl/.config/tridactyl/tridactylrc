@@ -10,3 +10,11 @@ set allowautofocus false
 
 " For syntax highlighting see https://github.com/tridactyl/vim-tridactyl
 " vim: set filetype=tridactyl
+
+" Swap J and K because of vertical tabs
+bind J tabnext
+bind K tabprev
+
+" Gui
+guiset gui none
+colors solarized
