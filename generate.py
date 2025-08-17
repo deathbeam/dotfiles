@@ -93,10 +93,11 @@ def parse_zsh_aliases_functions():
                 value = split[1].strip().replace('"', '').replace("'", "").replace('`', '').replace("|", "\\|")
                 rows.append(f"| alias | `{key}` | `{value}`")
         # Format functions
-        for func in functions:
-            func = func.strip()
-            if re.match(r'^[a-zA-Z0-9]', func):
-                rows.append(f"| function | `{func}` | |")
+        # for now skip functions
+        # for func in functions:
+        #     func = func.strip()
+        #     if re.match(r'^[a-zA-Z0-9]', func):
+        #         rows.append(f"| function | `{func}` | |")
         table = [
             "| Type | Name | Value |",
             "|------|------|-------|",
