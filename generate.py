@@ -241,31 +241,27 @@ def get_tldr_summary(cmd):
 def main():
     logging.info(f"Writing cheatsheet to {CHEATSHEET}")
     with open(CHEATSHEET, "w") as f:
-        f.write("# System Cheatsheet\n\n")
-
-        f.write("## Zsh Aliases & Functions\n")
+        f.write("# Zsh Aliases & Functions\n")
         for line in parse_zsh_aliases_functions():
             f.write(line + "\n")
         f.write("\n")
 
-        f.write("## Tmux Keybindings\n")
+        f.write("# Tmux Keybindings\n")
         for line in parse_tmux_keybindings("tmux/.tmux.conf"):
             f.write(line + "\n")
         f.write("\n")
 
-        f.write("## Hyprland Keybindings\n")
+        f.write("# Hyprland Keybindings\n")
         for line in parse_hyprland_keybindings("hyprland/.config/hypr/hyprland.conf"):
             f.write(line + "\n")
         f.write("\n")
 
-        f.write("## Neovim <leader> Keybindings\n")
+        f.write("# Neovim Keybindings\n")
         for line in get_neovim_leader_keymaps():
             f.write(line + "\n")
         f.write("\n")
 
-        f.write("## Common Commands (tldr)\n")
         for cmd in ["ls", "grep", "tmux", "nvim", "git", "docker", "yay"]:
-            f.write(f"### {cmd}\n")
             f.write(get_tldr_summary(cmd) + "\n\n")
     logging.info("Cheatsheet generation complete.")
 

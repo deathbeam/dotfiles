@@ -1,6 +1,4 @@
-# System Cheatsheet
-
-## Zsh Aliases & Functions
+# Zsh Aliases & Functions
 | Type | Name | Value |
 |------|------|-------|
 | alias | `a` | `fasd -a`
@@ -411,7 +409,7 @@
 | function | `autocomplete:config:format:warnings` | |
 | function | `vpaste` | |
 
-## Tmux Keybindings
+# Tmux Keybindings
 | Mode | Key | Action |
 |------|-----|--------|
 | | `C-space` | send-prefix
@@ -429,7 +427,7 @@
 | | `v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
 | | `s` | run-shell `-b $HOME/.tmux/switch-session.sh`
 
-## Hyprland Keybindings
+# Hyprland Keybindings
 | Key | Action |
 |-----|--------|
 | `SUPER+Return` | exec `terminal` |
@@ -493,7 +491,7 @@
 | `SUPER_SHIFT+9` | movetoworkspace `9` |
 | `SUPER_SHIFT+grave` | movetoworkspace `special` |
 
-## Neovim <leader> Keybindings
+# Neovim Keybindings
 | Mode | Key | Description |
 |------|-----|-------------|
 | nv | `<Space>ad` | AI Documentation |
@@ -562,8 +560,6 @@
 | n | `<Space>wt` | Wiki Today |
 | n | `<Space>z` | Zoom |
 
-## Common Commands (tldr)
-### ls
 # ls
 
 > List directory contents.
@@ -601,7 +597,6 @@
 
 `ls {{[-d|--directory]}} */`
 
-### grep
 # grep
 
 > Find patterns in files using `regex`es.
@@ -639,7 +634,6 @@
 
 `cat {{path/to/file}} | grep {{[-v|--invert-match]}} "{{search_pattern}}"`
 
-### tmux
 # tmux
 
 > Terminal multiplexer.
@@ -679,7 +673,6 @@
 
 `tmux kill-session -t {{name}}`
 
-### nvim
 # nvim
 
 > Neovim, a programmer's text editor based on Vim, provides several modes for different kinds of text manipulation.
@@ -719,7 +712,6 @@
 
 `<Esc><:>q!<Enter>`
 
-### git
 # git
 
 > Distributed version control system.
@@ -758,7 +750,6 @@
 
 `git reset --hard; git clean {{[-f|--force]}}`
 
-### docker
 # docker
 
 > Manage Docker containers and images.
@@ -797,7 +788,6 @@
 
 `docker logs {{[-f|--follow]}} {{container_name}}`
 
-### yay
 # yay
 
 > Yet Another Yogurt: build and install packages from the Arch User Repository.
