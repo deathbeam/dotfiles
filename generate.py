@@ -232,7 +232,7 @@ def parse_hyprland_keybindings(path):
 def get_tldr_summary(cmd):
     logging.info(f"Getting tldr summary for: {cmd}")
     try:
-        out = subprocess.check_output(["tldr", cmd], text=True, timeout=2)
+        out = subprocess.check_output(["tldr", "--markdown", cmd], text=True, timeout=2)
         return out.strip()
     except Exception as e:
         logging.warning(f"tldr entry not found for {cmd}: {e}")
