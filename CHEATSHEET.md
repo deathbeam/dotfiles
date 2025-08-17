@@ -1,482 +1,490 @@
 # System Cheatsheet
 
 ## Zsh Aliases & Functions
-`a`: `fasd -a`  
-`chmod`: `chmod --preserve-root -v`  
-`chown`: `chown --preserve-root -v`  
-`d`: `fasd -d`  
-`df`: `df -h`  
-`du`: `du -h`  
-`f`: `fasd -f`  
-`fsh-alias`: `fast-theme`  
-`g`: `git`  
-`g..`: `cd $(git-root || print .)`  
-`gCO`: `gCo $(gCl)`  
-`gCT`: `gCt $(gCl)`  
-`gCa`: `git add $(gCl)`  
-`gCe`: `git mergetool $(gCl)`  
-`gCl`: `git --no-pager diff --name-only --diff-filter=U`  
-`gCo`: `git checkout --ours --`  
-`gCt`: `git checkout --theirs --`  
-`gR`: `git remote`  
-`gRS`: `git remote set-url`  
-`gRa`: `git remote add`  
-`gRl`: `git remote --verbose`  
-`gRm`: `git remote rename`  
-`gRp`: `git remote prune`  
-`gRs`: `git remote show`  
-`gRu`: `git remote update`  
-`gRx`: `git remote rm`  
-`gS`: `git submodule`  
-`gSI`: `git submodule update --init --recursive`  
-`gSa`: `git submodule add`  
-`gSf`: `git submodule foreach`  
-`gSi`: `git submodule init`  
-`gSl`: `git submodule status`  
-`gSm`: `git-submodule-move`  
-`gSs`: `git submodule sync`  
-`gSu`: `git submodule update --remote`  
-`gSx`: `git-submodule-remove`  
-`gW`: `git worktree`  
-`gWX`: `git worktree remove --force`  
-`gWa`: `git worktree add`  
-`gWl`: `git worktree list`  
-`gWm`: `git worktree move`  
-`gWp`: `git worktree prune`  
-`gWx`: `git worktree remove`  
-`gb`: `git branch`  
-`gbG`: `git-branch-remote-tracking gone | xargs -r git branch --delete --force`  
-`gbL`: `git branch --list -vv --all`  
-`gbM`: `git branch --move --force`  
-`gbR`: `git branch --force`  
-`gbS`: `git show-branch --all`  
-`gbX`: `git-branch-delete-interactive --force`  
-`gbc`: `git checkout -b`  
-`gbd`: `git checkout --detach`  
-`gbl`: `git branch --list -vv`  
-`gbm`: `git branch --move`  
-`gbn`: `git branch --no-contains`  
-`gbs`: `git show-branch`  
-`gbu`: `git branch --unset-upstream`  
-`gbx`: `git-branch-delete-interactive`  
-`gc`: `git commit --signoff --verbose`  
-`gcA`: `git commit --signoff --verbose --patch`  
-`gcF`: `git commit --verbose --amend`  
-`gcO`: `git checkout --patch`  
-`gcP`: `git cherry-pick --no-commit`  
-`gcR`: `git reset HEAD^`  
-`gcS`: `git commit --verbose -S`  
-`gcU`: `git commit --squash`  
-`gca`: `git commit --signoff --verbose --all`  
-`gcf`: `git commit --amend --reuse-message HEAD`  
-`gcm`: `git commit --signoff --message`  
-`gco`: `git checkout`  
-`gcp`: `git cherry-pick`  
-`gcr`: `git revert`  
-`gcs`: `git show --pretty=format:${_git_log_fuller_format}`  
-`gcu`: `git commit --fixup`  
-`gcv`: `git verify-commit`  
-`gd`: `git ls-files`  
-`gdI`: `git ls-files --ignored --exclude-per-directory=.gitignore --cached`  
-`gdc`: `git ls-files --cached`  
-`gdi`: `git status --porcelain --ignored=matching | sed -n s/^!! //p`  
-`gdk`: `git ls-files --killed`  
-`gdm`: `git ls-files --modified`  
-`gdu`: `git ls-files --other --exclude-standard`  
-`gdx`: `git ls-files --deleted`  
-`get`: `wget --continue --progress=bar --timestamping`  
-`gf`: `git fetch`  
-`gfa`: `git fetch --all`  
-`gfc`: `git clone`  
-`gfm`: `git pull --no-rebase`  
-`gfp`: `git fetch --all --prune`  
-`gfr`: `git pull --rebase`  
-`gfu`: `git pull --ff-only --all --prune`  
-`gg`: `git grep`  
-`ggL`: `git grep --files-without-match`  
-`ggi`: `git grep --ignore-case`  
-`ggl`: `git grep --files-with-matches`  
-`ggv`: `git grep --invert-match`  
-`ggw`: `git grep --word-regexp`  
-`ghw`: `git help --web`  
-`giA`: `git add --patch`  
-`giD`: `git diff --no-ext-diff --cached --word-diff`  
-`giR`: `git reset --patch`  
-`giU`: `git add --verbose --all`  
-`giX`: `git rm --cached -rf`  
-`gia`: `git add --verbose`  
-`gid`: `git diff --no-ext-diff --cached`  
-`gir`: `git reset`  
-`giu`: `git add --verbose --update`  
-`gix`: `git rm --cached -r`  
-`gl`: `git log --date-order --pretty=format:${_git_log_fuller_format}`  
-`glG`: `git log --date-order --graph --pretty=format:${_git_log_oneline_medium_format}`  
-`glO`: `git log --date-order --pretty=format:${_git_log_oneline_medium_format}`  
-`glc`: `git shortlog --summary --numbered`  
-`gld`: `git log --date-order --stat --patch --pretty=format:${_git_log_fuller_format}`  
-`glf`: `git log --date-order --stat --patch --follow --pretty=format:${_git_log_fuller_format}`  
-`glg`: `git log --date-order --graph --pretty=format:${_git_log_oneline_format}`  
-`glo`: `git log --date-order --pretty=format:${_git_log_oneline_format}`  
-`glr`: `git reflog`  
-`gls`: `git log --date-order --stat --pretty=format:${_git_log_fuller_format}`  
-`glv`: `git log --date-order --show-signature --pretty=format:${_git_log_fuller_format}`  
-`gm`: `git merge`  
-`gmC`: `git merge --no-commit`  
-`gmF`: `git merge --no-ff`  
-`gmS`: `git merge -S`  
-`gma`: `git merge --abort`  
-`gmc`: `git merge --continue`  
-`gms`: `git merge --squash`  
-`gmt`: `git mergetool`  
-`gmv`: `git merge --verify-signatures`  
-`gp`: `git push`  
-`gpA`: `git push --all && git push --tags --no-verify`  
-`gpF`: `git push --force`  
-`gpa`: `git push --all`  
-`gpc`: `git push --set-upstream origin $(git-branch-current 2>/dev/null)`  
-`gpf`: `git push --force-with-lease`  
-`gpp`: `git pull origin $(git-branch-current 2>/dev/null) && git push origin $(git-branch-current 2>/dev/null)`  
-`gpt`: `git push --tags`  
-`gr`: `git rebase`  
-`grS`: `git rebase --exec git commit --amend --no-edit --no-verify -S`  
-`gra`: `git rebase --abort`  
-`grc`: `git rebase --continue`  
-`grep`: `grep --color=auto`  
-`gri`: `git rebase --interactive --autosquash`  
-`grs`: `git rebase --skip`  
-`gs`: `git stash`  
-`gsS`: `git stash save --patch --no-keep-index`  
-`gsX`: `git-stash-clear-interactive`  
-`gsa`: `git stash apply`  
-`gsd`: `git stash show --patch --stat`  
-`gsi`: `git stash push --staged`  
-`gsl`: `git stash list`  
-`gsp`: `git stash pop`  
-`gsr`: `git-stash-recover`  
-`gss`: `git stash save --include-untracked`  
-`gsu`: `git stash show --patch | git apply --reverse`  
-`gsw`: `git stash save --include-untracked --keep-index`  
-`gsx`: `git stash drop`  
-`gt`: `git tag`  
-`gtl`: `git tag --list --sort=-committerdate`  
-`gts`: `git tag --sign`  
-`gtv`: `git verify-tag`  
-`gtx`: `git tag --delete`  
-`gwC`: `git clean -d --force`  
-`gwD`: `git diff --no-ext-diff --word-diff`  
-`gwM`: `git mv -f`  
-`gwR`: `git reset --hard`  
-`gwS`: `git status`  
-`gwX`: `git rm -rf`  
-`gwc`: `git clean --dry-run`  
-`gwd`: `git diff --no-ext-diff`  
-`gwm`: `git mv`  
-`gwr`: `git reset --soft`  
-`gws`: `git status --short --branch`  
-`gwx`: `git rm -r`  
-`gy`: `git switch`  
-`gyc`: `git switch --create`  
-`gyd`: `git switch --detach`  
-`k`: `kubectl`  
-`kaf`: `kubectl apply -f`  
-`kc`: `kubectl`  
-`kcc`: `kubectl config get-contexts`  
-`kcf`: `kubectl create -f`  
-`kcl`: `kubectl logs`  
-`kctx`: `kubectx`  
-`kd`: `kubectl delete`  
-`kdc`: `kubectl delete cronjobs`  
-`kdcm`: `kubectl delete configmaps`  
-`kdd`: `kubectl delete deployment`  
-`kdds`: `kubectl delete daemonsets`  
-`kdf`: `kubectl delete -f`  
-`kdi`: `kubectl delete ingress`  
-`kdj`: `kubectl delete job`  
-`kdns`: `kubectl delete namespaces`  
-`kdp`: `kubectl delete pod`  
-`kdpv`: `kubectl delete persistentvolumes`  
-`kdpvc`: `kubectl delete persistentvolumeclaims`  
-`kds`: `kubectl delete services`  
-`kdsc`: `kubectl describe cronjobs`  
-`kdscm`: `kubectl describe configmaps`  
-`kdsd`: `kubectl describe deployments`  
-`kdsds`: `kubectl describe daemonsets`  
-`kdsf`: `kubectl describe -f`  
-`kdsi`: `kubectl describe ingress`  
-`kdsj`: `kubectl describe jobs`  
-`kdsn`: `kubectl describe nodes`  
-`kdsns`: `kubectl describe namespaces`  
-`kdsp`: `kubectl describe pods`  
-`kdspv`: `kubectl describe persistentvolumes`  
-`kdspvc`: `kubectl describe persistentvolumeclaims`  
-`kdss`: `kubectl describe services`  
-`kdssc`: `kubectl describe secrets`  
-`ke`: `kubectl edit`  
-`kec`: `kubectl edit cronjobs`  
-`kecm`: `kubectl edit configmaps`  
-`ked`: `kubectl edit deployments`  
-`keds`: `kubectl edit daemonsets`  
-`kef`: `kubectl edit -f`  
-`kei`: `kubectl edit ingress`  
-`keit`: `kubectl exec -it --`  
-`kej`: `kubectl edit jobs`  
-`ken`: `kubectl edit nodes`  
-`kens`: `kubectl edit namespaces`  
-`kep`: `kubectl edit pods`  
-`kepv`: `kubectl edit persistentvolumes`  
-`kepvc`: `kubectl edit persistentvolumeclaims`  
-`kes`: `kubectl edit services`  
-`kesc`: `kubectl edit secrets`  
-`kg`: `kubectl get`  
-`kga`: `kubectl get --all-namespaces`  
-`kgac`: `get_cluster_resources cronjobs`  
-`kgacm`: `get_cluster_resources configmaps`  
-`kgads`: `get_cluster_resources daemonsets`  
-`kgai`: `get_cluster_resources ingress`  
-`kgaj`: `get_cluster_resources jobs`  
-`kgap`: `get_cluster_resources pods`  
-`kgapvc`: `get_cluster_resources persistentvolumeclaims`  
-`kgas`: `get_cluster_resources services`  
-`kgasc`: `get_cluster_resources secrets`  
-`kgc`: `kubectl get cronjobs`  
-`kgcm`: `kubectl get configmaps`  
-`kgcmy`: `kubectl get configmaps -o yaml`  
-`kgcr`: `kubectl get clusterroles`  
-`kgcrb`: `kubectl get clusterrolebindings`  
-`kgcrd`: `kubectl get customresourcedefinition`  
-`kgcrv`: `kubectl get controllerrevisions`  
-`kgcs`: `kubectl get componentstatus`  
-`kgcsr`: `kubectl get certificatesigningrequests`  
-`kgcw`: `watch kubectl get cronjobs`  
-`kgcy`: `kubectl get cronjobs -o yaml`  
-`kgd`: `kubectl get deployments`  
-`kgds`: `kubectl get daemonsets`  
-`kgdsw`: `watch kubectl get daemonsets`  
-`kgdsy`: `kubectl get daemonsets -o yaml`  
-`kgdw`: `watch kubectl get deployments`  
-`kgdy`: `kubectl get deployments -o yaml`  
-`kgep`: `kubectl get endpoints`  
-`kgev`: `kubectl get events`  
-`kgf`: `kubectl get -f`  
-`kghpa`: `kubectl get horizontalpodautoscalers`  
-`kgi`: `kubectl get ingress`  
-`kgiy`: `kubectl get ingress -o yaml`  
-`kgj`: `kubectl get jobs`  
-`kgjw`: `watch kubectl get jobs`  
-`kgjy`: `kubectl get jobs -o yaml`  
-`kglr`: `kubectl get limitranges`  
-`kgn`: `kubectl get nodes`  
-`kgnp`: `kubectl get networkpolicies`  
-`kgns`: `kubectl get namespaces`  
-`kgnsy`: `kubectl get namespaces -o yaml`  
-`kgny`: `kubectl get nodes -o yaml`  
-`kgp`: `kubectl get pods`  
-`kgpdb`: `kubectl get poddisruptionbudgets`  
-`kgpp`: `kubectl get podpreset`  
-`kgpv`: `kubectl get persistentvolumes`  
-`kgpvc`: `kubectl get persistentvolumeclaims`  
-`kgpvcy`: `kubectl get persistentvolumeclaims -o yaml`  
-`kgpvy`: `kubectl get persistentvolumes -o yaml`  
-`kgpw`: `watch kubectl get pods`  
-`kgpy`: `kubectl get pods -o yaml`  
-`kgr`: `kubectl get roles`  
-`kgrb`: `kubectl get rolebindings`  
-`kgrc`: `kubectl get replicationcontrollers`  
-`kgrq`: `kubectl get resourcequotas`  
-`kgs`: `kubectl get services`  
-`kgsa`: `kubectl get serviceaccounts`  
-`kgsc`: `kubectl get secrets`  
-`kgscy`: `kubectl get secrets -o yaml`  
-`kgss`: `kubectl get statefulsets`  
-`kgsy`: `kubectl get services -o yaml`  
-`kl`: `kubectl logs`  
-`klf`: `kubectl logs -f`  
-`kns`: `kubens`  
-`kpsp`: `kubectl get podsecuritypolicies`  
-`kpt`: `kubectl get podtemplates`  
-`krs`: `kubectl get replicasets`  
-`ktn`: `kubectl top nodes`  
-`ktp`: `kubectl top pods`  
-`kube`: `kubectl`  
-`l`: `ll -A`  
-`lc`: `lt -c`  
-`lk`: `ll -Sr`  
-`ll`: `ls -lh`  
-`lm`: `l | less`  
-`lr`: `ll -R`  
-`ls`: `ls --group-directories-first --color=auto`  
-`lt`: `ll -tr`  
-`lx`: `ll -X`  
-`nvimf`: `nvim -c FzfLua files`  
-`nviml`: `nvim --listen /tmp/nvim.pipe`  
-`pac`: `yay -Rns $(yay -Qtdq)`  
-`pai`: `yay -Sy`  
-`paii`: `yay -Sy --noconfirm`  
-`pam`: `rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist`  
-`pan`: `yay -Qqd | yay -Rsu --print -`  
-`par`: `yay -Rnsu`  
-`parr`: `yay -Rnsu --noconfirm`  
-`pau`: `yay -Syu`  
-`pauu`: `yay -Syu --noconfirm`  
-`reset`: `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme`  
-`run-help`: `man`  
-`s`: `fasd -si`  
-`sd`: `fasd -sid`  
-`sf`: `fasd -sif`  
-`v`: `f -e vim -b viminfo`  
-`vim`: `nvim`  
-`vimdiff`: `nvim -d`  
-`vimf`: `nvimf`  
-`viml`: `nviml`  
-`which-command`: `whence`  
-`z`: `fasd_cd -d`  
-`zz`: `fasd_cd -d -i`  
-`ast-highlight-main-type`: function  
+| Name | Value | Type |
+|------|-------|------|
+| `a` | `fasd -a` | alias |
+| `chmod` | `chmod --preserve-root -v` | alias |
+| `chown` | `chown --preserve-root -v` | alias |
+| `d` | `fasd -d` | alias |
+| `df` | `df -h` | alias |
+| `du` | `du -h` | alias |
+| `f` | `fasd -f` | alias |
+| `fsh-alias` | `fast-theme` | alias |
+| `g` | `git` | alias |
+| `g..` | `cd $(git-root || print .)` | alias |
+| `gCO` | `gCo $(gCl)` | alias |
+| `gCT` | `gCt $(gCl)` | alias |
+| `gCa` | `git add $(gCl)` | alias |
+| `gCe` | `git mergetool $(gCl)` | alias |
+| `gCl` | `git --no-pager diff --name-only --diff-filter=U` | alias |
+| `gCo` | `git checkout --ours --` | alias |
+| `gCt` | `git checkout --theirs --` | alias |
+| `gR` | `git remote` | alias |
+| `gRS` | `git remote set-url` | alias |
+| `gRa` | `git remote add` | alias |
+| `gRl` | `git remote --verbose` | alias |
+| `gRm` | `git remote rename` | alias |
+| `gRp` | `git remote prune` | alias |
+| `gRs` | `git remote show` | alias |
+| `gRu` | `git remote update` | alias |
+| `gRx` | `git remote rm` | alias |
+| `gS` | `git submodule` | alias |
+| `gSI` | `git submodule update --init --recursive` | alias |
+| `gSa` | `git submodule add` | alias |
+| `gSf` | `git submodule foreach` | alias |
+| `gSi` | `git submodule init` | alias |
+| `gSl` | `git submodule status` | alias |
+| `gSm` | `git-submodule-move` | alias |
+| `gSs` | `git submodule sync` | alias |
+| `gSu` | `git submodule update --remote` | alias |
+| `gSx` | `git-submodule-remove` | alias |
+| `gW` | `git worktree` | alias |
+| `gWX` | `git worktree remove --force` | alias |
+| `gWa` | `git worktree add` | alias |
+| `gWl` | `git worktree list` | alias |
+| `gWm` | `git worktree move` | alias |
+| `gWp` | `git worktree prune` | alias |
+| `gWx` | `git worktree remove` | alias |
+| `gb` | `git branch` | alias |
+| `gbG` | `git-branch-remote-tracking gone | xargs -r git branch --delete --force` | alias |
+| `gbL` | `git branch --list -vv --all` | alias |
+| `gbM` | `git branch --move --force` | alias |
+| `gbR` | `git branch --force` | alias |
+| `gbS` | `git show-branch --all` | alias |
+| `gbX` | `git-branch-delete-interactive --force` | alias |
+| `gbc` | `git checkout -b` | alias |
+| `gbd` | `git checkout --detach` | alias |
+| `gbl` | `git branch --list -vv` | alias |
+| `gbm` | `git branch --move` | alias |
+| `gbn` | `git branch --no-contains` | alias |
+| `gbs` | `git show-branch` | alias |
+| `gbu` | `git branch --unset-upstream` | alias |
+| `gbx` | `git-branch-delete-interactive` | alias |
+| `gc` | `git commit --signoff --verbose` | alias |
+| `gcA` | `git commit --signoff --verbose --patch` | alias |
+| `gcF` | `git commit --verbose --amend` | alias |
+| `gcO` | `git checkout --patch` | alias |
+| `gcP` | `git cherry-pick --no-commit` | alias |
+| `gcR` | `git reset HEAD^` | alias |
+| `gcS` | `git commit --verbose -S` | alias |
+| `gcU` | `git commit --squash` | alias |
+| `gca` | `git commit --signoff --verbose --all` | alias |
+| `gcf` | `git commit --amend --reuse-message HEAD` | alias |
+| `gcm` | `git commit --signoff --message` | alias |
+| `gco` | `git checkout` | alias |
+| `gcp` | `git cherry-pick` | alias |
+| `gcr` | `git revert` | alias |
+| `gcs` | `git show --pretty=format:${_git_log_fuller_format}` | alias |
+| `gcu` | `git commit --fixup` | alias |
+| `gcv` | `git verify-commit` | alias |
+| `gd` | `git ls-files` | alias |
+| `gdI` | `git ls-files --ignored --exclude-per-directory=.gitignore --cached` | alias |
+| `gdc` | `git ls-files --cached` | alias |
+| `gdi` | `git status --porcelain --ignored=matching | sed -n s/^!! //p` | alias |
+| `gdk` | `git ls-files --killed` | alias |
+| `gdm` | `git ls-files --modified` | alias |
+| `gdu` | `git ls-files --other --exclude-standard` | alias |
+| `gdx` | `git ls-files --deleted` | alias |
+| `get` | `wget --continue --progress=bar --timestamping` | alias |
+| `gf` | `git fetch` | alias |
+| `gfa` | `git fetch --all` | alias |
+| `gfc` | `git clone` | alias |
+| `gfm` | `git pull --no-rebase` | alias |
+| `gfp` | `git fetch --all --prune` | alias |
+| `gfr` | `git pull --rebase` | alias |
+| `gfu` | `git pull --ff-only --all --prune` | alias |
+| `gg` | `git grep` | alias |
+| `ggL` | `git grep --files-without-match` | alias |
+| `ggi` | `git grep --ignore-case` | alias |
+| `ggl` | `git grep --files-with-matches` | alias |
+| `ggv` | `git grep --invert-match` | alias |
+| `ggw` | `git grep --word-regexp` | alias |
+| `ghw` | `git help --web` | alias |
+| `giA` | `git add --patch` | alias |
+| `giD` | `git diff --no-ext-diff --cached --word-diff` | alias |
+| `giR` | `git reset --patch` | alias |
+| `giU` | `git add --verbose --all` | alias |
+| `giX` | `git rm --cached -rf` | alias |
+| `gia` | `git add --verbose` | alias |
+| `gid` | `git diff --no-ext-diff --cached` | alias |
+| `gir` | `git reset` | alias |
+| `giu` | `git add --verbose --update` | alias |
+| `gix` | `git rm --cached -r` | alias |
+| `gl` | `git log --date-order --pretty=format:${_git_log_fuller_format}` | alias |
+| `glG` | `git log --date-order --graph --pretty=format:${_git_log_oneline_medium_format}` | alias |
+| `glO` | `git log --date-order --pretty=format:${_git_log_oneline_medium_format}` | alias |
+| `glc` | `git shortlog --summary --numbered` | alias |
+| `gld` | `git log --date-order --stat --patch --pretty=format:${_git_log_fuller_format}` | alias |
+| `glf` | `git log --date-order --stat --patch --follow --pretty=format:${_git_log_fuller_format}` | alias |
+| `glg` | `git log --date-order --graph --pretty=format:${_git_log_oneline_format}` | alias |
+| `glo` | `git log --date-order --pretty=format:${_git_log_oneline_format}` | alias |
+| `glr` | `git reflog` | alias |
+| `gls` | `git log --date-order --stat --pretty=format:${_git_log_fuller_format}` | alias |
+| `glv` | `git log --date-order --show-signature --pretty=format:${_git_log_fuller_format}` | alias |
+| `gm` | `git merge` | alias |
+| `gmC` | `git merge --no-commit` | alias |
+| `gmF` | `git merge --no-ff` | alias |
+| `gmS` | `git merge -S` | alias |
+| `gma` | `git merge --abort` | alias |
+| `gmc` | `git merge --continue` | alias |
+| `gms` | `git merge --squash` | alias |
+| `gmt` | `git mergetool` | alias |
+| `gmv` | `git merge --verify-signatures` | alias |
+| `gp` | `git push` | alias |
+| `gpA` | `git push --all && git push --tags --no-verify` | alias |
+| `gpF` | `git push --force` | alias |
+| `gpa` | `git push --all` | alias |
+| `gpc` | `git push --set-upstream origin $(git-branch-current 2>/dev/null)` | alias |
+| `gpf` | `git push --force-with-lease` | alias |
+| `gpp` | `git pull origin $(git-branch-current 2>/dev/null) && git push origin $(git-branch-current 2>/dev/null)` | alias |
+| `gpt` | `git push --tags` | alias |
+| `gr` | `git rebase` | alias |
+| `grS` | `git rebase --exec git commit --amend --no-edit --no-verify -S` | alias |
+| `gra` | `git rebase --abort` | alias |
+| `grc` | `git rebase --continue` | alias |
+| `grep` | `grep --color=auto` | alias |
+| `gri` | `git rebase --interactive --autosquash` | alias |
+| `grs` | `git rebase --skip` | alias |
+| `gs` | `git stash` | alias |
+| `gsS` | `git stash save --patch --no-keep-index` | alias |
+| `gsX` | `git-stash-clear-interactive` | alias |
+| `gsa` | `git stash apply` | alias |
+| `gsd` | `git stash show --patch --stat` | alias |
+| `gsi` | `git stash push --staged` | alias |
+| `gsl` | `git stash list` | alias |
+| `gsp` | `git stash pop` | alias |
+| `gsr` | `git-stash-recover` | alias |
+| `gss` | `git stash save --include-untracked` | alias |
+| `gsu` | `git stash show --patch | git apply --reverse` | alias |
+| `gsw` | `git stash save --include-untracked --keep-index` | alias |
+| `gsx` | `git stash drop` | alias |
+| `gt` | `git tag` | alias |
+| `gtl` | `git tag --list --sort=-committerdate` | alias |
+| `gts` | `git tag --sign` | alias |
+| `gtv` | `git verify-tag` | alias |
+| `gtx` | `git tag --delete` | alias |
+| `gwC` | `git clean -d --force` | alias |
+| `gwD` | `git diff --no-ext-diff --word-diff` | alias |
+| `gwM` | `git mv -f` | alias |
+| `gwR` | `git reset --hard` | alias |
+| `gwS` | `git status` | alias |
+| `gwX` | `git rm -rf` | alias |
+| `gwc` | `git clean --dry-run` | alias |
+| `gwd` | `git diff --no-ext-diff` | alias |
+| `gwm` | `git mv` | alias |
+| `gwr` | `git reset --soft` | alias |
+| `gws` | `git status --short --branch` | alias |
+| `gwx` | `git rm -r` | alias |
+| `gy` | `git switch` | alias |
+| `gyc` | `git switch --create` | alias |
+| `gyd` | `git switch --detach` | alias |
+| `k` | `kubectl` | alias |
+| `kaf` | `kubectl apply -f` | alias |
+| `kc` | `kubectl` | alias |
+| `kcc` | `kubectl config get-contexts` | alias |
+| `kcf` | `kubectl create -f` | alias |
+| `kcl` | `kubectl logs` | alias |
+| `kctx` | `kubectx` | alias |
+| `kd` | `kubectl delete` | alias |
+| `kdc` | `kubectl delete cronjobs` | alias |
+| `kdcm` | `kubectl delete configmaps` | alias |
+| `kdd` | `kubectl delete deployment` | alias |
+| `kdds` | `kubectl delete daemonsets` | alias |
+| `kdf` | `kubectl delete -f` | alias |
+| `kdi` | `kubectl delete ingress` | alias |
+| `kdj` | `kubectl delete job` | alias |
+| `kdns` | `kubectl delete namespaces` | alias |
+| `kdp` | `kubectl delete pod` | alias |
+| `kdpv` | `kubectl delete persistentvolumes` | alias |
+| `kdpvc` | `kubectl delete persistentvolumeclaims` | alias |
+| `kds` | `kubectl delete services` | alias |
+| `kdsc` | `kubectl describe cronjobs` | alias |
+| `kdscm` | `kubectl describe configmaps` | alias |
+| `kdsd` | `kubectl describe deployments` | alias |
+| `kdsds` | `kubectl describe daemonsets` | alias |
+| `kdsf` | `kubectl describe -f` | alias |
+| `kdsi` | `kubectl describe ingress` | alias |
+| `kdsj` | `kubectl describe jobs` | alias |
+| `kdsn` | `kubectl describe nodes` | alias |
+| `kdsns` | `kubectl describe namespaces` | alias |
+| `kdsp` | `kubectl describe pods` | alias |
+| `kdspv` | `kubectl describe persistentvolumes` | alias |
+| `kdspvc` | `kubectl describe persistentvolumeclaims` | alias |
+| `kdss` | `kubectl describe services` | alias |
+| `kdssc` | `kubectl describe secrets` | alias |
+| `ke` | `kubectl edit` | alias |
+| `kec` | `kubectl edit cronjobs` | alias |
+| `kecm` | `kubectl edit configmaps` | alias |
+| `ked` | `kubectl edit deployments` | alias |
+| `keds` | `kubectl edit daemonsets` | alias |
+| `kef` | `kubectl edit -f` | alias |
+| `kei` | `kubectl edit ingress` | alias |
+| `keit` | `kubectl exec -it --` | alias |
+| `kej` | `kubectl edit jobs` | alias |
+| `ken` | `kubectl edit nodes` | alias |
+| `kens` | `kubectl edit namespaces` | alias |
+| `kep` | `kubectl edit pods` | alias |
+| `kepv` | `kubectl edit persistentvolumes` | alias |
+| `kepvc` | `kubectl edit persistentvolumeclaims` | alias |
+| `kes` | `kubectl edit services` | alias |
+| `kesc` | `kubectl edit secrets` | alias |
+| `kg` | `kubectl get` | alias |
+| `kga` | `kubectl get --all-namespaces` | alias |
+| `kgac` | `get_cluster_resources cronjobs` | alias |
+| `kgacm` | `get_cluster_resources configmaps` | alias |
+| `kgads` | `get_cluster_resources daemonsets` | alias |
+| `kgai` | `get_cluster_resources ingress` | alias |
+| `kgaj` | `get_cluster_resources jobs` | alias |
+| `kgap` | `get_cluster_resources pods` | alias |
+| `kgapvc` | `get_cluster_resources persistentvolumeclaims` | alias |
+| `kgas` | `get_cluster_resources services` | alias |
+| `kgasc` | `get_cluster_resources secrets` | alias |
+| `kgc` | `kubectl get cronjobs` | alias |
+| `kgcm` | `kubectl get configmaps` | alias |
+| `kgcmy` | `kubectl get configmaps -o yaml` | alias |
+| `kgcr` | `kubectl get clusterroles` | alias |
+| `kgcrb` | `kubectl get clusterrolebindings` | alias |
+| `kgcrd` | `kubectl get customresourcedefinition` | alias |
+| `kgcrv` | `kubectl get controllerrevisions` | alias |
+| `kgcs` | `kubectl get componentstatus` | alias |
+| `kgcsr` | `kubectl get certificatesigningrequests` | alias |
+| `kgcw` | `watch kubectl get cronjobs` | alias |
+| `kgcy` | `kubectl get cronjobs -o yaml` | alias |
+| `kgd` | `kubectl get deployments` | alias |
+| `kgds` | `kubectl get daemonsets` | alias |
+| `kgdsw` | `watch kubectl get daemonsets` | alias |
+| `kgdsy` | `kubectl get daemonsets -o yaml` | alias |
+| `kgdw` | `watch kubectl get deployments` | alias |
+| `kgdy` | `kubectl get deployments -o yaml` | alias |
+| `kgep` | `kubectl get endpoints` | alias |
+| `kgev` | `kubectl get events` | alias |
+| `kgf` | `kubectl get -f` | alias |
+| `kghpa` | `kubectl get horizontalpodautoscalers` | alias |
+| `kgi` | `kubectl get ingress` | alias |
+| `kgiy` | `kubectl get ingress -o yaml` | alias |
+| `kgj` | `kubectl get jobs` | alias |
+| `kgjw` | `watch kubectl get jobs` | alias |
+| `kgjy` | `kubectl get jobs -o yaml` | alias |
+| `kglr` | `kubectl get limitranges` | alias |
+| `kgn` | `kubectl get nodes` | alias |
+| `kgnp` | `kubectl get networkpolicies` | alias |
+| `kgns` | `kubectl get namespaces` | alias |
+| `kgnsy` | `kubectl get namespaces -o yaml` | alias |
+| `kgny` | `kubectl get nodes -o yaml` | alias |
+| `kgp` | `kubectl get pods` | alias |
+| `kgpdb` | `kubectl get poddisruptionbudgets` | alias |
+| `kgpp` | `kubectl get podpreset` | alias |
+| `kgpv` | `kubectl get persistentvolumes` | alias |
+| `kgpvc` | `kubectl get persistentvolumeclaims` | alias |
+| `kgpvcy` | `kubectl get persistentvolumeclaims -o yaml` | alias |
+| `kgpvy` | `kubectl get persistentvolumes -o yaml` | alias |
+| `kgpw` | `watch kubectl get pods` | alias |
+| `kgpy` | `kubectl get pods -o yaml` | alias |
+| `kgr` | `kubectl get roles` | alias |
+| `kgrb` | `kubectl get rolebindings` | alias |
+| `kgrc` | `kubectl get replicationcontrollers` | alias |
+| `kgrq` | `kubectl get resourcequotas` | alias |
+| `kgs` | `kubectl get services` | alias |
+| `kgsa` | `kubectl get serviceaccounts` | alias |
+| `kgsc` | `kubectl get secrets` | alias |
+| `kgscy` | `kubectl get secrets -o yaml` | alias |
+| `kgss` | `kubectl get statefulsets` | alias |
+| `kgsy` | `kubectl get services -o yaml` | alias |
+| `kl` | `kubectl logs` | alias |
+| `klf` | `kubectl logs -f` | alias |
+| `kns` | `kubens` | alias |
+| `kpsp` | `kubectl get podsecuritypolicies` | alias |
+| `kpt` | `kubectl get podtemplates` | alias |
+| `krs` | `kubectl get replicasets` | alias |
+| `ktn` | `kubectl top nodes` | alias |
+| `ktp` | `kubectl top pods` | alias |
+| `kube` | `kubectl` | alias |
+| `l` | `ll -A` | alias |
+| `lc` | `lt -c` | alias |
+| `lk` | `ll -Sr` | alias |
+| `ll` | `ls -lh` | alias |
+| `lm` | `l | less` | alias |
+| `lr` | `ll -R` | alias |
+| `ls` | `ls --group-directories-first --color=auto` | alias |
+| `lt` | `ll -tr` | alias |
+| `lx` | `ll -X` | alias |
+| `nvimf` | `nvim -c FzfLua files` | alias |
+| `nviml` | `nvim --listen /tmp/nvim.pipe` | alias |
+| `pac` | `yay -Rns $(yay -Qtdq)` | alias |
+| `pai` | `yay -Sy` | alias |
+| `paii` | `yay -Sy --noconfirm` | alias |
+| `pam` | `rate-mirrors arch | sudo tee /etc/pacman.d/mirrorlist` | alias |
+| `pan` | `yay -Qqd | yay -Rsu --print -` | alias |
+| `par` | `yay -Rnsu` | alias |
+| `parr` | `yay -Rnsu --noconfirm` | alias |
+| `pau` | `yay -Syu` | alias |
+| `pauu` | `yay -Syu --noconfirm` | alias |
+| `reset` | `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme` | alias |
+| `run-help` | `man` | alias |
+| `s` | `fasd -si` | alias |
+| `sd` | `fasd -sid` | alias |
+| `sf` | `fasd -sif` | alias |
+| `v` | `f -e vim -b viminfo` | alias |
+| `vim` | `nvim` | alias |
+| `vimdiff` | `nvim -d` | alias |
+| `vimf` | `nvimf` | alias |
+| `viml` | `nviml` | alias |
+| `which-command` | `whence` | alias |
+| `z` | `fasd_cd -d` | alias |
+| `zz` | `fasd_cd -d -i` | alias |
+| `ast-highlight-main-type` | | function |
 
 ## Tmux Keybindings
-`%`: split-window `-v -c #{pane_current_path}`  
-`&`: kill-window  
-`'"'`: split-window `-h -c #{pane_current_path}`  
-`C-space`: send-prefix  
-`C`: new-session `-c #{pane_current_path}`  
-`Escape` (copy-mode-vi): send-keys -X cancel  
-`M-Enter`: if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`  
-`X`: kill-session  
-`c`: new-window `-c #{pane_current_path}`  
-`s`: run-shell `-b $HOME/.tmux/switch-session.sh`  
-`v` (copy-mode-vi): send-keys -X begin-selection  
-`v`: capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`  
-`x`: kill-pane  
-`y` (copy-mode-vi): send-keys -X copy-selection-and-cancel  
+| Mode | Key | Action |
+|------|-----|--------|
+| | `C-space` | send-prefix
+| | `c` | new-window `-c #{pane_current_path}`
+| | `C` | new-session `-c #{pane_current_path}`
+| | `'"'` | split-window `-h -c #{pane_current_path}`
+| | `%` | split-window `-v -c #{pane_current_path}`
+| | `&` | kill-window
+| | `x` | kill-pane
+| | `X` | kill-session
+| `copy-mode-vi` | `v` | send-keys -X begin-selection |
+| `copy-mode-vi` | `y` | send-keys -X copy-selection-and-cancel |
+| `copy-mode-vi` | `Escape` | send-keys -X cancel |
+| | `M-Enter` | if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`
+| | `v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
+| | `s` | run-shell `-b $HOME/.tmux/switch-session.sh`
 
 ## Hyprland Keybindings
-`Print`: exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"`  
-`Return`: submap `reset`  
-`SUPER+1`: workspace `1`  
-`SUPER+2`: workspace `2`  
-`SUPER+3`: workspace `3`  
-`SUPER+4`: workspace `4`  
-`SUPER+5`: workspace `5`  
-`SUPER+6`: workspace `6`  
-`SUPER+7`: workspace `7`  
-`SUPER+8`: workspace `8`  
-`SUPER+9`: workspace `9`  
-`SUPER+F`: fullscreen `0`  
-`SUPER+H`: movefocus `l`  
-`SUPER+J`: movefocus `d`  
-`SUPER+K`: movefocus `u`  
-`SUPER+L`: movefocus `r`  
-`SUPER+M`: fullscreen `1`  
-`SUPER+Print`: exec `screenrecorder`  
-`SUPER+R`: submap `resize`  
-`SUPER+Return`: exec `terminal`  
-`SUPER+S`: togglefloating  
-`SUPER+Tab`: exec `switchmenu -p "switch"`  
-`SUPER+W`: killactive  
-`SUPER+c`: exec `clipmenu -p "clip"`  
-`SUPER+e`: exec `swaylock -f -i $WALLPAPER`  
-`SUPER+escape`: exec `hyprctl reload`  
-`SUPER+g`: exec `pkill -USR1 gammastep`  
-`SUPER+grave`: togglespecialworkspace  
-`SUPER+n`: exec `notificationsmenu -p "notifications"`  
-`SUPER+space`: exec `runmenu -p "run"`  
-`SUPER+v`: exec `steammenu -p "steam"`  
-`SUPER+x`: exec `procmenu -p "proc"`  
-`SUPER+z`: exec `passmenu -p "pass"`  
-`SUPER_SHIFT+1`: movetoworkspace `1`  
-`SUPER_SHIFT+2`: movetoworkspace `2`  
-`SUPER_SHIFT+3`: movetoworkspace `3`  
-`SUPER_SHIFT+4`: movetoworkspace `4`  
-`SUPER_SHIFT+5`: movetoworkspace `5`  
-`SUPER_SHIFT+6`: movetoworkspace `6`  
-`SUPER_SHIFT+7`: movetoworkspace `7`  
-`SUPER_SHIFT+8`: movetoworkspace `8`  
-`SUPER_SHIFT+9`: movetoworkspace `9`  
-`SUPER_SHIFT+H`: movewindow `l`  
-`SUPER_SHIFT+J`: movewindow `d`  
-`SUPER_SHIFT+K`: movewindow `u`  
-`SUPER_SHIFT+L`: movewindow `r`  
-`SUPER_SHIFT+escape`: exit  
-`SUPER_SHIFT+grave`: movetoworkspace `special`  
-`XF86AudioLowerVolume`: exec `amixer -q set Master 5%-`  
-`XF86AudioMicMute`: exec `amixer -q set Capture toggle`  
-`XF86AudioMute`: exec `amixer -q set Master toggle`  
-`XF86AudioRaiseVolume`: exec `amixer -q set Master 5%+ on`  
-`XF86KbdBrightnessDown`: exec `asusctl -p`  
-`XF86KbdBrightnessUp`: exec `asusctl -n`  
-`XF86Launch1`: exec `rog-control-center`  
-`XF86Launch3`: exec `asusctl led-mode -n`  
-`XF86Launch4`: exec `asusctl profile -p`  
-`XF86MonBrightnessDown`: exec `brightnessctl s 5%-`  
-`XF86MonBrightnessUp`: exec `brightnessctl s +5%`  
-`escape`: submap `reset`  
+| Key | Action |
+|-----|--------|
+| `SUPER+Return` | exec `terminal` |
+| `SUPER+Tab` | exec `switchmenu -p "switch"` |
+| `SUPER+space` | exec `runmenu -p "run"` |
+| `SUPER+z` | exec `passmenu -p "pass"` |
+| `SUPER+x` | exec `procmenu -p "proc"` |
+| `SUPER+c` | exec `clipmenu -p "clip"` |
+| `SUPER+v` | exec `steammenu -p "steam"` |
+| `SUPER+n` | exec `notificationsmenu -p "notifications"` |
+| `SUPER+e` | exec `swaylock -f -i $WALLPAPER` |
+| `SUPER+g` | exec `pkill -USR1 gammastep` |
+| `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
+| `SUPER+Print` | exec `screenrecorder` |
+| `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
+| `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |
+| `XF86AudioMute` | exec `amixer -q set Master toggle` |
+| `XF86AudioMicMute` | exec `amixer -q set Capture toggle` |
+| `XF86MonBrightnessUp` | exec `brightnessctl s +5%` |
+| `XF86MonBrightnessDown` | exec `brightnessctl s 5%-` |
+| `XF86KbdBrightnessUp` | exec `asusctl -n` |
+| `XF86KbdBrightnessDown` | exec `asusctl -p` |
+| `XF86Launch1` | exec `rog-control-center` |
+| `XF86Launch3` | exec `asusctl led-mode -n` |
+| `XF86Launch4` | exec `asusctl profile -p` |
+| `SUPER_SHIFT+escape` | exit |
+| `SUPER+escape` | exec `hyprctl reload` |
+| `SUPER+W` | killactive |
+| `SUPER+S` | togglefloating |
+| `SUPER+M` | fullscreen `1` |
+| `SUPER+F` | fullscreen `0` |
+| `SUPER+H` | movefocus `l` |
+| `SUPER+L` | movefocus `r` |
+| `SUPER+K` | movefocus `u` |
+| `SUPER+J` | movefocus `d` |
+| `SUPER_SHIFT+H` | movewindow `l` |
+| `SUPER_SHIFT+L` | movewindow `r` |
+| `SUPER_SHIFT+K` | movewindow `u` |
+| `SUPER_SHIFT+J` | movewindow `d` |
+| `SUPER+R` | submap `resize` |
+| `escape` | submap `reset` |
+| `Return` | submap `reset` |
+| `SUPER+1` | workspace `1` |
+| `SUPER+2` | workspace `2` |
+| `SUPER+3` | workspace `3` |
+| `SUPER+4` | workspace `4` |
+| `SUPER+5` | workspace `5` |
+| `SUPER+6` | workspace `6` |
+| `SUPER+7` | workspace `7` |
+| `SUPER+8` | workspace `8` |
+| `SUPER+9` | workspace `9` |
+| `SUPER+grave` | togglespecialworkspace |
+| `SUPER_SHIFT+1` | movetoworkspace `1` |
+| `SUPER_SHIFT+2` | movetoworkspace `2` |
+| `SUPER_SHIFT+3` | movetoworkspace `3` |
+| `SUPER_SHIFT+4` | movetoworkspace `4` |
+| `SUPER_SHIFT+5` | movetoworkspace `5` |
+| `SUPER_SHIFT+6` | movetoworkspace `6` |
+| `SUPER_SHIFT+7` | movetoworkspace `7` |
+| `SUPER_SHIFT+8` | movetoworkspace `8` |
+| `SUPER_SHIFT+9` | movetoworkspace `9` |
+| `SUPER_SHIFT+grave` | movetoworkspace `special` |
 
 ## Neovim <leader> Keybindings
-**nv** `<Space>ad`: AI Documentation  
-**nv** `<Space>ae`: AI Explain  
-**nv** `<Space>af`: AI Fix  
-**nv** `<Space>ac`: AI Generate Commit  
-**n** `<Space>am`: AI Models  
-**v** `<Space>aa`: AI Open  
-**nv** `<Space>ao`: AI Optimize  
-**nv** `<Space>ap`: AI Prompts  
-**nv** `<Space>aq`: AI Question  
-**n** `<Space>ax`: AI Reset  
-**nv** `<Space>ar`: AI Review  
-**n** `<Space>as`: AI Stop  
-**nv** `<Space>at`: AI Tests  
-**n** `<Space>aa`: AI Toggle  
-**n** `<Space>mD`: Bookmarks Delete All  
-**n** `<Space>md`: Bookmarks Delete Buffer  
-**n** `<Space>mq`: Bookmarks Quickfix  
-**n** `<Space>mm`: Bookmarks Select  
-**n** `<Space>dp`: Breakpoints  
-**n** `<Space>db`: Debug Breakpoint  
-**n** `<Space>dB`: Debug Conditional Breakpoint  
-**n** `<Space>dc`: Debug Console  
-**n** `<Space>dd`: Debug Continue [R]  
-**n** `<Space>dx`: Debug Exit  
-**nv** `<Space>de`: Debug Expression  
-**n** `<Space>df`: Debug Frames  
-**n** `<Space>dL`: Debug Log Point  
-**n** `<Space>d<Space>`: Debug REPL  
-**n** `<Space>dr`: Debug Restart  
-**n** `<Space>ds`: Debug Scopes  
-**n** `<Space>dk`: Debug Step Back (up) [R]  
-**n** `<Space>dl`: Debug Step Into (right) [R]  
-**n** `<Space>dh`: Debug Step Out (left) [R]  
-**n** `<Space>dj`: Debug Step Over (down) [R]  
-**n** `<Space>dt`: Debug Threads  
-**n** `<Space>fa`: Find Actions  
-**n** `<Space>fD`: Find All Diagnostics  
-**n** `<Space>fC`: Find All Git Commits  
-**n** `<Space>fS`: Find All Symbols  
-**nv** `<Space>fc`: Find Buffer Git Commits  
-**v** `<Space>fc`: Find Buffer Git Commits No mapping found  
-**n** `<Space>fb`: Find Buffers  
-**n** `<Space>fd`: Find Diagnostics  
-**n** `<Space>ff`: Find Files  
-**n** `<Space>fF`: Find Git Files  
-**n** `<Space>fG`: Find Git Grep  
-**n** `<Space>fg`: Find Grep  
-**n** `<Space>f?`: Find Help  
-**n** `<Space>fh`: Find History  
-**n** `<Space>fj`: Find Jumps  
-**n** `<Space>fk`: Find Keymaps  
-**n** `<Space>fm`: Find Marks  
-**n** `<Space>fq`: Find Quickfix  
-**n** `<Space><Space>`: Find Resume  
-**n** `<Space>fs`: Find Symbols  
-**n** `<Space>fu`: Find Undo History  
-**n** `<Space>he`: HTTP Environment  
-**n** `<Space>hh`: HTTP Run  
-**n** `<Space>hH`: HTTP Run All  
-**n** `<Space>ho`: HTTP Toggle  
-**n** `<Space>wd`: Wiki Diary List  
-**n** `<Space>ww`: Wiki List  
-**n** `<Space>wn`: Wiki New  
-**n** `<Space>wt`: Wiki Today  
-**n** `<Space>z`: Zoom  
+| Mode | Key | Description |
+|------|-----|-------------|
+| nv | `<Space>ad` | AI Documentation |
+| nv | `<Space>ae` | AI Explain |
+| nv | `<Space>af` | AI Fix |
+| nv | `<Space>ac` | AI Generate Commit |
+| n | `<Space>am` | AI Models |
+| v | `<Space>aa` | AI Open |
+| nv | `<Space>ao` | AI Optimize |
+| nv | `<Space>ap` | AI Prompts |
+| nv | `<Space>aq` | AI Question |
+| n | `<Space>ax` | AI Reset |
+| nv | `<Space>ar` | AI Review |
+| n | `<Space>as` | AI Stop |
+| nv | `<Space>at` | AI Tests |
+| n | `<Space>aa` | AI Toggle |
+| n | `<Space>mD` | Bookmarks Delete All |
+| n | `<Space>md` | Bookmarks Delete Buffer |
+| n | `<Space>mq` | Bookmarks Quickfix |
+| n | `<Space>mm` | Bookmarks Select |
+| n | `<Space>dp` | Breakpoints |
+| n | `<Space>db` | Debug Breakpoint |
+| n | `<Space>dB` | Debug Conditional Breakpoint |
+| n | `<Space>dc` | Debug Console |
+| n | `<Space>dd` | Debug Continue [R] |
+| n | `<Space>dx` | Debug Exit |
+| nv | `<Space>de` | Debug Expression |
+| n | `<Space>df` | Debug Frames |
+| n | `<Space>dL` | Debug Log Point |
+| n | `<Space>d<Space>` | Debug REPL |
+| n | `<Space>dr` | Debug Restart |
+| n | `<Space>ds` | Debug Scopes |
+| n | `<Space>dk` | Debug Step Back (up) [R] |
+| n | `<Space>dl` | Debug Step Into (right) [R] |
+| n | `<Space>dh` | Debug Step Out (left) [R] |
+| n | `<Space>dj` | Debug Step Over (down) [R] |
+| n | `<Space>dt` | Debug Threads |
+| n | `<Space>fa` | Find Actions |
+| n | `<Space>fD` | Find All Diagnostics |
+| n | `<Space>fC` | Find All Git Commits |
+| n | `<Space>fS` | Find All Symbols |
+| nv | `<Space>fc` | Find Buffer Git Commits |
+| v | `<Space>fc` | Find Buffer Git Commits No mapping found |
+| n | `<Space>fb` | Find Buffers |
+| n | `<Space>fd` | Find Diagnostics |
+| n | `<Space>ff` | Find Files |
+| n | `<Space>fF` | Find Git Files |
+| n | `<Space>fG` | Find Git Grep |
+| n | `<Space>fg` | Find Grep |
+| n | `<Space>f?` | Find Help |
+| n | `<Space>fh` | Find History |
+| n | `<Space>fj` | Find Jumps |
+| n | `<Space>fk` | Find Keymaps |
+| n | `<Space>fm` | Find Marks |
+| n | `<Space>fq` | Find Quickfix |
+| n | `<Space><Space>` | Find Resume |
+| n | `<Space>fs` | Find Symbols |
+| n | `<Space>fu` | Find Undo History |
+| n | `<Space>he` | HTTP Environment |
+| n | `<Space>hh` | HTTP Run |
+| n | `<Space>hH` | HTTP Run All |
+| n | `<Space>ho` | HTTP Toggle |
+| n | `<Space>wd` | Wiki Diary List |
+| n | `<Space>ww` | Wiki List |
+| n | `<Space>wn` | Wiki New |
+| n | `<Space>wt` | Wiki Today |
+| n | `<Space>z` | Zoom |
 
 ## Common Commands (tldr)
 ### ls

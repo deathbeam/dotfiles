@@ -17,9 +17,9 @@ def get_neovim_leader_keymaps():
     def format_leader_keymaps(raw_lines):
         from collections import defaultdict
 
-        # Regex: mode, keys, optional '*', Lua location, description
         keymap_re = re.compile(r'^([nvxi])\s+(<Space>[^\s]*)\s+\*?\s+<Lua [^>]+>\s*(.*)')
         combos = defaultdict(set)  # (keys, desc) -> set(modes)
+        desc_map = {}
 
         for line in raw_lines:
             m = keymap_re.match(line)
@@ -28,15 +28,57 @@ def get_neovim_leader_keymaps():
                 keys = m.group(2)
                 desc = m.group(3)
                 combos[(keys, desc)].add(mode)
+                desc_map[(keys, desc)] = desc
 
-        # Sort by description, then keys
-        sorted_items = sorted(combos.items(), key=lambda x: (x[0][1], x[0][0]))
-        result = []
-        for (keys, desc), modes in sorted_items:
+        # Prepare table rows
+        rows = []
+        for (keys, desc), modes in sorted(combos.items(), key=lambda x: (x[0][1], x[0][0])):
             mode_str = "".join(sorted(modes))
-            result.append(f"**{mode_str}** `{keys}`: {desc}")
-        return result
+            rows.append(f"| {mode_str} | `{keys}` | {desc} |")
+        # Table header
+        table = [
+            "| Mode | Key | Description |",
+            "|------|-----|-------------|",
+            *rows
+        ]
+        return table
 
+    keymaps = []
+    vim_cmds = [
+        "nmap <leader>",
+        "vmap <leader>",
+        "xmap <leader>",
+        "imap <leader>"
+    ]
+    try:
+        logging.info("Extracting Neovim <leader> keymaps using :map commands...")
+        result = subprocess.run(
+            ["nvim", "--headless"] +
+            sum([["-c", cmd] for cmd in vim_cmds], []) +
+            ["+qall"],
+            text=True, timeout=5, capture_output=True
+        )
+
+        out = result.stdout.strip() + "\n" + result.stderr.strip()
+        formatted = []
+        buffer = []
+        keymap_re = re.compile(r'^[nvxi]\s+<.*>')
+
+        for line in out.splitlines():
+            if keymap_re.match(line):
+                if buffer:
+                    formatted.append(" ".join(buffer))
+                    buffer = []
+                buffer.append(line.strip())
+            elif line.strip():
+                buffer.append(line.strip())
+        if buffer:
+            formatted.append(" ".join(buffer))
+        return format_leader_keymaps(formatted)
+    except Exception as e:
+        logging.error(f"Error extracting Neovim keymaps: {e}")
+        keymaps.append(f"(Error: {e})")
+    return keymaps
     keymaps = []
     vim_cmds = [
         "nmap <leader>",
@@ -76,9 +118,8 @@ def get_neovim_leader_keymaps():
 
 def parse_zsh_aliases_functions():
     def format_zsh_items(aliases, functions):
-        """Format zsh aliases and functions for better readability"""
-        formatted = []
-
+        """Format zsh aliases and functions as a markdown table"""
+        rows = []
         # Format aliases
         for alias in aliases:
             alias = alias.strip()
@@ -86,15 +127,18 @@ def parse_zsh_aliases_functions():
                 split = alias.split('=', 1)
                 key = split[0].strip()
                 value = split[1].strip().replace('"', '').replace("'", "").replace('`', '')
-                formatted.append(f"`{key}`: `{value}`")
-
+                rows.append(f"| `{key}` | `{value}` | alias |")
         # Format functions
         for func in functions:
             func = func.strip()
             if re.match(r'^[a-zA-Z0-9]', func):
-                formatted.append(f"`{func}`: function")
-
-        return formatted
+                rows.append(f"| `{func}` | | function |")
+        table = [
+            "| Name | Value | Type |",
+            "|------|-------|------|",
+            *rows
+        ]
+        return table
 
     aliases = []
     functions = []
@@ -125,8 +169,8 @@ def parse_zsh_aliases_functions():
 
 def parse_tmux_keybindings(path):
     def format_tmux_keybindings(lines):
-        """Format tmux keybindings for better readability"""
-        formatted = []
+        """Format tmux keybindings as a markdown table"""
+        rows = []
         for line in lines:
             # Parse different bind formats
             if line.startswith('bind '):
@@ -135,7 +179,7 @@ def parse_tmux_keybindings(path):
                     mode = parts[2]
                     key = parts[3]
                     action = ' '.join(parts[4:])
-                    formatted.append(f"`{key}` ({mode}): {action}")
+                    rows.append(f"| `{mode}` | `{key}` | {action} |")
                     continue
                 elif parts[1].startswith('-'):
                     parts = parts[1:]
@@ -146,10 +190,14 @@ def parse_tmux_keybindings(path):
                 if len(parts) > 3:
                     args = ' '.join(parts[3:])
                     args = args.replace('"', '').replace("'", "").replace('`', '')
-                    args = '`' + args.strip() + '`'
-                formatted.append(f"`{key}`: {action} {args}".strip())
-
-        return sorted(formatted)
+                    args = f"`{args.strip()}`"
+                rows.append(f"| | `{key}` | {action} {args}".strip())
+        table = [
+            "| Mode | Key | Action |",
+            "|------|-----|--------|",
+            *rows
+        ]
+        return table
 
     lines = []
     logging.info(f"Parsing tmux keybindings from {path}...")
@@ -165,31 +213,26 @@ def parse_tmux_keybindings(path):
 
 def parse_hyprland_keybindings(path):
     def format_hyprland_keybindings(lines):
-        """Format Hyprland keybindings for better readability"""
-        formatted = []
+        """Format Hyprland keybindings as a markdown table"""
+        rows = []
         for line in lines:
             # Parse: bind = SUPER, Return, exec, terminal
             if line.startswith('bind '):
                 parts = [p.strip() for p in line.split(',')]
                 if len(parts) >= 3:
-                    # Extract modifier and key from first part
                     first_part = parts[0].replace('bind =', '').strip()
                     modifier = first_part
                     key = parts[1].strip()
                     action = parts[2].strip()
-
                     # Get additional args if present
                     if len(parts) > 3:
                         args = ', '.join(parts[3:]).strip()
                         if args:
                             action = f"{action} `{args}`"
-
                     # Format modifier + key
                     if modifier:
                         key = f"{modifier}+{key}"
-
-                    formatted.append(f"`{key}`: {action}")
-
+                    rows.append(f"| `{key}` | {action} |")
             # Handle binde (continuous) bindings
             elif line.startswith('binde '):
                 parts = [p.strip() for p in line.split(',')]
@@ -198,15 +241,17 @@ def parse_hyprland_keybindings(path):
                     modifier = first_part if first_part else "none"
                     key = parts[1].strip()
                     action = parts[2].strip()
-
                     if len(parts) > 3:
                         args = ', '.join(parts[3:]).strip()
                         action = f"{action} {args}"
-
                     key_combo = f"{modifier}+{key}"
-                    formatted.append(f"`{key_combo}`: {action} (continuous)")
-
-        return sorted(formatted)
+                    rows.append(f"| `{key_combo}` | {action} (continuous) |")
+        table = [
+            "| Key | Action |",
+            "|-----|--------|",
+            *rows
+        ]
+        return table
 
     lines = []
     logging.info(f"Parsing Hyprland keybindings from {path}...")
@@ -236,22 +281,22 @@ def main():
 
         f.write("## Zsh Aliases & Functions\n")
         for line in parse_zsh_aliases_functions():
-            f.write(line + "  \n")
+            f.write(line + "\n")
         f.write("\n")
 
         f.write("## Tmux Keybindings\n")
         for line in parse_tmux_keybindings("tmux/.tmux.conf"):
-            f.write(line + "  \n")
+            f.write(line + "\n")
         f.write("\n")
 
         f.write("## Hyprland Keybindings\n")
         for line in parse_hyprland_keybindings("hyprland/.config/hypr/hyprland.conf"):
-            f.write(line + "  \n")
+            f.write(line + "\n")
         f.write("\n")
 
         f.write("## Neovim <leader> Keybindings\n")
         for line in get_neovim_leader_keymaps():
-            f.write(line + "  \n")
+            f.write(line + "\n")
         f.write("\n")
 
         f.write("## Common Commands (tldr)\n")
