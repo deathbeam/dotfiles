@@ -22,8 +22,6 @@ if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
     sudo pacman -Sy
 fi
 
-# mkinitcpio-firmware \ is broken
-# thermald-git \ idk whats up with this
 echo '==> Installing extra packages'
 yay -S --noconfirm --mflags --skipinteg \
     xdg-utils xdg-user-dirs \
@@ -114,10 +112,9 @@ fi
 sudo systemctl enable \
     keyd \
     docker \
-    power-profiles-daemon \
-    thermald
+    power-profiles-daemon
 
-systemctl enabel --user syncthing
+systemctl enable --user syncthing
 
 # Alter pacman options
 grep -q "^Color" /etc/pacman.conf || sudo sed -i '/\[options\]/a Color' /etc/pacman.conf
