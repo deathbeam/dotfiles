@@ -13,7 +13,7 @@ update:
 	git submodule update --recursive --remote
 
 install:
-	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
+	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	npm install -g mcp-hub@latest
 	nvim --headless \
 		+MasonUpdate \
@@ -24,5 +24,5 @@ install:
 		+qall
 
 uninstall:
-	~/.fzf/uninstall
+	zsh/.fzf/uninstall
 	stow --target ~ --delete `ls -d */`
