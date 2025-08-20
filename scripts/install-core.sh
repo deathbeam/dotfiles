@@ -32,7 +32,7 @@ append_config "fs.inotify.max_user_watches=1000000" /etc/sysctl.d/40-inotify.con
 append_config "fs.inotify.max_queued_events=1000000" /etc/sysctl.d/40-inotify.conf
 
 # Symlink configs
-[ -f "/etc/keyd/default.conf" ] || sudo ln -sf ~/git/dotfiles/keyd/default.conf /etc/keyd/default.conf
+sudo ln -sf ${dot_dir}/keyd/default.conf /etc/keyd/default.conf
 
 # Enable services
 services=(
