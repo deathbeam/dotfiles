@@ -7,6 +7,13 @@ log() {
 }
 
 install_pkgs() {
+  if ! command -v yay &> /dev/null; then
+    git clone "https://aur.archlinux.org/yay.git" "/tmp/yay"
+    cd "/tmp/yay"
+    makepkg -si --noconfirm
+    cd -
+  fi
+
   local to_install=()
   for pkg in "$@"; do
     if ! yay -Qi "$pkg" &>/dev/null; then
@@ -19,13 +26,30 @@ install_pkgs() {
 }
 
 install_python_pkgs() {
+  if ! command -v pip3 &> /dev/null; then
+    install_pkgs python-pip
+  fi
   pip3 install --user --break-system-packages "${@}"
 }
 
 install_npm_pkgs() {
+  if ! command -v npm &> /dev/null; then
+    install_pkgs npm
+  fi
   mkdir -p ~/.npm-global
   npm config set prefix "$HOME/.npm-global"
   npm install -g "${@}"
+}
+
+install_asdf_pkgs() {
+  if ! command -v asdf &> /dev/null; then
+    install_pkgs asdf-vm
+  fi
+  for pkg in "$@"; do
+    asdf plugin add "$pkg" || true
+    asdf plugin update "$pkg" || true
+    asdf install "$pkg" latest || true
+  done
 }
 
 enable_services() {

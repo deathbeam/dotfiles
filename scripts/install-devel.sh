@@ -4,7 +4,7 @@ packages=(
     jdk-openjdk openjdk-doc openjdk-src
     python-pip python-dbus python-opengl python-virtualenv
     dotnet-sdk aspnet-runtime
-    maven npm asdf-vm python-poetry
+    maven python-poetry
     github-cli
     docker docker-compose
     azure-cli kubectl k9s argocd azure-kubelogin temporal-cli

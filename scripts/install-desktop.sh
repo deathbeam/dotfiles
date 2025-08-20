@@ -26,9 +26,10 @@ packages=(
 )
 install_pkgs "${packages[@]}"
 
-asdf plugin add protonge
-asdf plugin update --all
-asdf install protonge latest || true
+packages=(
+    protonge
+)
+install_asdf_pkgs "${packages[@]}"
 
 log "Configuring desktop"
 

@@ -1,11 +1,3 @@
-log "Installing AUR helper"
-if ! command -v yay &> /dev/null; then
-    git clone "https://aur.archlinux.org/yay.git" "/tmp/yay"
-    cd "/tmp/yay"
-    makepkg -si --noconfirm
-    cd -
-fi
-
 log "Enabling multilib repository"
 if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
     sudo sed -i "/^#\[multilib\]/,/^#Include/ s/^#//" /etc/pacman.conf
