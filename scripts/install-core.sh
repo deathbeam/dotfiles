@@ -18,11 +18,11 @@ packages=(
     dosfstools fuse2
     alsa-utils vulkan-tools libva-utils
     stow zsh tmux ripgrep mlocate starship tldr
-    tree-sitter-git neovim-git python-pynvim ctags less bat fswatch jq jnv
+    tree-sitter-git neovim-git ctags less bat fswatch jq jnv
     pass pass-otp
     rate-mirrors unzip bc
     p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu
-    brightnessctl power-profiles-daemon syncthing
+    power-profiles-daemon syncthing
 )
 install_pkgs "${packages[@]}"
 
@@ -54,6 +54,7 @@ install_npm_pkgs "${packages[@]}"
 
 log "Installing desktop packages"
 packages=(
+    brightnessctl
     fonts-meta-base
     terminus-font terminus-font-ttf ttf-terminus-nerd
     udiskie
@@ -109,7 +110,6 @@ services=(
     syncthing
 )
 enable_user_services "${services[@]}"
-systemctl enable --user syncthing
 
 # Alter pacman options
 append_pacman_option "Color"

@@ -4,7 +4,6 @@ import re
 import subprocess
 import logging
 from pathlib import Path
-import pynvim
 
 logging.basicConfig(
     level=logging.INFO,
