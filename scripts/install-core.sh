@@ -1,25 +1,12 @@
-#!/usr/bin/bash -l
-set -ex
-shopt -s nullglob globstar
+log "Installing AUR helper"
+clone_repo "https://aur.archlinux.org/yay.git" "$HONE/git/yay"
+cd "$HOME/git/yay"
+makepkg -si --noconfirm
+cd "$HOME"
 
-# Prepare git dir
-mkdir -p ~/git
-cd ~/git
-
-# Install AUR helper
-echo '==> Installing AUR helper'
-if ! command -v yay &> /dev/null; then
-    sudo pacman --noconfirm --needed -S git git-lfs
-    git clone https://aur.archlinux.org/yay.git
-    cd yay
-    makepkg -si --noconfirm
-    cd ..
-fi
-
-# Enable multilib repository
+log "Enabling multilib repository"
 if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
     sudo sed -i "/^#\[multilib\]/,/^#Include/ s/^#//" /etc/pacman.conf
-    sudo pacman -Sy
 fi
 
 echo '==> Installing extra packages'
