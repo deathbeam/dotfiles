@@ -56,7 +56,9 @@ append_pacman_option() {
   fi
 }
 
-script_dir="$(dirname "$0")"
+dot_dir="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$dot_dir" || exit 1
+script_dir="$dot_dir/scripts"
 profile_scripts=("$script_dir"/install-*.sh)
 
 if [ "$#" -eq 0 ]; then
@@ -80,4 +82,5 @@ for arg in "$@"; do
   fi
 done
 
+make
 python "${script_dir}/generate-cheatsheet.py"
