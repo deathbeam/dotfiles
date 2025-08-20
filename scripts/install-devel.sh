@@ -1,0 +1,38 @@
+log "Installing development packages"
+packages=(
+    jdk8-openjdk openjdk8-doc openjdk8-src
+    jdk-openjdk openjdk-doc openjdk-src
+    python-pip python-dbus python-opengl python-virtualenv
+    dotnet-sdk aspnet-runtime
+    maven npm asdf-vm python-poetry
+    github-cli
+    docker docker-compose
+    azure-cli kubectl k9s argocd azure-kubelogin temporal-cli
+    ollama
+)
+install_pkgs "${packages[@]}"
+
+gh extension install github/gh-copilot || true
+
+packages=(
+    https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
+)
+install_python_pkgs "${packages[@]}"
+
+packages=(
+    httpyac
+)
+install_npm_pkgs "${packages[@]}"
+
+log "Configuring development environment"
+services=(
+    keyd
+    docker
+    power-profiles-daemon
+)
+enable_services "${services[@]}"
+
+groups=(
+    docker
+)
+enable_groups "${groups[@]}"

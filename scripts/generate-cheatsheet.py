@@ -10,8 +10,8 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-SCRIPT_DIR = Path(__file__).parent.resolve()
-CHEATSHEET = Path.home() / "CHEATSHEET.md"
+SCRIPT_DIR = Path(__file__).parent.parent.resolve()
+CHEATSHEET = SCRIPT_DIR / "CHEATSHEET.md"
 
 def get_neovim_leader_keymaps():
     def format_leader_keymaps(raw_lines):
