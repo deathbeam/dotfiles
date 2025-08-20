@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-set -e
+set -xe
 shopt -s nullglob globstar
 
 log() {
@@ -7,14 +7,22 @@ log() {
 }
 
 install_pkgs() {
-  yay -Sy --noconfirm --mflags --skipinteg "${@}"
+  local to_install=()
+  for pkg in "$@"; do
+    if ! yay -Qi "$pkg" &>/dev/null; then
+      to_install+=("$pkg")
+    fi
+  done
+  if [ ${#to_install[@]} -gt 0 ]; then
+    yay -Sy --noconfirm --mflags --skipinteg "${to_install[@]}"
+  fi
 }
 
-instal_python_pkgs() {
-  pip3 install --user --break-system-packages
+install_python_pkgs() {
+  pip3 install --user --break-system-packages "${@}"
 }
 
-instal_npm_pkgs() {
+install_npm_pkgs() {
   mkdir -p ~/.npm-global
   npm config set prefix "$HOME/.npm-global"
   npm install -g "${@}"
@@ -22,6 +30,10 @@ instal_npm_pkgs() {
 
 enable_services() {
   sudo systemctl enable "${@}"
+}
+
+enable_user_services() {
+  systemctl --user enable "${@}"
 }
 
 enable_groups() {

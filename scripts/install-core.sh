@@ -1,8 +1,10 @@
 log "Installing AUR helper"
-git clone "https://aur.archlinux.org/yay.git" "/tmp/yay"
-cd "/tmp/yay"
-makepkg -si --noconfirm
-cd -
+if ! command -v yay &> /dev/null; then
+    git clone "https://aur.archlinux.org/yay.git" "/tmp/yay"
+    cd "/tmp/yay"
+    makepkg -si --noconfirm
+    cd -
+fi
 
 log "Enabling multilib repository"
 if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
@@ -48,7 +50,7 @@ log "Installing npm packages"
 packages=(
     httpyac
 )
-instal_npm_pkgs "${packages[@]}"
+install_npm_pkgs "${packages[@]}"
 
 log "Installing desktop packages"
 packages=(
@@ -69,7 +71,7 @@ packages=(
     gamescope steam steamtinkerlaunch lutris
     calibre
     youtube-music-bin
-    gpu-screen-recorder-git
+    gpu-screen-recorder
     jamesdsp
 )
 install_pkgs "${packages[@]}"
@@ -103,6 +105,10 @@ services=(
 )
 enable_services "${services[@]}"
 
+services=(
+    syncthing
+)
+enable_user_services "${services[@]}"
 systemctl enable --user syncthing
 
 # Alter pacman options
@@ -130,10 +136,10 @@ enable_groups "${groups[@]}"
 xdg-user-dirs-update
 
 # Set default browser
-xdg-settings set default-web-browser qutebrowser.desktop
-
-# Change default shell
-chsh -s /bin/zsh "$USER"
+xdg-settings set default-web-browser qutebrowser.desktop || true
 
 # Disable power save
 sudo iw dev wlan0 set power_save off
+
+# Change default shell
+chsh -s /bin/zsh "$USER"
