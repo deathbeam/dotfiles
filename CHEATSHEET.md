@@ -355,12 +355,13 @@
 |-----|--------|
 | `SUPER+Return` | exec `terminal` |
 | `SUPER+Tab` | exec `switchmenu -p "switch"` |
-| `SUPER+slash` | exec `cheatsheet` |
+| `SUPER+slash` | exec `overlay -T "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
 | `SUPER+space` | exec `runmenu -p "run"` |
 | `SUPER+z` | exec `passmenu -p "pass"` |
 | `SUPER+x` | exec `procmenu -p "proc"` |
 | `SUPER+c` | exec `clipmenu -p "clip"` |
 | `SUPER+v` | exec `steammenu -p "steam"` |
+| `SUPER+b` | exec `overlay -t "System" btop` |
 | `SUPER+n` | exec `notificationsmenu -p "notifications"` |
 | `SUPER+e` | exec `swaylock -f -i $WALLPAPER` |
 | `SUPER+g` | exec `pkill -USR1 gammastep` |

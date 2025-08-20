@@ -22,6 +22,7 @@ install:
 		+UpdateRemotePlugins \
 		+'helptags ALL' \
 		+qall
+	python scripts/generate-cheatsheet.py
 
 uninstall:
 	zsh/.fzf/uninstall

@@ -13,7 +13,7 @@ packages=(
     pass pass-otp
     rate-mirrors unzip bc
     p7zip man-db keyd systemd-resolvconf pacman-contrib ncdu
-    fastfetch onefetch glow
+    fastfetch onefetch glow btop
     power-profiles-daemon syncthing
 )
 install_pkgs "${packages[@]}"

@@ -1,0 +1,30 @@
+#!/bin/sh
+
+TITLE="Overlay"
+CLASS="overlay"
+TERM_CLASS="--class"
+if [ "$TERMINAL" = "st" ]; then
+   TERM_CLASS="-n"
+elif [ "$TERMINAL" = "foot" ]; then
+   TERM_CLASS="-a"
+fi
+
+while [ $# -gt 0 ]; do
+    case "$1" in
+        -t|--title)
+            TITLE="$2"
+            shift 2
+            ;;
+        *)
+            CMD="$*"
+            break
+            ;;
+    esac
+done
+
+if ! hyprctl clients | grep -q "class: $CLASS"; then
+    $TERMINAL $TERM_CLASS $CLASS -T "$TITLE" -e "$SHELL" -ic "$CMD"
+else
+    hyprctl dispatch closewindow "class:$CLASS"
+fi
+

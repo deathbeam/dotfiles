@@ -107,4 +107,3 @@ for arg in "$@"; do
 done
 
 make
-python "${script_dir}/generate-cheatsheet.py"
