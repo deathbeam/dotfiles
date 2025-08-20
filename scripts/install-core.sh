@@ -12,7 +12,8 @@ packages=(
     tree-sitter-git neovim-git ctags less bat fswatch jq jnv
     pass pass-otp
     rate-mirrors unzip bc
-    p7zip man-db keyd fastfetch onefetch systemd-resolvconf pacman-contrib ncdu
+    p7zip man-db keyd systemd-resolvconf pacman-contrib ncdu
+    fastfetch onefetch glow
     power-profiles-daemon syncthing
 )
 install_pkgs "${packages[@]}"
