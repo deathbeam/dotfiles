@@ -6,14 +6,18 @@ log() {
   echo -e "\033[1;32m==> $*\033[0m"
 }
 
-clone_repo() {
-  local repo="$1"
-  local dir="$2"
-  [ -d "$dir" ] || mkdir -p "$dir" && git clone "$repo" "$dir"
-}
-
 install_pkgs() {
   yay -Sy --noconfirm --mflags --skipinteg "${@}"
+}
+
+instal_python_pkgs() {
+  pip3 install --user --break-system-packages
+}
+
+instal_npm_pkgs() {
+  mkdir -p ~/.npm-global
+  npm config set prefix "$HOME/.npm-global"
+  npm install -g "${@}"
 }
 
 enable_services() {
@@ -33,23 +37,11 @@ append_config() {
   grep -qxF "$line" "$file" || echo "$line" | sudo tee -a "$file" > /dev/null
 }
 
-symlink() {
-  local src="$1"
-  local dest="$2"
-  [ -e "$dest" ] || ln -sf "$src" "$dest"
-}
-
-set_default_shell() {
-  local shell="$1"
-  if [ "$SHELL" != "$shell" ]; then
-    chsh -s "$shell" "$USER"
+append_pacman_option() {
+  local option="$1"
+  if ! grep -q "^$option" /etc/pacman.conf; then
+    sudo sed -i "/^\[options\]/a $option" /etc/pacman.conf
   fi
-}
-
-set_default_browser() {
-  local browser="$1"
-  current=$(xdg-settings get default-web-browser)
-  [ "$current" = "$browser" ] || xdg-settings set default-web-browser "$browser"
 }
 
 script_dir="$(dirname "$0")"
