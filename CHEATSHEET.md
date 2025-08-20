@@ -355,6 +355,7 @@
 |-----|--------|
 | `SUPER+Return` | exec `terminal` |
 | `SUPER+Tab` | exec `switchmenu -p "switch"` |
+| `SUPER+slash` | exec `cheatsheet` |
 | `SUPER+space` | exec `runmenu -p "run"` |
 | `SUPER+z` | exec `passmenu -p "pass"` |
 | `SUPER+x` | exec `procmenu -p "proc"` |
