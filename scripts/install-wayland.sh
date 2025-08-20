@@ -19,5 +19,5 @@ install_pkgs "${packages[@]}"
 
 log "Configuring Hyprland"
 hyprpm update
-hyprpm add https://github.com/hyprwm/hyprland-plugins
+hyprpm add https://github.com/hyprwm/hyprland-plugins || true
 hyprpm enable hyprexpo

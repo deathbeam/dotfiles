@@ -79,3 +79,5 @@ for arg in "$@"; do
     exit 1
   fi
 done
+
+python "${script_dir}/generate-cheatsheet.py"

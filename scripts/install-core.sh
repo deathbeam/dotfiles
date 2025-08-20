@@ -40,6 +40,8 @@ packages=(
 )
 install_pkgs "${packages[@]}"
 
+gh extension install github/gh-copilot || true
+
 log "Installing python packages"
 packages=(
     https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
@@ -79,6 +81,8 @@ install_pkgs "${packages[@]}"
 
 log "Installing asdf plugins"
 asdf plugin add protonge
+asdf plugin update --all
+asdf install protonge latest
 
 log "Configuring system"
 

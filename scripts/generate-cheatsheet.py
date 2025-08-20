@@ -10,7 +10,8 @@ logging.basicConfig(
     format="%(asctime)s [%(levelname)s] %(message)s"
 )
 
-CHEATSHEET = Path.home() / "git/dotfiles/CHEATSHEET.md"
+SCRIPT_DIR = Path(__file__).parent.resolve()
+CHEATSHEET = Path.home() / "CHEATSHEET.md"
 
 def get_neovim_leader_keymaps():
     def format_leader_keymaps(raw_lines):
@@ -247,12 +248,12 @@ def main():
         f.write("\n")
 
         f.write("# Tmux Keybindings\n")
-        for line in parse_tmux_keybindings("tmux/.tmux.conf"):
+        for line in parse_tmux_keybindings(SCRIPT_DIR / "tmux/.tmux.conf"):
             f.write(line + "\n")
         f.write("\n")
 
         f.write("# Hyprland Keybindings\n")
-        for line in parse_hyprland_keybindings("hyprland/.config/hypr/hyprland.conf"):
+        for line in parse_hyprland_keybindings(SCRIPT_DIR / "hyprland/.config/hypr/hyprland.conf"):
             f.write(line + "\n")
         f.write("\n")
 

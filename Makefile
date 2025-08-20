@@ -1,4 +1,4 @@
-default:update link install cheatsheet
+default:update link install
 
 clean:
 	find ~ -xtype l -print -delete
@@ -12,15 +12,9 @@ update:
 	git submodule update --init --recursive
 	git submodule update --recursive --remote
 
-cheatsheet:
-	python3 generate.py
-
 install:
 	~/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	npm install -g mcp-hub@latest
-	gh extension install github/gh-copilot || true
-	asdf plugin update --all && asdf install protonge latest || true
-	hyprpm update || true
 	nvim --headless \
 		+MasonUpdate \
 		+MasonUpdateSync \
@@ -31,5 +25,4 @@ install:
 
 uninstall:
 	~/.fzf/uninstall
-	gh extension remove github/gh-copilot || true
 	stow --target ~ --delete `ls -d */`
