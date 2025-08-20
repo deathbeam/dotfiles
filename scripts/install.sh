@@ -1,5 +1,5 @@
 #!/usr/bin/bash -l
-set -xe
+set -e
 shopt -s nullglob globstar
 
 log() {
@@ -66,6 +66,8 @@ if [ "$#" -eq 0 ]; then
   done
   exit 0
 fi
+
+set -x
 
 for arg in "$@"; do
   match="$script_dir/install-$arg.sh"
