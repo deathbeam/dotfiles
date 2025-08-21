@@ -234,7 +234,7 @@ def get_tldr_summary(cmd):
     logging.info(f"Getting tldr summary for: {cmd}")
     try:
         out = subprocess.check_output(["tldr", "--markdown", cmd], text=True, timeout=2)
-        return out.strip()
+        return "#" + out.strip()
     except Exception as e:
         logging.warning(f"tldr entry not found for {cmd}: {e}")
         return "_No tldr entry_"
@@ -242,8 +242,8 @@ def get_tldr_summary(cmd):
 def main():
     logging.info(f"Writing cheatsheet to {CHEATSHEET}")
     with open(CHEATSHEET, "w") as f:
-        f.write("# Zsh Aliases & Functions\n")
-        for line in parse_zsh_aliases_functions():
+        f.write("# Hyprland Keybindings\n")
+        for line in parse_hyprland_keybindings(SCRIPT_DIR / "hyprland/.config/hypr/hyprland.conf"):
             f.write(line + "\n")
         f.write("\n")
 
@@ -252,17 +252,18 @@ def main():
             f.write(line + "\n")
         f.write("\n")
 
-        f.write("# Hyprland Keybindings\n")
-        for line in parse_hyprland_keybindings(SCRIPT_DIR / "hyprland/.config/hypr/hyprland.conf"):
-            f.write(line + "\n")
-        f.write("\n")
-
         f.write("# Neovim Keybindings\n")
         for line in get_neovim_leader_keymaps():
             f.write(line + "\n")
         f.write("\n")
 
-        for cmd in ["ls", "grep", "tmux", "nvim", "git", "docker", "yay"]:
+        f.write("# Zsh Aliases\n")
+        for line in parse_zsh_aliases_functions():
+            f.write(line + "\n")
+        f.write("\n")
+
+        f.write("# Useful Commands\n")
+        for cmd in ["yay", "git", "docker", "rg", "kubectl"]:
             f.write(get_tldr_summary(cmd) + "\n\n")
     logging.info("Cheatsheet generation complete.")
 

@@ -1,4 +1,157 @@
-# Zsh Aliases & Functions
+# Hyprland Keybindings
+| Key | Action |
+|-----|--------|
+| `SUPER+Return` | exec `terminal` |
+| `SUPER+Tab` | hyprexpo:expo `toggle` |
+| `SUPER+slash` | exec `overlay -t "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
+| `SUPER+space` | exec `runmenu -p "run"` |
+| `SUPER+z` | exec `passmenu -p "pass"` |
+| `SUPER+x` | exec `procmenu -p "proc"` |
+| `SUPER+c` | exec `clipmenu -p "clip"` |
+| `SUPER+v` | exec `steammenu -p "steam"` |
+| `SUPER+b` | exec `overlay -t "System" btop` |
+| `SUPER+n` | exec `notificationsmenu -p "notifications"` |
+| `SUPER+e` | exec `swaylock -f -i $WALLPAPER` |
+| `SUPER+g` | exec `pkill -USR1 gammastep` |
+| `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
+| `SUPER+Print` | exec `screenrecorder` |
+| `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
+| `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |
+| `XF86AudioMute` | exec `amixer -q set Master toggle` |
+| `XF86AudioMicMute` | exec `amixer -q set Capture toggle` |
+| `XF86MonBrightnessUp` | exec `brightnessctl s +5%` |
+| `XF86MonBrightnessDown` | exec `brightnessctl s 5%-` |
+| `XF86KbdBrightnessUp` | exec `asusctl -n` |
+| `XF86KbdBrightnessDown` | exec `asusctl -p` |
+| `XF86Launch1` | exec `rog-control-center` |
+| `XF86Launch3` | exec `asusctl led-mode -n` |
+| `XF86Launch4` | exec `asusctl profile -p` |
+| `SUPER_SHIFT+escape` | exit |
+| `SUPER+escape` | exec `hyprctl reload` |
+| `SUPER+W` | killactive |
+| `SUPER+S` | togglefloating |
+| `SUPER+M` | fullscreen `1` |
+| `SUPER+F` | fullscreen `0` |
+| `SUPER+H` | movefocus `l` |
+| `SUPER+L` | movefocus `r` |
+| `SUPER+K` | movefocus `u` |
+| `SUPER+J` | movefocus `d` |
+| `SUPER_SHIFT+H` | movewindow `l` |
+| `SUPER_SHIFT+L` | movewindow `r` |
+| `SUPER_SHIFT+K` | movewindow `u` |
+| `SUPER_SHIFT+J` | movewindow `d` |
+| `SUPER+R` | submap `resize` |
+| `escape` | submap `reset` |
+| `Return` | submap `reset` |
+| `SUPER+1` | workspace `1` |
+| `SUPER+2` | workspace `2` |
+| `SUPER+3` | workspace `3` |
+| `SUPER+4` | workspace `4` |
+| `SUPER+5` | workspace `5` |
+| `SUPER+6` | workspace `6` |
+| `SUPER+7` | workspace `7` |
+| `SUPER+8` | workspace `8` |
+| `SUPER+9` | workspace `9` |
+| `SUPER+grave` | togglespecialworkspace |
+| `SUPER_SHIFT+1` | movetoworkspace `1` |
+| `SUPER_SHIFT+2` | movetoworkspace `2` |
+| `SUPER_SHIFT+3` | movetoworkspace `3` |
+| `SUPER_SHIFT+4` | movetoworkspace `4` |
+| `SUPER_SHIFT+5` | movetoworkspace `5` |
+| `SUPER_SHIFT+6` | movetoworkspace `6` |
+| `SUPER_SHIFT+7` | movetoworkspace `7` |
+| `SUPER_SHIFT+8` | movetoworkspace `8` |
+| `SUPER_SHIFT+9` | movetoworkspace `9` |
+| `SUPER_SHIFT+grave` | movetoworkspace `special` |
+
+# Tmux Keybindings
+| Mode | Key | Action |
+|------|-----|--------|
+| | `C-space` | send-prefix
+| | `c` | new-window `-c #{pane_current_path}`
+| | `C` | new-session `-c #{pane_current_path}`
+| | `'"'` | split-window `-h -c #{pane_current_path}`
+| | `%` | split-window `-v -c #{pane_current_path}`
+| | `&` | kill-window
+| | `x` | kill-pane
+| | `X` | kill-session
+| `copy-mode-vi` | `v` | send-keys -X begin-selection |
+| `copy-mode-vi` | `y` | send-keys -X copy-selection-and-cancel |
+| `copy-mode-vi` | `Escape` | send-keys -X cancel |
+| | `M-Enter` | if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`
+| | `v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
+| | `s` | run-shell `-b $HOME/.tmux/switch-session.sh`
+
+# Neovim Keybindings
+| Mode | Key | Description |
+|------|-----|-------------|
+| nv | `<Space>ad` | AI Documentation |
+| nv | `<Space>ae` | AI Explain |
+| nv | `<Space>af` | AI Fix |
+| nv | `<Space>ac` | AI Generate Commit |
+| n | `<Space>am` | AI Models |
+| v | `<Space>aa` | AI Open |
+| nv | `<Space>ao` | AI Optimize |
+| nv | `<Space>ap` | AI Prompts |
+| nv | `<Space>aq` | AI Question |
+| n | `<Space>ax` | AI Reset |
+| nv | `<Space>ar` | AI Review |
+| n | `<Space>as` | AI Stop |
+| nv | `<Space>at` | AI Tests |
+| n | `<Space>aa` | AI Toggle |
+| n | `<Space>mD` | Bookmarks Delete All |
+| n | `<Space>md` | Bookmarks Delete Buffer |
+| n | `<Space>mq` | Bookmarks Quickfix |
+| n | `<Space>mm` | Bookmarks Select |
+| n | `<Space>dp` | Breakpoints |
+| n | `<Space>db` | Debug Breakpoint |
+| n | `<Space>dB` | Debug Conditional Breakpoint |
+| n | `<Space>dc` | Debug Console |
+| n | `<Space>dd` | Debug Continue [R] |
+| n | `<Space>dx` | Debug Exit |
+| nv | `<Space>de` | Debug Expression |
+| n | `<Space>df` | Debug Frames |
+| n | `<Space>dL` | Debug Log Point |
+| n | `<Space>d<Space>` | Debug REPL |
+| n | `<Space>dr` | Debug Restart |
+| n | `<Space>ds` | Debug Scopes |
+| n | `<Space>dk` | Debug Step Back (up) [R] |
+| n | `<Space>dl` | Debug Step Into (right) [R] |
+| n | `<Space>dh` | Debug Step Out (left) [R] |
+| n | `<Space>dj` | Debug Step Over (down) [R] |
+| n | `<Space>dt` | Debug Threads |
+| n | `<Space>fa` | Find Actions |
+| n | `<Space>fD` | Find All Diagnostics |
+| n | `<Space>fC` | Find All Git Commits |
+| n | `<Space>fS` | Find All Symbols |
+| nv | `<Space>fc` | Find Buffer Git Commits |
+| v | `<Space>fc` | Find Buffer Git Commits No mapping found |
+| n | `<Space>fb` | Find Buffers |
+| n | `<Space>fd` | Find Diagnostics |
+| n | `<Space>ff` | Find Files |
+| n | `<Space>fF` | Find Git Files |
+| n | `<Space>fG` | Find Git Grep |
+| n | `<Space>fg` | Find Grep |
+| n | `<Space>f?` | Find Help |
+| n | `<Space>fh` | Find History |
+| n | `<Space>fj` | Find Jumps |
+| n | `<Space>fk` | Find Keymaps |
+| n | `<Space>fm` | Find Marks |
+| n | `<Space>fq` | Find Quickfix |
+| n | `<Space><Space>` | Find Resume |
+| n | `<Space>fs` | Find Symbols |
+| n | `<Space>fu` | Find Undo History |
+| n | `<Space>he` | HTTP Environment |
+| n | `<Space>hh` | HTTP Run |
+| n | `<Space>hH` | HTTP Run All |
+| n | `<Space>ho` | HTTP Toggle |
+| n | `<Space>wd` | Wiki Diary List |
+| n | `<Space>ww` | Wiki List |
+| n | `<Space>wn` | Wiki New |
+| n | `<Space>wt` | Wiki Today |
+| n | `<Space>z` | Zoom |
+
+# Zsh Aliases
 | Type | Name | Value |
 |------|------|-------|
 | alias | `a` | `fasd -a`
@@ -332,312 +485,46 @@
 | alias | `z` | `fasd_cd -d`
 | alias | `zz` | `fasd_cd -d -i`
 
-# Tmux Keybindings
-| Mode | Key | Action |
-|------|-----|--------|
-| | `C-space` | send-prefix
-| | `c` | new-window `-c #{pane_current_path}`
-| | `C` | new-session `-c #{pane_current_path}`
-| | `'"'` | split-window `-h -c #{pane_current_path}`
-| | `%` | split-window `-v -c #{pane_current_path}`
-| | `&` | kill-window
-| | `x` | kill-pane
-| | `X` | kill-session
-| `copy-mode-vi` | `v` | send-keys -X begin-selection |
-| `copy-mode-vi` | `y` | send-keys -X copy-selection-and-cancel |
-| `copy-mode-vi` | `Escape` | send-keys -X cancel |
-| | `M-Enter` | if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`
-| | `v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
-| | `s` | run-shell `-b $HOME/.tmux/switch-session.sh`
-
-# Hyprland Keybindings
-| Key | Action |
-|-----|--------|
-| `SUPER+Return` | exec `terminal` |
-| `SUPER+Tab` | hyprexpo:expo `toggle` |
-| `SUPER+slash` | exec `overlay -t "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
-| `SUPER+space` | exec `runmenu -p "run"` |
-| `SUPER+z` | exec `passmenu -p "pass"` |
-| `SUPER+x` | exec `procmenu -p "proc"` |
-| `SUPER+c` | exec `clipmenu -p "clip"` |
-| `SUPER+v` | exec `steammenu -p "steam"` |
-| `SUPER+b` | exec `overlay -t "System" btop` |
-| `SUPER+n` | exec `notificationsmenu -p "notifications"` |
-| `SUPER+e` | exec `swaylock -f -i $WALLPAPER` |
-| `SUPER+g` | exec `pkill -USR1 gammastep` |
-| `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
-| `SUPER+Print` | exec `screenrecorder` |
-| `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
-| `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |
-| `XF86AudioMute` | exec `amixer -q set Master toggle` |
-| `XF86AudioMicMute` | exec `amixer -q set Capture toggle` |
-| `XF86MonBrightnessUp` | exec `brightnessctl s +5%` |
-| `XF86MonBrightnessDown` | exec `brightnessctl s 5%-` |
-| `XF86KbdBrightnessUp` | exec `asusctl -n` |
-| `XF86KbdBrightnessDown` | exec `asusctl -p` |
-| `XF86Launch1` | exec `rog-control-center` |
-| `XF86Launch3` | exec `asusctl led-mode -n` |
-| `XF86Launch4` | exec `asusctl profile -p` |
-| `SUPER_SHIFT+escape` | exit |
-| `SUPER+escape` | exec `hyprctl reload` |
-| `SUPER+W` | killactive |
-| `SUPER+S` | togglefloating |
-| `SUPER+M` | fullscreen `1` |
-| `SUPER+F` | fullscreen `0` |
-| `SUPER+H` | movefocus `l` |
-| `SUPER+L` | movefocus `r` |
-| `SUPER+K` | movefocus `u` |
-| `SUPER+J` | movefocus `d` |
-| `SUPER_SHIFT+H` | movewindow `l` |
-| `SUPER_SHIFT+L` | movewindow `r` |
-| `SUPER_SHIFT+K` | movewindow `u` |
-| `SUPER_SHIFT+J` | movewindow `d` |
-| `SUPER+R` | submap `resize` |
-| `escape` | submap `reset` |
-| `Return` | submap `reset` |
-| `SUPER+1` | workspace `1` |
-| `SUPER+2` | workspace `2` |
-| `SUPER+3` | workspace `3` |
-| `SUPER+4` | workspace `4` |
-| `SUPER+5` | workspace `5` |
-| `SUPER+6` | workspace `6` |
-| `SUPER+7` | workspace `7` |
-| `SUPER+8` | workspace `8` |
-| `SUPER+9` | workspace `9` |
-| `SUPER+grave` | togglespecialworkspace |
-| `SUPER_SHIFT+1` | movetoworkspace `1` |
-| `SUPER_SHIFT+2` | movetoworkspace `2` |
-| `SUPER_SHIFT+3` | movetoworkspace `3` |
-| `SUPER_SHIFT+4` | movetoworkspace `4` |
-| `SUPER_SHIFT+5` | movetoworkspace `5` |
-| `SUPER_SHIFT+6` | movetoworkspace `6` |
-| `SUPER_SHIFT+7` | movetoworkspace `7` |
-| `SUPER_SHIFT+8` | movetoworkspace `8` |
-| `SUPER_SHIFT+9` | movetoworkspace `9` |
-| `SUPER_SHIFT+grave` | movetoworkspace `special` |
-
-# Neovim Keybindings
-| Mode | Key | Description |
-|------|-----|-------------|
-| nv | `<Space>ad` | AI Documentation |
-| nv | `<Space>ae` | AI Explain |
-| nv | `<Space>af` | AI Fix |
-| nv | `<Space>ac` | AI Generate Commit |
-| n | `<Space>am` | AI Models |
-| v | `<Space>aa` | AI Open |
-| nv | `<Space>ao` | AI Optimize |
-| nv | `<Space>ap` | AI Prompts |
-| nv | `<Space>aq` | AI Question |
-| n | `<Space>ax` | AI Reset |
-| nv | `<Space>ar` | AI Review |
-| n | `<Space>as` | AI Stop |
-| nv | `<Space>at` | AI Tests |
-| n | `<Space>aa` | AI Toggle |
-| n | `<Space>mD` | Bookmarks Delete All |
-| n | `<Space>md` | Bookmarks Delete Buffer |
-| n | `<Space>mq` | Bookmarks Quickfix |
-| n | `<Space>mm` | Bookmarks Select |
-| n | `<Space>dp` | Breakpoints |
-| n | `<Space>db` | Debug Breakpoint |
-| n | `<Space>dB` | Debug Conditional Breakpoint |
-| n | `<Space>dc` | Debug Console |
-| n | `<Space>dd` | Debug Continue [R] |
-| n | `<Space>dx` | Debug Exit |
-| nv | `<Space>de` | Debug Expression |
-| n | `<Space>df` | Debug Frames |
-| n | `<Space>dL` | Debug Log Point |
-| n | `<Space>d<Space>` | Debug REPL |
-| n | `<Space>dr` | Debug Restart |
-| n | `<Space>ds` | Debug Scopes |
-| n | `<Space>dk` | Debug Step Back (up) [R] |
-| n | `<Space>dl` | Debug Step Into (right) [R] |
-| n | `<Space>dh` | Debug Step Out (left) [R] |
-| n | `<Space>dj` | Debug Step Over (down) [R] |
-| n | `<Space>dt` | Debug Threads |
-| n | `<Space>fa` | Find Actions |
-| n | `<Space>fD` | Find All Diagnostics |
-| n | `<Space>fC` | Find All Git Commits |
-| n | `<Space>fS` | Find All Symbols |
-| nv | `<Space>fc` | Find Buffer Git Commits |
-| v | `<Space>fc` | Find Buffer Git Commits No mapping found |
-| n | `<Space>fb` | Find Buffers |
-| n | `<Space>fd` | Find Diagnostics |
-| n | `<Space>ff` | Find Files |
-| n | `<Space>fF` | Find Git Files |
-| n | `<Space>fG` | Find Git Grep |
-| n | `<Space>fg` | Find Grep |
-| n | `<Space>f?` | Find Help |
-| n | `<Space>fh` | Find History |
-| n | `<Space>fj` | Find Jumps |
-| n | `<Space>fk` | Find Keymaps |
-| n | `<Space>fm` | Find Marks |
-| n | `<Space>fq` | Find Quickfix |
-| n | `<Space><Space>` | Find Resume |
-| n | `<Space>fs` | Find Symbols |
-| n | `<Space>fu` | Find Undo History |
-| n | `<Space>he` | HTTP Environment |
-| n | `<Space>hh` | HTTP Run |
-| n | `<Space>hH` | HTTP Run All |
-| n | `<Space>ho` | HTTP Toggle |
-| n | `<Space>wd` | Wiki Diary List |
-| n | `<Space>ww` | Wiki List |
-| n | `<Space>wn` | Wiki New |
-| n | `<Space>wt` | Wiki Today |
-| n | `<Space>z` | Zoom |
+# Useful Commands
+## yay
 
-# ls
+> Yet Another Yogurt: build and install packages from the Arch User Repository.
+> See also: `pacman`.
+> More information: <https://github.com/Jguer/yay>.
 
-> List directory contents.
-> More information: <https://www.gnu.org/software/coreutils/manual/html_node/ls-invocation.html>.
+- Interactively search and install packages from the repos and AUR:
 
-- List files one per line:
+`yay {{package_name|search_term}}`
 
-`ls -1`
+- Synchronize and update all packages from the repos and AUR:
 
-- List all files, including hidden files:
+`yay`
 
-`ls {{[-a|--all]}}`
+- Install a new package from the repos and AUR and do not ask to confirm transactions:
 
-- List files with a trailing symbol to indicate file type (directory/, symbolic_link@, executable*, ...):
+`yay -S {{package}} --noconfirm`
 
-`ls {{[-F|--classify]}}`
+- Remove an installed package and both its dependencies and configuration files:
 
-- List all files in [l]ong format (permissions, ownership, size, and modification date):
+`yay -Rns {{package}}`
 
-`ls {{[-la|-l --all]}}`
+- Search the package database for a keyword from the repos and AUR:
 
-- List files in [l]ong format with size displayed using human-readable units (KiB, MiB, GiB):
+`yay -Ss {{keyword}}`
 
-`ls {{[-lh|-l --human-readable]}}`
+- Remove orphaned packages (installed as dependencies but not required by any package):
 
-- List files in [l]ong format, sorted by [S]ize (descending) recursively:
+`yay -Yc`
 
-`ls {{[-lSR|-lS --recursive]}}`
+- Clean `pacman` and `yay` caches (old package versions kept for rollback and downgrade purposes):
 
-- List files in [l]ong format, sorted by [t]ime the file was modified and in reverse order (oldest first):
+`yay -Scc`
 
-`ls {{[-ltr|-lt --reverse]}}`
+- Show statistics for installed packages and system health:
 
-- Only list directories:
+`yay -Ps`
 
-`ls {{[-d|--directory]}} */`
-
-# grep
-
-> Find patterns in files using `regex`es.
-> More information: <https://www.gnu.org/software/grep/manual/grep.html>.
-
-- Search for a pattern within a file:
-
-`grep "{{search_pattern}}" {{path/to/file}}`
-
-- Search for an exact string (disables `regex`es):
-
-`grep {{[-F|--fixed-strings]}} "{{exact_string}}" {{path/to/file}}`
-
-- Search for a pattern in all files recursively in a directory, showing line numbers of matches, ignoring binary files:
-
-`grep {{[-rnI|--recursive --line-number --binary-files=without-match]}} "{{search_pattern}}" {{path/to/directory}}`
-
-- Use extended `regex`es (supports `?`, `+`, `{}`, `()`, and `|`), in case-insensitive mode:
-
-`grep {{[-Ei|--extended-regexp --ignore-case]}} "{{search_pattern}}" {{path/to/file}}`
-
-- Print 3 lines of [C]ontext around, [B]efore or [A]fter each match:
-
-`grep {{--context|--before-context|--after-context}} 3 "{{search_pattern}}" {{path/to/file}}`
-
-- Print file name and line number for each match with color output:
-
-`grep {{[-Hn|--with-filename --line-number]}} --color=always "{{search_pattern}}" {{path/to/file}}`
-
-- Search for lines matching a pattern, printing only the matched text:
-
-`grep {{[-o|--only-matching]}} "{{search_pattern}}" {{path/to/file}}`
-
-- Search `stdin` for lines that do not match a pattern:
-
-`cat {{path/to/file}} | grep {{[-v|--invert-match]}} "{{search_pattern}}"`
-
-# tmux
-
-> Terminal multiplexer.
-> It allows multiple sessions with windows, panes, and more.
-> See also: `zellij`, `screen`.
-> More information: <https://github.com/tmux/tmux>.
-
-- Start a new session:
-
-`tmux`
-
-- Start a new named [s]ession:
-
-`tmux {{[new|new-session]}} -s {{name}}`
-
-- List existing sessions:
-
-`tmux {{[ls|list-sessions]}}`
-
-- Attach to the most recently used session:
-
-`tmux {{[a|attach]}}`
-
-- Detach from the current session (inside a tmux session):
-
-`<Ctrl b><d>`
-
-- Create a new window (inside a tmux session):
-
-`<Ctrl b><c>`
-
-- Switch between sessions and windows (inside a tmux session):
-
-`<Ctrl b><w>`
-
-- Kill a session by [t]arget name:
-
-`tmux kill-session -t {{name}}`
-
-# nvim
-
-> Neovim, a programmer's text editor based on Vim, provides several modes for different kinds of text manipulation.
-> Pressing `<i>` in normal mode enters insert mode. `<Esc>` or `<Ctrl c>` goes back to normal mode, which doesn't allow regular text insertion.
-> See also: `vim`, `vimtutor`, `vimdiff`.
-> More information: <https://neovim.io>.
-
-- Open a file:
-
-`nvim {{path/to/file}}`
-
-- Enter text editing mode (insert mode):
-
-`<Esc><i>`
-
-- Copy ("yank") or cut ("delete") the current line (paste it with `<p>`):
-
-`<Esc>{{<y><y>|<d><d>}}`
-
-- Enter normal mode and undo the last operation:
-
-`<Esc><u>`
-
-- Search for a pattern in the file (press `<n>`/`<N>` to go to next/previous match):
-
-`<Esc></>{{search_pattern}}<Enter>`
-
-- Perform a `regex` substitution in the whole file:
-
-`<Esc><:>%s/{{regex}}/{{replacement}}/g<Enter>`
-
-- Enter normal mode and save (write) the file, and quit:
-
-`{{<Esc><Z><Z>|<Esc><:>x<Enter>|<Esc><:>wq<Enter>}}`
-
-- Quit without saving:
-
-`<Esc><:>q!<Enter>`
-
-# git
+## git
 
 > Distributed version control system.
 > Some subcommands such as `commit`, `add`, `branch`, `switch`, `push`, etc. have their own usage documentation.
@@ -675,7 +562,7 @@
 
 `git reset --hard; git clean {{[-f|--force]}}`
 
-# docker
+## docker
 
 > Manage Docker containers and images.
 > Some subcommands such as `run` have their own usage documentation.
@@ -713,41 +600,79 @@
 
 `docker logs {{[-f|--follow]}} {{container_name}}`
 
-# yay
+## rg
 
-> Yet Another Yogurt: build and install packages from the Arch User Repository.
-> See also: `pacman`.
-> More information: <https://github.com/Jguer/yay>.
+> Ripgrep, a recursive line-oriented search tool.
+> Aims to be a faster alternative to `grep`.
+> More information: <https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md>.
 
-- Interactively search and install packages from the repos and AUR:
+- Recursively search current directory for a pattern (`regex`):
 
-`yay {{package_name|search_term}}`
+`rg {{pattern}}`
 
-- Synchronize and update all packages from the repos and AUR:
+- Recursively search for a pattern in a file or directory:
 
-`yay`
+`rg {{pattern}} {{path/to/file_or_directory}}`
 
-- Install a new package from the repos and AUR and do not ask to confirm transactions:
+- Include hidden files and entries listed in `.gitignore`:
 
-`yay -S {{package}} --noconfirm`
+`rg {{[-.|--hidden]}} --no-ignore {{pattern}}`
 
-- Remove an installed package and both its dependencies and configuration files:
+- Only search the files whose names match the glob pattern(s) (e.g. `README.*`):
 
-`yay -Rns {{package}}`
+`rg {{pattern}} {{[-g|--glob]}} {{filename_glob_pattern}}`
 
-- Search the package database for a keyword from the repos and AUR:
+- Recursively list filenames in the current directory that match a pattern:
 
-`yay -Ss {{keyword}}`
+`rg --files | rg {{pattern}}`
 
-- Remove orphaned packages (installed as dependencies but not required by any package):
+- Only list matched files (useful when piping to other commands):
 
-`yay -Yc`
+`rg {{[-l|--files-with-matches]}} {{pattern}}`
 
-- Clean `pacman` and `yay` caches (old package versions kept for rollback and downgrade purposes):
+- Show lines that do not match the pattern:
 
-`yay -Scc`
+`rg {{[-v|--invert-match]}} {{pattern}}`
 
-- Show statistics for installed packages and system health:
+- Search for a literal string pattern:
 
-`yay -Ps`
+`rg {{[-F|--fixed-strings]}} -- {{string}}`
+
+## kubectl
+
+> Run commands against Kubernetes clusters.
+> Some subcommands such as `run` have their own usage documentation.
+> More information: <https://kubernetes.io/docs/reference/kubectl/>.
+
+- List information about a resource with more details:
+
+`kubectl get {{pod|service|deployment|ingress|...}} {{[-o|--output]}} wide`
+
+- Update specified pod with the label 'unhealthy' and the value 'true':
+
+`kubectl label pods {{name}} unhealthy=true`
+
+- List all resources with different types:
+
+`kubectl get all`
+
+- Display resource (CPU/Memory/Storage) usage of nodes or pods:
+
+`kubectl top {{pod|node}}`
+
+- Print the address of the master and cluster services:
+
+`kubectl cluster-info`
+
+- Display an explanation of a specific field:
+
+`kubectl explain {{pods.spec.containers}}`
+
+- Print the logs for a container in a pod or specified resource:
+
+`kubectl logs {{pod_name}}`
+
+- Run command in an existing pod:
+
+`kubectl exec {{pod_name}} -- {{ls /}}`
 
