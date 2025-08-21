@@ -5,6 +5,7 @@ packages=(
     qt5-wayland
     qt6-wayland
     hyprland
+    hyprpolkitagent
     xdg-desktop-portal-hyprland
     swaybg
     swaylock
@@ -21,3 +22,8 @@ log "Configuring Hyprland"
 hyprpm update
 hyprpm add https://github.com/hyprwm/hyprland-plugins || true
 hyprpm enable hyprexpo
+
+services=(
+    hyprpolkitagent
+)
+enable_user_services "${services[@]}"
