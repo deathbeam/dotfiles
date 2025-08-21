@@ -92,9 +92,6 @@
 	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
     url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
     branch = main
-[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
-	url = https://github.com/stevearc/oil.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
 	url = https://github.com/lewis6991/gitsigns.nvim
@@ -119,3 +116,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/mini.files"]
+	path = nvim/.config/nvim/pack/bundle/start/mini.files
+	url = https://github.com/echasnovski/mini.files
