@@ -354,8 +354,8 @@
 | Key | Action |
 |-----|--------|
 | `SUPER+Return` | exec `terminal` |
-| `SUPER+Tab` | exec `switchmenu -p "switch"` |
-| `SUPER+slash` | exec `overlay -T "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
+| `SUPER+Tab` | hyprexpo:expo `toggle` |
+| `SUPER+slash` | exec `overlay -t "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
 | `SUPER+space` | exec `runmenu -p "run"` |
 | `SUPER+z` | exec `passmenu -p "pass"` |
 | `SUPER+x` | exec `procmenu -p "proc"` |

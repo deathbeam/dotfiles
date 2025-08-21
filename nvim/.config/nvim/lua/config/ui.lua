@@ -61,8 +61,38 @@ require('nvim-web-devicons').setup()
 vim.opt.fillchars = { foldclose = icons.fold.Closed, foldopen = icons.fold.Open }
 
 -- File browser
-require('mini.files').setup()
-nmap('-', require('mini.files').open, 'Open parent directory')
+local oil = require('oil')
+oil.setup({
+    view_options = {
+        show_hidden = true,
+        is_always_hidden = function(name)
+            return name == '..'
+        end,
+    },
+    win_options = {
+        number = false,
+        relativenumber = false,
+    },
+    keymaps = {
+        ['<C-s>'] = false,
+        ['<C-h>'] = false,
+        ['<C-t>'] = false,
+        ['<C-p>'] = false,
+        ['<C-c>'] = false,
+        ['<C-l>'] = false,
+    },
+})
+
+au('User', {
+    pattern = 'OilEnter',
+    callback = function()
+        oil.open_preview()
+    end,
+})
+
+nmap('-', oil.open, 'Open parent directory')
+-- require('mini.files').setup()
+-- nmap('-', require('mini.files').open, 'Open parent directory')
 
 -- Tmux bindings
 require('tmux').setup({

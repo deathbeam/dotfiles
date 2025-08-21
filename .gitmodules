@@ -116,6 +116,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/mini.files"]
-	path = nvim/.config/nvim/pack/bundle/start/mini.files
-	url = https://github.com/echasnovski/mini.files
+[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim
