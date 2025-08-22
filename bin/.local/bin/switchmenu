@@ -1,11 +1,7 @@
 #!/bin/sh
-shopt -s nullglob globstar
-scriptpath=$(dirname "$(readlink -f "$0")")
 
-window=$(hyprctl clients -j \
-    | jq -r 'group_by(.workspace.id) | .[] | . as $workspace | to_entries | .[]
-    | "\(.value.address) \(.value.workspace.id)\(.key + 1): \(.value.title)"' \
-    | $scriptpath/fzfmenu "$@" --with-nth "2..")
+if [ "$(hyprctl activewindow -j | jq '.fullscreen')" != "0" ]; then
+    hyprctl dispatch fullscreen;
+fi
 
-[[ -n $window ]] || exit 1
-exec hyprctl dispatch focuswindow address:$(echo "$window" | awk '{print $1}')
+hyprctl dispatch hyprexpo:expo toggle

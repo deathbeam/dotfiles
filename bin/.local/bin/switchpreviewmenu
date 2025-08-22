@@ -1,0 +1,24 @@
+#!/bin/sh
+scriptpath=$(dirname "$(readlink -f "$0")")
+
+# Start imv in background
+mpv_socket="/tmp/mpv-preview-socket"
+preview_path="/tmp/window_preview.png"
+mpv  --input-ipc-server=$mpv_socket --no-terminal --force-window=yes --image-display-duration=inf $preview_path &
+viewer_pid=$!
+
+# Prepare window list: address<TAB>title
+windows=$(hyprctl -j clients | jq -r 'sort_by(.focusHistoryID) | .[] | select(.workspace.id >= 0) | "\(.address)\t\(.title)"')
+
+# Run fzfmenu with preview
+selected=$(printf '%s\n' "$windows" | "$scriptpath/fzfmenu" \
+  --with-nth "2.." \
+  --preview "previewwindow $mpv_socket $preview_path {1}" \
+  --preview-window=up:1 \
+  | awk -F'\t' '{print $1}')
+
+# Kill imv after selection
+kill $viewer_pid
+
+# Focus selected window
+[ -n "$selected" ] && hyprctl dispatch focuswindow address:"$selected"

@@ -11,7 +11,7 @@ packages=(
     swaylock
     wl-clipboard
     cliphist
-    grim
+    grim-hyprland-git
     slurp
     satty
     cpio

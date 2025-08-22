@@ -2,7 +2,7 @@
 | Key | Action |
 |-----|--------|
 | `SUPER+Return` | exec `terminal` |
-| `SUPER+Tab` | hyprexpo:expo `toggle` |
+| `SUPER+Tab` | exec `switchmenu` |
 | `SUPER+slash` | exec `overlay -t "Cheatsheet" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md` |
 | `SUPER+space` | exec `runmenu -p "run"` |
 | `SUPER+z` | exec `passmenu -p "pass"` |
