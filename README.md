@@ -7,6 +7,8 @@ My NeoVim configuration is great for Java, Typescript and Python development whe
 running Vim in Tmux and using Git. So, if you are doing all of this, then feel
 free to steal some stuff from here.
 
+See [CHEATSHEET.md](/CHEATSHEET.md) for more details about included stuff.
+
 ![Screenshot](/screenshot.png)
 
 ## Requirements

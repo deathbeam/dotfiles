@@ -6,15 +6,17 @@ fi
 log "Installing core packages"
 packages=(
     xdg-utils xdg-user-dirs
-    net-tools iw sshpass stoken openvpn vpn-slice openconnect tinyproxy mitmproxy wget lynx socat traceroute
     dosfstools fuse2
-    stow zsh tmux ripgrep mlocate starship tldr
-    tree-sitter-git neovim-git ctags less bat fswatch jq jnv
+    net-tools systemd-resolvconf iw sshpass wget socat traceroute
+    stoken openvpn vpn-slice openconnect tinyproxy mitmproxy
+    stow zsh starship tmux
+    ripgrep mlocate man-db tldr
+    bc unzip p7zip
+    rate-mirrors pacman-contrib
     pass pass-otp
-    rate-mirrors unzip bc
-    p7zip man-db keyd systemd-resolvconf pacman-contrib ncdu
-    fastfetch onefetch glow btop
-    power-profiles-daemon syncthing
+    keyd power-profiles-daemon syncthing
+    tree-sitter-git neovim-git fswatch ctags less bat lynx jq jnv
+    fastfetch onefetch glow btop ncdu
 )
 install_pkgs "${packages[@]}"
 

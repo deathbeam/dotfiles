@@ -4,25 +4,25 @@ packages=(
     vulkan-tools
     libva-utils
     brightnessctl
-    fonts-meta-base
-    terminus-font terminus-font-ttf ttf-terminus-nerd
+    gcr
+    fonts-meta-base terminus-font terminus-font-ttf ttf-terminus-nerd
     udiskie
     gammastep geoclue2
+    jamesdsp
+    gpu-screen-recorder
     dunst
     yambar-git
     alacritty
-    gcr
     zathura zathura-pdf-mupdf
     qutebrowser python-adblock
     firefox firefox-tridactyl firefox-tridactyl-native
     gimp
     mpv subliminal yt-dlp
-    vesktop-bin stremio
+    vesktop-bin
     gamescope steam steamtinkerlaunch lutris
+    stremio
     calibre
     youtube-music-bin
-    gpu-screen-recorder
-    jamesdsp
 )
 install_pkgs "${packages[@]}"
 
