@@ -34,7 +34,7 @@
       "args": [
         "run",
         "--spec",
-        "--spec python-vectorspace==0.0.7",
+        "python-vectorspace==0.0.7",
         "vectorspace-mcp"
       ],
       "command": "pipx",
