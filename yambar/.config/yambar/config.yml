@@ -15,9 +15,9 @@ bar:
   background: *color_bg
 
   left:
-    - label:
-        content:
-          string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+    # - label:
+    #     content:
+    #       string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
     -
       script:
         path: ~/.config/yambar/wm.sh
@@ -126,13 +126,13 @@ bar:
                     - map:
                         conditions:
                           fullscreen:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
                           floating:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
                           monocle:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
                           ~monocle:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", deco: {background: {color: *color_inactive}}, margin: *margin}
                     - map:
                         conditions:
                           process != "" && xwayland:
@@ -142,7 +142,7 @@ bar:
                     - map:
                         conditions:
                           title != "":
-                            string: {text: "{title}", max: 75, margin: *margin}
+                            string: {text: "{title}", max: 100, margin: *margin}
   right:
     -
       network:
