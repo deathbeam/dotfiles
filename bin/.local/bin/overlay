@@ -22,9 +22,4 @@ while [ $# -gt 0 ]; do
     esac
 done
 
-if ! hyprctl clients | grep -q "class: $CLASS"; then
-    $TERMINAL $TERM_CLASS $CLASS -T "$TITLE" -e "$SHELL" -ic "$CMD"
-else
-    hyprctl dispatch closewindow "class:$CLASS"
-fi
-
+exec $TERMINAL $TERM_CLASS $CLASS -T "$TITLE" -e "$SHELL" -ic "$CMD"

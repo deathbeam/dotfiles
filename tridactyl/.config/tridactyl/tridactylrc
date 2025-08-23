@@ -2,7 +2,7 @@
 " vim: set filetype=tridactyl
 
 " Disable GUI
-guiset gui none
+" guiset gui none
 
 " General Settings
 set configversion 2.0

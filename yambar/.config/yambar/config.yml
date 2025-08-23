@@ -123,16 +123,16 @@ bar:
                     #         string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
                     #       ws9_state == focused:
                     #         string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       fullscreen:
-                    #         string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    #       floating:
-                    #         string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    #       monocle:
-                    #         string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    #       ~monocle:
-                    #         string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                    - map:
+                        conditions:
+                          fullscreen:
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                          floating:
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                          monocle:
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                          ~monocle:
+                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
                           process != "" && xwayland:
