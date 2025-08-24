@@ -14,7 +14,7 @@ packages=(
     yambar-git
     alacritty
     zathura zathura-pdf-mupdf
-    qutebrowser python-adblock
+    qutebrowser python-adblock python-readability-lxml
     firefox firefox-tridactyl firefox-tridactyl-native
     gimp
     mpv subliminal yt-dlp
