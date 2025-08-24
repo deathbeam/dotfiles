@@ -142,7 +142,7 @@ bar:
                     - map:
                         conditions:
                           title != "":
-                            string: {text: "{title}", max: 100, margin: *margin}
+                            string: {text: "{title}", max: 90, margin: *margin}
   right:
     -
       network:

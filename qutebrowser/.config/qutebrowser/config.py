@@ -62,7 +62,7 @@ config.bind('e', 'spawn --userscript /usr/share/qutebrowser/userscripts/view_in_
 config.bind('E', 'hint links spawn --detach mpv {hint-url}')
 
 # Readability
-config.bind('`', 'spawn --userscript /usr/share/qutebrowser/userscripts/readability')
+config.bind('gr', 'spawn --userscript /usr/share/qutebrowser/userscripts/readability')
 
 config.bind("<Ctrl-P>", "completion-item-focus prev", mode="command")
 config.bind("<Ctrl-N>", "completion-item-focus next", mode="command")
