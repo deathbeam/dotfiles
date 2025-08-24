@@ -119,3 +119,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/difftool.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/difftool.nvim
+	url = https://github.com/deathbeam/difftool.nvim
