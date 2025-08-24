@@ -38,7 +38,7 @@
     trustExitCode = true
 
 [difftool "nvim_difftool"]
-    cmd = nvim -c \"DiffToolR $LOCAL $REMOTE\"
+    cmd = nvim -c \"DiffTool $LOCAL $REMOTE\"
 
 [merge]
     log = true
