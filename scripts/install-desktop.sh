@@ -13,16 +13,14 @@ packages=(
     dunst
     yambar-git
     alacritty
-    zathura zathura-pdf-mupdf
+    zathura zathura-pdf-mupdf libreoffice-fresh gimp
     qutebrowser python-adblock python-readability-lxml
-    firefox firefox-tridactyl firefox-tridactyl-native
-    gimp
+    # firefox firefox-tridactyl firefox-tridactyl-native
     mpv subliminal yt-dlp
+    gamescope steam steamtinkerlaunch wine winetricks lutris dxvk-bin
+    qbittorrent stremio youtube-music-bin
     vesktop-bin
-    gamescope steam steamtinkerlaunch lutris
-    stremio
     calibre
-    youtube-music-bin
 )
 install_pkgs "${packages[@]}"
 

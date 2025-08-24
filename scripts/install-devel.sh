@@ -5,10 +5,11 @@ packages=(
     python-pip python-dbus python-opengl python-virtualenv
     dotnet-sdk aspnet-runtime
     maven python-poetry
+    lua51 luarocks stylua
+    zig choosenim-bin
     github-cli
     docker docker-compose
-    azure-cli kubectl k9s argocd azure-kubelogin temporal-cli
-    ollama
+    azure-cli kubectl k9s azure-kubelogin temporal-cli
 )
 install_pkgs "${packages[@]}"
 
