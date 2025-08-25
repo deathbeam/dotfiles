@@ -13,6 +13,8 @@
 | `SUPER+g` | exec `pkill -USR1 gammastep` |
 | `SUPER+slash` | togglespecialworkspace `cheatsheet` |
 | `SUPER+b` | togglespecialworkspace `btop` |
+| `SUPER+d` | togglespecialworkspace `discord` |
+| `SUPER+y` | togglespecialworkspace `youtubemusic` |
 | `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
