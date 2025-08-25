@@ -1,9 +1,15 @@
 // ==UserScript==
-// @name         Reddit Infobar Remover
+// @name         Reddit Enhancements
 // @match        *://*.reddit.com/*
 // ==/UserScript==
 
 (function() {
     'use strict';
-    document.querySelectorAll('.infobar-toaster-container').forEach(el => el.remove());
+
+    // Remove promoted posts
+    function removePromoted() {
+        document.querySelectorAll('[data-promoted="true"], .promoted').forEach(el => el.remove());
+    }
+    removePromoted();
+    new MutationObserver(removePromoted).observe(document.body, { childList: true, subtree: true });
 })();
