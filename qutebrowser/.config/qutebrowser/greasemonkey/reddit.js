@@ -1,6 +1,9 @@
+// ==UserScript==
+// @name         Reddit Infobar Remover
+// @match        *://*.reddit.com/*
+// ==/UserScript==
+
 (function() {
     'use strict';
-    for (var y of document.getElementsByClassName('infobar-toaster-container')) {
-        y.remove();
-    }
+    document.querySelectorAll('.infobar-toaster-container').forEach(el => el.remove());
 })();
