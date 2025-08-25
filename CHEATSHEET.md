@@ -1,20 +1,20 @@
 # Hyprland Keybindings
 | Key | Action |
 |-----|--------|
-| `SUPER+Return` | exec `terminal` |
-| `SUPER+Tab` | exec `hyprexpo` |
-| `SUPER+space` | exec `menu-run -p "run"` |
-| `SUPER+z` | exec `menu-pass -p "pass"` |
-| `SUPER+x` | exec `menu-proc -p "proc"` |
-| `SUPER+c` | exec `menu-clip -p "clip"` |
-| `SUPER+v` | exec `menu-steam -p "steam"` |
-| `SUPER+n` | exec `menu-notifications -p "notifications"` |
-| `SUPER+e` | exec `swaylock -f -i $WALLPAPER` |
-| `SUPER+g` | exec `pkill -USR1 gammastep` |
-| `SUPER+slash` | togglespecialworkspace `cheatsheet` |
-| `SUPER+b` | togglespecialworkspace `btop` |
-| `SUPER+d` | togglespecialworkspace `discord` |
-| `SUPER+y` | togglespecialworkspace `youtubemusic` |
+| `SUPER+Return` | exec `terminal                         # Return for "terminal"` |
+| `SUPER+Tab` | exec `hyprexpo                            # Tab for "switch"` |
+| `SUPER+space` | exec `menu-run -p "run"                 # space for "run"` |
+| `SUPER+p` | exec `menu-pass -p "pass"                   # p for "passwords"` |
+| `SUPER+x` | exec `menu-proc -p "proc"                   # x for "execute"` |
+| `SUPER+c` | exec `menu-clip -p "clip"                   # c for "copy"` |
+| `SUPER+g` | exec `menu-steam -p "steam"                 # g for "games"` |
+| `SUPER+n` | exec `menu-notifications -p "notifications" # n for "notifications"` |
+| `SUPER+e` | exec `swaylock -f -i $WALLPAPER             # e for "exit" (lock screen)` |
+| `SUPER+v` | exec `pkill -USR1 gammastep                 # v for "vision" (toggle night light)` |
+| `SUPER+slash` | togglespecialworkspace `cheatsheet      # / for "find"` |
+| `SUPER+b` | togglespecialworkspace `btop                # b for "btop"` |
+| `SUPER+d` | togglespecialworkspace `discord             # d for "discord"` |
+| `SUPER+y` | togglespecialworkspace `youtubemusic        # y for "youtube"` |
 | `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
