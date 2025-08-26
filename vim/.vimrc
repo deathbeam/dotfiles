@@ -42,7 +42,9 @@ set smartcase
 set showmatch
 
 " Always use vertical diffs
-set diffopt=internal,filler,closeoff,linematch:60,inline:char,context:10,algorithm:histogram,indent-heuristic
+set diffopt=internal,filler,closeoff,algorithm:histogram,indent-heuristic,inline:char,context:100000
+" set diffopt+=linematch:60
+" set diffopt+=context:10
 
 " Always show some lines around
 set scrolloff=8
