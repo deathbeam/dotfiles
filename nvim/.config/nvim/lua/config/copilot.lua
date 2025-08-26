@@ -13,7 +13,7 @@ vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, rep
 local chat = require('CopilotChat')
 chat.setup({
     model = 'gpt-4.1',
-    debug = false,
+    debug = true,
     temperature = 0,
     sticky = {
         '#buffers',

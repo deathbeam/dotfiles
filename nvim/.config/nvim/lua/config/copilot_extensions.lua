@@ -1,38 +1,3 @@
-require('CopilotChat.config').providers.openwebui = {
-    prepare_input = require('CopilotChat.config.providers').copilot.prepare_input,
-    prepare_output = require('CopilotChat.config.providers').copilot.prepare_output,
-
-    get_headers = function()
-        local api_key = assert(os.getenv('OPENWEBUI_API_KEY'), 'OPENWEBUI_API_KEY env not set')
-        return {
-            Authorization = 'Bearer ' .. api_key,
-            ['Content-Type'] = 'application/json',
-        }
-    end,
-
-    get_models = function(headers)
-        local response, err = require('CopilotChat.utils').curl_get('http://localhost:3000/api/models', {
-            headers = headers,
-            json_response = true,
-        })
-
-        if err then
-            error(err)
-        end
-
-        return vim.tbl_map(function(model)
-            return {
-                id = model.id,
-                name = model.id,
-            }
-        end, response.body.data)
-    end,
-
-    get_url = function()
-        return 'http://localhost:3000/api/chat/completions'
-    end,
-}
-
 require('CopilotChat.config').providers.gemini = {
     prepare_input = require('CopilotChat.config.providers').copilot.prepare_input,
     prepare_output = require('CopilotChat.config.providers').copilot.prepare_output,
@@ -46,7 +11,7 @@ require('CopilotChat.config').providers.gemini = {
     end,
 
     get_models = function(headers)
-        local response, err = require('CopilotChat.utils').curl_get(
+        local response, err = require('CopilotChat.utils.curl').get(
             'https://generativelanguage.googleapis.com/v1beta/openai/models',
             {
                 headers = headers,

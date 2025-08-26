@@ -5,7 +5,6 @@ local utils = require('config.utils')
 local nmap = utils.nmap
 local au = utils.au
 local desc = utils.desc
-local lsp_capabilities = utils.make_capabilities()
 
 local function w(fn)
     return function(...)
@@ -97,10 +96,10 @@ for _, language in ipairs(languages) do
     end
 
     for _, lsp in ipairs(language.lsp or {}) do
-        lspconfig[lsp].setup({
+        vim.lsp.config(lsp, {
             cmd = language.cmd,
-            capabilities = lsp_capabilities,
             settings = language.settings,
         })
+        vim.lsp.enable(lsp)
     end
 end

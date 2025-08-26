@@ -120,8 +120,8 @@ return {
     },
     {
         treesitter = { 'lua' },
-        mason = { 'lua-language-server' },
-        lsp = { 'lua_ls' },
+        mason = { 'emmylua_ls' },
+        lsp = { 'emmylua_ls' },
         settings = {
             Lua = {
                 runtime = {
@@ -129,9 +129,6 @@ return {
                 },
                 hint = {
                     enable = true,
-                },
-                diagnostics = {
-                    globals = { 'vim' },
                 },
                 workspace = {
                     library = {

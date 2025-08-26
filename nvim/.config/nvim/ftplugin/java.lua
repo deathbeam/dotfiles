@@ -82,7 +82,7 @@ jdtls.start_or_attach({
     cmd = cmd,
     settings = data.settings,
     on_attach = jdtls_on_attach,
-    capabilities = utils.make_capabilities(),
+    capabilities = require('myplugins.bufcomplete').capabilities(),
     root_dir = cwd,
     flags = {
         allow_incremental_sync = true,

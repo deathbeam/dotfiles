@@ -1,20 +1,3 @@
-local Pkg = require('mason-core.package')
-local configs = require('lspconfig.configs')
-local path = require('mason-core.path')
-local util = require('lspconfig.util')
-
-configs['pylance'] = {
-    default_config = {
-        filetypes = { 'python' },
-        cmd = { 'pylance', '--stdio' },
-        root_dir = util.root_pattern('pyproject.toml', 'setup.py', 'setup.cfg', 'requirements.txt', 'Pipfile'),
-        single_file_support = true,
-        settings = {
-            python = {},
-        },
-    },
-}
-
 return {
     name = 'pylance',
     description = 'Fast, feature-rich language support for Python',
