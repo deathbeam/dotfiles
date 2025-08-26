@@ -3,17 +3,13 @@
 vim.g.java_ignore_markdown = true
 
 local jdtls = require('jdtls')
-local utils = require('config.utils')
 
 local function prepare_jdtls()
     if vim.g.jdtls_data then
         return vim.g.jdtls_data
     end
 
-    local languages = require('config.languages')
-    local dap = require('dap')
-
-    dap.configurations.java = {
+    require('dap').configurations.java = {
         {
             type = 'java',
             request = 'attach',
@@ -34,7 +30,7 @@ local function prepare_jdtls()
 
     data.settings = vim.tbl_filter(function(language)
         return language.mason and vim.tbl_contains(language.mason, 'jdtls')
-    end, languages)[1].settings
+    end, require('config.languages'))[1].settings
 
     data.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
     data.java_agent = jdtls_path .. '/lombok.jar'
@@ -56,10 +52,7 @@ local function prepare_jdtls()
 end
 
 local function jdtls_on_attach(_, bufnr)
-    local jdtls_dap = require('jdtls.dap')
-    jdtls_dap.setup_dap({ hotcodereplace = 'auto' })
-    jdtls_dap.setup_dap_main_class_configs()
-
+    local utils = require('config.utils')
     utils.nmap('<leader>dt', jdtls.test_nearest_method, 'Debug Test Method', bufnr)
     utils.nmap('<leader>dT', jdtls.test_class, 'Debug Test Class', bufnr)
 end
