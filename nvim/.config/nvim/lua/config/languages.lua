@@ -127,11 +127,11 @@ return {
                 runtime = {
                     version = 'LuaJIT',
                     requirePattern = {
-                        "lua/?.lua",
-                        "lua/?/init.lua",
-                        "?/lua/?.lua",
-                        "?/lua/?/init.lua"
-                    }
+                        'lua/?.lua',
+                        'lua/?/init.lua',
+                        '?/lua/?.lua',
+                        '?/lua/?/init.lua',
+                    },
                 },
                 hint = {
                     enable = true,
@@ -189,5 +189,5 @@ return {
     {
         mason = { 'copilot-language-server' },
         lsp = { 'copilot' },
-    }
+    },
 }

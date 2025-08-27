@@ -11,13 +11,11 @@ require('CopilotChat.config').providers.gemini = {
     end,
 
     get_models = function(headers)
-        local response, err = require('CopilotChat.utils.curl').get(
-            'https://generativelanguage.googleapis.com/v1beta/openai/models',
-            {
+        local response, err =
+            require('CopilotChat.utils.curl').get('https://generativelanguage.googleapis.com/v1beta/openai/models', {
                 headers = headers,
                 json_response = true,
-            }
-        )
+            })
 
         if err then
             error(err)
@@ -40,21 +38,21 @@ require('CopilotChat.config').providers.gemini = {
 }
 
 require('CopilotChat.config').functions.keymaps = {
-    description = "Show all globally defined keymaps",
-    uri = "neovim://keymaps",
+    description = 'Show all globally defined keymaps',
+    uri = 'neovim://keymaps',
     resolve = function()
-        local maps = vim.api.nvim_get_keymap("n")
+        local maps = vim.api.nvim_get_keymap('n')
         local lines = {}
 
         for _, map in ipairs(maps) do
-            table.insert(lines, string.format("%-10s -> %s [%s]", map.lhs, map.rhs or "", map.desc or ""))
+            table.insert(lines, string.format('%-10s -> %s [%s]', map.lhs, map.rhs or '', map.desc or ''))
         end
 
         return {
             {
-                data = table.concat(lines, "\n"),
-                uri = "neovim://keymaps"
-            }
+                data = table.concat(lines, '\n'),
+                uri = 'neovim://keymaps',
+            },
         }
-    end
+    end,
 }

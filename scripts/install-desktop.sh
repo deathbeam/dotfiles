@@ -7,7 +7,7 @@ packages=(
     gcr
     fonts-meta-base terminus-font terminus-font-ttf ttf-terminus-nerd
     udiskie
-    gammastep geoclue2
+    gammastep geoclue
     jamesdsp
     gpu-screen-recorder
     dunst
@@ -17,7 +17,7 @@ packages=(
     qutebrowser python-adblock python-readability-lxml
     # firefox firefox-tridactyl firefox-tridactyl-native
     mpv subliminal yt-dlp
-    gamescope steam steamtinkerlaunch wine winetricks lutris dxvk-bin
+    gamescope steam steamtinkerlaunch-git wine winetricks lutris dxvk-bin
     qbittorrent stremio youtube-music-bin
     vesktop-bin
     calibre

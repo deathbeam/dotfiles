@@ -66,9 +66,9 @@ au('LspAttach', {
                     local kind = vim.lsp.protocol.CompletionItemKind[item.kind] or 'Unknown'
                     local icon = icons.kinds[kind]
                     return {
-                        kind = icon and icon .. ' ' .. kind or kind
+                        kind = icon and icon .. ' ' .. kind or kind,
                     }
-                end
+                end,
             })
         end
 

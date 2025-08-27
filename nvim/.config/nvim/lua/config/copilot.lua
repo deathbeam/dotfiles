@@ -21,7 +21,7 @@ chat.setup({
     mappings = {
         reset = false,
         complete = {
-            insert = '<Tab>'
+            insert = '<Tab>',
         },
         show_diff = {
             full_diff = true,
@@ -55,7 +55,7 @@ chat.setup({
         Commit = {
             mapping = '<leader>ac',
             description = 'AI Generate Commit',
-        }
+        },
     },
     providers = {
         github_models = {
@@ -102,5 +102,5 @@ require('mcphub').setup({
             convert_resources_to_functions = true,
             add_mcp_prefix = false,
         },
-    }
+    },
 })

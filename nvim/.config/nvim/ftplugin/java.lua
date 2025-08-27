@@ -41,8 +41,7 @@ local function prepare_jdtls()
         vim.list_extend(data.bundles, java_test_bundle)
     end
 
-    local java_debug_bundle =
-        vim.split(vim.fn.glob(java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar'), '\n')
+    local java_debug_bundle = vim.split(vim.fn.glob(java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(data.bundles, java_debug_bundle)
     end
@@ -66,7 +65,8 @@ local data = prepare_jdtls()
 local cmd = {
     'jdtls',
     '--jvm-arg=-javaagent:' .. data.java_agent,
-    '-data', data.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t'),
+    '-data',
+    data.data_dir .. '/' .. vim.fn.fnamemodify(cwd, ':p:h:t'),
 }
 
 -- This starts a new client & server,

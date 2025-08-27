@@ -12,8 +12,8 @@ fzf.setup({
     winopts = {
         border = 'none',
         preview = {
-            border = 'single'
-        }
+            border = 'single',
+        },
     },
     fzf_opts = {
         ['--info'] = false,
@@ -27,8 +27,8 @@ fzf.setup({
     files = {
         rg_opts = ' --files --hidden --ignore --glob "!.git" --sortr=modified',
         fzf_opts = {
-            ["--scheme"] = "path",
-            ["--tiebreak"] = "index",
+            ['--scheme'] = 'path',
+            ['--tiebreak'] = 'index',
             -- ["--schema"] = "history"
         },
     },

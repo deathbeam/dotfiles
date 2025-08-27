@@ -14,7 +14,7 @@ require('vim._extui').enable({
     msg = {
         target = 'cmd',
         timeout = 1000,
-    }
+    },
 })
 
 -- Set base16 colorscheme

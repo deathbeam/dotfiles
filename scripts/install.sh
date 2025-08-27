@@ -9,17 +9,18 @@ log() {
 install_pkgs() {
   if ! command -v yay &> /dev/null; then
     git clone "https://aur.archlinux.org/yay.git" "/tmp/yay"
-    cd "/tmp/yay"
+    pushd "/tmp/yay"
     makepkg -si --noconfirm
-    cd -
+    popd
   fi
 
-  local to_install=()
+  installed=$(yay -Qi "$@" 2>/dev/null | awk '/^Name/{print $3}')
   for pkg in "$@"; do
-    if ! yay -Qi "$pkg" &>/dev/null; then
+    if ! grep -qx "$pkg" <<< "$installed"; then
       to_install+=("$pkg")
     fi
   done
+
   if [ ${#to_install[@]} -gt 0 ]; then
     yay -Sy --noconfirm --mflags --skipinteg "${to_install[@]}"
   fi
@@ -81,7 +82,7 @@ append_pacman_option() {
 }
 
 dot_dir="$(cd "$(dirname "$0")/.." && pwd)"
-cd "$dot_dir" || exit 1
+pushd "$dot_dir" || exit 1
 script_dir="$dot_dir/scripts"
 profile_scripts=("$script_dir"/install-*.sh)
 
