@@ -45,9 +45,12 @@ au('LspAttach', {
     desc = 'LSP actions',
     callback = function(event)
         local client = vim.lsp.get_client_by_id(event.data.client_id)
-        if not client or string.find(client.name:lower(), 'copilot') then
+        if not client then
             return
         end
+
+        -- disable semantic tokens
+        client.server_capabilities.semanticTokensProvider = nil
 
         -- enable lsp folding
         if client:supports_method('textDocument/foldingRange') then
@@ -69,8 +72,15 @@ au('LspAttach', {
             })
         end
 
-        -- disable semantic tokens
-        client.server_capabilities.semanticTokensProvider = nil
+        -- enable inline completion
+        if client:supports_method('textDocument/inlineCompletion') then
+            vim.lsp.inline_completion.enable(true)
+            vim.keymap.set('i', '<S-Tab>', function()
+                if not vim.lsp.inline_completion.get() then
+                    return '<S-Tab>'
+                end
+            end, { expr = true, replace_keycodes = true })
+        end
 
         -- lsp mappings
         desc('<leader>c', 'Code')
@@ -89,7 +99,6 @@ au('LspAttach', {
 })
 
 -- Setup LSP servers
-local lspconfig = require('lspconfig')
 for _, language in ipairs(languages) do
     if language.setup then
         language.setup()

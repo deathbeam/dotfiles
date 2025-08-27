@@ -2,13 +2,6 @@ local utils = require('config.utils')
 local icons = require('config.icons')
 utils.desc('<leader>a', 'AI')
 
--- Copilot autosuggestions
-vim.g.copilot_no_tab_map = true
-vim.g.copilot_hide_during_completion = false
-vim.g.copilot_proxy_strict_ssl = false
--- vim.g.copilot_settings = { selectedCompletionModel = 'gpt-4o-copilot' }
-vim.keymap.set('i', '<S-Tab>', 'copilot#Accept("\\<S-Tab>")', { expr = true, replace_keycodes = false })
-
 -- Copilot chat
 local chat = require('CopilotChat')
 chat.setup({

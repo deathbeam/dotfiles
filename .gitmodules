@@ -82,9 +82,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
-[submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
-	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
-	url = https://github.com/github/copilot.vim
 [submodule "nvim/.config/nvim/pack/bundle/start/plenary.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/plenary.nvim
 	url = https://github.com/nvim-lua/plenary.nvim
