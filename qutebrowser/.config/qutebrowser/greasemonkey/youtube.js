@@ -6,13 +6,24 @@
 (function() {
     'use strict';
 
-    // Auto fast forward ads
     function skipAds() {
         const skipBtn = document.querySelector('.videoAdUiSkipButton, .ytp-ad-skip-button-modern');
         if (skipBtn) skipBtn.click();
-        const adVideo = document.querySelector('.ad-showing video');
-        if (adVideo) adVideo.currentTime = adVideo.duration || 999999;
+        const adVideo = document.querySelector('.ad-showing .video-stream');
+        if (adVideo && adVideo.duration > 0 && adVideo.currentTime < adVideo.duration) {
+            adVideo.currentTime = adVideo.duration;
+        }
     }
-    skipAds();
-    new MutationObserver(skipAds).observe(document.body, { childList: true, subtree: true });
+
+    function removeSponsored() {
+        document.querySelectorAll('ytd-in-feed-ad-layout-renderer').forEach(el => el.remove());
+    }
+
+    function observer() {
+        skipAds();
+        removeSponsored();
+    }
+
+    window.addEventListener('load', observer);
+    new MutationObserver(observer).observe(document.body, { childList: true, subtree: true });
 })();
