@@ -44,7 +44,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                         vim.log.levels.INFO
                     )
                     a.wait(function(resolve)
-                        pkg:install({ version = latest_version }):once('closed', resolve)
+                        pkg:install({ version = latest_version }, resolve)
                     end)
                 end
             end
@@ -56,7 +56,7 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
                 a.scheduler()
                 vim.notify('Uninstalling ' .. name, vim.log.levels.INFO)
                 a.wait(function(resolve)
-                    pkg:uninstall():once('closed', resolve)
+                    pkg:uninstall(nil, resolve)
                 end)
             end
         end

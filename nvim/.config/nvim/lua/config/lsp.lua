@@ -73,14 +73,14 @@ au('LspAttach', {
         end
 
         -- enable inline completion
-        if client:supports_method('textDocument/inlineCompletion') then
-            vim.lsp.inline_completion.enable(true)
-            vim.keymap.set('i', '<S-Tab>', function()
-                if not vim.lsp.inline_completion.get() then
-                    return '<S-Tab>'
-                end
-            end, { expr = true, replace_keycodes = true })
-        end
+        -- if client:supports_method('textDocument/inlineCompletion') then
+        --     vim.lsp.inline_completion.enable(true)
+        --     vim.keymap.set('i', '<S-Tab>', function()
+        --         if not vim.lsp.inline_completion.get() then
+        --             return '<S-Tab>'
+        --         end
+        --     end, { expr = true, replace_keycodes = true })
+        -- end
 
         -- lsp mappings
         desc('<leader>c', 'Code')

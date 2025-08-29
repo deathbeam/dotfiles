@@ -7,7 +7,7 @@
     'use strict';
 
     function skipAds() {
-        const skipBtn = document.querySelector('.videoAdUiSkipButton, .ytp-ad-skip-button-modern');
+        const skipBtn = document.querySelector('.videoAdUiSkipButton, .ytp-ad-skip-button-modern, .ytp-skip-ad-button');
         if (skipBtn) skipBtn.click();
         const adVideo = document.querySelector('.ad-showing .video-stream');
         if (adVideo && adVideo.duration > 0 && adVideo.currentTime < adVideo.duration) {
@@ -17,6 +17,7 @@
 
     function removeSponsored() {
         document.querySelectorAll('ytd-in-feed-ad-layout-renderer').forEach(el => el.remove());
+        document.querySelectorAll('ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]').forEach(el => el.remove());
     }
 
     function observer() {

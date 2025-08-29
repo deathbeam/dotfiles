@@ -119,3 +119,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/difftool.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/difftool.nvim
 	url = https://github.com/deathbeam/difftool.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
+	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
+	url = https://github.com/github/copilot.vim

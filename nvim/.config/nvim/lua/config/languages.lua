@@ -186,8 +186,8 @@ return {
     {
         treesitter = { 'http' },
     },
-    {
-        mason = { 'copilot-language-server' },
-        lsp = { 'copilot' },
-    },
+    -- {
+    --     mason = { 'copilot-language-server' },
+    --     lsp = { 'copilot' },
+    -- },
 }
