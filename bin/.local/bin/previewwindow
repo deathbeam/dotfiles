@@ -1,8 +1,11 @@
 #!/bin/sh
 sock="$1"
-path="$2"
-addr="$3"
+addr="$2"
+path="/tmp/window_preview_${addr}.png"
 
-grim -t png -w "$addr" "$path"
+if [ ! -f "$path" ]; then
+  grim -t png -w "$addr" "$path"
+fi
+
 echo '{ "command": ["loadfile", "'"$path"'", "replace"] }' | socat - "$sock" >/dev/null 2>&1
 echo "Address: $addr"
