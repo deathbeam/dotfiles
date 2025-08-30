@@ -4,7 +4,7 @@ scriptpath=$(dirname "$(readlink -f "$0")")
 # Start imv in background
 mpv_socket="/tmp/mpv-preview-socket"
 preview_path="/tmp/window_preview.png"
-mpv  --input-ipc-server=$mpv_socket --no-terminal --force-window=yes --image-display-duration=inf $preview_path &
+mpv --input-ipc-server=$mpv_socket --no-terminal --force-window=yes --image-display-duration=inf $preview_path &
 viewer_pid=$!
 
 # Prepare window list: address<TAB>title
