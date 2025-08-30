@@ -15,6 +15,7 @@
 | `SUPER+b` | togglespecialworkspace `btop                # b for "btop"` |
 | `SUPER+d` | togglespecialworkspace `discord             # d for "discord"` |
 | `SUPER+y` | togglespecialworkspace `youtubemusic        # y for "youtube"` |
+| `SUPER+o` | togglespecialworkspace `k9s                 # o for "kubernetes" i guess` |
 | `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
