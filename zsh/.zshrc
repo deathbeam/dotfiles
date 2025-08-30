@@ -40,6 +40,9 @@ setopt NO_HUP
 # GPG configuration
 # export GPG_TTY=$(tty)
 
+# Set terminal title to current directory
+precmd() { print -Pn "\e]2;${PWD}\a" }
+
 # }}}
 
 # Mappings {{{
