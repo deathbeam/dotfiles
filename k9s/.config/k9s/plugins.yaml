@@ -1,7 +1,6 @@
 plugins:
-  # See https://k9scli.io/topics/plugins/
-  raw-logs-follow:
-    shortCut: Ctrl-G
+  logs-follow:
+    shortCut: Shift-L
     description: logs -f
     scopes:
     - po
@@ -18,7 +17,7 @@ plugins:
     - --kubeconfig
     - $KUBECONFIG
   log-less:
-    shortCut: Shift-K
+    shortCut: Shift-G
     description: "logs|less"
     scopes:
     - po
@@ -31,28 +30,6 @@ plugins:
     - kubectl
     - logs
     - $NAME
-    - -n
-    - $NAMESPACE
-    - --context
-    - $CONTEXT
-    - --kubeconfig
-    - $KUBECONFIG
-  log-less-container:
-    shortCut: Shift-L
-    description: "logs|less"
-    scopes:
-    - containers
-    command: bash
-    background: false
-    args:
-    - -c
-    - '"$@" | less'
-    - dummy-arg
-    - kubectl
-    - logs
-    - -c
-    - $NAME
-    - $POD
     - -n
     - $NAMESPACE
     - --context
