@@ -120,18 +120,14 @@ return {
     },
     {
         treesitter = { 'lua' },
-        mason = { 'emmylua_ls' },
-        lsp = { 'emmylua_ls' },
+        -- mason = { 'emmylua_ls' },
+        -- lsp = { 'emmylua_ls' },
+        mason = { 'lua-language-server' },
+        lsp = { 'lua_ls' },
         settings = {
             Lua = {
                 runtime = {
                     version = 'LuaJIT',
-                    requirePattern = {
-                        'lua/?.lua',
-                        'lua/?/init.lua',
-                        '?/lua/?.lua',
-                        '?/lua/?/init.lua',
-                    },
                 },
                 hint = {
                     enable = true,

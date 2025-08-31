@@ -2,7 +2,7 @@
 | Key | Action |
 |-----|--------|
 | `SUPER+Return` | exec `terminal                         # Return for "terminal"` |
-| `SUPER+Tab` | exec `hyprexpo                            # Tab for "switch"` |
+| `SUPER+Tab` | exec `menu-switch -p "switch"             # Tab for "switch"` |
 | `SUPER+space` | exec `menu-run -p "run"                 # space for "run"` |
 | `SUPER+p` | exec `menu-pass -p "pass"                   # p for "passwords"` |
 | `SUPER+x` | exec `menu-proc -p "proc"                   # x for "execute"` |

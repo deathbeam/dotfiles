@@ -2,6 +2,9 @@ default:update link install
 
 clean:
 	find ~ -xtype l -print -delete
+	rm -r /home/deathbeam/.cache/nvim/tree-sitter-*
+	rm -r ~/.local/share/nvim/site/
+	rm -r nvim/.config/pack/bundle/start/nvim-treesitter
 
 link:
 	mkdir -p ~/.local/bin
@@ -16,7 +19,6 @@ install:
 	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	npm install -g mcp-hub@latest
 	nvim --headless \
-		+MasonUpdate \
 		+MasonUpdateSync \
 		+TSUpdateSync \
 		+UpdateRemotePlugins \

@@ -26,6 +26,11 @@ vim.api.nvim_create_user_command('MasonUpdateSync', function()
         :totable()
 
     a.run_blocking(function()
+        vim.notify('Updating registry...', vim.log.levels.INFO)
+        a.wait(function(resolve)
+            registry.update(resolve)
+        end)
+
         for _, name in ipairs(packages) do
             local pkg = registry.get_package(name)
             if not pkg:is_installed() then

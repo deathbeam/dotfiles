@@ -30,7 +30,8 @@
 	url = https://github.com/folke/which-key.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter
+    url = https://github.com/nvim-treesitter/nvim-treesitter
+    branch = main
 [submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
 	url = https://github.com/neovim/nvim-lspconfig
