@@ -39,6 +39,8 @@ vim.diagnostic.config({
     },
 })
 
+vim.lsp.semantic_tokens.enable(false)
+
 -- Setup LSP mappings
 -- :h lsp-defaults
 au('LspAttach', {
