@@ -12,11 +12,17 @@ function directory_name() {
 }
 
 function get_marked_sessions() {
+    current_session=$(tmux display-message -p '#S')
+
     # First, handle existing tmux sessions that don't have corresponding directories
     while IFS= read -r session; do
         dir_name="$(directory_name "$session")"
         if ! echo "$project_directories" | grep -q "$dir_name"; then
-            echo -e "\033[0;36m$session\033[0m"
+            if [[ "$session" == "$current_session" ]]; then
+                echo -e "\033[0;32m$session\033[0m"
+            else
+                echo -e "\033[0;36m$session\033[0m"
+            fi
         fi
     done <<< "$tmux_sessions"
 
@@ -24,7 +30,11 @@ function get_marked_sessions() {
     while IFS= read -r directory; do
         sess_name="$(session_name "$directory")"
         if echo "$tmux_sessions" | grep -q "^${sess_name}$"; then
-            echo -e "\033[0;36m$directory\033[0m"
+            if [[ "$sess_name" == "$current_session" ]]; then
+                echo -e "\033[0;32m$directory\033[0m"
+            else
+                echo -e "\033[0;36m$directory\033[0m"
+            fi
         else
             echo "$directory"
         fi
