@@ -28,10 +28,10 @@ return {
                 'bin/pylance',
                 [[
 #!/usr/bin/env bash
-node "$(dirname "$0")/../extension/dist/server_nvim.js" "$@"
+node "$(dirname "$0")/../packages/pylance/extension/dist/server_nvim.js" "$@"
             ]]
             )
-            ctx.fs:chmod('+x', 'bin/pylance')
+            ctx.fs:chmod_exec('bin/pylance')
         end,
     },
     bin = {

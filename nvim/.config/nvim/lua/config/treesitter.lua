@@ -19,14 +19,13 @@ vim.api.nvim_create_user_command('TSUpdateSync', function()
         return not vim.tbl_contains(packages, lang)
     end, installed)
     if #to_uninstall > 0 then
-        ts.uninstall(to_uninstall):wait(300000)
-    end
-    if #installed > 0 then
-        ts.update(installed):wait(300000)
+        ts.uninstall(to_uninstall):wait()
     end
     if #to_install > 0 then
-        ts.install(to_install):wait(300000)
+        ts.install(to_install):wait()
     end
+
+    ts.update():wait()
     vim.notify('Successfully synced ' .. #packages .. ' parsers.', vim.log.levels.INFO)
 end, {})
 
@@ -35,17 +34,21 @@ vim.api.nvim_create_autocmd('FileType', {
     callback = function()
         local ft = vim.bo.filetype
         local lang = vim.treesitter.language.get_lang(ft)
-        if lang and vim.treesitter.language.add(lang) then
-            vim.treesitter.start()
+        if not lang or not vim.treesitter.language.add(lang) then
+            return
         end
+
+        vim.treesitter.start()
+        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+        -- Treehopper mappings
+        vim.cmd([[
+            omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
+            xnoremap <silent> m :lua require('tsht').nodes()<CR>
+        ]])
     end,
 })
 
 vim.treesitter.language.register('bash', 'zsh')
-vim.o.foldexpr = 'v:lua.vim.lsp.foldexpr()'
 
--- Treehopper mappings
-vim.cmd([[
-    omap     <silent> m :<C-U>lua require('tsht').nodes()<CR>
-    xnoremap <silent> m :lua require('tsht').nodes()<CR>
-]])

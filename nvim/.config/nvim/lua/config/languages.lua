@@ -36,6 +36,8 @@ return {
     },
     {
         treesitter = { 'python' },
+        -- mason = { 'ty' },
+        -- lsp = { 'ty' },
         mason = { 'pylance', 'debugpy' },
         lsp = { 'pylance' },
         settings = {
