@@ -38,6 +38,7 @@ vim.api.nvim_create_autocmd('FileType', {
             return
         end
 
+        vim.notify('Starting treesitter for ' .. lang, vim.log.levels.INFO)
         vim.treesitter.start()
         vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
         vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
