@@ -46,6 +46,19 @@ local function prepare_jdtls()
         vim.list_extend(data.bundles, java_debug_bundle)
     end
 
+    local excluded = {
+      "com.microsoft.java.test.runner-jar-with-dependencies.jar",
+      "jacocoagent.jar",
+    }
+    data.bundles = vim.tbl_filter(function(bundle)
+        for _, ex in ipairs(excluded) do
+            if bundle:match(ex) then
+                return false
+            end
+        end
+        return true
+    end, data.bundles)
+
     vim.g.jdtls_data = data
     return data
 end
