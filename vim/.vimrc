@@ -84,7 +84,7 @@ set colorcolumn=+1
 " Folds
 set foldtext=""
 set foldlevel=99
-set foldmethod=expr
+set foldmethod=indent
 
 " Disable mouse
 set mouse=
