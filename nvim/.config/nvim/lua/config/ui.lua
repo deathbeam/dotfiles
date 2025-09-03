@@ -18,11 +18,11 @@ require('vim._extui').enable({
 })
 
 -- Set base16 colorscheme
-local base16 = require('base16-colorscheme')
 vim.opt.termguicolors = true
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
+        local base16 = require('tinted-colorscheme')
         local bright_black = base16.colors.base03
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = bright_black })
@@ -52,7 +52,13 @@ au('ColorScheme', {
         blend_color('DiffText', 20)
     end,
 })
-vim.cmd('colorscheme base16-' .. os.getenv('BASE16_THEME_DEFAULT'))
+require('tinted-colorscheme').setup('base16-' .. os.getenv('BASE16_THEME_DEFAULT'), {
+    supports = {
+        tinty = false,
+        live_reload = false,
+        tinted_shell = false
+    }
+})
 
 -- Load icons
 require('nvim-web-devicons').setup()

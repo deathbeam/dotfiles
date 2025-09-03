@@ -71,9 +71,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
 	url = https://github.com/theHamsta/nvim-dap-virtual-text
-[submodule "vim/.vim/pack/bundle/start/nvim-base16"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-base16
-	url = https://github.com/RRethy/nvim-base16
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
@@ -123,3 +120,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/copilot.vim"]
 	path = nvim/.config/nvim/pack/bundle/start/copilot.vim
 	url = https://github.com/github/copilot.vim
+[submodule "nvim/.config/nvim/pack/bundle/start/tinted-nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/tinted-nvim
+	url = https://github.com/tinted-theming/tinted-nvim

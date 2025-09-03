@@ -39,6 +39,7 @@ export LC_ALL="en_US.UTF-8"
 
 # Theme
 export BASE16_THEME_DEFAULT="solarized-dark"
+export BASE16_SHELL_ENABLE_VARS="true"
 
 # Set the default terminal emulator
 export TERMINAL="alacritty"
