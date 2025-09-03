@@ -83,8 +83,13 @@ set colorcolumn=+1
 
 " Folds
 set foldtext=""
+set foldopen=""
+set foldclose=""
 set foldlevel=99
-set foldmethod=indent
+set foldmethod=expr
+
+" Disable auto folding in diff mode
+autocmd BufWinEnter * if &diff | setlocal foldmethod=manual | endif
 
 " Disable mouse
 set mouse=
@@ -141,9 +146,6 @@ endif
 
 " Auto comments are annoying, disable them
 autocmd VimRc FileType * set formatoptions-=cro
-
-" Disable auto folding in diff mode
-autocmd BufWinEnter * if &diff | setlocal foldmethod=manual | endif
 
 " Very magic
 vnoremap / <Esc>/\%V
