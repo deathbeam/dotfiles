@@ -35,4 +35,23 @@ plugins:
     - --context
     - $CONTEXT
     - --kubeconfig
-    - $KUBECONFIG
+  log-copy:
+    shortCut: Shift-Y
+    description: "logs|copy"
+    scopes:
+      - po
+    command: bash
+    background: false
+    args:
+      - -c
+      - '"$@" | wl-copy'
+      - dummy-arg
+      - kubectl
+      - logs
+      - $NAME
+      - -n
+      - $NAMESPACE
+      - --context
+      - $CONTEXT
+      - --kubeconfig
+      - $KUBECONFIG   - $KUBECONFIG
