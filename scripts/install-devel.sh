@@ -8,7 +8,7 @@ packages=(
     lua51 luarocks stylua
     zig choosenim-bin
     github-cli
-    docker docker-compose
+    docker docker-compose lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli
 )
 install_pkgs "${packages[@]}"
