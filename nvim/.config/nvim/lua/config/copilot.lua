@@ -20,9 +20,9 @@ chat.setup({
     chat_autocomplete = false,
     auto_fold = true,
     headers = {
-        user = ' ' .. icons.ui.User .. ' ',
-        assistant = ' ' .. icons.ui.Bot .. ' ',
-        tool = ' ' .. icons.ui.Tool .. ' ',
+        user = icons.ui.User,
+        assistant = icons.ui.Bot,
+        tool = icons.ui.Tool,
     },
     mappings = {
         reset = false,
