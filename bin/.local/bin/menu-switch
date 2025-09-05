@@ -5,20 +5,33 @@ scriptpath=$(dirname "$(readlink -f "$0")")
 mpv_socket="/tmp/mpv-preview-socket"
 placeholder_path="/tmp/window_preview.png"
 touch $placeholder_path
-rm -f /tmp/window_preview_*.png
-mpv --input-ipc-server=$mpv_socket --no-terminal --force-window=yes --image-display-duration=inf $placeholder_path &
+mpv --input-ipc-server=$mpv_socket \
+    --no-terminal \
+    --background=none \
+    --background-color='#00FFFFFF' \
+    --no-border \
+    --no-osd-bar \
+    --no-osc \
+    --no-input-default-bindings \
+    --image-display-duration=inf \
+    $placeholder_path &
 viewer_pid=$!
-trap "kill $viewer_pid 2>/dev/null" EXIT
+
+cleanup() {
+    kill $viewer_pid 2>/dev/null
+    rm -f /tmp/window_preview_*.png
+}
+trap cleanup HUP INT QUIT TERM EXIT
 
 # Prepare window list: address<TAB>title
 windows=$(hyprctl -j clients | jq -r 'sort_by(.focusHistoryID) | .[] | select(.workspace.id >= 0) | "\(.address)\t\(.title)"')
 
 # Run fzfmenu with preview
-selected=$(printf '%s\n' "$windows" | "$scriptpath/fzfmenu" \
-  --with-nth "2.." \
-  --preview "previewwindow $mpv_socket {1}" \
-  --preview-window=up:1 \
-  | awk -F'\t' '{print $1}')
+selected=$(printf '%s\n' "$windows" | \
+    "$scriptpath/fzfmenu" "$@" \
+      --with-nth "2.." \
+      --preview "previewwindow $mpv_socket {1}" \
+      | awk -F'\t' '{print $1}')
 
 # Focus selected window
 [ -n "$selected" ] && hyprctl dispatch focuswindow address:"$selected"
