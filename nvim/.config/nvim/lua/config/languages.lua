@@ -184,6 +184,10 @@ return {
     {
         treesitter = { 'http' },
     },
+    {
+        mason = { 'harper-ls' },
+        lsp = { 'harper_ls' },
+    },
     -- {
     --     mason = { 'copilot-language-server' },
     --     lsp = { 'copilot' },

@@ -23,7 +23,7 @@ require('myplugins').setup({
     bigfile = {},
     rooter = {},
     -- difftool = {},
-    -- session = {},
+    session = {},
     zoom = {},
     wiki = {
         dir = vim.fn.expand('~/Wiki'),

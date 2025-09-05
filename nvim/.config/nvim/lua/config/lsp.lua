@@ -89,7 +89,7 @@ au('LspAttach', {
         nmap('<leader>ch', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
         end, 'Inlay Hints', event.buf)
-        nmap('<leader>ca', w(fzf.lsp_code_actions), 'Code Action', event.buf)
+        nmap('<leader>ca', fzf.lsp_code_actions, 'Code Action', event.buf)
 
         nmap('gr', w(fzf.lsp_references), 'References', event.buf)
         nmap('gi', w(fzf.lsp_implementations), 'Implementation', event.buf)
