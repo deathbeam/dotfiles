@@ -17,7 +17,7 @@ packages=(
     qutebrowser python-adblock python-readability-lxml
     # firefox firefox-tridactyl firefox-tridactyl-native
     mpv subliminal yt-dlp
-    gamescope steam steamtinkerlaunch-git wine winetricks lutris dxvk-bin
+    gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris
     qbittorrent stremio youtube-music-bin
     vesktop-bin
     calibre

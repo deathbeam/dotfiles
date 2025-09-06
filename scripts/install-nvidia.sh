@@ -1,7 +1,7 @@
 log "Installing Nvidia packages"
 packages=(
   dkms
-  nvidia-dkms
+  nvidia-open-dkms
   nvidia-settings
   nvidia-utils
   lib32-nvidia-utils
