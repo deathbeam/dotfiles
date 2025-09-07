@@ -1,22 +1,23 @@
 # Hyprland Keybindings
 | Key | Action |
 |-----|--------|
-| `SUPER+Return` | exec `terminal                         # Return for "terminal"` |
-| `SUPER+Tab` | exec `menu-switch -p "switch"             # Tab for "switch"` |
-| `SUPER+space` | exec `menu-run -p "run"                 # space for "run"` |
-| `SUPER+p` | exec `menu-pass -p "pass"                   # p for "passwords"` |
-| `SUPER+x` | exec `menu-proc -p "proc"                   # x for "execute"` |
-| `SUPER+c` | exec `menu-clip -p "clip"                   # c for "copy"` |
-| `SUPER+g` | exec `menu-steam -p "steam"                 # g for "games"` |
-| `SUPER+n` | exec `menu-notifications -p "notifications" # n for "notifications"` |
-| `SUPER+e` | exec `swaylock -f -i $WALLPAPER             # e for "exit" (lock screen)` |
-| `SUPER+v` | exec `pkill -USR1 gammastep                 # v for "vision" (toggle night light)` |
-| `SUPER+slash` | togglespecialworkspace `cheatsheet      # / for "find"` |
-| `SUPER+b` | togglespecialworkspace `btop                # b for "btop"` |
-| `SUPER+d` | togglespecialworkspace `discord             # d for "discord"` |
-| `SUPER+y` | togglespecialworkspace `youtubemusic        # y for "youtube"` |
-| `SUPER+o` | togglespecialworkspace `kubernetes          # o for "kubernetes" i guess` |
-| `SUPER_SHIFT+o` | togglespecialworkspace `docker        # O for "docker" i guess` |
+| `SUPER+grave` | exec `menu-actions -p "action"          # actions` |
+| `SUPER+Return` | exec `terminal                         # terminal` |
+| `SUPER+Tab` | exec `menu-switch -p "switch"             # switch` |
+| `SUPER+space` | exec `menu-run -p "run"                 # run` |
+| `SUPER+p` | exec `menu-pass -p "pass"                   # passwords` |
+| `SUPER+x` | exec `menu-proc -p "proc"                   # execute` |
+| `SUPER+c` | exec `menu-clip -p "clip"                   # copy` |
+| `SUPER+g` | exec `menu-steam -p "steam"                 # games` |
+| `SUPER+n` | exec `menu-notifications -p "notifications" # notifications` |
+| `SUPER+e` | exec `swaylock -f -i $WALLPAPER             # lock screen` |
+| `SUPER+v` | exec `pkill -USR1 gammastep                 # flux` |
+| `SUPER+slash` | togglespecialworkspace `cheatsheet      # cheatsheet` |
+| `SUPER+b` | togglespecialworkspace `btop                # btop` |
+| `SUPER+d` | togglespecialworkspace `discord             # discord` |
+| `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
+| `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
+| `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
 | `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
@@ -56,7 +57,6 @@
 | `SUPER+7` | workspace `7` |
 | `SUPER+8` | workspace `8` |
 | `SUPER+9` | workspace `9` |
-| `SUPER+grave` | togglespecialworkspace |
 | `SUPER_SHIFT+1` | movetoworkspace `1` |
 | `SUPER_SHIFT+2` | movetoworkspace `2` |
 | `SUPER_SHIFT+3` | movetoworkspace `3` |
@@ -66,7 +66,6 @@
 | `SUPER_SHIFT+7` | movetoworkspace `7` |
 | `SUPER_SHIFT+8` | movetoworkspace `8` |
 | `SUPER_SHIFT+9` | movetoworkspace `9` |
-| `SUPER_SHIFT+grave` | movetoworkspace `special` |
 
 # Tmux Keybindings
 | Mode | Key | Action |

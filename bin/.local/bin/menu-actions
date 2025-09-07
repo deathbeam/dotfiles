@@ -1,0 +1,16 @@
+#!/bin/sh
+scriptpath=$(dirname "$(readlink -f "$0")")
+config="$scriptpath/menu-actions.conf"
+
+declare -A shortcuts
+while IFS=: read -r name cmd; do
+  [[ -n "$name" && -n "$cmd" ]] && shortcuts["$name"]="$cmd"
+done < "$config"
+
+if [[ -n "$1" && -n "${shortcuts[$1]}" ]]; then
+  eval "${shortcuts[$1]}"
+  exit
+fi
+
+choice=$(printf "%s\n" "${!shortcuts[@]}" | $scriptpath/fzfmenu "$@")
+[[ -n "$choice" ]] && eval "${shortcuts[$choice]}"

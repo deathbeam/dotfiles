@@ -26,6 +26,7 @@ install:
 		+'helptags ALL' \
 		+qall
 	python scripts/generate-cheatsheet.py
+	python scripts/generate-menu.py
 
 uninstall:
 	zsh/.fzf/uninstall
