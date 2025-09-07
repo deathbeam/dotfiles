@@ -3,6 +3,8 @@ if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
     sudo sed -i "/^#\[multilib\]/,/^#Include/ s/^#//" /etc/pacman.conf
 fi
 
+DownloadUser = alpm
+
 log "Installing core packages"
 packages=(
     xdg-utils xdg-user-dirs
@@ -12,7 +14,7 @@ packages=(
     stow zsh starship tmux
     ripgrep mlocate man-db tldr
     bc unzip p7zip
-    rate-mirrors pacman-contrib
+    rate-mirrors pacman-contrib arch-update
     pass pass-otp
     keyd power-profiles-daemon syncthing
     tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx jq jnv
