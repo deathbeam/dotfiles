@@ -106,13 +106,13 @@ alias paii='yay -Sy --noconfirm'
 function setproxy {
   export no_proxy="localhost,127.0.0.1,localaddress,.localdomain.com"
 
-  reversed_proxy=$(echo $1 | rev)
-  host=$(echo $reversed_proxy | cut -d: -f2- | rev)
-  port=$(echo $reversed_proxy | cut -d: -f1 | rev)
+  local reversed_proxy=$(echo $1 | rev)
+  local host=$(echo $reversed_proxy | cut -d: -f2- | rev)
+  local port=$(echo $reversed_proxy | cut -d: -f1 | rev)
 
   if [ -n "$2" ] && [ -n "$3" ]; then
-    user=$2
-    password=$3
+    local user=$2
+    local password=$3
     export http_proxy="http://$user:$password@$1"
     export JDK_JAVA_OPTIONS="-Dhttp.proxyHost='$host' -Dhttp.proxyPort='$port' -Dhttps.proxyHost='$host' -Dhttps.proxyPort='$port' -Dhttp.nonProxyHosts='$no_proxy' -Dhttp.proxyUser='$user' -Dhttp.proxyPassword='$password' -Dhttps.proxyUser='$user' -Dhttps.proxyPassword='$password'"
   else
@@ -148,33 +148,37 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Enable recent directories and files completion
 function recent_files() {
-  fasd_out=$(fasd -flR)
-  nvim_out=$(nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n")
+  local fasd_out=$(fasd -flR)
+  local nvim_out=$(nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n")
   echo $fasd_out $nvim_out | tr " " "\n" | uniq
 }
 +autocomplete:recent-directories() {
-  reply=(${(f)"$(fasd -dlR)"})
+  typeset -ga reply=(${(f)"$(fasd -dlR)"})
 }
 +autocomplete:recent-files() {
-  reply=(${(f)"$(recent_files)"})
+  typeset -ga reply=(${(f)"$(recent_files)"})
 }
 
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()
-  while read filename; do
-    plugindir="$(dirname $filename)"
-    functiondir="$plugindir/functions"
-    if [ -d "$functiondir" ]; then
-      fpath=( "$functiondir" "${fpath[@]}" )
-      for pluginfunction in $functiondir/*(.); do
-        functionname="$(basename $pluginfunction)"
-        autoload -Uz $functionname
-      done
-    fi
-    source "$filename" >/dev/null 2>&1
-    PLUGINS_LOADED+=("$filename")
-  done <<< $(find -L ~/.zsh/pack/*/start -type f \( -name "*.zsh-theme" -or -name "*.plugin.zsh" -or -name "init.zsh" \) | sort)
+  for filename in ~/.zsh/pack/*/start/**/*(.N); do
+    case "$filename" in
+      (*.plugin.zsh|*init.zsh|*.zsh-theme)
+        plugindir="${filename:h}"
+        functiondir="$plugindir/functions"
+        if [ -d "$functiondir" ]; then
+          fpath=( "$functiondir" "${fpath[@]}" )
+          for pluginfunction in $functiondir/*(.N); do
+            functionname="${pluginfunction:t}"
+            autoload -Uz $functionname
+          done
+        fi
+        source "$filename" >/dev/null 2>&1
+        PLUGINS_LOADED+=("$filename")
+        ;;
+    esac
+  done
   export PLUGINS_LOADED
 fi
 
@@ -186,7 +190,9 @@ bindkey -M menuselect '^P' reverse-menu-complete
 bindkey '^[[Z' autosuggest-accept
 
 # Configure prompt
-eval "$(starship init zsh)"
+if command -v starship >/dev/null 2>&1; then
+  eval "$(starship init zsh)"
+fi
 
 # Configure FZF
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
@@ -207,16 +213,8 @@ alias gcA='git commit --signoff --verbose --patch'
 alias gcm='git commit --signoff --message'
 
 # Set theme last
-function () {
-    local theme=$1
-    local current_theme
-    zstyle -g current_theme ':plugin:fast-syntax-highlighting' theme
-    if [[ $current_theme != $theme ]]; then
-        fast-theme $theme
-    fi
-} base16
 source ~/.zsh/pack/bundle/start/tinted-shell/scripts/base16-$BASE16_THEME_DEFAULT.sh;
-source ~/.zsh/pack/bundle/start/tinted-fzf/bash/base16-$BASE16_THEME_DEFAULT.config;
+source ~/.zsh/pack/bundle/start/tinted-fzf/sh/base16-$BASE16_THEME_DEFAULT.sh;
 export BAT_THEME="base16-256"
 
 # }}}

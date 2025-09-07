@@ -17,6 +17,7 @@ update:
 
 install:
 	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
+	zsh -ic 'fast-theme base16'
 	npm install -g mcp-hub@latest
 	nvim --headless \
 		+MasonUpdateSync \
