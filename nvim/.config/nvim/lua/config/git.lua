@@ -13,6 +13,9 @@ desc('<leader>g', 'Git', icons.ui.Git)
 gitsigns.setup({
     signcolumn = false,
     numhl = true,
+    watch_gitdir = {
+        enable = false,
+    },
     on_attach = function(bufnr)
         -- Finder
         nmap('<leader>gt', fzf.git_status, 'Status', bufnr)

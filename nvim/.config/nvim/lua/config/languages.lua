@@ -188,8 +188,8 @@ return {
         mason = { 'harper-ls' },
         lsp = { 'harper_ls' },
     },
-    -- {
-    --     mason = { 'copilot-language-server' },
-    --     lsp = { 'copilot' },
-    -- },
+    {
+        mason = { 'copilot-language-server' },
+        lsp = { 'copilot' },
+    },
 }
