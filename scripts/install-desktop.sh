@@ -12,7 +12,7 @@ packages=(
     gpu-screen-recorder
     dunst
     yambar-git
-    alacritty
+    foot
     zathura zathura-pdf-mupdf libreoffice-fresh gimp
     qutebrowser python-adblock python-readability-lxml
     # firefox firefox-tridactyl firefox-tridactyl-native

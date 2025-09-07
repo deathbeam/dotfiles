@@ -7,7 +7,7 @@ TITLE=""
 TERM_CLASS="--class"
 if [ "$TERMINAL" = "st" ]; then
    TERM_CLASS="-n"
-elif [ "$TERMINAL" = "foot" ]; then
+elif [ "$TERMINAL" = "foot" ] || [ "$TERMINAL" = "footclient" ]; then
    TERM_CLASS="-a"
 fi
 
