@@ -34,7 +34,7 @@ run_menu() {
 prompt() {
   : > "$FILE_CHOICES"
   $TERMINAL $TERM_CLASS shellmenu -T "$TITLE" \
-    -e "$SHELL" -ic "
+    -e "$SHELL" -c "
       exec fzf \
           --no-border \
           --margin 0,0 \
