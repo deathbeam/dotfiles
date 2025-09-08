@@ -1,8 +1,10 @@
-color_bg: &color_bg 073642ff
+color_bg: &color_bg 002B36ff
+# color_bg: &color_bg 002B3640
 color_fg: &color_fg 93A1A1ff
+color_fg_inv: &color_fg_inv 002B36ff
 color_success: &color_success 859900ff
 color_active: &color_active 268BD2ff
-color_inactive: &color_inactive 002B36ff
+color_inactive: &color_inactive 073642FF
 color_urgent: &color_urgent CB4B16ff
 color_warning: &color_warning B58900ff
 margin: &margin 15
@@ -15,9 +17,6 @@ bar:
   background: *color_bg
 
   left:
-    # - label:
-    #     content:
-    #       string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
     -
       script:
         path: ~/.config/yambar/wm.sh
@@ -33,110 +32,20 @@ bar:
                         conditions:
                           mode != DEFAULT:
                             string: {text: "-- {mode} --", foreground: *color_success, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws1_state == occupied:
-                    #         string: {text: 1, margin: *margin}
-                    #       ws1_state == empty:
-                    #         string: {text: 1, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws1_state == urgent:
-                    #         string: {text: 1, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws1_state == focused:
-                    #         string: {text: 1, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws2_state == occupied:
-                    #         string: {text: 2, margin: *margin}
-                    #       ws2_state == empty:
-                    #         string: {text: 2, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws2_state == urgent:
-                    #         string: {text: 2, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws2_state == focused:
-                    #         string: {text: 2, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws3_state == occupied:
-                    #         string: {text: 3, margin: *margin}
-                    #       ws3_state == empty:
-                    #         string: {text: 3, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws3_state == urgent:
-                    #         string: {text: 3, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws3_state == focused:
-                    #         string: {text: 3, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws4_state == occupied:
-                    #         string: {text: 4, margin: *margin}
-                    #       ws4_state == empty:
-                    #         string: {text: 4, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws4_state == urgent:
-                    #         string: {text: 4, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws4_state == focused:
-                    #         string: {text: 4, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws5_state == occupied:
-                    #         string: {text: 5, margin: *margin}
-                    #       ws5_state == empty:
-                    #         string: {text: 5, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws5_state == urgent:
-                    #         string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws5_state == focused:
-                    #         string: {text: 5, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws6_state == occupied:
-                    #         string: {text: 6, margin: *margin}
-                    #       ws6_state == empty:
-                    #         string: {text: 6, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws6_state == urgent:
-                    #         string: {text: 6, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws6_state == focused:
-                    #         string: {text: 6, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws7_state == occupied:
-                    #         string: {text: 7, margin: *margin}
-                    #       ws7_state == empty:
-                    #         string: {text: 7, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws7_state == urgent:
-                    #         string: {text: 7, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws7_state == focused:
-                    #         string: {text: 7, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws8_state == occupied:
-                    #         string: {text: 8, margin: *margin}
-                    #       ws8_state == empty:
-                    #         string: {text: 8, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws8_state == urgent:
-                    #         string: {text: 8, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws8_state == focused:
-                    #         string: {text: 8, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
-                    # - map:
-                    #     conditions:
-                    #       ws9_state == occupied:
-                    #         string: {text: 9, margin: *margin}
-                    #       ws9_state == empty:
-                    #         string: {text: 9, deco: {background: {color: *color_inactive}}, margin: *margin}
-                    #       ws9_state == urgent:
-                    #         string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_urgent}}, margin: *margin}
-                    #       ws9_state == focused:
-                    #         string: {text: 9, foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
                           fullscreen:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", foreground: *color_fg_inv, deco: {background: {color: *color_active}}, margin: *margin}
                           floating:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", foreground: *color_fg_inv, deco: {background: {color: *color_active}}, margin: *margin}
                           monocle:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", foreground: *color_fg_inv, deco: {background: {color: *color_active}}, margin: *margin}
                           ~monocle:
-                            string: {text: " ", foreground: *color_bg, deco: {background: {color: *color_active}}, margin: *margin}
+                            string: {text: " ", foreground: *color_fg_inv, deco: {background: {color: *color_active}}, margin: *margin}
                     - map:
                         conditions:
                           process != "" && xwayland:
-                            string: {text: "{process}", foreground: *color_bg, deco: {background: {color: *color_warning}}, margin: *margin}
+                            string: {text: "{process}", foreground: *color_fg_inv, deco: {background: {color: *color_warning}}, margin: *margin}
                           process != "":
                             string: {text: "{process}", deco: {background: {color: *color_inactive}}, margin: *margin}
                     - map:
