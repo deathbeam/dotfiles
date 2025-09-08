@@ -10,7 +10,7 @@
 | `SUPER+c` | exec `menu-clip -p "clip"                   # copy` |
 | `SUPER+g` | exec `menu-steam -p "steam"                 # games` |
 | `SUPER+n` | exec `menu-notifications -p "notifications" # notifications` |
-| `SUPER+e` | exec `swaylock -f -i $WALLPAPER             # lock screen` |
+| `SUPER+e` | exec `swaylock -f -e -s fill -i $WALLPAPER  # lock screen` |
 | `SUPER+v` | exec `pkill -USR1 gammastep                 # flux` |
 | `SUPER+slash` | togglespecialworkspace `cheatsheet      # cheatsheet` |
 | `SUPER+b` | togglespecialworkspace `btop                # btop` |
