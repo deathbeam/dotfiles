@@ -29,7 +29,7 @@ with open(CONFIG_PATH) as f, open(OUTPUT_PATH, "w") as out:
             if action == "exec":
                 if key.lower() in SKIP_BINDINGS:
                     continue
-                cmd = f"hyprctl dispatch exec {value.strip()}"
+                cmd = f"{value.strip()}"
                 write_action(key, cmd, comment)
             elif action == "togglespecialworkspace":
                 cmd = f"hyprctl dispatch togglespecialworkspace {value.strip()}"
