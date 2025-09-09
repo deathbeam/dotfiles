@@ -12,7 +12,19 @@ elif [ "$TERMINAL" = "foot" ] || [ "$TERMINAL" = "footclient" ]; then
 fi
 
 kill_old() {
-  pgrep -x fzfmenu | grep -v "^$$\$" | xargs kill > /dev/null 2>&1
+  mypid=$$
+  same=""
+  others=""
+  while read -r pid cmdline; do
+    [ "$pid" = "$mypid" ] && continue
+    if echo "$cmdline" | grep -q -- "-p $TITLE"; then
+      same="$pid"
+    else
+      others="$others $pid"
+    fi
+  done < <(pgrep -af fzfmenu)
+  [ -n "$same" ] && kill "$same" && exit 0
+  [ -n "$others" ] && kill $others
 }
 
 scan_args() {
