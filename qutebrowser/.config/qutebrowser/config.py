@@ -14,10 +14,10 @@ c.qt.args = [
     'ignore-gpu-blocklist',
     'enable-gpu-rasterization',
     'enable-accelerated-video-decode',
-    'enable-quic',
-    'enable-zero-copy',
     'enable-features=VaapiVideoDecoder,VaapiVideoEncoder,Vulkan',
-    'use-vulkan=native'
+    'use-vulkan=native',
+    # 'enable-quic',
+    # 'enable-zero-copy',
 ]
 c.qt.workarounds.disable_accelerated_2d_canvas = "never"
 
@@ -42,12 +42,12 @@ c.content.blocking.adblock.lists = [
 ]
 
 # Dark mode
+c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.preferred_color_scheme = 'dark'
-c.colors.webpage.darkmode.enabled = False
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
 c.colors.webpage.darkmode.threshold.foreground = 150
 c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.policy.images = 'always'
+c.colors.webpage.darkmode.policy.images = 'smart'
 
 # Adjust font and font size
 c.fonts.default_family = "monospace"
