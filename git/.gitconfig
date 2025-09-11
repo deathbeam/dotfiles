@@ -112,4 +112,6 @@
 
 [include]
     path = ~/.gitconfig.local
+
+[includeIf "gitdir:~/git-work/"]
     path = ~/.gitconfig.work
