@@ -7,7 +7,7 @@ config.load_autoconfig(True)
 c.url.default_page = 'qute://start'
 c.url.start_pages = c.url.default_page
 
-# Enable plugins
+# Enable plugins and qt hacks
 c.content.plugins = True
 c.qt.args = [
     'disable-pinch',
@@ -16,8 +16,10 @@ c.qt.args = [
     'enable-accelerated-video-decode',
     'enable-quic',
     'enable-zero-copy',
-    'enable-features=VaapiVideoDecoder,VaapiVideoEncoder',
+    'enable-features=VaapiVideoDecoder,VaapiVideoEncoder,Vulkan',
+    'use-vulkan=native'
 ]
+c.qt.workarounds.disable_accelerated_2d_canvas = "never"
 
 # Save
 c.auto_save.session = True
