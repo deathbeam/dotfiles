@@ -1,3 +1,6 @@
+c = c # type: ignore
+config = config # type: ignore
+
 config.load_autoconfig(True)
 
 # home
