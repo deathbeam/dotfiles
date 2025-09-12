@@ -47,8 +47,8 @@ local function prepare_jdtls()
     end
 
     local excluded = {
-      "com.microsoft.java.test.runner-jar-with-dependencies.jar",
-      "jacocoagent.jar",
+        'com.microsoft.java.test.runner-jar-with-dependencies.jar',
+        'jacocoagent.jar',
     }
     data.bundles = vim.tbl_filter(function(bundle)
         for _, ex in ipairs(excluded) do

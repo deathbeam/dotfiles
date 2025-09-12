@@ -97,12 +97,20 @@ set mouse=
 " Less annoying messages
 set shortmess+=cCI
 
-" Wildmode autocomplete
-autocmd CmdlineChanged [:\/\?] call wildtrigger()
+" Cmdline autocomplete
 set wildmode=noselect:lastused,full
 set wildoptions=pum,fuzzy
+autocmd CmdlineChanged [:\/\?] call wildtrigger()
 cnoremap <expr> <Up>   wildmenumode() ? "\<C-E>\<Up>"   : "\<Up>"
 cnoremap <expr> <Down> wildmenumode() ? "\<C-E>\<Down>" : "\<Down>"
+
+" Buffer autocomplete
+set completeopt=menuone,noinsert,fuzzy,popup
+set completeitemalign=kind,abbr,menu
+set complete=.,o
+set autocomplete
+inoremap <expr> <Tab>  pumvisible() ? "\<C-y>" : "\<Tab>"
+inoremap <expr> <CR>   pumvisible() ? "\<C-e><CR>" : "\<CR>"
 
 " Better file browser
 let g:netrw_banner=0
@@ -168,9 +176,6 @@ let g:mapleader = ' '
 
 " Stupid highlight
 nmap <silent> <Esc> <CMD>noh<CR>
-
-" Disable Enter key accepting autocomplete (stupid enter)
-inoremap <expr> <CR> pumvisible() ? "\<C-e><CR>" : "\<CR>"
 
 " why shift????
 noremap ; :

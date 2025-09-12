@@ -1,1 +1,1 @@
-vim.opt_local.formatprg = "xmllint --format -"
+vim.opt_local.formatprg = 'xmllint --format -'

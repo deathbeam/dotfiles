@@ -1,1 +1,1 @@
-vim.opt_local.formatprg = "jq ."
+vim.opt_local.formatprg = 'jq .'

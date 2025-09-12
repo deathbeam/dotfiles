@@ -27,7 +27,7 @@ require('myplugins').setup({
     zoom = {},
     wiki = {
         dir = vim.fn.expand('~/Wiki'),
-    }
+    },
 })
 
 local bookmarks = require('myplugins.bookmarks')
