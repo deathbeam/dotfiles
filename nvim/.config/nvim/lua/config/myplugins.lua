@@ -17,7 +17,7 @@ require('myplugins').setup({
         attach_log = true,
     },
     lspsignature = {},
-    cmdcomplete = {},
+    -- cmdcomplete = {},
     diagnostics = {},
 
     bigfile = {},

@@ -97,8 +97,12 @@ set mouse=
 " Less annoying messages
 set shortmess+=cCI
 
-" Fuzzy search
-set wildoptions+=fuzzy
+" Wildmode autocomplete
+autocmd CmdlineChanged [:\/\?] call wildtrigger()
+set wildmode=noselect:lastused,full
+set wildoptions=pum,fuzzy
+cnoremap <expr> <Up>   wildmenumode() ? "\<C-E>\<Up>"   : "\<Up>"
+cnoremap <expr> <Down> wildmenumode() ? "\<C-E>\<Down>" : "\<Down>"
 
 " Better file browser
 let g:netrw_banner=0
