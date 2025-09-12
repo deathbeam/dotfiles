@@ -19,6 +19,7 @@ chat.setup({
     },
     chat_autocomplete = false,
     auto_fold = true,
+    diff = 'unified',
     headers = {
         user = icons.ui.User,
         assistant = icons.ui.Bot,
