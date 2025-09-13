@@ -12,7 +12,7 @@ utils.desc('<leader>a', 'AI')
 local chat = require('CopilotChat')
 chat.setup({
     model = 'gpt-4.1',
-    debug = false,
+    debug = true,
     temperature = 0,
     sticky = {
         '#buffers',
