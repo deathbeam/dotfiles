@@ -12,17 +12,18 @@ require('myplugins').setup({
     --         return entry
     --     end,
     -- },
+    -- cmdcomplete = {},
+    -- difftool = {},
+
     lspdocs = {},
     lspecho = {
         attach_log = true,
     },
     lspsignature = {},
-    -- cmdcomplete = {},
     diagnostics = {},
 
     bigfile = {},
     rooter = {},
-    -- difftool = {},
     session = {},
     zoom = {},
     wiki = {

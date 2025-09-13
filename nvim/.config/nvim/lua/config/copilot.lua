@@ -17,9 +17,9 @@ chat.setup({
     sticky = {
         '#buffers',
     },
+    diff = 'block',
     chat_autocomplete = false,
     auto_fold = true,
-    diff = 'unified',
     headers = {
         user = icons.ui.User,
         assistant = icons.ui.Bot,
@@ -29,9 +29,6 @@ chat.setup({
         reset = false,
         complete = {
             insert = '<Tab>',
-        },
-        show_diff = {
-            full_diff = true,
         },
     },
     prompts = {
