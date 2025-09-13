@@ -113,3 +113,15 @@ for _, language in ipairs(languages) do
         vim.lsp.enable(lsp)
     end
 end
+
+vim.lsp.config('*', {
+    capabilities = {
+        textDocument = {
+            completion = {
+                completionItem = {
+                    snippetSupport = false,
+                }
+            }
+        }
+    }
+})

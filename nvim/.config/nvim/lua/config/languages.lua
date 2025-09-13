@@ -139,6 +139,10 @@ return {
                         vim.env.VIMRUNTIME,
                     },
                 },
+                completion = {
+                    callSnippet = 'Disable',
+                    keywordSnippet = 'Disable',
+                }
             },
         },
     },
