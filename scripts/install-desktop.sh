@@ -40,5 +40,14 @@ if [ -f "/etc/fonts/conf.d/70-no-bitmaps.conf" ]; then
     fc-cache -f
 fi
 
+# pipewire crackling sometimes
+sudo mkdir -p /etc/pipewire/pipewire.conf.d
+echo 'context.properties = {
+    default.clock.quantum     = 2048
+    default.clock.min-quantum = 1024
+    default.clock.max-quantum = 4096
+}' | sudo tee /etc/pipewire/pipewire.conf.d/99-quantum.conf > /dev/null
+systemctl --user restart pipewire pipewire-pulse || true
+
 # Set default browser
 xdg-settings set default-web-browser qutebrowser.desktop || true
