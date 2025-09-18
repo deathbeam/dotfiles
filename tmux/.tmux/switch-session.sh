@@ -1,7 +1,11 @@
 #!/usr/bin/env bash
 
 tmux_sessions=$(tmux list-sessions -F '#S')
-project_directories=$(find -L ~/git -mindepth 1 -maxdepth 1 -type d ; find -L ~/git-work -mindepth 1 -maxdepth 1 -type d ; find -L ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*')
+project_directories=$(
+    find -L ~/git -mindepth 1 -maxdepth 1 -type d
+    find -L ~/git-work -mindepth 1 -maxdepth 1 -type d
+    find -L ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*'
+)
 
 function session_name() {
     basename $1 | tr . _
