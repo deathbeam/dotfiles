@@ -157,13 +157,10 @@
 # Zsh Aliases
 | Type | Name | Value |
 |------|------|-------|
-| alias | `a` | `fasd -a`
 | alias | `chmod` | `chmod --preserve-root -v`
 | alias | `chown` | `chown --preserve-root -v`
-| alias | `d` | `fasd -d`
 | alias | `df` | `df -h`
 | alias | `du` | `du -h`
-| alias | `f` | `fasd -f`
 | alias | `fsh-alias` | `fast-theme`
 | alias | `g` | `git`
 | alias | `g..` | `cd $(git-root \|\| print .)`
@@ -476,17 +473,11 @@
 | alias | `pauu` | `yay -Syu --noconfirm`
 | alias | `reset` | `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme`
 | alias | `run-help` | `man`
-| alias | `s` | `fasd -si`
-| alias | `sd` | `fasd -sid`
-| alias | `sf` | `fasd -sif`
-| alias | `v` | `f -e vim -b viminfo`
 | alias | `vim` | `nvim`
 | alias | `vimdiff` | `nvim -d`
 | alias | `vimf` | `nvimf`
 | alias | `viml` | `nviml`
 | alias | `which-command` | `whence`
-| alias | `z` | `fasd_cd -d`
-| alias | `zz` | `fasd_cd -d -i`
 
 # Useful Commands
 ## yay

@@ -146,18 +146,8 @@ zstyle ':zim:git' aliases-prefix g
 # Enable colors for ls
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
-# Enable recent directories and files completion
-function recent_files() {
-  local fasd_out=$(fasd -flR)
-  local nvim_out=$(nvim --headless -u NONE -c"echo v:oldfiles | qall" 2>&1 | sed "s/[,'[]//g" | sed "s/]//g" | tr " " "\n")
-  echo $fasd_out $nvim_out | tr " " "\n" | uniq
-}
-+autocomplete:recent-directories() {
-  typeset -ga reply=(${(f)"$(fasd -dlR)"})
-}
-+autocomplete:recent-files() {
-  typeset -ga reply=(${(f)"$(recent_files)"})
-}
+# Configure autocomplete
+zstyle ':autocomplete:*' delay 0.5
 
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then

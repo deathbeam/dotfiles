@@ -74,9 +74,6 @@
 [submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
 	url = https://github.com/mxsdev/nvim-dap-vscode-js
-[submodule "zsh/.zsh/pack/bundle/start/fasd"]
-	path = zsh/.zsh/pack/bundle/start/fasd
-	url = https://github.com/zimfw/fasd
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
