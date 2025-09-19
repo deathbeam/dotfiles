@@ -40,8 +40,14 @@ vim.api.nvim_create_autocmd('FileType', {
 
         vim.notify('Starting treesitter for ' .. lang, vim.log.levels.INFO)
         vim.treesitter.start()
-        vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-        vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+
+        if lang and vim.treesitter.query.get(lang, 'folds') then
+            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        end
+
+        if lang and vim.treesitter.query.get(lang, 'indents') then
+            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        end
 
         -- Treehopper mappings
         vim.cmd([[

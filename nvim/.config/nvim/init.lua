@@ -14,7 +14,6 @@ local function r(module)
     return loaded_module
 end
 
-vim.loader.enable()
 r('config.myplugins')
 r('config.mason')
 r('config.ui')
