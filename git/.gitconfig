@@ -95,12 +95,9 @@
     wt = worktree
     wtl = worktree list
     wtc = worktree prune
-# Create worktree from branch name
-    wtb = "!f() { git worktree add ./worktrees/$1 $1; }; f"
-# Create worktree from PR number
-    wtp = "!f() { git fetch origin pull/$1/head:pr/$1 && git worktree add ./worktrees/pr-$1 pr/$1; }; f"
-# Remove worktree
-    wtr = "!f() { git worktree remove ./worktrees/$1 && rm -rf ./worktrees/$1; }; f"
+    wtb = "!f() { repo=$(basename \"$(git rev-parse --show-toplevel)\"); git worktree add ../${repo}-$1 $1; }; f"
+    wtp = "!f() { repo=$(basename \"$(git rev-parse --show-toplevel)\"); git fetch origin pull/$1/head:pr/$1 && git worktree add ../${repo}-pr-$1 pr/$1; }; f"
+    wtr = "!f() { repo=$(basename \"$(git rev-parse --show-toplevel)\"); git worktree remove ../${repo}-$1 && rm -rf ../${repo}-$1; }; f"
 # Branch cleanup
     branch-cleanup = "!git-branch-cleanup"
 # Sync current branch with upstream remote (e.g., reset --hard to upstream/<branch>)
