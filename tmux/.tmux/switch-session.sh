@@ -2,8 +2,8 @@
 
 tmux_sessions=$(tmux list-sessions -F '#S')
 project_directories=$(
-    find -L ~/git -mindepth 1 -maxdepth 1 -type d
-    find -L ~/git-work -mindepth 1 -maxdepth 1 -type d
+    find -L ~/git ~/git-work -mindepth 1 -maxdepth 1 -type d
+    find -L ~/git ~/git-work -mindepth 3 -maxdepth 3 -type d -path '**/worktrees/**'
     find -L ~ -mindepth 1 -maxdepth 1 -type d -name '[A-Z]*'
 )
 
