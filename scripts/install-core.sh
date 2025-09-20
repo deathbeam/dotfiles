@@ -55,9 +55,9 @@ fi
 
 # Modify groups
 groups=(
-    nogroup
-    video
-    input
+    # nogroup
+    # video
+    # input
     keyd
 )
 enable_groups "${groups[@]}"
