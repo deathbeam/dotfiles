@@ -16,7 +16,7 @@ chat.setup({
     sticky = {
         '#buffers',
     },
-    diff = 'unified',
+    diff = 'block',
     chat_autocomplete = false,
     auto_fold = true,
     headers = {
