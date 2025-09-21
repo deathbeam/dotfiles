@@ -45,9 +45,8 @@ c.content.blocking.adblock.lists = [
 c.colors.webpage.darkmode.enabled = True
 c.colors.webpage.preferred_color_scheme = 'dark'
 c.colors.webpage.darkmode.algorithm = "lightness-cielab"
-c.colors.webpage.darkmode.threshold.foreground = 150
-c.colors.webpage.darkmode.threshold.background = 100
-c.colors.webpage.darkmode.policy.images = 'smart'
+c.colors.webpage.darkmode.threshold.foreground = 100
+c.colors.webpage.darkmode.threshold.background = 50
 
 # Adjust font and font size
 c.fonts.default_family = "monospace"
