@@ -4,9 +4,11 @@ local icons = require('config.icons')
 local utils = require('config.utils')
 local map = utils.map
 local nmap = utils.nmap
-local nvmap = utils.nvmap
 local vmap = utils.vmap
 local desc = utils.desc
+
+-- Enable diffmode replacement
+vim.g.difftool_replace_diff_mode = true
 
 desc('<leader>g', 'Git', icons.ui.Git)
 
