@@ -1,0 +1,20 @@
+#!/bin/sh
+scriptpath=$(dirname "$(readlink -f "$0")")
+
+installed=$(yay -Qq)
+available=$(yay -Slq)
+
+installed_pkgs=$(printf "%s\n" "$installed" | awk '{print "\033[0;33m" $0 "\033[0m"}')
+available_pkgs=$(printf "%s\n" "$available" | grep -vxFf <(printf "%s\n" "$installed"))
+all_pkgs=$(printf "%s\n%s\n" "$installed_pkgs" "$available_pkgs")
+
+pkg=$(printf "%s\n" "$all_pkgs" | "$scriptpath/fzfmenu" -p "yay" --ansi --preview="yay -Si {1}")
+
+[ -z "$pkg" ] && exit 1
+
+name=$(echo "$pkg" | awk '{print $1}')
+if printf "%s\n" "$installed" | grep -qx "$name"; then
+    $TERMINAL -e "$SHELL" -lc "yay -Rns $name; exec \$SHELL"
+else
+    $TERMINAL -e "$SHELL" -lc "yay -S $name; exec \$SHELL"
+fi
