@@ -13,8 +13,13 @@ pkg=$(printf "%s\n" "$all_pkgs" | "$scriptpath/fzfmenu" -p "yay" --ansi --previe
 [ -z "$pkg" ] && exit 1
 
 name=$(echo "$pkg" | awk '{print $1}')
+
 if printf "%s\n" "$installed" | grep -qx "$name"; then
-    $TERMINAL -e "$SHELL" -lc "yay -Rns $name; exec \$SHELL"
+    action="Uninstalling"
+    cmd="yay -Rns $name"
 else
-    $TERMINAL -e "$SHELL" -lc "yay -S $name; exec \$SHELL"
+    action="Installing"
+    cmd="yay -S $name"
 fi
+
+$TERMINAL -e "$SHELL" -ic "echo '$action $name...'; $cmd; echo; read 'REPLY?Press enter to exit...'"
