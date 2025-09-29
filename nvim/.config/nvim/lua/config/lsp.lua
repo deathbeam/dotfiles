@@ -101,15 +101,7 @@ au('LspAttach', {
 
 -- Setup LSP servers
 for _, language in ipairs(languages) do
-    if language.setup then
-        language.setup()
-    end
-
     for _, lsp in ipairs(language.lsp or {}) do
-        vim.lsp.config(lsp, {
-            cmd = language.cmd,
-            settings = language.settings,
-        })
         vim.lsp.enable(lsp)
     end
 end

@@ -83,14 +83,41 @@ local cmd = {
 jdtls.start_or_attach({
     cmd = cmd,
     on_attach = jdtls_on_attach,
-    settings = vim.tbl_filter(function(language)
-        return language.mason and vim.tbl_contains(language.mason, 'jdtls')
-    end, require('config.languages'))[1].settings, -- grab java config from languages.lua
+    settings = {
+        -- See: https://github.com/eclipse-jdtls/eclipse.jdt.ls/wiki/Running-the-JAVA-LS-server-from-the-command-line#initialize-request
+        -- Also see: https://github.com/redhat-developer/vscode-java/blob/d3bcbaa3f5a3097dc21b5d94132d6858a0452a7c/package.json#L273
+        java = {
+            configuration = {
+                updateBuildConfiguration = 'automatic',
+            },
+            eclipse = {
+                downloadSources = true,
+            },
+            maven = {
+                downloadSources = true,
+            },
+            format = {
+                enabled = true,
+            },
+            signatureHelp = {
+                enabled = true,
+            },
+            contentProvider = {
+                preferred = 'fernflower',
+            },
+            sources = {
+                organizeImports = {
+                    starThreshold = 9999,
+                    staticStarThreshold = 9999,
+                },
+            },
+            codeGeneration = {
+                useBlocks = true,
+            },
+        },
+    },
     capabilities = vim.lsp.config['*'].capabilities, -- a bit hacky, global from vim.lsp.config['*'] in lsp.lua
     root_dir = cwd,
-    flags = {
-        allow_incremental_sync = true,
-    },
     init_options = {
         bundles = data.bundles,
     },
