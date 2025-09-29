@@ -120,8 +120,15 @@ vim.lsp.config('*', {
             completion = {
                 completionItem = {
                     snippetSupport = false,
-                }
-            }
-        }
-    }
+                    -- Fetch additional info for completion items
+                    resolveSupport = {
+                        properties = {
+                            'documentation',
+                            'detail',
+                        },
+                    },
+                },
+            },
+        },
+    },
 })

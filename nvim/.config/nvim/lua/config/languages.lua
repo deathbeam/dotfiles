@@ -142,7 +142,7 @@ return {
                 completion = {
                     callSnippet = 'Disable',
                     keywordSnippet = 'Disable',
-                }
+                },
             },
         },
     },

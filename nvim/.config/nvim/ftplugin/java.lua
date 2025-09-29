@@ -28,10 +28,6 @@ local function prepare_jdtls()
     local java_test_path = vim.fn.expand('$MASON/share/java-test')
     local java_debug_path = vim.fn.expand('$MASON/share/java-debug-adapter')
 
-    data.settings = vim.tbl_filter(function(language)
-        return language.mason and vim.tbl_contains(language.mason, 'jdtls')
-    end, require('config.languages'))[1].settings
-
     data.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
     data.java_agent = jdtls_path .. '/lombok.jar'
     data.bundles = {}
@@ -86,9 +82,11 @@ local cmd = {
 -- or attaches to an existing client & server depending on the `root_dir`.
 jdtls.start_or_attach({
     cmd = cmd,
-    settings = data.settings,
     on_attach = jdtls_on_attach,
-    capabilities = require('myplugins.bufcomplete').capabilities(),
+    settings = vim.tbl_filter(function(language)
+        return language.mason and vim.tbl_contains(language.mason, 'jdtls')
+    end, require('config.languages'))[1].settings, -- grab java config from languages.lua
+    capabilities = vim.lsp.config['*'].capabilities, -- a bit hacky, global from vim.lsp.config['*'] in lsp.lua
     root_dir = cwd,
     flags = {
         allow_incremental_sync = true,

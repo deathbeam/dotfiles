@@ -28,7 +28,7 @@ dap.configurations.python = {
         pythonPath = 'python',
         args = function()
             local input = vim.fn.input('CLI args: ')
-            return vim.split(input, " ")
+            return vim.split(input, ' ')
         end,
     },
     {
