@@ -23,3 +23,7 @@ services=(
     hyprpolkitagent
 )
 enable_user_services "${services[@]}"
+
+hyprpm update
+hyprpm add https://github.com/hyprwm/hyprland-plugins || true
+hyprpm enable hyprwinwrap

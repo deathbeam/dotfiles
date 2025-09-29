@@ -12,6 +12,7 @@ packages=(
     gpu-screen-recorder
     dunst
     yambar-git
+    cava
     foot
     zathura zathura-pdf-mupdf libreoffice-fresh gimp
     qutebrowser python-adblock python-readability-lxml
