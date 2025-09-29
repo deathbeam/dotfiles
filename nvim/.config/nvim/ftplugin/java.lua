@@ -27,6 +27,7 @@ local function prepare_jdtls()
     local jdtls_path = vim.fn.expand('$MASON/share/jdtls')
     local java_test_path = vim.fn.expand('$MASON/share/java-test')
     local java_debug_path = vim.fn.expand('$MASON/share/java-debug-adapter')
+    local spring_boot_tools_path = vim.fn.expand('$MASON/share/vscode-spring-boot-tools')
 
     data.data_dir = vim.fn.stdpath('cache') .. '/nvim-jdtls'
     data.java_agent = jdtls_path .. '/lombok.jar'
@@ -40,6 +41,11 @@ local function prepare_jdtls()
     local java_debug_bundle = vim.split(vim.fn.glob(java_debug_path .. '/com.microsoft.java.debug.plugin-*.jar'), '\n')
     if java_debug_bundle[1] ~= '' then
         vim.list_extend(data.bundles, java_debug_bundle)
+    end
+
+    local spring_boot_tools_bundle = vim.split(vim.fn.glob(spring_boot_tools_path .. '/jdtls/*.jar'), '\n')
+    if spring_boot_tools_bundle[1] ~= '' then
+        vim.list_extend(data.bundles, spring_boot_tools_bundle)
     end
 
     local excluded = {
@@ -121,7 +127,7 @@ jdtls.start_or_attach({
     init_options = {
         bundles = data.bundles,
     },
-    handlers = {
-        ['language/status'] = function() end,
-    },
+    -- handlers = {
+    --     ['language/status'] = function() end,
+    -- },
 })
