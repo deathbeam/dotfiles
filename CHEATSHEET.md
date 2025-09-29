@@ -149,6 +149,7 @@
 | n | `<Space>hh` | HTTP Run |
 | n | `<Space>hH` | HTTP Run All |
 | n | `<Space>ho` | HTTP Toggle |
+| n | `<Space>dP` | Show Debug Prints |
 | n | `<Space>wd` | Wiki Diary List |
 | n | `<Space>ww` | Wiki List |
 | n | `<Space>wn` | Wiki New |
