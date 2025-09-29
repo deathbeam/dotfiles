@@ -14,11 +14,12 @@ return {
     {
         treesitter = { 'java' },
         mason = { 'jdtls', 'java-debug-adapter', 'java-test', 'vscode-spring-boot-tools' },
+        lsp = { 'jdtls' },
     },
     {
         treesitter = { 'c_sharp' },
         mason = { 'roslyn', 'netcoredbg' },
-        setup = require('roslyn').setup,
+        lsp = { 'roslyn' },
     },
     {
         treesitter = { 'c' },
