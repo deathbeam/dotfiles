@@ -26,6 +26,10 @@ dap.configurations.python = {
         name = 'Launch',
         program = '${file}',
         pythonPath = 'python',
+        args = function()
+            local input = vim.fn.input('CLI args: ')
+            return vim.split(input, " ")
+        end,
     },
     {
         type = 'python',
