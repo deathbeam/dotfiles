@@ -13,8 +13,6 @@ packages=(
 )
 install_pkgs "${packages[@]}"
 
-gh extension install github/gh-copilot || true
-
 packages=(
     https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 )
