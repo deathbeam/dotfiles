@@ -49,12 +49,17 @@ local function prepare_jdtls()
     end
 
     local excluded = {
+        -- java-test
         'com.microsoft.java.test.runner-jar-with-dependencies.jar',
         'jacocoagent.jar',
+        -- spring-boot-tools
+        'commons-lsp-extensions.jar',
+        'xml-ls-extension.jar',
     }
     data.bundles = vim.tbl_filter(function(bundle)
+        local filename = vim.fn.fnamemodify(bundle, ':t')
         for _, ex in ipairs(excluded) do
-            if bundle:match(ex) then
+            if filename == ex then
                 return false
             end
         end
@@ -127,7 +132,7 @@ jdtls.start_or_attach({
     init_options = {
         bundles = data.bundles,
     },
-    -- handlers = {
-    --     ['language/status'] = function() end,
-    -- },
+    handlers = {
+        ['language/status'] = function() end,
+    },
 })
