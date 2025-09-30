@@ -15,6 +15,7 @@ return {
                 enable = true,
             },
             workspace = {
+                checkThirdParty = false,
                 library = {
                     vim.env.VIMRUNTIME,
                 },
