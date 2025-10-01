@@ -15,6 +15,7 @@ chat.setup({
     temperature = 0,
     sticky = {
         '#buffers',
+        '#gitdiff'
     },
     diff = 'block',
     chat_autocomplete = false,
