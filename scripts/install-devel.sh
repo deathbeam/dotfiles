@@ -10,6 +10,7 @@ packages=(
     github-cli
     docker docker-compose lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli
+    distrobox
 )
 install_pkgs "${packages[@]}"
 
