@@ -14,5 +14,5 @@ else
     # If not running, start the recording
     notify-send "Screen Recording" "Recording started."
     sleep 1
-    gpu-screen-recorder -w portal -a default_output -f 60 -q medium -s 1920x1080 -o "${output_dir}/${current_date}.mp4"
+    gpu-screen-recorder -w portal -a default_output -f 60 -q very_high -cr full -o "${output_dir}/${current_date}.mp4"
 fi
