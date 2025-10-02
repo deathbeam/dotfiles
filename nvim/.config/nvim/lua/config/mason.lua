@@ -1,4 +1,3 @@
-require('config.registry')
 require('mason').setup({
     ui = {
         border = 'single',
