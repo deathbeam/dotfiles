@@ -32,6 +32,9 @@ install_asdf_pkgs "${packages[@]}"
 
 log "Configuring desktop"
 
+# Enable ntsync
+echo ntsync | sudo tee /etc/modules-load.d/ntsync.conf
+
 # Add steamtinkerlaunch compat
 steamtinkerlaunch compat add
 
