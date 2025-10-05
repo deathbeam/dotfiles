@@ -16,5 +16,6 @@ else
   HEIGHT=1600
 fi
 
+# --force-grab-cursor makes cursor slow
 echo "Starting Steam in gamescope with resolution ${WIDTH}x${HEIGHT}..."
-VKD3D_DISABLE_EXTENSIONS=VK_KHR_present_wait GAMESCOPE_WSI=0 gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync --force-grab-cursor -f --rt -e -- steam -tenfoot
+VKD3D_DISABLE_EXTENSIONS=VK_KHR_present_wait GAMESCOPE_WSI=0 gamescope -W "$WIDTH" -H "$HEIGHT" --backend sdl --hdr-enabled --immediate-flips --adaptive-sync -f --rt -e -- steam -tenfoot
