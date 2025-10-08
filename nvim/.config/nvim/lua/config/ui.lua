@@ -116,3 +116,7 @@ au('InsertEnter', {
         end)
     end,
 })
+
+-- Undotree
+vim.cmd.packadd('nvim.undotree')
+nmap('<leader>u', require('undotree').open, 'Open undotree')

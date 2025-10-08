@@ -51,8 +51,8 @@ nmap('<leader>wd', wiki.list_diary, 'Wiki Diary List')
 nmap('<leader>ww', wiki.list_wiki, 'Wiki List')
 nmap('<leader>wn', wiki.new, 'Wiki New')
 
-local undotree = require('myplugins.undotree')
-nmap('<leader>fu', undotree.show, 'Find Undo History')
+-- local undotree = require('myplugins.undotree')
+-- nmap('<leader>fu', undotree.show, 'Find Undo History')
 
 local zoom = require('myplugins.zoom')
 nmap('<leader>z', zoom.toggle, 'Zoom')

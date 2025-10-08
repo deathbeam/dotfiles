@@ -144,11 +144,11 @@
 | n | `<Space>fq` | Find Quickfix |
 | n | `<Space><Space>` | Find Resume |
 | n | `<Space>fs` | Find Symbols |
-| n | `<Space>fu` | Find Undo History |
 | n | `<Space>he` | HTTP Environment |
 | n | `<Space>hh` | HTTP Run |
 | n | `<Space>hH` | HTTP Run All |
 | n | `<Space>ho` | HTTP Toggle |
+| n | `<Space>u` | Open undotree |
 | n | `<Space>dP` | Show Debug Prints |
 | n | `<Space>wd` | Wiki Diary List |
 | n | `<Space>ww` | Wiki List |
@@ -654,7 +654,7 @@
 
 - Display resource (CPU/Memory/Storage) usage of nodes or pods:
 
-`kubectl top {{pod|node}}`
+`kubectl top {{pods|node}}`
 
 - Print the address of the master and cluster services:
 
