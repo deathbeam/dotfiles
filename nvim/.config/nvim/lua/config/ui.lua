@@ -5,6 +5,7 @@ local icons = require('config.icons')
 
 -- Set win border
 vim.o.winborder = 'single'
+vim.o.pumborder = 'single'
 
 -- Enable help stuff
 vim.g.helpful = 1
