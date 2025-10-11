@@ -33,6 +33,10 @@ export LESS='-F -g -i -M -R -S -w -X -z-4'
 export LANG="en_US.UTF-8"
 export LC_ALL="en_US.UTF-8"
 
+# Allow node to use system proxy and CA
+export NODE_USE_SYSTEM_CA=1
+export NODE_USE_ENV_PROXY=1
+
 # Use GPG agent for SSH
 # export SSH_AGENT_PID=""
 # export SSH_AUTH_SOCK="${XDG_RUNTIME_DIR}/gnupg/S.gpg-agent.ssh"

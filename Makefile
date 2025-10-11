@@ -1,3 +1,5 @@
+SUBMODULES := $(shell git config --file .gitmodules --get-regexp path | awk '{ print $$2 }')
+
 default:update link install
 
 clean:
@@ -12,8 +14,13 @@ link:
 
 update:
 	git submodule sync --recursive
-	git submodule update --init --recursive
-	git submodule update --recursive --remote
+	for sub in $(SUBMODULES); do \
+		echo "Updating submodule $$sub"; \
+		if [ "$$sub" != "zsh/.fzf" ]; then \
+			git submodule update --init --recursive "$$sub"; \
+			git submodule update --remote "$$sub"; \
+		fi; \
+	done
 
 install:
 	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish

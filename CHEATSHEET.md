@@ -19,7 +19,7 @@
 | `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
 | `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
 | `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
-| `Print` | exec `sleep 1 && grim -t ppm - | satty -f - -o "$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png"` |
+| `Print` | exec `quickshell -c hyprquickshot -n` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
 | `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |

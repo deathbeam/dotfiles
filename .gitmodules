@@ -6,7 +6,7 @@
 	url = https://github.com/tmux-plugins/tmux-resurrect
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
-	url = https://github.com/junegunn/fzf
+    url = https://github.com/junegunn/fzf
 [submodule "zsh/.zsh/bundle/zsh-kubernetes"]
 	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
 	url = https://github.com/Dbz/zsh-kubernetes
