@@ -90,6 +90,7 @@
     process = git-lfs filter-process
 
 [alias]
+    review = "!git fetch origin && git difftool -d origin/HEAD...HEAD"
     addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
 # Worktree stuff
     wt = worktree
