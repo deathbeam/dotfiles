@@ -11,11 +11,9 @@ packages=(
     swaylock
     wl-clipboard
     cliphist
-    grim-hyprland-git
-    slurp
-    satty
     cpio
     foot
+    grim-hyprland-git
     quickshell-git
 )
 install_pkgs "${packages[@]}"
