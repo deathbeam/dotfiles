@@ -36,7 +36,11 @@ RowLayout {
         Text {
             id: classText
             anchors.centerIn: parent
-            text: activeWindow?.appId ?? ""
+            text: {
+                let id = activeWindow.appId;
+                let idx = id.lastIndexOf(".");
+                return idx !== -1 ? id.substring(idx + 1) : id;
+            }
             color: Theme.colorFg
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSize
@@ -55,7 +59,7 @@ RowLayout {
             anchors.leftMargin: Theme.margin
             anchors.rightMargin: Theme.margin
             verticalAlignment: Text.AlignVCenter
-            text: activeWindow?.title ?? ""
+            text: activeWindow.title
             color: Theme.colorFg
             font.family: Theme.fontFamily
             font.pixelSize: Theme.fontSize
