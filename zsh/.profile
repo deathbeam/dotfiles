@@ -76,8 +76,8 @@ function apply_scale_factor() {
 }
 
 export DPI=$(apply_scale_factor 96)
-export BAR_HEIGHT=60
-export BAR_FONT_SIZE=30
+export BAR_HEIGHT=30
+export BAR_FONT_SIZE=16
 export GDK_SCALE=$SCALE_FACTOR
 export WINIT_X11_SCALE_FACTOR=$SCALE_FACTOR
 export STEAM_FORCE_DESKTOPUI_SCALING=$SCALE_FACTOR

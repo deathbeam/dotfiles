@@ -117,3 +117,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/tinted-nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/tinted-nvim
 	url = https://github.com/tinted-theming/tinted-nvim
+[submodule "quickshell/.config/quickshell/hyprquickshot"]
+	path = quickshell/.config/quickshell/hyprquickshot
+	url = https://github.com/JamDon2/hyprquickshot
