@@ -15,6 +15,8 @@ packages=(
     slurp
     satty
     cpio
+    foot
+    quickshell-git
 )
 install_pkgs "${packages[@]}"
 
