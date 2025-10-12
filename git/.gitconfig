@@ -104,10 +104,6 @@
 # Sync current branch with upstream remote (e.g., reset --hard to upstream/<branch>)
     sync-upstream = "!f() { git fetch upstream && git reset --hard upstream/$(git rev-parse --abbrev-ref HEAD); }; f"
 
-[user]
-    name = Tomas Slusny
-    email = slusnucky@gmail.com
-
 [include]
     path = ~/.gitconfig.local
 
