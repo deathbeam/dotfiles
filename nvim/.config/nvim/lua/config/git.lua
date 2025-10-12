@@ -7,8 +7,11 @@ local nmap = utils.nmap
 local vmap = utils.vmap
 local desc = utils.desc
 
+-- Enable difftool
+vim.cmd.packadd('nvim.difftool')
+
 -- Enable diffmode replacement
-vim.g.difftool_replace_diff_mode = true
+-- vim.g.difftool_replace_diff_mode = true
 
 desc('<leader>g', 'Git', icons.ui.Git)
 

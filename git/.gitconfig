@@ -27,7 +27,7 @@
     colorMovedWS = allow-indentation-change
     mnemonicPrefix = true
 
-    tool = nvimdiff
+    tool = nvim_difftool
     submodule = diff
 
 [diff "bin"]
