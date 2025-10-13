@@ -10,7 +10,7 @@ packages=(
     imagemagick imv
     gammastep geoclue
     jamesdsp
-    gpu-screen-recorder
+    gpu-screen-recorder-git
     dunst
     cava
     zathura zathura-pdf-mupdf libreoffice-fresh gimp
