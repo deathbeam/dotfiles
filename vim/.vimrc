@@ -25,6 +25,9 @@ set undofile
 set sessionoptions-=blank
 set sessionoptions-=help
 
+" Disable fsync to prevent multi second writes
+set nofsync
+
 " }}}
 
 " User interface {{{
