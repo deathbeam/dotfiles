@@ -66,7 +66,14 @@ RowLayout {
         onTriggered: {
             officialProc.running = true
             aurProc.running = true
-            ghProc.running = true
         }
+    }
+
+    Timer {
+        interval: 60000
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: ghProc.running = true
     }
 }

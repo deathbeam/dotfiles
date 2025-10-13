@@ -7,6 +7,7 @@ Text {
     property int utilization: -1
     property int temperature: -1
 
+    visible: utilization >= 0 && temperature >= 0
     text: Theme.iconGpu + " " + utilization + "%|" + temperature + "°C"
     color: (utilization >= 80 || temperature >= 80) ? Theme.colorUrgent :
            (utilization >= 65 || temperature >= 65) ? Theme.colorWarning : Theme.colorFg
