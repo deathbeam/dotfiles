@@ -17,7 +17,7 @@ packages=(
     rate-mirrors pacman-contrib arch-update
     pass pass-otp
     keyd power-profiles-daemon syncthing
-    tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx jq jnv
+    tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx jq yq jnv
     fastfetch onefetch glow btop ncdu
 )
 install_pkgs "${packages[@]}"
