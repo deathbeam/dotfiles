@@ -1,4 +1,3 @@
-local wk = require('which-key')
 local group = vim.api.nvim_create_augroup('NeoVimRc', { clear = true })
 
 local M = {}
@@ -54,14 +53,6 @@ end
 M.au = function(event, opts)
     opts['group'] = group
     return vim.api.nvim_create_autocmd(event, opts)
-end
-
-M.desc = function(key, desc, icon)
-    local opts = { key, desc = desc }
-    if icon then
-        opts.icon = icon
-    end
-    wk.add(opts)
 end
 
 return M

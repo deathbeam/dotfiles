@@ -25,9 +25,6 @@
 [submodule "zsh/.zsh/bundle/zsh-completions"]
 	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "vim/.vim/pack/bundle/start/which-key.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/which-key.nvim
-	url = https://github.com/folke/which-key.nvim
 [submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
     url = https://github.com/nvim-treesitter/nvim-treesitter
@@ -117,3 +114,6 @@
 [submodule "quickshell/.config/quickshell/hyprquickshot"]
 	path = quickshell/.config/quickshell/hyprquickshot
 	url = https://github.com/JamDon2/hyprquickshot
+[submodule "nvim/.config/nvim/pack/bundle/start/mini.clue"]
+	path = nvim/.config/nvim/pack/bundle/start/mini.clue
+	url = https://github.com/nvim-mini/mini.clue

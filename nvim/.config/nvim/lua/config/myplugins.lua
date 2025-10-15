@@ -1,7 +1,6 @@
 local icons = require('config.icons')
 local utils = require('config.utils')
 local nmap = utils.nmap
-local desc = utils.desc
 
 require('myplugins').setup({
     lspdocs = {},
@@ -21,7 +20,6 @@ require('myplugins').setup({
 })
 
 local bookmarks = require('myplugins.bookmarks')
-desc('<leader>m', 'Bookmarks', icons.ui.Bookmark)
 nmap('<leader>mm', bookmarks.select, 'Bookmarks Select')
 nmap('<leader>mq', bookmarks.quickfix, 'Bookmarks Quickfix')
 nmap('<leader>md', bookmarks.delete_buffer, 'Bookmarks Delete Buffer')
@@ -34,7 +32,6 @@ nmap('m', function()
 end, 'Bookmarks Toggle Mark')
 
 local wiki = require('myplugins.wiki')
-desc('<leader>w', 'Wiki', icons.ui.Wiki)
 nmap('<leader>wt', wiki.today, 'Wiki Today')
 nmap('<leader>wd', wiki.list_diary, 'Wiki Diary List')
 nmap('<leader>ww', wiki.list_wiki, 'Wiki List')
@@ -44,7 +41,6 @@ local zoom = require('myplugins.zoom')
 nmap('<leader>z', zoom.toggle, 'Zoom')
 
 local http = require('myplugins.httpyac')
-desc('<leader>h', 'HTTP')
 nmap('<leader>ho', http.toggle, 'HTTP Toggle')
 nmap('<leader>hh', http.run, 'HTTP Run')
 nmap('<leader>hH', http.run_all, 'HTTP Run All')

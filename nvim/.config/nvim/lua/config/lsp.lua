@@ -4,7 +4,6 @@ local icons = require('config.icons')
 local utils = require('config.utils')
 local nmap = utils.nmap
 local au = utils.au
-local desc = utils.desc
 
 local function w(fn)
     return function(...)
@@ -84,7 +83,6 @@ au('LspAttach', {
         end
 
         -- lsp mappings
-        desc('<leader>c', 'Code')
         nmap('<leader>cr', vim.lsp.buf.rename, 'Rename', event.buf)
         nmap('<leader>ch', function()
             vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())

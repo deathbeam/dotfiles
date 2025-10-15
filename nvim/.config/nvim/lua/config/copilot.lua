@@ -1,6 +1,5 @@
 local utils = require('config.utils')
 local icons = require('config.icons')
-utils.desc('<leader>a', 'AI')
 
 -- Copilot autosuggestions
 -- vim.g.copilot_no_tab_map = true

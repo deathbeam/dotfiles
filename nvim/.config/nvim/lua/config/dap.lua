@@ -3,10 +3,7 @@ local utils = require('config.utils')
 local nmap = utils.nmap
 local rnmap = utils.rnmap
 local nvmap = utils.nvmap
-local desc = utils.desc
 local au = utils.au
-
-desc('<leader>d', 'Debug')
 
 local icons = require('config.icons')
 for name, sign in pairs(icons.dap) do

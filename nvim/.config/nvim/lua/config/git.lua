@@ -1,19 +1,15 @@
 local gitsigns = require('gitsigns')
 local fzf = require('fzf-lua')
-local icons = require('config.icons')
 local utils = require('config.utils')
 local map = utils.map
 local nmap = utils.nmap
 local vmap = utils.vmap
-local desc = utils.desc
 
 -- Enable difftool
 vim.cmd.packadd('nvim.difftool')
 
 -- Enable diffmode replacement
 -- vim.g.difftool_replace_diff_mode = true
-
-desc('<leader>g', 'Git', icons.ui.Git)
 
 gitsigns.setup({
     signcolumn = false,
