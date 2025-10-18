@@ -11,6 +11,7 @@
 | `SUPER+g` | exec `menu-steam -p "steam"                 # games` |
 | `SUPER+i` | exec `menu-yay -p "yay"                     # install` |
 | `SUPER+n` | exec `menu-notifications -p "notifications" # notifications` |
+| `SUPER+u` | exec `menu-qutebrowser -p "url"             # urls` |
 | `SUPER+e` | exec `swaylock -f -e -s fill -i $WALLPAPER  # lock screen` |
 | `SUPER+v` | exec `pkill -USR1 gammastep                 # flux` |
 | `SUPER+slash` | togglespecialworkspace `cheatsheet      # cheatsheet` |
