@@ -1,0 +1,26 @@
+#!/bin/sh
+scriptpath=$(dirname "$(readlink -f "$0")")
+
+QUTE_CONFIG_DIR="$HOME/.config/qutebrowser"
+QUTE_DATA_DIR="$HOME/.local/share/qutebrowser"
+
+create_menu() {
+    # Check quickmarks
+    while read -r url; do
+        printf -- '%s\n' "$url"
+    done < "$QUTE_CONFIG_DIR"/quickmarks
+
+    # Next bookmarks
+    while read -r url _; do
+        printf -- '%s\n' "$url"
+    done < "$QUTE_CONFIG_DIR"/bookmarks/urls
+
+    # Finally history
+    printf -- '%s\n' "$(sqlite3 -separator ' ' "$QUTE_DATA_DIR/history.sqlite" 'select title, url from CompletionHistory ORDER BY last_atime DESC')"
+}
+
+url=$(create_menu | $scriptpath/fzfmenu "$@")
+
+[[ -n $url ]] || exit 1
+
+exec qutebrowser "$url"
