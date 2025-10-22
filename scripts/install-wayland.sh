@@ -13,6 +13,7 @@ packages=(
     cliphist
     cpio
     foot
+    slurp
     grim-hyprland-git
     quickshell-git
 )

@@ -21,6 +21,8 @@ install_python_pkgs "${packages[@]}"
 
 packages=(
     httpyac
+    @github/copilot
+    opencode-ai@latest
 )
 install_npm_pkgs "${packages[@]}"
 
