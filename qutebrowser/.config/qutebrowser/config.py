@@ -16,10 +16,9 @@ c.qt.args = [
     'enable-accelerated-video-decode',
     'enable-features=VaapiVideoDecoder,VaapiVideoEncoder,Vulkan',
     'use-vulkan=native',
-    # 'enable-quic',
-    # 'enable-zero-copy',
+    'enable-quic',
+    'enable-zero-copy',
 ]
-c.qt.workarounds.disable_accelerated_2d_canvas = "never"
 
 # Save
 c.auto_save.session = True
