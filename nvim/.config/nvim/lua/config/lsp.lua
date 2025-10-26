@@ -17,10 +17,10 @@ end
 
 vim.diagnostic.config({
     severity_sort = true,
-    virtual_text = false,
-    virtual_lines = {
-        current_line = true,
-    },
+    -- virtual_text = false,
+    -- virtual_lines = {
+    --     current_line = true,
+    -- },
     float = {
         border = 'single',
         focusable = false,
@@ -39,6 +39,16 @@ vim.diagnostic.config({
 })
 
 vim.lsp.semantic_tokens.enable(false)
+
+require("tiny-inline-diagnostic").setup({
+    preset = "classic",
+    options = {
+        multilines = {
+            enabled = true
+        },
+        use_icons_from_diagnostic = true
+    }
+})
 
 -- Setup LSP mappings
 -- :h lsp-defaults
