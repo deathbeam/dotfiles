@@ -202,6 +202,7 @@ export DTACH_SWITCH_CMD="dtach-switch-session"
 
 # Adjust git aliases
 unalias gh 2>/dev/null # Conflict with github-cli
+unalias gdu 2>/dev/null # Conflict with gdu
 alias gc='git commit --signoff --verbose'
 alias gca='git commit --signoff --verbose --all'
 alias gcA='git commit --signoff --verbose --patch'

@@ -3,22 +3,26 @@ if ! grep -q '^\[multilib\]' /etc/pacman.conf; then
     sudo sed -i "/^#\[multilib\]/,/^#Include/ s/^#//" /etc/pacman.conf
 fi
 
-DownloadUser = alpm
-
 log "Installing core packages"
 packages=(
-    xdg-utils xdg-user-dirs
-    dosfstools fuse2
-    net-tools systemd-resolvconf iw sshpass wget socat traceroute
-    stoken openvpn vpn-slice openconnect tinyproxy mitmproxy
-    stow zsh starship tmux
-    ripgrep mlocate man-db tldr
-    bc unzip p7zip
-    rate-mirrors pacman-contrib arch-update
-    pass pass-otp
-    keyd power-profiles-daemon syncthing
-    tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx jq yq jnv
-    fastfetch onefetch glow btop ncdu
+    xdg-utils xdg-user-dirs # xdg tools
+    dosfstools fuse2 gdu # filesystem tools
+    stoken openvpn vpn-slice openconnect tinyproxy mitmproxy # VPN/proxy tools
+    stow zsh starship tmux # shell tools
+    ripgrep mlocate man-db tldr # man/search tools
+    net-tools systemd-resolvconf iw sshpass wget socat traceroute aria2c # network tools/downloaders
+    bc unzip p7zip # archive tools
+    rate-mirrors pacman-contrib arch-update # arch tools
+    pass pass-otp # password manager
+    power-profiles-daemon # power management
+    keyd # keyboard remapping daemon
+    syncthing # file synchronization
+    tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx # neovim/text stuff
+    jq yq jnv # json/yaml processors
+    btop # system monitor
+    glow # markdown viewer
+    onefetch # git repository summary
+    fastfetch # system information
 )
 install_pkgs "${packages[@]}"
 

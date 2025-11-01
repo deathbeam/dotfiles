@@ -238,7 +238,6 @@
 | alias | `gdi` | `git status --porcelain --ignored=matching \| sed -n s/^!! //p`
 | alias | `gdk` | `git ls-files --killed`
 | alias | `gdm` | `git ls-files --modified`
-| alias | `gdu` | `git ls-files --other --exclude-standard`
 | alias | `gdx` | `git ls-files --deleted`
 | alias | `get` | `wget --continue --progress=bar --timestamping`
 | alias | `gf` | `git fetch`
@@ -645,7 +644,7 @@
 
 `kubectl get {{pod|service|deployment|ingress|...}} {{[-o|--output]}} wide`
 
-- Update specified pod with the label 'unhealthy' and the value 'true':
+- Update specified pod with the label `unhealthy` and the value `true`:
 
 `kubectl label pods {{name}} unhealthy=true`
 

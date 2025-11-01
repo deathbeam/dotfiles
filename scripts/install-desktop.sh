@@ -13,14 +13,13 @@ packages=(
     gpu-screen-recorder-git
     dunst
     cava
-    zathura zathura-pdf-mupdf libreoffice-fresh gimp
-    qutebrowser python-adblock python-readability-lxml
-    # firefox firefox-tridactyl firefox-tridactyl-native
-    mpv subliminal yt-dlp
-    gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris
-    qbittorrent stremio youtube-music-bin
-    vesktop-bin
-    calibre
+    zathura zathura-pdf-mupdf libreoffice-fresh gimp # document/image viewers and editors
+    qutebrowser python-adblock python-readability-lxml # browser
+    mpv subliminal yt-dlp # video player and downloader
+    gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
+    stremio youtube-music-bin # media streaming
+    vesktop-bin # discord
+    calibre # ebook management
 )
 install_pkgs "${packages[@]}"
 
