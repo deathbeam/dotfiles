@@ -26,6 +26,17 @@ install_pkgs() {
   fi
 }
 
+install_flatpak_pkgs() {
+  if ! command -v flatpak &> /dev/null; then
+    install_pkgs flatpak
+  fi
+  for pkg in "$@"; do
+    if ! flatpak list | grep -qx "$pkg"; then
+      flatpak install -y "$pkg"
+    fi
+  done
+}
+
 install_python_pkgs() {
   if ! command -v pip3 &> /dev/null; then
     install_pkgs python-pip
