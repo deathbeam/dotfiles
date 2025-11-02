@@ -1,7 +1,6 @@
 # Hyprland Keybindings
 | Key | Action |
 |-----|--------|
-| `SUPER+grave` | exec `menu-actions -p "action"          # actions` |
 | `SUPER+Return` | exec `terminal                         # terminal` |
 | `SUPER+Tab` | exec `menu-switch -p "switch"             # switch` |
 | `SUPER+space` | exec `menu-run -p "run"                 # run` |
@@ -59,6 +58,7 @@
 | `SUPER+7` | workspace `7` |
 | `SUPER+8` | workspace `8` |
 | `SUPER+9` | workspace `9` |
+| `SUPER+grave` | togglespecialworkspace |
 | `SUPER_SHIFT+1` | movetoworkspace `1` |
 | `SUPER_SHIFT+2` | movetoworkspace `2` |
 | `SUPER_SHIFT+3` | movetoworkspace `3` |
@@ -68,6 +68,7 @@
 | `SUPER_SHIFT+7` | movetoworkspace `7` |
 | `SUPER_SHIFT+8` | movetoworkspace `8` |
 | `SUPER_SHIFT+9` | movetoworkspace `9` |
+| `SUPER_SHIFT+grave` | movetoworkspace `special` |
 
 # Tmux Keybindings
 | Mode | Key | Action |
