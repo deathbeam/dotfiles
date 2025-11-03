@@ -115,7 +115,7 @@ function download_subs(language)
         log(language[1] .. ' subtitles ready!')
         return true
     else
-        log('No ' .. language[1] .. ' subtitles found\n')
+        log('No ' .. language[1] .. ' subtitles found\n' .. result.stdout)
         return false
     end
 end
