@@ -4,6 +4,7 @@ packages=(
     jdk-openjdk openjdk-doc openjdk-src
     python-pip python-dbus python-opengl python-virtualenv
     dotnet-sdk aspnet-runtime
+    rust cargo
     maven python-poetry
     lua51 luarocks stylua
     zig choosenim-bin

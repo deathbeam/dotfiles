@@ -118,6 +118,7 @@
 | nv | `<Space>de` | Debug Expression |
 | n | `<Space>df` | Debug Frames |
 | n | `<Space>dL` | Debug Log Point |
+| n | `<Space>dP` | Debug Prints |
 | n | `<Space>d<Space>` | Debug REPL |
 | n | `<Space>dr` | Debug Restart |
 | n | `<Space>ds` | Debug Scopes |
@@ -151,7 +152,6 @@
 | n | `<Space>hH` | HTTP Run All |
 | n | `<Space>ho` | HTTP Toggle |
 | n | `<Space>u` | Open undotree |
-| n | `<Space>dP` | Show Debug Prints |
 | n | `<Space>wd` | Wiki Diary List |
 | n | `<Space>ww` | Wiki List |
 | n | `<Space>wn` | Wiki New |
