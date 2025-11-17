@@ -4,9 +4,6 @@ install_pkgs clamav
 log "Updating virus database"
 sudo freshclam
 
-log "Setting up freshclam log"
-sudo install -o clamav -g clamav -m 600 /dev/null /var/log/clamav/freshclam.log
-
 log "Ensuring required clamd.conf options"
 CLAMD_CONF="/etc/clamav/clamd.conf"
 append_config "LogTime yes" "$CLAMD_CONF"
