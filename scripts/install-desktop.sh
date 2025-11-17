@@ -17,7 +17,7 @@ packages=(
     qutebrowser python-adblock python-readability-lxml # browser
     mpv subliminal yt-dlp # video player and downloader
     gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
-    stremio youtube-music-bin # media streaming
+    stremio-enhanced-bin youtube-music-bin # media streaming
     vesktop-bin # discord
     calibre # ebook management
 )
