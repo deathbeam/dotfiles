@@ -63,7 +63,7 @@ chat.setup({
     },
     providers = {
         github_models = {
-            disabled = false,
+            disabled = true,
         },
     },
 })
