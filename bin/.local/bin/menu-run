@@ -1,7 +1,7 @@
 #!/bin/sh
 scriptpath=$(dirname "$(readlink -f "$0")")
 
-exec sh <(
+selected_cmd=$(
     echo -n "$PATH" \
         | xargs -d: -I{} -r -- find -L {} -maxdepth 1 -mindepth 1 -type f -executable -printf '%P\n' 2>/dev/null \
         | sort -u \
@@ -9,3 +9,11 @@ exec sh <(
         --preview="which {}" \
         --preview-window=down,1
 )
+
+if [ -n "$selected_cmd" ]; then
+    if [ -f "$HOME/.config/cmdenv/${selected_cmd}.sh" ]; then
+        exec sh "$HOME/.config/cmdenv/${selected_cmd}.sh" "$selected_cmd"
+    else
+        exec "$selected_cmd"
+    fi
+fi
