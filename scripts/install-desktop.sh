@@ -13,7 +13,7 @@ packages=(
     gpu-screen-recorder-git
     dunst
     cava
-    zathura zathura-pdf-mupdf libreoffice-fresh gimp # document/image viewers and editors
+    zathura zathura-pdf-mupdf libreoffice-fresh gimp krita kdenlive # viewers and editors
     qutebrowser python-adblock python-readability-lxml # browser
     mpv subliminal yt-dlp # video player and downloader
     gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
