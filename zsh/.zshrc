@@ -196,10 +196,6 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND
 export FZF_ALT_C_COMMAND='rg --files --hidden --follow --null | xargs -0 dirname | uniq'
 
-# Configure dtach
-export DTACH_SWITCH_KEY=$'\x18'
-export DTACH_SWITCH_CMD="dtach-switch-session"
-
 # Adjust git aliases
 unalias gh 2>/dev/null # Conflict with github-cli
 unalias gdu 2>/dev/null # Conflict with gdu
