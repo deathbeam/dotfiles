@@ -31,15 +31,16 @@ end, {})
 
 vim.api.nvim_create_autocmd('FileType', {
     pattern = '*',
-    callback = function()
-        local ft = vim.bo.filetype
+    callback = function(ev)
+        local ft = ev.match
         local lang = vim.treesitter.language.get_lang(ft)
         if not lang or not vim.treesitter.language.add(lang) then
             return
         end
 
         vim.notify('Starting treesitter for ' .. lang, vim.log.levels.INFO)
-        vim.treesitter.start()
+        vim.treesitter.start(ev.buf)
+        vim.bo.syntax = 'on'
 
         if lang and vim.treesitter.query.get(lang, 'folds') then
             vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
