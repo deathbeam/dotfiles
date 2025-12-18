@@ -89,5 +89,16 @@ gitsigns.setup({
         nmap('<leader>gD', function()
             gitsigns.diffthis('~')
         end, 'Diff this (cached)', bufnr)
+        nmap('<leader>gw', function()
+          local diffopt = vim.opt.diffopt:get()
+          local has_iwhite = vim.tbl_contains(diffopt, 'iwhite')
+          if has_iwhite then
+            vim.opt.diffopt:remove('iwhite')
+            vim.notify("Whitespace will be shown in diff", vim.log.levels.INFO)
+          else
+            vim.opt.diffopt:append('iwhite')
+            vim.notify("Whitespace will be ignored in diff", vim.log.levels.INFO)
+          end
+        end, 'Toggle ignore whitespace in diff')
     end,
 })
