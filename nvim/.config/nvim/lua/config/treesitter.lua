@@ -42,13 +42,15 @@ vim.api.nvim_create_autocmd('FileType', {
         vim.treesitter.start(ev.buf)
         vim.bo.syntax = 'on'
 
-        if lang and vim.treesitter.query.get(lang, 'folds') then
-            vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
-        end
-
-        if lang and vim.treesitter.query.get(lang, 'indents') then
-            vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
-        end
+        -- NOTE: indent forces a re-parse, which negates the benefit of async
+        -- parsing see https://github.com/nvim-treesitter/nvim-treesitter/issues/7840
+        -- if lang and vim.treesitter.query.get(lang, 'folds') then
+        --     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+        -- end
+        --
+        -- if lang and vim.treesitter.query.get(lang, 'indents') then
+        --     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+        -- end
 
         -- Treehopper mappings
         vim.cmd([[
