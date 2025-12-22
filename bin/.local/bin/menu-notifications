@@ -9,7 +9,6 @@ notification=$(echo "$notifications" | awk -F'|' '{print $0 "|" $2 ": " $3}' \
     --preview="echo {4} | base64 -d | fold -s -w \$COLUMNS" \
     --preview-window=down,5,wrap \
     --tiebreak=index \
-    --color 'header:bold:yellow,marker:bold:green' \
     | cut -d'|' -f1)
 
 [[ -n $notification ]] || exit 1
