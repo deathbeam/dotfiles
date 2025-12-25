@@ -91,6 +91,72 @@
 # Neovim Keybindings
 | Mode | Key | Description |
 |------|-----|-------------|
+| nv | `<Space>ad` | AI Documentation |
+| nv | `<Space>ae` | AI Explain |
+| nv | `<Space>af` | AI Fix |
+| nv | `<Space>ac` | AI Generate Commit |
+| n | `<Space>am` | AI Models |
+| v | `<Space>aa` | AI Open |
+| nv | `<Space>ao` | AI Optimize |
+| nv | `<Space>ap` | AI Prompts |
+| nv | `<Space>aq` | AI Question |
+| n | `<Space>ax` | AI Reset |
+| nv | `<Space>ar` | AI Review |
+| n | `<Space>as` | AI Stop |
+| nv | `<Space>at` | AI Tests |
+| n | `<Space>aa` | AI Toggle |
+| n | `<Space>mD` | Bookmarks Delete All |
+| n | `<Space>md` | Bookmarks Delete Buffer |
+| n | `<Space>mq` | Bookmarks Quickfix |
+| n | `<Space>mm` | Bookmarks Select |
+| n | `<Space>dp` | Breakpoints |
+| n | `<Space>db` | Debug Breakpoint |
+| n | `<Space>dB` | Debug Conditional Breakpoint |
+| n | `<Space>dc` | Debug Console |
+| n | `<Space>dd` | Debug Continue [R] |
+| n | `<Space>dx` | Debug Exit |
+| nv | `<Space>de` | Debug Expression |
+| n | `<Space>df` | Debug Frames |
+| n | `<Space>dL` | Debug Log Point |
+| n | `<Space>dP` | Debug Prints |
+| n | `<Space>d<Space>` | Debug REPL |
+| n | `<Space>dr` | Debug Restart |
+| n | `<Space>ds` | Debug Scopes |
+| n | `<Space>dk` | Debug Step Back (up) [R] |
+| n | `<Space>dl` | Debug Step Into (right) [R] |
+| n | `<Space>dh` | Debug Step Out (left) [R] |
+| n | `<Space>dj` | Debug Step Over (down) [R] |
+| n | `<Space>dt` | Debug Threads |
+| n | `<Space>fa` | Find Actions |
+| n | `<Space>fD` | Find All Diagnostics |
+| n | `<Space>fC` | Find All Git Commits |
+| n | `<Space>fS` | Find All Symbols |
+| nv | `<Space>fc` | Find Buffer Git Commits |
+| v | `<Space>fc` | Find Buffer Git Commits No mapping found |
+| n | `<Space>fb` | Find Buffers |
+| n | `<Space>fd` | Find Diagnostics |
+| n | `<Space>ff` | Find Files |
+| n | `<Space>fF` | Find Git Files |
+| n | `<Space>fG` | Find Git Grep |
+| n | `<Space>fg` | Find Grep |
+| n | `<Space>f?` | Find Help |
+| n | `<Space>fh` | Find History |
+| n | `<Space>fj` | Find Jumps |
+| n | `<Space>fk` | Find Keymaps |
+| n | `<Space>fm` | Find Marks |
+| n | `<Space>fq` | Find Quickfix |
+| n | `<Space><Space>` | Find Resume |
+| n | `<Space>fs` | Find Symbols |
+| n | `<Space>he` | HTTP Environment |
+| n | `<Space>hh` | HTTP Run |
+| n | `<Space>hH` | HTTP Run All |
+| n | `<Space>ho` | HTTP Toggle |
+| n | `<Space>u` | Open undotree |
+| n | `<Space>wd` | Wiki Diary List |
+| n | `<Space>ww` | Wiki List |
+| n | `<Space>wn` | Wiki New |
+| n | `<Space>wt` | Wiki Today |
+| n | `<Space>z` | Zoom |
 
 # Zsh Aliases
 | Type | Name | Value |
