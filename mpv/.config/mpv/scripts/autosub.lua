@@ -29,7 +29,7 @@ local providers = {
 --=============================================================================
 -->>    OPTIONS:
 --=============================================================================
-local debug = false  -- Enable debug logging and subliminal --debug output
+local debug = true  -- Enable debug logging and subliminal --debug output
 --=============================================================================
 
 local utils = require 'mp.utils'
@@ -43,7 +43,7 @@ local function log(string, secs)
 end
 
 local function get_subtitle_path(directory, filename, lang_code)
-    local base_name = filename:gsub('%..-$', '')
+    local base_name = filename:gsub('%.%w+$', '')
     return directory .. '/' .. base_name .. '.' .. lang_code .. '.srt'
 end
 
@@ -94,15 +94,16 @@ local function download_subs(directory, filename)
     end
 
     local result = utils.subprocess({ args = args, cancellable = false })
+    local sub_path = get_subtitle_path(directory, filename, language[2])
 
-    if result.status == 0 then
-        local sub_path = get_subtitle_path(directory, filename, language[2])
+    if debug then
+        log('Checking for subtitle file at: ' .. sub_path .. ' for filename: ' .. filename)
+    end
 
-        if file_exists(sub_path) then
-            mp.commandv('sub-add', sub_path, 'auto', language[1])
-            log(language[1] .. ' subtitles ready!')
-            return true
-        end
+    if file_exists(sub_path) then
+        mp.commandv('sub-add', sub_path, 'auto', language[1])
+        log(language[1] .. ' subtitles ready!')
+        return true
     end
 
     if debug then
