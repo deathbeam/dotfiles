@@ -481,6 +481,7 @@
 | alias | `vimf` | `nvimf`
 | alias | `viml` | `nviml`
 | alias | `which-command` | `whence`
+| alias | `why` | `witr`
 
 # Useful Commands
 ## yay

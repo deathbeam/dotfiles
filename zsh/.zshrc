@@ -85,6 +85,9 @@ function vpaste {
   fi
 }
 
+# Why is this running
+alias why='witr'
+
 # Arch aliases
 # Show unnecessary packages
 alias pan='yay -Qqd | yay -Rsu --print -'

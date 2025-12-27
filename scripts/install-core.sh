@@ -21,8 +21,8 @@ packages=(
     jq yq jnv # json/yaml processors
     btop # system monitor
     glow # markdown viewer
-    onefetch # git repository summary
     fastfetch # system information
+    witr-bin # why is this running
 )
 install_pkgs "${packages[@]}"
 
