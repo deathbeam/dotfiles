@@ -16,7 +16,7 @@ packages=(
     zathura zathura-pdf-mupdf libreoffice-fresh gimp krita kdenlive # viewers and editors
     qutebrowser python-adblock python-readability-lxml # browser
     mpv subliminal yt-dlp # video player and downloader
-    gamescope steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
+    gamescope gamemode steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
     stremio-enhanced-bin youtube-music-bin # media streaming
     vesktop-bin # discord
     calibre # ebook management
