@@ -34,10 +34,10 @@ return {
     },
     {
         treesitter = { 'lua' },
-        -- mason = { 'emmylua_ls' },
-        -- lsp = { 'emmylua_ls' },
-        mason = { 'lua-language-server' },
-        lsp = { 'lua_ls' },
+        mason = { 'emmylua_ls' },
+        lsp = { 'emmylua_ls' },
+        -- mason = { 'lua-language-server' },
+        -- lsp = { 'lua_ls' },
     },
     {
         treesitter = { 'bash' },

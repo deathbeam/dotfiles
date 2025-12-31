@@ -27,6 +27,7 @@ install:
 	zsh -ic 'fast-theme base16'
 	npm install -g mcp-hub@latest
 	nvim --headless \
+		-c "lua require('vim._extui').enable({ enable = false })" \
 		+MasonUpdateSync \
 		+TSUpdateSync \
 		+UpdateRemotePlugins \
