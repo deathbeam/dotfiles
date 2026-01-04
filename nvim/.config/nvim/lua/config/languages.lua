@@ -27,9 +27,13 @@ return {
         lsp = { 'clangd' },
     },
     {
+        treesitter = { 'odin' },
+        mason = { 'ols' },
+        lsp = { 'ols' },
+    },
+    {
         treesitter = { 'nim' },
-        -- needs manual install, choosenim-bin, nimlangserver-git
-        -- mason = { 'nimlangserver' },
+        mason = { 'nimlangserver' },
         lsp = { 'nim_langserver' },
     },
     {
