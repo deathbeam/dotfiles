@@ -24,7 +24,13 @@ max_line_length = 0
 trim_trailing_whitespace = false
 
 [*.cs]
+# Using directives
 dotnet_diagnostic.IDE0005.severity = error
+
+# Name can be simplified
+dotnet_diagnostic.IDE0001.severity = error
+
+# Braces everywhere
 csharp_new_line_before_open_brace = all
 
 # Indentation
