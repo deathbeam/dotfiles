@@ -33,7 +33,7 @@
 | `XF86Launch3` | exec `asusctl led-mode -n` |
 | `XF86Launch4` | exec `asusctl profile -p` |
 | `SUPER_SHIFT+escape` | exit |
-| `SUPER+escape` | exec `hyprctl reload` |
+| `SUPER+escape` | exec `hyprctl reload && notify-send "Hyprland config reloaded"` |
 | `SUPER+W` | killactive |
 | `SUPER+S` | togglefloating |
 | `SUPER+M` | fullscreen `1` |
