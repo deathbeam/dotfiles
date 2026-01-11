@@ -17,7 +17,8 @@ fi
 
 # Launch compositor
 if command -v Hyprland &> /dev/null; then
-    exec Hyprland
+    # exec Hyprland
+    exec start-hyprland
 else
     exit 1
 fi
