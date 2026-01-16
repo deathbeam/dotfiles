@@ -61,6 +61,7 @@ fzf.register_ui_select({
     },
 })
 
+-- FzfLua global maybe?
 nmap('<leader><leader>', fzf.resume, 'Find Resume')
 nmap('<leader>fg', fzf.live_grep, 'Find Grep')
 nmap('<leader>ff', fzf.files, 'Find Files')

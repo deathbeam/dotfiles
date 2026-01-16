@@ -53,3 +53,10 @@ systemctl --user restart pipewire pipewire-pulse || true
 
 # Set default browser
 xdg-settings set default-web-browser qutebrowser.desktop || true
+
+# Set default image viewer
+xdg-mime default imv.desktop image/png
+xdg-mime default imv.desktop image/jpeg
+xdg-mime default imv.desktop image/gif
+xdg-mime default imv.desktop image/webp
+xdg-mime default imv.desktop image/bmp
