@@ -1,14 +1,13 @@
 log "Installing development packages"
 packages=(
     jdk8-openjdk openjdk8-doc openjdk8-src
-    jdk-openjdk openjdk-doc openjdk-src
-    python-pip python-dbus python-opengl python-virtualenv
+    jdk-openjdk openjdk-doc openjdk-src maven
+    python-pip python-dbus python-opengl python-virtualenv python-poetry
     dotnet-sdk aspnet-runtime
     rust cargo
-    maven python-poetry
     lua51 luarocks stylua
-    zig choosenim-bin
-    github-cli
+    zig
+    github-cli opencode-bin
     docker docker-compose lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli
     distrobox
@@ -20,17 +19,9 @@ packages=(
 )
 install_python_pkgs "${packages[@]}"
 
-packages=(
-    httpyac
-    opencode-ai@latest
-)
-install_npm_pkgs "${packages[@]}"
-
 log "Configuring development environment"
 services=(
-    keyd
     docker
-    power-profiles-daemon
 )
 enable_services "${services[@]}"
 
