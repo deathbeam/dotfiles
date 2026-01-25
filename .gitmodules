@@ -99,9 +99,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/mcphub.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/mcphub.nvim
 	url = https://github.com/ravitemer/mcphub.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/helpful.vim"]
-	path = nvim/.config/nvim/pack/bundle/start/helpful.vim
-	url = https://github.com/tweekmonster/helpful.vim
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
