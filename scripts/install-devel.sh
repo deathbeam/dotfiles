@@ -8,7 +8,7 @@ packages=(
     lua51 luarocks stylua
     zig
     github-cli opencode-bin
-    docker docker-compose lazydocker
+    docker docker-buildx docker-compose lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli
     distrobox
 )
