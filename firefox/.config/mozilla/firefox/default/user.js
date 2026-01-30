@@ -12,7 +12,10 @@ user_pref("extensions.ui.locale.hidden", true);
 user_pref("extensions.ui.mlmodel.hidden", true);
 user_pref("extensions.ui.sitepermission.hidden", true);
 user_pref("app.normandy.first_run", false);
+user_pref("browser.ml.enable", false);
 
 // My stuff
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("full-screen-api.ignore-widgets", true);
+user_pref("ui.systemUsesDarkTheme", 1);
+user_pref("layout.css.prefers-color-scheme.content-override", 0);
