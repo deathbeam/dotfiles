@@ -10,7 +10,7 @@
 | `SUPER+g` | exec `menu-steam -p "steam"                 # games` |
 | `SUPER+i` | exec `menu-yay -p "yay"                     # install` |
 | `SUPER+n` | exec `menu-notifications -p "notifications" # notifications` |
-| `SUPER+u` | exec `menu-qutebrowser -p "url"             # urls` |
+| `SUPER+u` | exec `menu-firefox -p "url"                 # urls` |
 | `SUPER+e` | exec `swaylock -f -e -s fill -i $WALLPAPER  # lock screen` |
 | `SUPER+v` | exec `pkill -USR1 gammastep                 # flux` |
 | `SUPER+slash` | togglespecialworkspace `cheatsheet      # cheatsheet` |
@@ -38,14 +38,15 @@
 | `SUPER+S` | togglefloating |
 | `SUPER+M` | fullscreen `1` |
 | `SUPER+F` | fullscreen `0` |
-| `SUPER+H` | movefocus `l` |
-| `SUPER+L` | movefocus `r` |
+| `SUPER+T` | togglegroup |
+| `SUPER+H` | exec `if [ $(hyprctl activewindow -j | jq "(.grouped|length==0) or (.address==.grouped[0])") = "true" ]; then hyprctl dispatch movefocus l; else hyprctl dispatch changegroupactive b; fi` |
+| `SUPER+L` | exec `if [ $(hyprctl activewindow -j | jq "(.grouped|length==0) or (.address==.grouped[-1])") = "true" ]; then hyprctl dispatch movefocus r; else hyprctl dispatch changegroupactive f; fi` |
 | `SUPER+K` | movefocus `u` |
 | `SUPER+J` | movefocus `d` |
-| `SUPER_SHIFT+H` | movewindow `l` |
-| `SUPER_SHIFT+L` | movewindow `r` |
-| `SUPER_SHIFT+K` | movewindow `u` |
-| `SUPER_SHIFT+J` | movewindow `d` |
+| `SUPER_SHIFT+H` | movewindoworgroup `l` |
+| `SUPER_SHIFT+L` | movewindoworgroup `r` |
+| `SUPER_SHIFT+K` | movewindoworgroup `u` |
+| `SUPER_SHIFT+J` | movewindoworgroup `d` |
 | `SUPER+R` | submap `resize` |
 | `escape` | submap `reset` |
 | `Return` | submap `reset` |

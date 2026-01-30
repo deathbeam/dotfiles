@@ -24,4 +24,4 @@ url=$(create_menu | $scriptpath/fzfmenu "$@")
 [[ -n $url ]] || exit 1
 
 url=${url/*http/http}
-exec qutebrowser "$url"
+exec qutebrowser --target window "$url"

@@ -58,7 +58,7 @@ prompt() {
           --no-multi \
           --reverse \
           --bind 'ctrl-y:execute(echo {} | wl-copy)+abort' \
-          --header='Enter: select  Ctrl-Y: copy to clipboard' \
+          --header='<ctrl-y> to copy to clipboard' \
           $PROMPT $QUERY $@ < $FILE_ARGS | tail -n 1 >! $FILE_CHOICES
   " &
   pid=$!
