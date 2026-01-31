@@ -1304,3 +1304,4 @@ user_pref("layout.css.prefers-color-scheme.content-override", 0);
 user_pref("browser.startup.page", 1);
 user_pref("browser.startup.homepage", "https://duckduckgo.com/");
 user_pref("privacy.clearOnShutdown_v2.cookiesAndStorage", false);
+user_pref("browser.link.open_newwindow", 2);
