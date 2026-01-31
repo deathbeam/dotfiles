@@ -7,14 +7,11 @@ PLACES="file:$FF_PROFILE/places.sqlite?immutable=1"
 # Get bookmarks (url only)
 bookmarks="SELECT DISTINCT url FROM moz_bookmarks JOIN moz_places ON moz_bookmarks.fk=moz_places.id WHERE url NOT NULL"
 
-# Get recent history (url only, limit to 5000)
-history="SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC LIMIT 5000"
-
-# Combine bookmarks and history, remove duplicates, and filter out empty lines
-urls=$(sqlite3 "$PLACES" "$bookmarks; $history" 2>/dev/null | awk 'NF && $1!=""')
+# Get recent history (url only)
+history="SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC"
 
 # Deduplicate: prefer https over http
-deduped_urls=$(echo "$urls" | awk '
+dedup_awk='
   /^https:\/\// { https[$0]=1 }
   /^http:\/\// { http[$0]=1 }
   END {
@@ -25,17 +22,21 @@ deduped_urls=$(echo "$urls" | awk '
       if (!(alt in https)) print u
     }
   }
-')
+'
 
-# Use fzfmenu for selection
-url=$(printf '%s\n' "$deduped_urls" | "$HOME/.local/bin/fzfmenu" "$@" \
+# Use fzfmenu for selection, streaming results as they are generated
+url=$(
+  fzfmenu "$@" \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
+    < <(
+      sqlite3 "$PLACES" "$bookmarks; $history" 2>/dev/null | awk 'NF && $1!=""' | awk "$dedup_awk"
+    )
 )
-url=$(echo "$url" | xargs)
+url=$(echo "$url" | xargs)  # trim whitespace
 [ -n "$url" ] || exit 1
 
-# If selected text is not a URL, search it on DuckDuckGo
+# If input does not look like a URL, search it
 is_url_regex='^[a-zA-Z][a-zA-Z0-9+.-]*://|^www\.|^about:'
 if ! printf '%s' "$url" | grep -qE "$is_url_regex"; then
   url="https://duckduckgo.com/?q=$(printf '%s' "$url" | jq -sRr @uri)"
