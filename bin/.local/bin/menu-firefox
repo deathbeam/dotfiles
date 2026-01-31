@@ -12,15 +12,23 @@ history="SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date 
 
 # Deduplicate: prefer https over http
 dedup_awk='
-  /^https:\/\// { https[$0]=1 }
-  /^http:\/\// { http[$0]=1 }
-  END {
-    for (u in https) print u
-    for (u in http) {
-      alt = u
-      sub(/^http:/, "https:", alt)
-      if (!(alt in https)) print u
+  {
+    orig = $0
+    norm = $0
+    sub(/^http:/, "https:", norm)
+    sub(/^https?:\/\/www\./, "https://", norm)
+    sub(/^https?:\/\//, "https://", norm)
+    if (!(norm in seen)) {
+      seen[norm] = orig
+    } else {
+      # Prefer https and non-www if available
+      if (orig ~ /^https:\/\// && orig !~ /\/\/www\./) {
+        seen[norm] = orig
+      }
     }
+  }
+  END {
+    for (u in seen) print seen[u]
   }
 '
 
@@ -29,11 +37,12 @@ url=$(
   fzfmenu "$@" \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
+    --preview="title=\$(sqlite3 '$PLACES' \"SELECT title FROM moz_places WHERE url={1}\"); [ -n \"\$title\" ] && echo \"\$title\" || echo \"{1}\"" \
+    --preview-window=down,3,wrap \
     < <(
       sqlite3 "$PLACES" "$bookmarks; $history" 2>/dev/null | awk 'NF && $1!=""' | awk "$dedup_awk"
     )
 )
-url=$(echo "$url" | xargs)  # trim whitespace
 [ -n "$url" ] || exit 1
 
 # If input does not look like a URL, search it
