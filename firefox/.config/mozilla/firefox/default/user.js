@@ -1291,7 +1291,7 @@ user_pref("_user.js.parrot", "SUCCESS: No no he's not dead, he's, he's restin'!"
 // -------------------------------------------------
 
 // enable userChrome.css and userContent.css
-user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
+user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", false);
 
 // fix fullscreen because firefox is garbage
 user_pref("full-screen-api.ignore-widgets", true);
