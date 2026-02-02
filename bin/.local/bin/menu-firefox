@@ -19,13 +19,8 @@ dedup_awk='
     sub(/^http:/, "https:", norm)
     sub(/^https?:\/\/www\./, "https://", norm)
     sub(/^https?:\/\//, "https://", norm)
-    if (!(norm in seen)) {
+    if (!(norm in seen) || (orig ~ /^https:\/\// && orig !~ /\/\/www\./)) {
       seen[norm] = orig
-    } else {
-      # Prefer https and non-www if available
-      if (orig ~ /^https:\/\// && orig !~ /\/\/www\./) {
-        seen[norm] = orig
-      }
     }
   }
   END {
@@ -39,8 +34,21 @@ url=$(
     --ansi \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
-    --preview="title=\$(sqlite3 '$PLACES' \"SELECT title FROM moz_places WHERE url={2}\"); [ -n \"\$title\" ] && echo \"\$title\" || echo \"{2}\"" \
-    --preview-window=down,3,wrap \
+    --preview='
+    get_title() {
+      local url="$1"
+      local title=$(sqlite3 "'"$PLACES"'" "SELECT title FROM moz_places WHERE url='\''$url'\''")
+      if [ -z "$title" ]; then
+        title=$(lynx -dump -source "$url" 2>/dev/null | xmllint --html --xpath '\''//title/text()'\'' - 2>/dev/null)
+      fi
+      if [ -z "$title" ]; then
+        title="$url"
+      fi
+      printf "%s\n" "$title" | awk '\''{$1=$1;print}'\''
+    }
+    get_title {2}
+    ' \
+    --preview-window=down,2,wrap \
     < <(
       # Firefox bookmarks (highlighted)
       sqlite3 "$PLACES" "$bookmarks" 2>/dev/null | awk 'NF && $1!="" {print "\033[33m★\033[0m " $1}'
