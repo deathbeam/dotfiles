@@ -1,13 +1,12 @@
 #!/bin/sh
 shopt -s nullglob globstar
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 prefix=${PASSWORD_STORE_DIR-~/.password-store}
 password_files=( "$prefix"/**/*.gpg )
 password_files=( "${password_files[@]#"$prefix"/}" )
 password_files=( "${password_files[@]%.gpg}" )
 
-password=$(printf '%s\n' "${password_files[@]}" | $scriptpath/fzfmenu "$@")
+password=$(printf '%s\n' "${password_files[@]}" | fzfmenu "$@")
 
 [[ -n $password ]] || exit 1
 

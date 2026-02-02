@@ -1,17 +1,22 @@
 #!/bin/sh
-# menu-firefox
 
-FF_PROFILE="$HOME/.config/mozilla/firefox/$(grep Default ~/.config/mozilla/firefox/profiles.ini | head -n1 | cut -d= -f2)"
+# Constants
+MARKER="★"
+COLOR_YELLOW="\033[33m"
+COLOR_RESET="\033[0m"
+FIREFOX_CONFIG="$HOME/.config/mozilla/firefox"
+BOOKMARKS_DIR="$HOME/.config/bookmarks"
+SEARCH_URL="https://duckduckgo.com/?q="
+
+FF_PROFILE="$FIREFOX_CONFIG/$(grep Default "$FIREFOX_CONFIG/profiles.ini" | head -n1 | cut -d= -f2)"
 PLACES="file:$FF_PROFILE/places.sqlite?immutable=1"
 
-# Get bookmarks (url only)
+# SQL queries
 bookmarks="SELECT DISTINCT url FROM moz_bookmarks JOIN moz_places ON moz_bookmarks.fk=moz_places.id WHERE url NOT NULL"
-bookmarks_extra="find ~/.config/bookmarks/ -type f -exec awk 'NF && \$1!=\"\" {print \$1}' {} +"
-
-# Get recent history (url only)
+bookmarks_extra="find '$BOOKMARKS_DIR/' -type f -exec awk 'NF && \$1!=\"\" {print \$1}' {} +"
 history="SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC"
 
-# Deduplicate: prefer https over http
+# Deduplication awk script
 dedup_awk='
   {
     orig = $0
@@ -28,46 +33,48 @@ dedup_awk='
   }
 '
 
-# Use fzfmenu for selection, streaming results as they are generated
+# Preview function to show title of the URL
+preview_func='
+  local url={2}
+  local title
+  title=$(sqlite3 "'"$PLACES"'" "SELECT title FROM moz_places WHERE url='\''$url'\''")
+  if [ -z "$title" ]; then
+    title=$(lynx -dump -source "$url" 2>/dev/null | xmllint --html --xpath '\''//title/text()'\'' - 2>/dev/null)
+  fi
+  if [ -z "$title" ]; then
+    title="$url"
+  fi
+  printf "%s\n" "$title" | awk '\''{$1=$1;print}'\''
+'
+
+# Create menu and get selected URL
 url=$(
   fzfmenu "$@" \
     --ansi \
     --bind="ctrl-s:print-query" \
     --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
-    --preview='
-    get_title() {
-      local url="$1"
-      local title=$(sqlite3 "'"$PLACES"'" "SELECT title FROM moz_places WHERE url='\''$url'\''")
-      if [ -z "$title" ]; then
-        title=$(lynx -dump -source "$url" 2>/dev/null | xmllint --html --xpath '\''//title/text()'\'' - 2>/dev/null)
-      fi
-      if [ -z "$title" ]; then
-        title="$url"
-      fi
-      printf "%s\n" "$title" | awk '\''{$1=$1;print}'\''
-    }
-    get_title {2}
-    ' \
+    --preview="$preview_func" \
     --preview-window=down,2,wrap \
     < <(
       # Firefox bookmarks (highlighted)
-      sqlite3 "$PLACES" "$bookmarks" 2>/dev/null | awk 'NF && $1!="" {print "\033[33m★\033[0m " $1}'
+      sqlite3 "$PLACES" "$bookmarks" 2>/dev/null | awk "NF && \$1!=\"\" {print \"$COLOR_YELLOW$MARKER$COLOR_RESET \" \$1}"
       # Bookmarks extra (highlighted)
-      eval "$bookmarks_extra" | awk 'NF && $1!="" {print "\033[33m★\033[0m " $1}'
+      eval "$bookmarks_extra" | awk "NF && \$1!=\"\" {print \"$COLOR_YELLOW$MARKER$COLOR_RESET \" \$1}"
       # History (not highlighted)
       sqlite3 "$PLACES" "$history" 2>/dev/null | awk 'NF && $1!=""'
     ) | awk "$dedup_awk"
 )
 
 # Strip marker if present
-url=$(printf '%s' "$url" | sed 's/^[^ ]* //')
+url=$(printf '%s' "$url" | sed "s/^$MARKER //")
 
+# Exit if no selection
 [ -n "$url" ] || exit 1
 
 # If input does not look like a URL, search it
 is_url_regex='^[a-zA-Z][a-zA-Z0-9+.-]*://|^www\.|^about:'
 if ! printf '%s' "$url" | grep -qE "$is_url_regex"; then
-  url="https://duckduckgo.com/?q=$(printf '%s' "$url" | jq -sRr @uri)"
+  url="${SEARCH_URL}$(printf '%s' "$url" | jq -sRr @uri)"
 fi
 
 exec firefox --fullscreen --new-window "$url"

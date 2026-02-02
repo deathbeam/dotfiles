@@ -1,5 +1,4 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 # Start mpv in background
 mpv_socket="/tmp/mpv-preview-socket"
@@ -28,7 +27,7 @@ windows=$(hyprctl -j clients | jq -r 'sort_by(.focusHistoryID) | .[] | select(.w
 
 # Run fzfmenu with preview
 selected=$(printf '%s\n' "$windows" | \
-    "$scriptpath/fzfmenu" "$@" \
+    fzfmenu "$@" \
       --with-nth "2.." \
       --preview "previewwindow $mpv_socket {1}" \
       | awk -F'\t' '{print $1}')

@@ -1,5 +1,4 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 QUTE_CONFIG_DIR="$HOME/.config/qutebrowser"
 QUTE_DATA_DIR="$HOME/.local/share/qutebrowser"
@@ -19,7 +18,7 @@ create_menu() {
     printf -- '%s\n' "$(sqlite3 -separator ' ' "$QUTE_DATA_DIR/history.sqlite" 'select title, url from CompletionHistory ORDER BY last_atime DESC')"
 }
 
-url=$(create_menu | $scriptpath/fzfmenu "$@")
+url=$(create_menu | fzfmenu "$@")
 
 [[ -n $url ]] || exit 1
 

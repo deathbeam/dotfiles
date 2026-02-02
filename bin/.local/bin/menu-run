@@ -1,11 +1,10 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 selected_cmd=$(
     echo -n "$PATH" \
         | xargs -d: -I{} -r -- find -L {} -maxdepth 1 -mindepth 1 -type f -executable -printf '%P\n' 2>/dev/null \
         | sort -u \
-        | $scriptpath/fzfmenu "$@" \
+        | fzfmenu "$@" \
         --preview="which {}" \
         --preview-window=down,1
 )

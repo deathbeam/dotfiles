@@ -1,5 +1,4 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 processes="$(
   ps -eo %cpu,%mem,pid,user,cmd | {
@@ -13,7 +12,7 @@ processes="$(
   }
 )"
 process=$(echo "$processes" \
-    | $scriptpath/fzfmenu "$@" \
+    | fzfmenu "$@" \
     --header-lines=1 \
     --preview="echo {} | tr -s ' ' | cut -d ' ' -f 6-" \
     --preview-window=down,3,wrap \

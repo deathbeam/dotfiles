@@ -1,5 +1,4 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 installed=$(yay -Qq)
 available=$(yay -Slq)
@@ -8,7 +7,7 @@ installed_pkgs=$(printf "%s\n" "$installed" | awk '{print "\033[0;33m" $0 "\033[
 available_pkgs=$(printf "%s\n" "$available" | grep -vxFf <(printf "%s\n" "$installed"))
 all_pkgs=$(printf "%s\n%s\n" "$installed_pkgs" "$available_pkgs")
 
-pkg=$(printf "%s\n" "$all_pkgs" | "$scriptpath/fzfmenu" -p "yay" --ansi --preview="yay -Si {1}")
+pkg=$(printf "%s\n" "$all_pkgs" | fzfmenu -p "yay" --ansi --preview="yay -Si {1}")
 
 [ -z "$pkg" ] && exit 1
 

@@ -1,8 +1,6 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
-
 chosen_line=$(cliphist list \
-    | $scriptpath/fzfmenu "$@" \
+    | fzfmenu "$@" \
     --with-nth=2.. \
     --preview="echo {} | cliphist decode" \
     --preview-window=right:40%)

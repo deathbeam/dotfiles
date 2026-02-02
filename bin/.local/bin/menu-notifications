@@ -1,9 +1,7 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
-
 notifications="$(dunstctl history | jq -r '.data[] | .[] | [.id.data, .appname.data, .summary.data, (.body.data | @base64)] | join("|")')"
 notification=$(echo "$notifications" | awk -F'|' '{print $0 "|" $2 ": " $3}' \
-    | $scriptpath/fzfmenu "$@" \
+    | fzfmenu "$@" \
     --delimiter='|' \
     --with-nth=5 \
     --preview="echo {4} | base64 -d | fold -s -w \$COLUMNS" \

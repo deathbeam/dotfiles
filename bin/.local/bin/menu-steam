@@ -1,13 +1,12 @@
 #!/bin/sh
 shopt -s nullglob globstar
-scriptpath=$(dirname "$(readlink -f "$0")")
 
 games="$(for file in ~/.steam/steam/steamapps/*.acf; do
     echo "$(grep -oP '"appid"\s+"\K\d+' "$file"): $(grep -oP '"name"\s+"\K[^"]+' "$file")"
 done)"
 
 appid=$(echo "$games" | \
-    $scriptpath/fzfmenu "$@" \
+    fzfmenu "$@" \
     --with-nth=2.. \
     | grep -oP '^\d+')
 
