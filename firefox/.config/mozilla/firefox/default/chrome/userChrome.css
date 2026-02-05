@@ -3,54 +3,17 @@
   visibility: collapse !important;
 }
 
-/* Hide navigation toolbox when unfocused */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) {
-  max-height: 1px !important;
-  min-height: 0px !important;
-  overflow: hidden !important;
-}
-
-/* Hide navigation bar when unfocused */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #nav-bar {
-  max-height: 0 !important;
-  min-height: 0 !important;
-  opacity: 0 !important;
-  margin-bottom: -10px !important;
-}
-
-/* Hide navigator-toolbox borders */
-#navigator-toolbox {
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-}
-
-/* Hide annoying black line at top in fullscreen */
-#navigator-toolbox::after {
-  display: none !important;
-}
-
-/* Hide all children of nav-bar except add-on panels */
-:root:not([customizing]) #nav-bar > :not(#customizationui-widget-panel) {
-  display: none !important;
-}
-
 /* Set navbar height to 0 */
-:root:not([customizing]) #nav-bar {
+#nav-bar {
   max-height: 0 !important;
   min-height: 0 !important;
 }
 
 /* Hide urlbar */
-:root:not([customizing]) #navigator-toolbox:not(:hover):not(:focus-within) #urlbar {
+#urlbar {
   min-height: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
-}
-
-/* Fix urlbar container height */
-:root:not([customizing]) #navigator-toolbox #urlbar-container {
-  --urlbar-container-height: auto !important;
 }
 
 /* Hide titlebar */
