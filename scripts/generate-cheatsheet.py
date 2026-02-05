@@ -52,7 +52,7 @@ def get_neovim_leader_keymaps():
     try:
         logging.info("Extracting Neovim <leader> keymaps using :map commands...")
         result = subprocess.run(
-            ["nvim", "--headless", "-c", "lua require('vim._extui').enable({ enable = false })"] +
+            ["nvim", "--headless"] +
             sum([["-c", cmd] for cmd in vim_cmds], []) +
             ["+qall"],
             text=True, timeout=5, capture_output=True

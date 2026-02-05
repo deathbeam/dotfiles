@@ -26,7 +26,6 @@ install:
 	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	zsh -ic 'fast-theme base16'
 	nvim --headless \
-		-c "lua require('vim._extui').enable({ enable = false })" \
 		+MasonUpdateSync \
 		+TSUpdateSync \
 		+UpdateRemotePlugins \

@@ -11,12 +11,14 @@ vim.o.pumborder = 'single'
 vim.g.helpful = 1
 
 -- Ext ui native
-require('vim._extui').enable({
-    msg = {
-        target = 'cmd',
-        timeout = 1000,
-    },
-})
+if not vim.tbl_contains(vim.fn.argv(), '--headless') then
+    require('vim._core.ui2').enable({
+        msg = {
+            target = 'cmd',
+            timeout = 1000,
+        },
+    })
+end
 
 -- Set base16 colorscheme
 au('ColorScheme', {
