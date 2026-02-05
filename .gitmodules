@@ -96,9 +96,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treehopper"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treehopper
 	url = https://github.com/mfussenegger/nvim-treehopper
-[submodule "nvim/.config/nvim/pack/bundle/start/mcphub.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/mcphub.nvim
-	url = https://github.com/ravitemer/mcphub.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
 	url = https://github.com/andrewferrier/debugprint.nvim
