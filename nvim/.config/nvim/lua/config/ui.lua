@@ -7,18 +7,19 @@ local icons = require('config.icons')
 vim.o.winborder = 'single'
 vim.o.pumborder = 'single'
 
--- Enable help stuff
-vim.g.helpful = 1
-
 -- Ext ui native
-if not vim.tbl_contains(vim.fn.argv(), '--headless') then
-    require('vim._core.ui2').enable({
-        msg = {
-            target = 'cmd',
-            timeout = 1000,
-        },
-    })
-end
+au('VimEnter', {
+    callback = function()
+        if #vim.api.nvim_list_uis() > 0 then
+            require('vim._core.ui2').enable({
+                msg = {
+                    target = 'cmd',
+                    timeout = 1000,
+                },
+            })
+        end
+    end,
+})
 
 -- Set base16 colorscheme
 au('ColorScheme', {
