@@ -1,22 +1,6 @@
-/* Hide tabs toolbar */
-#TabsToolbar {
-  visibility: collapse !important;
-}
-
-/* Set navbar height to 0 */
-#nav-bar {
+#TabsToolbar, #PersonalToolbar, #nav-bar, #urlbar, #titlebar {
   max-height: 0 !important;
-  min-height: 0 !important;
-}
-
-/* Hide urlbar */
-#urlbar {
   min-height: 0 !important;
   height: 0 !important;
   overflow: hidden !important;
-}
-
-/* Hide titlebar */
-#titlebar {
-  display: none !important;
 }

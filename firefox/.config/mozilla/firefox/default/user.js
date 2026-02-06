@@ -50,6 +50,8 @@ user_pref("network.connectivity-service.enabled", false);
 user_pref("browser.shopping.experience2023.enabled", false);
 /* Disable Pocket */
 user_pref("browser.urlbar.pocket.featureGate", false);
+/* Disable ML */
+user_pref("browser.ml.enable", false);
 
 /*** [SECTION 0400]: SAFE BROWSING ***/
 user_pref("_user.js.parrot", "0400 syntax error: SAFE BROWSING");
