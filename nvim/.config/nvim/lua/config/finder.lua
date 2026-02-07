@@ -17,7 +17,7 @@ fzf.setup({
     fzf_opts = {
         ['--info'] = false,
         ['--border'] = false,
-        ['--tmux'] = 'bottom,50%',
+        ['--tmux'] = '100%,100%',
     },
     defaults = {
         formatter = 'path.filename_first',
@@ -35,6 +35,20 @@ fzf.setup({
         rg_opts = ' --hidden --ignore --glob "!.git/" --column --line-number --no-heading --color=always --smart-case --max-columns=4096 -e',
         prompt = 'Grep❯ ',
         no_column_hide = true,
+    },
+    lsp = {
+        code_actions = {
+            fzf_opts = {
+                ['--tmux'] = 'bottom,50%',
+            },
+        },
+    },
+    dap = {
+        configurations = {
+            fzf_opts = {
+                ['--tmux'] = 'bottom,50%',
+            },
+        },
     },
     oldfiles = {
         include_current_session = true,
