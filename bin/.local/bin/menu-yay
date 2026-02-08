@@ -1,19 +1,22 @@
 #!/bin/sh
 
-installed=$(yay -Qq)
-available=$(yay -Slq)
+fifo=$(mktemp -u)
+mkfifo "$fifo"
 
-installed_pkgs=$(printf "%s\n" "$installed" | awk '{print "\033[0;33m" $0 "\033[0m"}')
-available_pkgs=$(printf "%s\n" "$available" | grep -vxFf <(printf "%s\n" "$installed"))
-all_pkgs=$(printf "%s\n%s\n" "$installed_pkgs" "$available_pkgs")
+# Print installed packages in yellow immediatelly
+yay -Qq | awk '{print "\033[0;33m" $0 "\033[0m"}' > "$fifo" &
 
-pkg=$(printf "%s\n" "$all_pkgs" | fzfmenu -p "yay" --ansi --preview="yay -Si {1}")
+# Print available packages in background, excluding installed ones
+(yay -Slq | grep -vxFf <(yay -Qq) >> "$fifo") &
+
+pkg=$(cat "$fifo" | fzfmenu -p "yay" --ansi --preview="yay -Si {1}")
+rm "$fifo"
 
 [ -z "$pkg" ] && exit 1
 
 name=$(echo "$pkg" | awk '{print $1}')
 
-if printf "%s\n" "$installed" | grep -qx "$name"; then
+if yay -Qq | grep -qx "$name"; then
     action="Uninstalling"
     cmd="yay -Rns $name"
 else
