@@ -61,7 +61,7 @@ c.tabs.pinned.shrink = False
 c.tabs.new_position.related = "last"
 
 # Play videos with mpv
-config.bind('e', 'spawn --userscript /usr/share/qutebrowser/userscripts/view_in_mpv')
+config.bind('e', 'spawn mpv {url}')
 config.bind('E', 'hint links spawn --detach mpv {hint-url}')
 
 # Readability
