@@ -2,25 +2,38 @@
 
 QUTE_CONFIG_DIR="$HOME/.config/qutebrowser"
 QUTE_DATA_DIR="$HOME/.local/share/qutebrowser"
+BOOKMARKS_DIR="$HOME/.config/bookmarks"
 
-create_menu() {
-    # Check quickmarks
-    while read -r url; do
-        printf -- '%s\n' "$url"
-    done < "$QUTE_CONFIG_DIR"/quickmarks
+# Deduplication awk script (same as menu-firefox)
+dedup_awk='
+  {
+    orig = $0
+    norm = $0
+    sub(/^http:/, "https:", norm)
+    sub(/^https?:\/\/www\./, "https://", norm)
+    sub(/^https?:\/\//, "https://", norm)
+    if (!(norm in seen) || (orig ~ /^https:\/\// && orig !~ /\/\/www\./)) {
+      seen[norm] = orig
+    }
+  }
+  END {
+    for (u in seen) print seen[u]
+  }
+'
 
-    # Next bookmarks
-    while read -r url _; do
-        printf -- '%s\n' "$url"
-    done < "$QUTE_CONFIG_DIR"/bookmarks/urls
+# Build menu: quickmarks, bookmarks, history
+url=$(
+  fzfmenu "$@" < <(
+    # Quickmarks
+    awk 'NF && $1!="" {print $1}' "$QUTE_CONFIG_DIR/quickmarks" 2>/dev/null
+    # Bookmarks (same as menu-firefox)
+    find "$BOOKMARKS_DIR/" -type f -exec awk 'NF && $1!="" {print $1}' {} + 2>/dev/null
+    # History
+    sqlite3 "$QUTE_DATA_DIR/history.sqlite" "SELECT url FROM CompletionHistory ORDER BY last_atime DESC" 2>/dev/null | awk 'NF && $1!=""'
+  ) | awk "$dedup_awk"
+)
 
-    # Finally history
-    printf -- '%s\n' "$(sqlite3 -separator ' ' "$QUTE_DATA_DIR/history.sqlite" 'select title, url from CompletionHistory ORDER BY last_atime DESC')"
-}
-
-url=$(create_menu | fzfmenu "$@")
-
-[[ -n $url ]] || exit 1
+[ -n "$url" ] || exit 1
 
 url=${url/*http/http}
 exec qutebrowser --target window "$url"

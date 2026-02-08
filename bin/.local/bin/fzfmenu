@@ -1,8 +1,8 @@
 #!/bin/sh
-scriptpath=$(dirname "$(readlink -f "$0")")
 
-FILE_ARGS=$(mktemp /tmp/fzfmenu_args.XXXXXX)
+FILE_ARGS=$(mktemp -u /tmp/fzfmenu_args.XXXXXX)
 FILE_CHOICES=$(mktemp /tmp/fzfmenu_choices.XXXXXX)
+FEEDER_PID=""
 TITLE=""
 TERM_CLASS="--class"
 if [ "$TERMINAL" = "st" ]; then
@@ -28,23 +28,29 @@ kill_old() {
 }
 
 scan_args() {
-  while IFS= read -r line; do echo "$line"; done
-  [ -n "$line" ] && echo "$line"
+  cat > "$FILE_ARGS"
 }
 
 show() {
-  while IFS= read -r line; do echo "$line"; done < "$FILE_CHOICES";
+  cat "$FILE_CHOICES";
 }
 
 run_menu() {
-  scan_args > "$FILE_ARGS"
+  # Kill existing instances of menu
   kill_old
+  # Create named pipe for streaming
+  mkfifo "$FILE_ARGS"
+  # Start writer in background
+  scan_args &
+  FEEDER_PID=$!
+  # Start the menu (reader)
   prompt "$@"
+  # Wait for feeder to finish and clean up
+  wait $FEEDER_PID 2>/dev/null
   show
 }
 
 prompt() {
-  : > "$FILE_CHOICES"
   $TERMINAL $TERM_CLASS shellmenu -T "$TITLE" \
     -e "$SHELL" -c "
       exec fzf \
@@ -62,7 +68,7 @@ prompt() {
           $PROMPT $QUERY $@ < $FILE_ARGS | tail -n 1 >! $FILE_CHOICES
   " &
   pid=$!
-  trap "kill -TERM $pid" SIGTERM
+  trap "kill -TERM $pid $FEEDER_PID 2>/dev/null" SIGTERM
   wait $pid
   [ -s "$FILE_CHOICES" ] || exit 1
 }
