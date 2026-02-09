@@ -475,7 +475,7 @@
 | alias | `parr` | `yay -Rnsu --noconfirm`
 | alias | `pau` | `yay -Syu`
 | alias | `pauu` | `yay -Syu --noconfirm`
-| alias | `reset` | `command reset   && [ -f /base16_shell_theme ]   && . /base16_shell_theme`
+| alias | `reset` | `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme`
 | alias | `run-help` | `man`
 | alias | `vim` | `nvim`
 | alias | `vimdiff` | `nvim -d`
