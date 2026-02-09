@@ -130,6 +130,7 @@ function setproxy {
   export HTTPS_PROXY=$http_proxy
   export FTP_PROXY=$http_proxy
   export RSYNC_PROXY=$http_proxy
+  export NO_PROXY=localhost,127.0.0.1
 }
 
 # Unset proxy
