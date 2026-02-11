@@ -2,6 +2,7 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import Quickshell.Services.SystemTray
 
 ShellRoot {
     Variants {
@@ -47,6 +48,18 @@ ShellRoot {
                 BatteryWidget {}
                 ClockWidget {}
                 NotificationsWidget {}
+
+                Repeater {
+                    model: SystemTray.items
+                    delegate: Item {
+                        Image {
+                            source: modelData.icon
+                            width: Theme.fontSize
+                            height: Theme.fontSize
+                            fillMode: Image.PreserveAspectFit
+                        }
+                    }
+                }
             }
         }
     }

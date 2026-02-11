@@ -65,11 +65,11 @@ install_asdf_pkgs() {
 }
 
 enable_services() {
-  sudo systemctl enable "${@}"
+  sudo systemctl enable --now "${@}"
 }
 
 enable_user_services() {
-  systemctl --user enable "${@}"
+  systemctl --user enable --now "${@}"
 }
 
 enable_groups() {

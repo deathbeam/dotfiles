@@ -23,6 +23,7 @@ packages=(
     glow # markdown viewer
     fastfetch # system information
     witr-bin # why is this running
+    cloudflare-warp-bin # cloudflare warp client
 )
 install_pkgs "${packages[@]}"
 
@@ -39,6 +40,7 @@ sudo ln -sf ${dot_dir}/keyd/default.conf /etc/keyd/default.conf
 services=(
     keyd
     power-profiles-daemon
+    warp-svc
 )
 enable_services "${services[@]}"
 
@@ -56,6 +58,10 @@ append_pacman_option "ParallelDownloads = 10"
 if grep -q "ExecStart=/usr/lib/systemd/systemd-networkd-wait-online$" /etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service; then
     sudo sed -i 's|ExecStart=/usr/lib/systemd/systemd-networkd-wait-online|ExecStart=/usr/lib/systemd/systemd-networkd-wait-online --any|' /etc/systemd/system/network-online.target.wants/systemd-networkd-wait-online.service
 fi
+
+# Enable warp
+yes | warp-cli registration new
+warp-cli connect
 
 # Modify groups
 groups=(
