@@ -64,6 +64,19 @@ require('tinted-nvim').setup({
     selector = {
         enabled = false,
     },
+    capabilities = {
+        undercurl = true
+    },
+    highlights = {
+        use_lazy_specs = false
+    },
+    integrations = {
+        telescope = false,
+        cmp = false,
+        blink = false,
+        dapui = false,
+        lualine = false
+    }
 })
 
 -- Load icons
@@ -94,18 +107,6 @@ oil.setup({
         ['<C-l>'] = false,
     },
 })
-
--- This causes following error:
--- grid_alloc: Assertion `rows >= 0 && columns >= 0' failed.
--- when opening nvim ., then using :h and then :<anything> with extui enabled probably?
--- Possibly other messages + cmdline autocomplete can cause this too, but this one im sure of
--- See: https://github.com/neovim/neovim/issues/35517
--- au('User', {
---     pattern = 'OilEnter',
---     callback = function()
---         oil.open_preview()
---     end,
--- })
 
 nmap('-', oil.open, 'Open parent directory')
 
