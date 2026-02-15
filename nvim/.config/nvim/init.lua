@@ -6,12 +6,12 @@ vim.cmd([[
 ]])
 
 local function r(module)
-    local status_ok, loaded_module = pcall(require, module)
-    if not status_ok then
-        vim.notify('Error loading ' .. module, vim.log.levels.ERROR)
-        vim.notify(loaded_module, vim.log.levels.ERROR)
+    local ok, mod = pcall(require, module)
+    if not ok then
+        vim.notify(('Error loading %s: %s'):format(module, mod), vim.log.levels.ERROR)
+        return nil
     end
-    return loaded_module
+    return mod
 end
 
 r('config.myplugins')
