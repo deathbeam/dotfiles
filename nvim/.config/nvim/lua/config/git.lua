@@ -7,32 +7,32 @@ local vmap = utils.vmap
 
 -- GitHub permalink command
 local function github_permalink()
-  local api = vim.api
-  local file = api.nvim_buf_get_name(0)
-  if file == "" then
-    print("No file")
-    return
-  end
-  local cwd = vim.fn.getcwd()
-  local git_root = vim.fn.systemlist("git rev-parse --show-toplevel")[1]
-  local relpath = vim.fn.fnamemodify(file, ":.")
-  if git_root and git_root ~= "" then
-    relpath = vim.fn.fnamemodify(file, ":~:.")
-    relpath = vim.fn.systemlist("realpath --relative-to=" .. git_root .. " " .. file)[1]
-  end
-  local branch = vim.fn.systemlist("git rev-parse --abbrev-ref HEAD")[1]
-  local line = api.nvim_win_get_cursor(0)[1]
-  local repo_url = vim.fn.systemlist("gh repo view --json url -q .url")[1]
-  if not repo_url or repo_url == "" then
-    print("Not a GitHub repo or gh not installed")
-    return
-  end
-  local url = string.format("%s/blob/%s/%s#L%d", repo_url, branch, relpath, line)
-  vim.fn.setreg("+", url)
-  print("GitHub permalink copied to clipboard:\n" .. url)
+    local api = vim.api
+    local file = api.nvim_buf_get_name(0)
+    if file == '' then
+        print('No file')
+        return
+    end
+    local cwd = vim.fn.getcwd()
+    local git_root = vim.fn.systemlist('git rev-parse --show-toplevel')[1]
+    local relpath = vim.fn.fnamemodify(file, ':.')
+    if git_root and git_root ~= '' then
+        relpath = vim.fn.fnamemodify(file, ':~:.')
+        relpath = vim.fn.systemlist('realpath --relative-to=' .. git_root .. ' ' .. file)[1]
+    end
+    local branch = vim.fn.systemlist('git rev-parse --abbrev-ref HEAD')[1]
+    local line = api.nvim_win_get_cursor(0)[1]
+    local repo_url = vim.fn.systemlist('gh repo view --json url -q .url')[1]
+    if not repo_url or repo_url == '' then
+        print('Not a GitHub repo or gh not installed')
+        return
+    end
+    local url = string.format('%s/blob/%s/%s#L%d', repo_url, branch, relpath, line)
+    vim.fn.setreg('+', url)
+    print('GitHub permalink copied to clipboard:\n' .. url)
 end
 
-vim.api.nvim_create_user_command("GitHubLink", github_permalink, {})
+vim.api.nvim_create_user_command('GitHubLink', github_permalink, {})
 
 -- Enable difftool
 vim.cmd.packadd('nvim.difftool')
@@ -90,15 +90,15 @@ gitsigns.setup({
             gitsigns.diffthis('~')
         end, 'Diff this (cached)', bufnr)
         nmap('<leader>gw', function()
-          local diffopt = vim.opt.diffopt:get()
-          local has_iwhite = vim.tbl_contains(diffopt, 'iwhite')
-          if has_iwhite then
-            vim.opt.diffopt:remove('iwhite')
-            vim.notify("Whitespace will be shown in diff", vim.log.levels.INFO)
-          else
-            vim.opt.diffopt:append('iwhite')
-            vim.notify("Whitespace will be ignored in diff", vim.log.levels.INFO)
-          end
+            local diffopt = vim.opt.diffopt:get()
+            local has_iwhite = vim.tbl_contains(diffopt, 'iwhite')
+            if has_iwhite then
+                vim.opt.diffopt:remove('iwhite')
+                vim.notify('Whitespace will be shown in diff', vim.log.levels.INFO)
+            else
+                vim.opt.diffopt:append('iwhite')
+                vim.notify('Whitespace will be ignored in diff', vim.log.levels.INFO)
+            end
         end, 'Toggle ignore whitespace in diff')
     end,
 })

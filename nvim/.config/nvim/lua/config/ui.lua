@@ -7,6 +7,9 @@ local icons = require('config.icons')
 vim.o.winborder = 'single'
 vim.o.pumborder = 'single'
 
+-- Enable colors
+vim.opt.termguicolors = true
+
 -- Ext ui native
 au('VimEnter', {
     callback = function()
@@ -25,8 +28,8 @@ au('VimEnter', {
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
-        local base16 = require('tinted-colorscheme')
-        local bright_black = base16.colors.base03
+        local base16 = require('tinted-nvim').get_palette()
+        local bright_black = base16.base03
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'LineNr', { fg = bright_black })
@@ -56,9 +59,12 @@ au('ColorScheme', {
     end,
 })
 
-vim.opt.termguicolors = true
-vim.g.tinted_live_reload_registered = true
-vim.cmd('colorscheme base16-' .. os.getenv('BASE16_THEME_DEFAULT'))
+require('tinted-nvim').setup({
+    default_scheme = 'base16-' .. os.getenv('BASE16_THEME_DEFAULT'),
+    selector = {
+        enabled = false,
+    },
+})
 
 -- Load icons
 require('nvim-web-devicons').setup()

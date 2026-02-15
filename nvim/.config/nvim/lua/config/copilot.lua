@@ -15,7 +15,7 @@ chat.setup({
     sticky = {
         '#buffer:listed',
         '#selection',
-        '#gitdiff'
+        '#gitdiff',
     },
     diff = 'block',
     chat_autocomplete = false,

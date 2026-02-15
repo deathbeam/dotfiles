@@ -40,14 +40,14 @@ vim.diagnostic.config({
 
 vim.lsp.semantic_tokens.enable(false)
 
-require("tiny-inline-diagnostic").setup({
-    preset = "classic",
+require('tiny-inline-diagnostic').setup({
+    preset = 'classic',
     options = {
         multilines = {
-            enabled = true
+            enabled = true,
         },
-        use_icons_from_diagnostic = true
-    }
+        use_icons_from_diagnostic = true,
+    },
 })
 
 -- Setup LSP mappings
