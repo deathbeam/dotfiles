@@ -43,28 +43,28 @@ detect_browser() {
       return
     fi
   fi
-  
+
   if command -v chromium >/dev/null 2>&1 || command -v chromium-browser >/dev/null 2>&1; then
     if [ -d "$HOME/.config/chromium/Default" ]; then
       echo "chromium"
       return
     fi
   fi
-  
+
   if command -v firefox >/dev/null 2>&1; then
     if [ -f "$HOME/.mozilla/firefox/profiles.ini" ]; then
       echo "firefox"
       return
     fi
   fi
-  
+
   if command -v qutebrowser >/dev/null 2>&1; then
     if [ -d "$HOME/.local/share/qutebrowser" ]; then
       echo "qutebrowser"
       return
     fi
   fi
-  
+
   echo "none"
 }
 
@@ -77,12 +77,12 @@ collect_bookmarks() {
 collect_firefox() {
   FIREFOX_CONFIG="$HOME/.mozilla/firefox"
   [ -f "$FIREFOX_CONFIG/profiles.ini" ] || return
-  
+
   FF_PROFILE="$FIREFOX_CONFIG/$(grep Default "$FIREFOX_CONFIG/profiles.ini" | head -n1 | cut -d= -f2)"
   PLACES="file:$FF_PROFILE/places.sqlite?immutable=1"
-  
+
   [ -f "$FF_PROFILE/places.sqlite" ] || return
-  
+
   sqlite3 "$PLACES" "SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
@@ -90,7 +90,7 @@ collect_firefox() {
 collect_qutebrowser() {
   QUTE_DATA_DIR="$HOME/.local/share/qutebrowser"
   [ -f "$QUTE_DATA_DIR/history.sqlite" ] || return
-  
+
   sqlite3 "$QUTE_DATA_DIR/history.sqlite" "SELECT url FROM CompletionHistory ORDER BY last_atime DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
@@ -98,7 +98,7 @@ collect_qutebrowser() {
 collect_brave() {
   BRAVE_HISTORY="$HOME/.config/BraveSoftware/Brave-Browser/Default/History"
   [ -f "$BRAVE_HISTORY" ] || return
-  
+
   sqlite3 "file:$BRAVE_HISTORY?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
@@ -106,7 +106,7 @@ collect_brave() {
 collect_chromium() {
   CHROMIUM_HISTORY="$HOME/.config/chromium/Default/History"
   [ -f "$CHROMIUM_HISTORY" ] || return
-  
+
   sqlite3 "file:$CHROMIUM_HISTORY?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
@@ -114,15 +114,15 @@ collect_chromium() {
 preview_func='
   local url={2}
   local title
-  
+
   # Fetch title from web
   title=$(lynx -dump -source "$url" 2>/dev/null | xmllint --html --xpath '\''//title/text()'\'' - 2>/dev/null)
-  
+
   # Fallback: show URL
   if [ -z "$title" ]; then
     title="$url"
   fi
-  
+
   printf "%s\n" "$title" | awk '\''{$1=$1;print}'\''
 '
 
@@ -136,19 +136,20 @@ fi
 
 # Build menu and get selected URL
 url=$(
-  fzfmenu "$@" \
-    --ansi \
-    --bind="ctrl-s:print-query" \
-    --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
-    --preview="$preview_func" \
-    --preview-window=down,2,wrap \
-    < <(
-      collect_bookmarks
+  {
+    collect_bookmarks
+    {
       collect_firefox
       collect_qutebrowser
       collect_brave
       collect_chromium
-    ) | awk "$dedup_awk"
+    } | awk "$dedup_awk"
+  } | fzfmenu "$@" \
+    --ansi \
+    --bind="ctrl-s:print-query" \
+    --header='<ctrl-s> to search, <ctrl-y> to copy to clipboard' \
+    --preview="$preview_func" \
+    --preview-window=down,2,wrap
 )
 
 # Strip marker if present
