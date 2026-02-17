@@ -14,7 +14,8 @@ packages=(
     dunst
     cava
     zathura zathura-pdf-mupdf libreoffice-fresh gimp krita kdenlive # viewers and editors
-    qutebrowser python-adblock python-readability-lxml # browser
+    # qutebrowser python-adblock python-readability-lxml # browser
+    brave-bin # browser
     mpv subliminal yt-dlp # video player and downloader
     gamescope gamemode steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
     stremio-enhanced-bin youtube-music-bin # media streaming
