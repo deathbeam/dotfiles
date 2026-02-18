@@ -25,7 +25,8 @@ au('VimEnter', {
 au('ColorScheme', {
     desc = 'Adjust colors',
     callback = function()
-        local base16 = require('tinted-nvim').get_palette()
+        vim.print('Adjusting colors for base16...')
+        local base16 = require('base16-colorscheme').colors
         local bright_black = base16.base03
         vim.api.nvim_set_hl(0, 'StatusLine', { fg = bright_black })
         vim.api.nvim_set_hl(0, 'StatusLineNC', { fg = bright_black })
@@ -56,26 +57,8 @@ au('ColorScheme', {
     end,
 })
 
-require('tinted-nvim').setup({
-    default_scheme = 'base16-' .. os.getenv('BASE16_THEME_DEFAULT'),
-    selector = {
-        enabled = false,
-    },
-    capabilities = {
-        undercurl = true
-    },
-    highlights = {
-        use_lazy_specs = false
-    },
-    integrations = {
-        telescope = false,
-        cmp = false,
-        blink = false,
-        dapui = false,
-        lualine = false
-    },
-    use_lazy_specs = false
-})
+vim.opt.termguicolors = true
+vim.cmd('colorscheme base16-' .. os.getenv('BASE16_THEME_DEFAULT'))
 
 -- Load icons
 require('nvim-web-devicons').setup()

@@ -102,9 +102,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/tinted-nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/tinted-nvim
-	url = https://github.com/tinted-theming/tinted-nvim
 [submodule "quickshell/.config/quickshell/hyprquickshot"]
 	path = quickshell/.config/quickshell/hyprquickshot
 	url = https://github.com/JamDon2/hyprquickshot
@@ -114,3 +111,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim
 	url = https://github.com/rachartier/tiny-inline-diagnostic.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/base16-nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/base16-nvim
+	url = https://github.com/RRethy/base16-nvim
