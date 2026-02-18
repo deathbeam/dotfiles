@@ -7,9 +7,6 @@ local icons = require('config.icons')
 vim.o.winborder = 'single'
 vim.o.pumborder = 'single'
 
--- Enable colors
-vim.opt.termguicolors = true
-
 -- Ext ui native
 au('VimEnter', {
     callback = function()
@@ -76,7 +73,8 @@ require('tinted-nvim').setup({
         blink = false,
         dapui = false,
         lualine = false
-    }
+    },
+    use_lazy_specs = false
 })
 
 -- Load icons
