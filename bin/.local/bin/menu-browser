@@ -41,7 +41,7 @@ detect_browser() {
   fi
 
   if command -v firefox >/dev/null 2>&1; then
-    if [ -f "$HOME/.mozilla/firefox/profiles.ini" ]; then
+    if [ -f "$HOME/.config/mozilla/firefox/profiles.ini" ]; then
       echo "firefox"
       return
     fi
@@ -64,7 +64,7 @@ collect_bookmarks() {
 
 # Collect Firefox history
 collect_firefox() {
-  local config="$HOME/.mozilla/firefox"
+  local config="$HOME/.config/mozilla/firefox"
   local profiles="$config/profiles.ini"
   [ -f "$profiles" ] || return
   local file="$config/$(grep Default "$profiles" | head -n1 | cut -d= -f2)/places.sqlite"
