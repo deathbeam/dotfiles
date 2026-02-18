@@ -1,15 +1,4 @@
 #!/bin/sh
-#
-# menu-browser: Unified browser menu for Firefox, Qutebrowser, Brave, and Chromium
-#
-# Collects bookmarks from ~/.config/bookmarks/ and history from all installed browsers,
-# deduplicates URLs, and launches selection in the first detected browser with appropriate flags.
-#
-# Browser priority: Brave > Chromium > Firefox > Qutebrowser
-# Launch flags:
-#   - Brave/Chromium: --app=<url> (hides tabs/URL bar)
-#   - Firefox: --fullscreen --new-window <url>
-#   - Qutebrowser: --target window <url>
 
 # Constants
 MARKER="★"
@@ -37,14 +26,14 @@ dedup_awk='
 
 # Detect which browser to use (priority: Brave > Chromium > Firefox > Qutebrowser)
 detect_browser() {
-  if command -v brave-browser >/dev/null 2>&1 || command -v brave >/dev/null 2>&1; then
+  if command -v brave >/dev/null 2>&1; then
     if [ -d "$HOME/.config/BraveSoftware/Brave-Browser/Default" ]; then
       echo "brave"
       return
     fi
   fi
 
-  if command -v chromium >/dev/null 2>&1 || command -v chromium-browser >/dev/null 2>&1; then
+  if command -v chromium >/dev/null 2>&1; then
     if [ -d "$HOME/.config/chromium/Default" ]; then
       echo "chromium"
       return
@@ -75,39 +64,37 @@ collect_bookmarks() {
 
 # Collect Firefox history
 collect_firefox() {
-  FIREFOX_CONFIG="$HOME/.mozilla/firefox"
-  [ -f "$FIREFOX_CONFIG/profiles.ini" ] || return
+  local config="$HOME/.mozilla/firefox"
+  local profiles="$config/profiles.ini"
+  [ -f "$profiles" ] || return
+  local file="$config/$(grep Default "$profiles" | head -n1 | cut -d= -f2)/places.sqlite"
+  [ -f "$file" ] || return
 
-  FF_PROFILE="$FIREFOX_CONFIG/$(grep Default "$FIREFOX_CONFIG/profiles.ini" | head -n1 | cut -d= -f2)"
-  PLACES="file:$FF_PROFILE/places.sqlite?immutable=1"
-
-  [ -f "$FF_PROFILE/places.sqlite" ] || return
-
-  sqlite3 "$PLACES" "SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC" 2>/dev/null | awk 'NF && $1!=""'
+  sqlite3 "file:$file?immutable=1" "SELECT url FROM moz_places WHERE url NOT NULL ORDER BY last_visit_date DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
 # Collect Qutebrowser history
 collect_qutebrowser() {
-  QUTE_DATA_DIR="$HOME/.local/share/qutebrowser"
-  [ -f "$QUTE_DATA_DIR/history.sqlite" ] || return
+  local file="$HOME/.local/share/qutebrowser/history.sqlite"
+  [ -f "$file" ] || return
 
-  sqlite3 "$QUTE_DATA_DIR/history.sqlite" "SELECT url FROM CompletionHistory ORDER BY last_atime DESC" 2>/dev/null | awk 'NF && $1!=""'
+  sqlite3 "file:$file?immutable=1" "SELECT url FROM CompletionHistory ORDER BY last_atime DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
 # Collect Brave history
 collect_brave() {
-  BRAVE_HISTORY="$HOME/.config/BraveSoftware/Brave-Browser/Default/History"
-  [ -f "$BRAVE_HISTORY" ] || return
+  local file="$HOME/.config/BraveSoftware/Brave-Browser/Default/History"
+  [ -f "$file" ] || return
 
-  sqlite3 "file:$BRAVE_HISTORY?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
+  sqlite3 "file:$file?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
 # Collect Chromium history
 collect_chromium() {
-  CHROMIUM_HISTORY="$HOME/.config/chromium/Default/History"
-  [ -f "$CHROMIUM_HISTORY" ] || return
+  local file="$HOME/.config/chromium/Default/History"
+  [ -f "$file" ] || return
 
-  sqlite3 "file:$CHROMIUM_HISTORY?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
+  sqlite3 "file:$file?immutable=1" "SELECT url FROM urls ORDER BY last_visit_time DESC" 2>/dev/null | awk 'NF && $1!=""'
 }
 
 # Preview function - fetch title from web or show URL
@@ -167,18 +154,10 @@ fi
 # Launch with appropriate browser and flags
 case "$BROWSER" in
   brave)
-    if command -v brave-browser >/dev/null 2>&1; then
-      exec brave-browser --app="$url"
-    else
-      exec brave --app="$url"
-    fi
+    exec brave --app="$url"
     ;;
   chromium)
-    if command -v chromium-browser >/dev/null 2>&1; then
-      exec chromium-browser --app="$url"
-    else
-      exec chromium --app="$url"
-    fi
+    exec chromium --app="$url"
     ;;
   firefox)
     exec firefox --fullscreen --new-window "$url"
