@@ -9,12 +9,12 @@ Text {
     property string ipv4: ""
     property bool isWlan: false
 
-    text: isWlan ? Theme.iconNetwork + " " + ssid : Theme.iconNetworkWired + " " + ipv4
-    color: Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: isWlan ? Config.iconNetwork + " " + ssid : Config.iconNetworkWired + " " + ipv4
+    color: Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
 
     Process {
         id: ifaceProc

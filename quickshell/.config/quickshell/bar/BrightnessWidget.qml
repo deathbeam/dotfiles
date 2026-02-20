@@ -6,12 +6,12 @@ Text {
     id: root
     property int brightness: 0
     
-    text: Theme.iconBrightness + " " + brightness + "%"
-    color: Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: Config.iconBrightness + " " + brightness + "%"
+    color: Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
     
     Process {
         id: brightProc

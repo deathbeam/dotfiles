@@ -7,13 +7,13 @@ Text {
     property int utilization: 0
     property int temperature: 0
     
-    text: Theme.iconCpu + " " + utilization + "%|" + temperature + "°C"
-    color: (utilization >= 80 || temperature >= 80) ? Theme.colorUrgent : 
-           (utilization >= 65 || temperature >= 65) ? Theme.colorWarning : Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: Config.iconCpu + " " + utilization + "%|" + temperature + "°C"
+    color: (utilization >= 80 || temperature >= 80) ? Config.colorUrgent : 
+           (utilization >= 65 || temperature >= 65) ? Config.colorWarning : Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
     
     Process {
         id: cpuProc

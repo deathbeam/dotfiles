@@ -3,9 +3,9 @@ SUBMODULES := $(shell git config --file .gitmodules --get-regexp path | awk '{ p
 default:update link install
 
 clean:
-	rm -r /home/deathbeam/.cache/nvim/tree-sitter-*
-	rm -r ~/.local/share/nvim/site/
-	rm -r nvim/.config/nvim/pack/bundle/start/nvim-treesitter
+	rm -r /home/deathbeam/.cache/nvim/tree-sitter-* || true
+	rm -r ~/.local/share/nvim/site/ || true
+	rm -r nvim/.config/nvim/pack/bundle/start/nvim-treesitter || true
 	find ~ -xtype l -print -delete || true
 
 link:

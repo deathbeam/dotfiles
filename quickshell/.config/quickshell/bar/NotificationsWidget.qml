@@ -13,22 +13,22 @@ RowLayout {
 
     Text {
         visible: (root.officialUpdates + root.aurUpdates) > 0
-        text: Theme.iconPackages + " " + (root.officialUpdates + root.aurUpdates)
-        color: Theme.colorUrgent
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSize
-        leftPadding: Theme.margin
-        rightPadding: Theme.margin
+        text: Config.iconPackages + " " + (root.officialUpdates + root.aurUpdates)
+        color: Config.colorUrgent
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontSize
+        leftPadding: Config.margin
+        rightPadding: Config.margin
     }
 
     Text {
         visible: root.github > 0
-        text: Theme.iconGithub + " " + root.github
-        color: Theme.colorActive
-        font.family: Theme.fontFamily
-        font.pixelSize: Theme.fontSize
-        leftPadding: Theme.margin
-        rightPadding: Theme.margin
+        text: Config.iconGithub + " " + root.github
+        color: Config.colorActive
+        font.family: Config.fontFamily
+        font.pixelSize: Config.fontSize
+        leftPadding: Config.margin
+        rightPadding: Config.margin
     }
 
     Process {

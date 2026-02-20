@@ -31,6 +31,8 @@ QtObject {
     readonly property string iconVolumeMuted: " "
     readonly property string iconMic: " "
     readonly property string iconMicMuted: " "
+    readonly property string iconCameraActive: " "
+    readonly property string iconCameraMuted: " "
     readonly property string iconBrightness: " "
     readonly property string iconBattery: " "
     readonly property string iconClock: " "

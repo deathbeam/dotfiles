@@ -9,12 +9,12 @@ Text {
     property int percent: 0
     property bool muted: false
     
-    text: muted ? (isMic ? Theme.iconMicMuted : Theme.iconVolumeMuted) : (isMic ? Theme.iconMic + " " + percent + "%" : Theme.iconVolume + " " + percent + "%")
-    color: muted ? Theme.colorUrgent : Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: muted ? (isMic ? Config.iconMicMuted : Config.iconVolumeMuted) : (isMic ? Config.iconMic + " " + percent + "%" : Config.iconVolume + " " + percent + "%")
+    color: muted ? Config.colorUrgent : Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
     
     Process {
         id: volProc

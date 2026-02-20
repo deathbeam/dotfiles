@@ -1,4 +1,5 @@
 import Quickshell
+import Quickshell.Hyprland
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
@@ -6,32 +7,36 @@ import QtQuick.Layouts
 RowLayout {
     spacing: 0
 
+    // Use Wayland toplevel for standard properties (title, appId, etc)
     property var activeWindow: ToplevelManager.activeToplevel
+    // Use Hyprland toplevel for Hyprland-specific properties (xwayland, etc)
+    property var hyprlandToplevel: Hyprland.activeToplevel
+    property bool isXWayland: hyprlandToplevel?.lastIpcObject?.xwayland ?? false
 
     Rectangle {
-        Layout.preferredWidth: modeText.visible ? modeText.implicitWidth + Theme.margin * 2 : 0
+        Layout.preferredWidth: modeText.visible ? modeText.implicitWidth + Config.margin * 2 : 0
         Layout.fillHeight: true
         visible: activeWindow
-        color: Theme.colorActive
+        color: Config.colorActive
 
         Text {
             id: modeText
             anchors.centerIn: parent
-            text: activeWindow.fullScreen ? Theme.iconFullscreen :
-                  activeWindow.minimized ? Theme.iconMinimized :
-                  activeWindow.maximized ? Theme.iconMaximized :
-                  Theme.iconTiled
-            color: Theme.colorFgInv
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSize
+            text: activeWindow.fullScreen ? Config.iconFullscreen :
+                  activeWindow.minimized ? Config.iconMinimized :
+                  activeWindow.maximized ? Config.iconMaximized :
+                  Config.iconTiled
+            color: Config.colorFgInv
+            font.family: Config.fontFamily
+            font.pixelSize: Config.fontSize
         }
     }
 
     Rectangle {
-        Layout.preferredWidth: classText.visible ? classText.implicitWidth + Theme.margin * 2 : 0
+        Layout.preferredWidth: classText.visible ? classText.implicitWidth + Config.margin * 2 : 0
         Layout.fillHeight: true
         visible: (activeWindow?.appId ?? "") !== ""
-        color: Theme.colorInactive
+        color: isXWayland ? Config.colorWarning : Config.colorInactive
 
         Text {
             id: classText
@@ -41,14 +46,14 @@ RowLayout {
                 let idx = id.lastIndexOf(".");
                 return idx !== -1 ? id.substring(idx + 1) : id;
             }
-            color: Theme.colorFg
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSize
+            color: isXWayland ? Config.colorFgInv : Config.colorFg
+            font.family: Config.fontFamily
+            font.pixelSize: Config.fontSize
         }
     }
 
     Rectangle {
-        Layout.preferredWidth: Math.min(titleText.implicitWidth + Theme.margin * 2, 600)
+        Layout.preferredWidth: Math.min(titleText.implicitWidth + Config.margin * 2, 600)
         Layout.fillHeight: true
         visible: (activeWindow?.title ?? "") !== ""
         color: "transparent"
@@ -56,13 +61,13 @@ RowLayout {
         Text {
             id: titleText
             anchors.fill: parent
-            anchors.leftMargin: Theme.margin
-            anchors.rightMargin: Theme.margin
+            anchors.leftMargin: Config.margin
+            anchors.rightMargin: Config.margin
             verticalAlignment: Text.AlignVCenter
             text: activeWindow.title
-            color: Theme.colorFg
-            font.family: Theme.fontFamily
-            font.pixelSize: Theme.fontSize
+            color: Config.colorFg
+            font.family: Config.fontFamily
+            font.pixelSize: Config.fontSize
             elide: Text.ElideRight
         }
     }

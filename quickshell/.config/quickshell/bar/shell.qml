@@ -2,7 +2,6 @@ import Quickshell
 import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
-import Quickshell.Services.SystemTray
 
 ShellRoot {
     Variants {
@@ -17,9 +16,9 @@ ShellRoot {
                 right: true
             }
 
-            implicitHeight: Theme.barHeight
+            implicitHeight: Config.barHeight
 
-            color: Theme.colorBg
+            color: Config.colorBg
 
             // Left side
             RowLayout {
@@ -28,6 +27,7 @@ ShellRoot {
                 anchors.bottom: parent.bottom
                 spacing: 0
 
+                WorkspaceWidget {}
                 TopLevelWidget {}
             }
 
@@ -44,22 +44,12 @@ ShellRoot {
                 GpuWidget {}
                 VolumeWidget { mixer: "Master" }
                 VolumeWidget { mixer: "Capture"; isMic: true }
+                CameraWidget {}
                 BrightnessWidget {}
                 BatteryWidget {}
                 ClockWidget {}
                 NotificationsWidget {}
-
-                Repeater {
-                    model: SystemTray.items
-                    delegate: Item {
-                        Image {
-                            source: modelData.icon
-                            width: Theme.fontSize
-                            height: Theme.fontSize
-                            fillMode: Image.PreserveAspectFit
-                        }
-                    }
-                }
+                TrayWidget {}
             }
         }
     }

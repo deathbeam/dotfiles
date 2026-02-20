@@ -1,0 +1,15 @@
+#!/bin/bash
+# Toggle both mic and camera for unified privacy control
+# Uses mic state as source of truth to keep them in sync
+
+# Toggle microphone first
+amixer -q set Capture toggle
+
+# Check new mic state and sync camera to match
+if amixer get Capture | grep -q '\[off\]'; then
+    # Mic is now OFF (muted) - hide camera
+    v4l2-ctl --set-ctrl=brightness=-64
+else
+    # Mic is now ON (unmuted) - show camera
+    v4l2-ctl --set-ctrl=brightness=0
+fi

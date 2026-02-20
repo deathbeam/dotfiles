@@ -6,12 +6,12 @@ Text {
     id: root
     property real percentUsed: 0
     
-    text: Theme.iconMemory + " " + Math.round(percentUsed) + "%"
-    color: percentUsed >= 80 ? Theme.colorUrgent : percentUsed >= 65 ? Theme.colorWarning : Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: Config.iconMemory + " " + Math.round(percentUsed) + "%"
+    color: percentUsed >= 80 ? Config.colorUrgent : percentUsed >= 65 ? Config.colorWarning : Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
     
     Process {
         id: memProc

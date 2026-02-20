@@ -6,12 +6,12 @@ Text {
     id: root
     property int capacity: 100
     
-    text: Theme.iconBattery + " " + capacity + "%"
-    color: capacity <= 10 ? Theme.colorUrgent : capacity <= 30 ? Theme.colorWarning : Theme.colorFg
-    font.family: Theme.fontFamily
-    font.pixelSize: Theme.fontSize
-    leftPadding: Theme.margin
-    rightPadding: Theme.margin
+    text: Config.iconBattery + " " + capacity + "%"
+    color: capacity <= 10 ? Config.colorUrgent : capacity <= 30 ? Config.colorWarning : Config.colorFg
+    font.family: Config.fontFamily
+    font.pixelSize: Config.fontSize
+    leftPadding: Config.margin
+    rightPadding: Config.margin
     
     Process {
         id: batProc
