@@ -18,7 +18,7 @@ Rectangle {
             // Use name if it's a named workspace, otherwise use id
             return ws.name !== "" ? ws.name : ws.id.toString();
         }
-        color: Config.colorFgInv
+        color: Config.colorFg
         font.family: Config.fontFamily
         font.pixelSize: Config.fontSize
     }
