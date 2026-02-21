@@ -19,6 +19,12 @@ RowLayout {
         font.pixelSize: Config.fontSize
         leftPadding: Config.margin
         rightPadding: Config.margin
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: Quickshell.execDetached(["xdg-terminal-exec", "arch-update"])
+            cursorShape: Qt.PointingHandCursor
+        }
     }
 
     Text {
@@ -29,6 +35,12 @@ RowLayout {
         font.pixelSize: Config.fontSize
         leftPadding: Config.margin
         rightPadding: Config.margin
+
+        MouseArea {
+            anchors.fill: parent
+            onClicked: Qt.openUrlExternally("https://github.com/notifications")
+            cursorShape: Qt.PointingHandCursor
+        }
     }
 
     Process {
