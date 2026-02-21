@@ -111,3 +111,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/base16-nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/base16-nvim
 	url = https://github.com/RRethy/base16-nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
