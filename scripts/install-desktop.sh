@@ -53,7 +53,7 @@ echo 'context.properties = {
 systemctl --user restart pipewire pipewire-pulse || true
 
 # Set default browser
-xdg-settings set default-web-browser qutebrowser.desktop || true
+xdg-settings set default-web-browser brave-browser.desktop || true
 
 # Set default image viewer
 xdg-mime default imv.desktop image/png

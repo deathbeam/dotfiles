@@ -18,7 +18,7 @@ export EDITOR="nvim"
 export VISUAL="$EDITOR"
 
 # Browser
-export BROWSER="qutebrowser"
+export BROWSER="brave"
 
 # Better pager
 export PAGER="less"

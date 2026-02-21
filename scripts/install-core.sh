@@ -5,7 +5,7 @@ fi
 
 log "Installing core packages"
 packages=(
-    xdg-utils xdg-user-dirs # xdg tools
+    xdg-utils xdg-user-dirs xdg-terminal-exec # xdg tools
     dosfstools fuse2 gdu # filesystem tools
     stoken openvpn vpn-slice openconnect tinyproxy mitmproxy # VPN/proxy tools
     stow zsh starship tmux # shell tools

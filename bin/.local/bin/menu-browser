@@ -154,13 +154,13 @@ fi
 # Launch with appropriate browser and flags
 case "$BROWSER" in
   brave)
-    exec brave --app="$url"
+    exec brave --new-window "$url"
     ;;
   chromium)
-    exec chromium --app="$url"
+    exec chromium --new-window "$url"
     ;;
   firefox)
-    exec firefox --fullscreen --new-window "$url"
+    exec firefox --new-window "$url"
     ;;
   qutebrowser)
     exec qutebrowser --target window "$url"

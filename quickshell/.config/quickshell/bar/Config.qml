@@ -14,7 +14,7 @@ QtObject {
     readonly property string colorWarning: "#B58900"
 
     // Spacing
-    readonly property int margin: 8
+    readonly property int margin: 5
 
     // Font and bar settings
     readonly property string fontFamily: "monospace"
@@ -28,12 +28,12 @@ QtObject {
     readonly property string iconCpu: " "
     readonly property string iconGpu: " "
     readonly property string iconVolume: " "
-    readonly property string iconVolumeMuted: " "
-    readonly property string iconMic: " "
+    readonly property string iconVolumeMuted: ""
+    readonly property string iconMic: ""
     readonly property string iconMicMuted: " "
     readonly property string iconCameraActive: " "
     readonly property string iconCameraMuted: " "
-    readonly property string iconBrightness: " "
+    readonly property string iconBrightness: ""
     readonly property string iconBattery: " "
     readonly property string iconClock: " "
     readonly property string iconPackages: " "
@@ -41,5 +41,6 @@ QtObject {
     readonly property string iconFullscreen: " "
     readonly property string iconMinimized: " "
     readonly property string iconMaximized: " "
+    readonly property string iconFloating: " "
     readonly property string iconTiled: " "
 }

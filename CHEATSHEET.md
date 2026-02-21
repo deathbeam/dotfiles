@@ -19,12 +19,12 @@
 | `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
 | `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
 | `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
-| `Print` | exec `quickshell -c hyprquickshot -n` |
+| `Print` | exec `quickshell -c screenshot -n` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
 | `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |
 | `XF86AudioMute` | exec `amixer -q set Master toggle` |
-| `XF86AudioMicMute` | exec `amixer -q set Capture toggle` |
+| `XF86AudioMicMute` | exec `privacy-toggle` |
 | `XF86MonBrightnessUp` | exec `brightnessctl s +5%` |
 | `XF86MonBrightnessDown` | exec `brightnessctl s 5%-` |
 | `XF86KbdBrightnessUp` | exec `asusctl -n` |

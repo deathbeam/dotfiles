@@ -27,6 +27,7 @@ ShellRoot {
                 anchors.bottom: parent.bottom
                 spacing: 0
 
+                SubmapWidget {}
                 WorkspaceWidget {}
                 TopLevelWidget {}
             }

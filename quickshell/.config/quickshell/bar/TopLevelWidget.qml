@@ -12,6 +12,16 @@ RowLayout {
     // Use Hyprland toplevel for Hyprland-specific properties (xwayland, etc)
     property var hyprlandToplevel: Hyprland.activeToplevel
     property bool isXWayland: hyprlandToplevel?.lastIpcObject?.xwayland ?? false
+    property bool isFloating: hyprlandToplevel?.lastIpcObject?.floating ?? false
+
+    // Refresh Hyprland toplevels to update lastIpcObject
+    Timer {
+        interval: 100
+        running: true
+        repeat: true
+        triggeredOnStart: true
+        onTriggered: Hyprland.refreshToplevels()
+    }
 
     Rectangle {
         Layout.preferredWidth: modeText.visible ? modeText.implicitWidth + Config.margin * 2 : 0
@@ -22,7 +32,8 @@ RowLayout {
         Text {
             id: modeText
             anchors.centerIn: parent
-            text: activeWindow.fullScreen ? Config.iconFullscreen :
+            text: isFloating ? Config.iconFloating :
+                  activeWindow.fullScreen ? Config.iconFullscreen :
                   activeWindow.minimized ? Config.iconMinimized :
                   activeWindow.maximized ? Config.iconMaximized :
                   Config.iconTiled
@@ -53,7 +64,7 @@ RowLayout {
     }
 
     Rectangle {
-        Layout.preferredWidth: Math.min(titleText.implicitWidth + Config.margin * 2, 600)
+        Layout.preferredWidth: Math.min(titleText.implicitWidth + Config.margin * 2, 500)
         Layout.fillHeight: true
         visible: (activeWindow?.title ?? "") !== ""
         color: "transparent"
