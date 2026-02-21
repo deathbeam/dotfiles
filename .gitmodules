@@ -1,3 +1,72 @@
+[submodule "nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
+    url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
+    branch = main
+[submodule "nvim/.config/nvim/pack/bundle/start/base16-nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/base16-nvim
+	url = https://github.com/RRethy/base16-nvim
+
+[submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
+	url = https://github.com/andrewferrier/debugprint.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/fzf-lua"]
+	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
+	url = https://github.com/ibhagwan/fzf-lua
+[submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
+	url = https://github.com/lewis6991/gitsigns.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/mason.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/mason.nvim
+	url = https://github.com/williamboman/mason.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/myplugins.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/myplugins.nvim
+	url = https://github.com/deathbeam/myplugins.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-dap"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap
+	url = https://github.com/mfussenegger/nvim-dap
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
+	url = https://github.com/theHamsta/nvim-dap-virtual-text
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
+	url = https://github.com/mxsdev/nvim-dap-vscode-js
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-jdtls"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-jdtls
+	url = https://github.com/mfussenegger/nvim-jdtls
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-lspconfig"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
+	url = https://github.com/neovim/nvim-lspconfig
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treehopper"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treehopper
+	url = https://github.com/mfussenegger/nvim-treehopper
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
+    url = https://github.com/nvim-treesitter/nvim-treesitter
+    branch = main
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
+	url = https://github.com/nvim-treesitter/nvim-treesitter-context
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-web-devicons"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-web-devicons
+	url = https://github.com/nvim-tree/nvim-web-devicons
+[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
+	url = https://github.com/stevearc/oil.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/plenary.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/plenary.nvim
+	url = https://github.com/nvim-lua/plenary.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/roslyn.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/roslyn.nvim
+	url = https://github.com/seblyng/roslyn.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim
+	url = https://github.com/rachartier/tiny-inline-diagnostic.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/tmux.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
+	url = https://github.com/aserowy/tmux.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/which-key.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/which-key.nvim
+	url = https://github.com/folke/which-key.nvim
 [submodule "tmux/.tmux/bundle/tmux-continuum"]
 	path = tmux/.tmux/pack/bundle/start/tmux-continuum
 	url = https://github.com/tmux-plugins/tmux-continuum
@@ -7,110 +76,39 @@
 [submodule "zsh/.fzf"]
 	path = zsh/.fzf
     url = https://github.com/junegunn/fzf
-[submodule "zsh/.zsh/bundle/zsh-kubernetes"]
-	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
-	url = https://github.com/Dbz/zsh-kubernetes
-[submodule "zsh/.zsh/bundle/utility"]
-	path = zsh/.zsh/pack/bundle/start/utility
-	url = https://github.com/zimfw/utility
 [submodule "zsh/.zsh/bundle/archive"]
 	path = zsh/.zsh/pack/bundle/start/archive
 	url = https://github.com/zimfw/archive
-[submodule "zsh/.zsh/bundle/zsh-autosuggestions"]
-	path = zsh/.zsh/pack/bundle/start/zsh-autosuggestions
-	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh/.zsh/bundle/git"]
 	path = zsh/.zsh/pack/bundle/start/git
 	url = https://github.com/zimfw/git
+[submodule "zsh/.zsh/bundle/utility"]
+	path = zsh/.zsh/pack/bundle/start/utility
+	url = https://github.com/zimfw/utility
+[submodule "zsh/.zsh/bundle/zsh-autosuggestions"]
+	path = zsh/.zsh/pack/bundle/start/zsh-autosuggestions
+	url = https://github.com/zsh-users/zsh-autosuggestions
 [submodule "zsh/.zsh/bundle/zsh-completions"]
 	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "vim/.vim/pack/bundle/start/nvim-treesitter"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
-    url = https://github.com/nvim-treesitter/nvim-treesitter
-    branch = main
-[submodule "vim/.vim/pack/bundle/start/nvim-lspconfig"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-lspconfig
-	url = https://github.com/neovim/nvim-lspconfig
-[submodule "vim/.vim/pack/bundle/start/mason.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/mason.nvim
-	url = https://github.com/williamboman/mason.nvim
-[submodule "vim/.vim/pack/bundle/start/fzf-lua"]
-	path = nvim/.config/nvim/pack/bundle/start/fzf-lua
-	url = https://github.com/ibhagwan/fzf-lua
-[submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
-	path = zsh/.zsh/pack/bundle/start/tinted-fzf
-	url = https://github.com/tinted-theming/tinted-fzf
-[submodule "vim/.vim/pack/bundle/start/nvim-web-devicons"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-web-devicons
-	url = https://github.com/nvim-tree/nvim-web-devicons
-[submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
-	path = zsh/.zsh/pack/bundle/start/tinted-shell
-	url = https://github.com/tinted-theming/tinted-shell
-[submodule "vim/.vim/pack/bundle/start/tmux.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/tmux.nvim
-	url = https://github.com/aserowy/tmux.nvim
-[submodule "zsh/.zsh/pack/bundle/start/fast-syntax-highlighting"]
-	path = zsh/.zsh/pack/bundle/start/fast-syntax-highlighting
-	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
-[submodule "zsh/.zsh/pack/bundle/start/zsh-expand-all"]
-	path = zsh/.zsh/pack/bundle/start/zsh-expand-all
-	url = https://github.com/simnalamburt/zsh-expand-all
-[submodule "vim/.vim/pack/bundle/start/nvim-jdtls"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-jdtls
-	url = https://github.com/mfussenegger/nvim-jdtls
-[submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
-	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
-	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
-[submodule "vim/.vim/pack/bundle/start/nvim-dap"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-dap
-	url = https://github.com/mfussenegger/nvim-dap
-[submodule "vim/.vim/pack/bundle/start/nvim-dap-virtual-text"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-virtual-text
-	url = https://github.com/theHamsta/nvim-dap-virtual-text
-[submodule "vim/.vim/pack/bundle/start/nvim-dap-vscode-js"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-vscode-js
-	url = https://github.com/mxsdev/nvim-dap-vscode-js
+[submodule "zsh/.zsh/bundle/zsh-kubernetes"]
+	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
+	url = https://github.com/Dbz/zsh-kubernetes
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
-[submodule "nvim/.config/nvim/pack/bundle/start/plenary.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
-    url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
-    branch = main
-[submodule "nvim/.config/nvim/pack/bundle/start/gitsigns.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/gitsigns.nvim
-	url = https://github.com/lewis6991/gitsigns.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/roslyn.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/roslyn.nvim
-	url = https://github.com/seblyng/roslyn.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
-	url = https://github.com/nvim-treesitter/nvim-treesitter-context
-[submodule "nvim/.config/nvim/pack/bundle/start/myplugins.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/myplugins.nvim
-	url = https://github.com/deathbeam/myplugins.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treehopper"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treehopper
-	url = https://github.com/mfussenegger/nvim-treehopper
-[submodule "nvim/.config/nvim/pack/bundle/start/debugprint.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/debugprint.nvim
-	url = https://github.com/andrewferrier/debugprint.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
-	url = https://github.com/stevearc/oil.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/which-key.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/which-key.nvim
-	url = https://github.com/folke/which-key.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/tiny-inline-diagnostic.nvim
-	url = https://github.com/rachartier/tiny-inline-diagnostic.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/base16-nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/base16-nvim
-	url = https://github.com/RRethy/base16-nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter"]
-	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
-	url = https://github.com/nvim-treesitter/nvim-treesitter
+[submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
+	path = zsh/.zsh/pack/bundle/start/tinted-fzf
+	url = https://github.com/tinted-theming/tinted-fzf
+[submodule "zsh/.zsh/pack/bundle/start/base16-shell"]
+	path = zsh/.zsh/pack/bundle/start/tinted-shell
+	url = https://github.com/tinted-theming/tinted-shell
+[submodule "zsh/.zsh/pack/bundle/start/fast-syntax-highlighting"]
+	path = zsh/.zsh/pack/bundle/start/fast-syntax-highlighting
+	url = https://github.com/zdharma-continuum/fast-syntax-highlighting
+[submodule "zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv"]
+	path = zsh/.zsh/pack/bundle/start/zsh-autoswitch-virtualenv
+	url = https://github.com/MichaelAquilina/zsh-autoswitch-virtualenv
+[submodule "zsh/.zsh/pack/bundle/start/zsh-expand-all"]
+	path = zsh/.zsh/pack/bundle/start/zsh-expand-all
+	url = https://github.com/simnalamburt/zsh-expand-all
