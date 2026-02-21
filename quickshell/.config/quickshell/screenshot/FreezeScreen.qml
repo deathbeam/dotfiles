@@ -9,6 +9,9 @@ PanelWindow {
     property alias contentItem: root.contentItem
 
     screen: targetScreen
+    exclusionMode: ExclusionMode.Ignore
+    WlrLayershell.layer: WlrLayer.Overlay
+    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     anchors {
         left: true
@@ -16,10 +19,6 @@ PanelWindow {
         top: true
         bottom: true
     }
-
-    exclusionMode: ExclusionMode.Ignore
-    WlrLayershell.layer: WlrLayer.Overlay
-    WlrLayershell.keyboardFocus: WlrKeyboardFocus.Exclusive
 
     ScreencopyView {
         captureSource: root.targetScreen

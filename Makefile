@@ -1,6 +1,16 @@
 SUBMODULES := $(shell git config --file .gitmodules --get-regexp path | awk '{ print $$2 }')
 
-default:update link install
+default:format update link install
+
+format:
+	@echo "Formatting QML files..."
+	@if command -v /usr/lib/qt6/bin/qmlformat >/dev/null 2>&1; then \
+		find quickshell/.config/quickshell -name "*.qml" -exec /usr/lib/qt6/bin/qmlformat -i {} \;; \
+	fi
+	@echo "Formatting Lua files..."
+	@if command -v stylua >/dev/null 2>&1; then \
+		cd nvim/.config/nvim && stylua .; \
+	fi
 
 clean:
 	rm -r /home/deathbeam/.cache/nvim/tree-sitter-* || true

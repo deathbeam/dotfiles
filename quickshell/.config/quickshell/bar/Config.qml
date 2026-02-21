@@ -1,6 +1,6 @@
 pragma Singleton
-import Quickshell
 import QtQuick
+import Quickshell
 
 QtObject {
     // Colors from yambar config
@@ -12,15 +12,12 @@ QtObject {
     readonly property string colorInactive: "#073642"
     readonly property string colorUrgent: "#CB4B16"
     readonly property string colorWarning: "#B58900"
-
     // Spacing
     readonly property int margin: 5
-
     // Font and bar settings
     readonly property string fontFamily: "monospace"
     readonly property int fontSize: Number(Quickshell.env("BAR_FONT_SIZE") || 12)
     readonly property int barHeight: Number(Quickshell.env("BAR_HEIGHT") || 30)
-
     // Icons
     readonly property string iconNetwork: " "
     readonly property string iconNetworkWired: " "

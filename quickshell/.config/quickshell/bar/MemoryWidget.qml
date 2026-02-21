@@ -1,27 +1,32 @@
+import QtQuick
 import Quickshell
 import Quickshell.Io
-import QtQuick
 
 Text {
     id: root
+
     property real percentUsed: 0
-    
+
     text: Config.iconMemory + " " + Math.round(percentUsed) + "%"
     color: percentUsed >= 80 ? Config.colorUrgent : percentUsed >= 65 ? Config.colorWarning : Config.colorFg
     font.family: Config.fontFamily
     font.pixelSize: Config.fontSize
     leftPadding: Config.margin
     rightPadding: Config.margin
-    
+
     Process {
         id: memProc
+
         command: ["sh", "-c", "free | grep Mem | awk '{print ($3/$2) * 100.0}'"]
         running: false
+
         stdout: SplitParser {
-            onRead: data => root.percentUsed = parseFloat(data.trim())
+            onRead: data => {
+                return root.percentUsed = parseFloat(data.trim());
+            }
         }
     }
-    
+
     Timer {
         interval: 2000
         running: true

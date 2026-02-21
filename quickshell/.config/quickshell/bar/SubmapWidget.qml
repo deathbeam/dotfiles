@@ -1,28 +1,28 @@
+import QtQuick
+import QtQuick.Layouts
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
-import QtQuick
-import QtQuick.Layouts
 
 Rectangle {
+    property string currentSubmap: "default"
+
     Layout.preferredWidth: submapText.visible ? submapText.implicitWidth + Config.margin * 2 : 0
     Layout.fillHeight: true
     visible: submapText.text !== ""
     color: Config.colorInactive
 
-    property string currentSubmap: "default"
-
     Process {
         id: submapProcess
+
         command: ["sh", "-c", "hyprctl -j submap | sed 's/[{}\"]//g'"]
         running: false
 
         stdout: SplitParser {
             onRead: data => {
                 let trimmed = data.trim();
-                if (trimmed !== "") {
+                if (trimmed !== "")
                     currentSubmap = trimmed;
-                }
             }
         }
     }
@@ -37,6 +37,7 @@ Rectangle {
 
     Text {
         id: submapText
+
         anchors.centerIn: parent
         text: currentSubmap !== "default" ? "-- " + currentSubmap.toUpperCase() + " --" : ""
         color: Config.colorSuccess

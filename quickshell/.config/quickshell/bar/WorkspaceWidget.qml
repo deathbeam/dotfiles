@@ -1,18 +1,19 @@
-import Quickshell
-import Quickshell.Hyprland
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Hyprland
 
 Text {
     text: {
-        if (Hyprland.focusedWorkspace === null) return "";
+        if (Hyprland.focusedWorkspace === null)
+            return "";
+
         let ws = Hyprland.focusedWorkspace;
         // Use name if it's a named workspace, otherwise use id with icon
-        if (ws.name !== "") {
+        if (ws.name !== "")
             return ws.name;
-        } else {
+        else
             return " " + ws.id.toString();
-        }
     }
     color: Config.colorFg
     font.family: Config.fontFamily

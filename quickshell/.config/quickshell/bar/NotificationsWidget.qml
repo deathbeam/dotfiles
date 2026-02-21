@@ -1,15 +1,16 @@
-import Quickshell
-import Quickshell.Io
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Io
 
 RowLayout {
     id: root
-    spacing: 0
 
     property int officialUpdates: 0
     property int aurUpdates: 0
     property int github: 0
+
+    spacing: 0
 
     Text {
         visible: (root.officialUpdates + root.aurUpdates) > 0
@@ -45,28 +46,40 @@ RowLayout {
 
     Process {
         id: officialProc
+
         command: ["sh", "-c", "checkupdates 2>/dev/null | wc -l"]
         running: false
+
         stdout: SplitParser {
-            onRead: data => root.officialUpdates = parseInt(data.trim())
+            onRead: data => {
+                return root.officialUpdates = parseInt(data.trim());
+            }
         }
     }
 
     Process {
         id: aurProc
+
         command: ["sh", "-c", "yay -Qum 2>/dev/null | wc -l"]
         running: false
+
         stdout: SplitParser {
-            onRead: data => root.aurUpdates = parseInt(data.trim())
+            onRead: data => {
+                return root.aurUpdates = parseInt(data.trim());
+            }
         }
     }
 
     Process {
         id: ghProc
+
         command: ["gh", "api", "notifications", "--jq", "length"]
         running: false
+
         stdout: SplitParser {
-            onRead: data => root.github = parseInt(data.trim())
+            onRead: data => {
+                return root.github = parseInt(data.trim());
+            }
         }
     }
 
@@ -76,8 +89,8 @@ RowLayout {
         repeat: true
         triggeredOnStart: true
         onTriggered: {
-            officialProc.running = true
-            aurProc.running = true
+            officialProc.running = true;
+            aurProc.running = true;
         }
     }
 

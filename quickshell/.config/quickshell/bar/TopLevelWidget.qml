@@ -32,11 +32,7 @@ RowLayout {
         Text {
             id: modeText
             anchors.centerIn: parent
-            text: isFloating ? Config.iconFloating :
-                  activeWindow.fullScreen ? Config.iconFullscreen :
-                  activeWindow.minimized ? Config.iconMinimized :
-                  activeWindow.maximized ? Config.iconMaximized :
-                  Config.iconTiled
+            text: isFloating ? Config.iconFloating : activeWindow.fullScreen ? Config.iconFullscreen : activeWindow.minimized ? Config.iconMinimized : activeWindow.maximized ? Config.iconMaximized : Config.iconTiled
             color: Config.colorFgInv
             font.family: Config.fontFamily
             font.pixelSize: Config.fontSize

@@ -1,7 +1,7 @@
-import Quickshell
-import Quickshell.Wayland
 import QtQuick
 import QtQuick.Layouts
+import Quickshell
+import Quickshell.Wayland
 
 ShellRoot {
     Variants {
@@ -9,16 +9,16 @@ ShellRoot {
 
         PanelWindow {
             property var modelData
+
             screen: modelData
+            implicitHeight: Config.barHeight
+            color: Config.colorBg
+
             anchors {
                 top: true
                 left: true
                 right: true
             }
-
-            implicitHeight: Config.barHeight
-
-            color: Config.colorBg
 
             // Left side
             RowLayout {
@@ -28,7 +28,9 @@ ShellRoot {
                 spacing: 0
 
                 SubmapWidget {}
+
                 WorkspaceWidget {}
+
                 TopLevelWidget {}
             }
 
@@ -40,16 +42,32 @@ ShellRoot {
                 spacing: 0
 
                 NetworkWidget {}
+
                 MemoryWidget {}
+
                 CpuWidget {}
+
                 GpuWidget {}
-                VolumeWidget { mixer: "Master" }
-                VolumeWidget { mixer: "Capture"; isMic: true }
+
+                VolumeWidget {
+                    mixer: "Master"
+                }
+
+                VolumeWidget {
+                    mixer: "Capture"
+                    isMic: true
+                }
+
                 CameraWidget {}
+
                 BrightnessWidget {}
+
                 BatteryWidget {}
+
                 ClockWidget {}
+
                 NotificationsWidget {}
+
                 TrayWidget {}
             }
         }
