@@ -14,6 +14,7 @@ FreezeScreen {
     property var activeScreen: null
     property var hyprlandMonitor: Hyprland.focusedMonitor
     property string mode: "region"
+    property string tempPath
 
     Connections {
         target: Hyprland
@@ -26,6 +27,11 @@ FreezeScreen {
             for (const screen of Quickshell.screens) {
                 if (screen.name === monitor.name) {
                     activeScreen = screen
+
+                    const timestamp = Date.now()
+                    const path = Quickshell.cachePath(`screenshot-${timestamp}.png`)
+                    tempPath = path
+                    Quickshell.execDetached(["grim", "-g", `${screen.x},${screen.y} ${screen.width}x${screen.height}`, path])
                     showTimer.start()
                 }
             }
@@ -36,7 +42,10 @@ FreezeScreen {
 
     Shortcut {
         sequence: "Escape"
-        onActivated: () => Qt.quit()
+        onActivated: () => {
+            Quickshell.execDetached(["rm", tempPath])
+            Qt.quit()
+        }
     }
 
     Timer {
@@ -51,7 +60,9 @@ FreezeScreen {
         id: screenshotProcess
         running: false
 
-        onExited: () => Qt.quit()
+        onExited: () => {
+            Qt.quit()
+        }
 
         stdout: StdioCollector {
             onStreamFinished: console.log(this.text)
@@ -75,14 +86,11 @@ FreezeScreen {
         const timestamp = Qt.formatDateTime(now, "yyyy-MM-dd_hh-mm-ss")
         const outputPath = `${Config.screenshotDir}/screenshot-${timestamp}.png`
 
-        // Get monitor geometry
-        const monX = root.activeScreen.x
-        const monY = root.activeScreen.y
-
         screenshotProcess.command = ["sh", "-c",
             `${mkdirCmd} && ` +
-            `grim -g "${monX + scaledX},${monY + scaledY} ${scaledWidth}x${scaledHeight}" "${outputPath}" && ` +
+            `magick "${tempPath}" -crop ${scaledWidth}x${scaledHeight}+${scaledX}+${scaledY} "${outputPath}" && ` +
             `wl-copy < "${outputPath}" && ` +
+            `rm "${tempPath}" && ` +
             `notify-send "Screenshot saved" "${outputPath}" -i "${outputPath}" -a "Hyprquickshot"`
         ]
 
@@ -114,8 +122,8 @@ FreezeScreen {
 
     WrapperRectangle {
         anchors.horizontalCenter: parent.horizontalCenter
-        anchors.bottom: parent.bottom
-        anchors.bottomMargin: 40
+        anchors.top: parent.top
+        anchors.topMargin: 40
 
         color: Qt.rgba(0.1, 0.1, 0.1, 0.8)
         radius: 12
