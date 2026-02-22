@@ -2,17 +2,20 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property real percentUsed: 0
 
-    text: Config.iconMemory + " " + Math.round(percentUsed) + "%"
-    color: percentUsed >= 80 ? Config.colorUrgent : percentUsed >= 65 ? Config.colorWarning : Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: Config.iconMemory
+        text: Math.round(percentUsed) + "%"
+        status: percentUsed >= 80 ? BarWidget.Danger : percentUsed >= 65 ? BarWidget.Warning : BarWidget.Normal
+    }
 
     Process {
         id: memProc

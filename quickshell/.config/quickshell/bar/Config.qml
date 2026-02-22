@@ -13,7 +13,7 @@ QtObject {
     readonly property string colorUrgent: "#CB4B16"
     readonly property string colorWarning: "#B58900"
     // Spacing
-    readonly property int margin: 5
+    readonly property int margin: 8
     // Font and bar settings
     readonly property string fontFamily: "monospace"
     readonly property int fontSize: Number(Quickshell.env("BAR_FONT_SIZE") || 12)

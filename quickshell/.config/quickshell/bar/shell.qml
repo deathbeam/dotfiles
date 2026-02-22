@@ -22,20 +22,28 @@ ShellRoot {
 
             // Left side
             RowLayout {
+                id: leftSide
                 anchors.left: parent.left
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
                 spacing: 0
 
-                SubmapWidget {}
+                SubmapWidget {
+                    id: submapWidget
+                }
 
-                WorkspaceWidget {}
+                WorkspaceWidget {
+                    id: workspaceWidget
+                }
 
-                TopLevelWidget {}
+                TopLevelWidget {
+                    availableWidth: parent.parent.width - submapWidget.width - workspaceWidget.width - rightSide.width
+                }
             }
 
             // Right side
             RowLayout {
+                id: rightSide
                 anchors.right: parent.right
                 anchors.top: parent.top
                 anchors.bottom: parent.bottom
@@ -64,11 +72,11 @@ ShellRoot {
 
                 BatteryWidget {}
 
-                ClockWidget {}
+                TrayWidget {}
 
                 NotificationsWidget {}
 
-                TrayWidget {}
+                ClockWidget {}
             }
         }
     }

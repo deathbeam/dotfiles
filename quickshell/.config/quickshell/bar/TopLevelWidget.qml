@@ -7,6 +7,9 @@ import QtQuick.Layouts
 RowLayout {
     spacing: 0
 
+    // Available width for the title section (calculated dynamically)
+    property real availableWidth: 500
+
     // Use Wayland toplevel for standard properties (title, appId, etc)
     property var activeWindow: ToplevelManager.activeToplevel
     // Use Hyprland toplevel for Hyprland-specific properties (xwayland, etc)
@@ -60,7 +63,14 @@ RowLayout {
     }
 
     Rectangle {
-        Layout.preferredWidth: Math.min(titleText.implicitWidth + Config.margin * 2, 500)
+        Layout.preferredWidth: {
+            let textWidth = titleText.implicitWidth + Config.margin * 2;
+            let modeWidth = modeText.visible ? modeText.implicitWidth + Config.margin * 2 : 0;
+            let classWidth = classText.visible ? classText.implicitWidth + Config.margin * 2 : 0;
+            let usedWidth = modeWidth + classWidth;
+            let maxWidth = Math.max(availableWidth - usedWidth - Config.margin * 4, 100);
+            return Math.min(textWidth, maxWidth);
+        }
         Layout.fillHeight: true
         visible: (activeWindow?.title ?? "") !== ""
         color: "transparent"

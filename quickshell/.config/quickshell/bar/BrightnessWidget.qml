@@ -2,17 +2,20 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property int brightness: 0
 
-    text: Config.iconBrightness + " " + brightness + "%"
-    color: Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: Config.iconBrightness
+        text: brightness + "%"
+        status: brightness < 30 ? BarWidget.Warning : BarWidget.Normal
+    }
 
     Process {
         id: brightProc

@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property string netInterface: ""
@@ -10,12 +10,15 @@ Text {
     property string ipv4: ""
     property bool isWlan: false
 
-    text: isWlan ? Config.iconNetwork + " " + ssid : Config.iconNetworkWired + " " + ipv4
-    color: Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: isWlan ? Config.iconNetwork : Config.iconNetworkWired
+        text: isWlan ? ssid : ipv4
+        status: (netInterface === "" || (isWlan && ssid === "") || (!isWlan && ipv4 === "")) ? BarWidget.Danger : BarWidget.Normal
+    }
 
     Process {
         id: ifaceProc

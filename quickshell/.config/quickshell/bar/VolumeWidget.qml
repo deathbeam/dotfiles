@@ -2,7 +2,7 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property string mixer: "Master"
@@ -10,12 +10,15 @@ Text {
     property int percent: 0
     property bool muted: false
 
-    text: muted ? (isMic ? Config.iconMicMuted : Config.iconVolumeMuted) : (isMic ? Config.iconMic + " " + percent + "%" : Config.iconVolume + " " + percent + "%")
-    color: muted ? Config.colorUrgent : Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: muted ? (isMic ? Config.iconMicMuted : Config.iconVolumeMuted) : (isMic ? Config.iconMic : Config.iconVolume)
+        text: percent + "%"
+        status: muted ? BarWidget.Danger : percent < 30 ? BarWidget.Warning : BarWidget.Normal
+    }
 
     Process {
         id: volProc

@@ -2,19 +2,22 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property bool hidden: false
     property int brightness: 0
     property int brightnessPercent: Math.round(((brightness + 64) / 128) * 100)
 
-    text: hidden ? Config.iconCameraMuted : Config.iconCameraActive + " " + brightnessPercent + "%"
-    color: hidden ? Config.colorUrgent : Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: hidden ? Config.iconCameraMuted : Config.iconCameraActive
+        text: brightnessPercent + "%"
+        status: hidden ? BarWidget.Danger : brightnessPercent < 30 ? BarWidget.Warning : BarWidget.Normal
+    }
 
     Process {
         id: brightnessProc

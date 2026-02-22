@@ -2,19 +2,22 @@ import QtQuick
 import Quickshell
 import Quickshell.Io
 
-Text {
+Item {
     id: root
 
     property int utilization: -1
     property int temperature: -1
 
     visible: utilization >= 0 && temperature >= 0
-    text: Config.iconGpu + " " + utilization + "%|" + temperature + "°C"
-    color: (utilization >= 80 || temperature >= 80) ? Config.colorUrgent : (utilization >= 65 || temperature >= 65) ? Config.colorWarning : Config.colorFg
-    font.family: Config.fontFamily
-    font.pixelSize: Config.fontSize
-    leftPadding: Config.margin
-    rightPadding: Config.margin
+    implicitWidth: barWidget.implicitWidth
+    implicitHeight: barWidget.implicitHeight
+
+    BarWidget {
+        id: barWidget
+        icon: Config.iconGpu
+        text: utilization + "%|" + temperature + "°C"
+        status: (utilization >= 80 || temperature >= 80) ? BarWidget.Danger : (utilization >= 65 || temperature >= 65) ? BarWidget.Warning : BarWidget.Normal
+    }
 
     Process {
         id: gpuProc
