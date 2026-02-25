@@ -34,12 +34,6 @@ end
 
 vim.api.nvim_create_user_command('GitHubLink', github_permalink, {})
 
--- Enable difftool
-vim.cmd.packadd('nvim.difftool')
-
--- Enable diffmode replacement
--- vim.g.difftool_replace_diff_mode = true
-
 gitsigns.setup({
     signcolumn = false,
     numhl = true,
