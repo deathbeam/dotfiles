@@ -13,6 +13,7 @@ packages=(
     net-tools systemd-resolvconf iw sshpass wget socat traceroute aria2c # network tools/downloaders
     bc unzip p7zip # archive tools
     rate-mirrors pacman-contrib arch-update # arch tools
+    libqalculate # qalc
     pass pass-otp # password manager
     power-profiles-daemon # power management
     keyd # keyboard remapping daemon
