@@ -112,5 +112,4 @@ vim.cmd.packadd('nvim.undotree')
 nmap('<leader>u', require('undotree').open, 'Open undotree')
 
 -- Enable difftool
-vim.g.difftool_replace_diff_mode = true
 vim.cmd.packadd('nvim.difftool')
