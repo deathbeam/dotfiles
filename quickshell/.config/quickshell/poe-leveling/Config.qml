@@ -12,8 +12,8 @@ QtObject {
     readonly property string colorWarning: "#B58900"
 
     readonly property int panelHeight: 150
-    readonly property int panelWidth: 1000
-    readonly property real opacity: 0.85
+    readonly property int panelWidth: 700
+    readonly property real opacity: 0.5
     readonly property int fontSize: 13
     readonly property string fontFamily: "monospace"
     readonly property int margin: 16

@@ -16,9 +16,11 @@ ShellRoot {
             top: true
             left: true
             right: true
+            bottom: false
         }
 
         margins {
+            top: -20
             left: (screen.width - Config.panelWidth) / 2
             right: (screen.width - Config.panelWidth) / 2
         }
