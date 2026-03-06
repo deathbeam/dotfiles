@@ -30,35 +30,50 @@ def load_zones(zones_file: Path) -> Dict[str, Dict[str, Any]]:
 
 
 def load_guide(guide_file: Path) -> Dict[str, List[Any]]:
-    """Load guide from default guide JSON (original Exile-UI format)."""
+    """
+    Load guide from default guide JSON (original Exile-UI format).
+
+    Maps zone_id -> entries to show when IN that zone.
+    Following Exile-UI's sequential logic: when you enter a zone, it shows
+    the NEXT entry after the one that targeted that zone.
+    Falls back to showing the targeting entry itself if no next entry exists.
+    """
     with open(guide_file) as f:
         acts = json.load(f)
 
-    guide = {}
-    for act_idx, act in enumerate(acts, start=1):
+    # Flatten all entries across acts into a sequential list
+    all_entries = []
+    for act in acts:
         for entry in act:
             # Handle conditional entries
             if isinstance(entry, dict) and "condition" in entry:
                 entry = entry["lines"]
+            if isinstance(entry, list) and len(entry) > 0:
+                all_entries.append(entry)
 
-            if not isinstance(entry, list):
-                continue
+    # Build map: zone_id -> entries to show when IN that zone
+    guide = {}
+    for i, entry in enumerate(all_entries):
+        # Find the LAST zone ID mentioned in any line
+        # Patterns: "enter areaid{zone}", "to areaid{zone}", "road: areaid{zone}", etc.
+        target_zone = None
+        for line in entry:
+            # Look for areaid{zone} with optional preceding context (enter, to, word:, etc.)
+            match = re.search(r"areaid(\d+_\d+_?\w*|g\d+_(?:\d+_)?\d+[a-z]?)", line)
+            if match:
+                target_zone = match.group(1)  # Keep updating to get the LAST one
 
-            # Find zone ID in entry
-            zone_id = None
-            for line in entry:
-                # Look for zone references:
-                # PoE1: "areaid1_1_2" or "1_1_2"
-                # PoE2: "areaidg1_2" or "g1_2"
-                match = re.search(r"areaid(\d+_\d+_?\w*|g\d+_(?:\d+_)?\d+[a-z]?)", line)
-                if match:
-                    zone_id = match.group(1)
-                    break
+        # When you enter target_zone, show the NEXT entry (or this entry as fallback)
+        if target_zone:
+            if target_zone not in guide:
+                guide[target_zone] = []
 
-            if zone_id:
-                if zone_id not in guide:
-                    guide[zone_id] = []
-                guide[zone_id].append(entry)
+            # Prefer the next entry
+            if i + 1 < len(all_entries):
+                guide[target_zone].append(all_entries[i + 1])
+            else:
+                # Fallback: show the entry that mentions entering this zone
+                guide[target_zone].append(entry)
 
     return guide
 
