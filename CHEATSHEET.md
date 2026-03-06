@@ -19,6 +19,10 @@
 | `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
 | `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
 | `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
+| `SUPER+z` | exec `~/.config/quickshell/poe-leveling/scripts/toggle.sh` |
+| `SUPER+Left` | exec `echo 'prev' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
+| `SUPER+Right` | exec `echo 'next' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
+| `SUPER_SHIFT+z` | exec `echo 'hints' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
 | `Print` | exec `quickshell -c screenshot -n` |
 | `SUPER+Print` | exec `screenrecorder` |
 | `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
