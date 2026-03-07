@@ -193,12 +193,14 @@ def format_line(
             quest_key_with_underscores = match.group(1)
             quest_key = quest_key_with_underscores.replace("_", " ")
             if quest_key in quests:
+                quest_info = quests[quest_key]
                 gems = get_gems_for_quest(quest_key, gems_data)
                 if gems:
                     # Colorize and show ALL gems (no limit)
-                    colored_gems = [colorize_gem(gem) for gem in gems]
-                    gem_list = ", ".join(colored_gems)
-                    return gem_list
+                    # colored_gems = [colorize_gem(gem) for gem in gems]
+                    # gem_list = ", ".join(colored_gems)
+                    # return gem_list
+                    return f'"{quest_info["name"]}" ({len(gems)})'
                 else:
                     quest_info = quests[quest_key]
                     return f'"{quest_info["name"]}"'

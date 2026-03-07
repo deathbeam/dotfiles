@@ -112,3 +112,6 @@
 [submodule "zsh/.zsh/pack/bundle/start/zsh-expand-all"]
 	path = zsh/.zsh/pack/bundle/start/zsh-expand-all
 	url = https://github.com/simnalamburt/zsh-expand-all
+[submodule "nvim/.config/nvim/pack/bundle/start/nvim-dap-view"]
+	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-view
+	url = https://github.com/igorlfs/nvim-dap-view
