@@ -8,18 +8,14 @@ vim.o.winborder = 'single'
 vim.o.pumborder = 'single'
 
 -- Ext ui native
-au('VimEnter', {
-    callback = function()
-        if #vim.api.nvim_list_uis() > 0 then
-            require('vim._core.ui2').enable({
-                msg = {
-                    target = 'cmd',
-                    timeout = 1000,
-                },
-            })
-        end
-    end,
-})
+if #vim.api.nvim_list_uis() > 0 then
+    require('vim._core.ui2').enable({
+        msg = {
+            target = 'cmd',
+            timeout = 1000,
+        },
+    })
+end
 
 -- Set base16 colorscheme
 au('ColorScheme', {
