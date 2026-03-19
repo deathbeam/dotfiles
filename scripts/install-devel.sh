@@ -7,6 +7,8 @@ packages=(
     rust cargo
     lua51 luarocks stylua
     zig
+    jq yq jnv # json/yaml processors
+    quicktype # json converter to types
     github-cli opencode-bin
     docker docker-buildx docker-compose lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli

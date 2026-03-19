@@ -19,7 +19,6 @@ packages=(
     keyd # keyboard remapping daemon
     syncthing # file synchronization
     tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx # neovim/text stuff
-    jq yq jnv # json/yaml processors
     btop # system monitor
     glow # markdown viewer
     fastfetch # system information
