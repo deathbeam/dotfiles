@@ -91,9 +91,6 @@
 [submodule "zsh/.zsh/bundle/zsh-completions"]
 	path = zsh/.zsh/pack/bundle/start/zsh-completions
 	url = https://github.com/zsh-users/zsh-completions
-[submodule "zsh/.zsh/bundle/zsh-kubernetes"]
-	path = zsh/.zsh/pack/bundle/start/zsh-kubernetes
-	url = https://github.com/Dbz/zsh-kubernetes
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
 	url = https://github.com/marlonrichert/zsh-autocomplete
