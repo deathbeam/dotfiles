@@ -174,6 +174,11 @@ if [ -z "$PLUGINS_LOADED" ]; then
     esac
   done
   export PLUGINS_LOADED
+
+  # Restore tty stderr
+  if [[ -e /proc/$$/fd/2 ]] && [[ "$(readlink /proc/$$/fd/2)" == "/dev/null" ]]; then
+    exec 2>/dev/tty
+  fi
 fi
 
 # Bind c-n and c-p to navigate in completion menu properly
