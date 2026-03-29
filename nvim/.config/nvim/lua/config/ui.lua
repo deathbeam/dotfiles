@@ -103,6 +103,11 @@ au('InsertEnter', {
     end,
 })
 
+-- Quickfix
+local quicker = require('quicker')
+quicker.setup()
+nmap('<leader>q', quicker.toggle, 'Toggle quickfix')
+
 -- Undotree
 vim.cmd.packadd('nvim.undotree')
 nmap('<leader>u', require('undotree').open, 'Open undotree')

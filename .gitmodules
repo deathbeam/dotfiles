@@ -112,3 +112,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-dap-view"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-dap-view
 	url = https://github.com/igorlfs/nvim-dap-view
+[submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
+	url = https://github.com/stevearc/quicker.nvim

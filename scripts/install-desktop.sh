@@ -17,17 +17,12 @@ packages=(
     # qutebrowser python-adblock python-readability-lxml # browser
     brave-bin # browser
     mpv subliminal yt-dlp # video player and downloader
-    gamescope gamemode steam steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
+    gamescope gamemode steam proton-ge-custom-bin steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
     stremio-enhanced-bin youtube-music-bin # media streaming
     vesktop-bin # discord
     calibre # ebook management
 )
 install_pkgs "${packages[@]}"
-
-packages=(
-    protonge
-)
-install_asdf_pkgs "${packages[@]}"
 
 log "Configuring desktop"
 
