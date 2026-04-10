@@ -151,7 +151,16 @@ zstyle ':zim:git' aliases-prefix g
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 
 # Configure autocomplete
+autoload -Uz chpwd_recent_dirs cdr add-zsh-hook
+add-zsh-hook chpwd chpwd_recent_dirs
+# zstyle ':autocomplete:*' default-context history-incremental-search-backward
 zstyle ':autocomplete:*' delay 0.5
+zstyle ':autocomplete:*' min-input 3
+zstyle -e ':completion:*:directories' fake '
+    [[ -z $PREFIX$SUFFIX || -d $PREFIX$SUFFIX ]] ||
+        +autocomplete:recent-directories
+'
+zstyle ':completion:*:directories' sort no
 
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
