@@ -90,7 +90,7 @@
 | `copy-mode-vi` | `y` | send-keys -X copy-selection-and-cancel |
 | `copy-mode-vi` | `Escape` | send-keys -X cancel |
 | | `M-Enter` | if-shell `[ $(($(tmux display -p 8*#{pane_width}-20*#{pane_height}))) -lt 0 ] splitw -v -c #{pane_current_path} splitw -h -c #{pane_current_path}`
-| | `v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
+| | `M-v` | capture-pane `-S - \; save-buffer /tmp/tmux_buffer.txt \; split-window nvim + normal G\$?. /tmp/tmux_buffer.txt && rm /tmp/tmux_buffer.txt`
 | | `s` | run-shell `-b $HOME/.tmux/switch-session.sh`
 
 # Neovim Keybindings
