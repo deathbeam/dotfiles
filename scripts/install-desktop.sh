@@ -17,7 +17,7 @@ packages=(
     # qutebrowser python-adblock python-readability-lxml # browser
     brave-bin # browser
     mpv subliminal yt-dlp # video player and downloader
-    gamescope gamemode steam proton-ge-custom-bin steamtinkerlaunch-git wine winetricks umu-launcher lutris # gaming
+    gamescope gamemode steam proton-ge-custom-bin steamtinkerlaunch-git leshade-bin wine winetricks umu-launcher lutris # gaming
     stremio-enhanced-bin youtube-music-bin # media streaming
     vesktop-bin # discord
     calibre # ebook management
