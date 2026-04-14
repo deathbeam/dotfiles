@@ -12,7 +12,8 @@ txt_file = os.path.join(home, ".local", "share", "Steam", "steamapps", "common",
 
 notifiactions = [
     "reflecting mist",
-    "nameless seer"
+    "nameless seer",
+    "spawning discoverable hideout"
 ]
 
 class LogHandler(FileSystemEventHandler):
