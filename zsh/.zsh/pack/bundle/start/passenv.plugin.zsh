@@ -19,5 +19,5 @@ if [ ! -f "$CACHE_FILE" ] || [ "$(find "$CACHE_FILE" -mmin +$CACHE_AGE_MIN)" ]; 
       value="$(pass "$password_file")"
       print -r -- "export $varname='$value'" >> "$CACHE_FILE"
     done
-  ) < /dev/null &
+  ) < /dev/null &!
 fi
