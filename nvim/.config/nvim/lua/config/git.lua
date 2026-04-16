@@ -36,6 +36,7 @@ vim.api.nvim_create_user_command('GitHubLink', github_permalink, {})
 
 gitsigns.setup({
     signcolumn = false,
+    current_line_blame = true,
     numhl = true,
     watch_gitdir = {
         enable = false,
