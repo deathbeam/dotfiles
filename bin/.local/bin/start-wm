@@ -5,8 +5,6 @@ if lspci | grep -q 'NVIDIA'; then
     echo "NVIDIA GPU detected, setting NVIDIA-specific environment variables"
     export NVD_BACKEND="direct"
     export LIBVA_DRIVER_NAME="nvidia"
-    export PROTON_ENABLE_NGX_UPDATER=1
-    export PROTON_VKD3D_HEAP=1
     export GBM_BACKEND="nvidia-drm"
     export __GL_GSYNC_ALLOWED=1
     export __GL_VRR_ALLOWED=1
