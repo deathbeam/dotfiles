@@ -8,6 +8,11 @@ fi
 
 # Refresh cache if missing or older than CACHE_AGE_MIN, in background
 if [ ! -f "$CACHE_FILE" ] || [ "$(find "$CACHE_FILE" -mmin +$CACHE_AGE_MIN)" ]; then
+  # Skip cache refresh if GPG is locked or pass cannot be used
+  if ! pass show Env/RPDB_API_KEY 2>/dev/null </dev/null; then
+    return
+  fi
+
   (
     prefix=${PASSWORD_STORE_DIR-~/.password-store}
     password_files=( "$prefix"/Env/**/*.gpg )
