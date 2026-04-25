@@ -12,6 +12,7 @@ local chat = require('CopilotChat')
 chat.setup({
     debug = false,
     temperature = 0,
+    model = 'auto',
     sticky = {
         '#buffer:listed',
         '#selection',

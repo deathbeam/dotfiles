@@ -24,6 +24,9 @@ max_line_length = 0
 trim_trailing_whitespace = false
 
 [*.cs]
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = true
+
 # Using directives
 dotnet_diagnostic.IDE0005.severity = error
 

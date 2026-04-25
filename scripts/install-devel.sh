@@ -17,6 +17,12 @@ packages=(
 install_pkgs "${packages[@]}"
 
 packages=(
+    '@github/copilot'
+)
+
+install_npm_pkgs "${packages[@]}"
+
+packages=(
     https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip
 )
 install_python_pkgs "${packages[@]}"
