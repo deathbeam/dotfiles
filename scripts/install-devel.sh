@@ -9,8 +9,8 @@ packages=(
     zig
     jq yq jnv # json/yaml processors
     quicktype # json converter to types
-    github-cli opencode-bin
-    docker docker-buildx docker-compose docker-sandbox-bin bubblewrap lazydocker
+    github-cli
+    docker docker-buildx docker-compose bubblewrap lazydocker # container and isolation
     azure-cli kubectl k9s azure-kubelogin temporal-cli
 )
 install_pkgs "${packages[@]}"
