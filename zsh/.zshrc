@@ -156,13 +156,6 @@ add-zsh-hook chpwd chpwd_recent_dirs
 zstyle ':autocomplete:*' delay 0.5
 zstyle ':autocomplete:*' min-input 3
 
-# zstyle ':autocomplete:*' default-context history-incremental-search-backward
-# zstyle -e ':completion:*:directories' fake '
-#     [[ -z $PREFIX$SUFFIX || -d $PREFIX$SUFFIX ]] ||
-#         +autocomplete:recent-directories
-# '
-# zstyle ':completion:*:directories' sort no
-
 # Pathogen-like loader for plugins
 if [ -z "$PLUGINS_LOADED" ]; then
   PLUGINS_LOADED=()

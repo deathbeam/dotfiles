@@ -10,17 +10,21 @@ packages=(
     jq yq jnv # json/yaml processors
     quicktype # json converter to types
     github-cli opencode-bin
-    docker docker-buildx docker-compose lazydocker
+    docker docker-buildx docker-compose docker-sandbox-bin bubblewrap lazydocker
     azure-cli kubectl k9s azure-kubelogin temporal-cli
-    distrobox
 )
 install_pkgs "${packages[@]}"
 
 packages=(
-    '@github/copilot'
+    '@mariozechner/pi-coding-agent'
+    'context-mode'
 )
 
 install_npm_pkgs "${packages[@]}"
+
+pi install npm:@0xkobold/pi-ollama
+pi install npm:pi-ollama-web-search
+pi install npm:context-mode
 
 packages=(
     https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip

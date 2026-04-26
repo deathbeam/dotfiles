@@ -1,0 +1,12 @@
+#!/bin/bash
+HERE="$(realpath .)"
+bwrap \
+--ro-bind / / \
+--bind ~/.pi ~/.pi \
+--bind ~/.config ~/.config \
+--dev-bind /dev/null /dev/null \
+--dev-bind /dev/urandom /dev/urandom \
+--tmpfs /tmp \
+--bind "$HERE" "$HERE" \
+--setenv PS1 "sandbox$ " \
+"${@:-sh}"
