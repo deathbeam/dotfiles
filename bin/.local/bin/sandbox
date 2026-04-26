@@ -1,12 +1,51 @@
 #!/bin/bash
+# Generic restrictive bubblewrap sandbox
+# Usage: sandbox [command...]
+#   Runs command (or $SHELL) in an isolated environment.
+#   Current working directory and some common config/state directories are writable,
+#   but the rest of the filesystem is read-only.
+#   Mo IPC, no new privileges, isolated namespaces.
+
+set -euo pipefail
+
+# Resolve current directory once
 HERE="$(realpath .)"
-bwrap \
---ro-bind / / \
---bind ~/.pi ~/.pi \
---bind ~/.config ~/.config \
---dev-bind /dev/null /dev/null \
---dev-bind /dev/urandom /dev/urandom \
---tmpfs /tmp \
---bind "$HERE" "$HERE" \
---setenv PS1 "sandbox$ " \
-"${@:-sh}"
+
+# Build common read-only filesystem bindings
+# Using --ro-bind for the entire system, then overlaying specific paths as needed
+bwrap_args=(
+    # --- Filesystem: read-only root with selective overlays ---
+    --ro-bind / /
+
+    # Writable current working directory (the main "working area")
+    --bind "$HERE" "$HERE"
+
+    # Allow common stuff
+    --bind "$HOME/.config" "$HOME/.config"
+    --bind "$HOME/.local/state" "$HOME/.local/state"
+    --bind "$HOME/.pi" "$HOME/.pi"
+    --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR"
+
+    # /tmp as tmpfs (writable but ephemeral)
+    --tmpfs /tmp
+
+    # --- Pseudo-filesystems ---
+    --proc /proc
+    --dev /dev
+
+    # --- Namespace isolation ---
+    --unshare-all
+    --share-net
+
+    # --- Security hardening ---
+    --new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226)
+    --die-with-parent      # Kill sandboxed process when parent dies
+    --hostname sandbox     # Isolate UTS namespace hostname
+
+    # --- Environment ---
+    --setenv PS1 "sandbox$ "
+    --unsetenv XAUTHORITY  # Don't leak X11 auth by default
+)
+
+# Execute
+exec bwrap "${bwrap_args[@]}" "${@:-sh}"
