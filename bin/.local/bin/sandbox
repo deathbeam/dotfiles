@@ -34,12 +34,12 @@ bwrap_args=(
     --dev /dev
 
     # --- Namespace isolation ---
-    # --unshare-all
-    # --share-net
-    # --hostname sandbox   # Isolate UTS namespace hostname
+    --unshare-all
+    --share-net
+    --hostname sandbox     # Isolate UTS namespace hostname
 
     # --- Security hardening ---
-    --new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226)
+    # --new-session         # Mitigate TIOCSTI sandbox escape (CVE-2017-5226)
     --die-with-parent      # Kill sandboxed process when parent dies
 
     # --- Environment ---
