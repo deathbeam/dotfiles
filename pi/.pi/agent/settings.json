@@ -7,7 +7,8 @@
     "npm:@0xkobold/pi-ollama",
     "npm:pi-ollama-web-search",
     "npm:pi-terminal-theme",
-    "npm:pi-hashline-edit"
+    "npm:pi-hashline-edit",
+    "npm:pi-crofai"
   ],
   "terminal": {
     "showTerminalProgress": false
