@@ -21,13 +21,13 @@ bwrap_args=(
     --bind "$HERE" "$HERE"
 
     # Allow common stuff
-    --bind "$HOME/.config" "$HOME/.config"
-    --bind "$HOME/.local/state" "$HOME/.local/state"
+    --bind "$HOME/.local/state/nvim" "$HOME/.local/state/nvim"
     --bind "$HOME/.pi" "$HOME/.pi"
     --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR"
+    --bind /tmp /tmp
 
     # /tmp as tmpfs (writable but ephemeral)
-    --tmpfs /tmp
+    # --tmpfs /tmp
 
     # --- Pseudo-filesystems ---
     --proc /proc

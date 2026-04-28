@@ -112,3 +112,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/quicker.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/quicker.nvim
 	url = https://github.com/stevearc/quicker.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/async.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/async.nvim
+	url = https://github.com/lewis6991/async.nvim
