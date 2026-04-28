@@ -1,0 +1,25 @@
+{
+  "defaultModel": "glm-5.1:cloud",
+  "defaultProvider": "ollama-cloud",
+  "enableInstallTelemetry": false,
+  "lastChangelogVersion": "0.70.5",
+  "packages": [
+    "npm:@0xkobold/pi-ollama",
+    "npm:pi-ollama-web-search",
+    "npm:pi-terminal-theme",
+    "npm:pi-hashline-edit"
+  ],
+  "terminal": {
+    "showTerminalProgress": false
+  },
+  "theme": "terminal",
+  "images": {
+    "blockImages": false
+  },
+  "defaultThinkingLevel": "medium",
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "hideThinkingBlock": true,
+  "quietStartup": true,
+  "editorPaddingX": 0
+}
