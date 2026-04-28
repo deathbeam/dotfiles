@@ -2,7 +2,7 @@
   "defaultModel": "glm-5.1:cloud",
   "defaultProvider": "ollama-cloud",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.70.5",
+  "lastChangelogVersion": "0.70.6",
   "packages": [
     "npm:@0xkobold/pi-ollama",
     "npm:pi-ollama-web-search",
@@ -21,6 +21,9 @@
   "steeringMode": "all",
   "followUpMode": "all",
   "hideThinkingBlock": true,
-  "quietStartup": true,
-  "editorPaddingX": 0
+  "quietStartup": false,
+  "editorPaddingX": 0,
+  "compaction": {
+    "enabled": true
+  }
 }
