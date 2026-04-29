@@ -20,7 +20,7 @@
   "defaultThinkingLevel": "medium",
   "steeringMode": "all",
   "followUpMode": "all",
-  "hideThinkingBlock": true,
+  "hideThinkingBlock": false,
   "quietStartup": false,
   "editorPaddingX": 0,
   "compaction": {
