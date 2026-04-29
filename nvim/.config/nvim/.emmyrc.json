@@ -1,17 +1,9 @@
 {
   "runtime": {
     "version": "LuaJIT",
-    "requirePattern": [
-      "lua/?.lua",
-      "lua/?/init.lua",
-      "?/lua/?.lua",
-      "?/lua/?/init.lua"
-    ]
+    "requirePattern": ["lua/?.lua", "lua/?/init.lua"]
   },
   "workspace": {
-    "library": [
-      "$VIMRUNTIME",
-    ],
-    "ignoreGlobs": ["**/*_spec.lua"]
+    "library": ["$VIMRUNTIME"]
   }
 }

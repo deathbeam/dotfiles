@@ -3,24 +3,15 @@ return {
         Lua = {
             runtime = {
                 version = 'LuaJIT',
-                path = {
+                requirePattern = {
                     'lua/?.lua',
                     'lua/?/init.lua',
                 },
             },
-            hint = {
-                enable = true,
-            },
             workspace = {
                 library = {
-                    vim.trim(vim.env.VIMRUNTIME),
-                    '${3rd}/luv/library',
-                    '${3rd}/busted/library',
+                    vim.env.VIMRUNTIME
                 },
-            },
-            completion = {
-                callSnippet = false,
-                keywordSnippet = false,
             },
         },
     },
