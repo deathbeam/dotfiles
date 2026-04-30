@@ -1,1 +1,3 @@
-require('slopcode.config').layout = 'replace'
+local cfg = require('slopcode.config')
+cfg.display.layout = 'replace'
+cfg.display.thinking = false
