@@ -1,7 +1,3 @@
-[submodule "nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/CopilotChat.nvim
-    url = https://github.com/CopilotC-Nvim/CopilotChat.nvim
-    branch = main
 [submodule "nvim/.config/nvim/pack/bundle/start/base16-nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/base16-nvim
 	url = https://github.com/RRethy/base16-nvim
@@ -52,9 +48,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/oil.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/oil.nvim
 	url = https://github.com/stevearc/oil.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/plenary.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/plenary.nvim
-	url = https://github.com/nvim-lua/plenary.nvim
 [submodule "nvim/.config/nvim/pack/bundle/start/roslyn.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/roslyn.nvim
 	url = https://github.com/seblyng/roslyn.nvim

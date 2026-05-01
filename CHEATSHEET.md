@@ -96,19 +96,9 @@
 # Neovim Keybindings
 | Mode | Key | Description |
 |------|-----|-------------|
-| nv | `<Space>ad` | AI Documentation |
-| nv | `<Space>ae` | AI Explain |
-| nv | `<Space>af` | AI Fix |
-| nv | `<Space>ac` | AI Generate Commit |
 | n | `<Space>am` | AI Models |
-| v | `<Space>aa` | AI Open |
-| nv | `<Space>ao` | AI Optimize |
-| nv | `<Space>ap` | AI Prompts |
-| nv | `<Space>aq` | AI Question |
 | n | `<Space>ax` | AI Reset |
-| nv | `<Space>ar` | AI Review |
 | n | `<Space>as` | AI Stop |
-| nv | `<Space>at` | AI Tests |
 | n | `<Space>aa` | AI Toggle |
 | n | `<Space>mD` | Bookmarks Delete All |
 | n | `<Space>md` | Bookmarks Delete Buffer |
