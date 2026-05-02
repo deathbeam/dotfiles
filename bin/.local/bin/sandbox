@@ -38,7 +38,7 @@ bwrap_args=(
     --hostname sandbox     # Isolate UTS namespace hostname
 
     # Security hardening
-    --new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226), can cause issues in tmux, usually its ok
+    #--new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226), causes redraw issues in tmux, otherwise ok
     --die-with-parent      # Kill sandboxed process when parent dies
 
     # Environment

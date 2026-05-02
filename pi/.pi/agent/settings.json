@@ -2,7 +2,7 @@
   "defaultModel": "glm-5.1:cloud",
   "defaultProvider": "ollama-cloud",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.70.6",
+  "lastChangelogVersion": "0.72.1",
   "packages": [
     "npm:@0xkobold/pi-ollama",
     "npm:pi-ollama-web-search",
