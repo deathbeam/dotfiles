@@ -4,7 +4,6 @@
 #   Runs command (or $SHELL) in an isolated environment.
 #   Current working directory and some common config/state directories are writable,
 #   but the rest of the filesystem is read-only.
-#   Mo IPC, no new privileges, isolated namespaces.
 
 set -euo pipefail
 
@@ -14,38 +13,38 @@ HERE="$(realpath .)"
 # Build common read-only filesystem bindings
 # Using --ro-bind for the entire system, then overlaying specific paths as needed
 bwrap_args=(
-    # --- Filesystem: read-only root with selective overlays ---
+    # Filesystem: read-only root with selective overlays
     --ro-bind / /
 
-    # Writable current working directory (the main "working area")
+    # Writable current working directory
     --bind "$HERE" "$HERE"
 
     # Allow common stuff
-    --bind "$HOME/.local/state/nvim" "$HOME/.local/state/nvim"
+    --bind "$HOME/.local/state/nvim" "$HOME/.local/state/nvim" # needed for neovim
     --bind "$HOME/.pi" "$HOME/.pi"
-    --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR"
-    --bind /tmp /tmp
+    --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" # needed for neovim
 
-    # /tmp as tmpfs (writable but ephemeral)
+    # /tmp as tmpfs (writable but ephemeral), use if not using fzf-lua or other stuff isnt breaking
+    --bind /tmp /tmp # without this fzf-lua kinda doesnt rly work
     # --tmpfs /tmp
 
-    # --- Pseudo-filesystems ---
+    # Pseudo-filesystems
     --proc /proc
     --dev /dev
 
-    # --- Namespace isolation ---
+    # Namespace isolation
     --unshare-all
     --share-net
     --hostname sandbox     # Isolate UTS namespace hostname
 
-    # --- Security hardening ---
-    # --new-session         # Mitigate TIOCSTI sandbox escape (CVE-2017-5226)
+    # Security hardening
+    --new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226), can cause issues in tmux, usually its ok
     --die-with-parent      # Kill sandboxed process when parent dies
 
-    # --- Environment ---
+    # Environment
     --setenv PS1 "sandbox$ "
     --unsetenv XAUTHORITY  # Don't leak X11 auth by default
 )
 
 # Execute
-exec bwrap "${bwrap_args[@]}" "${@:-sh}"
+exec bwrap "${bwrap_args[@]}" "${@:-$SHELL}"
