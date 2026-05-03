@@ -66,9 +66,6 @@
 [submodule "tmux/.tmux/bundle/tmux-resurrect"]
 	path = tmux/.tmux/pack/bundle/start/tmux-resurrect
 	url = https://github.com/tmux-plugins/tmux-resurrect
-[submodule "zsh/.fzf"]
-	path = zsh/.fzf
-    url = https://github.com/junegunn/fzf
 [submodule "zsh/.zsh/bundle/archive"]
 	path = zsh/.zsh/pack/bundle/start/archive
 	url = https://github.com/zimfw/archive

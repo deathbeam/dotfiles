@@ -25,13 +25,10 @@ update:
 	git submodule sync --recursive
 	for sub in $(SUBMODULES); do \
 		echo "Updating submodule $$sub"; \
-		if [ "$$sub" != "zsh/.fzf" ]; then \
-			git submodule update --init --recursive --force --remote "$$sub"; \
-		fi; \
+		git submodule update --init --recursive --force --remote "$$sub"; \
 	done
 
 install:
-	zsh/.fzf/install --all --no-update-rc --no-completion --no-bash --no-fish
 	zsh -ic 'fast-theme base16'
 	nvim --headless \
 		+MasonUpdateSync \
@@ -43,5 +40,4 @@ install:
 	python scripts/generate-menu.py
 
 uninstall:
-	zsh/.fzf/uninstall
 	stow --target ~ --delete `ls -d */`

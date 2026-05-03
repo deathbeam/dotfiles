@@ -196,8 +196,12 @@ if command -v mise >/dev/null 2>&1; then
   eval "$(mise activate zsh)"
 fi
 
+# Initialize fzf if installed
+if command -v fzf >/dev/null 2>&1; then
+  source <(fzf --zsh)
+fi
+
 # Configure FZF
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 export FZF_DEFAULT_OPTS="--no-hscroll --color=border:#268bd2 --border=none --margin 0,0 --preview-window=border-sharp:wrap --no-separator --info=inline-right"
 export FZF_DEFAULT_COMMAND='rg --files --hidden --follow'
 export FZF_CTRL_T_COMMAND=$FZF_DEFAULT_COMMAND

@@ -9,7 +9,7 @@ packages=(
     dosfstools fuse2 gdu # filesystem tools
     stoken openvpn vpn-slice openconnect tinyproxy mitmproxy # VPN/proxy tools
     stow zsh starship tmux # shell tools
-    ripgrep mlocate man-db tldr # man/search tools
+    ripgrep mlocate man-db tldr fzf # man/search tools
     net-tools systemd-resolvconf iw sshpass wget socat traceroute aria2c # network tools/downloaders
     bc unzip p7zip # archive tools
     rate-mirrors pacman-contrib arch-update # arch tools
