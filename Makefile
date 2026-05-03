@@ -27,6 +27,7 @@ update:
 		echo "Updating submodule $$sub"; \
 		git submodule update --init --recursive --force --remote "$$sub"; \
 	done
+	zsh -ic 'update_env_cache' || true
 
 install:
 	zsh -ic 'fast-theme base16'
