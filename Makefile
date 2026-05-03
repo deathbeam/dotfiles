@@ -1,5 +1,4 @@
 SUBMODULES := $(shell git config --file .gitmodules --get-regexp path | awk '{ print $$2 }')
-
 default:format update link install
 
 format:
@@ -27,8 +26,7 @@ update:
 	for sub in $(SUBMODULES); do \
 		echo "Updating submodule $$sub"; \
 		if [ "$$sub" != "zsh/.fzf" ]; then \
-			git submodule update --init --recursive "$$sub"; \
-			git submodule update --remote "$$sub"; \
+			git submodule update --init --recursive --force --remote "$$sub"; \
 		fi; \
 	done
 
