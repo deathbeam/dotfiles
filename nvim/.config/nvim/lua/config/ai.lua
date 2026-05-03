@@ -1,5 +1,5 @@
 local cfg = require('slopcode.config')
-cfg.model = 'crofai/glm-5.1'
+cfg.model = 'crofai/glm-5.1-precision'
 cfg.display.layout = 'replace'
 cfg.display.thinking = true
 

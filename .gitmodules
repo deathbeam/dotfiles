@@ -108,3 +108,6 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/async.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/async.nvim
 	url = https://github.com/lewis6991/async.nvim
+[submodule "nvim/.config/nvim/pack/bundle/start/slopcode.nvim"]
+	path = nvim/.config/nvim/pack/bundle/start/slopcode.nvim
+	url = https://github.com/deathbeam/slopcode.nvim
