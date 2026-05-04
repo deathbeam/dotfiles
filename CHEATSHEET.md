@@ -351,6 +351,7 @@
 | alias | `pauu` | `yay -Syu --noconfirm`
 | alias | `reset` | `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme`
 | alias | `run-help` | `man`
+| alias | `slop` | `sandbox nvim -c \lua require(slopcode).open({layout=replace})\`
 | alias | `vim` | `nvim`
 | alias | `vimdiff` | `nvim -d`
 | alias | `vimf` | `nvimf`
