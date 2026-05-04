@@ -131,8 +131,9 @@ autocmd VimRc BufWinEnter quickfix set norelativenumber
 autocmd VimRc BufWinEnter quickfix set nonumber
 
 " Sync system clipboard and vim clipboard
-autocmd VimRc FocusGained,VimEnter * let @"=getreg('+')
-autocmd VimRc TextYankPost * if v:event.operator ==# 'y' | let @+=getreg('"') | endif
+"set clipboard+=unnamedplus
+autocmd VimRc FocusGained,VimEnter * silent! let @"=getreg('+')
+autocmd VimRc TextYankPost * if v:event.operator ==# 'y' | silent! let @+=getreg('"') | endif
 
 " }}}
 
