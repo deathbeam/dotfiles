@@ -201,6 +201,9 @@ if command -v fzf >/dev/null 2>&1; then
   source <(fzf --zsh)
 fi
 
+# Do not track
+export DO_NOT_TRACK=1
+
 # Configure slop
 alias slop="sandbox nvim -c 'lua require(\"slopcode\").open({layout=\"replace\"})'"
 

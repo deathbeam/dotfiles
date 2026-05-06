@@ -17,14 +17,9 @@ install_pkgs "${packages[@]}"
 
 packages=(
     '@mariozechner/pi-coding-agent'
-    'context-mode'
 )
 
 install_npm_pkgs "${packages[@]}"
-
-pi install npm:@0xkobold/pi-ollama
-pi install npm:pi-ollama-web-search
-pi install npm:context-mode
 
 packages=(
     https://github.com/dlenski/rsa_ct_kip/archive/HEAD.zip

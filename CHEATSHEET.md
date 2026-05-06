@@ -96,8 +96,10 @@
 # Neovim Keybindings
 | Mode | Key | Description |
 |------|-----|-------------|
-| n | `<Space>ac` | AI Catalog |
-| n | `<Space>ad` | AI Debug |
+| n | `<Space>ac` | AI Commit |
+| n | `<Space>adc` | AI Debug Catalog |
+| n | `<Space>ade` | AI Debug Events |
+| n | `<Space>adp` | AI Debug Prompt |
 | n | `<Space>am` | AI Models |
 | n | `<Space>ax` | AI Reset |
 | n | `<Space>as` | AI Stop |

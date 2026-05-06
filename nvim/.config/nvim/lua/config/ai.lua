@@ -7,11 +7,16 @@ vim.keymap.set('n', '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set('n', '<leader>ax', chat.reset, { desc = 'AI Reset' })
 vim.keymap.set('n', '<leader>as', chat.abort, { desc = 'AI Stop' })
 vim.keymap.set('n', '<leader>am', chat.model, { desc = 'AI Models' })
+vim.keymap.set('n', '<leader>ac', function()
+    chat.open()
+    chat.send(
+        '@.git/COMMIT_EDITMSG Write commit message for the change with commitizen convention. Keep the title under 50 characters and wrap message at 72 characters. Format as a gitcommit code block.'
+    )
+end, { desc = 'AI Commit' })
 
 -- Debugging
 local events = {}
-local loop = require('slopcode.loop')
-loop.subscribe(function(event)
+require('slopcode.loop').subscribe(function(event)
     events[#events + 1] = event
 end)
 

@@ -25,8 +25,6 @@ bwrap_args=(
     --bind "$HOME/.pi" "$HOME/.pi" # needed for pi
     --bind "$HOME/.npm/_cacache" "$HOME/.npm/_cacache" # needed for npx
     --bind "$HOME/.npm/_npx" "$HOME/.npm/_npx" # needed for npx
-    --bind "$HOME/.local/state/pipx" "$HOME/.local/state/pipx" # needed for pipx
-    --bind "$HOME/.cache/pipx" "$HOME/.cache/pipx" # needed for pipx
 
     # /tmp as tmpfs (writable but ephemeral), use if not using fzf-lua or other stuff isnt breaking
     --bind /tmp /tmp # without this fzf-lua kinda doesnt rly work
