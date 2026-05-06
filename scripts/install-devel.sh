@@ -16,7 +16,8 @@ packages=(
 install_pkgs "${packages[@]}"
 
 packages=(
-    '@mariozechner/pi-coding-agent'
+    '@mariozechner/pi-coding-agent',
+    '@fission-ai/openspec@latest'
 )
 
 install_npm_pkgs "${packages[@]}"
