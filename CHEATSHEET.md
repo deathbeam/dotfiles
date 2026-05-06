@@ -100,6 +100,7 @@
 | n | `<Space>adc` | AI Debug Catalog |
 | n | `<Space>ade` | AI Debug Events |
 | n | `<Space>adp` | AI Debug Prompt |
+| n | `<Space>adt` | AI Debug Test |
 | n | `<Space>am` | AI Models |
 | n | `<Space>ax` | AI Reset |
 | n | `<Space>as` | AI Stop |

@@ -16,8 +16,10 @@ end, { desc = 'AI Commit' })
 
 -- Debugging
 local events = {}
-require('slopcode.loop').subscribe(function(event)
-    events[#events + 1] = event
+pcall(function()
+    require('slopcode.events').subscribe(function(event)
+        events[#events + 1] = event
+    end)
 end)
 
 vim.keymap.set('n', '<leader>ade', function()
@@ -64,3 +66,10 @@ vim.keymap.set('n', '<leader>adc', function()
     vim.api.nvim_buf_set_lines(buf, 0, -1, false, lines)
     vim.bo[buf].modified = false
 end, { desc = 'AI Debug Catalog' })
+
+vim.keymap.set('n', '<leader>adt', function()
+    require('slopcode.events').push({ type = 'user_message', content = 'old content' })
+    require('slopcode.events').push({ type = 'clear' })
+    require('slopcode.events').push({ type = 'user_message', content = 'new content' })
+    require('slopcode.events').drain()
+end, { desc = 'AI Debug Test' })
