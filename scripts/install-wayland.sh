@@ -16,7 +16,6 @@ packages=(
     slurp
     grim-hyprland-git
     quickshell-git cpptrace
-    hyprmod-git
 )
 install_pkgs "${packages[@]}"
 
