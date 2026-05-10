@@ -71,6 +71,10 @@ oil.setup({
             return name == '..'
         end,
     },
+    columns = {
+        'icon',
+        'mtime',
+    },
     win_options = {
         number = false,
         relativenumber = false,
