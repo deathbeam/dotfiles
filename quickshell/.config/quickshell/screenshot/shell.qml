@@ -4,7 +4,6 @@ import QtQuick.Controls
 import Quickshell
 import Quickshell.Hyprland
 import Quickshell.Io
-import Quickshell.Wayland
 import Quickshell.Widgets
 
 FreezeScreen {
@@ -44,10 +43,10 @@ FreezeScreen {
                 if (screen.name === monitor.name) {
                     activeScreen = screen;
                     const timestamp = Date.now();
-                    const path = Quickshell.cachePath(`screenshot-${timestamp}.png`);
+                    const path = `/tmp/screenshot-${timestamp}.png`;
                     tempPath = path;
-                    Quickshell.execDetached(["grim", "-g", `${screen.x},${screen.y} ${screen.width}x${screen.height}`, path]);
-                    showTimer.start();
+                    grimProcess.command = ["grim", "-g", `${screen.x},${screen.y} ${screen.width}x${screen.height}`, path];
+                    grimProcess.running = true;
                 }
             }
         }
@@ -64,13 +63,22 @@ FreezeScreen {
         }
     }
 
-    Timer {
-        id: showTimer
+    Process {
+        id: grimProcess
 
-        interval: 50
         running: false
-        repeat: false
-        onTriggered: root.visible = true
+        onExited: () => {
+            root.sourcePath = "file://" + tempPath;
+            root.visible = true;
+        }
+
+        stdout: StdioCollector {
+            onStreamFinished: console.log(this.text)
+        }
+
+        stderr: StdioCollector {
+            onStreamFinished: console.log(this.text)
+        }
     }
 
     Process {

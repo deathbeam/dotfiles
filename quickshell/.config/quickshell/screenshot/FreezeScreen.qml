@@ -6,6 +6,7 @@ PanelWindow {
     id: root
 
     property var targetScreen: Quickshell.screens[0]
+    property string sourcePath: ""
     property alias contentItem: root.contentItem
 
     screen: targetScreen
@@ -19,10 +20,16 @@ PanelWindow {
         top: true
         bottom: true
     }
-
-    ScreencopyView {
-        captureSource: root.targetScreen
+    Rectangle {
         anchors.fill: parent
-        z: -1
+        color: "black"
+    }
+
+    Image {
+        id: frozenImage
+        source: root.sourcePath
+        anchors.fill: parent
+        fillMode: Image.Stretch
+        visible: root.sourcePath !== ""
     }
 }
