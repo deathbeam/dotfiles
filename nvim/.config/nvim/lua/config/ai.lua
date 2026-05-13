@@ -1,6 +1,7 @@
 local cfg = require('slopcode.config')
-cfg.model = 'crofai/glm-5.1-precision'
+cfg.model = 'crofai/mimo-v2.5-pro-precision'
 cfg.hide_reasoning = true
+cfg.reasoning_effort = 'high'
 
 local chat = require('slopcode.chat')
 vim.keymap.set('n', '<leader>aa', chat.toggle, { desc = 'AI Toggle' })

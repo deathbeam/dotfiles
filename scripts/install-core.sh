@@ -47,6 +47,7 @@ enable_services "${services[@]}"
 
 services=(
     syncthing
+    warp-taskbar
 )
 enable_user_services "${services[@]}"
 

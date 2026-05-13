@@ -50,6 +50,10 @@ au('ColorScheme', {
         blend_color('DiffDelete', 20)
         blend_color('DiffChange', 20)
         blend_color('DiffText', 20)
+
+        for _, group in ipairs(vim.fn.getcompletion('@lsp', 'highlight')) do
+            vim.api.nvim_set_hl(0, group, {})
+        end
     end,
 })
 
@@ -88,6 +92,18 @@ oil.setup({
         ['<C-l>'] = false,
     },
 })
+
+-- This causes following error:
+-- grid_alloc: Assertion `rows >= 0 && columns >= 0' failed.
+-- when opening nvim ., then using :h and then :<anything> with extui enabled probably?
+-- Possibly other messages + cmdline autocomplete can cause this too, but this one im sure of
+-- See: https://github.com/neovim/neovim/issues/35517
+-- au('User', {
+--     pattern = 'OilEnter',
+--     callback = function()
+--         oil.open_preview()
+--     end,
+-- })
 
 nmap('-', oil.open, 'Open parent directory')
 
