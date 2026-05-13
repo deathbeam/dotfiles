@@ -134,6 +134,3 @@ nmap('<leader>u', require('undotree').open, 'Open undotree')
 
 -- Enable difftool
 vim.cmd.packadd('nvim.difftool')
-
--- Precognition
-require('precognition').setup({})

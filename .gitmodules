@@ -109,6 +109,3 @@
 [submodule "nvim/.config/nvim/pack/bundle/start/slopcode.nvim"]
 	path = nvim/.config/nvim/pack/bundle/start/slopcode.nvim
 	url = https://github.com/deathbeam/slopcode.nvim
-[submodule "nvim/.config/nvim/pack/bundle/start/precognition.nvim"]
-	path = nvim/.config/nvim/pack/bundle/start/precognition.nvim
-	url = https://github.com/tris203/precognition.nvim
