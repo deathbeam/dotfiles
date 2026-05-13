@@ -16,11 +16,23 @@ local function get_sign(buf, lnum)
         { details = true, type = 'sign' }
     )
     for _, extmark in pairs(extmarks) do
+        local details = extmark[4]
+        local text = details.sign_text
+        local texthl = details.sign_hl_group
+        -- Legacy signs placed via sign_place have sign_name but not directly
+        -- sign_text/sign_hl_group in the extmark details. Look up the definition.
+        if text == nil and details.sign_name then
+            local defined = vim.fn.sign_getdefined(details.sign_name)
+            if defined and #defined > 0 then
+                text = defined[1].text or text
+                texthl = defined[1].texthl or texthl
+            end
+        end
         signs[#signs + 1] = {
-            name = extmark[4].sign_hl_group or '',
-            text = extmark[4].sign_text,
-            texthl = extmark[4].sign_hl_group,
-            priority = extmark[4].priority,
+            name = details.sign_hl_group or details.sign_name or '',
+            text = text,
+            texthl = texthl,
+            priority = details.priority,
         }
     end
 
