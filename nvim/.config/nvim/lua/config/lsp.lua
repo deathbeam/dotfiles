@@ -118,6 +118,12 @@ vim.lsp.enable(vim.iter(languages)
     :flatten()
     :totable())
 
+require('roslyn').setup({
+    extensions = {
+        razor = { enabled = false },
+    },
+})
+
 vim.lsp.config('*', {
     capabilities = {
         textDocument = {

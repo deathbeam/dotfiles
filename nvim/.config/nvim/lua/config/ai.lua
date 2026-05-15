@@ -15,6 +15,14 @@ vim.keymap.set('n', '<leader>ac', function()
     )
 end, { desc = 'AI Commit' })
 
+vim.api.nvim_create_autocmd('FileType', {
+    pattern = { 'slopcode' },
+    callback = function(args)
+        local bufnr = args.buf
+        vim.bo[bufnr].scrollback = 10000
+    end,
+})
+
 -- Debugging
 local events = {}
 pcall(function()
