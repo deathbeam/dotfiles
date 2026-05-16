@@ -74,8 +74,11 @@ csharp_preserve_single_line_blocks = false
 
 # Roslynator
 dotnet_analyzer_diagnostic.category-roslynator.severity = warning
+dotnet_diagnostic.RCS1130.severity = none
 dotnet_diagnostic.RCS1138.severity = none
 dotnet_diagnostic.RCS1139.severity = none
+dotnet_diagnostic.RCS1141.severity = none
+dotnet_diagnostic.RCS1142.severity = none
 
 [COMMIT_EDITMSG]
 max_line_length = 0
