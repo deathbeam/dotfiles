@@ -7,6 +7,7 @@ fzf.setup({
     'fzf-tmux',
     file_icon_padding = ' ',
     winopts = {
+        backdrop = false,
         border = 'none',
         preview = {
             border = 'single',
