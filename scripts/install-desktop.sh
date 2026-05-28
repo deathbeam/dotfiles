@@ -7,7 +7,7 @@ packages=(
     gcr
     fonts-meta-base terminus-font terminus-font-ttf ttf-terminus-nerd
     udiskie
-    imagemagick imv
+    imagemagick imv swayimg
     gammastep geoclue
     jamesdsp
     gpu-screen-recorder
