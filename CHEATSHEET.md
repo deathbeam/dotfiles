@@ -19,6 +19,7 @@
 | `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
 | `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
 | `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
+| `SUPER+a` | exec `menu-wifi -p "wifi"             # wifi` |
 | `SUPER+z` | exec `~/.config/quickshell/poe-leveling/scripts/toggle.sh` |
 | `SUPER+Left` | exec `echo 'prev' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
 | `SUPER+Right` | exec `echo 'next' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
