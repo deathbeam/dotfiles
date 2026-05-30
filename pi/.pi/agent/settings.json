@@ -2,7 +2,7 @@
   "defaultModel": "mimo-v2.5-pro-precision",
   "defaultProvider": "crofai",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.76.0",
+  "lastChangelogVersion": "0.78.0",
   "packages": [
     "npm:@0xkobold/pi-ollama",
     "npm:pi-ollama-web-search",

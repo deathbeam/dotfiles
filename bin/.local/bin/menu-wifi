@@ -1,0 +1,102 @@
+#!/bin/sh
+# menu-wifi - WiFi connection manager using fzfmenu and iwctl
+
+INTERFACE="${IWCTL_INTERFACE:-wlan0}"
+
+# Get currently connected network (instant, cached)
+current_network=$(iwctl station "$INTERFACE" show 2>/dev/null |
+  grep "Connected network" |
+  sed 's/.*Connected network[[:space:]]*//; s/[[:space:]]*$//')
+
+# Temp files
+init_data=$(mktemp /tmp/wifi-init.XXXXXX)
+list_script=$(mktemp /tmp/wifi-list.XXXXXX)
+
+# Write the reload helper script
+# Called by fzf on start — triggers scan, then lists networks
+cat > "$list_script" << 'SCRIPT'
+#!/bin/sh
+INTERFACE="$1"
+CURRENT="$2"
+
+iwctl station "$INTERFACE" scan 2>/dev/null
+sleep 1
+
+[ -n "$CURRENT" ] && echo "> disconnect from $CURRENT"
+
+iwctl station "$INTERFACE" get-networks 2>/dev/null |
+  sed 's/\x1b\[[0-9;]*[a-zA-Z]//g' |
+  tail -n +5 |
+  grep -v '^--' |
+  sed '/^[[:space:]]*$/d' |
+  sed 's/^[[:space:]]*> //; s/^[[:space:]]*//' |
+  while IFS= read -r line; do
+    name=$(echo "$line" | awk -F'  +' '{print $1}')
+    rest=$(echo "$line" | awk -F'  +' '{for(i=2;i<=NF;i++) printf "%s%s", (i>2?OFS:""), $i}')
+    signal=$(echo "$rest" | awk '{print $NF}')
+    security=$(echo "$rest" | awk '{$NF=""; print $0}' | sed 's/[[:space:]]*$//')
+    [ -n "$name" ] && printf "%-30s %-10s %s\n" "$name" "$security" "$signal"
+  done
+SCRIPT
+chmod +x "$list_script"
+
+# Initial data (shown instantly while scan runs)
+echo "scanning..." > "$init_data"
+
+# Run fzf via foot terminal (same pattern as fzfmenu)
+selected=$(
+  foot -a shellmenu -T wifi -e sh -c "
+    fzf \
+      --no-border --margin 0,0 --no-separator \
+      --info=inline-right --cycle --reverse \
+      --header='Connected: $current_network' \
+      --header-border sharp \
+      --bind 'ctrl-y:execute(echo {} | wl-copy)+abort' \
+      --bind 'start:reload:$list_script $INTERFACE $current_network' \
+      --prompt 'wifi > ' \
+      --print-query \
+      --with-nth '1..' \
+      --tiebreak=index \
+      < '$init_data' | tail -n 1
+  " 2>/dev/null
+)
+
+# Clean up temps
+rm -f "$init_data" "$list_script"
+
+[ -z "$selected" ] && exit 1
+
+case "$selected" in
+  "> disconnect"*)
+    network=$(echo "$selected" | sed 's/^> disconnect from //')
+    iwctl station "$INTERFACE" disconnect
+    notify-send "WiFi" "Disconnected from $network"
+    ;;
+  *)
+    network=$(echo "$selected" | awk -F'  +' '{print $1}')
+    security=$(echo "$selected" | awk -F'  +' '{print $2}')
+
+    notify-send "WiFi" "Connecting to $network..."
+
+    if [ "$security" = "open" ]; then
+      iwctl station "$INTERFACE" connect "$network"
+      notify-send "WiFi" "Connected to $network"
+    else
+      foot -a shellmenu -e sh -c "
+        echo 'Connecting to $network...'
+        iwctl station $INTERFACE connect '$network' 2>&1
+        rc=\$?
+        if [ \$rc -eq 0 ]; then
+          echo ''
+          echo 'Connected to $network!'
+        else
+          echo ''
+          echo 'Connection failed (error \$rc).'
+        fi
+        echo ''
+        echo 'Press Enter to close...'
+        read _
+      "
+    fi
+    ;;
+esac
