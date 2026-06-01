@@ -1,5 +1,5 @@
 local cfg = require('slopcode.config')
-cfg.model = 'crof/mimo-v2.5-pro-precision'
+cfg.model = 'crof/mimo-v2.5-pro'
 cfg.hide_reasoning = true
 cfg.reasoning_effort = 'high'
 

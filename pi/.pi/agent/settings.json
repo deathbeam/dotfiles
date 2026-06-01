@@ -1,6 +1,6 @@
 {
-  "defaultModel": "mimo-v2.5-pro-precision",
-  "defaultProvider": "crofai",
+  "defaultModel": "kimi-k2.6",
+  "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.78.0",
   "packages": [
