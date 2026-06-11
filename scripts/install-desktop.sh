@@ -35,8 +35,13 @@ steamtinkerlaunch compat add
 # Enable bitmap fonts (we need them to correctly render Terminus)
 if [ -f "/etc/fonts/conf.d/70-no-bitmaps.conf" ]; then
     sudo rm -f /etc/fonts/conf.d/70-no-bitmaps.conf
-    fc-cache -f
 fi
+
+# Remove URW Nimbus Mono PS override (it overrides user monospace preference)
+if [ -f "/etc/fonts/conf.d/69-urw-nimbus-mono-ps.conf" ]; then
+    sudo rm -f /etc/fonts/conf.d/69-urw-nimbus-mono-ps.conf
+fi
+fc-cache -f
 
 # pipewire crackling sometimes
 sudo mkdir -p /etc/pipewire/pipewire.conf.d
