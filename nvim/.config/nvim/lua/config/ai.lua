@@ -3,6 +3,29 @@ cfg.model = 'crof/mimo-v2.5-pro'
 cfg.hide_reasoning = true
 cfg.reasoning_effort = 'high'
 
+cfg.filters.crof = function(models)
+    for _, m in ipairs(models) do
+        if m.provider == 'crof' then
+            table.insert(
+                models,
+                1,
+                vim.tbl_extend('force', m, {
+                    id = 'kimi-k2.7-code',
+                    name = 'kimi-k2.7-code',
+                    reasoning = true,
+                    contextWindow = 262144,
+                    maxOutputTokens = 262144,
+                    temperature = true,
+                })
+            )
+
+            break
+        end
+    end
+
+    return models
+end
+
 local chat = require('slopcode.chat')
 vim.keymap.set('n', '<leader>aa', chat.toggle, { desc = 'AI Toggle' })
 vim.keymap.set('n', '<leader>ax', chat.reset, { desc = 'AI Reset' })

@@ -15,7 +15,7 @@ packages=(
     foot
     slurp
     grim-hyprland-git
-    quickshell-git cpptrace
+    quickshell cpptrace
 )
 install_pkgs "${packages[@]}"
 

@@ -1,6 +1,6 @@
 {
   "defaultModel": "mimo-v2.5-pro",
-  "defaultProvider": "opencode-go",
+  "defaultProvider": "crofai",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.79.1",
   "packages": [
