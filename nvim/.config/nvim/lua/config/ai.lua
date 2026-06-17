@@ -19,6 +19,19 @@ cfg.filters.crof = function(models)
                 })
             )
 
+            table.insert(
+                models,
+                1,
+                vim.tbl_extend('force', m, {
+                    id = 'glm-5.2',
+                    name = 'glm-5.2',
+                    reasoning = true,
+                    contextWindow = 1000000,
+                    maxOutputTokens = 131072,
+                    temperature = true,
+                })
+            )
+
             break
         end
     end
