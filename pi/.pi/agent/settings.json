@@ -1,13 +1,13 @@
 {
-  "defaultModel": "mimo-v2.5-pro",
+  "defaultModel": "glm-5.2",
   "defaultProvider": "crofai",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.79.1",
+  "lastChangelogVersion": "0.79.6",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-hashline-edit",
     "npm:pi-crofai",
-    "npm:pi-web-access"
+    "npm:pi-web-access",
+    "npm:pi-hashline-readmap"
   ],
   "terminal": {
     "showTerminalProgress": false
