@@ -1,13 +1,14 @@
 {
-  "defaultModel": "glm-5.2",
-  "defaultProvider": "crofai",
+  "defaultModel": "umans-glm-5.2",
+  "defaultProvider": "umans",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.79.6",
+  "lastChangelogVersion": "0.79.7",
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-crofai",
     "npm:pi-web-access",
-    "npm:pi-hashline-readmap"
+    "npm:pi-hashline-readmap",
+    "npm:pi-provider-umans"
   ],
   "terminal": {
     "showTerminalProgress": false
@@ -24,5 +25,6 @@
   "editorPaddingX": 0,
   "compaction": {
     "enabled": true
-  }
+  },
+  "defaultProjectTrust": "always"
 }
