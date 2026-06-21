@@ -90,7 +90,7 @@
     process = git-lfs filter-process
 
 [alias]
-    review = "!git fetch origin && git difftool -d origin/HEAD...HEAD"
+    review = "!f() { git fetch origin && base=$(git rev-parse --abbrev-ref origin/HEAD 2>/dev/null || (git rev-parse --verify origin/main >/dev/null 2>&1 && echo origin/main) || (git rev-parse --verify origin/master >/dev/null 2>&1 && echo origin/master)) && [ -n \"$base\" ] && git difftool -d $base...HEAD || echo 'error: could not determine default branch'; }; f"
     addw = "!f() { git diff -U0 -w --no-color \"$@\" | git apply --cached --ignore-whitespace --unidiff-zero; }; f"
 # Worktree stuff
     wt = worktree

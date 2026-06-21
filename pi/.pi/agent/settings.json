@@ -2,7 +2,7 @@
   "defaultModel": "umans-glm-5.2",
   "defaultProvider": "umans",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.79.7",
+  "lastChangelogVersion": "0.79.8",
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-crofai",
