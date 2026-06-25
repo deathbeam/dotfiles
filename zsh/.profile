@@ -55,6 +55,10 @@ export WALLPAPER="$HOME/.wallpaper"
 export _JAVA_AWT_WM_NONREPARENTING=1
 export _MOTIF_WM_HINTS=1
 
+# Stuff
+export MSBUILDDISABLENODEREUSE=1     # nodes exit after each build
+export DOTNET_CLI_USE_MSBUILD_SERVER=false  # no long-lived build server
+
 # Set scaling
 export QT_AUTO_SCREEN_SCALE_FACTOR=0
 export QT_ENABLE_HIGHDPI_SCALING=1
