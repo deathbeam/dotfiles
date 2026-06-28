@@ -16,7 +16,7 @@
   "images": {
     "blockImages": false
   },
-  "defaultThinkingLevel": "high",
+  "defaultThinkingLevel": "xhigh",
   "steeringMode": "all",
   "followUpMode": "all",
   "hideThinkingBlock": false,
