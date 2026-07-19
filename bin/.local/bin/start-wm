@@ -16,6 +16,11 @@ fi
 
 # Launch compositor
 if command -v Hyprland &> /dev/null; then
+    # Prevent duplicate launch if Hyprland is already running
+    if pgrep -x Hyprland &> /dev/null; then
+        echo "Hyprland is already running"
+        exit 1
+    fi
     # exec Hyprland
     exec start-hyprland
 else
