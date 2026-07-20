@@ -1,81 +1,89 @@
 # Hyprland Keybindings
 | Key | Action |
 |-----|--------|
-| `SUPER+Return` | __lua `5` |
-| `SUPER+Tab` | __lua `7` |
-| `SUPER+space` | __lua `9` |
-| `SUPER+p` | __lua `11` |
-| `SUPER+x` | __lua `13` |
-| `SUPER+c` | __lua `15` |
-| `SUPER+g` | __lua `17` |
-| `SUPER+i` | __lua `19` |
-| `SUPER+n` | __lua `21` |
-| `SUPER+u` | __lua `23` |
-| `SUPER+e` | __lua `25` |
-| `SUPER+v` | __lua `27` |
-| `SUPER+slash` | __lua `29` |
-| `SUPER+b` | __lua `31` |
-| `SUPER+d` | __lua `33` |
-| `SUPER+y` | __lua `35` |
-| `SUPER+o` | __lua `37` |
-| `SUPER+SHIFT+o` | __lua `39` |
-| `SUPER+a` | __lua `41` |
-| `SUPER+z` | __lua `43` |
-| `SUPER+Left` | __lua `45` |
-| `SUPER+Right` | __lua `47` |
-| `SUPER+SHIFT+z` | __lua `49` |
-| `switch:Lid Switch` | __lua `51` |
-| `Print` | __lua `53` |
-| `SUPER+Print` | __lua `55` |
-| `XF86AudioRaiseVolume` | __lua `57` |
-| `XF86AudioLowerVolume` | __lua `59` |
-| `XF86AudioMute` | __lua `61` |
-| `XF86AudioMicMute` | __lua `63` |
-| `XF86MonBrightnessUp` | __lua `65` |
-| `XF86MonBrightnessDown` | __lua `67` |
-| `XF86KbdBrightnessUp` | __lua `69` |
-| `XF86KbdBrightnessDown` | __lua `71` |
-| `XF86Launch1` | __lua `73` |
-| `XF86Launch3` | __lua `75` |
-| `XF86Launch4` | __lua `77` |
-| `SUPER+SHIFT+escape` | __lua `79` |
-| `SUPER+escape` | __lua `81` |
-| `SUPER+W` | __lua `83` |
-| `SUPER+S` | __lua `85` |
-| `SUPER+M` | __lua `87` |
-| `SUPER+F` | __lua `89` |
-| `SUPER+T` | __lua `91` |
-| `SUPER+H` | __lua `93` |
-| `SUPER+L` | __lua `95` |
-| `SUPER+K` | __lua `97` |
-| `SUPER+J` | __lua `99` |
-| `SUPER+SHIFT+H` | __lua `101` |
-| `SUPER+SHIFT+L` | __lua `103` |
-| `SUPER+SHIFT+K` | __lua `105` |
-| `SUPER+SHIFT+J` | __lua `107` |
-| `SUPER+R` | __lua `109` |
-| `SUPER+1` | __lua `131` |
-| `SUPER+2` | __lua `133` |
-| `SUPER+3` | __lua `135` |
-| `SUPER+4` | __lua `137` |
-| `SUPER+5` | __lua `139` |
-| `SUPER+6` | __lua `141` |
-| `SUPER+7` | __lua `143` |
-| `SUPER+8` | __lua `145` |
-| `SUPER+9` | __lua `147` |
-| `SUPER+grave` | __lua `149` |
-| `SUPER+SHIFT+1` | __lua `151` |
-| `SUPER+SHIFT+2` | __lua `153` |
-| `SUPER+SHIFT+3` | __lua `155` |
-| `SUPER+SHIFT+4` | __lua `157` |
-| `SUPER+SHIFT+5` | __lua `159` |
-| `SUPER+SHIFT+6` | __lua `161` |
-| `SUPER+SHIFT+7` | __lua `163` |
-| `SUPER+SHIFT+8` | __lua `165` |
-| `SUPER+SHIFT+9` | __lua `167` |
-| `SUPER+SHIFT+grave` | __lua `169` |
-| `SUPER+mouse:272` | __lua `171` |
-| `SUPER+mouse:273` | __lua `173` |
+| `SUPER+Return` | terminal |
+| `SUPER+Tab` | switch |
+| `SUPER+space` | run |
+| `SUPER+p` | passwords |
+| `SUPER+x` | execute |
+| `SUPER+c` | copy |
+| `SUPER+g` | games |
+| `SUPER+i` | install |
+| `SUPER+n` | notifications |
+| `SUPER+u` | urls |
+| `SUPER+e` | lock screen |
+| `SUPER+v` | flux |
+| `SUPER+slash` | cheatsheet |
+| `SUPER+b` | btop |
+| `SUPER+d` | discord |
+| `SUPER+y` | youtube |
+| `SUPER+o` | kubernetes |
+| `SUPER+SHIFT+o` | docker |
+| `SUPER+a` | wifi |
+| `SUPER+z` | poe leveling toggle |
+| `SUPER+Left` | poe previous |
+| `SUPER+Right` | poe next |
+| `SUPER+SHIFT+z` | poe hints |
+| `switch:Lid Switch` | lock screen |
+| `Print` | screenshot |
+| `SUPER+Print` | screen recorder |
+| `XF86AudioRaiseVolume` | volume up |
+| `XF86AudioLowerVolume` | volume down |
+| `XF86AudioMute` | mute |
+| `XF86AudioMicMute` | mic mute |
+| `XF86MonBrightnessUp` | brightness up |
+| `XF86MonBrightnessDown` | brightness down |
+| `XF86KbdBrightnessUp` | keyboard brightness up |
+| `XF86KbdBrightnessDown` | keyboard brightness down |
+| `XF86Launch1` | rog control center |
+| `XF86Launch3` | led mode |
+| `XF86Launch4` | profile |
+| `SUPER+SHIFT+escape` | exit |
+| `SUPER+escape` | reload config |
+| `SUPER+W` | close window |
+| `SUPER+S` | toggle float |
+| `SUPER+M` | maximize |
+| `SUPER+F` | fullscreen |
+| `SUPER+T` | toggle group |
+| `SUPER+H` | focus left |
+| `SUPER+L` | focus right |
+| `SUPER+K` | focus up |
+| `SUPER+J` | focus down |
+| `SUPER+SHIFT+H` | move left |
+| `SUPER+SHIFT+L` | move right |
+| `SUPER+SHIFT+K` | move up |
+| `SUPER+SHIFT+J` | move down |
+| `SUPER+R` | enter resize mode |
+| `resize: H` | resize left |
+| `resize: L` | resize right |
+| `resize: K` | resize up |
+| `resize: J` | resize down |
+| `resize: SHIFT+H` | move left |
+| `resize: SHIFT+L` | move right |
+| `resize: SHIFT+K` | move up |
+| `resize: SHIFT+J` | move down |
+| `resize: escape` | exit resize mode |
+| `resize: Return` | exit resize mode |
+| `SUPER+1` | workspace 1 |
+| `SUPER+2` | workspace 2 |
+| `SUPER+3` | workspace 3 |
+| `SUPER+4` | workspace 4 |
+| `SUPER+5` | workspace 5 |
+| `SUPER+6` | workspace 6 |
+| `SUPER+7` | workspace 7 |
+| `SUPER+8` | workspace 8 |
+| `SUPER+9` | workspace 9 |
+| `SUPER+grave` | toggle special workspace |
+| `SUPER+SHIFT+1` | move to workspace 1 |
+| `SUPER+SHIFT+2` | move to workspace 2 |
+| `SUPER+SHIFT+3` | move to workspace 3 |
+| `SUPER+SHIFT+4` | move to workspace 4 |
+| `SUPER+SHIFT+5` | move to workspace 5 |
+| `SUPER+SHIFT+6` | move to workspace 6 |
+| `SUPER+SHIFT+7` | move to workspace 7 |
+| `SUPER+SHIFT+8` | move to workspace 8 |
+| `SUPER+SHIFT+9` | move to workspace 9 |
+| `SUPER+SHIFT+grave` | move to special workspace |
 
 # Tmux Keybindings
 | Mode | Key | Action |

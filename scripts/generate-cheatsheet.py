@@ -183,52 +183,13 @@ def parse_hyprland_keybindings():
     SHIFT_BIT = 1 << 0
     SUPER_BIT = 1 << 6
 
-    # Maps a (dispatcher, arg) pair to a short human-readable action string.
-    # Anything not listed here falls back to the dispatcher name + arg.
-    def action_for(dispatcher, arg):
-        a = arg.strip()
-        if dispatcher == "exec":
-            # Preserve any trailing comment as a hint, e.g. `cmd  # label`.
-            if "#" in a:
-                return f"exec `{a.split('#', 1)[0].strip()}  # {a.split('#', 1)[1].strip()}`"
-            return f"exec `{a}`"
-        if dispatcher == "togglespecialworkspace":
-            return f"togglespecialworkspace `{a}`"
-        if dispatcher == "workspace":
-            return f"workspace `{a}`"
-        if dispatcher == "movetoworkspace":
-            return f"movetoworkspace `{a}`"
-        if dispatcher == "movefocus":
-            return f"movefocus `{a}`"
-        if dispatcher == "movewindoworgroup":
-            return f"movewindoworgroup `{a}`"
-        if dispatcher == "fullscreen":
-            return f"fullscreen `{a}`" if a else "fullscreen"
-        if dispatcher == "submap":
-            return f"submap `{a}`"
-        if dispatcher == "mouse":
-            return f"{a}" if a else "mouse"
-        if dispatcher == "killactive":
-            return "killactive"
-        if dispatcher == "togglefloating":
-            return "togglefloating"
-        if dispatcher == "togglegroup":
-            return "togglegroup"
-        if dispatcher == "exit":
-            return "exit"
-        if dispatcher == "resizeactive":
-            return f"resizeactive `{a}`"
-        if dispatcher == "moveactive":
-            return f"moveactive `{a}`"
-        return f"{dispatcher} `{a}`".strip()
-
     def key_combo(modmask, key):
         mods = []
         if modmask & SUPER_BIT:
             mods.append("SUPER")
         if modmask & SHIFT_BIT:
             mods.append("SHIFT")
-        # Other modifiers (CTRL/ALT) are kept verbatim for completeness.
+        # CTRL/ALT
         if modmask & (1 << 2):
             mods.append("CTRL")
         if modmask & (1 << 3):
@@ -246,18 +207,19 @@ def parse_hyprland_keybindings():
 
     rows = []
     for b in binds:
-        dispatcher = b.get("dispatcher", "")
-        # Skip mouse binds (handled separately / not keyboard-relevant for a cheatsheet).
-        if b.get("mouse"):
-            continue
-        # Skip submap-internal binds to keep the cheatsheet focused on global binds.
-        if b.get("submap"):
-            continue
         key = b.get("key", "")
+        if key.startswith("mouse:"):
+            continue
         modmask = int(b.get("modmask", 0))
-        arg = b.get("arg", "")
-        action = action_for(dispatcher, arg)
-        rows.append(f"| `{key_combo(modmask, key)}` | {action} |")
+        description = b.get("description", "").strip()
+        submap = b.get("submap", "").strip()
+        if not description:
+            logging.warning(f"Bind {key_combo(modmask, key)} has no description; skipping.")
+            continue
+        label = key_combo(modmask, key)
+        if submap:
+            label = f"{submap}: {label}"
+        rows.append(f"| `{label}` | {description} |")
 
     return ["| Key | Action |", "|-----|--------|", *rows]
 
