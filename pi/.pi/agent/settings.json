@@ -5,7 +5,6 @@
   "lastChangelogVersion": "0.80.10",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-crofai",
     "npm:pi-hashline-readmap",
     "npm:pi-provider-umans"
   ],
