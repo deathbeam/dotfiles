@@ -1,80 +1,81 @@
 # Hyprland Keybindings
 | Key | Action |
 |-----|--------|
-| `SUPER+Return` | exec `terminal                         # terminal` |
-| `SUPER+Tab` | exec `menu-switch -p "switch"             # switch` |
-| `SUPER+space` | exec `menu-run -p "run"                 # run` |
-| `SUPER+p` | exec `menu-pass -p "pass"                   # passwords` |
-| `SUPER+x` | exec `menu-proc -p "proc"                   # execute` |
-| `SUPER+c` | exec `menu-clip -p "clip"                   # copy` |
-| `SUPER+g` | exec `menu-steam -p "steam"                 # games` |
-| `SUPER+i` | exec `menu-yay -p "yay"                     # install` |
-| `SUPER+n` | exec `menu-notifications -p "notifications" # notifications` |
-| `SUPER+u` | exec `menu-browser -p "url"                 # urls` |
-| `SUPER+e` | exec `swaylock -f -e -s fill -i $WALLPAPER  # lock screen` |
-| `SUPER+v` | exec `pkill -USR1 gammastep                 # flux` |
-| `SUPER+slash` | togglespecialworkspace `cheatsheet      # cheatsheet` |
-| `SUPER+b` | togglespecialworkspace `btop                # btop` |
-| `SUPER+d` | togglespecialworkspace `discord             # discord` |
-| `SUPER+y` | togglespecialworkspace `youtubemusic        # youtube` |
-| `SUPER+o` | togglespecialworkspace `kubernetes          # kubernetes` |
-| `SUPER_SHIFT+o` | togglespecialworkspace `docker        # docker` |
-| `SUPER+a` | exec `menu-wifi -p "wifi"             # wifi` |
-| `SUPER+z` | exec `~/.config/quickshell/poe-leveling/scripts/toggle.sh` |
-| `SUPER+Left` | exec `echo 'prev' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
-| `SUPER+Right` | exec `echo 'next' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
-| `SUPER_SHIFT+z` | exec `echo 'hints' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock` |
-| `Print` | exec `quickshell -c screenshot -n` |
-| `SUPER+Print` | exec `screenrecorder` |
-| `XF86AudioRaiseVolume` | exec `amixer -q set Master 5%+ on` |
-| `XF86AudioLowerVolume` | exec `amixer -q set Master 5%-` |
-| `XF86AudioMute` | exec `amixer -q set Master toggle` |
-| `XF86AudioMicMute` | exec `privacy-toggle` |
-| `XF86MonBrightnessUp` | exec `brightnessctl s +5%` |
-| `XF86MonBrightnessDown` | exec `brightnessctl s 5%-` |
-| `XF86KbdBrightnessUp` | exec `asusctl -n` |
-| `XF86KbdBrightnessDown` | exec `asusctl -p` |
-| `XF86Launch1` | exec `rog-control-center` |
-| `XF86Launch3` | exec `asusctl led-mode -n` |
-| `XF86Launch4` | exec `asusctl profile -p` |
-| `SUPER_SHIFT+escape` | exit |
-| `SUPER+escape` | exec `hyprctl reload && notify-send "Hyprland config reloaded"` |
-| `SUPER+W` | killactive |
-| `SUPER+S` | togglefloating |
-| `SUPER+M` | fullscreen `1` |
-| `SUPER+F` | fullscreen `0` |
-| `SUPER+T` | togglegroup |
-| `SUPER+H` | exec `if [ $(hyprctl activewindow -j | jq "(.grouped|length==0) or (.address==.grouped[0])") = "true" ]; then hyprctl dispatch movefocus l; else hyprctl dispatch changegroupactive b; fi` |
-| `SUPER+L` | exec `if [ $(hyprctl activewindow -j | jq "(.grouped|length==0) or (.address==.grouped[-1])") = "true" ]; then hyprctl dispatch movefocus r; else hyprctl dispatch changegroupactive f; fi` |
-| `SUPER+K` | movefocus `u` |
-| `SUPER+J` | movefocus `d` |
-| `SUPER_SHIFT+H` | movewindoworgroup `l` |
-| `SUPER_SHIFT+L` | movewindoworgroup `r` |
-| `SUPER_SHIFT+K` | movewindoworgroup `u` |
-| `SUPER_SHIFT+J` | movewindoworgroup `d` |
-| `SUPER+R` | submap `resize` |
-| `escape` | submap `reset` |
-| `Return` | submap `reset` |
-| `SUPER+1` | workspace `1` |
-| `SUPER+2` | workspace `2` |
-| `SUPER+3` | workspace `3` |
-| `SUPER+4` | workspace `4` |
-| `SUPER+5` | workspace `5` |
-| `SUPER+6` | workspace `6` |
-| `SUPER+7` | workspace `7` |
-| `SUPER+8` | workspace `8` |
-| `SUPER+9` | workspace `9` |
-| `SUPER+grave` | togglespecialworkspace |
-| `SUPER_SHIFT+1` | movetoworkspace `1` |
-| `SUPER_SHIFT+2` | movetoworkspace `2` |
-| `SUPER_SHIFT+3` | movetoworkspace `3` |
-| `SUPER_SHIFT+4` | movetoworkspace `4` |
-| `SUPER_SHIFT+5` | movetoworkspace `5` |
-| `SUPER_SHIFT+6` | movetoworkspace `6` |
-| `SUPER_SHIFT+7` | movetoworkspace `7` |
-| `SUPER_SHIFT+8` | movetoworkspace `8` |
-| `SUPER_SHIFT+9` | movetoworkspace `9` |
-| `SUPER_SHIFT+grave` | movetoworkspace `special` |
+| `SUPER+Return` | __lua `5` |
+| `SUPER+Tab` | __lua `7` |
+| `SUPER+space` | __lua `9` |
+| `SUPER+p` | __lua `11` |
+| `SUPER+x` | __lua `13` |
+| `SUPER+c` | __lua `15` |
+| `SUPER+g` | __lua `17` |
+| `SUPER+i` | __lua `19` |
+| `SUPER+n` | __lua `21` |
+| `SUPER+u` | __lua `23` |
+| `SUPER+e` | __lua `25` |
+| `SUPER+v` | __lua `27` |
+| `SUPER+slash` | __lua `29` |
+| `SUPER+b` | __lua `31` |
+| `SUPER+d` | __lua `33` |
+| `SUPER+y` | __lua `35` |
+| `SUPER+o` | __lua `37` |
+| `SUPER+SHIFT+o` | __lua `39` |
+| `SUPER+a` | __lua `41` |
+| `SUPER+z` | __lua `43` |
+| `SUPER+Left` | __lua `45` |
+| `SUPER+Right` | __lua `47` |
+| `SUPER+SHIFT+z` | __lua `49` |
+| `switch:Lid Switch` | __lua `51` |
+| `Print` | __lua `53` |
+| `SUPER+Print` | __lua `55` |
+| `XF86AudioRaiseVolume` | __lua `57` |
+| `XF86AudioLowerVolume` | __lua `59` |
+| `XF86AudioMute` | __lua `61` |
+| `XF86AudioMicMute` | __lua `63` |
+| `XF86MonBrightnessUp` | __lua `65` |
+| `XF86MonBrightnessDown` | __lua `67` |
+| `XF86KbdBrightnessUp` | __lua `69` |
+| `XF86KbdBrightnessDown` | __lua `71` |
+| `XF86Launch1` | __lua `73` |
+| `XF86Launch3` | __lua `75` |
+| `XF86Launch4` | __lua `77` |
+| `SUPER+SHIFT+escape` | __lua `79` |
+| `SUPER+escape` | __lua `81` |
+| `SUPER+W` | __lua `83` |
+| `SUPER+S` | __lua `85` |
+| `SUPER+M` | __lua `87` |
+| `SUPER+F` | __lua `89` |
+| `SUPER+T` | __lua `91` |
+| `SUPER+H` | __lua `93` |
+| `SUPER+L` | __lua `95` |
+| `SUPER+K` | __lua `97` |
+| `SUPER+J` | __lua `99` |
+| `SUPER+SHIFT+H` | __lua `101` |
+| `SUPER+SHIFT+L` | __lua `103` |
+| `SUPER+SHIFT+K` | __lua `105` |
+| `SUPER+SHIFT+J` | __lua `107` |
+| `SUPER+R` | __lua `109` |
+| `SUPER+1` | __lua `131` |
+| `SUPER+2` | __lua `133` |
+| `SUPER+3` | __lua `135` |
+| `SUPER+4` | __lua `137` |
+| `SUPER+5` | __lua `139` |
+| `SUPER+6` | __lua `141` |
+| `SUPER+7` | __lua `143` |
+| `SUPER+8` | __lua `145` |
+| `SUPER+9` | __lua `147` |
+| `SUPER+grave` | __lua `149` |
+| `SUPER+SHIFT+1` | __lua `151` |
+| `SUPER+SHIFT+2` | __lua `153` |
+| `SUPER+SHIFT+3` | __lua `155` |
+| `SUPER+SHIFT+4` | __lua `157` |
+| `SUPER+SHIFT+5` | __lua `159` |
+| `SUPER+SHIFT+6` | __lua `161` |
+| `SUPER+SHIFT+7` | __lua `163` |
+| `SUPER+SHIFT+8` | __lua `165` |
+| `SUPER+SHIFT+9` | __lua `167` |
+| `SUPER+SHIFT+grave` | __lua `169` |
+| `SUPER+mouse:272` | __lua `171` |
+| `SUPER+mouse:273` | __lua `173` |
 
 # Tmux Keybindings
 | Mode | Key | Action |

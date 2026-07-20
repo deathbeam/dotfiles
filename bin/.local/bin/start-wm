@@ -1,6 +1,6 @@
 #!/bin/sh
 
-# Check nvidia stuff
+# GPU backend selection
 if lspci | grep -q 'NVIDIA'; then
     echo "NVIDIA GPU detected, setting NVIDIA-specific environment variables"
     export NVD_BACKEND="direct"
@@ -14,6 +14,27 @@ if lspci | grep -q 'NVIDIA'; then
     export __VK_LAYER_NV_optimus="NVIDIA_only"
 fi
 
+# Wayland session environment (inherited by Hyprland and all spawned processes).
+export XDG_SESSION_TYPE="wayland"
+export XDG_CURRENT_DESKTOP="Hyprland"
+export XDG_SESSION_DESKTOP="Hyprland"
+export GDK_BACKEND="wayland,x11"
+export SDL_VIDEODRIVER="wayland,x11,windows"
+export CLUTTER_BACKEND="wayland"
+export QT_QPA_PLATFORM="wayland;xcb"
+export EGL_PLATFORM="wayland"
+export ELECTRON_OZONE_PLATFORM_HINT="auto"
+export PROTON_ENABLE_WAYLAND="1"
+export PROTON_USE_NTSYNC="1"
+export VKD3D_CONFIG="descriptor_heap"
+export PROTON_VKD3D_HEAP="1"
+
+# QT specific (override QT_AUTO_SCREEN_SCALE_FACTOR=0 from .profile).
+export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
+export QT_SCALE_FACTOR="1"
+export QT_AUTO_SCREEN_SCALE_FACTOR="1"
+export QT_SCALE_FACTOR_ROUNDING_POLICY="RoundPreferFloor"
+
 # Launch compositor
 if command -v Hyprland &> /dev/null; then
     # Prevent duplicate launch if Hyprland is already running
@@ -21,7 +42,6 @@ if command -v Hyprland &> /dev/null; then
         echo "Hyprland is already running"
         exit 1
     fi
-    # exec Hyprland
     exec start-hyprland
 else
     exit 1

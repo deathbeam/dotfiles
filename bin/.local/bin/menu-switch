@@ -33,4 +33,8 @@ selected=$(printf '%s\n' "$windows" | \
       | awk -F'\t' '{print $1}')
 
 # Focus selected window
-[ -n "$selected" ] && hyprctl dispatch focuswindow address:"$selected"
+hyprctl_focus_window() {
+    [ -z "$1" ] && return 0
+    hyprctl dispatch "hl.dsp.focus({ window = \"address:$1\" })" >/dev/null 2>&1
+}
+[ -n "$selected" ] && hyprctl_focus_window "$selected"

@@ -175,59 +175,91 @@ def parse_tmux_keybindings(path):
         logging.error(f"Error parsing tmux.conf: {e}")
     return format_tmux_keybindings(lines)
 
-def parse_hyprland_keybindings(path):
-    def format_hyprland_keybindings(lines):
-        """Format Hyprland keybindings as a markdown table"""
-        rows = []
-        for line in lines:
-            # Parse: bind = SUPER, Return, exec, terminal
-            if line.startswith('bind '):
-                parts = [p.strip() for p in line.split(',')]
-                if len(parts) >= 3:
-                    first_part = parts[0].replace('bind =', '').strip()
-                    modifier = first_part
-                    key = parts[1].strip()
-                    action = parts[2].strip()
-                    # Get additional args if present
-                    if len(parts) > 3:
-                        args = ', '.join(parts[3:]).strip()
-                        if args:
-                            action = f"{action} `{args}`"
-                    # Format modifier + key
-                    if modifier:
-                        key = f"{modifier}+{key}"
-                    rows.append(f"| `{key}` | {action} |")
-            # Handle binde (continuous) bindings
-            elif line.startswith('binde '):
-                parts = [p.strip() for p in line.split(',')]
-                if len(parts) >= 3:
-                    first_part = parts[0].replace('binde =', '').strip()
-                    modifier = first_part if first_part else "none"
-                    key = parts[1].strip()
-                    action = parts[2].strip()
-                    if len(parts) > 3:
-                        args = ', '.join(parts[3:]).strip()
-                        action = f"{action} {args}"
-                    key_combo = f"{modifier}+{key}"
-                    rows.append(f"| `{key_combo}` | {action} (continuous) |")
-        table = [
-            "| Key | Action |",
-            "|-----|--------|",
-            *rows
-        ]
-        return table
+def parse_hyprland_keybindings():
+    """Format Hyprland keybindings as a markdown table, via hyprctl binds -j."""
+    import json
+    import subprocess as _sp
 
-    lines = []
-    logging.info(f"Parsing Hyprland keybindings from {path}...")
+    SHIFT_BIT = 1 << 0
+    SUPER_BIT = 1 << 6
+
+    # Maps a (dispatcher, arg) pair to a short human-readable action string.
+    # Anything not listed here falls back to the dispatcher name + arg.
+    def action_for(dispatcher, arg):
+        a = arg.strip()
+        if dispatcher == "exec":
+            # Preserve any trailing comment as a hint, e.g. `cmd  # label`.
+            if "#" in a:
+                return f"exec `{a.split('#', 1)[0].strip()}  # {a.split('#', 1)[1].strip()}`"
+            return f"exec `{a}`"
+        if dispatcher == "togglespecialworkspace":
+            return f"togglespecialworkspace `{a}`"
+        if dispatcher == "workspace":
+            return f"workspace `{a}`"
+        if dispatcher == "movetoworkspace":
+            return f"movetoworkspace `{a}`"
+        if dispatcher == "movefocus":
+            return f"movefocus `{a}`"
+        if dispatcher == "movewindoworgroup":
+            return f"movewindoworgroup `{a}`"
+        if dispatcher == "fullscreen":
+            return f"fullscreen `{a}`" if a else "fullscreen"
+        if dispatcher == "submap":
+            return f"submap `{a}`"
+        if dispatcher == "mouse":
+            return f"{a}" if a else "mouse"
+        if dispatcher == "killactive":
+            return "killactive"
+        if dispatcher == "togglefloating":
+            return "togglefloating"
+        if dispatcher == "togglegroup":
+            return "togglegroup"
+        if dispatcher == "exit":
+            return "exit"
+        if dispatcher == "resizeactive":
+            return f"resizeactive `{a}`"
+        if dispatcher == "moveactive":
+            return f"moveactive `{a}`"
+        return f"{dispatcher} `{a}`".strip()
+
+    def key_combo(modmask, key):
+        mods = []
+        if modmask & SUPER_BIT:
+            mods.append("SUPER")
+        if modmask & SHIFT_BIT:
+            mods.append("SHIFT")
+        # Other modifiers (CTRL/ALT) are kept verbatim for completeness.
+        if modmask & (1 << 2):
+            mods.append("CTRL")
+        if modmask & (1 << 3):
+            mods.append("ALT")
+        mods.append(key)
+        return "+".join(mods)
+
     try:
-        with open(path) as f:
-            for line in f:
-                if re.match(r'^\s*bind( |=)', line):
-                    lines.append(line.strip())
-        logging.info("Hyprland keybindings parsed.")
+        out = _sp.check_output(["hyprctl", "binds", "-j"], text=True)
+        binds = json.loads(out)
+        logging.info("Hyprland keybindings parsed from live instance.")
     except Exception as e:
-        logging.error(f"Error parsing hyprland.conf: {e}")
-    return format_hyprland_keybindings(lines)
+        logging.error(f"Error querying hyprctl binds: {e}")
+        return ["| Key | Action |", "|-----|--------|"]
+
+    rows = []
+    for b in binds:
+        dispatcher = b.get("dispatcher", "")
+        # Skip mouse binds (handled separately / not keyboard-relevant for a cheatsheet).
+        if b.get("mouse"):
+            continue
+        # Skip submap-internal binds to keep the cheatsheet focused on global binds.
+        if b.get("submap"):
+            continue
+        key = b.get("key", "")
+        modmask = int(b.get("modmask", 0))
+        arg = b.get("arg", "")
+        action = action_for(dispatcher, arg)
+        rows.append(f"| `{key_combo(modmask, key)}` | {action} |")
+
+    return ["| Key | Action |", "|-----|--------|", *rows]
 
 def get_tldr_summary(cmd):
     logging.info(f"Getting tldr summary for: {cmd}")
@@ -242,7 +274,7 @@ def main():
     logging.info(f"Writing cheatsheet to {CHEATSHEET}")
     with open(CHEATSHEET, "w") as f:
         f.write("# Hyprland Keybindings\n")
-        for line in parse_hyprland_keybindings(SCRIPT_DIR / "hyprland/.config/hypr/hyprland.conf"):
+        for line in parse_hyprland_keybindings():
             f.write(line + "\n")
         f.write("\n")
 
