@@ -4,4 +4,4 @@ shopt -s nullglob globstar
 
 arch-update
 hyprpm update
-pi update
+pi update --all
