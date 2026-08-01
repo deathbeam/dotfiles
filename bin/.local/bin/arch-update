@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Wrapper around /usr/bin/arch-update that runs the AUR maintainer-takeover
+# guard (scripts/aur-maintainer-check.sh) before a mutating update.
+# Non-mutating subcommands (--check/--list/--news/--services/--tray/--help/
+# --version, --gen/show/edit-config) skip the guard so notifications and the
+# tray keep working. On a blocked update, resolve with --ack/--refresh.
+#
+# Installed at ~/.local/bin/arch-update (symlinked from the repo), shadowing
+# /usr/bin/arch-update on PATH and in the .desktop entries (bare arch-update).
+
+set -euo pipefail
+
+REAL=/usr/bin/arch-update
+
+# Resolve the dotfiles repo root through the symlink so the guard is found
+# regardless of where the wrapper is invoked from.
+# wrapper real path: <repo>/bin/.local/bin/arch-update  ->  4 dirnames up.
+script_real=$(realpath "${BASH_SOURCE[0]:-$0}")
+repo_root=$(dirname "$(dirname "$(dirname "$(dirname "$script_real")")")")
+guard="$repo_root/scripts/aur-maintainer-check.sh"
+
+# Only guard the mutating path: the main update (no args, or -d/--devel, possibly
+# with -D/--debug). Everything else is a query/notification/config action.
+needs_guard=1
+for a in "$@"; do
+    case "$a" in
+        -c|--check|-l|--list|-n|--news|-s|--services|--tray|\
+        --gen-config|--show-config|--edit-config|-h|--help|-V|--version)
+            needs_guard=0; break ;;
+    esac
+done
+
+if [ "$needs_guard" -eq 1 ] && [ -x "$guard" ]; then
+    if ! "$guard"; then
+        echo "" >&2
+        echo "arch-update: refusing to proceed (maintainer guard failed)." >&2
+        echo "Run '$guard --ack <pkg>' or '$guard --refresh', then retry." >&2
+        exit 1
+    fi
+fi
+
+exec "$REAL" "$@"
