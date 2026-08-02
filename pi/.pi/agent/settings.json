@@ -1,12 +1,11 @@
 {
-  "defaultModel": "umans-glm-5.2",
-  "defaultProvider": "umans",
+  "defaultModel": "gpt-5.6-luna",
+  "defaultProvider": "openai-codex",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.82.1",
+  "lastChangelogVersion": "0.83.0",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-hashline-readmap",
-    "npm:pi-provider-umans"
+    "npm:pi-hashline-edit"
   ],
   "terminal": {
     "showTerminalProgress": false
