@@ -80,8 +80,7 @@
 	url = https://github.com/zsh-users/zsh-completions
 [submodule "zsh/.zsh/pack/bundle/start/_zsh-autocomplete"]
 	path = zsh/.zsh/pack/bundle/start/1_zsh-autocomplete
-	url = https://github.com/deathbeam/zsh-autocomplete
-	branch = dev
+	url = https://github.com/marlonrichert/zsh-autocomplete
 [submodule "zsh/.zsh/pack/bundle/start/base16-fzf"]
 	path = zsh/.zsh/pack/bundle/start/tinted-fzf
 	url = https://github.com/tinted-theming/tinted-fzf
