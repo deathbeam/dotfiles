@@ -5,7 +5,8 @@
   "lastChangelogVersion": "0.84.1",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-hashline-edit"
+    "npm:pi-hashline-edit",
+    "npm:@dietrichgebert/ponytail"
   ],
   "terminal": {
     "showTerminalProgress": false
