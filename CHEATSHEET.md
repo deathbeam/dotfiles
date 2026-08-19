@@ -241,7 +241,7 @@
 | alias | `gco` | `git checkout`
 | alias | `gcp` | `git cherry-pick`
 | alias | `gcr` | `git revert`
-| alias | `gcs` | `git show --pretty=format:${_git_log_fuller_format}`
+| alias | `gcs` | `git show --stat --patch --pretty=format:${_git_log_fuller_format}`
 | alias | `gcu` | `git commit --fixup`
 | alias | `gcv` | `git verify-commit`
 | alias | `gd` | `git ls-files`
@@ -279,7 +279,7 @@
 | alias | `gl` | `git log --date-order --pretty=format:${_git_log_fuller_format}`
 | alias | `glG` | `git log --date-order --graph --pretty=format:${_git_log_oneline_medium_format}`
 | alias | `glO` | `git log --date-order --pretty=format:${_git_log_oneline_medium_format}`
-| alias | `glc` | `git shortlog --summary --numbered`
+| alias | `glc` | `git shortlog --summary --numbered --no-merges`
 | alias | `gld` | `git log --date-order --stat --patch --pretty=format:${_git_log_fuller_format}`
 | alias | `glf` | `git log --date-order --stat --patch --follow --pretty=format:${_git_log_fuller_format}`
 | alias | `glg` | `git log --date-order --graph --pretty=format:${_git_log_oneline_format}`
@@ -315,7 +315,7 @@
 | alias | `gsS` | `git stash save --patch --no-keep-index`
 | alias | `gsX` | `git-stash-clear-interactive`
 | alias | `gsa` | `git stash apply`
-| alias | `gsd` | `git stash show --patch --stat`
+| alias | `gsd` | `git stash show --stat --patch`
 | alias | `gsi` | `git stash push --staged`
 | alias | `gsl` | `git stash list`
 | alias | `gsp` | `git stash pop`
