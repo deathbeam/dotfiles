@@ -44,6 +44,18 @@ install_python_pkgs() {
   pip3 install --user --break-system-packages "${@}"
 }
 
+install_pipx_pkgs() {
+  if ! command -v pipx &> /dev/null; then
+    install_pkgs pipx
+  fi
+  for pkg in "$@"; do
+    # ponytail: venv-dir check assumes app name == package name; `pipx install --name` case unsupported
+    if ! [ -d "$HOME/.local/pipx/venvs/$pkg" ]; then
+      pipx install "$pkg"
+    fi
+  done
+}
+
 install_npm_pkgs() {
   if ! command -v npm &> /dev/null; then
     install_pkgs npm

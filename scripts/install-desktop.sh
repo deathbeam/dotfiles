@@ -16,13 +16,18 @@ packages=(
     zathura zathura-pdf-mupdf libreoffice-fresh gimp krita kdenlive # viewers and editors
     # qutebrowser python-adblock python-readability-lxml # browser
     brave-bin # browser
-    mpv subliminal yt-dlp # video player and downloader
+    mpv yt-dlp # video player and downloader
     gamescope gamemode steam millenium proton-ge-custom-bin steamtinkerlaunch-git leshade-bin wine winetricks umu-launcher lutris # gaming
     stremio-enhanced-bin pear-desktop-bin # media streaming
     vesktop-bin # discord
     calibre # ebook management
 )
 install_pkgs "${packages[@]}"
+
+packages=(
+    subliminal
+)
+install_pipx_pkgs "${packages[@]}"
 
 log "Configuring desktop"
 

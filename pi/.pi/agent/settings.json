@@ -2,11 +2,12 @@
   "defaultModel": "glm-5.2",
   "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.84.2",
+  "lastChangelogVersion": "0.84.3",
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-hashline-edit",
-    "npm:@dietrichgebert/ponytail"
+    "npm:@dietrichgebert/ponytail",
+    "npm:pi-web-access"
   ],
   "terminal": {
     "showTerminalProgress": false

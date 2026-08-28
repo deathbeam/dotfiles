@@ -56,7 +56,7 @@ local function file_exists(path)
     return false
 end
 
-local function download_subs(directory, filename)
+local function download_subs(directory, filename, video_path)
     log('Searching ' .. language[1] .. ' subtitles ...', 30)
 
     local logins = {}
@@ -87,7 +87,7 @@ local function download_subs(directory, filename)
     table.insert(args, language[2])
     table.insert(args, '-d')
     table.insert(args, directory)
-    table.insert(args, filename)
+    table.insert(args, video_path)
 
     if debug then
         msg.warn('Executing: ' .. table.concat(args, ' '))
@@ -101,7 +101,7 @@ local function download_subs(directory, filename)
     end
 
     if file_exists(sub_path) then
-        mp.commandv('sub-add', sub_path, 'auto', language[1])
+        mp.commandv('sub-add', sub_path, 'auto', language[1], language[2])
         log(language[1] .. ' subtitles ready!')
         return true
     end
@@ -180,16 +180,16 @@ end
 local function get_path_and_file()
     local path = mp.get_property('path')
     if not path then
-        return nil, nil
+        return nil, nil, nil
     end
 
     local _, video_file = utils.split_path(path)
     local tmp_dir = os.getenv('TMPDIR') or os.getenv('TEMP') or os.getenv('TMP') or '/tmp'
-    return tmp_dir, video_file
+    return tmp_dir, video_file, path
 end
 
 local function control_downloads()
-    local video_dir, video_file = get_path_and_file()
+    local video_dir, video_file, video_path = get_path_and_file()
     if not video_file then return end
 
     local duration = tonumber(mp.get_property('duration'))
@@ -223,14 +223,14 @@ local function control_downloads()
     end
 
     if should_download_subs(sub_tracks) then
-        download_subs(video_dir, video_file)
+        download_subs(video_dir, video_file, video_path)
     end
 end
 
 local function manual_download()
-    local video_dir, video_file = get_path_and_file()
+    local video_dir, video_file, video_path = get_path_and_file()
     if not video_file then return end
-    download_subs(video_dir, video_file)
+    download_subs(video_dir, video_file, video_path)
 end
 
 mp.add_key_binding('b', 'download_subs', manual_download)
