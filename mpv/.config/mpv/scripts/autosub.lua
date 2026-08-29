@@ -10,25 +10,11 @@ local subliminal = 'subliminal'
 local language = { 'English', 'en', 'eng' }
 
 --=============================================================================
--->>    PROVIDER LOGINS:
---=============================================================================
-local providers = {
-    { name = "addic7ed", env = "ADDIC7ED" },
-    { name = "gestdown", env = "GESTDOWN" },
-    { name = "napiprojekt", env = "NAPIPROJEKT" },
-    { name = "opensubtitles", env = "OPENSUBTITLES" },
-    { name = "opensubtitlescom", env = "OPENSUBTITLESCOM" },
-    { name = "opensubtitlescomvip", env = "OPENSUBTITLESCOMVIP" },
-    { name = "opensubtitlesvip", env = "OPENSUBTITLESVIP" },
-    { name = "podnapisi", env = "PODNAPISI" },
-    { name = "subtitulamos", env = "SUBTITULAMOS" },
-    { name = "tvsubtitles", env = "TVSUBTITLES" },
-    { name = "subscenter", env = "SUBSCENTER" },
-}
-
---=============================================================================
 -->>    OPTIONS:
 --=============================================================================
+-- Provider logins are read by subliminal directly from env vars, e.g.
+-- SUBLIMINAL_PROVIDER_OPENSUBTITLESCOM_USERNAME / _PASSWORD (free account at
+-- https://www.opensubtitles.com). opensubtitlescom requires login to download.
 local debug = true  -- Enable debug logging and subliminal --debug output
 --=============================================================================
 
@@ -42,9 +28,16 @@ local function log(string, secs)
     mp.osd_message(string, secs)
 end
 
-local function get_subtitle_path(directory, filename, lang_code)
-    local base_name = filename:gsub('%.%w+$', '')
-    return directory .. '/' .. base_name .. '.' .. lang_code .. '.srt'
+local function get_subtitle_path(directory, query, lang_code)
+    -- subliminal names output <basename-without-ext>.<lang>.srt for file paths,
+    -- and <query>.<lang>.srt for a bare title string.
+    local name = query
+    if query:find('^/') then
+        local _, base = utils.splitPath(query)
+        name = base
+    end
+    name = name:gsub('%.%w+$', '')
+    return directory .. '/' .. name .. '.' .. lang_code .. '.srt'
 end
 
 local function file_exists(path)
@@ -56,63 +49,78 @@ local function file_exists(path)
     return false
 end
 
-local function download_subs(directory, filename, video_path)
+local function clean_title(s)
+    if not s or s == '' then return nil end
+    -- Stremio hands mpv a URL; take the last path segment and URL-decode it
+    if s:find('^https?://') then
+        s = s:gsub('^https?://', '')
+        s = s:gsub('[?#].*$', '')        -- drop query/fragment
+        s = s:match('/(.+)$')             -- path after host; nil if none
+        if not s then return nil end
+        s = s:match('/([^/]+)/?$') or s   -- last path segment
+        s = s:gsub('/+$', '')
+        s = s:gsub('%%(%x%x)', function(h) return string.char(tonumber(h, 16)) end)
+    end
+    s = s:gsub('%.%w+$', '')            -- strip a trailing extension if present
+    s = s:gsub('[-._+]+', ' ')          -- separators -> spaces
+    s = s:gsub('^%s+', ''):gsub('%s+$', '')
+    return s ~= '' and s or nil
+end
+
+local function download_subs(directory, candidates)
     log('Searching ' .. language[1] .. ' subtitles ...', 30)
 
-    local logins = {}
-    for _, p in ipairs(providers) do
-        local user = os.getenv(p.env .. "_USERNAME")
-        local pass = os.getenv(p.env .. "_PASSWORD")
-        if user and pass then
-            table.insert(logins, { "--" .. p.name, user, pass })
+    for _, query in ipairs(candidates) do
+        local args = { subliminal }
+
+        if debug then
+            table.insert(args, '--debug')
         end
-    end
 
-    local args = { subliminal }
+        table.insert(args, 'download')
+        table.insert(args, '-e')
+        table.insert(args, 'utf-8')
+        table.insert(args, '-l')
+        table.insert(args, language[2])
+        -- Require at least a title match: 50% of the movie hash score (323) = 161,
+        -- which a title match (162) clears but a country-only non-match (54) never does.
+        -- Without this gate, subliminal downloads a random wrong subtitle for obscure films.
+        table.insert(args, '-m')
+        table.insert(args, '50')
+        -- omdb refiner ships with a dead apikey (401 every run); ignore the noise.
+        table.insert(args, '-R')
+        table.insert(args, 'omdb')
+        table.insert(args, '-d')
+        table.insert(args, directory)
+        table.insert(args, query)
 
-    for _, login in ipairs(logins) do
-        table.insert(args, login[1])
-        table.insert(args, login[2])
-        table.insert(args, login[3])
-    end
-
-    if debug then
-        table.insert(args, '--debug')
-    end
-
-    table.insert(args, 'download')
-    table.insert(args, '-e')
-    table.insert(args, 'utf-8')
-    table.insert(args, '-l')
-    table.insert(args, language[2])
-    table.insert(args, '-d')
-    table.insert(args, directory)
-    table.insert(args, video_path)
-
-    if debug then
-        msg.warn('Executing: ' .. table.concat(args, ' '))
-    end
-
-    local result = utils.subprocess({ args = args, cancellable = false })
-    local sub_path = get_subtitle_path(directory, filename, language[2])
-
-    if debug then
-        log('Checking for subtitle file at: ' .. sub_path .. ' for filename: ' .. filename)
-    end
-
-    if file_exists(sub_path) then
-        mp.commandv('sub-add', sub_path, 'auto', language[1], language[2])
-        log(language[1] .. ' subtitles ready!')
-        return true
-    end
-
-    if debug then
-        if result.stderr and result.stderr ~= '' then
-            msg.warn('Subliminal error: ' .. result.stderr)
+        if debug then
+            msg.warn('Executing: ' .. table.concat(args, ' '))
         end
-        if result.stdout and result.stdout ~= '' then
-            msg.warn('Subliminal output: ' .. result.stdout)
+
+        local result = utils.subprocess({ args = args, cancellable = false })
+        local sub_path = get_subtitle_path(directory, query, language[2])
+
+        if debug then
+            log('Checking for subtitle file at: ' .. sub_path)
         end
+
+        if file_exists(sub_path) then
+            mp.commandv('sub-add', sub_path, 'auto', language[1], language[2])
+            log(language[1] .. ' subtitles ready!')
+            return true
+        end
+
+        if debug then
+            if result.stderr and result.stderr ~= '' then
+                msg.warn('Subliminal error: ' .. result.stderr)
+            end
+            if result.stdout and result.stdout ~= '' then
+                msg.warn('Subliminal output: ' .. result.stdout)
+            end
+        end
+
+        log('No match for "' .. query .. '"')
     end
 
     log('No ' .. language[1] .. ' subtitles found')
@@ -155,7 +163,8 @@ local function is_valid_video(duration, format)
         return false
     end
 
-    if not format then return false end
+    -- format may be nil for network streams (e.g. Stremio); only reject known non-video formats
+    if not format then return true end
 
     if format:find('^cue') then
         if debug then
@@ -177,20 +186,38 @@ local function is_valid_video(duration, format)
     return true
 end
 
-local function get_path_and_file()
+local function get_video_info()
     local path = mp.get_property('path')
-    if not path then
-        return nil, nil, nil
+    local title = mp.get_property('media-title') or ''
+    local tmp_dir = os.getenv('TMPDIR') or os.getenv('TEMP') or os.getenv('TMP') or '/tmp'
+
+    -- Local file: pass the real path so subliminal hash-matches (accurate, score 323).
+    if path and path:find('^/') and file_exists(path) then
+        return tmp_dir, { path }
     end
 
-    local _, video_file = utils.split_path(path)
-    local tmp_dir = os.getenv('TMPDIR') or os.getenv('TEMP') or os.getenv('TMP') or '/tmp'
-    return tmp_dir, video_file, path
+    -- Stream: subliminal can't hash a URL, so query by name. Try the media-title first
+    -- (human-readable), then the URL path segment (often carries year/release info that
+    -- helps guessit identify and score the video). Dedup.
+    local candidates, seen = {}, {}
+    for _, s in ipairs({ clean_title(title), clean_title(path) }) do
+        if s and not seen[s] then
+            seen[s] = true
+            table.insert(candidates, s)
+        end
+    end
+
+    if debug then
+        msg.warn('autosub: candidates=' .. table.concat(candidates, ' | '))
+    end
+
+    if #candidates == 0 then return nil, nil end
+    return tmp_dir, candidates
 end
 
 local function control_downloads()
-    local video_dir, video_file, video_path = get_path_and_file()
-    if not video_file then return end
+    local video_dir, candidates = get_video_info()
+    if not candidates then return end
 
     local duration = tonumber(mp.get_property('duration'))
     local format = mp.get_property('file-format')
@@ -223,14 +250,14 @@ local function control_downloads()
     end
 
     if should_download_subs(sub_tracks) then
-        download_subs(video_dir, video_file, video_path)
+        download_subs(video_dir, candidates)
     end
 end
 
 local function manual_download()
-    local video_dir, video_file, video_path = get_path_and_file()
-    if not video_file then return end
-    download_subs(video_dir, video_file, video_path)
+    local video_dir, candidates = get_video_info()
+    if not candidates then return end
+    download_subs(video_dir, candidates)
 end
 
 mp.add_key_binding('b', 'download_subs', manual_download)

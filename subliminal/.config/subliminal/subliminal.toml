@@ -1,0 +1,6 @@
+# ponytail: caps opensubtitlescom pagination at 5 pages. The API returns Bad Request
+# past its real page limit (~page 20), which raises and discards the whole provider
+# before any found subtitle is downloaded. Page 1 already returns results sorted by
+# download count, so 5 pages is plenty of fallback. Bump if a rare match lives deeper.
+[provider.opensubtitlescom]
+max_result_pages = 5
