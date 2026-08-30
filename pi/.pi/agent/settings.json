@@ -2,7 +2,7 @@
   "defaultModel": "glm-5.2",
   "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.84.3",
+  "lastChangelogVersion": "0.84.4",
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-hashline-edit",
@@ -23,7 +23,7 @@
   "quietStartup": false,
   "editorPaddingX": 0,
   "compaction": {
-    "enabled": true
+    "enabled": false
   },
   "defaultProjectTrust": "always"
 }
