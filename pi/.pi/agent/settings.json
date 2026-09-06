@@ -8,7 +8,7 @@
     "npm:pi-hashline-edit",
     "npm:@dietrichgebert/ponytail",
     "npm:pi-web-access",
-    "npm:pi-subagents"
+    "https://github.com/nicobailon/pi-subagents"
   ],
   "terminal": {
     "showTerminalProgress": false
