@@ -102,6 +102,7 @@ hl.config({
 
     misc = {
         vrr                        = 2,
+        on_focus_under_fullscreen  = 0,
         force_default_wallpaper    = 0,
         disable_hyprland_logo      = true,
         disable_splash_rendering   = true,
@@ -274,6 +275,13 @@ hl.window_rule({
     suppress_event = "maximize fullscreen",
 })
 
+-- Screen-sharing picker: focus it without tearing down an existing fullscreen window.
+hl.window_rule({
+    name  = "share-picker-float",
+    match = { class = "^hyprland-share-picker$" },
+    float = true,
+    focus_on_activate = true,
+})
 -- Shell menu rules
 hl.window_rule({
     name        = "shellmenu-float",
