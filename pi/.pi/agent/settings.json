@@ -26,5 +26,8 @@
   "compaction": {
     "enabled": false
   },
-  "defaultProjectTrust": "always"
+  "defaultProjectTrust": "always",
+  "subagents": {
+    "defaultExtensions": ["/home/deathbeam/.pi/agent/extensions/inferhub.ts"]
+  }
 }
