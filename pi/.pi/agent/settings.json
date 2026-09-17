@@ -1,12 +1,12 @@
 {
-  "defaultModel": "gpt-5.6-luna",
-  "defaultProvider": "openai-codex",
+  "defaultModel": "deepseek-v4.1-flash",
+  "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.85.1",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-hashline-edit",
     "npm:@dietrichgebert/ponytail",
+    "npm:pi-readseek",
     "https://github.com/nicobailon/pi-subagents",
     "https://github.com/nicobailon/pi-web-access"
   ],
@@ -24,10 +24,26 @@
   "quietStartup": false,
   "editorPaddingX": 0,
   "compaction": {
-    "enabled": false
+    "enabled": true
   },
   "defaultProjectTrust": "always",
   "subagents": {
-    "defaultExtensions": ["/home/deathbeam/.pi/agent/extensions/inferhub.ts"]
+    "defaultExtensions": [
+      "/home/deathbeam/.pi/agent/extensions/inferhub.ts"
+    ]
+  },
+  "readseek": {
+    "overrideTools": [
+      "read",
+      "edit",
+      "write",
+      "grep"
+    ],
+    "syntaxValidation": "warn",
+    "display": {
+      "grep": "compact",
+      "edit": "expanded",
+      "write": "expanded"
+    }
   }
 }
