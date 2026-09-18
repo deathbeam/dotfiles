@@ -6,7 +6,6 @@
   "packages": [
     "npm:pi-terminal-theme",
     "npm:@dietrichgebert/ponytail",
-    "npm:pi-hashline-readmap",
     "https://github.com/nicobailon/pi-subagents",
     "https://github.com/nicobailon/pi-web-access"
   ],
@@ -29,7 +28,8 @@
   "defaultProjectTrust": "always",
   "subagents": {
     "defaultExtensions": [
-      "/home/deathbeam/.pi/agent/extensions/inferhub.ts"
+      "/home/deathbeam/.pi/agent/extensions/inferhub",
+      "/home/deathbeam/.pi/agent/extensions/pi-hashline-edit"
     ]
   },
   "readseek": {

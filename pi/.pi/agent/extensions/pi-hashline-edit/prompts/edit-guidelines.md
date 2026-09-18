@@ -1,0 +1,4 @@
+- Use edit with LINE#HASH anchors from the latest read, grep, or edit result for all file changes; batch every change to one file into a single edit call.
+- Never reuse anchors from an earlier read or edit response once a newer one exists for the same file; treat only the most recent response as carrying valid anchors.
+- After a successful edit, the returned --- Anchors --- block replaces a re-read for nearby follow-up edits.
+- On [E_STALE_ANCHOR], the error lists the stale refs and any content-matched candidate anchors; re-read the file to get current anchors before retrying.
