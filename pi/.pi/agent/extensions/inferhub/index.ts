@@ -36,8 +36,6 @@ function advertisedLevels(entry: CatalogEntry): string[] {
 		: [];
 }
 
-// Rails that advertise nothing still accept the standard names verbatim, and "none" is what
-// actually switches thinking off. Everything else unadvertised is hidden.
 function thinkingLevelMap(advertised: string[]): ThinkingLevelMap {
 	const map: ThinkingLevelMap = { off: "none", xhigh: null, max: null };
 	for (const level of PI_THINKING_LEVELS) {
@@ -71,13 +69,11 @@ function cheapest(sources: CatalogEntry[], key: "input" | "output"): number {
 	return prices.length > 0 ? Math.min(...prices) : 0;
 }
 
-// Only levels that every rail the request may reach supports are offered.
 function commonLevels(sources: CatalogEntry[]): string[] {
 	const [first = [], ...rest] = sources.map(advertisedLevels);
 	return first.filter((level) => rest.every((levels) => levels.includes(level)));
 }
 
-// Aliases carry no metadata, so they inherit the strictest values across their prefixed members.
 function toPiModel(entry: CatalogEntry, members: CatalogEntry[]): ProviderModelConfig | undefined {
 	if (typeof entry.id !== "string" || !entry.id || entry.output_modality === "image") return undefined;
 
@@ -132,7 +128,6 @@ async function fetchCatalog(apiKey: string, signal: AbortSignal): Promise<Provid
 }
 
 export default async function (pi: ExtensionAPI) {
-	// The factory is awaited, so the first start already has models without opening /model first.
 	const envKey = process.env.INFERHUB_API_KEY;
 	let registry: ProviderModelConfig[] =
 		envKey && !process.env.PI_OFFLINE ? await fetchCatalog(envKey, AbortSignal.timeout(5000)).catch(() => []) : [];
@@ -145,7 +140,6 @@ export default async function (pi: ExtensionAPI) {
 		models: registry,
 		refreshModels: async (context) => {
 			const cached = context.stored?.models.map(({ provider: _provider, ...model }) => model) ?? [];
-			// pi replaces the registered models with this result, so never go empty while offline.
 			const known = cached.length > 0 ? cached : registry;
 			if (!context.allowNetwork || context.signal.aborted) return known;
 
