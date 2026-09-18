@@ -4,15 +4,24 @@ import {
 	formatSize,
 	DEFAULT_MAX_BYTES,
 	DEFAULT_MAX_LINES,
+	getLanguageFromPath,
+	highlightCode,
 	truncateHead,
+	type Theme,
 	type TruncationResult,
 } from "@earendil-works/pi-coding-agent";
+import { Text } from "@earendil-works/pi-tui";
 import { Type } from "@sinclair/typebox";
 import { access as fsAccess } from "fs/promises";
 import { constants } from "fs";
 import { normalizeToLF, stripBom } from "./edit-diff";
 import { loadFileKindAndText } from "./file-kind";
-import { formatHashlineRegion, splitVisibleLines } from "./hashline";
+import {
+	formatHashlineRegion,
+	sanitizeOutput,
+	splitVisibleLines,
+	stripHashlinePrefixes,
+} from "./hashline";
 import { resolveToCwd } from "./path-utils";
 import { loadPrompt, loadPromptGuidelines } from "./prompt-loader";
 import { throwIfAborted } from "./runtime";
@@ -114,6 +123,31 @@ function formatHashlineReadPreview(
 		truncation: truncation.truncated ? truncation : undefined,
 		...(nextOffset !== undefined ? { nextOffset } : {}),
 	};
+}
+
+// ─── Result rendering ──────────────────────────────────────────────────
+
+/**
+ * Render read output as plain file content with syntax highlighting. The
+ * `LINE#HASH:` prefixes are stripped for display: feeding them to the
+ * highlighter makes it treat `#ABC:` as a comment token and gray out the
+ * whole line. The model-facing text keeps its anchors; only the TUI view
+ * drops them, matching pi's built-in read rendering.
+ */
+function formatReadResultText(
+	output: string,
+	lang: string | undefined,
+	theme: Pick<Theme, "fg">,
+): string {
+	const lines = stripHashlinePrefixes(output).split("\n");
+	while (lines.length > 0 && lines[lines.length - 1] === "") {
+		lines.pop();
+	}
+
+	const rendered = lang
+		? highlightCode(lines.join("\n"), lang)
+		: lines.map((line) => theme.fg("toolOutput", line));
+	return `\n${rendered.join("\n")}`;
 }
 
 export function registerReadTool(pi: ExtensionAPI): void {
@@ -230,6 +264,33 @@ export function registerReadTool(pi: ExtensionAPI): void {
 						: {}),
 				},
 			};
+		},
+
+		// pi's built-in read renderer highlights the raw text, where the
+		// `LINE#HASH:` prefix makes every line look like a comment; this one
+		// strips the prefix first. Collapsed results stay empty (same as pi).
+		renderResult(result, { expanded }, theme, context) {
+			const text =
+				(context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
+			if (!expanded && !context.isError) {
+				text.setText("");
+				return text;
+			}
+
+			const typed = result as {
+				content?: Array<{ type: string; text?: string }>;
+			};
+			const output = (typed.content ?? [])
+				.filter((entry) => entry.type === "text")
+				.map((entry) => sanitizeOutput(entry.text ?? "").replace(/\r/g, ""))
+				.join("\n");
+			const rawPath = (context.args as { path?: unknown } | undefined)?.path;
+			const lang =
+				!context.isError && typeof rawPath === "string"
+					? getLanguageFromPath(rawPath)
+					: undefined;
+			text.setText(formatReadResultText(output, lang, theme));
+			return text;
 		},
 	});
 }

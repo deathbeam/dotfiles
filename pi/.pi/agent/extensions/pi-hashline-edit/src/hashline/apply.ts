@@ -45,13 +45,11 @@ function formatMismatchError(
 	mismatches: HashMismatch[],
 	fileLines: string[],
 ): string {
-	// The window of current file content around each stale line used to be echoed
-	// with `>>>`-marked retry lines. That was dropped: after an insert/delete the
-	// content now sitting at the stale line number is unrelated to what the model
-	// meant to edit, so echoing it wastes tokens and invites the model to "relocate"
-	// an anchor by line number — which the runtime never does. Instead we report the
-	// stale refs and let the content-matched "Did you mean" candidates below point at
-	// the real current anchors. Recovery is re-read, not slide-to-nearby.
+	// Report only the stale refs: after an insert/delete, the content now sitting at
+	// a stale line number is unrelated to what the model meant to edit, so echoing
+	// it wastes tokens and invites relocating an anchor by line number — which the
+	// runtime never does. The content-matched "Did you mean" candidates below point
+	// at the real current anchors instead. Recovery is re-read, not slide-to-nearby.
 	const staleRefs = mismatches
 		.map((mismatch) => `${mismatch.line}#${mismatch.expected}`)
 		.join(", ");

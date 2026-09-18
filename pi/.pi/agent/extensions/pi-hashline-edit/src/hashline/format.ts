@@ -4,7 +4,29 @@
  * Vendored & adapted from oh-my-pi (MIT, github.com/can1357/oh-my-pi).
  */
 
-import { computeLineHash } from "./hash";
+import { computeLineHash, HASH_LENGTH, NIBBLE_STR } from "./hash";
+
+/** Matches a rendered anchor prefix, e.g. ` 12#ABC:`. */
+const ANCHOR_PREFIX_RE = new RegExp(`^(\\s*\\d+#[${NIBBLE_STR}]{${HASH_LENGTH}}:)`);
+
+/** Strip ANSI escapes and control characters so file content cannot inject terminal sequences. */
+export function sanitizeOutput(text: string): string {
+	return text
+		.replace(/\u001b\[[0-9;]*[A-Za-z]/g, "")
+		.replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, "");
+}
+
+/**
+ * Strip hashline display prefixes from annotated text, e.g. ` 12#ABC:const x`
+ * becomes `const x`. The prefixes are model-facing (read/grep output keeps
+ * them); TUI rendering drops them so the view matches pi's built-in tools.
+ */
+export function stripHashlinePrefixes(text: string): string {
+	return text
+		.split("\n")
+		.map((line) => line.replace(ANCHOR_PREFIX_RE, ""))
+		.join("\n");
+}
 
 /**
  * Split text into the lines the model sees in read output: the trailing

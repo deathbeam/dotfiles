@@ -120,44 +120,80 @@ async function run(tool, params) {
 		}
 	}
 
-	// 8. renderers: edit renderCall live preview + renderResult via pi's renderDiff
-	const fakeTheme = { fg: (_n, txt) => txt, bold: (txt) => txt };
+	// 8. renderer wiring: edit defines NO custom renderers, so pi merges its
+	// built-in edit renderers by tool name; read defines a custom (prefix-
+	// stripping) result renderer — see 9.
+	const fakeTheme = { fg: (name, txt) => `«${name}»${txt}`, bg: (_n, txt) => txt, bold: (txt) => txt };
 	const renderToString = (comp) => comp.render(120).join("\n");
+	const stripAnsi = (s) => s.replace(/\u001b\[[0-9;]*m/g, "");
+	if (byName.edit.renderCall !== undefined) {
+		throw new Error("edit should use pi's built-in call renderer");
+	}
+	if (byName.edit.renderResult === undefined || byName.read.renderResult === undefined) {
+		throw new Error("edit/read should define their result renderers");
+	}
+	console.log("--- renderer wiring OK (edit call: built-in; results: custom) ---");
 
+	// edit result rendering: diff via pi's renderDiff + the warnings section
+	const warnFile = join(dir, "warn.ts");
+	writeFileSync(warnFile, "const a = 1;\nconst b = 2;\nconst c = 3;\n");
+	const wRead = await run(byName.read, { path: warnFile });
+	// append after line 1 the exact lines that already follow it → duplicate-insert warning
+	const firstAnchor = wRead.content[0].text.match(/^\s*1#([A-Z]{3}):/m);
+	const warnRes = await run(byName.edit, {
+		path: warnFile,
+		edits: [{ op: "append", pos: `1#${firstAnchor[1]}`, lines: ["const b = 2;", "const c = 3;"] }],
+	});
+	if (!warnRes.details.warnings.length) throw new Error("expected a duplicate-insert warning");
+	const wComp = byName.edit.renderResult(warnRes, { isPartial: false }, fakeTheme, { state: {}, lastComponent: undefined, isError: false, args: { path: warnFile } });
+	const wText = stripAnsi(renderToString(wComp));
+	console.log("--- edit renderResult (diff + warnings) ---");
+	console.log(wText.trim());
+	if (!/«warning»Potential duplicate insert/.test(wText)) {
+		throw new Error("warnings not rendered in warning color: " + JSON.stringify(wText.slice(0, 200)));
+	}
+	if (/Warnings:/.test(wText)) {
+		throw new Error("warnings should render headerless, like pi's own warning notes");
+	}
+	if (wText.startsWith("\n")) {
+		throw new Error("rendered edit result must not add a leading blank line (call Box already pads)");
+	}
+	if (!/const c = 3;/.test(wText)) throw new Error("diff missing from rendered edit result");
+	console.log("--- edit renderResult: diff + warnings OK ---");
+
+	// error results render the model-facing error text
+	const errComp = byName.edit.renderResult(
+		{ content: [{ type: "text", text: "[E_STALE_ANCHOR] boom" }], details: { diff: "", classification: "noop", warnings: [] } },
+		{ isPartial: false },
+		fakeTheme,
+		{ state: {}, lastComponent: undefined, isError: true, args: { path: warnFile } },
+	);
+	if (!/E_STALE_ANCHOR/.test(stripAnsi(renderToString(errComp)))) throw new Error("error text missing from rendered edit result");
+	console.log("--- edit renderResult: error path OK ---");
+
+	// collapsed diffs are capped with an expand hint; expanded shows everything
+	const longDiff = Array.from({ length: 30 }, (_, i) => `+${i + 1} const v${i} = ${i};`).join("\n");
+	const longRes = { content: [{ type: "text", text: "anchors" }], details: { diff: longDiff, classification: "applied", warnings: [] } };
+	const longCtx = { state: {}, lastComponent: undefined, isError: false, args: { path: warnFile } };
+	const collapsedText = stripAnsi(renderToString(byName.edit.renderResult(longRes, { isPartial: false, expanded: false }, fakeTheme, longCtx)));
+	const expandedText = stripAnsi(renderToString(byName.edit.renderResult(longRes, { isPartial: false, expanded: true }, fakeTheme, longCtx)));
+	if (!/more diff lines/.test(collapsedText) || !/to expand/.test(collapsedText)) {
+		throw new Error("collapsed diff missing expand hint: " + JSON.stringify(collapsedText.slice(-120)));
+	}
+	if (collapsedText.split("\n").length >= expandedText.split("\n").length) {
+		throw new Error("collapsed diff should be shorter than expanded");
+	}
+	if (!/const v29/.test(expandedText) || /const v29/.test(collapsedText)) {
+		throw new Error("expanded diff should show all lines, collapsed should not");
+	}
+	console.log("--- edit renderResult: collapsed cap + expand hint OK ---");
+
+	// duplicate-payload guard still fires through the pipeline
 	writeFileSync(file, "const x = 1;\nconst y = 2;\nconst z = 3;\n");
 	const rr = await run(byName.read, { path: file });
 	const anchorM = rr.content[0].text.match(/^\s*2#([A-Z]{3}):/m);
 	const editArgs = { path: file, edits: [{ op: "replace", pos: `2#${anchorM[1]}`, lines: ["const y = 24;"] }] };
-
-	// incomplete args → header only
-	let rctx = { state: {}, lastComponent: undefined, argsComplete: false, executionStarted: false, invalidate: () => {}, cwd: dir, expanded: false };
-	let callComp = byName.edit.renderCall(editArgs, fakeTheme, rctx);
-	const header = renderToString(callComp);
-	if (!/edit/.test(header) || !/sample/.test(header)) throw new Error("renderCall header missing: " + JSON.stringify(header));
-
-	// complete args → async live preview, then re-render
-	rctx = { state: {}, lastComponent: callComp, argsComplete: true, executionStarted: false, invalidate: () => {}, cwd: dir, expanded: false };
-	callComp = byName.edit.renderCall(editArgs, fakeTheme, rctx);
-	await new Promise((r) => setTimeout(r, 300));
-	callComp = byName.edit.renderCall(editArgs, fakeTheme, rctx);
-	const previewText = renderToString(callComp);
-	console.log("--- renderCall live preview ---");
-	console.log(previewText);
-	if (!/const y = 2;/.test(previewText) || !/const y = 24;/.test(previewText)) {
-		throw new Error("preview missing old/new line: " + JSON.stringify(previewText));
-	}
-
-	// execute + renderResult → pi-standard diff
-	const editRes = await run(byName.edit, editArgs);
-	const rctx2 = { state: {}, lastComponent: undefined, argsComplete: true, executionStarted: true, invalidate: () => {}, cwd: dir, expanded: true, isError: false, args: editArgs };
-	const resComp = byName.edit.renderResult(editRes, { isPartial: false }, fakeTheme, rctx2);
-	const resText = renderToString(resComp);
-	console.log("--- renderResult (pi renderDiff) ---");
-	console.log(resText.slice(0, 400));
-	if (!/const y = 24/.test(resText)) throw new Error("rendered result missing diff content");
-
-	// resending the same payload → E_DUPLICATE_EDIT; its thrown error renders
-	// through the isError path as plain error text.
+	await run(byName.edit, editArgs);
 	let dupError = null;
 	try {
 		await run(byName.edit, editArgs);
@@ -165,11 +201,55 @@ async function run(tool, params) {
 		dupError = e;
 	}
 	if (!dupError || !/E_DUPLICATE_EDIT/.test(dupError.message)) throw new Error("expected duplicate guard to fire");
-	const dupResult = { content: [{ type: "text", text: dupError.message }], details: { diff: "", classification: "noop", warnings: [] } };
-	const dupComp = byName.edit.renderResult(dupResult, { isPartial: false }, fakeTheme, { ...rctx2, isError: true, args: editArgs });
-	const dupText = renderToString(dupComp);
-	if (!/E_DUPLICATE_EDIT/.test(dupText)) throw new Error("error render missing message");
-	console.log("--- renderResult error path OK ---");
+	console.log("--- duplicate guard OK ---");
+
+	// 9. read renderer: content after the LINE#HASH: prefix must be syntax
+	// highlighted (the raw prefixed line would highlight as a comment).
+	const tsFile = join(dir, "render-check.ts");
+	writeFileSync(tsFile, "const value = 1;\n// a comment\nexport function hi() { return value; }\n");
+	const readRes = await run(byName.read, { path: tsFile });
+	const readCtx = { state: {}, lastComponent: undefined, argsComplete: true, executionStarted: true, invalidate: () => {}, cwd: dir, expanded: true, isError: false, showImages: true, args: { path: tsFile } };
+	const readComp = byName.read.renderResult(readRes, { expanded: true, isPartial: false }, fakeTheme, readCtx);
+	const readRendered = renderToString(readComp);
+	console.log("--- read renderResult ---");
+	console.log(readRendered.slice(0, 300));
+	if (!/value/.test(readRendered)) throw new Error("read render lost content");
+
+	// anchors are stripped for display and the code carries highlight colors:
+	// a rendered line must contain at least two distinct truecolor codes and
+	// no LINE#HASH prefix.
+	if (/^\s*\d+#[A-Z]{3}:/m.test(readRendered)) {
+		throw new Error("read render still shows anchor prefixes");
+	}
+	const line1 = readRendered.split("\n").find((l) => l.includes("value = "));
+	if (!line1) throw new Error("read render lost line 1");
+	const colors = new Set(line1.match(/\u001b\[38;2;[0-9;]+m/g) ?? []);
+	if (colors.size < 2) {
+		throw new Error("read content not syntax highlighted (one color only): " + JSON.stringify(line1));
+	}
+	console.log("--- read renderer: prefixes stripped + highlighted code OK ---");
+
+	// raw mode has no prefixes; content must still be highlighted
+	const rawRes = await run(byName.read, { path: tsFile, raw: true });
+	const rawComp = byName.read.renderResult(rawRes, { expanded: true, isPartial: false }, fakeTheme, { ...readCtx, args: { path: tsFile, raw: true } });
+	const rawRendered = renderToString(rawComp);
+	const rawLine = rawRendered.split("\n").find((l) => l.includes("value = "));
+	const rawColors = new Set((rawLine ?? "").match(/\u001b\[38;2;[0-9;]+m/g) ?? []);
+	if (rawColors.size < 2) {
+		throw new Error("raw read not highlighted: " + JSON.stringify(rawLine));
+	}
+	console.log("--- read renderer: raw mode highlighted OK ---");
+
+	// 10. grep renderer: prefixes stripped, 15-line collapsed cap with expand hint
+	const grepRes = await run(byName.grep, { pattern: "const ", path: dir, glob: "*.ts", limit: 5 });
+	const gCtx = { state: {}, lastComponent: undefined, argsComplete: true, executionStarted: true, invalidate: () => {}, cwd: dir, expanded: false, isError: false };
+	const gComp = byName.grep.renderResult(grepRes, { expanded: false, isPartial: false }, fakeTheme, gCtx);
+	const gText = stripAnsi(renderToString(gComp));
+	if (/^\s*\d+#[A-Z]{3}:/m.test(gText)) throw new Error("grep render still shows anchor prefixes");
+	if (!/const /.test(gText)) throw new Error("grep render lost content");
+	const gExpanded = stripAnsi(renderToString(byName.grep.renderResult(grepRes, { expanded: true, isPartial: false }, fakeTheme, { ...gCtx, expanded: true })));
+	if (!/const /.test(gExpanded)) throw new Error("expanded grep render lost content");
+	console.log("--- grep renderer: prefixes stripped OK ---");
 
 	rmSync(dir, { recursive: true, force: true });
 	console.log("\nALL SMOKE TESTS PASSED");

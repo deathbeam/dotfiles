@@ -1,6 +1,6 @@
 /**
- * Prompt loading. Anchor examples in prompt files are authored at the
- * session hash length (3 characters), so no load-time rewriting is needed.
+ * Prompt loading. Prompt files are authored with 3-character anchor examples
+ * (HASH_LENGTH), so nothing is rewritten at load time.
  */
 
 import { readFileSync } from "node:fs";

@@ -20,7 +20,7 @@ function isTextLikeMimeType(mimeType: string): boolean {
 
 const FILE_TYPE_SNIFF_BYTES = 8192;
 
-export type LoadedFile =
+type LoadedFile =
 	| { kind: "directory" }
 	| { kind: "image"; mimeType: string }
 	| { kind: "text"; text: string; hadUtf8DecodeErrors?: true }

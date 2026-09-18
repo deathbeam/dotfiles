@@ -1,11 +1,18 @@
 import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import { keyHint } from "@earendil-works/pi-coding-agent";
+import { Text } from "@earendil-works/pi-tui";
 import { Type } from "@sinclair/typebox";
 import { spawn, spawnSync } from "child_process";
 import { createInterface } from "readline";
 import { normalizeToLF, stripBom } from "./edit-diff";
 import { resolveMutationTargetPath } from "./fs-write";
 import { loadFileKindAndText } from "./file-kind";
-import { formatHashlineRegion, splitVisibleLines } from "./hashline";
+import {
+	formatHashlineRegion,
+	sanitizeOutput,
+	splitVisibleLines,
+	stripHashlinePrefixes,
+} from "./hashline";
 import { resolveToCwd } from "./path-utils";
 import { loadPrompt } from "./prompt-loader";
 import { rememberReadSnapshot } from "./read-snapshot";
@@ -283,8 +290,39 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 			),
 		}),
 
-		// No custom renderCall: pi merges in the built-in grep renderer
-		// (pattern/path/glob header) when the tool definition omits it.
+		// pi's built-in grep renderCall (pattern/path/glob header) is merged in
+		// by tool name; the result renderer mirrors the built-in (plain lines,
+		// 15-line collapsed preview) but strips the model-facing LINE#HASH
+		// prefixes so the view matches pi's built-in grep.
+		renderResult(result, { expanded }, theme, context) {
+			const text =
+				(context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
+			const typed = result as {
+				content?: Array<{ type: string; text?: string }>;
+			};
+			const output = stripHashlinePrefixes(
+				(typed.content ?? [])
+					.filter((entry) => entry.type === "text")
+					.map((entry) => sanitizeOutput(entry.text ?? ""))
+					.join("\n"),
+			);
+			const lines = output.split("\n");
+			while (lines.length > 0 && lines[lines.length - 1] === "") {
+				lines.pop();
+			}
+
+			const maxLines = expanded ? lines.length : 15;
+			const shown = lines
+				.slice(0, maxLines)
+				.map((line) => theme.fg("toolOutput", line));
+			let rendered = `\n${shown.join("\n")}`;
+			const remaining = lines.length - maxLines;
+			if (remaining > 0) {
+				rendered += `${theme.fg("muted", `\n... (${remaining} more lines,`)} ${keyHint("app.tools.expand", "to expand")}${theme.fg("muted", ")")}`;
+			}
+			text.setText(rendered);
+			return text;
+		},
 
 		async execute(_toolCallId, params, signal, _onUpdate, ctx) {
 			throwIfAborted(signal);
@@ -296,7 +334,6 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 			const limit = params.limit ?? DEFAULT_LIMIT;
 			const contextLines = params.context ?? 0;
 
-			// Build rg args
 			const rgArgs: string[] = ["--json"];
 			if (params.ignoreCase) rgArgs.push("--ignore-case");
 			if (params.literal) rgArgs.push("--fixed-strings");
@@ -369,7 +406,6 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 				const validMatchLines = matchLines.filter((n) => n <= totalFileLines);
 				if (validMatchLines.length === 0) continue;
 
-				// Build merged context ranges for this file
 				const ranges: LineRange[] = [];
 				for (const lineNum of validMatchLines) {
 					const start = Math.max(1, lineNum - contextLines);

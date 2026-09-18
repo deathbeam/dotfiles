@@ -87,7 +87,7 @@ const FUZZY_UNICODE_SPACES_RE = /[\u00A0\u2002-\u200A\u202F\u205F\u3000]/g;
  * separator of an anchor ("12#ABC: content") and re-typed indentation.
  * Hashes themselves stay whitespace-exact — see normalizeHashInput.
  */
-export function normalizeFuzzyLine(text: string): string {
+function normalizeFuzzyLine(text: string): string {
 	return text
 		.trim()
 		.replace(FUZZY_SINGLE_QUOTES_RE, "'")

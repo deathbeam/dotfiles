@@ -1,15 +1,19 @@
-import { Text } from "@earendil-works/pi-tui";
 import type {
 	ExtensionAPI,
 	ToolDefinition,
 } from "@earendil-works/pi-coding-agent";
-import { withFileMutationQueue } from "@earendil-works/pi-coding-agent";
+import {
+	keyHint,
+	renderDiff,
+	withFileMutationQueue,
+	type Theme,
+} from "@earendil-works/pi-coding-agent";
+import { Box, Text } from "@earendil-works/pi-tui";
 import { Type, type TSchema } from "@sinclair/typebox";
 import { constants } from "fs";
 import { access as fsAccess } from "fs/promises";
 import {
 	detectLineEnding,
-	generateDiffString,
 	hasMixedLineEndings,
 	normalizeToLF,
 	restoreLineEndings,
@@ -40,14 +44,6 @@ import {
 } from "./noop-loop-guard";
 import { getReadSnapshot, getReadSnapshotVersions, rememberReadSnapshot } from "./read-snapshot";
 import { threeWayMerge } from "./merge";
-import {
-	formatEditCall,
-	formatEditResultText,
-	getRenderablePreviewInput,
-	getRenderedEditTextContent,
-	type EditPreview,
-	type EditRenderState,
-} from "./edit-render";
 
 function literalStringSchema<const Value extends string>(
 	value: Value,
@@ -133,7 +129,7 @@ const hashlineEditToolSchema = Type.Object(
 	},
 	{ additionalProperties: false },
 );
-export type EditRequestParams = {
+type EditRequestParams = {
 	path: string;
 	edits: HashlineToolEdit[];
 };
@@ -402,58 +398,36 @@ async function executeEditPipeline(
 	});
 }
 
-async function computeEditPreview(
-	request: unknown,
-	cwd: string,
-): Promise<EditPreview> {
-	try {
-		const normalized = normalizeEditRequest(request);
-		assertEditRequest(normalized);
-		const { path, originalNormalized, result } = await executeEditPipeline(
-			normalized,
-			cwd,
-			constants.R_OK,
-		);
-
-		if (originalNormalized === result) {
-			return {
-				error: `No changes made to ${path}. The edits produced identical content.`,
-			};
-		}
-
-		return { diff: generateDiffString(originalNormalized, result).diff };
-	} catch (error: unknown) {
-		return { error: error instanceof Error ? error.message : String(error) };
-	}
-}
-
 // TParams is intentionally TSchema, not typeof hashlineEditToolSchema. The
 // published `parameters` schema stays strict (discriminated anyOf) for the
-// model, but the internal prepareArguments/execute surface treats params as
-// unknown and defers per-item validation to resolveEditAnchors during
-// execute. Typing it as Static<typeof hashlineEditToolSchema> would claim
-// per-item conformance that prepareArguments does not actually enforce
-// (assertEditRequest only validates the envelope).
-type EditToolDefinition = ToolDefinition<
-	TSchema,
-	HashlineEditToolDetails,
-	EditRenderState
-> & { renderShell?: "default" | "self" };
+// model, but prepareArguments treats params as unknown and defers per-item
+// validation to resolveEditAnchors during execute; typing it as
+// Static<typeof hashlineEditToolSchema> would claim conformance that
+// prepareArguments does not enforce (assertEditRequest is envelope-only).
+type EditToolDefinition = ToolDefinition<TSchema, HashlineEditToolDetails>;
 
-function reuseTextComponent(lastComponent: unknown): Text {
-	return lastComponent instanceof Text ? lastComponent : new Text("", 0, 0);
-}
+/** Diff lines shown while the tool block is collapsed (expand for the rest). */
+const COLLAPSED_DIFF_LINES = 15;
 
-function renderTextResult(
-	lastComponent: unknown,
-	textContent: string | undefined,
-): Text {
-	if (!textContent) {
-		return new Text("", 0, 0);
+/**
+ * Cap the rendered diff when the block is collapsed, the way pi's read/grep
+ * renderers cap their previews. Warnings are appended by the caller and are
+ * never hidden by this.
+ */
+function capDiffPreview(
+	diff: string,
+	expanded: boolean,
+	theme: Pick<Theme, "fg">,
+): string {
+	const lines = diff.split("\n");
+	if (expanded || lines.length <= COLLAPSED_DIFF_LINES) {
+		return diff;
 	}
-	const text = reuseTextComponent(lastComponent);
-	text.setText(textContent);
-	return text;
+	const remaining = lines.length - COLLAPSED_DIFF_LINES;
+	return [
+		...lines.slice(0, COLLAPSED_DIFF_LINES),
+		`${theme.fg("muted", `... (${remaining} more diff lines,`)} ${keyHint("app.tools.expand", "to expand")}${theme.fg("muted", ")")}`
+	].join("\n");
 }
 
 function buildEditToolDefinition(): EditToolDefinition {
@@ -471,97 +445,67 @@ function buildEditToolDefinition(): EditToolDefinition {
 			assertEditRequest(normalized);
 			return normalized;
 		},
-	// Force the default tool shell (Box with pending/success/error background) so
-	// we don't inherit renderShell: "self" from the built-in edit tool of the
-	// same name, which would drop the shared background color block.
-	renderShell: "default",
-	renderCall(args, theme, context) {
-		const previewInput = getRenderablePreviewInput(args);
-		const resetPreview = () => {
-			context.state.argsKey = undefined;
-			context.state.preview = undefined;
-			context.state.previewGeneration =
-				(context.state.previewGeneration ?? 0) + 1;
-		};
-		if (context.executionStarted) {
-			resetPreview();
-		} else if (!context.argsComplete || !previewInput) {
-			resetPreview();
-		} else {
-			const argsKey = JSON.stringify(previewInput);
-			if (context.state.argsKey !== argsKey) {
-				context.state.argsKey = argsKey;
-				context.state.preview = undefined;
-				const previewGeneration = (context.state.previewGeneration ?? 0) + 1;
-				context.state.previewGeneration = previewGeneration;
-				computeEditPreview(previewInput, context.cwd)
-					.then((preview) => {
-						if (
-							context.state.argsKey === argsKey &&
-							context.state.previewGeneration === previewGeneration
-						) {
-							context.state.preview = preview;
-							context.invalidate();
-						}
-					})
-					.catch((err: unknown) => {
-						if (
-							context.state.argsKey === argsKey &&
-							context.state.previewGeneration === previewGeneration
-						) {
-							context.state.preview = {
-								error: err instanceof Error ? err.message : String(err),
-							};
-							context.invalidate();
-						}
-					});
-			}
-		}
-		const text =
-			(context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
-		text.setText(
-			formatEditCall(
-				previewInput ?? undefined,
-				context.state as EditRenderState,
-				theme,
-			),
-		);
-		return text;
-	},
-
-	renderResult(result, { isPartial }, theme, context) {
-		if (isPartial) {
+		// pi's built-in renderCall (merged by tool name) draws the call block;
+		// the built-in renderResult is replaced because it ignores
+		// details.warnings — recovery merges and similar notices must reach the
+		// user, and noop results (no diff) should not render as a silent block.
+		renderResult(result, { expanded, isPartial }, theme, context) {
 			const text =
 				(context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
-			text.setText(theme.fg("warning", "Editing..."));
+			if (isPartial) {
+				text.setText(theme.fg("warning", "Editing..."));
+				return text;
+			}
+
+			// The built-in result renderer normally settles the call block's
+			// background; keep that in step now that we replaced it.
+			const callComponent = (context.state as { callComponent?: unknown })
+				.callComponent;
+			if (callComponent instanceof Box) {
+				callComponent.setBgFn((value) =>
+					theme.bg(context.isError ? "toolErrorBg" : "toolSuccessBg", value),
+				);
+			}
+
+			const typed = result as {
+				content?: Array<{ type: string; text?: string }>;
+				details?: HashlineEditToolDetails;
+			};
+			const modelText = typed.content?.find(
+				(entry) => entry.type === "text",
+			)?.text;
+
+			if (context.isError) {
+				text.setText(modelText ? theme.fg("error", modelText) : "");
+				return text;
+			}
+
+			const details = typed.details;
+			const sections: string[] = [];
+			if (details?.diff) {
+				sections.push(capDiffPreview(renderDiff(details.diff), expanded, theme));
+			}
+			// No header, like pi's own warning notes (truncation hints etc.):
+			// the warning color carries the signal.
+			if (details && details.warnings.length > 0) {
+				sections.push(
+					details.warnings
+						.map((warning) => theme.fg("warning", warning))
+						.join("\n"),
+				);
+			}
+			if (!details?.diff && modelText) {
+				sections.push(modelText);
+			}
+			// No leading newline: the call block is a Box with its own bottom
+			// padding, and adding one here doubles the gap above the diff.
+			text.setText(sections.join("\n\n"));
 			return text;
-		}
+		},
 
-		const typedResult = result as {
-			content?: Array<{ type: string; text?: string }>;
-			details?: HashlineEditToolDetails;
-		};
-		const renderedText = getRenderedEditTextContent(typedResult);
-
-		const renderState = context.state as EditRenderState | undefined;
-		const previewBeforeResult = renderState?.preview;
-		if (renderState) {
-			renderState.preview = undefined;
-			renderState.previewGeneration = (renderState.previewGeneration ?? 0) + 1;
-		}
-
-		if (context.isError) {
-			return renderTextResult(
-				context.lastComponent,
-				renderedText ? `\n${theme.fg("error", renderedText)}` : undefined,
-			);
-		}
-
-		return renderTextResult(
-			context.lastComponent,
-			formatEditResultText(typedResult, previewBeforeResult),
-		);
-	},
+		// pi's built-in renderers draw their own Box; "self" matches pi's own
+		// edit tool, avoiding a double-wrapped shell.
+		renderShell: "self",
 
 	async execute(_toolCallId, params, signal, _onUpdate, ctx) {
 		// prepareArguments has already normalized the request (file_path alias,

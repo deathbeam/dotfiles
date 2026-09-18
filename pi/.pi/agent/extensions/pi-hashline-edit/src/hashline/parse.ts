@@ -61,6 +61,25 @@ export const BARE_PREFIX_RE = new RegExp(`^\\s*([${NIBBLE_STR}]{${HASH_LENGTH}})
 
 // ─── Parsing ────────────────────────────────────────────────────────────
 
+/**
+ * Validate an anchor's hash for the fixed session length. Returns an error
+ * message, or null when the hash is well-formed.
+ */
+function diagnoseHash(ref: string, hash: string): string | null {
+	if (hash.length !== HASH_LENGTH) {
+		// Distinguish: looks like a valid anchor from an older session's hash
+		// length vs. plain invalid.
+		if (HASH_ALPHABET_RE.test(hash) && hash.length >= 2 && hash.length <= 4) {
+			return `[E_BAD_REF] Invalid line reference "${ref}": hashes are ${HASH_LENGTH} characters in this session, but this anchor has ${hash.length} — it looks like an anchor from a stale context or an older session. Re-read the file to get current anchors.`;
+		}
+		return `[E_BAD_REF] Invalid line reference "${ref}": hash must be exactly ${HASH_LENGTH} characters from ${NIBBLE_STR} (e.g. "${EXAMPLE_ANCHOR}").`;
+	}
+	if (!HASH_ALPHABET_RE.test(hash)) {
+		return `[E_BAD_REF] Invalid line reference "${ref}": hash uses invalid characters, hashes use alphabet ${NIBBLE_STR} only.`;
+	}
+	return null;
+}
+
 function diagnoseLineRef(ref: string): string {
 	const trimmed = ref.trim();
 	const core = ref.replace(/^\s*[>+-]*\s*/, "").trim();
@@ -82,20 +101,9 @@ function diagnoseLineRef(ref: string): string {
 		if (line < 1) {
 			return `[E_BAD_REF] Line number must be >= 1, got ${line} in "${ref}".`;
 		}
-		if (hash.length !== HASH_LENGTH) {
-			// Distinguish: looks like a valid anchor from an older session's
-			// hash length vs. plain invalid.
-			if (
-				HASH_ALPHABET_RE.test(hash) &&
-				hash.length >= 2 &&
-				hash.length <= 4
-			) {
-				return `[E_BAD_REF] Invalid line reference "${ref}": hashes are ${HASH_LENGTH} characters in this session, but this anchor has ${hash.length} — it looks like an anchor from a stale context or an older session. Re-read the file to get current anchors.`;
-			}
-			return `[E_BAD_REF] Invalid line reference "${ref}": hash must be exactly ${HASH_LENGTH} characters from ${NIBBLE_STR} (e.g. "${EXAMPLE_ANCHOR}").`;
-		}
-		if (!HASH_ALPHABET_RE.test(hash)) {
-			return `[E_BAD_REF] Invalid line reference "${ref}": hash uses invalid characters, hashes use alphabet ${NIBBLE_STR} only.`;
+		const hashError = diagnoseHash(ref, hash);
+		if (hashError) {
+			return hashError;
 		}
 	}
 
@@ -129,27 +137,9 @@ function parseAnchorRef(ref: string): Anchor {
 	}
 
 	const hash = match[2]!;
-	if (hash.length !== HASH_LENGTH) {
-		// Distinguish: looks like a valid anchor from an older session's
-		// hash length vs. plain invalid.
-		if (
-			HASH_ALPHABET_RE.test(hash) &&
-			hash.length >= 2 &&
-			hash.length <= 4
-		) {
-			throw new Error(
-				`[E_BAD_REF] Invalid line reference "${ref}": hashes are ${HASH_LENGTH} characters in this session, but this anchor has ${hash.length} — it looks like an anchor from a stale context or an older session. Re-read the file to get current anchors.`,
-			);
-		}
-		throw new Error(
-			`[E_BAD_REF] Invalid line reference "${ref}": hash must be exactly ${HASH_LENGTH} characters from ${NIBBLE_STR} (e.g. "${EXAMPLE_ANCHOR}").`,
-		);
-	}
-
-	if (!HASH_ALPHABET_RE.test(hash)) {
-		throw new Error(
-			`[E_BAD_REF] Invalid line reference "${ref}": hash uses invalid characters, hashes use alphabet ${NIBBLE_STR} only.`,
-		);
+	const hashError = diagnoseHash(ref, hash);
+	if (hashError) {
+		throw new Error(hashError);
 	}
 
 	const textHint = match[3];
@@ -165,7 +155,7 @@ function parseAnchorRef(ref: string): Anchor {
 /**
  * Reject hashline display prefixes in edit payloads. Strict semantics: the
  * model must send literal file content for `lines`, not the rendered read /
- * diff form. Silent stripping is no longer performed.
+ * diff form: display prefixes are rejected rather than stripped.
  *
  * This covers the unambiguous full `LINE#HASH:` / diff `+/-` forms, rejectable
  * on shape alone. The bare `HH:` variant is context-dependent and lives in

@@ -16,7 +16,7 @@ type ToolResult = {
 	details: HashlineEditToolDetails;
 };
 
-export type EditClassification = "applied" | "noop";
+type EditClassification = "applied" | "noop";
 
 export type HashlineEditToolDetails = {
 	diff: string;
@@ -36,13 +36,13 @@ type NoopEditEntry = {
 	currentContent: string;
 };
 
-export interface NoopResponseInput {
+interface NoopResponseInput {
 	path: string;
 	noopEdits: NoopEditEntry[] | undefined;
 	warnings: string[] | undefined;
 }
 
-export interface SuccessResponseInput {
+interface SuccessResponseInput {
 	originalNormalized: string;
 	result: string;
 	warnings: string[] | undefined;
