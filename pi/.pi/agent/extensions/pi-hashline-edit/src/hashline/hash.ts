@@ -30,7 +30,8 @@ export const HASH_LENGTH = 3;
  * the authoritative signals.
  */
 export const NIBBLE_STR = "ZPMQVRWSNKTXJBYH";
-export const HASH_ALPHABET_RE = new RegExp(`^[${NIBBLE_STR}]+$`);
+/** Anchor hashes are displayed uppercase; input matching tolerates any case. */
+export const HASH_ALPHABET_RE = new RegExp(`^[${NIBBLE_STR}]+$`, "i");
 
 /** Lines containing no alphanumeric character (only punctuation/symbols/whitespace). */
 export const RE_SIGNIFICANT = /[\p{L}\p{N}]/u;

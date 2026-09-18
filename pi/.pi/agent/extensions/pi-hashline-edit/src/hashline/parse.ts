@@ -39,9 +39,11 @@ const EXAMPLE_ANCHOR = "5#MQQ";
 const DISPLAY_HASH_QUANT = `[${NIBBLE_STR}]{2,4}`;
 const DISPLAY_PREFIX_RE = new RegExp(
 	`^\\s*(?:\\d+\\s*#\\s*|#\\s*)${DISPLAY_HASH_QUANT}:`,
+	"i",
 );
 const DISPLAY_PREFIX_PLUS_RE = new RegExp(
 	`^\\+\\s*(?:\\d+\\s*#\\s*|#\\s*)${DISPLAY_HASH_QUANT}:`,
+	"i",
 );
 
 const DIFF_MINUS_RE = /^-\s*\d+\s{4}/;
@@ -57,7 +59,10 @@ const DIFF_MINUS_RE = /^-\s*\d+\s{4}/;
  * Disambiguation happens against the file's actual hash set in
  * `warnBareHashPrefixLines`.
  */
-export const BARE_PREFIX_RE = new RegExp(`^\\s*([${NIBBLE_STR}]{${HASH_LENGTH}}):`);
+export const BARE_PREFIX_RE = new RegExp(
+	`^\\s*([${NIBBLE_STR}]{${HASH_LENGTH}}):`,
+	"i",
+);
 
 // ─── Parsing ────────────────────────────────────────────────────────────
 
@@ -136,7 +141,7 @@ function parseAnchorRef(ref: string): Anchor {
 		);
 	}
 
-	const hash = match[2]!;
+	const hash = match[2]!.toUpperCase();
 	const hashError = diagnoseHash(ref, hash);
 	if (hashError) {
 		throw new Error(hashError);

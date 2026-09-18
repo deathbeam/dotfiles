@@ -1,6 +1,6 @@
 /* Smoke test: load the extension via jiti (as pi does) and exercise read/edit. */
 const { createJiti } = require("jiti");
-const { writeFileSync, readFileSync, rmSync, mkdtempSync } = require("node:fs");
+const { writeFileSync, readFileSync, appendFileSync, rmSync, mkdtempSync } = require("node:fs");
 const { join } = require("node:path");
 const { tmpdir } = require("node:os");
 
@@ -101,6 +101,41 @@ async function run(tool, params) {
 		console.log("--- top-level oldText teaching error OK (prepareArguments) ---");
 	}
 
+	// 5b. lowercase anchors accepted; lowercase display prefixes still rejected
+	const lowerFile = join(dir, "lower.ts");
+	writeFileSync(lowerFile, "const lower = 1;\nconst second = 2;\n");
+	const lowerRead = await run(byName.read, { path: lowerFile });
+	const lm = lowerRead.content[0].text.match(/^\s*1#([A-Z]{3}):/m);
+	let lowerOutcome = "";
+	try {
+		const res = await run(byName.edit, {
+			path: lowerFile,
+			edits: [{ op: "replace", pos: `1#${lm[1].toLowerCase()}`, lines: ["const lower = 42;"] }],
+		});
+		lowerOutcome = res.content?.[0]?.text ?? "";
+	} catch (e) {
+		lowerOutcome = e.message;
+	}
+	if (!/42/.test(readFileSync(lowerFile, "utf8"))) {
+		throw new Error("lowercase anchor rejected: " + lowerOutcome);
+	}
+	const lowerReread = await run(byName.read, { path: lowerFile });
+	const lm2 = lowerReread.content[0].text.match(/^\s*2#([A-Z]{3}):/m);
+	let prefixOutcome = "";
+	try {
+		const res = await run(byName.edit, {
+			path: lowerFile,
+			edits: [{ op: "replace", pos: `2#${lm2[1]}`, lines: [`1#${lm[1].toLowerCase()}: const smuggled = 1;`] }],
+		});
+		prefixOutcome = res.content?.[0]?.text ?? "";
+	} catch (e) {
+		prefixOutcome = e.message;
+	}
+	if (!/E_INVALID_PATCH/.test(prefixOutcome) || /smuggled/.test(readFileSync(lowerFile, "utf8"))) {
+		throw new Error("lowercase display prefix not rejected: " + prefixOutcome);
+	}
+	console.log("--- lowercase anchor accepted + lowercase prefix rejected OK ---");
+
 	// 6. raw read of a huge single line: no inverted range, no nextOffset
 	const bigFile = join(dir, "big.txt");
 	writeFileSync(bigFile, "x".repeat(60 * 1024));
@@ -119,6 +154,53 @@ async function run(tool, params) {
 			throw new Error("grep output missing 3-char anchors");
 		}
 	}
+
+	// 7b. stale recovery: a unique search window still merges onto live content
+	const shiftFile = join(dir, "shift.ts");
+	writeFileSync(shiftFile, "const one = 1;\nconst two = 2;\nconst three = 3;\nconst four = 4;\n");
+	const shiftRead = await run(byName.read, { path: shiftFile });
+	const shiftAnchor = shiftRead.content[0].text.match(/^\s*2#([A-Z]{3}):/m);
+	// external prepend shifts every line; the hunk's window stays unique
+	writeFileSync(shiftFile, "const zero = 0;\nconst one = 1;\nconst two = 2;\nconst three = 3;\nconst four = 4;\n");
+	const shiftEdit = await run(byName.edit, {
+		path: shiftFile,
+		edits: [{ op: "replace", pos: `2#${shiftAnchor[1]}`, lines: ["const two = 22;"] }],
+	});
+	const shifted = readFileSync(shiftFile, "utf8");
+	if (!/const two = 22;/.test(shifted) || !/const zero = 0;/.test(shifted)) {
+		throw new Error("context-matched merge did not apply: " + shifted.replace(/\n/g, "|"));
+	}
+	if (!/Recovered stale anchors/.test(shiftEdit.content?.[0]?.text ?? "")) {
+		throw new Error("merge applied without the recovery warning: " + shiftEdit.content?.[0]?.text);
+	}
+	console.log("--- stale recovery: unique window merges OK ---");
+
+	// 7c. stale recovery: duplicated search window is refused, nothing written
+	const dupFile = join(dir, "dup.ts");
+	const dupBlock = "const a = 1;\nconst b = 2;\nconst c = 3;\n";
+	writeFileSync(dupFile, dupBlock.repeat(2) + "const a = 1;\n");
+	const dupRead = await run(byName.read, { path: dupFile });
+	const dupAnchor = dupRead.content[0].text.match(/^\s*1#([A-Z]{3}):/m);
+	// external prepend (invalidates the anchor's context hash, so recovery runs)
+	// plus a repeated block: the hunk window [a,b,c,a] now matches three times
+	writeFileSync(dupFile, "const zero = 0;\n" + dupBlock.repeat(3) + "const a = 1;\n");
+	let dupOutcome = "";
+	try {
+		const res = await run(byName.edit, {
+			path: dupFile,
+			edits: [{ op: "replace", pos: `1#${dupAnchor[1]}`, lines: ["const a = 111;"] }],
+		});
+		dupOutcome = res.content?.[0]?.text ?? "";
+	} catch (e) {
+		dupOutcome = e.message;
+	}
+	if (/111/.test(readFileSync(dupFile, "utf8"))) {
+		throw new Error("ambiguous merge wrote the edit anyway: " + readFileSync(dupFile, "utf8").replace(/\n/g, "|"));
+	}
+	if (!/E_STALE_ANCHOR/.test(dupOutcome) || !/Recovery attempted/.test(dupOutcome)) {
+		throw new Error("ambiguous merge not refused with recovery diagnostics: " + dupOutcome);
+	}
+	console.log("--- stale recovery: ambiguous window refused OK ---");
 
 	// 8. renderer wiring: edit defines NO custom renderers, so pi merges its
 	// built-in edit renderers by tool name; read defines a custom (prefix-
