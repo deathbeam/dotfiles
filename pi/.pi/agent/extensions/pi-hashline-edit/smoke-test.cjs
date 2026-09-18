@@ -251,6 +251,19 @@ async function run(tool, params) {
 	if (!/const /.test(gExpanded)) throw new Error("expanded grep render lost content");
 	console.log("--- grep renderer: prefixes stripped OK ---");
 
+	// 11. file-kind: text / binary (null bytes) / image (pi's detector) / directory
+	const fk = jiti("./src/file-kind.ts");
+	const textKind = await fk.loadFileKindAndText(join(dir, "sample.ts"));
+	if (textKind.kind !== "text" || !textKind.text.includes("const")) throw new Error("text classification failed");
+	const binFile = join(dir, "bin.dat");
+	writeFileSync(binFile, Buffer.from([0x50, 0x4b, 0x03, 0x04, 0x00, 0x01]));
+	if ((await fk.loadFileKindAndText(binFile)).kind !== "binary") throw new Error("binary classification failed");
+	const pngFile = join(dir, "img.png");
+	writeFileSync(pngFile, Buffer.from("iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mP8z8BQDwAEhQGAhKmMIQAAAABJRU5ErkJggg==", "base64"));
+	if ((await fk.loadFileKindAndText(pngFile)).kind !== "image") throw new Error("image classification failed");
+	if ((await fk.loadFileKindAndText(dir)).kind !== "directory") throw new Error("directory classification failed");
+	console.log("--- file-kind: text / binary / image / directory OK ---");
+
 	rmSync(dir, { recursive: true, force: true });
 	console.log("\nALL SMOKE TESTS PASSED");
 })().catch((e) => {
