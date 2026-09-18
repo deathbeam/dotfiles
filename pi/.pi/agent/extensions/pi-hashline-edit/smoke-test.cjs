@@ -251,7 +251,35 @@ async function run(tool, params) {
 	if (!/const /.test(gExpanded)) throw new Error("expanded grep render lost content");
 	console.log("--- grep renderer: prefixes stripped OK ---");
 
-	// 11. file-kind: text / binary (null bytes) / image (pi's detector) / directory
+	// 11. grep highlighting: rg byte offsets → JS char offsets (multi-byte safe)
+	const hlFile = join(dir, "hl.ts");
+	writeFileSync(hlFile, 'const emoji = "\u{1F3AF}\u{1F3AF}"; const target = 1;\nconst plain = 2;\nconst target2 = 3;\n');
+	const hlRes = await run(byName.grep, { pattern: "target", path: hlFile });
+	const outLines = hlRes.content[0].text.split("\n");
+	const highlights = hlRes.details.highlights ?? [];
+	if (highlights.length !== 2) throw new Error("expected 2 highlighted lines, got " + JSON.stringify(highlights));
+	for (const entry of highlights) {
+		const stripped = outLines[entry.line].replace(/^\s*\d+#[^:]{1,4}:/, "");
+		for (const [start, end] of entry.ranges) {
+			if (stripped.slice(start, end) !== "target") {
+				throw new Error(`highlight range ${start}-${end} did not slice out "target": ${JSON.stringify(stripped.slice(start, end))}`);
+			}
+		}
+	}
+	const hlTheme = { fg: (n, t) => `\u00ab${n}\u00bb${t}`, bg: (n, t) => `\u00ab${n}\u00bb${t}`, bold: (t) => t };
+	const hlText = stripAnsi(
+		renderToString(
+			byName.grep.renderResult(hlRes, { expanded: true, isPartial: false }, hlTheme, { ...gCtx, expanded: true }),
+		),
+	);
+	if (!/\u00absearchMatchBg\u00bb\u00absearchMatchText\u00bbtarget/.test(hlText)) {
+		throw new Error("match not highlighted: " + JSON.stringify(hlText.slice(0, 200)));
+	}
+	if (/\u00absearchMatchBg\u00bb[^\u00ab]*plain/.test(hlText)) throw new Error("context line was highlighted");
+	if (/^\s*\d+#[^:]{1,4}:/m.test(hlText)) throw new Error("highlighted render still shows anchor prefixes");
+	console.log("--- grep renderer: match highlighting OK ---");
+
+	// 12. file-kind: text / binary (null bytes) / image (pi's detector) / directory
 	const fk = jiti("./src/file-kind.ts");
 	const textKind = await fk.loadFileKindAndText(join(dir, "sample.ts"));
 	if (textKind.kind !== "text" || !textKind.text.includes("const")) throw new Error("text classification failed");

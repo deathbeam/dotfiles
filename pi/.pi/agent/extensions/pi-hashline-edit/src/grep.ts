@@ -1,4 +1,4 @@
-import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
+import type { ExtensionAPI, Theme } from "@earendil-works/pi-coding-agent";
 import { keyHint } from "@earendil-works/pi-coding-agent";
 import { Text } from "@earendil-works/pi-tui";
 import { Type } from "@sinclair/typebox";
@@ -40,14 +40,25 @@ function isRgAvailable(): boolean {
 	}
 }
 
+/** rg --json submatch: byte offsets into `lines.text` (which includes the newline). */
+interface RgSubmatch {
+	start: number;
+	end: number;
+}
+
 /** rg --json match event. */
 interface RgMatchEvent {
 	type: "match";
 	data: {
 		path: { text: string };
 		line_number: number;
+		lines?: { text?: string };
+		submatches?: RgSubmatch[];
 	};
 }
+
+/** Match char ranges within one line, relative to its content. */
+type MatchRanges = Array<[number, number]>;
 
 interface RgEvent {
 	type: string;
@@ -80,23 +91,52 @@ function mergeRange(ranges: LineRange[], range: LineRange): void {
 }
 
 interface RgSearchResult {
-	matchesByFile: Map<string, number[]>;
+	matchesByFile: Map<string, Map<number, MatchRanges>>;
 	matches: number;
 	truncated: boolean;
 }
 
 function addMatch(
-	matchesByFile: Map<string, number[]>,
+	matchesByFile: Map<string, Map<number, MatchRanges>>,
 	filePath: string,
 	lineNum: number,
+	ranges: MatchRanges,
 ): void {
-	if (!matchesByFile.has(filePath)) {
-		matchesByFile.set(filePath, []);
+	let lineMap = matchesByFile.get(filePath);
+	if (!lineMap) {
+		lineMap = new Map();
+		matchesByFile.set(filePath, lineMap);
 	}
-	matchesByFile.get(filePath)!.push(lineNum);
+	// rg emits one event per matching line; merge defensively.
+	const existing = lineMap.get(lineNum);
+	if (existing) {
+		existing.push(...ranges);
+	} else {
+		lineMap.set(lineNum, ranges);
+	}
 }
 
-function parseMatchLine(line: string): { filePath: string; lineNum: number } | null {
+/**
+ * Convert rg's UTF-8 byte offsets into JS string offsets (UTF-16 code units)
+ * relative to the line content.
+ */
+function toMatchRanges(
+	submatches: readonly RgSubmatch[] | undefined,
+	lineText: string,
+): MatchRanges {
+	if (!submatches || submatches.length === 0) return [];
+	const isAscii = lineText.length === Buffer.byteLength(lineText, "utf8");
+	const bytes = isAscii ? null : Buffer.from(lineText, "utf8");
+	const toCharOffset = (byteOffset: number): number =>
+		isAscii
+			? byteOffset
+			: bytes!.subarray(0, byteOffset).toString("utf8").length;
+	return submatches.map((s) => [toCharOffset(s.start), toCharOffset(s.end)]);
+}
+
+function parseMatchLine(
+	line: string,
+): { filePath: string; lineNum: number; ranges: MatchRanges } | null {
 	if (!line.trim()) return null;
 	let event: RgEvent;
 	try {
@@ -110,6 +150,10 @@ function parseMatchLine(line: string): { filePath: string; lineNum: number } | n
 	return {
 		filePath: matchEvent.data.path.text,
 		lineNum: matchEvent.data.line_number,
+		ranges: toMatchRanges(
+			matchEvent.data.submatches,
+			matchEvent.data.lines?.text ?? "",
+		),
 	};
 }
 
@@ -144,7 +188,7 @@ function runRg(
 
 		const child = spawn(RG_BIN, args);
 		const rl = createInterface({ input: child.stdout });
-		const matchesByFile = new Map<string, number[]>();
+		const matchesByFile = new Map<string, Map<number, MatchRanges>>();
 		let totalMatched = 0;
 		let truncated = false;
 		let stoppedByLimit = false;
@@ -195,7 +239,7 @@ function runRg(
 				return;
 			}
 
-			addMatch(matchesByFile, match.filePath, match.lineNum);
+			addMatch(matchesByFile, match.filePath, match.lineNum, match.ranges);
 			totalMatched++;
 		});
 
@@ -238,6 +282,28 @@ function runRg(
 			settleResolve();
 		});
 	});
+}
+
+/** Emphasize match substrings with pi's search-match colors. */
+function highlightMatchRanges(
+line: string,
+ranges: MatchRanges,
+theme: Theme,
+): string {
+	const plain = (chunk: string) => theme.fg("toolOutput", chunk);
+	const match = (chunk: string) =>
+		theme.bg("searchMatchBg", theme.fg("searchMatchText", chunk));
+	const parts: string[] = [];
+	let pos = 0;
+	for (const [start, end] of ranges) {
+		// Guard against drift: offsets come from the file as rg read it.
+		if (start < pos || end > line.length || start >= end) continue;
+		if (start > pos) parts.push(plain(line.slice(pos, start)));
+		parts.push(match(line.slice(start, end)));
+		pos = end;
+	}
+	if (pos < line.length) parts.push(plain(line.slice(pos)));
+	return parts.length > 0 ? parts.join("") : plain(line);
 }
 
 export function registerGrepTool(pi: ExtensionAPI): void {
@@ -299,6 +365,9 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 				(context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
 			const typed = result as {
 				content?: Array<{ type: string; text?: string }>;
+				details?: {
+					highlights?: Array<{ line: number; ranges: MatchRanges }>;
+				};
 			};
 			const output = stripHashlinePrefixes(
 				(typed.content ?? [])
@@ -311,10 +380,19 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 				lines.pop();
 			}
 
+			// Display line index → match ranges (offsets into the stripped line).
+			const highlights = new Map<number, MatchRanges>();
+			for (const entry of typed.details?.highlights ?? []) {
+				highlights.set(entry.line, entry.ranges);
+			}
+
 			const maxLines = expanded ? lines.length : 15;
-			const shown = lines
-				.slice(0, maxLines)
-				.map((line) => theme.fg("toolOutput", line));
+			const shown = lines.slice(0, maxLines).map((line, index) => {
+				const ranges = highlights.get(index);
+				return ranges
+					? highlightMatchRanges(line, ranges, theme)
+					: theme.fg("toolOutput", line);
+			});
 			let rendered = `\n${shown.join("\n")}`;
 			const remaining = lines.length - maxLines;
 			if (remaining > 0) {
@@ -369,10 +447,13 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 			throwIfAborted(signal);
 
 			const outputParts: string[] = [];
+			/** Display line index → match ranges, for the TUI renderer. */
+			const highlights: Array<{ line: number; ranges: MatchRanges }> = [];
+			let outputLineIndex = 0;
 			let fileCount = 0;
 			let shownMatches = 0;
 
-			for (const [filePath, matchLines] of matchesByFile) {
+			for (const [filePath, matchRangesByLine] of matchesByFile) {
 				throwIfAborted(signal);
 
 				// Load file to compute context-correct hashes
@@ -403,7 +484,9 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 				// Guard against a race where the file was truncated between rg reading
 				// it and our loadFileKindAndText call. Out-of-bounds line numbers would
 				// make formatHashlineRegion push empty strings; filter them out first.
-				const validMatchLines = matchLines.filter((n) => n <= totalFileLines);
+				const validMatchLines = [...matchRangesByLine.keys()].filter(
+					(n) => n <= totalFileLines,
+				);
 				if (validMatchLines.length === 0) continue;
 
 				const ranges: LineRange[] = [];
@@ -422,17 +505,32 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 					: filePath;
 
 				outputParts.push(`${displayPath}:`);
+				outputLineIndex++;
 
 				let prevRangeEnd = -1;
 				for (const range of ranges) {
 					if (prevRangeEnd !== -1) {
 						outputParts.push("    ...");
+						outputLineIndex++;
 					}
-					outputParts.push(formatHashlineRegion(fileLines, range.start, range.end));
+					outputParts.push(
+						formatHashlineRegion(fileLines, range.start, range.end),
+					);
+					for (let lineNum = range.start; lineNum <= range.end; lineNum++) {
+						const rangesForLine = matchRangesByLine.get(lineNum);
+						if (rangesForLine && rangesForLine.length > 0) {
+							highlights.push({
+								line: outputLineIndex + (lineNum - range.start),
+								ranges: rangesForLine,
+							});
+						}
+					}
+					outputLineIndex += range.end - range.start + 1;
 					prevRangeEnd = range.end;
 				}
 
 				outputParts.push("---");
+				outputLineIndex++;
 			}
 
 			// Count from the rendered output, not the raw rg tally: files skipped
@@ -467,6 +565,7 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 					matches: shownMatches,
 					files: fileCount,
 					truncated,
+					...(highlights.length > 0 ? { highlights } : {}),
 				},
 			};
 		},
