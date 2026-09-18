@@ -6,7 +6,7 @@
   "packages": [
     "npm:pi-terminal-theme",
     "npm:@dietrichgebert/ponytail",
-    "npm:pi-readseek",
+    "npm:pi-hashline-readmap",
     "https://github.com/nicobailon/pi-subagents",
     "https://github.com/nicobailon/pi-web-access"
   ],
