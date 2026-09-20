@@ -37,7 +37,7 @@
 	url = https://github.com/mfussenegger/nvim-treehopper
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter
-    url = https://github.com/nvim-treesitter/nvim-treesitter
+	url = https://github.com/nvim-treesitter/nvim-treesitter
     branch = main
 [submodule "nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context"]
 	path = nvim/.config/nvim/pack/bundle/start/nvim-treesitter-context
