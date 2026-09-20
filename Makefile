@@ -33,6 +33,8 @@ install:
 		+UpdateRemotePlugins \
 		+'helptags ALL' \
 		+qall
+	pi update --all
+	npx skills@latest update -g -y
 	python scripts/generate-cheatsheet.py
 
 uninstall:
