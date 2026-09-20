@@ -27,7 +27,8 @@
   "subagents": {
     "defaultExtensions": [
       "/home/deathbeam/.pi/agent/extensions/inferhub",
-      "/home/deathbeam/.pi/agent/extensions/pi-hashline-edit"
+      "/home/deathbeam/.pi/agent/extensions/pi-hashline-edit",
+      "/home/deathbeam/.pi/agent/extensions/pi-keenable"
     ]
   },
   "readseek": {
