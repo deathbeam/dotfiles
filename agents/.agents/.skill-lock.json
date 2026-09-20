@@ -136,24 +136,6 @@
       "installedAt": "2026-09-20T13:47:11.487Z",
       "updatedAt": "2026-09-20T13:47:11.487Z"
     },
-    "ponytail-gain": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
-      "skillPath": "skills/ponytail-gain/SKILL.md",
-      "skillFolderHash": "13724e1903f76456164f00ec2a3074848433588f",
-      "installedAt": "2026-09-20T13:47:11.488Z",
-      "updatedAt": "2026-09-20T13:47:11.488Z"
-    },
-    "ponytail-help": {
-      "source": "DietrichGebert/ponytail",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
-      "skillPath": "skills/ponytail-help/SKILL.md",
-      "skillFolderHash": "b7df7bc32b6e4e8bbde8acb2ef3c97ee7e7638f7",
-      "installedAt": "2026-09-20T13:47:11.488Z",
-      "updatedAt": "2026-09-20T13:47:11.488Z"
-    },
     "ponytail-review": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
