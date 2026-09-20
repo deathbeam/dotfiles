@@ -2,10 +2,9 @@
   "defaultModel": "deepseek-v4.1-flash",
   "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.85.1",
+  "lastChangelogVersion": "0.86.1",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:@dietrichgebert/ponytail",
     "https://github.com/nicobailon/pi-subagents",
     "https://github.com/nicobailon/pi-web-access"
   ],
@@ -45,5 +44,11 @@
       "edit": "expanded",
       "write": "expanded"
     }
-  }
+  },
+  "enabledModels": [
+    "inferhub/glm-5.3",
+    "inferhub/glm-5.3-flash",
+    "opencode-go/deepseek-v4.1-flash",
+    "inferhub/gpt-5.6-sol"
+  ]
 }

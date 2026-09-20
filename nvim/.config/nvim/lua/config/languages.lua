@@ -1,8 +1,8 @@
 return {
     {
         treesitter = { 'javascript', 'typescript' },
-        mason = { 'tsgo', 'js-debug-adapter' },
-        lsp = { 'tsgo' },
+        mason = { 'tsc', 'js-debug-adapter' },
+        lsp = { 'tsc' },
     },
     {
         treesitter = { 'python' },
