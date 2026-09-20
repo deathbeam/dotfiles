@@ -5,8 +5,7 @@
   "lastChangelogVersion": "0.86.1",
   "packages": [
     "npm:pi-terminal-theme",
-    "https://github.com/nicobailon/pi-subagents",
-    "https://github.com/nicobailon/pi-web-access"
+    "https://github.com/nicobailon/pi-subagents"
   ],
   "terminal": {
     "showTerminalProgress": false
