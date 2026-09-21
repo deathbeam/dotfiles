@@ -34,6 +34,7 @@ install:
 		+'helptags ALL' \
 		+qall
 	pi update --all
+	pi update --models
 	npx skills@latest update -g -y
 	python scripts/generate-cheatsheet.py
 
