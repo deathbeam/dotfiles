@@ -2,7 +2,7 @@
   "defaultModel": "deepseek-v4.1-flash",
   "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.86.1",
+  "lastChangelogVersion": "0.87.0",
   "packages": [
     "npm:pi-terminal-theme",
     "https://github.com/nicobailon/pi-subagents"
@@ -26,7 +26,7 @@
   "defaultProjectTrust": "always",
   "subagents": {
     "defaultExtensions": [
-      "/home/deathbeam/.pi/agent/extensions/inferhub",
+      "/home/deathbeam/.pi/agent/extensions/pi-inferhub",
       "/home/deathbeam/.pi/agent/extensions/pi-hashline-edit",
       "/home/deathbeam/.pi/agent/extensions/pi-keenable"
     ]
