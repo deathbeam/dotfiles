@@ -29,6 +29,7 @@ fs.writeFileSync(
 		line({ type: "message", id: "m1", parentId: null, message: { role: "user", content: [{ type: "text", text: "fix the jwt auth refresh bug" }] } }),
 		line({ type: "message", id: "m2", parentId: "m1", message: { role: "assistant", content: [{ type: "thinking", thinking: "irrelevant" }, { type: "text", text: "the token expiry was 5 minutes, raised to 30" }] } }),
 		line({ type: "compaction", id: "c1", parentId: "m2", summary: "Fixed jwt refresh; expiry 5->30 min" }),
+		line({ type: "message", id: "m3", parentId: "m2", message: { role: "toolResult", toolCallId: "t1", toolName: "bash", content: [{ type: "text", text: "Error EACCES: jwt key file unreadable" }] } }),
 		"",
 	].join("\n"),
 );
@@ -55,6 +56,7 @@ const et = entryText({ type: "message", message: { role: "assistant", content: [
 assert.equal(et?.text, "hello");
 assert.equal(entryText({ type: "compaction", summary: "sum" })?.role, "summary");
 assert.equal(entryText({ type: "model_change" }), null);
+assert.equal(entryText({ type: "message", message: { role: "user", content: "plain string" } }), null); // non-array content must not crash
 
 assert.ok(matchesAll("Fix The JWT Bug", ["jwt", "bug"]));
 assert.ok(!matchesAll("Fix The JWT Bug", ["jwt", "renderer"]));
@@ -66,26 +68,32 @@ assert.equal(projectLabel("--home-deathbeam-git-dotfiles--"), "git/dotfiles");
 assert.equal(projectLabel("--home-user--"), "home/user");
 
 // search: ranking (current session first, then same project), AND terms, compaction hit
-const res = searchSessions(root, "jwt", { currentFile, currentDir: projA });
-assert.equal(res.matches.length, 3);
+const res = await searchSessions(root, "jwt", { currentFile, currentDir: projA });
+assert.equal(res.matches.length, 4);
 assert.equal(res.matches[0].currentSession, true);
 assert.equal(res.matches[0].role, "user");
 assert.equal(res.matches[1].sameProject, true);
 assert.equal(res.matches[1].date, "2026-09-01");
 assert.ok(res.matches.some((m) => m.role === "summary"));
+assert.ok(res.matches.some((m) => m.role === "toolResult" && m.excerpt.includes("EACCES")));
 assert.ok(res.matches.some((m) => m.excerpt.includes("30")));
 
 // AND across terms finds nothing in projB
-const none = searchSessions(root, "jwt renderer", {});
-assert.equal(none.matches.length, 0);
+const none = await searchSessions(root, "jwt renderer", {});
 
 // session filter
-const filtered = searchSessions(root, "renderer", { sessionFilter: "projB" });
-assert.equal(filtered.matches.length, 1);
+const filtered = await searchSessions(root, "renderer", { sessionFilter: "projB" });
 assert.equal(filtered.matches[0].project, "git/projB");
 
 // limit
-assert.equal(searchSessions(root, "jwt", { limit: 1 }).matches.length, 1);
+assert.equal((await searchSessions(root, "jwt", { limit: 1 })).matches.length, 1);
+
+// abort: signal already aborted yields zero matches, truncated flag set
+const ac = new AbortController();
+ac.abort();
+const aborted = await searchSessions(root, "jwt", {}, ac.signal);
+assert.equal(aborted.matches.length, 0);
+assert.equal(aborted.truncated, true);
 
 // titles + recent sessions
 assert.equal(firstUserTitle(path.join(projA, "2026-09-01T00-00-00-000Z_aaaa.jsonl")), "fix the jwt auth refresh bug");

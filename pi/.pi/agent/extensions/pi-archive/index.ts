@@ -58,7 +58,7 @@ export function fileDate(fileName: string): string {
 /** Extract searchable text from a session entry; null if nothing to search. */
 export function entryText(entry: unknown): { role: string; text: string } | null {
 	const e = entry as Record<string, any>;
-	if (e?.type === "message" && e.message?.content) {
+	if (e?.type === "message" && Array.isArray(e.message?.content)) {
 		const text = (e.message.content as any[])
 			.filter((c) => c?.type === "text" && typeof c.text === "string")
 			.map((c) => c.text)
@@ -93,12 +93,15 @@ export function excerptAround(text: string, terms: string[], radius = 150): stri
 	return (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
 }
 
-/** Pure search over a sessions root dir. Returns matches in rank order. */
-export function searchSessions(
+/** Search a sessions root dir. Returns matches in rank order.
+ *  Async: reports progress per file (which also yields, keeping the UI responsive) and honors `signal`. */
+export async function searchSessions(
 	root: string,
 	query: string,
 	opts: SearchOptions = {},
-): { matches: ArchiveMatch[]; bytesScanned: number; filesScanned: number; truncated: boolean } {
+	signal?: AbortSignal,
+	onProgress?: (filesScanned: number, matches: number) => void,
+): Promise<{ matches: ArchiveMatch[]; bytesScanned: number; filesScanned: number; truncated: boolean }> {
 	const terms = parseTerms(query);
 	const limit = opts.limit ?? 20;
 	if (terms.length === 0) return { matches: [], bytesScanned: 0, filesScanned: 0, truncated: false };
@@ -135,10 +138,16 @@ export function searchSessions(
 	let filesScanned = 0;
 	let truncated = false;
 	for (const { file, dir, name } of files) {
+		if (signal?.aborted) {
+			truncated = true;
+			break;
+		}
 		if (matches.length >= limit || bytes >= MAX_TOTAL_BYTES) {
 			truncated = true;
 			break;
 		}
+		await new Promise(setImmediate); // yield: progress callback can render, abort can land
+		onProgress?.(filesScanned, matches.length);
 		let content: string;
 		try {
 			const stat = fs.statSync(file);
@@ -240,15 +249,21 @@ export default async function piArchive(pi: ExtensionAPI) {
 			),
 			limit: Type.Optional(Type.Number({ description: "Max matches (default 20)" })),
 		}),
-		async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
+		async execute(_toolCallId, params, signal, onUpdate, ctx) {
 			const sessionDir = ctx.sessionManager.getSessionDir();
 			const root = path.dirname(sessionDir);
-			const result = searchSessions(root, params.query, {
-				currentFile: ctx.sessionManager.getSessionFile(),
-				currentDir: sessionDir,
-				sessionFilter: params.session,
-				limit: params.limit,
-			});
+			const result = await searchSessions(
+				root,
+				params.query,
+				{
+					currentFile: ctx.sessionManager.getSessionFile(),
+					currentDir: sessionDir,
+					sessionFilter: params.session,
+					limit: params.limit,
+				},
+				signal,
+				(files, hits) => onUpdate?.({ content: [{ type: "text", text: `Scanning archive… ${files} files, ${hits} match(es) so far` }] }),
+			);
 			return {
 				content: [{ type: "text", text: formatResults(params.query, result) }],
 				details: { matchCount: result.matches.length, filesScanned: result.filesScanned },
