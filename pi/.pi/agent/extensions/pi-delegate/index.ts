@@ -273,6 +273,7 @@ export default function (pi: ExtensionAPI) {
       const agent = discoverAgents(ctx.cwd, config.agentDirs).find((candidate) => candidate.name === params.agent);
       if (!agent) throw new Error(`Unknown agent "${params.agent}".`);
       const model = resolveModel(params.model ?? agent.model, config.models, ctx.model);
+      if (!model) throw new Error(`No model found for "${params.agent}".`);
       const tools = (agent.tools?.length ? agent.tools : pi.getActiveTools())
         .filter((tool) => !DELEGATION_TOOLS.has(tool));
       const details: DelegateDetails = {
@@ -295,7 +296,7 @@ export default function (pi: ExtensionAPI) {
         });
       };
       update({ status: "starting" });
-      const args = ["--tools", tools.join(",")];
+      const args = ["--model", model, "--tools", tools.join(",")];
       const thinking = agent.thinking ?? ctx.thinkingLevel;
       if (thinking) args.push("--thinking", thinking);
       if (agent.prompt) args.push("--append-system-prompt", agent.prompt);

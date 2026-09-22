@@ -24,6 +24,8 @@ assert.match(index, /systemPromptOptions\.sections\.agents/);
 assert.match(index, /startsWith\("~\/"\)/);
 assert.match(index, /SPINNER_INTERVAL_MS/);
 assert.match(index, /contextWindowFor\(ctx, model\)/);
+assert.match(index, /if \(!model\) throw new Error\(/);
+assert.match(index, /\["--model", model, "--tools", tools\.join\(","\)\]/);
 assert.match(index, /progressStats\(details, elapsedMs\)/);
 assert.match(index, /description: Type\.String/);
 assert.match(index, /keyHint\("app\.tools\.expand", context\.expanded \? "to collapse" : "to expand"\)/);
