@@ -130,15 +130,8 @@ function limitOutput(text: string): string {
 	return `${result}\n\n[Output truncated: ${bytes - Buffer.byteLength(result, "utf8")} bytes omitted.]`;
 }
 
-type ChildUpdate = {
-  status?: string;
-  output?: string;
-  toolCalls?: number;
-  lastTool?: string;
-  lastDetail?: string;
-  lastResult?: string;
-  contextTokens?: number;
-};
+/** What a child event can change on the live snapshot; undefined values keep the old field. */
+type ChildUpdate = Partial<DelegateDetails>;
 type ChildUpdateHandler = (update: ChildUpdate) => void;
 
 /** Provider usage is only meaningful once it reports tokens; 0 means "nothing reported yet". */
@@ -162,7 +155,6 @@ function runChild(args: string[], cwd: string, signal: AbortSignal | undefined, 
       stdio: ["ignore", "pipe", "pipe"],
     });
     let buffer = "";
-    let output = "";
     let liveText = "";
     let toolCalls = 0;
     let stderr = "";
@@ -209,7 +201,6 @@ function runChild(args: string[], cwd: string, signal: AbortSignal | undefined, 
             if (event.message.errorMessage) childError = event.message.errorMessage;
             const text = event.message.content?.filter((part: any) => part.type === "text").map((part: any) => part.text ?? "").join("") ?? "";
             if (text) {
-              output = text;
               liveText = text;
               onUpdate?.({ status: "finished", output: text, contextTokens: usageTokens(event.message.usage) });
             }
@@ -240,8 +231,8 @@ function runChild(args: string[], cwd: string, signal: AbortSignal | undefined, 
       signal?.removeEventListener("abort", abort);
       if (aborted) reject(new Error("Delegated agent was aborted"));
       else if (code !== 0) reject(new Error(stderr.trim() || `Child exited with status ${code}`));
-      else if (childError) reject(new Error(childError));
-      else resolveChild(limitOutput(output.trim() || liveText.trim() || "(no output)"));
+      // liveText holds the last completed message text, plus any trailing partial deltas if the child died mid-stream.
+      else resolveChild(limitOutput(liveText.trim() || "(no output)"));
     });
     const abort = () => {
       aborted = true;
@@ -279,7 +270,7 @@ export default function (pi: ExtensionAPI) {
       const config = configFor(ctx.cwd);
       const agent = discoverAgents(ctx.cwd, config.agentDirs).find((candidate) => candidate.name === params.agent);
       if (!agent) throw new Error(`Unknown agent "${params.agent}".`);
-      const model = resolveModel(params.model ?? agent.model, config.models ?? {}, ctx.model);
+      const model = resolveModel(params.model ?? agent.model, config.models, ctx.model);
       const tools = (agent.tools?.length ? agent.tools : pi.getActiveTools())
         .filter((tool) => !DELEGATION_TOOLS.has(tool));
       const details: DelegateDetails = {
@@ -303,8 +294,8 @@ export default function (pi: ExtensionAPI) {
       };
       update({ status: "starting" });
       const args = ["--tools", tools.join(",")];
-      if (model) args.push("--model", model);
-      if (agent.thinking ?? ctx.thinkingLevel) args.push("--thinking", agent.thinking ?? ctx.thinkingLevel!);
+      const thinking = agent.thinking ?? ctx.thinkingLevel;
+      if (thinking) args.push("--thinking", thinking);
       if (agent.prompt) args.push("--append-system-prompt", agent.prompt);
       args.push(params.task);
       const output = await runChild(args, ctx.cwd, signal, update);
@@ -314,9 +305,7 @@ export default function (pi: ExtensionAPI) {
       return { content: [{ type: "text", text: output }], details };
 		},
 
-    renderCall(args, theme, context) {
-      const state = context.state as RenderState;
-      if (context.executionStarted && state.startedAt === undefined) state.startedAt = Date.now();
+    renderCall(args, theme) {
       return new Text(
         `${theme.fg("toolTitle", theme.bold("delegate "))}${theme.fg("accent", args.agent)}\n  ${theme.fg("dim", args.task)}`,
         0,
@@ -326,6 +315,7 @@ export default function (pi: ExtensionAPI) {
 
     renderResult(result, { expanded, isPartial }, theme, context) {
       const state = context.state as RenderState;
+      state.startedAt ??= Date.now();
       const snapshot = result.details as DelegateDetails | undefined;
       // Errors arrive as `details: {}`, so only trust a snapshot that is really ours.
       if (snapshot?.agent) state.lastDetails = snapshot;
@@ -340,12 +330,10 @@ export default function (pi: ExtensionAPI) {
         state.interval = undefined;
       }
 
-      const elapsedMs = details.elapsedMs ?? (state.startedAt === undefined ? 0 : Date.now() - state.startedAt);
+      const elapsedMs = details.elapsedMs ?? Date.now() - state.startedAt;
       const stats = progressStats(details, elapsedMs);
       const frame = SPINNER_FRAMES[Math.floor(Date.now() / SPINNER_INTERVAL_MS) % SPINNER_FRAMES.length]!;
-      const icon = isPartial
-        ? theme.fg("warning", frame)
-        : theme.fg(context.isError ? "error" : "success", context.isError ? "✗" : "✓");
+      const icon = isPartial ? theme.fg("warning", frame) : context.isError ? theme.fg("error", "✗") : theme.fg("success", "✓");
 
       const container = new Container();
       container.addChild(new Text(`${icon} ${theme.fg("toolTitle", theme.bold(details.agent))} ${theme.fg("muted", stats)}`, 0, 0));
