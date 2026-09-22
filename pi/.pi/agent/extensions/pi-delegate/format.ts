@@ -82,9 +82,20 @@ export function toolCallDetail(toolName: string, args: unknown): string {
 	}
 }
 
-/** How the child was launched - shown only when the row is expanded. The task is already in the call line. */
-export function launchSummary(info: { model?: string; tools: string[] }): string {
-	return `Model: ${info.model ?? "default"} · Tools: ${info.tools.join(", ") || "all"}`;
+const EXPANDED_PAD = "   ";
+const TASK_LABEL = "Task: ";
+
+/**
+ * Lines shown only when a delegate row is expanded: the full task the collapsed row hides,
+ * then how the child was launched. Multi-line tasks keep their continuation aligned under the text.
+ */
+export function launchDetails(info: { task?: string; model?: string; tools: string[] }): string[] {
+	const lines = [`${EXPANDED_PAD}Model: ${info.model ?? "default"}`, `${EXPANDED_PAD}Tools: ${info.tools.join(", ") || "all"}`];
+	const task = (info.task ?? "").trim();
+	if (task) {
+		lines.push(...task.split("\n").map((line, index) => `${EXPANDED_PAD}${index ? " ".repeat(TASK_LABEL.length) : TASK_LABEL}${line}`));
+	}
+	return lines;
 }
 
 export const COLLAPSED_OUTPUT_LINES = 10;

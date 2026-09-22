@@ -1,9 +1,23 @@
 import assert from "node:assert/strict";
-import { readdirSync, readFileSync } from "node:fs";
-import { formatDuration, formatTokens, launchSummary, outputPreview, progressStats, resultPreview, SPINNER_FRAMES, toolCallDetail } from "./format.ts";
+import { execFileSync } from "node:child_process";
+import { readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { stripTypeScriptTypes } from "node:module";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
+import { formatDuration, formatTokens, launchDetails, outputPreview, progressStats, resultPreview, SPINNER_FRAMES, toolCallDetail } from "./format.ts";
 
 const root = new URL("./", import.meta.url);
 const index = readFileSync(new URL("index.ts", root), "utf8");
+
+// The assertions below only regex-match index.ts, so compile it too: a broken file still passes those.
+const indexCheckFile = join(tmpdir(), "pi-delegate-index-check.mjs");
+writeFileSync(indexCheckFile, stripTypeScriptTypes(index));
+try {
+	execFileSync(process.execPath, ["--check", indexCheckFile], { stdio: "pipe" });
+} finally {
+	unlinkSync(indexCheckFile);
+}
+
 assert.match(index, /name: "delegate"/);
 assert.match(index, /before_agent_start/);
 assert.match(index, /systemPromptOptions\.sections\.agents/);
@@ -11,6 +25,9 @@ assert.match(index, /startsWith\("~\/"\)/);
 assert.match(index, /SPINNER_INTERVAL_MS/);
 assert.match(index, /contextWindowFor\(ctx, model\)/);
 assert.match(index, /progressStats\(details, elapsedMs\)/);
+assert.match(index, /description: Type\.String/);
+assert.match(index, /keyHint\("app\.tools\.expand", context\.expanded \? "to collapse" : "to expand"\)/);
+assert.match(index, /launchDetails\(details\)\.join\("\\n"\)/);
 
 const expected = ["explore", "general", "researcher", "reviewer"];
 const names = readdirSync(new URL("agents/", root))
@@ -19,10 +36,16 @@ const names = readdirSync(new URL("agents/", root))
 	.sort();
 assert.deepEqual(names, expected);
 
-// Display helpers: these numbers and strings are what the delegate row shows.
 assert.ok(SPINNER_FRAMES.length > 1);
-assert.equal(launchSummary({ model: "x/y", tools: ["read", "ls"] }), "Model: x/y · Tools: read, ls");
-assert.equal(launchSummary({ tools: [] }), "Model: default · Tools: all");
+assert.equal(launchDetails({ task: "do it", model: "x/y", tools: ["read", "ls"] }).join("\n"), "   Model: x/y\n   Tools: read, ls\n   Task: do it");
+assert.deepEqual(launchDetails({ tools: [] }), ["   Model: default", "   Tools: all"]);
+assert.deepEqual(launchDetails({ task: "first\nsecond", tools: ["read"] }), [
+	"   Model: default",
+	"   Tools: read",
+	"   Task: first",
+	"         second",
+]);
+assert.deepEqual(launchDetails({ task: "  \n ", tools: ["read"] }), ["   Model: default", "   Tools: read"]);
 assert.deepEqual(outputPreview("a\nb", 5), { shown: ["a", "b"], hidden: 0 });
 assert.deepEqual(outputPreview("a\nb\nc", 2), { shown: ["a", "b"], hidden: 1 });
 assert.deepEqual(outputPreview("```\ncode\nmore", 2), { shown: ["```", "code", "```"], hidden: 1 });

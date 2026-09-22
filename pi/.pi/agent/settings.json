@@ -38,5 +38,6 @@
     "inferhub/glm-5.3-flash",
     "opencode-go/deepseek-v4.1-flash",
     "inferhub/gpt-5.6-sol"
-  ]
+  ],
+  "outputPad": 1
 }

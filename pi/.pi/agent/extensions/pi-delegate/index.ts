@@ -7,7 +7,7 @@ import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-a
 import { calculateContextTokens, getAgentDir, getMarkdownTheme, keyHint, parseFrontmatter } from "@earendil-works/pi-coding-agent";
 import { Container, Markdown, Text } from "@earendil-works/pi-tui";
 import { Type } from "typebox";
-import { COLLAPSED_OUTPUT_LINES, launchSummary, outputPreview, progressStats, resultPreview, SPINNER_FRAMES, SPINNER_INTERVAL_MS, toolCallDetail } from "./format.ts";
+import { COLLAPSED_OUTPUT_LINES, launchDetails, outputPreview, progressStats, resultPreview, SPINNER_FRAMES, SPINNER_INTERVAL_MS, toolCallDetail } from "./format.ts";
 
 type AgentFile = {
 	name: string;
@@ -251,7 +251,8 @@ export default function (pi: ExtensionAPI) {
     const agents = discoverAgents(ctx.cwd, configFor(ctx.cwd).agentDirs);
     event.systemPromptOptions.sections.agents = [
       "<agents>",
-      "Delegate focused work with `delegate({ agent, task })`. Available agents:",
+      "Delegate focused work with `delegate({ agent, description, task })`.",
+      "Available agents:",
       ...agents.map((agent) => `- ${agent.name}: ${agent.description}`),
       "</agents>",
     ].join("\n");
@@ -260,10 +261,11 @@ export default function (pi: ExtensionAPI) {
 	pi.registerTool({
 		name: "delegate",
 		label: "Delegate",
-		description: "Delegate one focused task to a separate Pi agent using a named Markdown agent definition.",
+		description: "Delegate one focused task to a separate Pi agent using a named Markdown agent definition. `description` labels the delegation in the transcript; `task` is the full instruction the child receives.",
 		parameters: Type.Object({
 			agent: Type.String({ description: "Agent name, such as general, explore, researcher, or reviewer." }),
-			task: Type.String({ description: "The focused task for the delegated agent." }),
+			description: Type.String({ description: "Short 3-8 word summary of this delegation, shown in the transcript." }),
+			task: Type.String({ description: "The full instruction the delegated agent receives." }),
 			model: Type.Optional(Type.String({ description: "Model tier (cheap, balanced, strong) or an explicit provider/model." })),
 		}),
     async execute(_toolCallId, params, signal, onUpdate, ctx) {
@@ -305,12 +307,12 @@ export default function (pi: ExtensionAPI) {
       return { content: [{ type: "text", text: output }], details };
 		},
 
-    renderCall(args, theme) {
-      return new Text(
-        `${theme.fg("toolTitle", theme.bold("delegate "))}${theme.fg("accent", args.agent)}\n  ${theme.fg("dim", args.task)}`,
-        0,
-        0,
-      );
+    renderCall(args, theme, context) {
+      // Collapsed rows lead with the short description; the agent name and progress sit on the result line. The
+      // hint always shows because the task, model and tools stay behind ctrl+o.
+      const summary = args.description?.trim() || args.task?.split("\n")[0]?.trim() || "";
+      const hint = `${theme.fg("muted", "(")}${keyHint("app.tools.expand", context.expanded ? "to collapse" : "to expand")}${theme.fg("muted", ")")}`;
+      return new Text(`${theme.fg("toolTitle", theme.bold("delegate "))}${theme.fg("accent", summary)} ${hint}`, 0, 0);
     },
 
     renderResult(result, { expanded, isPartial }, theme, context) {
@@ -337,7 +339,7 @@ export default function (pi: ExtensionAPI) {
 
       const container = new Container();
       container.addChild(new Text(`${icon} ${theme.fg("toolTitle", theme.bold(details.agent))} ${theme.fg("muted", stats)}`, 0, 0));
-      if (expanded) container.addChild(new Text(theme.fg("dim", launchSummary(details)), 0, 0));
+      if (expanded) container.addChild(new Text(theme.fg("dim", launchDetails(details).join("\n")), 0, 0));
       if (isPartial && details.lastTool) {
         const detail = details.lastDetail ? ` ${theme.fg("accent", details.lastDetail)}` : "";
         container.addChild(new Text(`   ${theme.fg("toolTitle", theme.bold(details.lastTool))}${detail}`, 0, 0));
