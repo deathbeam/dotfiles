@@ -31,20 +31,6 @@
       "/home/deathbeam/.pi/agent/extensions/pi-keenable"
     ]
   },
-  "readseek": {
-    "overrideTools": [
-      "read",
-      "edit",
-      "write",
-      "grep"
-    ],
-    "syntaxValidation": "warn",
-    "display": {
-      "grep": "compact",
-      "edit": "expanded",
-      "write": "expanded"
-    }
-  },
   "enabledModels": [
     "inferhub/glm-5.3",
     "inferhub/glm-5.3-flash",
