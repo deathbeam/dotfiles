@@ -1,6 +1,7 @@
 log "Installing development packages"
 packages=(
     jdk8-openjdk openjdk8-doc openjdk8-src
+    jdk25-openjdk openjdk25-doc openjdk25-src
     jdk-openjdk openjdk-doc openjdk-src maven
     python-pip python-dbus python-opengl python-virtualenv python-poetry
     dotnet-sdk aspnet-runtime
