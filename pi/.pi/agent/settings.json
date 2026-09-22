@@ -27,6 +27,7 @@
   "subagents": {
     "defaultExtensions": [
       "/home/deathbeam/.pi/agent/extensions/pi-inferhub",
+      "/home/deathbeam/.pi/agent/extensions/pi-opencode",
       "/home/deathbeam/.pi/agent/extensions/pi-hashline-edit",
       "/home/deathbeam/.pi/agent/extensions/pi-keenable"
     ]
