@@ -5,7 +5,7 @@
   "lastChangelogVersion": "0.87.0",
   "packages": [
     "npm:pi-terminal-theme",
-    "https://github.com/nicobailon/pi-subagents"
+    "npm:pi-subagents"
   ],
   "terminal": {
     "showTerminalProgress": false
