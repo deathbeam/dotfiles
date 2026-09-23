@@ -52,11 +52,17 @@ assert.match(index, /background: ctx\.hasUI/);
 assert.match(index, /setWidget\(WIDGET_KEY/);
 
 const expected = ["explore", "general", "researcher", "reviewer"];
-const names = readdirSync(new URL("agents/", root))
+const agentFiles = readdirSync(new URL("agents/", root))
     .filter((file) => file.endsWith(".md"))
-    .map((file) => readFileSync(new URL(`agents/${file}`, root), "utf8").match(/^name:\s*(.+)$/m)?.[1])
-    .sort();
+    .map((file) => ({ file, text: readFileSync(new URL(`agents/${file}`, root), "utf8") }));
+const names = agentFiles.map(({ text }) => text.match(/^name:\s*(.+)$/m)?.[1]).sort();
 assert.deepEqual(names, expected);
+// An invalid level makes every delegate of that agent fail at child launch, not at load.
+const thinkingLevels = new Set(["off", "minimal", "low", "medium", "high", "xhigh", "max"]);
+for (const { file, text } of agentFiles) {
+    const level = text.match(/^thinking:\s*(\S+)/m)?.[1];
+    if (level) assert.ok(thinkingLevels.has(level), `${file} has invalid thinking level "${level}"`);
+}
 
 assert.ok(SPINNER_FRAMES.length > 1);
 assert.equal(

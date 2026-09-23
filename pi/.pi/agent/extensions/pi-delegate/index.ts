@@ -422,6 +422,7 @@ export default function (pi: ExtensionAPI) {
         event.systemPromptOptions.sections.agents = [
             "Available agents:",
             ...agents.map((agent) => `- ${agent.name}: ${agent.description}`),
+            "Delegation is authorized here: prefer these agents over doing context-heavy work yourself; they run in parallel with isolated contexts and report back as follow-up messages.",
         ].join("\n");
     });
 
@@ -461,6 +462,7 @@ export default function (pi: ExtensionAPI) {
         promptSnippet: "Delegate a focused task to a background agent; the result arrives later as a follow-up message",
         promptGuidelines: [
             "Delegations run in the background and can run in parallel: call `delegate` and keep working instead of waiting for the result.",
+            "Never sleep or poll to wait for a delegate: its completion wakes you in a new turn by itself. End your turn when your next step needs a result; use delegate_list only for a one-shot status, never as a wait loop.",
         ],
         parameters: Type.Object({
             agent: Type.String({ description: "Agent name, one of the agents listed in the <agents> prompt section." }),
@@ -544,7 +546,7 @@ export default function (pi: ExtensionAPI) {
                 content: [
                     {
                         type: "text",
-                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs; its result arrives as a follow-up message.`,
+                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs. Do not sleep or poll for it: its report arrives as a follow-up message that starts a new turn on its own, so end your turn now if your next step needs it.`,
                     },
                 ],
                 details,
