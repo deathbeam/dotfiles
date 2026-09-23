@@ -47,7 +47,10 @@ type DelegateDetails = Pick<DelegateJob, "id" | "agent" | "description" | "task"
 };
 
 /** Details on the `delegate_steer` row: which job took the guidance, and where it stood at the time. */
-type SteerDetails = Pick<DelegateJob, "id" | "agent" | "description" | "toolCalls" | "contextTokens" | "contextWindow"> & {
+type SteerDetails = Pick<
+    DelegateJob,
+    "id" | "agent" | "description" | "toolCalls" | "contextTokens" | "contextWindow"
+> & {
     /** The guidance that was delivered; the collapsed row shows only its first line. */
     message: string;
     elapsedMs: number;
@@ -366,10 +369,9 @@ export default function (pi: ExtensionAPI) {
             if (!detail) continue;
             if (job.lastTool)
                 lines.push(
-                    `   ${theme.fg("toolTitle", theme.bold(job.lastTool))}${job.lastDetail ? ` ${theme.fg("accent", job.lastDetail)}` : ""}`
+                    `   ${theme.fg("toolTitle", theme.bold(job.lastTool))}${job.lastDetail ? ` ${theme.fg("accent", job.lastDetail)}` : ""}`,
                 );
-            if (job.lastResult)
-                lines.push(`   ${theme.fg("muted", "↳")} ${theme.fg("toolOutput", job.lastResult)}`);
+            if (job.lastResult) lines.push(`   ${theme.fg("muted", "↳")} ${theme.fg("toolOutput", job.lastResult)}`);
         }
         if (hidden) lines.push(`   ${theme.fg("muted", `… ${hidden} more running`)}`);
         ctx.ui.setWidget(WIDGET_KEY, lines);
