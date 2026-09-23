@@ -1,60 +1,47 @@
 ---
 name: prepare-plan
-description: Use when the user wants to create a new plan, edit an existing plan, or structure work before implementation. Use when there is no clear plan yet or the existing plan needs updating.
+description: Create or revise a .plans/<name>.md implementation plan before coding; use when work needs a detailed, executable task breakdown.
 ---
 
 # Prepare Plan
 
-Create or update a plan file in `.plans/<plan>.md`. Plans are lightweight markdown task lists — no schemas, no CLI dependencies.
+Write a `.plans/<name>.md` file that another session can execute without reconstructing the decisions. Keep one Markdown file; detail should resolve uncertainty, not predict every edit. Planning changes only that file.
 
-## When to Use
+## Process
 
-- User says "let's plan this" or "I need a plan for X"
-- User wants to update an existing plan
-- Before starting work that spans multiple steps
+1. **Orient.** Use the user's name or derive a kebab-case name from the goal. If the file exists, read it first and revise it in place, preserving completed tasks and execution notes. Read the request, repo instructions, relevant code, callers, existing tests, and prior patterns before choosing an approach. Stop when you can identify the behavior to change, its seam, and how to verify it.
+2. **Resolve decisions.** Look up facts yourself. Ask the user only for decisions that materially change the plan; use `grilling` when several dependent decisions are open, `research` for external facts, and `codebase-design` when the seam is uncertain. Record assumptions and unresolved choices explicitly; if a choice blocks a task, settle it before presenting the plan as ready.
+3. **Write the plan.** Prefer existing code and the smallest viable change. Break work into dependent, independently verifiable tasks; each should fit a focused session and leave the repo in a working state. For features, prefer complete behavior slices over separate setup/logic/UI piles. For a wide mechanical refactor that cannot stay green in one slice, plan expand → migrate → contract instead. Add detail where an executor would otherwise have to guess.
+4. **Self-check and hand off.** Trace every requirement to a task and every task to a concrete completion check. Check names and interfaces across tasks; replace placeholders such as "handle edge cases" or "write tests" with the specific behavior and check. Report the plan path and the decisions still needing input. Plan only: wait for an execution request.
 
-## Plan Format
+## Format
+
+Use the existing plan's structure when revising it. For new plans:
 
 ```markdown
 # Plan: <name>
 
 ## Goal
-What we are building or fixing.
+<observable outcome>
 
 ## Context
-Relevant background, constraints, or links.
+<current behavior, relevant code and existing seams, decisions, constraints, out of scope; include a spec/link when one exists>
 
 ## Tasks
-- [ ] Task one
-- [ ] Task two
-- [ ] Task three
+- [ ] <deliverable/behavior>
+  - Where: `path/to/existing-file` and `path/to/test-file` (or label likely paths). Name interfaces other tasks depend on.
+  - Blocked by: none (or name the prerequisite task).
+  - Done when: <observable result>; run `<actual repo command>` → <expected result>.
+- [ ] <second independently verifiable deliverable>
+  - Where: `path/to/file`
+  - Blocked by: <task name or none>
+  - Done when: <observable result>; run `<command>` → <expected result>.
+
+## Open questions
+<only unresolved non-blocking choices or discoveries needed later; omit if none>
 
 ## Notes
-Free-form scratch space for design decisions, open questions, etc.
+<design context and execution decisions; omit if empty>
 ```
 
-## Steps
-
-1. **Get or confirm the plan name**
-   - If user provided a name, use it (kebab-case preferred).
-   - If not, ask: "What should we name this plan?"
-   - Example: `refactor-auth` → `.plans/refactor-auth.md`
-
-2. **Check if plan exists**
-   - If `.plans/<name>.md` exists, read it and show the user.
-   - Ask what to change: append tasks, edit goal/context, or rewrite.
-
-3. **Create or update the file**
-   - New plan: write the template above, filling in what you know from context.
-   - Existing plan: apply the user's edits directly. Preserve completed checkboxes unless the user asks to reset them.
-
-4. **Confirm**
-   - Show the final plan path and a 1-line summary.
-   - If new: "Plan created at .plans/<name>.md. Run `/execute-plan <name>` to start working through it."
-   - If updated: "Plan updated. Ready to execute or make further changes."
-
-## Guardrails
-
-- Keep plans short and actionable. If a task is vague, split it.
-- Do not invent tasks you don't have context for. Ask the user to fill gaps.
-- `.plans/` directory is auto-created if it doesn't exist.
+Use exact paths and commands when found; label paths as likely when not yet confirmed. For manual or visual work, describe the observation and how to reproduce it instead of inventing an automated check. Keep task prose as short as clarity allows. An existing one-line task list remains valid: enrich vague tasks rather than reformatting the whole file.
