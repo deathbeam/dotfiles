@@ -30,9 +30,9 @@
       "~/.agents/agents"
     ],
     "models": {
-      "cheap": "opencode/mimo-v2.6-flash-free",
-      "balanced": "opencode-go/deepseek-v4.1-flash",
-      "strong": "inferhub/glm-5.3"
+      "cheap": "opencode-go/deepseek-v4.1-flash",
+      "balanced": "inferhub/glm-5.3",
+      "strong": "inferhub/gpt-6-sol"
     }
   },
   "pi-image-gen": {
@@ -59,5 +59,6 @@
     "inferhub/glm-5.3",
     "inferhub/gpt-5.6-sol"
   ],
-  "outputPad": 1
+  "outputPad": 1,
+  "tuiMode": "fullscreen"
 }

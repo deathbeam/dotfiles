@@ -14,42 +14,42 @@ export const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", 
 export const SPINNER_INTERVAL_MS = 100;
 
 export type ProgressInfo = {
-	toolCalls?: number;
-	contextTokens?: number;
-	contextWindow?: number;
+    toolCalls?: number;
+    contextTokens?: number;
+    contextWindow?: number;
 };
 
 /** Token counts the way pi's footer shows them: 900, 1.2k, 145k, 1.2M. */
 export function formatTokens(count: number): string {
-	if (count < 1000) return String(count);
-	if (count < 10000) return `${(count / 1000).toFixed(1)}k`;
-	if (count < 1000000) return `${Math.round(count / 1000)}k`;
-	if (count < 10000000) return `${(count / 1000000).toFixed(1)}M`;
-	return `${Math.round(count / 1000000)}M`;
+    if (count < 1000) return String(count);
+    if (count < 10000) return `${(count / 1000).toFixed(1)}k`;
+    if (count < 1000000) return `${Math.round(count / 1000)}k`;
+    if (count < 10000000) return `${(count / 1000000).toFixed(1)}M`;
+    return `${Math.round(count / 1000000)}M`;
 }
 
 /** Elapsed time the way pi's shell renderer shows it: 42s, 1m 05s, 2h 07m. */
 export function formatDuration(ms: number): string {
-	const seconds = Math.max(0, Math.floor(ms / 1000));
-	if (seconds < 60) return `${seconds}s`;
-	const minutes = Math.floor(seconds / 60);
-	if (minutes < 60) return `${minutes}m ${String(seconds % 60).padStart(2, "0")}s`;
-	return `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, "0")}m`;
+    const seconds = Math.max(0, Math.floor(ms / 1000));
+    if (seconds < 60) return `${seconds}s`;
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return `${minutes}m ${String(seconds % 60).padStart(2, "0")}s`;
+    return `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, "0")}m`;
 }
 
 /** "5 tool calls · 23k/200k · 1m 05s" - the running progress hint on the delegate row. */
 export function progressStats(progress: ProgressInfo, elapsedMs: number): string {
-	const parts: string[] = [];
-	if (progress.toolCalls) parts.push(`${progress.toolCalls} tool ${progress.toolCalls === 1 ? "call" : "calls"}`);
-	if (progress.contextTokens) {
-		parts.push(
-			progress.contextWindow
-				? `${formatTokens(progress.contextTokens)}/${formatTokens(progress.contextWindow)}`
-				: formatTokens(progress.contextTokens),
-		);
-	}
-	parts.push(formatDuration(elapsedMs));
-	return parts.join(" · ");
+    const parts: string[] = [];
+    if (progress.toolCalls) parts.push(`${progress.toolCalls} tool ${progress.toolCalls === 1 ? "call" : "calls"}`);
+    if (progress.contextTokens) {
+        parts.push(
+            progress.contextWindow
+                ? `${formatTokens(progress.contextTokens)}/${formatTokens(progress.contextWindow)}`
+                : formatTokens(progress.contextTokens),
+        );
+    }
+    parts.push(formatDuration(elapsedMs));
+    return parts.join(" · ");
 }
 
 /**
@@ -57,29 +57,29 @@ export function progressStats(progress: ProgressInfo, elapsedMs: number): string
  * ponytail: bare tool name for anything that is not a pi builtin - add a case when a tool earns one.
  */
 export function toolCallDetail(toolName: string, args: unknown): string {
-	const input = (args ?? {}) as Record<string, unknown>;
-	const value = (key: string) => (typeof input[key] === "string" ? (input[key] as string).trim() : "");
-	const path = value("path") || ".";
-	switch (toolName) {
-		case "bash":
-		case "powershell":
-			return value("command").split("\n")[0];
-		case "read":
-		case "write":
-		case "edit":
-			return value("file_path") || value("path");
-		case "grep":
-			return `/${value("pattern")}/ in ${path}`;
-		case "find":
-			return `${value("pattern")} in ${path}`;
-		case "ls":
-			return path;
-		case "delegate":
-		case "subagent":
-			return value("agent");
-		default:
-			return "";
-	}
+    const input = (args ?? {}) as Record<string, unknown>;
+    const value = (key: string) => (typeof input[key] === "string" ? (input[key] as string).trim() : "");
+    const path = value("path") || ".";
+    switch (toolName) {
+        case "bash":
+        case "powershell":
+            return value("command").split("\n")[0];
+        case "read":
+        case "write":
+        case "edit":
+            return value("file_path") || value("path");
+        case "grep":
+            return `/${value("pattern")}/ in ${path}`;
+        case "find":
+            return `${value("pattern")} in ${path}`;
+        case "ls":
+            return path;
+        case "delegate":
+        case "subagent":
+            return value("agent");
+        default:
+            return "";
+    }
 }
 
 const EXPANDED_PAD = "   ";
@@ -90,12 +90,19 @@ const TASK_LABEL = "Task: ";
  * then how the child was launched. Multi-line tasks keep their continuation aligned under the text.
  */
 export function launchDetails(info: { task?: string; model?: string; tools: string[] }): string[] {
-	const lines = [`${EXPANDED_PAD}Model: ${info.model ?? "default"}`, `${EXPANDED_PAD}Tools: ${info.tools.join(", ") || "all"}`];
-	const task = (info.task ?? "").trim();
-	if (task) {
-		lines.push(...task.split("\n").map((line, index) => `${EXPANDED_PAD}${index ? " ".repeat(TASK_LABEL.length) : TASK_LABEL}${line}`));
-	}
-	return lines;
+    const lines = [
+        `${EXPANDED_PAD}Model: ${info.model ?? "default"}`,
+        `${EXPANDED_PAD}Tools: ${info.tools.join(", ") || "all"}`,
+    ];
+    const task = (info.task ?? "").trim();
+    if (task) {
+        lines.push(
+            ...task
+                .split("\n")
+                .map((line, index) => `${EXPANDED_PAD}${index ? " ".repeat(TASK_LABEL.length) : TASK_LABEL}${line}`),
+        );
+    }
+    return lines;
 }
 
 export const COLLAPSED_OUTPUT_LINES = 10;
@@ -105,23 +112,59 @@ export const COLLAPSED_OUTPUT_LINES = 10;
  * Closes a dangling code fence so the visible part still renders as the fenced block it is.
  */
 export function outputPreview(text: string, maxLines = COLLAPSED_OUTPUT_LINES): { shown: string[]; hidden: number } {
-	const lines = text.trim().split("\n");
-	if (lines.length <= maxLines) return { shown: lines, hidden: 0 };
-	const shown = lines.slice(0, maxLines);
-	if (shown.filter((line) => line.trimStart().startsWith("```")).length % 2 === 1) shown.push("```");
-	return { shown, hidden: lines.length - maxLines };
+    const lines = text.trim().split("\n");
+    if (lines.length <= maxLines) return { shown: lines, hidden: 0 };
+    const shown = lines.slice(0, maxLines);
+    if (shown.filter((line) => line.trimStart().startsWith("```")).length % 2 === 1) shown.push("```");
+    return { shown, hidden: lines.length - maxLines };
 }
 
 /** First non-empty line of a tool result, capped so the activity line stays one line. */
 export function resultPreview(result: unknown, maxChars = 120): string | undefined {
-	const content = (result as { content?: unknown })?.content;
-	if (!Array.isArray(content)) return undefined;
-	const text = content
-		.map((part) => (part as { type?: string; text?: string }) ?? {})
-		.filter((part) => part.type === "text" && typeof part.text === "string")
-		.map((part) => part.text as string)
-		.join("\n");
-	const line = text.split("\n").find((candidate) => candidate.trim())?.trim();
-	if (!line) return undefined;
-	return line.length > maxChars ? `${line.slice(0, maxChars - 1)}…` : line;
+    const content = (result as { content?: unknown })?.content;
+    if (!Array.isArray(content)) return undefined;
+    const text = content
+        .map((part) => (part as { type?: string; text?: string }) ?? {})
+        .filter((part) => part.type === "text" && typeof part.text === "string")
+        .map((part) => part.text as string)
+        .join("\n");
+    const line = text
+        .split("\n")
+        .find((candidate) => candidate.trim())
+        ?.trim();
+    if (!line) return undefined;
+    return line.length > maxChars ? `${line.slice(0, maxChars - 1)}…` : line;
+}
+
+/**
+ * What a finished delegate run reports back: the follow-up message text is built from this,
+ * and the message renderer reads the same object back from `details`.
+ */
+export type DelegateReport = {
+    /** Short random id shared with the tool row, so a result can be linked back to its call. */
+    id: string;
+    agent: string;
+    description: string;
+    model?: string;
+    toolCalls: number;
+    contextTokens?: number;
+    contextWindow?: number;
+    elapsedMs: number;
+    output?: string;
+    error?: string;
+};
+
+/** Model-facing text for a finished delegate run, delivered as a follow-up message. */
+export function reportText(report: DelegateReport): string {
+    const calls = report.toolCalls
+        ? ` after ${report.toolCalls} tool ${report.toolCalls === 1 ? "call" : "calls"}`
+        : "";
+    if (report.error) return `Delegated agent "${report.agent}" (job ${report.id}) failed${calls}: ${report.error}`;
+    const output = (report.output ?? "").trim();
+    return `Delegated agent "${report.agent}" (job ${report.id}) finished${calls}.${output ? `\n\n${output}` : ""}`;
+}
+
+/** First line of a running-delegate widget block: "rpc smoke · 3 tool calls · 12k/200k · 45s". */
+export function jobLine(info: { description?: string } & ProgressInfo, elapsedMs: number): string {
+    return [info.description?.trim(), progressStats(info, elapsedMs)].filter(Boolean).join(" · ");
 }

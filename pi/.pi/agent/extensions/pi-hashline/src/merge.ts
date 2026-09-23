@@ -19,12 +19,12 @@ import { structuredPatch, applyPatch, type StructuredPatchHunk } from "diff";
  * jsdiff's `\ No newline at end of file` markers are not content either.
  */
 function hunkSearchPattern(hunk: StructuredPatchHunk): string[] {
-	const pattern: string[] = [];
-	for (const line of hunk.lines) {
-		if (line.startsWith("+") || line.startsWith("\\")) continue;
-		pattern.push(line.slice(1));
-	}
-	return pattern;
+    const pattern: string[] = [];
+    for (const line of hunk.lines) {
+        if (line.startsWith("+") || line.startsWith("\\")) continue;
+        pattern.push(line.slice(1));
+    }
+    return pattern;
 }
 
 /**
@@ -32,18 +32,18 @@ function hunkSearchPattern(hunk: StructuredPatchHunk): string[] {
  * Overlapping scans count separately: jsdiff may fit a hunk at either one.
  */
 function isAmbiguous(lines: readonly string[], pattern: readonly string[]): boolean {
-	let seen = 0;
-	for (let i = 0; i + pattern.length <= lines.length && seen < 2; i++) {
-		let matches = true;
-		for (let j = 0; j < pattern.length; j++) {
-			if (lines[i + j] !== pattern[j]) {
-				matches = false;
-				break;
-			}
-		}
-		if (matches) seen++;
-	}
-	return seen > 1;
+    let seen = 0;
+    for (let i = 0; i + pattern.length <= lines.length && seen < 2; i++) {
+        let matches = true;
+        for (let j = 0; j < pattern.length; j++) {
+            if (lines[i + j] !== pattern[j]) {
+                matches = false;
+                break;
+            }
+        }
+        if (matches) seen++;
+    }
+    return seen > 1;
 }
 
 /**
@@ -56,37 +56,33 @@ function isAmbiguous(lines: readonly string[], pattern: readonly string[]): bool
  *
  * Short-circuit: if `base === current`, return `baseEdited` directly.
  */
-export function threeWayMerge(
-	base: string,
-	baseEdited: string,
-	current: string,
-): string | null {
-	if (base === current) {
-		return baseEdited;
-	}
+export function threeWayMerge(base: string, baseEdited: string, current: string): string | null {
+    if (base === current) {
+        return baseEdited;
+    }
 
-	const patch = structuredPatch("a", "b", base, baseEdited, "", "", { context: 3 });
+    const patch = structuredPatch("a", "b", base, baseEdited, "", "", { context: 3 });
 
-	// Refuse ambiguous placement: a duplicated search window means jsdiff could
-	// apply the hunk at the wrong occurrence. Failing here surfaces the
-	// stale-anchor error instead of writing a plausible-looking wrong edit.
-	const currentLines = current.split("\n");
-	for (const hunk of patch.hunks) {
-		const pattern = hunkSearchPattern(hunk);
-		if (pattern.length > 0 && isAmbiguous(currentLines, pattern)) {
-			return null;
-		}
-	}
+    // Refuse ambiguous placement: a duplicated search window means jsdiff could
+    // apply the hunk at the wrong occurrence. Failing here surfaces the
+    // stale-anchor error instead of writing a plausible-looking wrong edit.
+    const currentLines = current.split("\n");
+    for (const hunk of patch.hunks) {
+        const pattern = hunkSearchPattern(hunk);
+        if (pattern.length > 0 && isAmbiguous(currentLines, pattern)) {
+            return null;
+        }
+    }
 
-	const merged = applyPatch(current, patch, { fuzzFactor: 0 });
+    const merged = applyPatch(current, patch, { fuzzFactor: 0 });
 
-	if (merged === false || typeof merged !== "string") {
-		return null;
-	}
+    if (merged === false || typeof merged !== "string") {
+        return null;
+    }
 
-	if (merged === current) {
-		return null;
-	}
+    if (merged === current) {
+        return null;
+    }
 
-	return merged;
+    return merged;
 }

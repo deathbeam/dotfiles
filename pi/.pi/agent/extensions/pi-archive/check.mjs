@@ -6,13 +6,13 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import {
-	searchSessions,
-	entryText,
-	matchesAll,
-	excerptAround,
-	projectLabel,
-	firstUserTitle,
-	recentSessions,
+    searchSessions,
+    entryText,
+    matchesAll,
+    excerptAround,
+    projectLabel,
+    firstUserTitle,
+    recentSessions,
 } from "./index.ts";
 
 const root = fs.mkdtempSync(path.join(os.tmpdir(), "pi-archive-check-"));
@@ -23,36 +23,81 @@ fs.mkdirSync(projB);
 
 const line = (obj) => JSON.stringify(obj);
 fs.writeFileSync(
-	path.join(projA, "2026-09-01T00-00-00-000Z_aaaa.jsonl"),
-	[
-		line({ type: "session", version: 3, id: "aaaa" }),
-		line({ type: "message", id: "m1", parentId: null, message: { role: "user", content: [{ type: "text", text: "fix the jwt auth refresh bug" }] } }),
-		line({ type: "message", id: "m2", parentId: "m1", message: { role: "assistant", content: [{ type: "thinking", thinking: "irrelevant" }, { type: "text", text: "the token expiry was 5 minutes, raised to 30" }] } }),
-		line({ type: "compaction", id: "c1", parentId: "m2", summary: "Fixed jwt refresh; expiry 5->30 min" }),
-		line({ type: "message", id: "m3", parentId: "m2", message: { role: "toolResult", toolCallId: "t1", toolName: "bash", content: [{ type: "text", text: "Error EACCES: jwt key file unreadable" }] } }),
-		"",
-	].join("\n"),
+    path.join(projA, "2026-09-01T00-00-00-000Z_aaaa.jsonl"),
+    [
+        line({ type: "session", version: 3, id: "aaaa" }),
+        line({
+            type: "message",
+            id: "m1",
+            parentId: null,
+            message: { role: "user", content: [{ type: "text", text: "fix the jwt auth refresh bug" }] },
+        }),
+        line({
+            type: "message",
+            id: "m2",
+            parentId: "m1",
+            message: {
+                role: "assistant",
+                content: [
+                    { type: "thinking", thinking: "irrelevant" },
+                    { type: "text", text: "the token expiry was 5 minutes, raised to 30" },
+                ],
+            },
+        }),
+        line({ type: "compaction", id: "c1", parentId: "m2", summary: "Fixed jwt refresh; expiry 5->30 min" }),
+        line({
+            type: "message",
+            id: "m3",
+            parentId: "m2",
+            message: {
+                role: "toolResult",
+                toolCallId: "t1",
+                toolName: "bash",
+                content: [{ type: "text", text: "Error EACCES: jwt key file unreadable" }],
+            },
+        }),
+        "",
+    ].join("\n"),
 );
 fs.writeFileSync(
-	path.join(projB, "2026-09-02T00-00-00-000Z_bbbb.jsonl"),
-	[
-		line({ type: "session", version: 3, id: "bbbb" }),
-		line({ type: "message", id: "m1", parentId: null, message: { role: "user", content: [{ type: "text", text: "unrelated work on the renderer" }] } }),
-		"",
-	].join("\n"),
+    path.join(projB, "2026-09-02T00-00-00-000Z_bbbb.jsonl"),
+    [
+        line({ type: "session", version: 3, id: "bbbb" }),
+        line({
+            type: "message",
+            id: "m1",
+            parentId: null,
+            message: { role: "user", content: [{ type: "text", text: "unrelated work on the renderer" }] },
+        }),
+        "",
+    ].join("\n"),
 );
 const currentFile = path.join(projA, "2026-09-03T00-00-00-000Z_cccc.jsonl");
 fs.writeFileSync(
-	currentFile,
-	[
-		line({ type: "session", version: 3, id: "cccc" }),
-		line({ type: "message", id: "m1", parentId: null, message: { role: "user", content: [{ type: "text", text: "jwt again but this session is the live one" }] } }),
-		"",
-	].join("\n"),
+    currentFile,
+    [
+        line({ type: "session", version: 3, id: "cccc" }),
+        line({
+            type: "message",
+            id: "m1",
+            parentId: null,
+            message: { role: "user", content: [{ type: "text", text: "jwt again but this session is the live one" }] },
+        }),
+        "",
+    ].join("\n"),
 );
 
 // entryText: skips thinking, reads compaction summaries
-const et = entryText({ type: "message", message: { role: "assistant", content: [{ type: "thinking", thinking: "x" }, { type: "text", text: "hello" }] } });
+const et = entryText({
+    type: "message",
+    message: {
+        role: "assistant",
+        content: [
+            { type: "thinking", thinking: "x" },
+            { type: "text", text: "hello" },
+        ],
+    },
+});
 assert.equal(et?.text, "hello");
 assert.equal(entryText({ type: "compaction", summary: "sum" })?.role, "summary");
 assert.equal(entryText({ type: "model_change" }), null);

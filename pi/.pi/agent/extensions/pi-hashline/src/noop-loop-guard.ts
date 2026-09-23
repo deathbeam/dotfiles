@@ -6,8 +6,8 @@
 const NOOP_HARD_LIMIT = 3;
 
 interface NoopEntry {
-	payloadKey: string;
-	count: number;
+    payloadKey: string;
+    count: number;
 }
 
 const noopTracker = new Map<string, NoopEntry>();
@@ -22,18 +22,15 @@ const appliedPayloadTracker = new Map<string, string>();
  * A different payloadKey resets the count (the model changed payload = progress).
  * Returns the current count and whether the hard limit has been hit.
  */
-export function recordNoopEdit(
-	path: string,
-	payloadKey: string,
-): { count: number; escalate: boolean } {
-	const existing = noopTracker.get(path);
-	if (existing && existing.payloadKey === payloadKey) {
-		existing.count += 1;
-	} else {
-		noopTracker.set(path, { payloadKey, count: 1 });
-	}
-	const count = noopTracker.get(path)!.count;
-	return { count, escalate: count >= NOOP_HARD_LIMIT };
+export function recordNoopEdit(path: string, payloadKey: string): { count: number; escalate: boolean } {
+    const existing = noopTracker.get(path);
+    if (existing && existing.payloadKey === payloadKey) {
+        existing.count += 1;
+    } else {
+        noopTracker.set(path, { payloadKey, count: 1 });
+    }
+    const count = noopTracker.get(path)!.count;
+    return { count, escalate: count >= NOOP_HARD_LIMIT };
 }
 
 /**
@@ -41,8 +38,8 @@ export function recordNoopEdit(
  * successfully applied edit, for duplicate-applied-payload detection.
  */
 export function recordAppliedEdit(path: string, payloadKey: string): void {
-	noopTracker.delete(path);
-	appliedPayloadTracker.set(path, payloadKey);
+    noopTracker.delete(path);
+    appliedPayloadTracker.set(path, payloadKey);
 }
 
 /**
@@ -51,7 +48,7 @@ export function recordAppliedEdit(path: string, payloadKey: string): void {
  * file has not changed since that edit before treating this as a duplicate.
  */
 export function isDuplicateAppliedPayload(path: string, payloadKey: string): boolean {
-	return appliedPayloadTracker.get(path) === payloadKey;
+    return appliedPayloadTracker.get(path) === payloadKey;
 }
 
 /**
@@ -60,5 +57,5 @@ export function isDuplicateAppliedPayload(path: string, payloadKey: string): boo
  * is intentional and must be allowed through.
  */
 export function clearAppliedPayload(path: string): void {
-	appliedPayloadTracker.delete(path);
+    appliedPayloadTracker.delete(path);
 }

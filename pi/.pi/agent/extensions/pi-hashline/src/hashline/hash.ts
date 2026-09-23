@@ -41,7 +41,7 @@ export const RE_SIGNIFICANT = /[\p{L}\p{N}]/u;
  * IS hashed — two lines differing only in indent get different hashes.
  */
 export function normalizeHashInput(line: string): string {
-	return line.replace(/\r/g, "").trimEnd();
+    return line.replace(/\r/g, "").trimEnd();
 }
 
 /**
@@ -53,16 +53,17 @@ export function normalizeHashInput(line: string): string {
  * All three inputs must already be normalized via normalizeHashInput.
  */
 export function computeHashFromContext(prev: string, curr: string, next: string): string {
-	const h = XXH.h32(0)
-		.update(prev + "\0" + curr + "\0" + next)
-		.digest()
-		.toNumber() >>> 0;
-	// Extract HASH_LENGTH nibbles from the low 4*HASH_LENGTH bits.
-	let result = "";
-	for (let i = HASH_LENGTH - 1; i >= 0; i--) {
-		result += NIBBLE_STR[(h >>> (i * 4)) & 0x0f]!;
-	}
-	return result;
+    const h =
+        XXH.h32(0)
+            .update(prev + "\0" + curr + "\0" + next)
+            .digest()
+            .toNumber() >>> 0;
+    // Extract HASH_LENGTH nibbles from the low 4*HASH_LENGTH bits.
+    let result = "";
+    for (let i = HASH_LENGTH - 1; i >= 0; i--) {
+        result += NIBBLE_STR[(h >>> (i * 4)) & 0x0f]!;
+    }
+    return result;
 }
 
 /**
@@ -70,10 +71,10 @@ export function computeHashFromContext(prev: string, curr: string, next: string)
  * Neighbors outside the file boundaries use "" as their normalized value.
  */
 export function computeLineHash(fileLines: readonly string[], index: number): string {
-	const prev = normalizeHashInput(index > 0 ? fileLines[index - 1]! : "");
-	const curr = normalizeHashInput(fileLines[index]!);
-	const next = normalizeHashInput(index < fileLines.length - 1 ? fileLines[index + 1]! : "");
-	return computeHashFromContext(prev, curr, next);
+    const prev = normalizeHashInput(index > 0 ? fileLines[index - 1]! : "");
+    const curr = normalizeHashInput(fileLines[index]!);
+    const next = normalizeHashInput(index < fileLines.length - 1 ? fileLines[index + 1]! : "");
+    return computeHashFromContext(prev, curr, next);
 }
 
 /** Fuzzy-match Unicode replacement regexes for anchor textHint validation. */
@@ -89,16 +90,16 @@ const FUZZY_UNICODE_SPACES_RE = /[\u00A0\u2002-\u200A\u202F\u205F\u3000]/g;
  * Hashes themselves stay whitespace-exact — see normalizeHashInput.
  */
 function normalizeFuzzyLine(text: string): string {
-	return text
-		.trim()
-		.replace(FUZZY_SINGLE_QUOTES_RE, "'")
-		.replace(FUZZY_DOUBLE_QUOTES_RE, '"')
-		.replace(FUZZY_HYPHENS_RE, "-")
-		.replace(FUZZY_UNICODE_SPACES_RE, " ");
+    return text
+        .trim()
+        .replace(FUZZY_SINGLE_QUOTES_RE, "'")
+        .replace(FUZZY_DOUBLE_QUOTES_RE, '"')
+        .replace(FUZZY_HYPHENS_RE, "-")
+        .replace(FUZZY_UNICODE_SPACES_RE, " ");
 }
 
 export function isFuzzyEquivalentLine(expected: string, actual: string): boolean {
-	return normalizeFuzzyLine(expected) === normalizeFuzzyLine(actual);
+    return normalizeFuzzyLine(expected) === normalizeFuzzyLine(actual);
 }
 
 /** First ASCII "..." or Unicode "…" in a hint marks it as model-truncated content. */
@@ -114,13 +115,13 @@ const ELLIPSIS_RE = /\.{3}|…/;
  * the line. An ellipsis-leading hint has an empty prefix and never vetoes.
  */
 export function hintMatchesLine(hint: string, line: string): boolean {
-	const normalizedHint = normalizeFuzzyLine(hint);
-	const ellipsisIndex = normalizedHint.search(ELLIPSIS_RE);
-	if (ellipsisIndex === -1) {
-		return normalizedHint === normalizeFuzzyLine(line);
-	}
-	const prefix = normalizedHint.slice(0, ellipsisIndex);
-	return normalizeFuzzyLine(line).startsWith(prefix);
+    const normalizedHint = normalizeFuzzyLine(hint);
+    const ellipsisIndex = normalizedHint.search(ELLIPSIS_RE);
+    if (ellipsisIndex === -1) {
+        return normalizedHint === normalizeFuzzyLine(line);
+    }
+    const prefix = normalizedHint.slice(0, ellipsisIndex);
+    return normalizeFuzzyLine(line).startsWith(prefix);
 }
 
 /**
@@ -129,9 +130,8 @@ export function hintMatchesLine(hint: string, line: string): boolean {
  * line, so candidate scanning must skip them.
  */
 export function hintHasSignal(hint: string): boolean {
-	const normalizedHint = normalizeFuzzyLine(hint);
-	const ellipsisIndex = normalizedHint.search(ELLIPSIS_RE);
-	const prefix =
-		ellipsisIndex === -1 ? normalizedHint : normalizedHint.slice(0, ellipsisIndex);
-	return prefix.length > 0;
+    const normalizedHint = normalizeFuzzyLine(hint);
+    const ellipsisIndex = normalizedHint.search(ELLIPSIS_RE);
+    const prefix = ellipsisIndex === -1 ? normalizedHint : normalizedHint.slice(0, ellipsisIndex);
+    return prefix.length > 0;
 }

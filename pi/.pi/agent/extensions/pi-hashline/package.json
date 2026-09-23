@@ -1,31 +1,31 @@
 {
-  "name": "pi-hashline-edit",
-  "version": "0.9.0",
-  "description": "Hashline read/edit/grep tool override for pi-coding-agent (vendored fork)",
-  "license": "MIT",
-  "pi": {
-    "extensions": [
-      "./index.ts"
-    ]
-  },
-  "dependencies": {
-    "diff": "^8.0.2",
-    "xxhashjs": "^0.2.2"
-  },
-  "peerDependencies": {
-    "@earendil-works/pi-ai": ">=0.85.0",
-    "@earendil-works/pi-coding-agent": ">=0.85.0",
-    "@earendil-works/pi-tui": "*",
-    "@sinclair/typebox": "*"
-  },
-  "devDependencies": {
-    "@earendil-works/pi-coding-agent": "^0.85.1",
-    "@earendil-works/pi-tui": "^0.85.1",
-    "@types/node": "^22.0.0",
-    "@types/xxhashjs": "^0.2.4",
-    "typescript": "^6.0.3"
-  },
-  "scripts": {
-    "typecheck": "tsc --noEmit"
-  }
+    "name": "pi-hashline-edit",
+    "version": "0.9.0",
+    "description": "Hashline read/edit/grep tool override for pi-coding-agent (vendored fork)",
+    "license": "MIT",
+    "pi": {
+        "extensions": [
+            "./index.ts"
+        ]
+    },
+    "dependencies": {
+        "diff": "^8.0.2",
+        "xxhashjs": "^0.2.2"
+    },
+    "peerDependencies": {
+        "@earendil-works/pi-ai": ">=0.85.0",
+        "@earendil-works/pi-coding-agent": ">=0.85.0",
+        "@earendil-works/pi-tui": "*",
+        "@sinclair/typebox": "*"
+    },
+    "devDependencies": {
+        "@earendil-works/pi-coding-agent": "^0.85.1",
+        "@earendil-works/pi-tui": "^0.85.1",
+        "@types/node": "^22.0.0",
+        "@types/xxhashjs": "^0.2.4",
+        "typescript": "^6.0.3"
+    },
+    "scripts": {
+        "typecheck": "tsc --noEmit"
+    }
 }

@@ -4,7 +4,7 @@ import { registerGrepTool } from "./src/grep";
 import { registerReadTool } from "./src/read";
 
 export default function (pi: ExtensionAPI): void {
-	registerReadTool(pi);
-	registerEditTool(pi);
-	registerGrepTool(pi);
+    registerReadTool(pi);
+    registerEditTool(pi);
+    registerGrepTool(pi);
 }

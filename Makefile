@@ -9,6 +9,9 @@ format:
 	@if command -v stylua >/dev/null 2>&1; then \
 		cd nvim/.config/nvim && stylua .; \
 	fi
+	@echo "Formatting Pi extension TypeScript..."
+	npx --yes @biomejs/biome@2.3.5 format --write --indent-style=space --indent-width=4 --line-width=120 \
+		pi/.pi/agent/extensions
 
 clean:
 	rm -r /home/deathbeam/.cache/nvim/tree-sitter-* || true

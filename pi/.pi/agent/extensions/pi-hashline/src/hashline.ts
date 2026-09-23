@@ -15,10 +15,10 @@ export { HASH_LENGTH, NIBBLE_STR, computeLineHash } from "./hashline/hash";
 export { resolveEditAnchors } from "./hashline/parse";
 export { applyHashlineEdits } from "./hashline/apply";
 export {
-	computeAffectedLineRange,
-	computeChangedLineRange,
-	formatHashlineRegion,
-	sanitizeOutput,
-	splitVisibleLines,
-	stripHashlinePrefixes,
+    computeAffectedLineRange,
+    computeChangedLineRange,
+    formatHashlineRegion,
+    sanitizeOutput,
+    splitVisibleLines,
+    stripHashlinePrefixes,
 } from "./hashline/format";
