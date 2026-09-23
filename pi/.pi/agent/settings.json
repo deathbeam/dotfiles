@@ -5,7 +5,8 @@
   "lastChangelogVersion": "0.87.1",
   "packages": [
     "npm:pi-terminal-theme",
-    "npm:pi-vision-handoff"
+    "npm:pi-vision-handoff",
+    "npm:@amaster.ai/pi-image-gen"
   ],
   "terminal": {
     "showTerminalProgress": false
@@ -32,6 +33,23 @@
       "cheap": "opencode/mimo-v2.6-flash-free",
       "balanced": "opencode-go/deepseek-v4.1-flash",
       "strong": "inferhub/glm-5.3"
+    }
+  },
+  "pi-image-gen": {
+    "defaultModel": "cb/gpt-image-2",
+    "customProviders": {
+      "inferhub": {
+        "api": "openai",
+        "baseUrl": "https://api.inferhub.dev/v1",
+        "apiKey": "${INFERHUB_API_KEY}",
+        "name": "InferHub",
+        "models": [
+          "cb/gpt-image-2",
+          "cb/gemini-3.0-pro-image",
+          "cb/gemini-3.1-flash-image",
+          "cb/gemini-2.5-flash-image"
+        ]
+      }
     }
   },
   "enabledModels": [
