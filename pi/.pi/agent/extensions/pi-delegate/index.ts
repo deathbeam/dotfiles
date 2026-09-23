@@ -402,10 +402,11 @@ export default function (pi: ExtensionAPI) {
             output,
             error,
         };
-        // The parent's turn has usually ended by now, so this starts a new turn with the result.
+        // Idle: this starts a new turn. Streaming: steer the report in at the next turn boundary —
+        // a follow-up waits for a run end that a parent stuck polling may never reach.
         pi.sendMessage(
             { customType: RESULT_MESSAGE, content: reportText(report), display: true, details: report },
-            { triggerTurn: true, deliverAs: "followUp" },
+            { triggerTurn: true, deliverAs: "steer" },
         );
     };
 
@@ -462,7 +463,7 @@ export default function (pi: ExtensionAPI) {
         promptSnippet: "Delegate a focused task to a background agent; the result arrives later as a follow-up message",
         promptGuidelines: [
             "Delegations run in the background and can run in parallel: call `delegate` and keep working instead of waiting for the result.",
-            "Never sleep or poll to wait for a delegate: its completion wakes you in a new turn by itself. End your turn when your next step needs a result; use delegate_list only for a one-shot status, never as a wait loop.",
+            "Never sleep or poll to wait for a delegate: its completion reaches you on its own. End your turn when your next step needs a result; use delegate_list only for a one-shot status, never as a wait loop.",
         ],
         parameters: Type.Object({
             agent: Type.String({ description: "Agent name, one of the agents listed in the <agents> prompt section." }),
@@ -546,7 +547,7 @@ export default function (pi: ExtensionAPI) {
                 content: [
                     {
                         type: "text",
-                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs. Do not sleep or poll for it: its report arrives as a follow-up message that starts a new turn on its own, so end your turn now if your next step needs it.`,
+                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs. Do not sleep or poll for it: its report arrives on its own as a new message, so end your turn now if your next step needs it.`,
                     },
                 ],
                 details,

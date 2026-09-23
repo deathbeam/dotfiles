@@ -48,7 +48,9 @@ assert.match(index, /systemPromptOptions\.sections\.agents/);
 assert.doesNotMatch(index, /"<\/?agents>"/);
 assert.match(index, /registerMessageRenderer\(RESULT_MESSAGE/);
 assert.match(index, /pi\.sendMessage\(/);
+// A follow-up waits for a run end; a parent stuck polling never reaches one and the report is lost.
 assert.match(index, /background: ctx\.hasUI/);
+assert.match(index, /deliverAs: "steer"/);
 assert.match(index, /setWidget\(WIDGET_KEY/);
 
 const expected = ["explore", "general", "researcher", "reviewer"];
