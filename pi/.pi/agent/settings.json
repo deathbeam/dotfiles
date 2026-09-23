@@ -28,15 +28,16 @@
       "~/.agents/agents"
     ],
     "models": {
-      "cheap": "opencode-go/deepseek-v4.1-flash",
-      "balanced": "inferhub/glm-5.3",
-      "strong": "inferhub/gpt-5.6-sol"
+      "cheap": "opencode/mimo-v2.6-flash-free",
+      "balanced": "opencode-go/deepseek-v4.1-flash",
+      "strong": "inferhub/glm-5.3"
     }
   },
   "enabledModels": [
-    "inferhub/glm-5.3",
-    "inferhub/glm-5.3-flash",
+    "opencode/mimo-v2.6-flash-free",
     "opencode-go/deepseek-v4.1-flash",
+    "inferhub/glm-5.3-flash",
+    "inferhub/glm-5.3",
     "inferhub/gpt-5.6-sol"
   ],
   "outputPad": 1
