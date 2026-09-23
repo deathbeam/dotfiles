@@ -1,0 +1,15 @@
+{
+  "enabled": true,
+  "visionModel": "inferhub/deepseek-v4.1-flash",
+  "fallbackModels": [],
+  "autoHandoff": true,
+  "handoffModels": [],
+  "prewarmPastedImages": false,
+  "asyncClipboardHandoff": false,
+  "persistDescriptions": false,
+  "cacheMax": 50,
+  "maxDescriptionLines": 0,
+  "thinking": false,
+  "thinkingLevel": "medium",
+  "awarePrompt": false
+}

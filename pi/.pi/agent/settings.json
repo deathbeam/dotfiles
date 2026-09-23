@@ -4,7 +4,8 @@
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.87.1",
   "packages": [
-    "npm:pi-terminal-theme"
+    "npm:pi-terminal-theme",
+    "npm:pi-vision-handoff"
   ],
   "terminal": {
     "showTerminalProgress": false
