@@ -1,6 +1,6 @@
 ---
 name: researcher
-description: Web researcher that prefers primary sources and returns cited findings
+description: Web research with cited sources. Use when the answer needs external docs, versions, or current facts.
 tools: read, web_search, web_fetch
 model: balanced
 ---

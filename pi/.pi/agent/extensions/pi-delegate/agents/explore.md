@@ -1,6 +1,6 @@
 ---
 name: explore
-description: Read-only codebase reconnaissance for relevant files, callers, and data flow
+description: "Read-only codebase reconnaissance: files, callers, and data flow. Use before editing unfamiliar code."
 tools: read, grep, find, ls
 model: cheap
 ---

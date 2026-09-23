@@ -1,6 +1,6 @@
 ---
 name: general
-description: General-purpose coding agent that can inspect, edit, and validate changes
+description: General-purpose agent for multi-step work that would flood the parent context; can inspect, edit, and validate changes.
 tools: read, grep, find, ls, bash, edit, write
 model: balanced
 ---

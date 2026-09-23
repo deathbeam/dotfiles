@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Read-only review for correctness, regressions, tests, and unnecessary complexity
+description: Independent review of a diff, plan, or finished change. Use before claiming work is done.
 tools: read, grep, find, ls, bash
 model: strong
 ---

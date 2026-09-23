@@ -66,6 +66,8 @@ type DelegateJob = {
     contextWindow?: number;
     startedAt: number;
     controller: AbortController;
+    /** Set once the child is running; false means it has already settled. */
+    steer?: (message: string) => boolean;
 };
 
 type DelegateConfig = {
@@ -75,7 +77,14 @@ type DelegateConfig = {
 
 const DEFAULT_AGENT_DIR = "~/.agents/agents";
 const BUNDLED_AGENT_DIR = fileURLToPath(new URL("./agents", import.meta.url));
-const DELEGATION_TOOLS = new Set(["delegate", "subagent", "subagent_supervisor", "contact_supervisor", "bg_wait"]);
+const DELEGATION_TOOLS = new Set([
+    "delegate",
+    "delegate_steer",
+    "subagent",
+    "subagent_supervisor",
+    "contact_supervisor",
+    "bg_wait",
+]);
 const MAX_OUTPUT_BYTES = 50 * 1024;
 const MODEL_TIERS = new Set(["cheap", "balanced", "strong"]);
 const WIDGET_KEY = "delegate";
@@ -187,25 +196,36 @@ function contextWindowFor(ctx: ExtensionContext, model: string | undefined): num
     return match?.contextWindow;
 }
 
+/** A live child: its result promise, plus steering into the running session. */
+type ChildRun = {
+    done: Promise<string>;
+    /** Write a steering message to the child; false once it has settled. */
+    steer: (message: string) => boolean;
+};
+
+const RPC_DIALOG_METHODS = new Set(["select", "confirm", "input", "editor"]);
+
 function runChild(
     args: string[],
     cwd: string,
+    task: string,
     signal: AbortSignal | undefined,
     onUpdate?: ChildUpdateHandler,
-): Promise<string> {
-    return new Promise((resolveChild, reject) => {
-        const child = spawn("pi", ["--mode", "json", "--print", "--no-session", ...args], {
-            cwd,
-            shell: false,
-            stdio: ["ignore", "pipe", "pipe"],
-        });
-        let buffer = "";
-        let liveText = "";
-        let toolCalls = 0;
-        let stderr = "";
-        let childError: string | undefined;
-        let aborted = false;
-        let settled = false;
+): ChildRun {
+    // RPC mode keeps stdin open, which is what makes steering a running child possible.
+    const child = spawn("pi", ["--mode", "rpc", "--no-session", ...args], {
+        cwd,
+        shell: false,
+        stdio: ["pipe", "pipe", "pipe"],
+    });
+    let buffer = "";
+    let liveText = "";
+    let toolCalls = 0;
+    let stderr = "";
+    let childError: string | undefined;
+    let aborted = false;
+    let settled = false;
+    const done = new Promise<string>((resolveChild, reject) => {
         const fail = (error: Error) => {
             if (settled) return;
             settled = true;
@@ -253,12 +273,37 @@ function runChild(
                         }
                         return;
                     }
+                    case "agent_settled":
+                        // The turn is done; the process would sit idle in RPC mode, so close it.
+                        settle(0);
+                        child.stdin.end();
+                        return;
+                    case "extension_ui_request":
+                        // Dialog methods block the child until answered; a headless parent cancels them.
+                        if (RPC_DIALOG_METHODS.has(event.method)) {
+                            child.stdin.write(
+                                `${JSON.stringify({ type: "extension_ui_response", id: event.id, cancelled: true })}\n`,
+                            );
+                        }
+                        return;
                     default:
                         return;
                 }
             } catch {
-                // JSON mode may still emit non-JSON diagnostics; ignore those lines.
+                // Diagnostics on stdout that are not JSON events; ignore those lines.
             }
+        };
+        const settle = (code: number | null) => {
+            if (settled) return;
+            if (buffer) parse(buffer);
+            settled = true;
+            signal?.removeEventListener("abort", abort);
+            if (aborted) reject(new Error("Delegated agent was aborted"));
+            else if (code !== 0) reject(new Error(childError || stderr.trim() || `Child exited with status ${code}`));
+            // A failed API call ends the child cleanly with an empty message; surface it instead of "(no output)".
+            else if (childError) reject(new Error(childError));
+            // liveText holds the last completed message text, plus any trailing partial deltas if the child died mid-stream.
+            else resolveChild(limitOutput(liveText.trim() || "(no output)"));
         };
         child.stdout.on("data", (chunk: Buffer) => {
             buffer += chunk.toString();
@@ -270,19 +315,11 @@ function runChild(
             stderr += chunk.toString();
             if (stderr.length > 16 * 1024) stderr = stderr.slice(-16 * 1024);
         });
-        child.on("error", (error) => fail(error));
-        child.on("close", (code) => {
-            if (settled) return;
-            if (buffer) parse(buffer);
-            settled = true;
-            signal?.removeEventListener("abort", abort);
-            if (aborted) reject(new Error("Delegated agent was aborted"));
-            else if (code !== 0) reject(new Error(childError || stderr.trim() || `Child exited with status ${code}`));
-            // A failed API call ends the child cleanly with an empty message; surface it instead of "(no output)".
-            else if (childError) reject(new Error(childError));
-            // liveText holds the last completed message text, plus any trailing partial deltas if the child died mid-stream.
-            else resolveChild(limitOutput(liveText.trim() || "(no output)"));
+        child.stdin.on("error", () => {
+            // EPIPE when the child exits between a steer attempt and its write.
         });
+        child.on("error", (error) => fail(error));
+        child.on("close", (code) => settle(code));
         const abort = () => {
             aborted = true;
             child.kill("SIGTERM");
@@ -292,7 +329,16 @@ function runChild(
         };
         if (signal?.aborted) abort();
         else signal?.addEventListener("abort", abort, { once: true });
+        child.stdin.write(`${JSON.stringify({ type: "prompt", message: task })}\n`);
     });
+    return {
+        done,
+        steer: (message) => {
+            if (settled) return false;
+            child.stdin.write(`${JSON.stringify({ type: "steer", message })}\n`);
+            return true;
+        },
+    };
 }
 
 export default function (pi: ExtensionAPI) {
@@ -368,7 +414,8 @@ export default function (pi: ExtensionAPI) {
         event.systemPromptOptions.sections.agents = [
             "<agents>",
             "Delegate focused work with `delegate({ agent, description, task })`.",
-            "Delegation is asynchronous: the tool returns immediately and the agent's result arrives later as a follow-up message. Keep working or finish your turn instead of waiting for it.",
+            "Delegation is asynchronous: the tool returns immediately and the agent's result arrives later as a follow-up message. Keep working or finish your turn instead of waiting for it. Independent delegations can run in parallel.",
+            "Steer a running delegate with `delegate_steer({ id, message })` while its job is listed as running.",
             "Available agents:",
             ...agents.map((agent) => `- ${agent.name}: ${agent.description}`),
             "</agents>",
@@ -408,6 +455,11 @@ export default function (pi: ExtensionAPI) {
         label: "Delegate",
         description:
             "Delegate one focused task to a background Pi agent using a named Markdown agent definition. Returns immediately; the agent's result arrives later as a follow-up message. `description` labels the delegation in the transcript; `task` is the full instruction the child receives.",
+        promptSnippet: "Delegate a focused task to a background agent; the result arrives later as a follow-up message",
+        promptGuidelines: [
+            "Use `explore` to map unfamiliar code, `researcher` for external docs or current facts, and `reviewer` to independently check finished work before reporting it.",
+            "Delegations run in the background: call `delegate` and keep working instead of waiting for the result.",
+        ],
         parameters: Type.Object({
             agent: Type.String({ description: "Agent name, such as general, explore, researcher, or reviewer." }),
             description: Type.String({
@@ -455,15 +507,21 @@ export default function (pi: ExtensionAPI) {
             const thinking = agent.thinking ?? ctx.thinkingLevel;
             if (thinking) args.push("--thinking", thinking);
             if (agent.prompt) args.push("--append-system-prompt", agent.prompt);
-            args.push(params.task);
-            const run = runChild(args, ctx.cwd, details.background ? job.controller.signal : signal, (update) => {
-                for (const [key, value] of Object.entries(update)) {
-                    if (value !== undefined) (job as Record<string, unknown>)[key] = value;
-                }
-            });
+            const run = runChild(
+                args,
+                ctx.cwd,
+                params.task,
+                details.background ? job.controller.signal : signal,
+                (update) => {
+                    for (const [key, value] of Object.entries(update)) {
+                        if (value !== undefined) (job as Record<string, unknown>)[key] = value;
+                    }
+                },
+            );
+            job.steer = run.steer;
 
             if (!details.background) {
-                const output = await run;
+                const output = await run.done;
                 return { content: [{ type: "text", text: output }], details };
             }
 
@@ -472,7 +530,7 @@ export default function (pi: ExtensionAPI) {
             refreshWidget(ctx);
             // ponytail: swallowed — the only failure left here is reporting into a session that is being torn down,
             // and an unhandled rejection would crash pi.
-            void run
+            void run.done
                 .then(
                     (output) => finishJob(ctx, job, output),
                     (error) => finishJob(ctx, job, undefined, error instanceof Error ? error.message : String(error)),
@@ -482,7 +540,7 @@ export default function (pi: ExtensionAPI) {
                 content: [
                     {
                         type: "text",
-                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Its result arrives as a follow-up message; keep working or finish your turn.`,
+                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs; its result arrives as a follow-up message.`,
                     },
                 ],
                 details,
@@ -531,6 +589,32 @@ export default function (pi: ExtensionAPI) {
                     );
             }
             return container;
+        },
+    });
+
+    pi.registerTool({
+        name: "delegate_steer",
+        label: "Steer delegate",
+        description:
+            "Send guidance to a running background delegate. The child receives it after its current tool calls and before its next model request; it cannot revive a finished job.",
+        promptSnippet: "Send guidance to a running background delegate by job id",
+        parameters: Type.Object({
+            id: Type.String({
+                description: 'Job id from a delegate tool result or a delegate-result message, such as "38631a01".',
+            }),
+            message: Type.String({ description: "The guidance to deliver to the running child." }),
+        }),
+        async execute(_toolCallId, params) {
+            const id = params.id.trim().replace(/^job\s+/i, "");
+            const job = running.get(id);
+            if (!job?.steer) throw new Error(`No running delegate job "${id}".`);
+            if (!job.steer(params.message)) throw new Error(`Delegate job "${id}" has already finished.`);
+            return {
+                content: [
+                    { type: "text", text: `Steering message delivered to delegate "${job.agent}" (job ${job.id}).` },
+                ],
+                details: { id: job.id, agent: job.agent },
+            };
         },
     });
 }
