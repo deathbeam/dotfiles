@@ -30,9 +30,9 @@
       "~/.agents/agents"
     ],
     "models": {
-      "cheap": "opencode-go/deepseek-v4.1-flash",
-      "balanced": "inferhub/glm-5.3",
-      "strong": "inferhub/gpt-6-sol"
+      "cheap": "opencode/space-bunny-free",
+      "balanced": "opencode/space-bunny-free",
+      "strong": "opencode/space-bunny-free"
     }
   },
   "pi-image-gen": {
@@ -57,7 +57,8 @@
     "opencode-go/deepseek-v4.1-flash",
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
-    "inferhub/gpt-5.6-sol"
+    "opencode/space-bunny-free",
+    "inferhub/gpt-6-sol"
   ],
   "outputPad": 1,
   "tuiMode": "regular"
