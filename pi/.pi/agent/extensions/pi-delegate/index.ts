@@ -2,11 +2,12 @@ import { spawn } from "node:child_process";
 import { randomUUID } from "node:crypto";
 import { existsSync, readdirSync, readFileSync } from "node:fs";
 import { homedir } from "node:os";
-import { isAbsolute, join, resolve } from "node:path";
+import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
     calculateContextTokens,
+    CONFIG_DIR_NAME,
     getAgentDir,
     getMarkdownTheme,
     keyHint,
@@ -19,6 +20,7 @@ import {
     type DelegateReport,
     jobLine,
     launchDetails,
+    limitOutput,
     outputPreview,
     progressStats,
     reportText,
@@ -37,15 +39,8 @@ type AgentFile = {
     prompt: string;
 };
 
-/** Details on the `delegate` tool row: how the child was launched, for the collapsed/expanded row. */
-type DelegateDetails = {
-    /** Short random id shared with the follow-up message, so a result can be linked back to its call. */
-    id: string;
-    agent: string;
-    description: string;
-    task: string;
-    model: string;
-    tools: string[];
+/** Details on the `delegate` tool row: the launch facts it shares with the live job, plus how it ran. */
+type DelegateDetails = Pick<DelegateJob, "id" | "agent" | "description" | "task" | "model" | "tools"> & {
     /** True when the child keeps running after the tool returns and reports back as a follow-up message. */
     background: boolean;
 };
@@ -77,6 +72,7 @@ type DelegateConfig = {
 
 const DEFAULT_AGENT_DIR = "~/.agents/agents";
 const BUNDLED_AGENT_DIR = fileURLToPath(new URL("./agents", import.meta.url));
+/** Tools a child never gets: its own plus any other delegation extension's, so delegation cannot recurse. */
 const DELEGATION_TOOLS = new Set([
     "delegate",
     "delegate_steer",
@@ -85,15 +81,12 @@ const DELEGATION_TOOLS = new Set([
     "contact_supervisor",
     "bg_wait",
 ]);
-const MAX_OUTPUT_BYTES = 50 * 1024;
 const MODEL_TIERS = new Set(["cheap", "balanced", "strong"]);
 const WIDGET_KEY = "delegate";
 const RESULT_MESSAGE = "delegate-result";
 
 function expandPath(value: string, cwd: string): string {
-    if (value === "~") return homedir();
-    if (value.startsWith("~/")) return join(homedir(), value.slice(2));
-    return isAbsolute(value) ? value : resolve(cwd, value);
+    return resolve(cwd, value.replace(/^~(?=\/|$)/, homedir()));
 }
 
 function stringList(value: unknown): string[] {
@@ -117,7 +110,7 @@ function readConfig(path: string): DelegateConfig {
 
 function configFor(cwd: string): DelegateConfig {
     const global = readConfig(join(getAgentDir(), "settings.json"));
-    const project = readConfig(join(cwd, ".pi", "settings.json"));
+    const project = readConfig(join(cwd, CONFIG_DIR_NAME, "settings.json"));
     return {
         agentDirs: [...stringList(global.agentDirs), ...stringList(project.agentDirs)],
         models: { ...(global.models ?? {}), ...(project.models ?? {}) },
@@ -171,14 +164,6 @@ function resolveModel(
     return current ? `${current.provider}/${current.id}` : undefined;
 }
 
-function limitOutput(text: string): string {
-    const bytes = Buffer.byteLength(text, "utf8");
-    if (bytes <= MAX_OUTPUT_BYTES) return text;
-    let result = text.slice(0, MAX_OUTPUT_BYTES);
-    while (Buffer.byteLength(result, "utf8") > MAX_OUTPUT_BYTES) result = result.slice(0, -1);
-    return `${result}\n\n[Output truncated: ${bytes - Buffer.byteLength(result, "utf8")} bytes omitted.]`;
-}
-
 /** What a child event can change on the live job; undefined values keep the old field. */
 type ChildUpdate = Partial<Pick<DelegateJob, "toolCalls" | "lastTool" | "lastDetail" | "lastResult" | "contextTokens">>;
 type ChildUpdateHandler = (update: ChildUpdate) => void;
@@ -191,9 +176,10 @@ function usageTokens(usage: unknown): number | undefined {
 
 /** Context window of the model the child runs on, for the used/limit hint. */
 function contextWindowFor(ctx: ExtensionContext, model: string | undefined): number | undefined {
-    if (!model) return undefined;
-    const match = ctx.modelRegistry.getAll().find((candidate) => `${candidate.provider}/${candidate.id}` === model);
-    return match?.contextWindow;
+    const separator = model?.indexOf("/") ?? -1;
+    if (!model || separator < 0) return undefined;
+    // Model ids may contain "/" themselves, so only the first one separates provider from id.
+    return ctx.modelRegistry.find(model.slice(0, separator), model.slice(separator + 1))?.contextWindow;
 }
 
 /** A live child: its result promise, plus steering into the running session. */
@@ -411,14 +397,10 @@ export default function (pi: ExtensionAPI) {
 
     pi.on("before_agent_start", (event, ctx) => {
         const agents = discoverAgents(ctx.cwd, configFor(ctx.cwd).agentDirs);
+        // pi wraps each section in a tag of the same name, so this content stays untagged.
         event.systemPromptOptions.sections.agents = [
-            "<agents>",
-            "Delegate focused work with `delegate({ agent, description, task })`.",
-            "Delegation is asynchronous: the tool returns immediately and the agent's result arrives later as a follow-up message. Keep working or finish your turn instead of waiting for it. Independent delegations can run in parallel.",
-            "Steer a running delegate with `delegate_steer({ id, message })` while its job is listed as running.",
             "Available agents:",
             ...agents.map((agent) => `- ${agent.name}: ${agent.description}`),
-            "</agents>",
         ].join("\n");
     });
 
@@ -457,11 +439,10 @@ export default function (pi: ExtensionAPI) {
             "Delegate one focused task to a background Pi agent using a named Markdown agent definition. Returns immediately; the agent's result arrives later as a follow-up message. `description` labels the delegation in the transcript; `task` is the full instruction the child receives.",
         promptSnippet: "Delegate a focused task to a background agent; the result arrives later as a follow-up message",
         promptGuidelines: [
-            "Use `explore` to map unfamiliar code, `researcher` for external docs or current facts, and `reviewer` to independently check finished work before reporting it.",
-            "Delegations run in the background: call `delegate` and keep working instead of waiting for the result.",
+            "Delegations run in the background and can run in parallel: call `delegate` and keep working instead of waiting for the result.",
         ],
         parameters: Type.Object({
-            agent: Type.String({ description: "Agent name, such as general, explore, researcher, or reviewer." }),
+            agent: Type.String({ description: "Agent name, one of the agents listed in the <agents> prompt section." }),
             description: Type.String({
                 description: "Short 3-8 word summary of this delegation, shown in the transcript.",
             }),
@@ -472,10 +453,12 @@ export default function (pi: ExtensionAPI) {
         }),
         async execute(_toolCallId, params, signal, _onUpdate, ctx) {
             const config = configFor(ctx.cwd);
-            const agent = discoverAgents(ctx.cwd, config.agentDirs).find(
-                (candidate) => candidate.name === params.agent,
-            );
-            if (!agent) throw new Error(`Unknown agent "${params.agent}".`);
+            const agents = discoverAgents(ctx.cwd, config.agentDirs);
+            const agent = agents.find((candidate) => candidate.name === params.agent);
+            if (!agent) {
+                const names = agents.map((candidate) => candidate.name).join(", ") || "(none)";
+                throw new Error(`Unknown agent "${params.agent}". Available agents: ${names}.`);
+            }
             const model = resolveModel(params.model ?? agent.model, config.models, ctx.model);
             if (!model) throw new Error(`No model found for "${params.agent}".`);
             const tools = (agent.tools?.length ? agent.tools : pi.getActiveTools()).filter(

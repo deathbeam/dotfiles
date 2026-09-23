@@ -1,5 +1,5 @@
 /**
- * Display-only helpers for the delegate tool row.
+ * Helpers for the delegate tool: the row's display text and the cap on what a child may return.
  *
  * Deliberately free of pi imports: `node check.mjs` loads this module directly
  * (native type stripping) and exercises the formatting rules.
@@ -74,9 +74,6 @@ export function toolCallDetail(toolName: string, args: unknown): string {
             return `${value("pattern")} in ${path}`;
         case "ls":
             return path;
-        case "delegate":
-        case "subagent":
-            return value("agent");
         default:
             return "";
     }
@@ -117,6 +114,21 @@ export function outputPreview(text: string, maxLines = COLLAPSED_OUTPUT_LINES): 
     const shown = lines.slice(0, maxLines);
     if (shown.filter((line) => line.trimStart().startsWith("```")).length % 2 === 1) shown.push("```");
     return { shown, hidden: lines.length - maxLines };
+}
+
+export const MAX_OUTPUT_BYTES = 50 * 1024;
+
+/**
+ * Cap child output at a byte budget: cut on a character boundary and say how much was dropped,
+ * so a runaway child cannot flood the parent's context with a broken character.
+ */
+export function limitOutput(text: string, maxBytes = MAX_OUTPUT_BYTES): string {
+    const buffer = Buffer.from(text, "utf8");
+    if (buffer.length <= maxBytes) return text;
+    let end = maxBytes;
+    // Back off any continuation byte so the cut lands on a character boundary.
+    while (end > 0 && ((buffer[end] ?? 0) & 0xc0) === 0x80) end -= 1;
+    return `${buffer.subarray(0, end).toString("utf8")}\n\n[Output truncated: ${buffer.length - end} bytes omitted.]`;
 }
 
 /** First non-empty line of a tool result, capped so the activity line stays one line. */

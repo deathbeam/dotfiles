@@ -9,6 +9,7 @@ import {
     formatTokens,
     jobLine,
     launchDetails,
+    limitOutput,
     outputPreview,
     progressStats,
     reportText,
@@ -29,28 +30,21 @@ try {
     unlinkSync(indexCheckFile);
 }
 
+// Tripwires for wiring the compiled-file check cannot see: the child protocol, the delivery path,
+// and the prompt sections. Display text and formatting are deliberately not asserted.
 assert.match(index, /name: "delegate"/);
-assert.match(index, /before_agent_start/);
-assert.match(index, /systemPromptOptions\.sections\.agents/);
-assert.match(index, /startsWith\("~\/"\)/);
-assert.match(index, /SPINNER_INTERVAL_MS/);
-assert.match(index, /contextWindowFor\(ctx, model\)/);
-assert.match(index, /if \(!model\) throw new Error\(/);
-assert.match(index, /\["--model", model, "--tools", tools\.join\(","\)\]/);
-assert.match(index, /progressStats\(report, report\.elapsedMs\)/);
-assert.match(index, /registerMessageRenderer\(RESULT_MESSAGE/);
-assert.match(index, /pi\.sendMessage\(/);
-assert.match(index, /setWidget\(WIDGET_KEY/);
-assert.match(index, /background: ctx\.hasUI/);
 assert.match(index, /name: "delegate_steer"/);
-assert.match(index, /promptSnippet/);
-assert.match(index, /promptGuidelines/);
 assert.match(index, /\["--mode", "rpc", "--no-session"/);
+assert.match(index, /\["--model", model, "--tools", tools\.join\(","\)\]/);
 assert.match(index, /case "agent_settled"/);
 assert.match(index, /type: "steer", message/);
-assert.match(index, /description: Type\.String/);
-assert.match(index, /keyHint\("app\.tools\.expand", context\.expanded \? "to collapse" : "to expand"\)/);
-assert.match(index, /launchDetails\(details\)\.join\("\\n"\)/);
+assert.match(index, /systemPromptOptions\.sections\.agents/);
+// pi wraps each section in a tag of its own, so the content must not add a second <agents>.
+assert.doesNotMatch(index, /"<\/?agents>"/);
+assert.match(index, /registerMessageRenderer\(RESULT_MESSAGE/);
+assert.match(index, /pi\.sendMessage\(/);
+assert.match(index, /background: ctx\.hasUI/);
+assert.match(index, /setWidget\(WIDGET_KEY/);
 
 const expected = ["explore", "general", "researcher", "reviewer"];
 const names = readdirSync(new URL("agents/", root))
@@ -118,4 +112,14 @@ assert.equal(
 );
 assert.equal(jobLine({ description: "find callers" }, 42000), "find callers · 42s");
 assert.equal(jobLine({}, 0), "0s");
+assert.equal(limitOutput("ok"), "ok");
+assert.equal(limitOutput("x".repeat(2000), 1000), "x".repeat(1000) + "\n\n[Output truncated: 1000 bytes omitted.]");
+// A cut inside a multi-byte character backs off to the boundary instead of emitting U+FFFD.
+const longCjk = limitOutput("あ".repeat(40000), 1000).split("\n\n")[0];
+assert.ok(/^あ+$/.test(longCjk));
+assert.equal(Buffer.byteLength(longCjk, "utf8"), 999);
+// A 4-byte astral character must not be cut into a lone surrogate.
+const longEmoji = limitOutput("🙂".repeat(1000), 1000).split("\n\n")[0];
+assert.ok(/^[\u{1F642}]+$/u.test(longEmoji));
+assert.equal(Array.from(longEmoji).length, 250);
 console.log("pi-delegate check passed");
