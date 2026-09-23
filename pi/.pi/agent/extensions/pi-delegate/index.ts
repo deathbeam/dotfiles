@@ -28,6 +28,7 @@ import {
     SPINNER_FRAMES,
     SPINNER_INTERVAL_MS,
     toolCallDetail,
+    widgetJobs,
 } from "./format.ts";
 
 type AgentFile = {
@@ -43,6 +44,13 @@ type AgentFile = {
 type DelegateDetails = Pick<DelegateJob, "id" | "agent" | "description" | "task" | "model" | "tools"> & {
     /** True when the child keeps running after the tool returns and reports back as a follow-up message. */
     background: boolean;
+};
+
+/** Details on the `delegate_steer` row: which job took the guidance, and where it stood at the time. */
+type SteerDetails = Pick<DelegateJob, "id" | "agent" | "description" | "toolCalls" | "contextTokens" | "contextWindow"> & {
+    /** The guidance that was delivered; the collapsed row shows only its first line. */
+    message: string;
+    elapsedMs: number;
 };
 
 /** A child agent running in the background: the widget shows it, and the report message is built from it. */
@@ -75,6 +83,7 @@ const BUNDLED_AGENT_DIR = fileURLToPath(new URL("./agents", import.meta.url));
 /** Tools a child never gets: its own plus any other delegation extension's, so delegation cannot recurse. */
 const DELEGATION_TOOLS = new Set([
     "delegate",
+    "delegate_list",
     "delegate_steer",
     "subagent",
     "subagent_supervisor",
@@ -330,6 +339,8 @@ function runChild(
 export default function (pi: ExtensionAPI) {
     /** Background children by job id; the widget renders this map and the report message is built from it. */
     const running = new Map<string, DelegateJob>();
+    /** Jobs that reported back this session; the widget shows the tally so progress is visible. */
+    let finished = 0;
     let ticker: ReturnType<typeof setInterval> | undefined;
 
     const refreshWidget = (ctx: ExtensionContext) => {
@@ -341,21 +352,27 @@ export default function (pi: ExtensionAPI) {
         const theme = ctx.ui.theme;
         const now = Date.now();
         const frame = SPINNER_FRAMES[Math.floor(now / SPINNER_INTERVAL_MS) % SPINNER_FRAMES.length]!;
-        ctx.ui.setWidget(
-            WIDGET_KEY,
-            [...running.values()].flatMap((job) => {
-                const head = `${theme.fg("warning", frame)} ${theme.fg("toolTitle", theme.bold(job.agent))} ${theme.fg("muted", jobLine(job, now - job.startedAt))}`;
-                const activity = job.lastTool
-                    ? [
-                          `   ${theme.fg("toolTitle", theme.bold(job.lastTool))}${job.lastDetail ? ` ${theme.fg("accent", job.lastDetail)}` : ""}`,
-                      ]
-                    : [];
-                const result = job.lastResult
-                    ? [`   ${theme.fg("muted", "↳")} ${theme.fg("toolOutput", job.lastResult)}`]
-                    : [];
-                return [head, ...activity, ...result];
-            }),
-        );
+        const { shown, hidden, detail } = widgetJobs([...running.values()]);
+        const lines: string[] = [];
+        // A lone job says no more than its own row does; the tally earns its line when several run.
+        if (running.size > 1 || finished > 0) {
+            const counts = `${running.size} running${finished ? ` · ${finished} done` : ""}`;
+            lines.push(`${theme.fg("warning", frame)} ${theme.fg("muted", counts)}`);
+        }
+        for (const job of shown) {
+            lines.push(
+                `${theme.fg("warning", frame)} ${theme.fg("toolTitle", theme.bold(job.agent))} ${theme.fg("muted", jobLine(job, now - job.startedAt))}`,
+            );
+            if (!detail) continue;
+            if (job.lastTool)
+                lines.push(
+                    `   ${theme.fg("toolTitle", theme.bold(job.lastTool))}${job.lastDetail ? ` ${theme.fg("accent", job.lastDetail)}` : ""}`
+                );
+            if (job.lastResult)
+                lines.push(`   ${theme.fg("muted", "↳")} ${theme.fg("toolOutput", job.lastResult)}`);
+        }
+        if (hidden) lines.push(`   ${theme.fg("muted", `… ${hidden} more running`)}`);
+        ctx.ui.setWidget(WIDGET_KEY, lines);
     };
 
     const stopTicker = () => {
@@ -366,6 +383,7 @@ export default function (pi: ExtensionAPI) {
     /** Drop a finished job, then hand the result to the parent as a follow-up message. */
     const finishJob = (ctx: ExtensionContext, job: DelegateJob, output?: string, error?: string) => {
         running.delete(job.id);
+        finished += 1;
         // Shutdown aborts in-flight children after the UI is gone; teardown already cleared the widget.
         if (job.controller.signal.aborted) return;
         if (running.size === 0) stopTicker();
@@ -393,6 +411,7 @@ export default function (pi: ExtensionAPI) {
         stopTicker();
         for (const job of running.values()) job.controller.abort();
         running.clear();
+        finished = 0;
     });
 
     pi.on("before_agent_start", (event, ctx) => {
@@ -579,7 +598,7 @@ export default function (pi: ExtensionAPI) {
         name: "delegate_steer",
         label: "Steer delegate",
         description:
-            "Send guidance to a running background delegate. The child receives it after its current tool calls and before its next model request; it cannot revive a finished job.",
+            "Send guidance to a running background delegate. The child receives it after its current tool calls and before its next model request; it cannot revive a finished job. Use delegate_list for the ids of running jobs.",
         promptSnippet: "Send guidance to a running background delegate by job id",
         parameters: Type.Object({
             id: Type.String({
@@ -592,12 +611,71 @@ export default function (pi: ExtensionAPI) {
             const job = running.get(id);
             if (!job?.steer) throw new Error(`No running delegate job "${id}".`);
             if (!job.steer(params.message)) throw new Error(`Delegate job "${id}" has already finished.`);
+            const details: SteerDetails = {
+                id: job.id,
+                agent: job.agent,
+                description: job.description,
+                message: params.message,
+                toolCalls: job.toolCalls,
+                contextTokens: job.contextTokens,
+                contextWindow: job.contextWindow,
+                elapsedMs: Date.now() - job.startedAt,
+            };
             return {
                 content: [
                     { type: "text", text: `Steering message delivered to delegate "${job.agent}" (job ${job.id}).` },
                 ],
-                details: { id: job.id, agent: job.agent },
+                details,
             };
+        },
+
+        renderCall(args, theme, context) {
+            // The message is what the row is about, so it leads; the job and its progress sit on the result line.
+            const message = args.message?.split("\n")[0]?.trim() ?? "";
+            const hint = `${theme.fg("muted", "(")}${keyHint("app.tools.expand", context.expanded ? "to collapse" : "to expand")}${theme.fg("muted", ")")}`;
+            return new Text(
+                `${theme.fg("toolTitle", theme.bold("delegate_steer "))}${theme.fg("accent", message)} ${hint}`,
+                0,
+                0,
+            );
+        },
+
+        renderResult(result, { expanded }, theme, context) {
+            const details = result.details as SteerDetails | undefined;
+            const body = result.content.flatMap((part) => (part.type === "text" ? [part.text] : [])).join("\n");
+            if (!details?.agent) return new Text(body || "(no output)", 0, 0);
+            const icon = context.isError ? theme.fg("error", "✗") : theme.fg("success", "✓");
+            const container = new Container();
+            container.addChild(
+                new Text(
+                    `${icon} ${theme.fg("toolTitle", theme.bold(details.agent))} ${theme.fg("muted", details.description)} ${theme.fg("dim", details.id)} ${theme.fg("muted", progressStats(details, details.elapsedMs))}`,
+                    0,
+                    0,
+                ),
+            );
+            // The call row shows only the first line; expanding the result is where the whole message lands.
+            if (expanded) container.addChild(new Text(theme.fg("dim", details.message), 0, 0));
+            return container;
+        },
+    });
+
+    pi.registerTool({
+        name: "delegate_list",
+        label: "List delegates",
+        description:
+            "List the background delegates still running, with their job ids and progress, for steering or checking. Finished delegates are not listed; their results arrive as follow-up messages.",
+        promptSnippet: "List running background delegates and their job ids",
+        parameters: Type.Object({}),
+        async execute() {
+            const now = Date.now();
+            const jobs = [...running.values()];
+            if (!jobs.length) return { content: [{ type: "text", text: "No delegates are running." }] };
+            const lastActivity = (job: DelegateJob) =>
+                job.lastTool ? ` · ${job.lastTool}${job.lastDetail ? ` ${job.lastDetail}` : ""}` : "";
+            const lines = jobs.map(
+                (job) => `- ${job.id} ${job.agent} · ${jobLine(job, now - job.startedAt)}${lastActivity(job)}`,
+            );
+            return { content: [{ type: "text", text: `${jobs.length} running:\n${lines.join("\n")}` }] };
         },
     });
 }

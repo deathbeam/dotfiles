@@ -16,6 +16,8 @@ import {
     resultPreview,
     SPINNER_FRAMES,
     toolCallDetail,
+    widgetJobs,
+    WIDGET_MAX_LINES,
 } from "./format.ts";
 
 const root = new URL("./", import.meta.url);
@@ -33,7 +35,10 @@ try {
 // Tripwires for wiring the compiled-file check cannot see: the child protocol, the delivery path,
 // and the prompt sections. Display text and formatting are deliberately not asserted.
 assert.match(index, /name: "delegate"/);
+assert.match(index, /name: "delegate_list"/);
 assert.match(index, /name: "delegate_steer"/);
+// A child must not see the parent's job list, and could not steer anything anyway.
+assert.match(index, /"delegate_list",\n\s+"delegate_steer"/);
 assert.match(index, /\["--mode", "rpc", "--no-session"/);
 assert.match(index, /\["--model", model, "--tools", tools\.join\(","\)\]/);
 assert.match(index, /case "agent_settled"/);
@@ -112,6 +117,19 @@ assert.equal(
 );
 assert.equal(jobLine({ description: "find callers" }, 42000), "find callers · 42s");
 assert.equal(jobLine({}, 0), "0s");
+// A burst of delegations must never reach pi's ten-line widget cut, which chops mid-list.
+for (let count = 1; count <= 40; count += 1) {
+    const { shown, hidden, detail } = widgetJobs(Array.from({ length: count }, (_, i) => i));
+    const lines = 1 + shown.length * (detail ? 3 : 1) + (hidden ? 1 : 0);
+    assert.ok(lines <= WIDGET_MAX_LINES, `${count} jobs render ${lines} lines`);
+}
+assert.deepEqual(widgetJobs([1, 2, 3]), { shown: [1, 2, 3], hidden: 0, detail: true });
+assert.deepEqual(widgetJobs([1, 2, 3, 4]), { shown: [1, 2, 3, 4], hidden: 0, detail: false });
+assert.deepEqual(widgetJobs([1, 2, 3, 4, 5, 6, 7, 8, 9]), {
+    shown: [2, 3, 4, 5, 6, 7, 8, 9],
+    hidden: 1,
+    detail: false,
+});
 assert.equal(limitOutput("ok"), "ok");
 assert.equal(limitOutput("x".repeat(2000), 1000), "x".repeat(1000) + "\n\n[Output truncated: 1000 bytes omitted.]");
 // A cut inside a multi-byte character backs off to the boundary instead of emitting U+FFFD.

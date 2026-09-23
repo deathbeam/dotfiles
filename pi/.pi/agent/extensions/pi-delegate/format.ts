@@ -180,3 +180,21 @@ export function reportText(report: DelegateReport): string {
 export function jobLine(info: { description?: string } & ProgressInfo, elapsedMs: number): string {
     return [info.description?.trim(), progressStats(info, elapsedMs)].filter(Boolean).join(" · ");
 }
+
+/** pi slices extension widgets at ten lines and appends its own truncation note. */
+export const WIDGET_MAX_LINES = 10;
+/** Only a few jobs still fit with their tool-call and tool-result lines: 1 tally + 3×3 lines. */
+const WIDGET_MAX_DETAIL_JOBS = 3;
+/** In bulk, one row per job: 1 tally + 8 rows + 1 "more running" footer. */
+const WIDGET_MAX_JOBS = 8;
+
+/**
+ * The jobs a widget block shows: the newest ones, so a burst of delegations cannot push the list
+ * past the line budget. `detail` says whether each shown job still has room for its live tool call
+ * and result lines; otherwise the head line is all the block can afford.
+ */
+export function widgetJobs<T>(jobs: T[]): { shown: T[]; hidden: number; detail: boolean } {
+    const detail = jobs.length <= WIDGET_MAX_DETAIL_JOBS;
+    const shown = detail ? jobs : jobs.slice(-WIDGET_MAX_JOBS);
+    return { shown, hidden: jobs.length - shown.length, detail };
+}
