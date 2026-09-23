@@ -4,29 +4,25 @@ import type { Context } from "@earendil-works/pi-ai";
 import type { ExtensionAPI, ModelRuntime } from "@earendil-works/pi-coding-agent";
 
 const CANONICAL_SESSION = /^ses_[0-9a-f]{12}[0-9A-Za-z]{14}$/;
-const GATE_TOOLS = [
-    {
-        name: "read",
-        description: "Read a file",
-        parameters: { type: "object", properties: { path: { type: "string" } }, required: ["path"] },
-    },
-    {
-        name: "bash",
-        description: "Run a shell command",
-        parameters: { type: "object", properties: { command: { type: "string" } }, required: ["command"] },
-    },
-];
-const SUMMARIZATION_MARK = "context summarization assistant";
+const GATE_TOOLS = [{ name: "read" }, { name: "bash" }];
 
 function isFreeModel(model: { provider: string; id: string }): boolean {
     return model.provider === "opencode" && (model.id === "big-pickle" || model.id.endsWith("-free"));
 }
 
 function withGateTools(model: { provider: string; id: string }, context: Context): Context {
+    if (!isFreeModel(model)) return context;
+    const declared = new Set(
+        [...(context.tools ?? []), ...getCurrentTools(context.messages)].map((tool) => tool.name),
+    );
+    const missing = GATE_TOOLS.filter((tool) => !declared.has(tool.name));
+    if (missing.length === 0) return context;
+
     const [head, ...rest] = context.messages;
-    const isSummarization = head?.role === "system" && String(head.content ?? "").includes(SUMMARIZATION_MARK);
-    if (!isFreeModel(model) || !isSummarization || getCurrentTools(context.messages).length > 0) return context;
-    return { ...context, messages: [{ ...head, toolsAdded: GATE_TOOLS }, ...rest] };
+    if (head?.role === "system") {
+        return { ...context, messages: [{ ...head, toolsAdded: [...(head.toolsAdded ?? []), ...missing] }, ...rest] };
+    }
+    return { ...context, tools: [...(context.tools ?? []), ...missing] };
 }
 
 const patched = new WeakSet<ModelRuntime>();
