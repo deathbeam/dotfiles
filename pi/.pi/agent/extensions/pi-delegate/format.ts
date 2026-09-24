@@ -12,6 +12,14 @@
 /** Same frames pi's own working indicator uses. */
 export const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 export const SPINNER_INTERVAL_MS = 100;
+/** pi slices extension widgets at ten lines and appends its own truncation note. */
+export const WIDGET_MAX_LINES = 10;
+/** Only a few jobs still fit with their tool-call and tool-result lines: 1 tally + 3×3 lines. */
+const WIDGET_MAX_DETAIL_JOBS = 3;
+/** In bulk, one row per job: 1 tally + 8 rows + 1 "more running" footer. */
+const WIDGET_MAX_JOBS = 8;
+const EXPANDED_PAD = "   ";
+const TASK_LABEL = "Task: ";
 
 export type ProgressInfo = {
     toolCalls?: number;
@@ -54,7 +62,6 @@ export function progressStats(progress: ProgressInfo, elapsedMs: number): string
 
 /**
  * One-line argument summary for a child tool call, worded like pi's own renderers.
- * ponytail: bare tool name for anything that is not a pi builtin - add a case when a tool earns one.
  */
 export function toolCallDetail(toolName: string, args: unknown): string {
     const input = (args ?? {}) as Record<string, unknown>;
@@ -78,9 +85,6 @@ export function toolCallDetail(toolName: string, args: unknown): string {
             return "";
     }
 }
-
-const EXPANDED_PAD = "   ";
-const TASK_LABEL = "Task: ";
 
 /**
  * Lines shown only when a delegate row is expanded: the full task the collapsed row hides,
@@ -180,13 +184,6 @@ export function reportText(report: DelegateReport): string {
 export function jobLine(info: { description?: string } & ProgressInfo, elapsedMs: number): string {
     return [info.description?.trim(), progressStats(info, elapsedMs)].filter(Boolean).join(" · ");
 }
-
-/** pi slices extension widgets at ten lines and appends its own truncation note. */
-export const WIDGET_MAX_LINES = 10;
-/** Only a few jobs still fit with their tool-call and tool-result lines: 1 tally + 3×3 lines. */
-const WIDGET_MAX_DETAIL_JOBS = 3;
-/** In bulk, one row per job: 1 tally + 8 rows + 1 "more running" footer. */
-const WIDGET_MAX_JOBS = 8;
 
 /**
  * The jobs a widget block shows: the newest ones, so a burst of delegations cannot push the list

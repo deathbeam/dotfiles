@@ -81,6 +81,17 @@ type DelegateConfig = {
     models?: Record<string, unknown>;
 };
 
+/** What a child event can change on the live job; undefined values keep the old field. */
+type ChildUpdate = Partial<Pick<DelegateJob, "toolCalls" | "lastTool" | "lastDetail" | "lastResult" | "contextTokens">>;
+type ChildUpdateHandler = (update: ChildUpdate) => void;
+
+/** A live child: its result promise, plus steering into the running session. */
+type ChildRun = {
+    done: Promise<string>;
+    /** Write a steering message to the child; false once it has settled. */
+    steer: (message: string) => boolean;
+};
+
 const DEFAULT_AGENT_DIR = "~/.agents/agents";
 const BUNDLED_AGENT_DIR = fileURLToPath(new URL("./agents", import.meta.url));
 /** Tools a child never gets: its own plus any other delegation extension's, so delegation cannot recurse. */
@@ -96,6 +107,7 @@ const DELEGATION_TOOLS = new Set([
 const MODEL_TIERS = new Set(["cheap", "balanced", "strong"]);
 const WIDGET_KEY = "delegate";
 const RESULT_MESSAGE = "delegate-result";
+const RPC_DIALOG_METHODS = new Set(["select", "confirm", "input", "editor"]);
 
 function expandPath(value: string, cwd: string): string {
     return resolve(cwd, value.replace(/^~(?=\/|$)/, homedir()));
@@ -176,10 +188,6 @@ function resolveModel(
     return current ? `${current.provider}/${current.id}` : undefined;
 }
 
-/** What a child event can change on the live job; undefined values keep the old field. */
-type ChildUpdate = Partial<Pick<DelegateJob, "toolCalls" | "lastTool" | "lastDetail" | "lastResult" | "contextTokens">>;
-type ChildUpdateHandler = (update: ChildUpdate) => void;
-
 /** Provider usage is only meaningful once it reports tokens; 0 means "nothing reported yet". */
 function usageTokens(usage: unknown): number | undefined {
     const tokens = calculateContextTokens(usage as Parameters<typeof calculateContextTokens>[0]);
@@ -193,15 +201,6 @@ function contextWindowFor(ctx: ExtensionContext, model: string | undefined): num
     // Model ids may contain "/" themselves, so only the first one separates provider from id.
     return ctx.modelRegistry.find(model.slice(0, separator), model.slice(separator + 1))?.contextWindow;
 }
-
-/** A live child: its result promise, plus steering into the running session. */
-type ChildRun = {
-    done: Promise<string>;
-    /** Write a steering message to the child; false once it has settled. */
-    steer: (message: string) => boolean;
-};
-
-const RPC_DIALOG_METHODS = new Set(["select", "confirm", "input", "editor"]);
 
 function runChild(
     args: string[],
@@ -535,7 +534,7 @@ export default function (pi: ExtensionAPI) {
             running.set(job.id, job);
             if (!ticker) ticker = setInterval(() => refreshWidget(ctx), SPINNER_INTERVAL_MS);
             refreshWidget(ctx);
-            // ponytail: swallowed — the only failure left here is reporting into a session that is being torn down,
+            // The only failure left here is reporting into a session that is being torn down,
             // and an unhandled rejection would crash pi.
             void run.done
                 .then(
