@@ -1,10 +1,10 @@
-/* Smoke test: load the extension via jiti (as pi does) and exercise read/edit. */
-const { createJiti } = require("jiti");
-const { writeFileSync, readFileSync, appendFileSync, rmSync, mkdtempSync } = require("node:fs");
-const { join } = require("node:path");
-const { tmpdir } = require("node:os");
+/* Self-check for pi-hashline: load the extension via jiti (as pi does) and exercise read/edit. Run: node check.mjs */
+import { createJiti } from "jiti";
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
-const jiti = createJiti(__filename);
+const jiti = createJiti(import.meta.url);
 const mod = jiti("./index.ts");
 // renderDiff reads pi's global theme singleton — initialize it headless.
 const { initTheme } = jiti("@earendil-works/pi-coding-agent");
@@ -435,8 +435,8 @@ async function run(tool, params) {
     console.log("--- file-kind: text / binary / image / directory OK ---");
 
     rmSync(dir, { recursive: true, force: true });
-    console.log("\nALL SMOKE TESTS PASSED");
+    console.log("\npi-hashline check passed");
 })().catch((e) => {
-    console.error("SMOKE TEST FAILED:", e);
+    console.error("pi-hashline check failed:", e);
     process.exit(1);
 });
