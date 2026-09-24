@@ -1,6 +1,8 @@
 import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
-import { readdirSync, readFileSync, unlinkSync, writeFileSync } from "node:fs";
+import { EventEmitter } from "node:events";
+import { PassThrough } from "node:stream";
+import { mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { stripTypeScriptTypes } from "node:module";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
@@ -19,17 +21,20 @@ import {
     widgetJobs,
     WIDGET_MAX_LINES,
 } from "./format.ts";
+import { runChild } from "./child.ts";
 
 const root = new URL("./", import.meta.url);
 const index = readFileSync(new URL("index.ts", root), "utf8");
+const child = readFileSync(new URL("child.ts", root), "utf8");
 
-// The assertions below only regex-match index.ts, so compile it too: a broken file still passes those.
-const indexCheckFile = join(tmpdir(), "pi-delegate-index-check.mjs");
-writeFileSync(indexCheckFile, stripTypeScriptTypes(index));
+// Regex tripwires cannot see runtime syntax or protocol behavior, so compile and exercise both below.
+const indexCheckDir = mkdtempSync(join(tmpdir(), "pi-delegate-index-check-"));
+const indexCheckFile = join(indexCheckDir, "index.mjs");
+writeFileSync(indexCheckFile, stripTypeScriptTypes(index, { mode: "strip" }));
 try {
     execFileSync(process.execPath, ["--check", indexCheckFile], { stdio: "pipe" });
 } finally {
-    unlinkSync(indexCheckFile);
+    rmSync(indexCheckDir, { recursive: true, force: true });
 }
 
 // Tripwires for wiring the compiled-file check cannot see: the child protocol, the delivery path,
@@ -37,12 +42,20 @@ try {
 assert.match(index, /name: "delegate"/);
 assert.match(index, /name: "delegate_list"/);
 assert.match(index, /name: "delegate_steer"/);
-// A child must not see the parent's job list, and could not steer anything anyway.
-assert.match(index, /"delegate_list",\n\s+"delegate_steer"/);
-assert.match(index, /\["--mode", "rpc", "--no-session"/);
+assert.match(index, /name: "delegate_cancel"/);
+const excluded = index.match(/const DELEGATION_TOOLS = new Set\(\[([\s\S]*?)\]\)/)?.[1];
+assert.ok(excluded, "missing child delegation denylist");
+assert.deepEqual([...excluded.matchAll(/"([^"]+)"/g)].map(([, name]) => name).sort(), [
+    "delegate",
+    "delegate_cancel",
+    "delegate_list",
+    "delegate_steer",
+]);
+assert.match(index, /!DELEGATION_TOOLS\.has\(tool\)/);
+assert.match(index, /process\.argv\[1\].*--mode", "rpc", "--no-session/);
 assert.match(index, /\["--model", model, "--tools", tools\.join\(","\)\]/);
-assert.match(index, /case "agent_settled"/);
-assert.match(index, /type: "steer", message/);
+assert.match(child, /case "agent_settled"/);
+assert.match(child, /type: "steer", message/);
 assert.match(index, /systemPromptOptions\.sections\.agents/);
 // pi wraps each section in a tag of its own, so the content must not add a second <agents>.
 assert.doesNotMatch(index, /"<\/?agents>"/);
@@ -148,4 +161,83 @@ assert.equal(Buffer.byteLength(longCjk, "utf8"), 999);
 const longEmoji = limitOutput("🙂".repeat(1000), 1000).split("\n\n")[0];
 assert.ok(/^[\u{1F642}]+$/u.test(longEmoji));
 assert.equal(Array.from(longEmoji).length, 250);
+// The protocol test uses a fake child: stdout splits a UTF-8 code point and steer returns a failed ack.
+function fakeChild() {
+    const child = new EventEmitter();
+    child.stdin = new PassThrough();
+    child.stdout = new PassThrough();
+    child.stderr = new PassThrough();
+    child.kill = () => true;
+    return child;
+}
+const fake = fakeChild();
+fake.stdin.on("data", (chunk) => {
+    for (const line of chunk.toString().trim().split("\n")) {
+        if (!line) continue;
+        const command = JSON.parse(line);
+        if (command.type === "prompt") {
+            fake.stdout.write(
+                `${JSON.stringify({ type: "response", id: command.id, command: "prompt", success: true })}\n`,
+            );
+            const bytes = Buffer.from(
+                `${JSON.stringify({ type: "message_update", assistantMessageEvent: { type: "text_delta", delta: "é" } })}\n`,
+            );
+            const split = bytes.indexOf(0xc3) + 1;
+            fake.stdout.write(bytes.subarray(0, split));
+            fake.stdout.write(bytes.subarray(split));
+        } else if (command.type === "steer") {
+            fake.stdout.write(
+                `${JSON.stringify({ type: "response", id: command.id, command: "steer", success: false, error: "steer rejected" })}\n`,
+            );
+        }
+    }
+});
+const run = runChild(fake, "task", undefined);
+assert.equal(fake.stdout.readableEncoding, "utf8");
+await assert.rejects(run.steer("steer"), /steer rejected/);
+fake.stdout.write(`${JSON.stringify({ type: "agent_settled" })}\n`);
+assert.equal(await run.done, "é");
+
+const rejected = fakeChild();
+let killed = false;
+rejected.kill = () => (killed = true);
+rejected.stdin.on("data", (chunk) => {
+    const command = JSON.parse(chunk.toString());
+    rejected.stdout.write(
+        `${JSON.stringify({ type: "response", id: command.id, command: "prompt", success: false, error: "prompt rejected" })}\n`,
+    );
+});
+await assert.rejects(runChild(rejected, "bad task", undefined).done, /prompt rejected/);
+assert.equal(killed, true);
+assert.equal(rejected.stdin.writableEnded, true);
+
+const signal = new AbortController();
+signal.abort();
+const cancelled = fakeChild();
+await assert.rejects(runChild(cancelled, "task", signal.signal).done, /aborted/);
+assert.equal(cancelled.stdin.writableEnded, true);
+
+const controller = new AbortController();
+const stopping = fakeChild();
+let abortRequested = false;
+stopping.stdin.on("data", (chunk) => {
+    const command = JSON.parse(chunk.toString());
+    if (command.type === "prompt") {
+        stopping.stdout.write(
+            `${JSON.stringify({ type: "response", id: command.id, command: "prompt", success: true })}\n`,
+        );
+    } else if (command.type === "abort") {
+        abortRequested = true;
+        stopping.stdout.write(
+            `${JSON.stringify({ type: "response", id: command.id, command: "abort", success: true })}\n`,
+        );
+        stopping.stdout.write(`${JSON.stringify({ type: "agent_settled" })}\n`);
+    }
+});
+const active = runChild(stopping, "task", controller.signal);
+controller.abort();
+await assert.rejects(active.done, /aborted/);
+assert.equal(abortRequested, true);
+assert.equal(stopping.stdin.writableEnded, true);
+
 console.log("pi-delegate check passed");

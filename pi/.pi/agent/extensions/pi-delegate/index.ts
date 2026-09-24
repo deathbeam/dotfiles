@@ -6,7 +6,6 @@ import { join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 import type { ExtensionAPI, ExtensionContext } from "@earendil-works/pi-coding-agent";
 import {
-    calculateContextTokens,
     CONFIG_DIR_NAME,
     getAgentDir,
     getMarkdownTheme,
@@ -20,16 +19,14 @@ import {
     type DelegateReport,
     jobLine,
     launchDetails,
-    limitOutput,
     outputPreview,
     progressStats,
     reportText,
-    resultPreview,
     SPINNER_FRAMES,
     SPINNER_INTERVAL_MS,
-    toolCallDetail,
     widgetJobs,
 } from "./format.ts";
+import { runChild } from "./child.ts";
 
 type AgentFile = {
     name: string;
@@ -40,23 +37,19 @@ type AgentFile = {
     prompt: string;
 };
 
-/** Details on the `delegate` tool row: the launch facts it shares with the live job, plus how it ran. */
 type DelegateDetails = Pick<DelegateJob, "id" | "agent" | "description" | "task" | "model" | "tools"> & {
     /** True when the child keeps running after the tool returns and reports back as a follow-up message. */
     background: boolean;
 };
 
-/** Details on the `delegate_steer` row: which job took the guidance, and where it stood at the time. */
 type SteerDetails = Pick<
     DelegateJob,
     "id" | "agent" | "description" | "toolCalls" | "contextTokens" | "contextWindow"
 > & {
-    /** The guidance that was delivered; the collapsed row shows only its first line. */
     message: string;
     elapsedMs: number;
 };
 
-/** A child agent running in the background: the widget shows it, and the report message is built from it. */
 type DelegateJob = {
     id: string;
     agent: string;
@@ -72,8 +65,8 @@ type DelegateJob = {
     contextWindow?: number;
     startedAt: number;
     controller: AbortController;
-    /** Set once the child is running; false means it has already settled. */
-    steer?: (message: string) => boolean;
+    /** Set once the child is running; rejects when the child exits or rejects the command. */
+    steer?: (message: string) => Promise<void>;
 };
 
 type DelegateConfig = {
@@ -81,33 +74,13 @@ type DelegateConfig = {
     models?: Record<string, unknown>;
 };
 
-/** What a child event can change on the live job; undefined values keep the old field. */
-type ChildUpdate = Partial<Pick<DelegateJob, "toolCalls" | "lastTool" | "lastDetail" | "lastResult" | "contextTokens">>;
-type ChildUpdateHandler = (update: ChildUpdate) => void;
-
-/** A live child: its result promise, plus steering into the running session. */
-type ChildRun = {
-    done: Promise<string>;
-    /** Write a steering message to the child; false once it has settled. */
-    steer: (message: string) => boolean;
-};
-
 const DEFAULT_AGENT_DIR = "~/.agents/agents";
 const BUNDLED_AGENT_DIR = fileURLToPath(new URL("./agents", import.meta.url));
-/** Tools a child never gets: its own plus any other delegation extension's, so delegation cannot recurse. */
-const DELEGATION_TOOLS = new Set([
-    "delegate",
-    "delegate_list",
-    "delegate_steer",
-    "subagent",
-    "subagent_supervisor",
-    "contact_supervisor",
-    "bg_wait",
-]);
+/** Exclude our own tools from children to prevent recursive delegation. */
+const DELEGATION_TOOLS = new Set(["delegate", "delegate_list", "delegate_steer", "delegate_cancel"]);
 const MODEL_TIERS = new Set(["cheap", "balanced", "strong"]);
 const WIDGET_KEY = "delegate";
 const RESULT_MESSAGE = "delegate-result";
-const RPC_DIALOG_METHODS = new Set(["select", "confirm", "input", "editor"]);
 
 function expandPath(value: string, cwd: string): string {
     return resolve(cwd, value.replace(/^~(?=\/|$)/, homedir()));
@@ -188,13 +161,6 @@ function resolveModel(
     return current ? `${current.provider}/${current.id}` : undefined;
 }
 
-/** Provider usage is only meaningful once it reports tokens; 0 means "nothing reported yet". */
-function usageTokens(usage: unknown): number | undefined {
-    const tokens = calculateContextTokens(usage as Parameters<typeof calculateContextTokens>[0]);
-    return tokens > 0 ? tokens : undefined;
-}
-
-/** Context window of the model the child runs on, for the used/limit hint. */
 function contextWindowFor(ctx: ExtensionContext, model: string | undefined): number | undefined {
     const separator = model?.indexOf("/") ?? -1;
     if (!model || separator < 0) return undefined;
@@ -202,146 +168,8 @@ function contextWindowFor(ctx: ExtensionContext, model: string | undefined): num
     return ctx.modelRegistry.find(model.slice(0, separator), model.slice(separator + 1))?.contextWindow;
 }
 
-function runChild(
-    args: string[],
-    cwd: string,
-    task: string,
-    signal: AbortSignal | undefined,
-    onUpdate?: ChildUpdateHandler,
-): ChildRun {
-    // RPC mode keeps stdin open, which is what makes steering a running child possible.
-    const child = spawn("pi", ["--mode", "rpc", "--no-session", ...args], {
-        cwd,
-        shell: false,
-        stdio: ["pipe", "pipe", "pipe"],
-    });
-    let buffer = "";
-    let liveText = "";
-    let toolCalls = 0;
-    let stderr = "";
-    let childError: string | undefined;
-    let aborted = false;
-    let settled = false;
-    const done = new Promise<string>((resolveChild, reject) => {
-        const fail = (error: Error) => {
-            if (settled) return;
-            settled = true;
-            reject(error);
-        };
-        const parse = (line: string) => {
-            if (!line.trim()) return;
-            try {
-                const event = JSON.parse(line) as any;
-                switch (event.type) {
-                    case "tool_execution_start":
-                        toolCalls += 1;
-                        onUpdate?.({
-                            toolCalls,
-                            lastTool: event.toolName,
-                            lastDetail: toolCallDetail(event.toolName, event.args),
-                            lastResult: "",
-                        });
-                        return;
-                    case "tool_execution_end":
-                        onUpdate?.({ lastResult: resultPreview(event.result) });
-                        return;
-                    case "message_update": {
-                        const contextTokens = usageTokens(event.usage);
-                        const delta =
-                            event.assistantMessageEvent?.type === "text_delta"
-                                ? (event.assistantMessageEvent.delta ?? "")
-                                : "";
-                        if (delta) liveText += delta;
-                        if (contextTokens !== undefined) onUpdate?.({ contextTokens });
-                        return;
-                    }
-                    case "message_end": {
-                        if (event.message?.role !== "assistant") return;
-                        // Last assistant message wins: a retry that succeeds clears an earlier error.
-                        childError = event.message.errorMessage;
-                        const text =
-                            event.message.content
-                                ?.filter((part: any) => part.type === "text")
-                                .map((part: any) => part.text ?? "")
-                                .join("") ?? "";
-                        if (text) {
-                            liveText = text;
-                            onUpdate?.({ contextTokens: usageTokens(event.message.usage) });
-                        }
-                        return;
-                    }
-                    case "agent_settled":
-                        // The turn is done; the process would sit idle in RPC mode, so close it.
-                        settle(0);
-                        child.stdin.end();
-                        return;
-                    case "extension_ui_request":
-                        // Dialog methods block the child until answered; a headless parent cancels them.
-                        if (RPC_DIALOG_METHODS.has(event.method)) {
-                            child.stdin.write(
-                                `${JSON.stringify({ type: "extension_ui_response", id: event.id, cancelled: true })}\n`,
-                            );
-                        }
-                        return;
-                    default:
-                        return;
-                }
-            } catch {
-                // Diagnostics on stdout that are not JSON events; ignore those lines.
-            }
-        };
-        const settle = (code: number | null) => {
-            if (settled) return;
-            if (buffer) parse(buffer);
-            settled = true;
-            signal?.removeEventListener("abort", abort);
-            if (aborted) reject(new Error("Delegated agent was aborted"));
-            else if (code !== 0) reject(new Error(childError || stderr.trim() || `Child exited with status ${code}`));
-            // A failed API call ends the child cleanly with an empty message; surface it instead of "(no output)".
-            else if (childError) reject(new Error(childError));
-            // liveText holds the last completed message text, plus any trailing partial deltas if the child died mid-stream.
-            else resolveChild(limitOutput(liveText.trim() || "(no output)"));
-        };
-        child.stdout.on("data", (chunk: Buffer) => {
-            buffer += chunk.toString();
-            const lines = buffer.split("\n");
-            buffer = lines.pop() ?? "";
-            for (const line of lines) parse(line);
-        });
-        child.stderr.on("data", (chunk: Buffer) => {
-            stderr += chunk.toString();
-            if (stderr.length > 16 * 1024) stderr = stderr.slice(-16 * 1024);
-        });
-        child.stdin.on("error", () => {
-            // EPIPE when the child exits between a steer attempt and its write.
-        });
-        child.on("error", (error) => fail(error));
-        child.on("close", (code) => settle(code));
-        const abort = () => {
-            aborted = true;
-            child.kill("SIGTERM");
-            setTimeout(() => {
-                if (!settled) child.kill("SIGKILL");
-            }, 5000).unref();
-        };
-        if (signal?.aborted) abort();
-        else signal?.addEventListener("abort", abort, { once: true });
-        child.stdin.write(`${JSON.stringify({ type: "prompt", message: task })}\n`);
-    });
-    return {
-        done,
-        steer: (message) => {
-            if (settled) return false;
-            child.stdin.write(`${JSON.stringify({ type: "steer", message })}\n`);
-            return true;
-        },
-    };
-}
-
 export default function (pi: ExtensionAPI) {
-    /** Background children by job id; the widget renders this map and the report message is built from it. */
     const running = new Map<string, DelegateJob>();
-    /** Jobs that reported back this session; the widget shows the tally so progress is visible. */
     let finished = 0;
     let ticker: ReturnType<typeof setInterval> | undefined;
 
@@ -356,7 +184,6 @@ export default function (pi: ExtensionAPI) {
         const frame = SPINNER_FRAMES[Math.floor(now / SPINNER_INTERVAL_MS) % SPINNER_FRAMES.length]!;
         const { shown, hidden, detail } = widgetJobs([...running.values()]);
         const lines: string[] = [];
-        // A lone job says no more than its own row does; the tally earns its line when several run.
         if (running.size > 1 || finished > 0) {
             const counts = `${running.size} running${finished ? ` · ${finished} done` : ""}`;
             lines.push(`${theme.fg("warning", frame)} ${theme.fg("muted", counts)}`);
@@ -381,12 +208,11 @@ export default function (pi: ExtensionAPI) {
         ticker = undefined;
     };
 
-    /** Drop a finished job, then hand the result to the parent as a follow-up message. */
     const finishJob = (ctx: ExtensionContext, job: DelegateJob, output?: string, error?: string) => {
+        // Cancellation was already acknowledged; shutdown has no UI to report into.
+        if (job.controller.signal.aborted) return;
         running.delete(job.id);
         finished += 1;
-        // Shutdown aborts in-flight children after the UI is gone; teardown already cleared the widget.
-        if (job.controller.signal.aborted) return;
         if (running.size === 0) stopTicker();
         refreshWidget(ctx);
         const report: DelegateReport = {
@@ -513,17 +339,16 @@ export default function (pi: ExtensionAPI) {
             const thinking = agent.thinking ?? ctx.thinkingLevel;
             if (thinking) args.push("--thinking", thinking);
             if (agent.prompt) args.push("--append-system-prompt", agent.prompt);
-            const run = runChild(
-                args,
-                ctx.cwd,
-                params.task,
-                details.background ? job.controller.signal : signal,
-                (update) => {
-                    for (const [key, value] of Object.entries(update)) {
-                        if (value !== undefined) (job as Record<string, unknown>)[key] = value;
-                    }
-                },
-            );
+            const child = spawn(process.execPath, [process.argv[1]!, "--mode", "rpc", "--no-session", ...args], {
+                cwd: ctx.cwd,
+                shell: false,
+                stdio: ["pipe", "pipe", "pipe"],
+            });
+            const run = runChild(child, params.task, details.background ? job.controller.signal : signal, (update) => {
+                for (const [key, value] of Object.entries(update)) {
+                    if (value !== undefined) (job as Record<string, unknown>)[key] = value;
+                }
+            });
             job.steer = run.steer;
 
             if (!details.background) {
@@ -546,7 +371,7 @@ export default function (pi: ExtensionAPI) {
                 content: [
                     {
                         type: "text",
-                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer while it runs. Do not sleep or poll for it: its report arrives on its own as a new message, so end your turn now if your next step needs it.`,
+                        text: `Started agent "${job.agent}" in the background (job ${job.id}). Steer it with delegate_steer or stop it with delegate_cancel. Do not sleep or poll: its report arrives automatically unless cancelled.`,
                     },
                 ],
                 details,
@@ -554,8 +379,6 @@ export default function (pi: ExtensionAPI) {
         },
 
         renderCall(args, theme, context) {
-            // Collapsed rows lead with the short description; the agent name and progress sit on the result line. The
-            // hint always shows because the task, model and tools stay behind ctrl+o.
             const summary = args.description?.trim() || args.task?.split("\n")[0]?.trim() || "";
             const hint = `${theme.fg("muted", "(")}${keyHint("app.tools.expand", context.expanded ? "to collapse" : "to expand")}${theme.fg("muted", ")")}`;
             return new Text(
@@ -614,7 +437,7 @@ export default function (pi: ExtensionAPI) {
             const id = params.id.trim().replace(/^job\s+/i, "");
             const job = running.get(id);
             if (!job?.steer) throw new Error(`No running delegate job "${id}".`);
-            if (!job.steer(params.message)) throw new Error(`Delegate job "${id}" has already finished.`);
+            await job.steer(params.message);
             const details: SteerDetails = {
                 id: job.id,
                 agent: job.agent,
@@ -634,7 +457,6 @@ export default function (pi: ExtensionAPI) {
         },
 
         renderCall(args, theme, context) {
-            // The message is what the row is about, so it leads; the job and its progress sit on the result line.
             const message = args.message?.split("\n")[0]?.trim() ?? "";
             const hint = `${theme.fg("muted", "(")}${keyHint("app.tools.expand", context.expanded ? "to collapse" : "to expand")}${theme.fg("muted", ")")}`;
             return new Text(
@@ -657,9 +479,34 @@ export default function (pi: ExtensionAPI) {
                     0,
                 ),
             );
-            // The call row shows only the first line; expanding the result is where the whole message lands.
             if (expanded) container.addChild(new Text(theme.fg("dim", details.message), 0, 0));
             return container;
+        },
+    });
+
+    pi.registerTool({
+        name: "delegate_cancel",
+        label: "Cancel delegate",
+        description:
+            "Cancel a running background delegate by job id. Requests abort now and forcibly kills the child after five seconds if needed. Cancelled jobs send no follow-up report.",
+        promptSnippet: "Cancel a running background delegate by job id",
+        parameters: Type.Object({
+            id: Type.String({ description: "Job id from delegate or delegate_list." }),
+        }),
+        async execute(_toolCallId, params, _signal, _onUpdate, ctx) {
+            const id = params.id.trim().replace(/^job\s+/i, "");
+            const job = running.get(id);
+            if (!job) throw new Error(`No running delegate job "${id}".`);
+            running.delete(id);
+            job.controller.abort();
+            if (running.size === 0) stopTicker();
+            refreshWidget(ctx);
+            return {
+                content: [
+                    { type: "text", text: `Cancellation requested for delegate "${job.agent}" (job ${job.id}).` },
+                ],
+                details: { id: job.id, agent: job.agent },
+            };
         },
     });
 

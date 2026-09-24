@@ -83,10 +83,6 @@ const hashlineEditToolSchema = Type.Object(
     {
         path: Type.String({ description: "path" }),
         edits: Type.Array(hashlineEditItemSchema, { description: "edits over $path" }),
-        // Dialect noise (file_path alias, JSON-string edits) is folded into the
-        // canonical `edits` shape by normalizeEditRequest in the prepareArguments
-        // hook, which runs before this schema is validated. Native text-replace
-        // payloads are not folded — they fail validation with anchor guidance.
     },
     { additionalProperties: false },
 );
@@ -98,6 +94,7 @@ type EditRequestParams = {
 type EditPipelineResult = {
     path: string;
     originalNormalized: string;
+    originalContent: string;
     result: string;
     bom: string;
     originalEnding: "\r\n" | "\n";
@@ -116,13 +113,8 @@ const EDIT_PROMPT_GUIDELINES = loadPromptGuidelines(new URL("../prompts/edit-gui
 
 const ROOT_KEYS = new Set(["path", "edits"]);
 
-// Validates the edit request envelope after normalizeEditRequest has
-// converged dialect noise. This runs in prepareArguments — BEFORE pi's
-// schema validation — so it can turn native oldText/newText payloads into a
-// teaching error instead of AJV's mechanical one, and it also backs up
-// direct execute() callers that bypass the agent loop's validation.
-// Envelope only: path, edits array, unknown root keys. Per-edit validation
-// is delegated to resolveEditAnchors (src/hashline/parse.ts).
+// prepareArguments runs before Pi's schema validation; reject native text-replace
+// with anchor guidance here, leaving edit-item validation to resolveEditAnchors.
 function assertEditRequest(request: unknown): asserts request is EditRequestParams {
     if (!isRecord(request)) {
         throw new Error("Edit request must be an object.");
@@ -148,16 +140,9 @@ function assertEditRequest(request: unknown): asserts request is EditRequestPara
     if (!Array.isArray(request.edits)) {
         throw new Error('Edit request requires an "edits" array.');
     }
-
-    // Per-edit validation lives in resolveEditAnchors — the single source of
-    // truth for edit-item shape, op constraints, and anchor parsing.
 }
 
-/**
- * Shared edit pipeline: read file, resolve anchors, and apply edits. Public
- * entrypoints normalize + validate before calling this; access mode controls
- * whether the file must be writable.
- */
+/** Shared preview/execute pipeline; accessMode controls writability. */
 async function executeEditPipeline(
     params: EditRequestParams,
     cwd: string,
@@ -214,9 +199,6 @@ async function executeEditPipeline(
 
     const extraWarnings: string[] = [];
 
-    // Both the direct-apply and snapshot-recovery paths return the same shape,
-    // differing only in the applied content, its per-result warnings, and the
-    // changed-line range. Build the common envelope once.
     const buildResult = (parts: {
         result: string;
         resultWarnings?: string[];
@@ -226,6 +208,7 @@ async function executeEditPipeline(
     }): EditPipelineResult => ({
         path,
         originalNormalized,
+        originalContent: bom + rawContent,
         result: parts.result,
         bom,
         originalEnding,
@@ -240,8 +223,7 @@ async function executeEditPipeline(
         lastChangedLine: parts.lastChangedLine,
     });
 
-    // Attempt to apply the edits directly. On E_STALE_ANCHOR, fall through to
-    // the multi-version snapshot recovery block below.
+    // Stale anchors may be replayed against recent read snapshots below.
     let directResult: ReturnType<typeof applyHashlineEdits> | null = null;
     let primaryError: unknown = null;
 
@@ -252,37 +234,26 @@ async function executeEditPipeline(
     }
 
     if (primaryError !== null) {
-        // Only attempt snapshot recovery for stale-anchor errors.
         const isStale = primaryError instanceof Error && primaryError.message.startsWith("[E_STALE_ANCHOR]");
 
-        if (!isStale || !absolutePath) {
+        if (!isStale) {
             throw primaryError;
         }
 
-        // absolutePath is the canonical mutation-target path when resolvedPath was
-        // provided (execute path); fall back gracefully when not (preview path).
-        const canonicalPath = absolutePath;
-
-        // Try each stored version (newest first), skipping any that matches the
-        // live content (those would give a trivially identical replay and cannot
-        // help). Track whether any version had valid anchors but a merge conflict,
-        // for a more informative error if all versions fail.
-        const versions = getReadSnapshotVersions(canonicalPath).filter((v) => v !== originalNormalized);
+        // Skip the live version; only historical reads can help recover stale anchors.
+        const versions = getReadSnapshotVersions(absolutePath).filter((v) => v !== originalNormalized);
 
         if (versions.length === 0) {
-            // No usable snapshot history: surface original error unchanged.
             throw primaryError;
         }
 
         let anyAnchorValid = false;
 
         for (const snapshot of versions) {
-            // Try replaying the edits against this historical snapshot.
             let snapshotResult: ReturnType<typeof applyHashlineEdits>;
             try {
                 snapshotResult = applyHashlineEdits(snapshot, resolved, signal);
             } catch {
-                // Anchors not valid against this version — try older ones.
                 continue;
             }
 
@@ -291,18 +262,15 @@ async function executeEditPipeline(
             // 3-way merge: base=snapshot, base-edited=snapshotResult, current=live.
             const merged = threeWayMerge(snapshot, snapshotResult.content, originalNormalized);
             if (merged === null) {
-                // Merge conflict for this version — try older ones.
                 continue;
             }
 
-            // Recompute changed-line range against the live file.
             const mergedRange = computeChangedLineRange(originalNormalized, merged);
 
             extraWarnings.push(
                 "Recovered stale anchors by replaying this edit against a recent read of this file and merging onto the current content (context-matched merge). Review the diff to confirm the result.",
             );
 
-            // Recovery succeeded: return the merged result.
             return buildResult({
                 result: merged,
                 resultWarnings: snapshotResult.warnings,
@@ -312,8 +280,6 @@ async function executeEditPipeline(
             });
         }
 
-        // All versions exhausted without a successful merge.
-        // Append a diagnostic suffix to the original error for easier triage.
         let suffix: string;
         if (anyAnchorValid) {
             suffix =
@@ -325,7 +291,6 @@ async function executeEditPipeline(
         throw new Error(`${(primaryError as Error).message}${suffix}`);
     }
 
-    // Direct apply succeeded.
     const anchorResult = directResult!;
     return buildResult({
         result: anchorResult.content,
@@ -344,14 +309,9 @@ async function executeEditPipeline(
 // prepareArguments does not enforce (assertEditRequest is envelope-only).
 type EditToolDefinition = ToolDefinition<TSchema, HashlineEditToolDetails>;
 
-/** Diff lines shown while the tool block is collapsed (expand for the rest). */
 const COLLAPSED_DIFF_LINES = 15;
 
-/**
- * Cap the rendered diff when the block is collapsed, the way pi's read/grep
- * renderers cap their previews. Warnings are appended by the caller and are
- * never hidden by this.
- */
+/** Collapse the diff but never hide warnings. */
 function capDiffPreview(diff: string, expanded: boolean, theme: Pick<Theme, "fg">): string {
     const lines = diff.split("\n");
     if (expanded || lines.length <= COLLAPSED_DIFF_LINES) {
@@ -372,17 +332,13 @@ function buildEditToolDefinition(): EditToolDefinition {
         parameters: hashlineEditToolSchema,
         promptSnippet: EDIT_PROMPT_SNIPPET,
         promptGuidelines: EDIT_PROMPT_GUIDELINES,
-        // Absorb dialect noise (file_path alias, JSON-string edits) before pi
-        // validates and before execute(). See src/edit-normalize.ts.
         prepareArguments: (args: unknown) => {
             const normalized = normalizeEditRequest(args);
             assertEditRequest(normalized);
             return normalized;
         },
-        // pi's built-in renderCall (merged by tool name) draws the call block;
-        // the built-in renderResult is replaced because it ignores
-        // details.warnings — recovery merges and similar notices must reach the
-        // user, and noop results (no diff) should not render as a silent block.
+        // Pi keeps the built-in call renderer; replace its result renderer to show
+        // recovery warnings and no-op results that its diff-only view would hide.
         renderResult(result, { expanded, isPartial }, theme, context) {
             const text = (context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
             if (isPartial) {
@@ -390,8 +346,7 @@ function buildEditToolDefinition(): EditToolDefinition {
                 return text;
             }
 
-            // The built-in result renderer normally settles the call block's
-            // background; keep that in step now that we replaced it.
+            // Match Pi's built-in success/error shell coloring.
             const callComponent = (context.state as { callComponent?: unknown }).callComponent;
             if (callComponent instanceof Box) {
                 callComponent.setBgFn((value) => theme.bg(context.isError ? "toolErrorBg" : "toolSuccessBg", value));
@@ -413,8 +368,6 @@ function buildEditToolDefinition(): EditToolDefinition {
             if (details?.diff) {
                 sections.push(capDiffPreview(renderDiff(details.diff), expanded, theme));
             }
-            // No header, like pi's own warning notes (truncation hints etc.):
-            // the warning color carries the signal.
             if (details && details.warnings.length > 0) {
                 sections.push(details.warnings.map((warning) => theme.fg("warning", warning)).join("\n"));
             }
@@ -427,25 +380,18 @@ function buildEditToolDefinition(): EditToolDefinition {
             return text;
         },
 
-        // pi's built-in renderers draw their own Box; "self" matches pi's own
-        // edit tool, avoiding a double-wrapped shell.
+        // Avoid wrapping Pi's own Box in another tool shell.
         renderShell: "self",
 
         async execute(_toolCallId, params, signal, _onUpdate, ctx) {
-            // prepareArguments has already normalized the request (file_path alias,
-            // JSON-string edits) and pi has validated the result against the
-            // published schema before execute() runs — params is canonical.
             const { path, edits } = params as EditRequestParams;
             const absolutePath = resolveToCwd(path, ctx.cwd);
             const mutationTargetPath = await resolveMutationTargetPath(absolutePath);
             return withFileMutationQueue(mutationTargetPath, async () => {
                 throwIfAborted(signal);
 
-                // Duplicate-edit guard: if the incoming payload is byte-identical to the
-                // last successfully applied payload for this path, and the file has not
-                // changed since that edit (read-snapshot still matches current content),
-                // reject before running the pipeline — the pipeline would otherwise throw
-                // E_STALE_ANCHOR before we could detect the duplicate.
+                // Detect a repeated applied payload before stale-anchor validation
+                // masks the duplication with E_STALE_ANCHOR.
                 const appliedPayloadKey = JSON.stringify(edits);
                 if (isDuplicateAppliedPayload(mutationTargetPath, appliedPayloadKey)) {
                     const snapshot = getReadSnapshot(mutationTargetPath);
@@ -464,6 +410,7 @@ function buildEditToolDefinition(): EditToolDefinition {
 
                 const {
                     originalNormalized,
+                    originalContent,
                     result,
                     bom,
                     originalEnding,
@@ -501,12 +448,11 @@ function buildEditToolDefinition(): EditToolDefinition {
                 throwIfAborted(signal);
                 await writeFileAtomically(mutationTargetPath, bom + restoreLineEndings(result, originalEnding), {
                     alreadyResolved: true,
+                    expectedContent: originalContent,
                 });
                 recordAppliedEdit(mutationTargetPath, appliedPayloadKey);
 
-                // Update the snapshot slot with the post-edit content so chained edits
-                // using anchors from this edit's response can recover if a distant
-                // external change arrives between this edit and the next one.
+                // Keep response anchors mergeable after later external changes.
                 rememberReadSnapshot(mutationTargetPath, result);
 
                 const editMeta: EditMeta = {

@@ -1,15 +1,5 @@
-/**
- * Helpers for the delegate tool: the row's display text and the cap on what a child may return.
- *
- * Deliberately free of pi imports: `node check.mjs` loads this module directly
- * (native type stripping) and exercises the formatting rules.
- *
- * Not reusing pi's own equivalents is forced, not lazy: formatTokens (interactive footer),
- * formatDuration (shell renderer) and getTextOutput (tools/render-utils) are module-private and
- * the extension loader only aliases package roots, so they cannot be imported.
- */
+/** UI helpers stay Pi-import-free for the native check; Pi's analogous formatters are private. */
 
-/** Same frames pi's own working indicator uses. */
 export const SPINNER_FRAMES = ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"];
 export const SPINNER_INTERVAL_MS = 100;
 /** pi slices extension widgets at ten lines and appends its own truncation note. */
@@ -27,7 +17,6 @@ export type ProgressInfo = {
     contextWindow?: number;
 };
 
-/** Token counts the way pi's footer shows them: 900, 1.2k, 145k, 1.2M. */
 export function formatTokens(count: number): string {
     if (count < 1000) return String(count);
     if (count < 10000) return `${(count / 1000).toFixed(1)}k`;
@@ -36,7 +25,6 @@ export function formatTokens(count: number): string {
     return `${Math.round(count / 1000000)}M`;
 }
 
-/** Elapsed time the way pi's shell renderer shows it: 42s, 1m 05s, 2h 07m. */
 export function formatDuration(ms: number): string {
     const seconds = Math.max(0, Math.floor(ms / 1000));
     if (seconds < 60) return `${seconds}s`;
@@ -45,7 +33,6 @@ export function formatDuration(ms: number): string {
     return `${Math.floor(minutes / 60)}h ${String(minutes % 60).padStart(2, "0")}m`;
 }
 
-/** "5 tool calls · 23k/200k · 1m 05s" - the running progress hint on the delegate row. */
 export function progressStats(progress: ProgressInfo, elapsedMs: number): string {
     const parts: string[] = [];
     if (progress.toolCalls) parts.push(`${progress.toolCalls} tool ${progress.toolCalls === 1 ? "call" : "calls"}`);
@@ -60,9 +47,6 @@ export function progressStats(progress: ProgressInfo, elapsedMs: number): string
     return parts.join(" · ");
 }
 
-/**
- * One-line argument summary for a child tool call, worded like pi's own renderers.
- */
 export function toolCallDetail(toolName: string, args: unknown): string {
     const input = (args ?? {}) as Record<string, unknown>;
     const value = (key: string) => (typeof input[key] === "string" ? (input[key] as string).trim() : "");
@@ -86,10 +70,7 @@ export function toolCallDetail(toolName: string, args: unknown): string {
     }
 }
 
-/**
- * Lines shown only when a delegate row is expanded: the full task the collapsed row hides,
- * then how the child was launched. Multi-line tasks keep their continuation aligned under the text.
- */
+/** Align multi-line task details under the Task label. */
 export function launchDetails(info: { task?: string; model?: string; tools: string[] }): string[] {
     const lines = [
         `${EXPANDED_PAD}Model: ${info.model ?? "default"}`,
@@ -108,10 +89,7 @@ export function launchDetails(info: { task?: string; model?: string; tools: stri
 
 export const COLLAPSED_OUTPUT_LINES = 10;
 
-/**
- * Split output for a collapsed row: the lines worth showing, and how many stayed hidden.
- * Closes a dangling code fence so the visible part still renders as the fenced block it is.
- */
+/** Close dangling Markdown fences so collapsed previews render correctly. */
 export function outputPreview(text: string, maxLines = COLLAPSED_OUTPUT_LINES): { shown: string[]; hidden: number } {
     const lines = text.trim().split("\n");
     if (lines.length <= maxLines) return { shown: lines, hidden: 0 };
@@ -122,10 +100,7 @@ export function outputPreview(text: string, maxLines = COLLAPSED_OUTPUT_LINES): 
 
 export const MAX_OUTPUT_BYTES = 50 * 1024;
 
-/**
- * Cap child output at a byte budget: cut on a character boundary and say how much was dropped,
- * so a runaway child cannot flood the parent's context with a broken character.
- */
+/** Cap child output without splitting UTF-8 characters. */
 export function limitOutput(text: string, maxBytes = MAX_OUTPUT_BYTES): string {
     const buffer = Buffer.from(text, "utf8");
     if (buffer.length <= maxBytes) return text;
@@ -135,7 +110,6 @@ export function limitOutput(text: string, maxBytes = MAX_OUTPUT_BYTES): string {
     return `${buffer.subarray(0, end).toString("utf8")}\n\n[Output truncated: ${buffer.length - end} bytes omitted.]`;
 }
 
-/** First non-empty line of a tool result, capped so the activity line stays one line. */
 export function resultPreview(result: unknown, maxChars = 120): string | undefined {
     const content = (result as { content?: unknown })?.content;
     if (!Array.isArray(content)) return undefined;
@@ -152,12 +126,7 @@ export function resultPreview(result: unknown, maxChars = 120): string | undefin
     return line.length > maxChars ? `${line.slice(0, maxChars - 1)}…` : line;
 }
 
-/**
- * What a finished delegate run reports back: the follow-up message text is built from this,
- * and the message renderer reads the same object back from `details`.
- */
 export type DelegateReport = {
-    /** Short random id shared with the tool row, so a result can be linked back to its call. */
     id: string;
     agent: string;
     description: string;
@@ -170,7 +139,6 @@ export type DelegateReport = {
     error?: string;
 };
 
-/** Model-facing text for a finished delegate run, delivered as a follow-up message. */
 export function reportText(report: DelegateReport): string {
     const calls = report.toolCalls
         ? ` after ${report.toolCalls} tool ${report.toolCalls === 1 ? "call" : "calls"}`
@@ -180,16 +148,11 @@ export function reportText(report: DelegateReport): string {
     return `Delegated agent "${report.agent}" (job ${report.id}) finished${calls}.${output ? `\n\n${output}` : ""}`;
 }
 
-/** First line of a running-delegate widget block: "rpc smoke · 3 tool calls · 12k/200k · 45s". */
 export function jobLine(info: { description?: string } & ProgressInfo, elapsedMs: number): string {
     return [info.description?.trim(), progressStats(info, elapsedMs)].filter(Boolean).join(" · ");
 }
 
-/**
- * The jobs a widget block shows: the newest ones, so a burst of delegations cannot push the list
- * past the line budget. `detail` says whether each shown job still has room for its live tool call
- * and result lines; otherwise the head line is all the block can afford.
- */
+/** Omit detail rows in bulk so Pi's ten-line widget cap cannot split jobs. */
 export function widgetJobs<T>(jobs: T[]): { shown: T[]; hidden: number; detail: boolean } {
     const detail = jobs.length <= WIDGET_MAX_DETAIL_JOBS;
     const shown = detail ? jobs : jobs.slice(-WIDGET_MAX_JOBS);

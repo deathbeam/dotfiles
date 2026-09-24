@@ -1,6 +1,6 @@
 /* Self-check for pi-hashline: load the extension via jiti (as pi does) and exercise read/edit. Run: node check.mjs */
 import { createJiti } from "jiti";
-import { mkdtempSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+import { mkdirSync, mkdtempSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 
@@ -147,6 +147,44 @@ async function run(tool, params) {
         throw new Error("bug3: raw oversized line still broken: " + JSON.stringify(big));
     }
     console.log("--- bug3 (raw oversized line) OK:", JSON.stringify(big.content[0].text.slice(0, 80)));
+    const nearCapFile = join(dir, "near-cap.txt");
+    writeFileSync(nearCapFile, "x".repeat(50 * 1024 - 500));
+    const nearCap = await run(byName.read, { path: nearCapFile });
+    if (/exceeds 50\.0KB/.test(nearCap.content[0].text) || !nearCap.details.truncation?.firstLineExceedsLimit) {
+        throw new Error("read misreported a line within 50KB as exceeding 50KB");
+    }
+
+    // 6b. read caps before formatting, including a huge explicit limit; wide
+    // continuation anchors still hash against the complete file.
+    const wideFile = join(dir, "wide.txt");
+    writeFileSync(
+        wideFile,
+        Array.from({ length: 2201 }, (_, i) => `const wide_${i} = "${"x".repeat(40)}";`).join("\n") + "\n",
+    );
+    const wideRead = await run(byName.read, { path: wideFile, limit: 100000 });
+    const wideText = wideRead.content[0].text;
+    const wideNotice = wideText.match(/Use offset=(\d+) to continue/);
+    const wideAnchorLines = wideText.split("\n").filter((line) => /^\s*\d+#[A-Z]{3}:/.test(line));
+    if (!wideNotice || wideRead.details.nextOffset !== Number(wideNotice[1]) || wideAnchorLines.length > 2000) {
+        throw new Error("wide read did not cap with a stable continuation offset");
+    }
+    if (Buffer.byteLength(wideText, "utf8") > 50 * 1024) {
+        throw new Error("wide read exceeded the 50KB cap");
+    }
+    const wideContinuation = await run(byName.read, { path: wideFile, offset: wideRead.details.nextOffset });
+    const wideAnchor = wideContinuation.content[0].text.match(/^\s*\d+#([A-Z]{3}):/m);
+    if (!wideAnchor) throw new Error("wide continuation missing an anchor");
+    await run(byName.edit, {
+        path: wideFile,
+        edits: [
+            {
+                op: "replace",
+                pos: `${wideRead.details.nextOffset}#${wideAnchor[1]}`,
+                lines: ["const continued = true;"],
+            },
+        ],
+    });
+    console.log("--- read cap + wide continuation hash OK ---");
 
     // 7. grep smoke (if rg present)
     if (byName.grep) {
@@ -156,8 +194,47 @@ async function run(tool, params) {
         if (!/#[A-Z]{3}:const y/.test(grepResult.content[0].text)) {
             throw new Error("grep output missing 3-char anchors");
         }
-    }
 
+        // Hidden tracked files appear, but git metadata/ignored files do not.
+        mkdirSync(join(dir, ".git"));
+        writeFileSync(join(dir, ".git", "HEAD"), "needle metadata\n");
+        const hiddenGrep = join(dir, ".hidden-grep.txt");
+        const grepPayload = `needle ${"x".repeat(300)}`;
+        writeFileSync(hiddenGrep, Array.from({ length: 200 }, (_, i) => `${grepPayload} ${i}`).join("\n") + "\n");
+        writeFileSync(join(dir, ".gitignore"), "ignored-grep.txt\n");
+        writeFileSync(join(dir, "ignored-grep.txt"), `${grepPayload}\n`);
+        const largeGrep = await run(byName.grep, { pattern: "needle", path: dir, limit: 200 });
+        const largeGrepText = largeGrep.content[0].text;
+        const largeGrepLines = largeGrepText.split("\n");
+        if (
+            !largeGrepText.includes(".hidden-grep.txt") ||
+            largeGrepText.includes("ignored-grep.txt") ||
+            largeGrepText.includes(".git/HEAD")
+        ) {
+            throw new Error("grep hidden/.gitignore behavior failed");
+        }
+        if (
+            Buffer.byteLength(largeGrepText, "utf8") > 50 * 1024 ||
+            largeGrepLines.length > 2000 ||
+            !/Truncated/.test(largeGrepText)
+        ) {
+            throw new Error("grep output did not cap with a continuation notice");
+        }
+        for (const line of largeGrepLines.filter((line) => /^\s*\d+#/.test(line))) {
+            if (!/^\s*\d+#[A-Z]{3}:needle x{300} \d+$/.test(line)) {
+                throw new Error("grep emitted a partial or invalid anchor line: " + line.slice(0, 80));
+            }
+        }
+        for (const entry of largeGrep.details.highlights ?? []) {
+            if (entry.line >= largeGrepLines.length) throw new Error("grep highlight points past returned output");
+            const stripped = largeGrepLines[entry.line].replace(/^\s*\d+#[A-Z]{3}:/, "");
+            for (const [start, end] of entry.ranges) {
+                if (stripped.slice(start, end) !== "needle")
+                    throw new Error("grep highlight range no longer matches output");
+            }
+        }
+        console.log("--- grep hidden + whole-line cap + highlights OK ---");
+    }
     // 7b. stale recovery: a unique search window still merges onto live content
     const shiftFile = join(dir, "shift.ts");
     writeFileSync(shiftFile, "const one = 1;\nconst two = 2;\nconst three = 3;\nconst four = 4;\n");
@@ -433,6 +510,27 @@ async function run(tool, params) {
     if ((await fk.loadFileKindAndText(pngFile)).kind !== "image") throw new Error("image classification failed");
     if ((await fk.loadFileKindAndText(dir)).kind !== "directory") throw new Error("directory classification failed");
     console.log("--- file-kind: text / binary / image / directory OK ---");
+
+    // 12b. expected-version mismatch cleans the temp file and prevents overwrite.
+    const fsWrite = jiti("./src/fs-write.ts");
+    const atomicFile = join(dir, "atomic.txt");
+    writeFileSync(atomicFile, "before\n");
+    let atomicError = "";
+    try {
+        await fsWrite.writeFileAtomically(atomicFile, "after\n", {
+            alreadyResolved: true,
+            expectedContent: "stale\n",
+        });
+    } catch (error) {
+        atomicError = error.message;
+    }
+    if (!/E_FILE_CHANGED/.test(atomicError) || readFileSync(atomicFile, "utf8") !== "before\n") {
+        throw new Error("atomic expected-version guard failed");
+    }
+    if (readdirSync(dir).some((name) => name.startsWith(".tmp-"))) {
+        throw new Error("atomic write failure left a temp file");
+    }
+    console.log("--- atomic write race guard + temp cleanup OK ---");
 
     rmSync(dir, { recursive: true, force: true });
     console.log("\npi-hashline check passed");

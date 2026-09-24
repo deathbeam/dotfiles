@@ -1,17 +1,4 @@
-/**
- * pi-archive — searchable archive of all past + current pi session transcripts.
- *
- * pi already persists every session (including compacted-away content) as jsonl
- * under ~/.pi/agent/sessions/<encoded-cwd>/. This extension makes that archive
- * reachable from the model:
- *
- *  - search_archive tool: case-insensitive AND-terms search over all session
- *    transcripts (messages + compaction summaries), current session ranked
- *    first, then same-project sessions, then everything else newest-first.
- *  - Proactive memory: on the first turn of a new session, injects a short
- *    digest of recent sessions in the same project so the model knows past
- *    context exists and can retrieve it via search_archive.
- */
+/** Search Pi's persisted JSONL transcripts, including compacted-away entries. */
 
 import fs from "node:fs";
 import path from "node:path";
@@ -19,6 +6,10 @@ import type { ExtensionAPI } from "@earendil-works/pi-coding-agent";
 
 const MAX_TOTAL_BYTES = 400 * 1024 * 1024;
 const MAX_PER_FILE = 3; // max matches per session file
+const MAX_SEARCH_LIMIT = 100;
+const READ_CHUNK_BYTES = 64 * 1024;
+const MAX_LINE_BYTES = 16 * 1024 * 1024;
+// ponytail: 16 MiB record ceiling; raise only if real sessions exceed it, or add incremental JSON parsing.
 
 export interface ArchiveMatch {
     file: string;
@@ -37,7 +28,6 @@ export interface SearchOptions {
     limit?: number;
 }
 
-/** Parse one jsonl line, or null. */
 function parseJsonLine(line: string): any | null {
     try {
         return JSON.parse(line);
@@ -55,14 +45,20 @@ export function fileDate(fileName: string): string {
     return fileName.slice(0, 10);
 }
 
-/** Extract searchable text from a session entry; null if nothing to search. */
 export function entryText(entry: unknown): { role: string; text: string } | null {
     const e = entry as Record<string, any>;
-    if (e?.type === "message" && Array.isArray(e.message?.content)) {
-        const text = (e.message.content as any[])
-            .filter((c) => c?.type === "text" && typeof c.text === "string")
-            .map((c) => c.text)
-            .join("\n");
+    const content = e?.message?.content;
+    if (
+        e?.type === "message" &&
+        (Array.isArray(content) || (e.message.role === "user" && typeof content === "string"))
+    ) {
+        const text =
+            typeof content === "string"
+                ? content
+                : content
+                      .filter((c: any) => c?.type === "text" && typeof c.text === "string")
+                      .map((c: any) => c.text)
+                      .join("\n");
         if (!text) return null;
         return { role: String(e.message.role ?? "?"), text };
     }
@@ -70,6 +66,93 @@ export function entryText(entry: unknown): { role: string; text: string } | null
         return { role: "summary", text: e.summary };
     }
     return null;
+}
+
+/** LF-only JSONL: readline also splits literal U+2028/U+2029 inside JSON strings. */
+async function scanJsonLines(
+    file: string,
+    maxBytes: number,
+    signal: AbortSignal | undefined,
+    onLine: (line: string) => boolean,
+): Promise<{ bytes: number; incomplete: boolean; oversizedLines: number }> {
+    const empty = { bytes: 0, incomplete: false, oversizedLines: 0 };
+    if (signal?.aborted || maxBytes <= 0) return { ...empty, incomplete: maxBytes <= 0 };
+
+    let size: number;
+    try {
+        size = (await fs.promises.stat(file)).size;
+    } catch {
+        return { ...empty, incomplete: true };
+    }
+    if (size === 0) return empty;
+
+    const stream = fs.createReadStream(file, {
+        start: 0,
+        end: Math.min(size, maxBytes) - 1,
+        encoding: "utf8",
+        highWaterMark: READ_CHUNK_BYTES,
+    });
+    let bytes = 0;
+    let pending = "";
+    let pendingBytes = 0;
+    let skippingLine = false;
+    let oversizedLines = 0;
+    let stopped = false;
+
+    const consume = (text: string): boolean => {
+        let start = 0;
+        while (start < text.length) {
+            const newline = text.indexOf("\n", start);
+            const end = newline === -1 ? text.length : newline + 1;
+            if (skippingLine) {
+                if (newline !== -1) skippingLine = false;
+            } else {
+                const part = text.slice(start, end);
+                pending += part;
+                pendingBytes += Buffer.byteLength(part);
+                if (pendingBytes > MAX_LINE_BYTES) {
+                    oversizedLines++;
+                    pending = "";
+                    pendingBytes = 0;
+                    skippingLine = newline === -1;
+                } else if (newline !== -1) {
+                    if (!onLine(pending.slice(0, -1))) return false;
+                    pending = "";
+                    pendingBytes = 0;
+                }
+            }
+            if (newline === -1) return true;
+            start = end;
+        }
+        return true;
+    };
+
+    try {
+        for await (const chunk of stream) {
+            if (signal?.aborted) {
+                stopped = true;
+                break;
+            }
+            const text = chunk as string;
+            bytes += Buffer.byteLength(text);
+            if (!consume(text)) {
+                stopped = true;
+                break;
+            }
+        }
+        if (!stopped && !signal?.aborted && pending && !skippingLine) onLine(pending);
+        let incomplete = size > maxBytes;
+        if (!incomplete && !stopped && !signal?.aborted) {
+            try {
+                incomplete = (await fs.promises.stat(file)).size > bytes;
+            } catch {
+                incomplete = true;
+            }
+        }
+        return { bytes, incomplete, oversizedLines };
+    } catch {
+        return { bytes, incomplete: true, oversizedLines };
+    }
 }
 
 export function parseTerms(query: string): string[] {
@@ -93,8 +176,7 @@ export function excerptAround(text: string, terms: string[], radius = 150): stri
     return (start > 0 ? "…" : "") + text.slice(start, end) + (end < text.length ? "…" : "");
 }
 
-/** Search a sessions root dir. Returns matches in rank order.
- *  Async: reports progress per file (which also yields, keeping the UI responsive) and honors `signal`. */
+/** Rank the current session first, then this project, then other projects newest-first. */
 export async function searchSessions(
     root: string,
     query: string,
@@ -103,31 +185,46 @@ export async function searchSessions(
     onProgress?: (filesScanned: number, matches: number) => void,
 ): Promise<{ matches: ArchiveMatch[]; bytesScanned: number; filesScanned: number; truncated: boolean }> {
     const terms = parseTerms(query);
-    const limit = opts.limit ?? 20;
+    if (
+        opts.limit !== undefined &&
+        (!Number.isSafeInteger(opts.limit) || opts.limit < 1 || opts.limit > MAX_SEARCH_LIMIT)
+    ) {
+        throw new RangeError(`limit must be an integer from 1 to ${MAX_SEARCH_LIMIT}`);
+    }
     if (terms.length === 0) return { matches: [], bytesScanned: 0, filesScanned: 0, truncated: false };
+    const limit = opts.limit ?? 20;
     const filter = opts.sessionFilter?.toLowerCase();
 
-    // Gather candidate session files, then rank: current session first, then same project, then rest — newest first within each rank.
     const files: { file: string; dir: string; name: string; mtime: number }[] = [];
-    let dirs: string[];
+    let rootEntries: fs.Dirent[];
     try {
-        dirs = fs
-            .readdirSync(root, { withFileTypes: true })
-            .filter((d) => d.isDirectory())
-            .map((d) => d.name);
+        rootEntries = await fs.promises.readdir(root, { withFileTypes: true });
     } catch {
         return { matches: [], bytesScanned: 0, filesScanned: 0, truncated: false };
     }
-    for (const dirName of dirs) {
+    for (const entry of rootEntries) {
+        if (signal?.aborted) break;
+        if (!entry.isDirectory()) continue;
+        const dirName = entry.name;
         if (filter && !dirName.toLowerCase().includes(filter)) continue;
         const dir = path.join(root, dirName);
-        for (const f of fs.readdirSync(dir, { withFileTypes: true })) {
-            if (!f.isFile() || !f.name.endsWith(".jsonl")) continue;
-            const file = path.join(dir, f.name);
-            files.push({ file, dir: dirName, name: f.name, mtime: fs.statSync(file).mtimeMs });
+        let entries: fs.Dirent[];
+        try {
+            entries = await fs.promises.readdir(dir, { withFileTypes: true });
+        } catch {
+            continue; // directory changed or became unreadable
+        }
+        for (const fileEntry of entries) {
+            if (signal?.aborted) break;
+            if (!fileEntry.isFile() || !fileEntry.name.endsWith(".jsonl")) continue;
+            const file = path.join(dir, fileEntry.name);
+            try {
+                files.push({ file, dir: dirName, name: fileEntry.name, mtime: (await fs.promises.stat(file)).mtimeMs });
+            } catch {}
         }
     }
-    // Rank: current session first, then same project, then rest — newest first within each rank.
+    if (signal?.aborted) return { matches: [], bytesScanned: 0, filesScanned: 0, truncated: true };
+
     const currentDirName = opts.currentDir ? path.basename(opts.currentDir) : undefined;
     const rank = (f: (typeof files)[number]) =>
         f.file === opts.currentFile ? 0 : currentDirName && f.dir === currentDirName ? 1 : 2;
@@ -138,34 +235,19 @@ export async function searchSessions(
     let filesScanned = 0;
     let truncated = false;
     for (const { file, dir, name } of files) {
-        if (signal?.aborted) {
+        if (signal?.aborted || bytes >= MAX_TOTAL_BYTES) {
             truncated = true;
             break;
         }
-        if (matches.length >= limit || bytes >= MAX_TOTAL_BYTES) {
-            truncated = true;
-            break;
-        }
-        await new Promise(setImmediate); // yield: progress callback can render, abort can land
         onProgress?.(filesScanned, matches.length);
-        let content: string;
-        try {
-            const stat = fs.statSync(file);
-            if (stat.size === 0) continue;
-            bytes += stat.size;
-            content = fs.readFileSync(file, "utf8");
-        } catch {
-            continue;
-        }
-        filesScanned++;
         let fileMatches = 0;
-        for (const line of content.split("\n")) {
-            if (fileMatches >= MAX_PER_FILE || matches.length >= limit) break;
-            if (!line || !terms.some((t) => line.toLowerCase().includes(t))) continue; // cheap pre-filter
+        const scan = await scanJsonLines(file, MAX_TOTAL_BYTES - bytes, signal, (line) => {
+            if (fileMatches >= MAX_PER_FILE || matches.length >= limit) return false;
+            if (!line || !terms.some((t) => line.toLowerCase().includes(t))) return true;
             const parsed = parseJsonLine(line);
-            if (!parsed) continue;
+            if (!parsed) return true;
             const et = entryText(parsed);
-            if (!et || !matchesAll(et.text, terms)) continue;
+            if (!et || !matchesAll(et.text, terms)) return true;
             matches.push({
                 file,
                 project: projectLabel(dir),
@@ -176,23 +258,28 @@ export async function searchSessions(
                 sameProject: currentDirName !== undefined && dir === currentDirName,
             });
             fileMatches++;
+            return fileMatches < MAX_PER_FILE && matches.length < limit;
+        });
+        bytes += scan.bytes;
+        filesScanned++;
+        if (signal?.aborted || matches.length >= limit || scan.incomplete) {
+            truncated = true;
+            break;
         }
+        if (scan.oversizedLines > 0) truncated = true;
     }
     return { matches, bytesScanned: bytes, filesScanned, truncated };
 }
 
-/** First user message of a session file, truncated — used as a session title. */
-export function firstUserTitle(file: string, maxLen = 120): string | null {
-    try {
-        for (const line of fs.readFileSync(file, "utf8").split("\n")) {
-            const et = entryText(parseJsonLine(line));
-            if (et?.role !== "user" || !et.text.trim()) continue;
-            return et.text.length > maxLen ? et.text.slice(0, maxLen) + "…" : et.text;
-        }
-    } catch {
-        /* unreadable file — skip */
-    }
-    return null;
+export async function firstUserTitle(file: string, maxLen = 120): Promise<string | null> {
+    let title: string | null = null;
+    await scanJsonLines(file, Number.MAX_SAFE_INTEGER, undefined, (line) => {
+        const et = entryText(parseJsonLine(line));
+        if (et?.role !== "user" || !et.text.trim()) return true;
+        title = et.text.length > maxLen ? et.text.slice(0, maxLen) + "…" : et.text;
+        return false;
+    });
+    return title;
 }
 
 /** Recent session files in a project dir (encoded cwd), newest first. */
@@ -221,17 +308,15 @@ export function recentSessions(
     return out.slice(0, count).map(({ file, name }) => ({ file, name }));
 }
 
-function formatResults(query: string, result: ReturnType<typeof searchSessions>): string {
+export function formatResults(query: string, result: Awaited<ReturnType<typeof searchSessions>>): string {
+    const note = result.truncated ? "\n(Search incomplete; narrow with the session filter.)" : "";
     if (result.matches.length === 0) {
-        return `No matches for "${query}" in the session archive (${result.filesScanned} session files scanned).`;
+        return `No matches for "${query}" in ${result.filesScanned} scanned session files.${note}`;
     }
     const lines = result.matches.map(
         (m) =>
             `${m.file}\n[${m.currentSession ? "this session" : m.sameProject ? "this project" : m.project} | ${m.date} | ${m.role}] ${m.excerpt.replace(/\s+/g, " ")}`,
     );
-    const note = result.truncated
-        ? `\n\n(Search budget reached — older sessions not fully scanned. Narrow with the session filter or fewer terms.)`
-        : "";
     return `Found ${result.matches.length} match(es) for "${query}" — each hit starts with the session file; read or grep it for full context:\n\n${lines.join("\n\n")}${note}`;
 }
 
@@ -251,7 +336,13 @@ export default async function piArchive(pi: ExtensionAPI) {
             session: Type.Optional(
                 Type.String({ description: "Only search sessions whose project path contains this, e.g. 'dotfiles'" }),
             ),
-            limit: Type.Optional(Type.Number({ description: "Max matches (default 20)" })),
+            limit: Type.Optional(
+                Type.Integer({
+                    minimum: 1,
+                    maximum: MAX_SEARCH_LIMIT,
+                    description: `Max matches (default 20, max ${MAX_SEARCH_LIMIT})`,
+                }),
+            ),
         }),
         async execute(_toolCallId, params, signal, onUpdate, ctx) {
             const sessionDir = ctx.sessionManager.getSessionDir();
@@ -269,19 +360,22 @@ export default async function piArchive(pi: ExtensionAPI) {
                 (files, hits) =>
                     onUpdate?.({
                         content: [{ type: "text", text: `Scanning archive… ${files} files, ${hits} match(es) so far` }],
+                        details: {},
                     }),
             );
             return {
                 content: [{ type: "text", text: formatResults(params.query, result) }],
-                details: { matchCount: result.matches.length, filesScanned: result.filesScanned },
+                details: {
+                    matchCount: result.matches.length,
+                    filesScanned: result.filesScanned,
+                    truncated: result.truncated,
+                },
             };
         },
     });
     pi.registerTool(searchArchive);
 
-    // Proactive memory: on the first turn of a fresh conversation, point the
-    // model at recent past sessions in this project (titles only — retrieval
-    // stays lazy via search_archive).
+    // Inject titles only; search_archive retrieves transcript details on demand.
     let memoryInjected = false;
     pi.on("before_agent_start", async (_event, ctx) => {
         if (memoryInjected) return;
@@ -292,11 +386,8 @@ export default async function piArchive(pi: ExtensionAPI) {
         const current = ctx.sessionManager.getSessionFile();
         const recent = recentSessions(sessionDir, current, 5);
         if (recent.length === 0) return;
-        const lines = recent.map(({ file, name }) => {
-            const title = firstUserTitle(file) ?? "(no user message)";
-            return `- ${fileDate(name)}: ${title}`;
-        });
-        if (lines.length === 0) return;
+        const titles = await Promise.all(recent.map(({ file }) => firstUserTitle(file)));
+        const lines = recent.map(({ name }, i) => `- ${fileDate(name)}: ${titles[i] ?? "(no user message)"}`);
         return {
             message: {
                 customType: "archive-memory",

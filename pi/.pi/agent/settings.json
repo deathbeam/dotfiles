@@ -22,7 +22,7 @@
   "quietStartup": false,
   "editorPaddingX": 0,
   "compaction": {
-    "enabled": true
+    "enabled": false
   },
   "defaultProjectTrust": "always",
   "delegate": {

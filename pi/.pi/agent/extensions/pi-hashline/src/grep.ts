@@ -1,5 +1,11 @@
 import type { ExtensionAPI, Theme } from "@earendil-works/pi-coding-agent";
-import { keyHint } from "@earendil-works/pi-coding-agent";
+import {
+    DEFAULT_MAX_BYTES,
+    DEFAULT_MAX_LINES,
+    formatSize,
+    keyHint,
+    truncateHead,
+} from "@earendil-works/pi-coding-agent";
 import { Text } from "@earendil-works/pi-tui";
 import { Type } from "@sinclair/typebox";
 import { spawn, spawnSync } from "child_process";
@@ -245,23 +251,19 @@ function runRg(args: string[], limit: number, signal: AbortSignal | undefined): 
                 settleReject(new Error("Aborted"));
                 return;
             }
-            // code === null means the process was killed (signal) or spawn failed
             if (code === null) {
                 settleReject(new Error("ripgrep process terminated unexpectedly"));
                 return;
             }
-            // rg exits 2 for actual errors (invalid regex, unreadable path, etc.)
             if (code === 2) {
                 settleReject(new Error(`ripgrep error: ${stderr.trim() || "unknown error"}`));
                 return;
             }
-            // code 0 (matches) and 1 (no matches) are both success from our perspective
             settleResolve();
         });
     });
 }
 
-/** Emphasize match substrings with pi's search-match colors. */
 function highlightMatchRanges(line: string, ranges: MatchRanges, theme: Theme): string {
     const plain = (chunk: string) => theme.fg("toolOutput", chunk);
     const match = (chunk: string) => theme.bg("searchMatchBg", theme.fg("searchMatchText", chunk));
@@ -328,10 +330,7 @@ export function registerGrepTool(pi: ExtensionAPI): void {
             ),
         }),
 
-        // pi's built-in grep renderCall (pattern/path/glob header) is merged in
-        // by tool name; the result renderer mirrors the built-in (plain lines,
-        // 15-line collapsed preview) but strips the model-facing LINE#HASH
-        // prefixes so the view matches pi's built-in grep.
+        // Pi retains its built-in call renderer; strip anchors only in the result view.
         renderResult(result, { expanded }, theme, context) {
             const text = (context.lastComponent as Text | undefined) ?? new Text("", 0, 0);
             const typed = result as {
@@ -351,7 +350,6 @@ export function registerGrepTool(pi: ExtensionAPI): void {
                 lines.pop();
             }
 
-            // Display line index → match ranges (offsets into the stripped line).
             const highlights = new Map<number, MatchRanges>();
             for (const entry of typed.details?.highlights ?? []) {
                 highlights.set(entry.line, entry.ranges);
@@ -379,14 +377,13 @@ export function registerGrepTool(pi: ExtensionAPI): void {
             const limit = params.limit ?? DEFAULT_LIMIT;
             const contextLines = params.context ?? 0;
 
-            const rgArgs: string[] = ["--json"];
+            // Search dotfiles but not .git metadata; ripgrep still honors .gitignore.
+            const rgArgs: string[] = ["--json", "--hidden", "--glob", "!.git"];
             if (params.ignoreCase) rgArgs.push("--ignore-case");
             if (params.literal) rgArgs.push("--fixed-strings");
             if (params.glob) rgArgs.push("--glob", params.glob);
             rgArgs.push("--", params.pattern, searchPath);
 
-            // Async spawn: does not block the event loop; honors AbortSignal.
-            // runRg throws on process-level failures — never silently returns empty.
             const { matchesByFile, matches: totalMatched, truncated } = await runRg(rgArgs, limit, signal);
 
             throwIfAborted(signal);
@@ -410,7 +407,6 @@ export function registerGrepTool(pi: ExtensionAPI): void {
             throwIfAborted(signal);
 
             const outputParts: string[] = [];
-            /** Display line index → match ranges, for the TUI renderer. */
             const highlights: Array<{ line: number; ranges: MatchRanges }> = [];
             let outputLineIndex = 0;
             let fileCount = 0;
@@ -429,9 +425,7 @@ export function registerGrepTool(pi: ExtensionAPI): void {
                     const normalized = normalizeToLF(stripBom(loaded.text).text);
                     fileLines = splitVisibleLines(normalized);
 
-                    // Record snapshot so that edit's stale-anchor recovery and
-                    // duplicate-edit guard work identically whether anchors came from
-                    // read or grep. Uses the same canonical path convention as read.ts.
+                    // Grep anchors need the same snapshot recovery as read anchors.
                     const canonicalWritePath = await resolveMutationTargetPath(filePath);
                     rememberReadSnapshot(canonicalWritePath, normalized);
                 } catch {
@@ -440,9 +434,7 @@ export function registerGrepTool(pi: ExtensionAPI): void {
 
                 const totalFileLines = fileLines.length;
 
-                // Guard against a race where the file was truncated between rg reading
-                // it and our loadFileKindAndText call. Out-of-bounds line numbers would
-                // make formatHashlineRegion push empty strings; filter them out first.
+                // rg's line numbers can outlive a file truncated before our reread.
                 const validMatchLines = [...matchRangesByLine.keys()].filter((n) => n <= totalFileLines);
                 if (validMatchLines.length === 0) continue;
 
@@ -456,7 +448,6 @@ export function registerGrepTool(pi: ExtensionAPI): void {
                 fileCount++;
                 shownMatches += validMatchLines.length;
 
-                // Relative path for display
                 const displayPath = filePath.startsWith(ctx.cwd + "/") ? filePath.slice(ctx.cwd.length + 1) : filePath;
 
                 outputParts.push(`${displayPath}:`);
@@ -486,9 +477,7 @@ export function registerGrepTool(pi: ExtensionAPI): void {
                 outputLineIndex++;
             }
 
-            // Count from the rendered output, not the raw rg tally: files skipped
-            // during rendering (binary/image/unreadable/raced) must not appear in
-            // the summary.
+            // Count only readable matches; rg's count may include files that disappeared.
             if (fileCount === 0) {
                 return {
                     content: [
@@ -504,21 +493,33 @@ export function registerGrepTool(pi: ExtensionAPI): void {
                     },
                 };
             }
-            const summary = `${shownMatches} match${shownMatches !== 1 ? "es" : ""} in ${fileCount} file${fileCount !== 1 ? "s" : ""}.${truncated ? ` (truncated at ${limit})` : ""}`;
-            outputParts.push(summary);
-
+            const summary = `${shownMatches} match${shownMatches !== 1 ? "es" : ""} in ${fileCount} file${fileCount !== 1 ? "s" : ""}.${truncated ? ` (stopped at match limit ${limit})` : ""}`;
+            const rawOutput = `${outputParts.join("\n")}\n${summary}`;
+            // Reserve room for the notice; Pi's truncateHead retains complete anchor lines.
+            const truncation = truncateHead(rawOutput, {
+                maxLines: DEFAULT_MAX_LINES - 2,
+                maxBytes: DEFAULT_MAX_BYTES - 1024,
+            });
+            const notice = truncation.truncated
+                ? `[Truncated at ${formatSize(DEFAULT_MAX_BYTES)} or ${DEFAULT_MAX_LINES} lines after ${shownMatches} selected matches. Narrow with path/glob or a more specific pattern, then rerun to continue.]`
+                : truncated
+                  ? `[Stopped at match limit ${limit}. Narrow with path/glob or raise the limit, then rerun to continue.]`
+                  : undefined;
+            const outputLines = truncation.content.split("\n");
+            const visibleHighlights = highlights.filter((entry) => entry.line < outputLines.length);
             return {
                 content: [
                     {
                         type: "text",
-                        text: outputParts.join("\n"),
+                        text: notice ? `${truncation.content}\n\n${notice}` : truncation.content,
                     },
                 ],
                 details: {
                     matches: shownMatches,
                     files: fileCount,
-                    truncated,
-                    ...(highlights.length > 0 ? { highlights } : {}),
+                    truncated: truncated || truncation.truncated,
+                    ...(truncation.truncated ? { truncation } : {}),
+                    ...(visibleHighlights.length > 0 ? { highlights: visibleHighlights } : {}),
                 },
             };
         },

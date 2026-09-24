@@ -16,7 +16,13 @@ import { access as fsAccess } from "fs/promises";
 import { constants } from "fs";
 import { normalizeToLF, stripBom } from "./edit-diff";
 import { loadFileKindAndText } from "./file-kind";
-import { formatHashlineRegion, sanitizeOutput, splitVisibleLines, stripHashlinePrefixes } from "./hashline";
+import {
+    HASH_LENGTH,
+    formatHashlineRegion,
+    sanitizeOutput,
+    splitVisibleLines,
+    stripHashlinePrefixes,
+} from "./hashline";
 import { resolveToCwd } from "./path-utils";
 import { loadPrompt, loadPromptGuidelines } from "./prompt-loader";
 import { throwIfAborted } from "./runtime";
@@ -71,55 +77,72 @@ function formatHashlineReadPreview(
     }
 
     const limit = normalizePositiveInteger(options.limit, "limit");
-    const endIdx = limit ? Math.min(startLine - 1 + limit, totalLines) : totalLines;
-    // Raw mode skips LINE#HASH prefixes. The selection, truncation, and
-    // continuation notices are identical to hashline mode — single code path
-    // so the two modes cannot drift on edge cases.
-    const formatted = options.raw
-        ? allLines.slice(startLine - 1, endIdx).join("\n")
-        : formatHashlineRegion(allLines, startLine, endIdx);
+    const requestedEnd = limit ? Math.min(startLine - 1 + limit, totalLines) : totalLines;
+    // Reserve two lines and 1KB for the continuation notice.
+    const candidateEnd = Math.min(requestedEnd, startLine + DEFAULT_MAX_LINES - 3);
+    let capReason: "lines" | "bytes" | undefined = candidateEnd < requestedEnd ? "lines" : undefined;
+    const lineNumberWidth = String(candidateEnd).length;
+    const prefixBytes = options.raw
+        ? 0
+        : Buffer.byteLength(String(candidateEnd).padStart(lineNumberWidth, " ")) + HASH_LENGTH + 2;
+    let endLine = startLine - 1;
+    let outputBytes = 0;
+    for (let lineNum = startLine; lineNum <= candidateEnd; lineNum++) {
+        const lineBytes =
+            prefixBytes + Buffer.byteLength(allLines[lineNum - 1]!, "utf8") + (lineNum > startLine ? 1 : 0);
+        if (outputBytes + lineBytes > DEFAULT_MAX_BYTES - 1024) break;
+        outputBytes += lineBytes;
+        endLine = lineNum;
+    }
+    if (endLine < candidateEnd) capReason = "bytes";
 
-    const truncation = truncateHead(formatted);
-    if (truncation.firstLineExceedsLimit) {
+    // Anchors cannot be truncated mid-line, including when pagination needs space.
+    if (endLine < startLine) {
+        const line = allLines[startLine - 1]!;
+        const oversized = options.raw
+            ? line
+            : `${String(startLine).padStart(lineNumberWidth, " ")}#${"Z".repeat(HASH_LENGTH)}:${line}`;
         return {
-            text: options.raw
-                ? `[Line ${startLine} exceeds ${formatSize(truncation.maxBytes)}; a single line this large cannot be displayed. Use bash to inspect it.]`
-                : `[Line ${startLine} exceeds ${formatSize(truncation.maxBytes)}. Hashline output requires full lines; cannot compute hashes for a truncated preview. Use bash to inspect it.]`,
-            truncation,
+            text: `[Line ${startLine} cannot fit as a complete ${options.raw ? "raw" : "hashline"} line within ${formatSize(DEFAULT_MAX_BYTES)} of output (including pagination). Use bash to inspect it.]`,
+            truncation: truncateHead(oversized, { maxBytes: DEFAULT_MAX_BYTES - 1024 }),
         };
     }
 
-    let preview = truncation.content;
+    // Hash against the full file so the last displayed line retains its next-line context.
+    const formatted = options.raw
+        ? allLines.slice(startLine - 1, endLine).join("\n")
+        : formatHashlineRegion(allLines, startLine, endLine);
+    const measured = truncateHead(formatted);
+    const truncation: TruncationResult | undefined = capReason
+        ? {
+              ...measured,
+              truncated: true,
+              truncatedBy: capReason,
+              totalLines,
+              totalBytes: Buffer.byteLength(text, "utf8"),
+              outputLines: endLine - startLine + 1,
+              outputBytes,
+          }
+        : undefined;
+    let preview = formatted;
     let nextOffset: number | undefined;
-    if (truncation.truncated) {
-        const endLineDisplay = startLine + truncation.outputLines - 1;
-        nextOffset = endLineDisplay + 1;
-        if (truncation.truncatedBy === "lines") {
-            preview += `\n\n[Showing lines ${startLine}-${endLineDisplay} of ${totalLines}. Use offset=${nextOffset} to continue.]`;
-        } else {
-            preview += `\n\n[Showing lines ${startLine}-${endLineDisplay} of ${totalLines} (${formatSize(truncation.maxBytes)} limit). Use offset=${nextOffset} to continue.]`;
-        }
-    } else if (endIdx < totalLines) {
-        nextOffset = endIdx + 1;
-        preview += `\n\n[Showing lines ${startLine}-${endIdx} of ${totalLines}. Use offset=${nextOffset} to continue.]`;
+    if (truncation) {
+        nextOffset = endLine + 1;
+        const limitLabel = truncation.truncatedBy === "lines" ? "" : ` (${formatSize(DEFAULT_MAX_BYTES)} limit)`;
+        preview += `\n\n[Showing lines ${startLine}-${endLine} of ${totalLines}${limitLabel}. Use offset=${nextOffset} to continue.]`;
+    } else if (endLine < totalLines) {
+        nextOffset = endLine + 1;
+        preview += `\n\n[Showing lines ${startLine}-${endLine} of ${totalLines}. Use offset=${nextOffset} to continue.]`;
     }
 
     return {
         text: preview,
-        truncation: truncation.truncated ? truncation : undefined,
+        truncation,
         ...(nextOffset !== undefined ? { nextOffset } : {}),
     };
 }
 
-// ─── Result rendering ──────────────────────────────────────────────────
-
-/**
- * Render read output as plain file content with syntax highlighting. The
- * `LINE#HASH:` prefixes are stripped for display: feeding them to the
- * highlighter makes it treat `#ABC:` as a comment token and gray out the
- * whole line. The model-facing text keeps its anchors; only the TUI view
- * drops them, matching pi's built-in read rendering.
- */
+/** Strip anchors only in the TUI: highlighting treats `#ABC:` as a comment. */
 function formatReadResultText(output: string, lang: string | undefined, theme: Pick<Theme, "fg">): string {
     const lines = stripHashlinePrefixes(output).split("\n");
     while (lines.length > 0 && lines[lines.length - 1] === "") {
