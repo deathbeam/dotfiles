@@ -46,6 +46,7 @@ export default function (pi: ExtensionAPI) {
             event.headers["x-opencode-session"] =
                 `ses_${createHash("sha256").update(session).digest("hex").slice(0, 26)}`;
         }
+        event.headers["x-opencode-client"] = "cli";
         event.headers["User-Agent"] = "opencode/1.18.0";
     });
 
