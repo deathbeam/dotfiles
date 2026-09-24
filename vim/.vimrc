@@ -45,7 +45,8 @@ set smartcase
 set showmatch
 
 " Always use vertical diffs
-set diffopt=internal,filler,closeoff,algorithm:histogram,indent-heuristic,inline:char,context:100000
+set diffopt=internal,filler,closeoff,algorithm:histogram,indent-heuristic,inline:char
+" set diffopt+=context:100000
 " set diffopt+=linematch:60
 " set diffopt+=context:10
 

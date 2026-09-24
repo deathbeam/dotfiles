@@ -1,15 +1,6 @@
 {
   "version": 3,
   "skills": {
-    "improve-codebase-architecture": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/improve-codebase-architecture/SKILL.md",
-      "skillFolderHash": "3d35cd438f4067b03c8b3792e038960e4ac11526",
-      "installedAt": "2026-06-19T13:48:26.216Z",
-      "updatedAt": "2026-08-27T19:38:03.463Z"
-    },
     "codebase-design": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -63,15 +54,6 @@
       "skillFolderHash": "d8e341cee7980127dddda05159bedf25dc853615",
       "installedAt": "2026-08-07T01:00:19.588Z",
       "updatedAt": "2026-08-27T19:38:08.391Z"
-    },
-    "prototype": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/prototype/SKILL.md",
-      "skillFolderHash": "e41d92e171f074a2b6887d8f6faca4a15c83d1ca",
-      "installedAt": "2026-08-07T01:00:19.588Z",
-      "updatedAt": "2026-08-27T19:38:09.217Z"
     },
     "research": {
       "source": "mattpocock/skills",
