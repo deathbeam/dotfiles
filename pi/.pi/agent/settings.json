@@ -6,7 +6,11 @@
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-vision-handoff",
-    "npm:@amaster.ai/pi-image-gen"
+    "npm:@amaster.ai/pi-image-gen",
+    "npm:@deathbeam/pi-keenable",
+    "npm:@deathbeam/pi-archive",
+    "npm:@deathbeam/pi-delegate",
+    "npm:@deathbeam/pi-hashline"
   ],
   "terminal": {
     "showTerminalProgress": false
