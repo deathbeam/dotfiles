@@ -126,6 +126,24 @@
       "skillFolderHash": "dc6d9660c4297496a9220de377f6f7df38ab1a53",
       "installedAt": "2026-09-20T13:47:11.488Z",
       "updatedAt": "2026-09-20T13:47:11.488Z"
+    },
+    "unslop": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cursor/plugins.git",
+      "skillPath": "pstack/skills/unslop/SKILL.md",
+      "skillFolderHash": "d5baa969e71c4ddb563412b0ec170fa3b05b6d6e",
+      "installedAt": "2026-09-26T18:05:02.887Z",
+      "updatedAt": "2026-09-26T18:05:02.887Z"
+    },
+    "technical-writing": {
+      "source": "cursor/plugins",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/cursor/plugins.git",
+      "skillPath": "pstack/skills/technical-writing/SKILL.md",
+      "skillFolderHash": "062212933adc6148a035a440dc5208757864fb42",
+      "installedAt": "2026-09-26T18:09:46.182Z",
+      "updatedAt": "2026-09-26T18:09:46.182Z"
     }
   },
   "dismissed": {
