@@ -40,7 +40,7 @@
     }
   },
   "pi-image-gen": {
-    "defaultModel": "cb/gpt-image-2",
+    "defaultModel": "cb/gemini-3.0-pro-image",
     "customProviders": {
       "inferhub": {
         "api": "openai",
