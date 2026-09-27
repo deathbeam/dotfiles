@@ -10,7 +10,8 @@
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
-    "npm:@deathbeam/pi-hashline"
+    "npm:@deathbeam/pi-hashline",
+    "npm:pi-context-view"
   ],
   "terminal": {
     "showTerminalProgress": false
