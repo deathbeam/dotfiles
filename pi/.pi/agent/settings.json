@@ -5,13 +5,13 @@
   "lastChangelogVersion": "0.87.1",
   "packages": [
     "npm:pi-terminal-theme",
+    "npm:pi-context-view",
     "npm:pi-vision-handoff",
     "npm:@amaster.ai/pi-image-gen",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
-    "npm:@deathbeam/pi-hashline",
-    "npm:pi-context-view"
+    "npm:@deathbeam/pi-hashline"
   ],
   "terminal": {
     "showTerminalProgress": false
