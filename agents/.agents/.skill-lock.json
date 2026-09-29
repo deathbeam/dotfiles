@@ -19,24 +19,6 @@
       "installedAt": "2026-06-19T13:48:26.218Z",
       "updatedAt": "2026-09-29T13:22:33.816Z"
     },
-    "domain-modeling": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/domain-modeling/SKILL.md",
-      "skillFolderHash": "ea30ee454ba264543dbe40737973b1a5afb9f0e6",
-      "installedAt": "2026-06-19T13:48:26.218Z",
-      "updatedAt": "2026-09-29T13:22:34.725Z"
-    },
-    "grilling": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/productivity/grilling/SKILL.md",
-      "skillFolderHash": "f0732035b8b1b60ae39454e4191caef32fa91903",
-      "installedAt": "2026-06-19T13:48:26.218Z",
-      "updatedAt": "2026-08-27T19:38:07.551Z"
-    },
     "find-skills": {
       "source": "vercel-labs/skills",
       "sourceType": "github",
@@ -46,24 +28,6 @@
       "installedAt": "2026-06-19T13:48:56.569Z",
       "updatedAt": "2026-08-07T01:02:10.680Z"
     },
-    "code-review": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/code-review/SKILL.md",
-      "skillFolderHash": "d8e341cee7980127dddda05159bedf25dc853615",
-      "installedAt": "2026-08-07T01:00:19.588Z",
-      "updatedAt": "2026-08-27T19:38:08.391Z"
-    },
-    "research": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/research/SKILL.md",
-      "skillFolderHash": "0a6796c5667e95ed2301ba7381c123b4acb2ae1a",
-      "installedAt": "2026-08-07T01:00:19.588Z",
-      "updatedAt": "2026-08-27T19:38:10.038Z"
-    },
     "resolving-merge-conflicts": {
       "source": "mattpocock/skills",
       "sourceType": "github",
@@ -72,15 +36,6 @@
       "skillFolderHash": "77f0d7de3143abbf03e55a63522d30bff31ae908",
       "installedAt": "2026-08-07T01:00:19.588Z",
       "updatedAt": "2026-08-27T19:38:10.873Z"
-    },
-    "tdd": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/tdd/SKILL.md",
-      "skillFolderHash": "bf1bf5ffcd63aa8abce830f2955a853c121fb463",
-      "installedAt": "2026-08-07T01:00:19.589Z",
-      "updatedAt": "2026-09-29T13:22:35.946Z"
     },
     "writing-for-agents": {
       "source": "mattpocock/skills",
