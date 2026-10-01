@@ -11,7 +11,8 @@
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
-    "npm:@deathbeam/pi-hashline"
+    "npm:@deathbeam/pi-hashline",
+    "npm:pi-free"
   ],
   "terminal": {
     "showTerminalProgress": false
