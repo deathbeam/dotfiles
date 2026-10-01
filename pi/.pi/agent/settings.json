@@ -2,7 +2,7 @@
   "defaultModel": "deepseek-v4.1-flash",
   "defaultProvider": "opencode-go",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.87.1",
+  "lastChangelogVersion": "0.99.2",
   "packages": [
     "npm:pi-terminal-theme",
     "npm:pi-context-view",
