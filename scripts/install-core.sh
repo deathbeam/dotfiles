@@ -18,7 +18,7 @@ packages=(
     power-profiles-daemon # power management
     keyd # keyboard remapping daemon
     syncthing # file synchronization
-    tree-sitter-git tree-sitter-cli-git neovim-git fswatch ctags less bat lynx # neovim/text stuff
+    tree-sitter-git tree-sitter-cli-git neovim-nightly-bin fswatch ctags less bat lynx # neovim/text stuff
     asciinema asciinema-agg-bin # terminal recording
     btop # system monitor
     glow # markdown viewer
