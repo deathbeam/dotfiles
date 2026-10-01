@@ -70,7 +70,13 @@ end
 local function download_subs(directory, candidates)
     log('Searching ' .. language[1] .. ' subtitles ...', 30)
 
-    for _, query in ipairs(candidates) do
+    -- Async so mpv stays responsive while subliminal runs (10s+ with dead providers).
+    local function try(i)
+        if i > #candidates then
+            log('No ' .. language[1] .. ' subtitles found')
+            return
+        end
+        local query = candidates[i]
         local args = { subliminal }
 
         if debug then
@@ -87,6 +93,11 @@ local function download_subs(directory, candidates)
         -- Without this gate, subliminal downloads a random wrong subtitle for obscure films.
         table.insert(args, '-m')
         table.insert(args, '50')
+        -- Only live providers; dead ones (tvsubtitles 403, legacy opensubtitles) stall each run.
+        table.insert(args, '-p')
+        table.insert(args, 'opensubtitlescom')
+        table.insert(args, '-p')
+        table.insert(args, 'podnapisi')
         -- omdb refiner ships with a dead apikey (401 every run); ignore the noise.
         table.insert(args, '-R')
         table.insert(args, 'omdb')
@@ -98,33 +109,43 @@ local function download_subs(directory, candidates)
             msg.warn('Executing: ' .. table.concat(args, ' '))
         end
 
-        local result = utils.subprocess({ args = args, cancellable = false })
-        local sub_path = get_subtitle_path(directory, query, language[2])
+        local start_path = mp.get_property('path')
+        mp.command_native_async({
+            name = 'subprocess',
+            args = args,
+            capture_stdout = true,
+            capture_stderr = true,
+        }, function(_, result)
+            -- user moved on to another file; drop the result
+            if mp.get_property('path') ~= start_path then return end
 
-        if debug then
-            log('Checking for subtitle file at: ' .. sub_path)
-        end
+            local sub_path = get_subtitle_path(directory, query, language[2])
 
-        if file_exists(sub_path) then
-            mp.commandv('sub-add', sub_path, 'auto', language[1], language[2])
-            log(language[1] .. ' subtitles ready!')
-            return true
-        end
-
-        if debug then
-            if result.stderr and result.stderr ~= '' then
-                msg.warn('Subliminal error: ' .. result.stderr)
+            if debug then
+                log('Checking for subtitle file at: ' .. sub_path)
             end
-            if result.stdout and result.stdout ~= '' then
-                msg.warn('Subliminal output: ' .. result.stdout)
-            end
-        end
 
-        log('No match for "' .. query .. '"')
+            if file_exists(sub_path) then
+                mp.commandv('sub-add', sub_path, 'auto', language[1], language[2])
+                log(language[1] .. ' subtitles ready!')
+                return
+            end
+
+            if debug and result then
+                if result.stderr and result.stderr ~= '' then
+                    msg.warn('Subliminal error: ' .. result.stderr)
+                end
+                if result.stdout and result.stdout ~= '' then
+                    msg.warn('Subliminal output: ' .. result.stdout)
+                end
+            end
+
+            log('No match for "' .. query .. '"')
+            try(i + 1)
+        end)
     end
 
-    log('No ' .. language[1] .. ' subtitles found')
-    return false
+    try(1)
 end
 
 local function should_download_subs(sub_tracks)
