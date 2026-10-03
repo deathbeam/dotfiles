@@ -60,27 +60,27 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-audit/SKILL.md",
-      "skillFolderHash": "19744a9490abb0f5d0f18c6e39e3a3eb50f4daa1",
+      "skillFolderHash": "4e09c473159cca7d3799b01a50784d09bffc64ae",
       "installedAt": "2026-09-20T13:47:11.486Z",
-      "updatedAt": "2026-09-20T13:47:11.486Z"
+      "updatedAt": "2026-10-03T16:56:26.043Z"
     },
     "ponytail-debt": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-debt/SKILL.md",
-      "skillFolderHash": "fe9ea82cad2b42a9c244acc275c9091c414ff528",
+      "skillFolderHash": "c9bf71ce830bce18e5bbe277828d56ff20eb3dfb",
       "installedAt": "2026-09-20T13:47:11.487Z",
-      "updatedAt": "2026-09-20T13:47:11.487Z"
+      "updatedAt": "2026-10-03T16:56:26.971Z"
     },
     "ponytail-review": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-review/SKILL.md",
-      "skillFolderHash": "dc6d9660c4297496a9220de377f6f7df38ab1a53",
+      "skillFolderHash": "cecec1713084ba31cda4add0373809c7f28ba8e7",
       "installedAt": "2026-09-20T13:47:11.488Z",
-      "updatedAt": "2026-09-20T13:47:11.488Z"
+      "updatedAt": "2026-10-03T16:56:27.846Z"
     },
     "unslop": {
       "source": "cursor/plugins",
@@ -96,9 +96,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/cursor/plugins.git",
       "skillPath": "pstack/skills/technical-writing/SKILL.md",
-      "skillFolderHash": "062212933adc6148a035a440dc5208757864fb42",
+      "skillFolderHash": "51c1a0ec9526c3976455f6e6ab00e0e0c5f3de5e",
       "installedAt": "2026-09-26T18:09:46.182Z",
-      "updatedAt": "2026-09-26T18:09:46.182Z"
+      "updatedAt": "2026-10-03T16:56:28.957Z"
     }
   },
   "dismissed": {
