@@ -60,9 +60,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-audit/SKILL.md",
-      "skillFolderHash": "4e09c473159cca7d3799b01a50784d09bffc64ae",
+      "skillFolderHash": "f62f3a49debd14effa6d339b309f0bc531b9b232",
       "installedAt": "2026-09-20T13:47:11.486Z",
-      "updatedAt": "2026-10-03T16:56:26.043Z"
+      "updatedAt": "2026-10-05T01:59:03.108Z"
     },
     "ponytail-debt": {
       "source": "DietrichGebert/ponytail",
@@ -78,9 +78,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-review/SKILL.md",
-      "skillFolderHash": "cecec1713084ba31cda4add0373809c7f28ba8e7",
+      "skillFolderHash": "6edfcf161c997fdd3089bce4e5682a921fb59b46",
       "installedAt": "2026-09-20T13:47:11.488Z",
-      "updatedAt": "2026-10-03T16:56:27.846Z"
+      "updatedAt": "2026-10-05T01:59:03.946Z"
     },
     "unslop": {
       "source": "cursor/plugins",

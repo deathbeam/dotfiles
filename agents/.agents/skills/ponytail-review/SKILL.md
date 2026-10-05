@@ -15,8 +15,9 @@ to cut, what replaces it. The diff's best outcome is getting shorter.
 
 ## Format
 
-`L<line>: <tag> <what>. <replacement>.`, or `<file>:L<line>: ...` for
-multi-file diffs.
+`<N>. L<line>: <tag> <what>. <replacement>.`, or `<N>. <file>:L<line>: ...` for
+multi-file diffs. Number findings `1.`, `2.`, ... across the whole report, so the
+user can say "fix 2 and 5".
 
 Tags:
 
@@ -33,17 +34,17 @@ Tags:
 ❌ "This EmailValidator class might be more complex than necessary, have you
 considered whether all these validation rules are needed at this stage?"
 
-✅ `L12-38: stdlib: 27-line validator class. "@" in email, 1 line, real validation is the confirmation mail.`
+✅ `1. L12-38: stdlib: 27-line validator class. "@" in email, 1 line, real validation is the confirmation mail.`
 
-✅ `L4: native: moment.js imported for one format call. Intl.DateTimeFormat, 0 deps.`
+✅ `2. L4: native: moment.js imported for one format call. Intl.DateTimeFormat, 0 deps.`
 
-✅ `L18-29: reuse: slugify helper duplicates src/lib/slug.ts slugify. Delete it, import the existing one.`
+✅ `3. L18-29: reuse: slugify helper duplicates src/lib/slug.ts slugify. Delete it, import the existing one.`
 
-✅ `repo.py:L88: yagni: AbstractRepository with one implementation. Inline it until a second one exists.`
+✅ `4. repo.py:L88: yagni: AbstractRepository with one implementation. Inline it until a second one exists.`
 
-✅ `L52-71: delete: retry wrapper around an idempotent local call. Nothing replaces it.`
+✅ `5. L52-71: delete: retry wrapper around an idempotent local call. Nothing replaces it.`
 
-✅ `L30-44: shrink: manual loop builds dict. dict(zip(keys, values)), 1 line.`
+✅ `6. L30-44: shrink: manual loop builds dict. dict(zip(keys, values)), 1 line.`
 
 ## Scoring
 

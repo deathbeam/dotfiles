@@ -34,7 +34,8 @@ fixtures and string or dynamic references.
 
 ## Output
 
-One line per finding, ranked: `<tag> <what to cut>. <replacement>. [path]`.
+One line per finding, numbered and ranked: `<N>. <tag> <what to cut>. <replacement>. [path]`,
+so the user can say "fix 2 and 5".
 End with `net: -<N> lines, -<M> deps possible.` Nothing to cut: `Lean already. Ship.`
 
 ## Boundaries
