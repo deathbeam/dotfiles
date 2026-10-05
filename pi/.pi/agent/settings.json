@@ -1,6 +1,6 @@
 {
-  "defaultModel": "deepseek-v4.1-flash",
-  "defaultProvider": "opencode-go",
+  "defaultModel": "zai-glm-5-3",
+  "defaultProvider": "mistral",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.99.2",
   "packages": [
@@ -60,11 +60,12 @@
   },
   "enabledModels": [
     "opencode/mimo-v2.6-flash-free",
-    "opencode-go/deepseek-v4.1-flash",
+    "opencode/space-bunny-free",
+    "inferhub/deepseek-v4.1-flash",
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
-    "opencode/space-bunny-free",
-    "inferhub/gpt-6-sol"
+    "inferhub/gpt-6-sol",
+    "mistral/zai-glm-5-3"
   ],
   "outputPad": 1,
   "tuiMode": "regular"
