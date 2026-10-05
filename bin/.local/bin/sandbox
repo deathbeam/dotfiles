@@ -2,13 +2,28 @@
 # Restrictive bubblewrap sandbox for running pi (and anything else) in the cwd.
 # Usage: sandbox [command...]    (default: $SHELL)
 #        sandbox --check         assert the sandbox boundary is actually on
+#
+# Model: read-only /usr and /etc, whole home as an overlayfs (every config,
+# cache and toolchain dir is visible and writable, but writes are ephemeral
+# and never touch the host), and only the project and ~/.pi writing through
+# for real. ~/.ssh and ~/.gnupg are masked. A tool needing another host path
+# fails loudly — add one explicit bind. The environment passes through
+# unchanged, deliberately: pi's providers auth via env keys (cmdenv).
+#
+# Ephemeral means big package restores (nuget, pip, …) re-download each
+# session. If that ever hurts, swap --tmp-overlay for a persistent layer:
+#   --overlay ~/.cache/sandbox-home/rw ~/.cache/sandbox-home/work "$HOME"
+# (writes then persist in ~/.cache/sandbox-home/rw; that dir shadows host
+#  edits to any file touched inside, and rm -rf-ing it resets the sandbox
+#  home. Note: --overlay-src/--tmp-overlay cannot be over a path that has
+#  other mounts inside it, so this fails if run from inside another sandbox.)
 
 set -euo pipefail
 HERE="$(realpath .)"
 [[ "$HERE" != "$HOME" ]] || { echo "sandbox: refusing to bind \$HOME as the workspace" >&2; exit 1; }
 
 bwrap_args=(
-    # Read-only system: enough for the shell, node, git, ripgrep (Arch merged-usr)
+    # Read-only system: enough for the shell and necessary tools
     --ro-bind /usr /usr
     --ro-bind /etc /etc
     --symlink usr/bin /bin
@@ -16,27 +31,25 @@ bwrap_args=(
     --symlink usr/lib /lib
     --symlink usr/lib64 /lib64
 
-    # Ephemeral home
-    --tmpfs "$HOME"
-    --bind "$HOME/.pi" "$HOME/.pi"                          # pi
-    --bind "$HOME/.agents" "$HOME/.agents"                  # agents
-    --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"         # git identity + aliases
-    --ro-bind-try "$HOME/.gitconfig.local" "$HOME/.gitconfig.local"
-    --ro-bind "$HOME/.config/gh" "$HOME/.config/gh"         # gh auth
-    --ro-bind "$HOME/.npm-global" "$HOME/.npm-global"       # pi + global node binaries
+    # Home: everything visible and writable via overlay, writes ephemeral
+    --overlay-src "$HOME"
+    --tmp-overlay "$HOME"
+    --tmpfs "$HOME/.ssh"
+    --tmpfs "$HOME/.gnupg"
+    --bind "$HOME/.pi" "$HOME/.pi"
 
-    # Project workspace
-    --bind "$HERE" "$HERE"                                  # the project
-    --ro-bind-try "$HERE/.git" "$HERE/.git"                 # block commits
+    # Project: everything visible and writable, writes persist
+    --bind "$HERE" "$HERE"
+    --ro-bind-try "$HERE/.git" "$HERE/.git"
 
     --proc /proc
     --dev /dev
     --tmpfs /tmp
 
     --unshare-all
-    --unshare-user
-    --share-net
-    --disable-userns
+    --unshare-user         # required for --disable-userns to work
+    --share-net            # we want network access
+    --disable-userns       # no nested user namespaces from inside
     --hostname sandbox
     --die-with-parent
 
@@ -46,11 +59,13 @@ bwrap_args=(
 if [[ ${1:-} == --check ]]; then
     exec bwrap "${bwrap_args[@]}" bash -c '
         set -e
-        test ! -e "$HOME/.ssh" && test ! -e "$HOME/.gnupg"                 # host secrets hidden
-        test ! -e /var                                                     # bwrap view is active
-        test -x /usr/bin/git                                               # system tools present
+        test -z "$(ls -A "$HOME/.ssh" 2>/dev/null)" && test -z "$(ls -A "$HOME/.gnupg" 2>/dev/null)"  # secrets masked
+        test ! -e /var                                       # bwrap view is active
+        test -r "$HOME/.gitconfig"                           # real home config visible
+        touch "$HOME/.sandbox-home-probe" && rm "$HOME/.sandbox-home-probe"  # home writable (ephemerally)
+        test -x /usr/bin/git                                 # system tools present
         touch "$HOME/.pi/.sandbox-check" && rm "$HOME/.pi/.sandbox-check"  # pi state rw
-        touch .sandbox-check && rm .sandbox-check                          # cwd writable
+        touch .sandbox-check && rm .sandbox-check            # cwd writable
         echo "sandbox ok"'
 fi
 
