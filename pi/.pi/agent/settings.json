@@ -2,7 +2,7 @@
   "defaultModel": "zai-glm-5-3",
   "defaultProvider": "mistral",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "0.99.2",
+  "lastChangelogVersion": "1.0.3",
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",

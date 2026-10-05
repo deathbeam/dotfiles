@@ -1,52 +1,57 @@
 #!/bin/bash
-# Generic restrictive bubblewrap sandbox
-# Usage: sandbox [command...]
-#   Runs command (or $SHELL) in an isolated environment.
-#   Current working directory and some common config/state directories are writable,
-#   but the rest of the filesystem is read-only.
+# Restrictive bubblewrap sandbox for running pi (and anything else) in the cwd.
+# Usage: sandbox [command...]    (default: $SHELL)
+#        sandbox --check         assert the sandbox boundary is actually on
 
 set -euo pipefail
-
-# Resolve current directory once
 HERE="$(realpath .)"
+[[ "$HERE" != "$HOME" ]] || { echo "sandbox: refusing to bind \$HOME as the workspace" >&2; exit 1; }
 
-# Build common read-only filesystem bindings
-# Using --ro-bind for the entire system, then overlaying specific paths as needed
 bwrap_args=(
-    # Filesystem: read-only root with selective overlays
-    --ro-bind / /
+    # Read-only system: enough for the shell, node, git, ripgrep (Arch merged-usr)
+    --ro-bind /usr /usr
+    --ro-bind /etc /etc
+    --symlink usr/bin /bin
+    --symlink usr/bin /sbin
+    --symlink usr/lib /lib
+    --symlink usr/lib64 /lib64
 
-    # Writable current working directory
-    --bind "$HERE" "$HERE"
+    # Ephemeral home
+    --tmpfs "$HOME"
+    --bind "$HOME/.pi" "$HOME/.pi"                          # pi
+    --bind "$HOME/.agents" "$HOME/.agents"                  # agents
+    --ro-bind "$HOME/.gitconfig" "$HOME/.gitconfig"         # git identity + aliases
+    --ro-bind-try "$HOME/.gitconfig.local" "$HOME/.gitconfig.local"
+    --ro-bind "$HOME/.config/gh" "$HOME/.config/gh"         # gh auth
+    --ro-bind "$HOME/.npm-global" "$HOME/.npm-global"       # pi + global node binaries
 
-    # Allow common stuff
-    --bind "$HOME/.local/state/nvim" "$HOME/.local/state/nvim" # needed for neovim
-    --bind "$XDG_RUNTIME_DIR" "$XDG_RUNTIME_DIR" # needed for neovim
-    --bind "$HOME/.pi" "$HOME/.pi" # needed for pi
-    --bind "$HOME/.npm/_cacache" "$HOME/.npm/_cacache" # needed for npx
-    --bind "$HOME/.npm/_npx" "$HOME/.npm/_npx" # needed for npx
+    # Project workspace
+    --bind "$HERE" "$HERE"                                  # the project
+    --ro-bind-try "$HERE/.git" "$HERE/.git"                 # block commits
 
-    # /tmp as tmpfs (writable but ephemeral), use if not using fzf-lua or other stuff isnt breaking
-    --bind /tmp /tmp # without this fzf-lua kinda doesnt rly work
-    # --tmpfs /tmp
-
-    # Pseudo-filesystems
     --proc /proc
     --dev /dev
+    --tmpfs /tmp
 
-    # Namespace isolation
     --unshare-all
+    --unshare-user
     --share-net
-    --hostname sandbox     # Isolate UTS namespace hostname
+    --disable-userns
+    --hostname sandbox
+    --die-with-parent
 
-    # Security hardening
-    #--new-session          # Mitigate TIOCSTI sandbox escape (CVE-2017-5226), causes redraw issues in tmux, otherwise ok
-    --die-with-parent      # Kill sandboxed process when parent dies
-
-    # Environment
     --setenv PS1 "sandbox$ "
-    --unsetenv XAUTHORITY  # Don't leak X11 auth by default
 )
 
-# Execute
-exec bwrap "${bwrap_args[@]}" "${@:-$SHELL}"
+if [[ ${1:-} == --check ]]; then
+    exec bwrap "${bwrap_args[@]}" bash -c '
+        set -e
+        test ! -e "$HOME/.ssh" && test ! -e "$HOME/.gnupg"                 # host secrets hidden
+        test ! -e /var                                                     # bwrap view is active
+        test -x /usr/bin/git                                               # system tools present
+        touch "$HOME/.pi/.sandbox-check" && rm "$HOME/.pi/.sandbox-check"  # pi state rw
+        touch .sandbox-check && rm .sandbox-check                          # cwd writable
+        echo "sandbox ok"'
+fi
+
+exec bwrap "${bwrap_args[@]}" "${@:-${SHELL:-/bin/bash}}"
