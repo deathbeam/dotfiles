@@ -64,7 +64,7 @@
     "inferhub/deepseek-v4.1-flash",
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
-    "inferhub/gpt-6-sol",
+    "inferhub/gpt-6.1-sol",
     "mistral/zai-glm-5-3"
   ],
   "outputPad": 1,
