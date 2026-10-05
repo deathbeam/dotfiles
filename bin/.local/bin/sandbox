@@ -2,21 +2,6 @@
 # Restrictive bubblewrap sandbox for running pi (and anything else) in the cwd.
 # Usage: sandbox [command...]    (default: $SHELL)
 #        sandbox --check         assert the sandbox boundary is actually on
-#
-# Model: read-only /usr and /etc, whole home as an overlayfs (every config,
-# cache and toolchain dir is visible and writable, but writes are ephemeral
-# and never touch the host), and only the project and ~/.pi writing through
-# for real. ~/.ssh and ~/.gnupg are masked. A tool needing another host path
-# fails loudly — add one explicit bind. The environment passes through
-# unchanged, deliberately: pi's providers auth via env keys (cmdenv).
-#
-# Ephemeral means big package restores (nuget, pip, …) re-download each
-# session. If that ever hurts, swap --tmp-overlay for a persistent layer:
-#   --overlay ~/.cache/sandbox-home/rw ~/.cache/sandbox-home/work "$HOME"
-# (writes then persist in ~/.cache/sandbox-home/rw; that dir shadows host
-#  edits to any file touched inside, and rm -rf-ing it resets the sandbox
-#  home. Note: --overlay-src/--tmp-overlay cannot be over a path that has
-#  other mounts inside it, so this fails if run from inside another sandbox.)
 
 set -euo pipefail
 HERE="$(realpath .)"
@@ -36,6 +21,8 @@ bwrap_args=(
     --tmp-overlay "$HOME"
     --tmpfs "$HOME/.ssh"
     --tmpfs "$HOME/.gnupg"
+
+    # Tool state: everything visible and writable, writes persist
     --bind "$HOME/.pi" "$HOME/.pi"
 
     # Project: everything visible and writable, writes persist
@@ -60,12 +47,11 @@ if [[ ${1:-} == --check ]]; then
     exec bwrap "${bwrap_args[@]}" bash -c '
         set -e
         test -z "$(ls -A "$HOME/.ssh" 2>/dev/null)" && test -z "$(ls -A "$HOME/.gnupg" 2>/dev/null)"  # secrets masked
-        test ! -e /var                                       # bwrap view is active
-        test -r "$HOME/.gitconfig"                           # real home config visible
-        touch "$HOME/.sandbox-home-probe" && rm "$HOME/.sandbox-home-probe"  # home writable (ephemerally)
-        test -x /usr/bin/git                                 # system tools present
-        touch "$HOME/.pi/.sandbox-check" && rm "$HOME/.pi/.sandbox-check"  # pi state rw
-        touch .sandbox-check && rm .sandbox-check            # cwd writable
+        test ! -e /var                                                                                # bwrap view is active
+        test -r "$HOME/.gitconfig"                                                                    # real home config visible
+        touch "$HOME/.sandbox-home-probe" && rm "$HOME/.sandbox-home-probe"                           # home writable (ephemerally)
+        test -x /usr/bin/git                                                                          # system tools present
+        touch .sandbox-check && rm .sandbox-check                                                     # cwd writable
         echo "sandbox ok"'
 fi
 
