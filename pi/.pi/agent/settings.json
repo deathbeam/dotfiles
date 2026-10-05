@@ -4,7 +4,7 @@
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "0.99.2",
   "packages": [
-    "npm:pi-terminal-theme",
+    "npm:pi-free",
     "npm:pi-context-view",
     "npm:pi-vision-handoff",
     "npm:@amaster.ai/pi-image-gen",
@@ -12,12 +12,12 @@
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:pi-free"
+    "npm:@deathbeam/pi-inferhub"
   ],
   "terminal": {
     "showTerminalProgress": false
   },
-  "theme": "terminal",
+  "theme": "system",
   "images": {
     "blockImages": false
   },
