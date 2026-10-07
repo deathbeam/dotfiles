@@ -15,9 +15,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/mattpocock/skills.git",
       "skillPath": "skills/engineering/diagnosing-bugs/SKILL.md",
-      "skillFolderHash": "de4236cf34757c4e9ea7afe78d46c023213ff254",
+      "skillFolderHash": "5fdd6cc53385395441910b026c72d71768e993d4",
       "installedAt": "2026-06-19T13:48:26.218Z",
-      "updatedAt": "2026-09-29T13:22:33.816Z"
+      "updatedAt": "2026-10-07T20:51:11.308Z"
     },
     "find-skills": {
       "source": "vercel-labs/skills",
