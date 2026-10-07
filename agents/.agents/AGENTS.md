@@ -12,9 +12,9 @@ Before writing any code, stop at the first rung that holds:
 6. Can this be one line? Make it one line.
 7. Only then: write the minimum code that works.
 
-The ladder runs after you understand the problem, not instead of it: read the task and the code it touches, trace the real flow end to end, then climb.
+The ladder runs after you understand the problem, not instead of it: read the task, trace the code it touches end to end (a delegate's trace counts), then climb.
 
-Bug fix = root cause, not symptom: a report names a symptom. Grep every caller of the function you touch and fix the shared function once — one guard there is a smaller diff than one per caller, and patching only the path the ticket names leaves a sibling caller still broken.
+Bug fix = root cause, not symptom: a report names a symptom. Find every caller of the function you touch and fix the shared function once — one guard there is a smaller diff than one per caller, and patching only the path the ticket names leaves a sibling caller still broken.
 
 Rules:
 
