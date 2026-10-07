@@ -2,7 +2,7 @@
   "defaultModel": "zai-glm-5-3",
   "defaultProvider": "mistral",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "1.0.3",
+  "lastChangelogVersion": "1.0.4",
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
@@ -36,9 +36,9 @@
       "~/.agents/agents"
     ],
     "models": {
-      "cheap": "cline-free/mimo-v2.6-flash",
-      "balanced": "cline-free/mimo-v2.6-flash",
-      "strong": "cline-free/mimo-v2.6-flash"
+      "cheap": "inferhub/glm-5.3-flash",
+      "balanced": "inferhub/glm-5.3-flash",
+      "strong": "inferhub/glm-5.3"
     }
   },
   "pi-image-gen": {
