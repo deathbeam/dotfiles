@@ -36,9 +36,9 @@
       "~/.agents/agents"
     ],
     "models": {
-      "cheap": "opencode/space-bunny-free",
-      "balanced": "opencode/space-bunny-free",
-      "strong": "opencode/space-bunny-free"
+      "cheap": "cline-free/mimo-v2.6-flash",
+      "balanced": "cline-free/mimo-v2.6-flash",
+      "strong": "cline-free/mimo-v2.6-flash"
     }
   },
   "pi-image-gen": {
