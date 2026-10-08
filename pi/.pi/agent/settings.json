@@ -37,7 +37,7 @@
     ],
     "models": {
       "cheap": "inferhub/glm-5.3-flash",
-      "balanced": "inferhub/glm-5.3-flash",
+      "balanced": "inferhub/glm-5.3",
       "strong": "inferhub/glm-5.3"
     }
   },
