@@ -59,12 +59,10 @@
     }
   },
   "enabledModels": [
-    "opencode/mimo-v2.6-flash-free",
-    "opencode/space-bunny-free",
     "inferhub/deepseek-v4.1-flash",
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
-    "inferhub/gpt-6.1-sol",
+    "inferhub/claude-opus-5.5",
     "mistral/zai-glm-5-3"
   ],
   "outputPad": 1,
