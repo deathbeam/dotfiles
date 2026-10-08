@@ -42,36 +42,36 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail/SKILL.md",
-      "skillFolderHash": "cb6e53477eaf04e6daeca22feacb85f9ce20d40c",
+      "skillFolderHash": "815ad2601cd0b371cc22ee265d5a4296df48ec93",
       "installedAt": "2026-09-20T13:47:11.486Z",
-      "updatedAt": "2026-09-20T13:47:11.486Z"
+      "updatedAt": "2026-10-08T08:15:04.170Z"
     },
     "ponytail-audit": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-audit/SKILL.md",
-      "skillFolderHash": "f62f3a49debd14effa6d339b309f0bc531b9b232",
+      "skillFolderHash": "7c056ccdf080df11604dae26b2503afaa25bb43c",
       "installedAt": "2026-09-20T13:47:11.486Z",
-      "updatedAt": "2026-10-05T01:59:03.108Z"
+      "updatedAt": "2026-10-08T08:15:05.412Z"
     },
     "ponytail-debt": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-debt/SKILL.md",
-      "skillFolderHash": "c9bf71ce830bce18e5bbe277828d56ff20eb3dfb",
+      "skillFolderHash": "0d84f93adb189d7c4efcf6bc1bc6c7fb3f7bcba7",
       "installedAt": "2026-09-20T13:47:11.487Z",
-      "updatedAt": "2026-10-03T16:56:26.971Z"
+      "updatedAt": "2026-10-08T08:15:06.897Z"
     },
     "ponytail-review": {
       "source": "DietrichGebert/ponytail",
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail-review/SKILL.md",
-      "skillFolderHash": "6edfcf161c997fdd3089bce4e5682a921fb59b46",
+      "skillFolderHash": "819cb875ad003ad5af5b2dd88beeac499c876e1b",
       "installedAt": "2026-09-20T13:47:11.488Z",
-      "updatedAt": "2026-10-05T01:59:03.946Z"
+      "updatedAt": "2026-10-08T08:15:08.110Z"
     },
     "unslop": {
       "source": "cursor/plugins",
