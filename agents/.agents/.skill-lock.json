@@ -28,15 +28,6 @@
       "installedAt": "2026-06-19T13:48:56.569Z",
       "updatedAt": "2026-08-07T01:02:10.680Z"
     },
-    "resolving-merge-conflicts": {
-      "source": "mattpocock/skills",
-      "sourceType": "github",
-      "sourceUrl": "https://github.com/mattpocock/skills.git",
-      "skillPath": "skills/engineering/resolving-merge-conflicts/SKILL.md",
-      "skillFolderHash": "77f0d7de3143abbf03e55a63522d30bff31ae908",
-      "installedAt": "2026-08-07T01:00:19.588Z",
-      "updatedAt": "2026-08-27T19:38:10.873Z"
-    },
     "writing-for-agents": {
       "source": "mattpocock/skills",
       "sourceType": "github",
