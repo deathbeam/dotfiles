@@ -6,9 +6,6 @@ if lspci | grep -q 'NVIDIA'; then
     export NVD_BACKEND="direct"
     export LIBVA_DRIVER_NAME="nvidia"
     export GBM_BACKEND="nvidia-drm"
-    export __GL_GSYNC_ALLOWED=1
-    export __GL_VRR_ALLOWED=1
-    export __GL_MaxFramesAllowed=1
     export __NV_PRIME_RENDER_OFFLOAD=1
     export __GLX_VENDOR_LIBRARY_NAME="nvidia"
     export __VK_LAYER_NV_optimus="NVIDIA_only"
@@ -26,8 +23,6 @@ export EGL_PLATFORM="wayland"
 export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export PROTON_ENABLE_WAYLAND="1"
 export PROTON_USE_NTSYNC="1"
-export VKD3D_CONFIG="descriptor_heap"
-export PROTON_VKD3D_HEAP="1"
 
 # QT specific (override QT_AUTO_SCREEN_SCALE_FACTOR=0 from .profile).
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"

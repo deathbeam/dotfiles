@@ -324,11 +324,11 @@ hl.window_rule({ match = { tag = "preview" }, move = { "(monitor_w*0.5)", "(moni
 hl.window_rule({ match = { tag = "preview" }, size = { "(monitor_w*0.5)", "(monitor_h*0.46)" } })
 
 -- Game rules
+hl.window_rule({ match = { class = "^steam_app_.*" }, tag = "+game" })
 hl.window_rule({ match = { content = "game" }, tag = "+game" })
 hl.window_rule({ match = { class = "gamescope" }, tag = "+game" })
 hl.window_rule({ match = { tag = "game" }, fullscreen = true })
 hl.window_rule({ match = { tag = "game" }, render_unfocused = true })
--- hl.window_rule({ match = { tag = "game" }, stay_focused = true })
 
 -- App rules
 hl.window_rule({ match = { class = "^brave.*" },     workspace = "1" })
