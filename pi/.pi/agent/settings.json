@@ -8,6 +8,7 @@
     "npm:pi-context-view",
     "npm:pi-vision-handoff",
     "npm:@amaster.ai/pi-image-gen",
+    "npm:@gotgenes/pi-anthropic-auth",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
@@ -32,13 +33,10 @@
   },
   "defaultProjectTrust": "always",
   "delegate": {
-    "agentDirs": [
-      "~/.agents/agents"
-    ],
     "models": {
       "cheap": "inferhub/glm-5.3-flash",
       "balanced": "inferhub/glm-5.3",
-      "strong": "inferhub/glm-5.3"
+      "strong": "mistral/zai-glm-5-3"
     }
   },
   "pi-image-gen": {
@@ -59,7 +57,6 @@
     }
   },
   "enabledModels": [
-    "inferhub/deepseek-v4.1-flash",
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
     "inferhub/claude-opus-5.5",
