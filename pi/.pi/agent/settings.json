@@ -34,7 +34,7 @@
   "defaultProjectTrust": "always",
   "delegate": {
     "models": {
-      "cheap": "inferhub/glm-5.3-flash:low",
+      "cheap": "anthropic/claude-haiku-5-5:low",
       "balanced": "mistral/zai-glm-5-3:high",
       "strong": "mistral/zai-glm-5-3:max"
     }
@@ -60,7 +60,10 @@
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
     "inferhub/claude-opus-5.5",
-    "mistral/zai-glm-5-3"
+    "mistral/zai-glm-5-3",
+    "anthropic/claude-haiku-5-5",
+    "anthropic/claude-opus-5-5",
+    "anthropic/claude-sonnet-5-5"
   ],
   "outputPad": 1,
   "tuiMode": "regular"
