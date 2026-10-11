@@ -34,9 +34,9 @@
   "defaultProjectTrust": "always",
   "delegate": {
     "models": {
-      "cheap": "inferhub/glm-5.3-flash",
-      "balanced": "inferhub/glm-5.3",
-      "strong": "mistral/zai-glm-5-3"
+      "cheap": "inferhub/glm-5.3-flash:low",
+      "balanced": "mistral/zai-glm-5-3:high",
+      "strong": "mistral/zai-glm-5-3:max"
     }
   },
   "pi-image-gen": {
