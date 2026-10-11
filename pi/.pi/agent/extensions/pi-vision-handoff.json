@@ -1,6 +1,6 @@
 {
     "enabled": true,
-    "visionModel": "inferhub/deepseek-v4.1-flash",
+    "visionModel": "anthropic/claude-haiku-5-5",
     "fallbackModels": [],
     "autoHandoff": true,
     "handoffModels": [],
