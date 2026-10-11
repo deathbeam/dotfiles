@@ -6,23 +6,23 @@
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
-    "npm:pi-vision-handoff",
-    "npm:@amaster.ai/pi-image-gen",
     "npm:@gotgenes/pi-anthropic-auth",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:@deathbeam/pi-inferhub"
+    "npm:@deathbeam/pi-inferhub",
+    "npm:@deathbeam/pi-images"
   ],
   "terminal": {
     "showTerminalProgress": false
   },
   "theme": "system",
   "images": {
-    "blockImages": false
+    "vision": "anthropic/claude-haiku-5-5",
+    "generate": "inferhub/cb/gemini-3.0-pro-image"
   },
-  "defaultThinkingLevel": "max",
+  "defaultThinkingLevel": "high",
   "steeringMode": "all",
   "followUpMode": "all",
   "hideThinkingBlock": false,
