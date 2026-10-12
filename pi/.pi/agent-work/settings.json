@@ -1,0 +1,52 @@
+{
+  "defaultModel": "claude-sonnet-5.5",
+  "defaultProvider": "github-copilot",
+  "enableInstallTelemetry": false,
+  "lastChangelogVersion": "1.1.0",
+  "packages": [
+    "npm:pi-free",
+    "npm:pi-context-view",
+    "npm:@gotgenes/pi-anthropic-auth",
+    "npm:@deathbeam/pi-keenable",
+    "npm:@deathbeam/pi-archive",
+    "npm:@deathbeam/pi-delegate",
+    "npm:@deathbeam/pi-hashline",
+    "npm:@deathbeam/pi-inferhub",
+    "npm:@deathbeam/pi-images"
+  ],
+  "terminal": {
+    "showTerminalProgress": false
+  },
+  "theme": "system",
+  "defaultThinkingLevel": "high",
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "hideThinkingBlock": false,
+  "quietStartup": true,
+  "editorPaddingX": 0,
+  "compaction": {
+    "enabled": true
+  },
+  "defaultProjectTrust": "always",
+  "delegate": {
+    "models": {
+      "cheap": "github-copilot/claude-haiku-5.5:low",
+      "balanced": "github-copilot/claude-sonnet-5.5:high",
+      "strong": "github-copilot/claude-opus-5.5:medium"
+    }
+  },
+  "images": {
+    "vision": "github-copilot/claude-haiku-5.5",
+    "generate": "inferhub/gemini-3.1-flash-image"
+  },
+  "enabledModels": [
+    "inferhub/glm-5.3-flash",
+    "inferhub/glm-5.3",
+    "inferhub/claude-opus-5.5",
+    "anthropic/claude-haiku-5-5",
+    "anthropic/claude-opus-5-5",
+    "anthropic/claude-sonnet-5-5"
+  ],
+  "outputPad": 1,
+  "tuiMode": "regular"
+}

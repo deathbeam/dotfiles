@@ -88,6 +88,10 @@ function vpaste {
 # Why is this running
 alias why='witr'
 
+# Pi
+alias pis='sandbox pi'
+alias piw='PI_CODING_AGENT_DIR=~/.pi/agent-work sandbox pi'
+
 # Arch aliases
 # Show unnecessary packages
 alias pan='yay -Qqd | yay -Rsu --print -'

@@ -78,9 +78,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/cursor/plugins.git",
       "skillPath": "pstack/skills/unslop/SKILL.md",
-      "skillFolderHash": "d6a803c02b716b6562412c9bf749b36968986c3c",
+      "skillFolderHash": "4e572dd70e5557f490e3991c52ea58f0dcee8936",
       "installedAt": "2026-09-26T18:05:02.887Z",
-      "updatedAt": "2026-10-11T02:14:42.863Z"
+      "updatedAt": "2026-10-12T11:32:56.949Z"
     },
     "technical-writing": {
       "source": "cursor/plugins",

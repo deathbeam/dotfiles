@@ -22,7 +22,7 @@
   "steeringMode": "all",
   "followUpMode": "all",
   "hideThinkingBlock": false,
-  "quietStartup": false,
+  "quietStartup": true,
   "editorPaddingX": 0,
   "compaction": {
     "enabled": true
