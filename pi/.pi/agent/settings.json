@@ -31,7 +31,7 @@
   "delegate": {
     "models": {
       "cheap": "anthropic/claude-haiku-5-5:low",
-      "balanced": "inferhub/glm-5.3-flash:high",
+      "balanced": "inferhub/glm-5.3:high",
       "strong": "inferhub/glm-5.3:high"
     }
   },
