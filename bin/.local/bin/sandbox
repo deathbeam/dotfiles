@@ -25,6 +25,9 @@ bwrap_args=(
     # Tool state: everything visible and writable, writes persist
     --bind "$HOME/.pi" "$HOME/.pi"
 
+    # Destkop: clipboard/screenshot access
+    --bind "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
+
     # Project: everything visible and writable, writes persist
     --bind "$HERE" "$HERE"
     --ro-bind-try "$HERE/.git" "$HERE/.git"
