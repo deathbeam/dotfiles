@@ -1,6 +1,6 @@
 {
-  "defaultModel": "zai-glm-5-3",
-  "defaultProvider": "mistral",
+  "defaultModel": "glm-5.3",
+  "defaultProvider": "inferhub",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.1.0",
   "packages": [
@@ -18,10 +18,6 @@
     "showTerminalProgress": false
   },
   "theme": "system",
-  "images": {
-    "vision": "anthropic/claude-haiku-5-5",
-    "generate": "inferhub/cb/gemini-3.0-pro-image"
-  },
   "defaultThinkingLevel": "high",
   "steeringMode": "all",
   "followUpMode": "all",
@@ -29,38 +25,24 @@
   "quietStartup": false,
   "editorPaddingX": 0,
   "compaction": {
-    "enabled": false
+    "enabled": true
   },
   "defaultProjectTrust": "always",
   "delegate": {
     "models": {
       "cheap": "anthropic/claude-haiku-5-5:low",
-      "balanced": "mistral/zai-glm-5-3:high",
-      "strong": "mistral/zai-glm-5-3:max"
+      "balanced": "inferhub/glm-5.3-flash:high",
+      "strong": "inferhub/glm-5.3:high"
     }
   },
-  "pi-image-gen": {
-    "defaultModel": "cb/gemini-3.0-pro-image",
-    "customProviders": {
-      "inferhub": {
-        "api": "openai",
-        "baseUrl": "https://api.inferhub.dev/v1",
-        "apiKey": "${INFERHUB_API_KEY}",
-        "name": "InferHub",
-        "models": [
-          "cb/gpt-image-2",
-          "cb/gemini-3.0-pro-image",
-          "cb/gemini-3.1-flash-image",
-          "cb/gemini-2.5-flash-image"
-        ]
-      }
-    }
+  "images": {
+    "vision": "anthropic/claude-haiku-5-5",
+    "generate": "inferhub/gemini-3.1-flash-image"
   },
   "enabledModels": [
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
     "inferhub/claude-opus-5.5",
-    "mistral/zai-glm-5-3",
     "anthropic/claude-haiku-5-5",
     "anthropic/claude-opus-5-5",
     "anthropic/claude-sonnet-5-5"
