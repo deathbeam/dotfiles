@@ -1,5 +1,5 @@
 {
-  "defaultModel": "claude-sonnet-5.5",
+  "defaultModel": "gpt-6.1-sol",
   "defaultProvider": "github-copilot",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.1.0",
@@ -31,8 +31,8 @@
   "delegate": {
     "models": {
       "cheap": "github-copilot/claude-haiku-5.5:low",
-      "balanced": "github-copilot/claude-sonnet-5.5:high",
-      "strong": "github-copilot/claude-opus-5.5:medium"
+      "balanced": "github-copilot/gpt-6.1-sol:medium",
+      "strong": "github-copilot/gpt-6.1-sol:high"
     }
   },
   "images": {
@@ -40,12 +40,10 @@
     "generate": "inferhub/gemini-3.1-flash-image"
   },
   "enabledModels": [
-    "inferhub/glm-5.3-flash",
-    "inferhub/glm-5.3",
-    "inferhub/claude-opus-5.5",
     "github-copilot/claude-haiku-5.5",
     "github-copilot/claude-sonnet-5.5",
-    "github-copilot/claude-opus-5.5"
+    "github-copilot/claude-opus-5.5",
+    "github-copilot/gpt-6.1-sol"
   ],
   "outputPad": 1,
   "tuiMode": "regular"
