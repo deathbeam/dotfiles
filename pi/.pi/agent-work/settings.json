@@ -4,13 +4,11 @@
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.1.0",
   "packages": [
-    "npm:pi-free",
     "npm:pi-context-view",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:@deathbeam/pi-inferhub",
     "npm:@deathbeam/pi-images"
   ],
   "terminal": {
@@ -35,8 +33,7 @@
     }
   },
   "images": {
-    "vision": "github-copilot/claude-haiku-5.5",
-    "generate": "inferhub/gemini-3.1-flash-image"
+    "vision": "github-copilot/claude-haiku-5.5"
   },
   "enabledModels": [
     "github-copilot/claude-haiku-5.5",
