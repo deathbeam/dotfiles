@@ -8,11 +8,12 @@
     "npm:pi-context-view",
     "npm:@gotgenes/pi-anthropic-auth",
     "npm:@charmland/pi-hyper-provider",
+    "npm:@deathbeam/pi-inferhub",
+    "npm:@deathbeam/pi-surplus",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:@deathbeam/pi-inferhub",
     "npm:@deathbeam/pi-images"
   ],
   "terminal": {
@@ -31,9 +32,9 @@
   "defaultProjectTrust": "always",
   "delegate": {
     "models": {
-      "cheap": "anthropic/claude-haiku-5-5:low",
-      "balanced": "hyper/glm-5.3:high",
-      "strong": "hyper/glm-5.3:max"
+      "cheap": "hyper/glm-5.3-flash",
+      "balanced": "inferhub/glm-5.3:high",
+      "strong": "inferhub/glm-5.3:high"
     }
   },
   "images": {
@@ -44,6 +45,9 @@
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
     "inferhub/claude-opus-5.5",
+    "surplus/glm-5.3-flash",
+    "surplus/glm-5.3",
+    "surplus/claude-opus-5.5",
     "hyper/glm-5.3-flash",
     "hyper/glm-5.3",
     "anthropic/claude-haiku-5-5",
