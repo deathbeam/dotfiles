@@ -1,12 +1,13 @@
 {
   "defaultModel": "glm-5.3",
-  "defaultProvider": "inferhub",
+  "defaultProvider": "hyper",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "1.1.0",
+  "lastChangelogVersion": "1.2.0",
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
     "npm:@gotgenes/pi-anthropic-auth",
+    "npm:@charmland/pi-hyper-provider",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
@@ -31,18 +32,20 @@
   "delegate": {
     "models": {
       "cheap": "anthropic/claude-haiku-5-5:low",
-      "balanced": "inferhub/glm-5.3:high",
-      "strong": "inferhub/glm-5.3:high"
+      "balanced": "hyper/glm-5.3:high",
+      "strong": "hyper/glm-5.3:max"
     }
   },
   "images": {
-    "vision": "anthropic/claude-haiku-5-5",
+    "vision": "hyper/glm-5.3-flash",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
   "enabledModels": [
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
     "inferhub/claude-opus-5.5",
+    "hyper/glm-5.3-flash",
+    "hyper/glm-5.3",
     "anthropic/claude-haiku-5-5",
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-opus-5-5"

@@ -6,7 +6,6 @@
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
-    "npm:@gotgenes/pi-anthropic-auth",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
