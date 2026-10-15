@@ -3,6 +3,15 @@ local nmap = utils.nmap
 local nvmap = utils.nvmap
 
 local fzf = require('fzf-lua')
+
+-- fzf 0.74+ on tmux 3.7+ opens a bordered floating pane; empty TMUX_PANE forces the old borderless popup
+if vim.env.TMUX then
+    _G.fzf_jobstart = function(cmd, opts)
+        opts.env.TMUX_PANE = ''
+        return vim.fn.jobstart(cmd, opts)
+    end
+end
+
 fzf.setup({
     'fzf-tmux',
     file_icon_padding = ' ',

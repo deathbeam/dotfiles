@@ -32,13 +32,13 @@
   "defaultProjectTrust": "always",
   "delegate": {
     "models": {
-      "cheap": "hyper/glm-5.3-flash",
+      "cheap": "anthropic/claude-haiku-5-5:low",
       "balanced": "inferhub/glm-5.3:high",
       "strong": "inferhub/glm-5.3:high"
     }
   },
   "images": {
-    "vision": "hyper/glm-5.3-flash",
+    "vision": "anthropic/claude-haiku-5-5:low",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
   "enabledModels": [
