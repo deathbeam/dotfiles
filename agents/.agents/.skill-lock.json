@@ -42,9 +42,9 @@
       "sourceType": "github",
       "sourceUrl": "https://github.com/DietrichGebert/ponytail.git",
       "skillPath": "skills/ponytail/SKILL.md",
-      "skillFolderHash": "db8acd3ce9e04ef4a5d42bbd90924b6d0a488318",
+      "skillFolderHash": "e8d3fa76e7ff9223a784dbd4bcfc9ff46b3fa55d",
       "installedAt": "2026-09-20T13:47:11.486Z",
-      "updatedAt": "2026-10-08T16:40:28.708Z"
+      "updatedAt": "2026-10-16T11:57:03.937Z"
     },
     "ponytail-audit": {
       "source": "DietrichGebert/ponytail",
