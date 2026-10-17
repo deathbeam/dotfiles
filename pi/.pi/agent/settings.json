@@ -1,6 +1,6 @@
 {
-  "defaultModel": "glm-5.3",
-  "defaultProvider": "hyper",
+  "defaultModel": "claude-opus-5-5",
+  "defaultProvider": "anthropic",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.3.0",
   "packages": [
