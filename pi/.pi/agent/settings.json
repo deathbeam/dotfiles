@@ -41,6 +41,9 @@
     "vision": "opencode-free/deepseek-v4.1-flash-free",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
+  "archive": {
+    "compaction": "opencode-free/deepseek-v4.1-flash-free:high"
+  },
   "enabledModels": [
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
