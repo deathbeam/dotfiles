@@ -57,5 +57,8 @@
     "opencode-free/deepseek-v4.1-flash-free"
   ],
   "outputPad": 1,
-  "tuiMode": "regular"
+  "tuiMode": "regular",
+  "warnings": {
+    "anthropicExtraUsage": false
+  }
 }

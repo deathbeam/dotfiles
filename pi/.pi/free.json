@@ -25,7 +25,9 @@
   "kilo_api_key": "",
   "cline_api_key": "",
   "kilo_free_only": false,
-  "hidden_models": [],
+  "hidden_models": [
+    "ollama-cloud/mistral-large-4"
+  ],
   "free_only": true,
   "kilo_show_paid": false,
   "ollama_show_paid": false,
