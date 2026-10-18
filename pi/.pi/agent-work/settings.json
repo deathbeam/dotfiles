@@ -1,5 +1,5 @@
 {
-  "defaultModel": "gpt-6.1-sol",
+  "defaultModel": "claude-opus-5.5",
   "defaultProvider": "github-copilot",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.1.0",
