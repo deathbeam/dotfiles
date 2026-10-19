@@ -6,6 +6,7 @@
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
+    "npm:@dietrichgebert/ponytail",
     "npm:@gotgenes/pi-anthropic-auth",
     "npm:@deathbeam/pi-inferhub",
     "npm:@deathbeam/pi-surplus",
