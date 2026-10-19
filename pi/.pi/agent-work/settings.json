@@ -34,9 +34,6 @@
       "strong": "github-copilot/gpt-6.1-sol:high"
     }
   },
-  "images": {
-    "vision": "github-copilot/claude-haiku-5.5"
-  },
   "enabledModels": [
     "github-copilot/claude-haiku-5.5",
     "github-copilot/claude-sonnet-5.5",
