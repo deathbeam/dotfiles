@@ -34,7 +34,7 @@
     "models": {
       "cheap": "anthropic/claude-haiku-5-5:low",
       "balanced": "inferhub/glm-5.3:high",
-      "strong": "inferhub/claude-opus-5.5:high"
+      "strong": "inferhub/glm-5.3:high"
     }
   },
   "images": {
