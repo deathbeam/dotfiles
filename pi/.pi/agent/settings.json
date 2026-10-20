@@ -3,6 +3,23 @@
   "defaultProvider": "anthropic",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.3.0",
+
+  "defaultThinkingLevel": "high",
+  "cacheWarming": "idle",
+
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "defaultProjectTrust": "always",
+
+  "theme": "system",
+  "quietStartup": true,
+  "outputPad": 1,
+  "editorPaddingX": 0,
+  "tuiMode": "regular",
+  "warnings": {
+    "anthropicExtraUsage": false
+  },
+
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
@@ -17,34 +34,7 @@
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
-  "terminal": {
-    "showTerminalProgress": false
-  },
-  "theme": "system",
-  "defaultThinkingLevel": "high",
-  "steeringMode": "all",
-  "followUpMode": "all",
-  "hideThinkingBlock": false,
-  "quietStartup": true,
-  "editorPaddingX": 0,
-  "compaction": {
-    "enabled": true
-  },
-  "defaultProjectTrust": "always",
-  "delegate": {
-    "models": {
-      "cheap": "anthropic/claude-haiku-5-5:low",
-      "balanced": "inferhub/glm-5.3:high",
-      "strong": "inferhub/glm-5.3:high"
-    }
-  },
-  "images": {
-    "vision": "anthropic/claude-haiku-5-5",
-    "generate": "inferhub/gemini-3.1-flash-image"
-  },
-  "archive": {
-    "compaction": "opencode-free/deepseek-v4.1-flash-free:high"
-  },
+
   "enabledModels": [
     "inferhub/glm-5.3-flash",
     "inferhub/glm-5.3",
@@ -56,9 +46,21 @@
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-opus-5-5"
   ],
-  "outputPad": 1,
-  "tuiMode": "regular",
-  "warnings": {
-    "anthropicExtraUsage": false
+
+  "delegate": {
+    "models": {
+      "cheap": "anthropic/claude-haiku-5-5:low",
+      "balanced": "inferhub/glm-5.3:high",
+      "strong": "inferhub/glm-5.3:high"
+    }
+  },
+
+  "images": {
+    "vision": "anthropic/claude-haiku-5-5",
+    "generate": "inferhub/gemini-3.1-flash-image"
+  },
+
+  "archive": {
+    "compaction": "opencode-free/deepseek-v4.1-flash-free:high"
   }
 }

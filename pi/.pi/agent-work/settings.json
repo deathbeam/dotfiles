@@ -3,6 +3,20 @@
   "defaultProvider": "github-copilot",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.1.0",
+
+  "defaultThinkingLevel": "high",
+  "cacheWarming": "idle",
+
+  "steeringMode": "all",
+  "followUpMode": "all",
+  "defaultProjectTrust": "always",
+
+  "theme": "system",
+  "quietStartup": true,
+  "outputPad": 1,
+  "editorPaddingX": 0,
+  "tuiMode": "regular",
+
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
@@ -14,33 +28,19 @@
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
-  "terminal": {
-    "showTerminalProgress": false
-  },
-  "theme": "system",
-  "defaultThinkingLevel": "high",
-  "steeringMode": "all",
-  "followUpMode": "all",
-  "hideThinkingBlock": false,
-  "quietStartup": true,
-  "editorPaddingX": 0,
-  "compaction": {
-    "enabled": true
-  },
-  "defaultProjectTrust": "always",
-  "delegate": {
-    "models": {
-      "cheap": "github-copilot/claude-haiku-5.5:low",
-      "balanced": "github-copilot/gpt-6.1-sol:medium",
-      "strong": "github-copilot/gpt-6.1-sol:high"
-    }
-  },
+
   "enabledModels": [
     "github-copilot/claude-haiku-5.5",
     "github-copilot/claude-sonnet-5.5",
     "github-copilot/claude-opus-5.5",
     "github-copilot/gpt-6.1-sol"
   ],
-  "outputPad": 1,
-  "tuiMode": "regular"
+
+  "delegate": {
+    "models": {
+      "cheap": "github-copilot/claude-haiku-5.5:low",
+      "balanced": "github-copilot/gpt-6.1-sol:medium",
+      "strong": "github-copilot/gpt-6.1-sol:high"
+    }
+  }
 }
