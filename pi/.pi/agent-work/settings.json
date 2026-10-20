@@ -17,6 +17,13 @@
   "editorPaddingX": 0,
   "tuiMode": "regular",
 
+  "extensions": [
+    "-builtin:mcp",
+    "-builtin:codemode",
+    "-builtin:tool-search",
+    "-builtin:llama.cpp"
+  ],
+
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
