@@ -49,14 +49,14 @@
 
   "delegate": {
     "models": {
-      "cheap": "anthropic/claude-haiku-5-5:low",
+      "cheap": "opencode-free/deepseek-v4.1-flash-free:low",
       "balanced": "inferhub/glm-5.3:high",
       "strong": "inferhub/glm-5.3:high"
     }
   },
 
   "images": {
-    "vision": "anthropic/claude-haiku-5-5",
+    "vision": "opencode-free/deepseek-v4.1-flash-free",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
 
