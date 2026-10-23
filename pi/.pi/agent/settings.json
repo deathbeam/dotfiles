@@ -48,7 +48,7 @@
   ],
   "delegate": {
     "models": {
-      "cheap": "opencode-free/deepseek-v4.1-flash-free:low",
+      "cheap": "anthropic/claude-haiku-5-5:low",
       "balanced": "inferhub/deepseek-v4.1-flash-1017:high",
       "strong": "inferhub/glm-5.3:high"
     }
