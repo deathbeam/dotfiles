@@ -66,6 +66,6 @@
   },
 
   "archive": {
-    "compaction": "opencode-free/deepseek-v4.1-flash-free:high"
+    "compaction": "inferhub/deepseek-v4.1-flash-1017:high"
   }
 }
