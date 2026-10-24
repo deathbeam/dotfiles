@@ -16,6 +16,8 @@
   "editorPaddingX": 0,
   "tuiMode": "regular",
 
+  "shellCommandPrefix": "export EDITOR=true VISUAL=true GIT_EDITOR=true GIT_SEQUENCE_EDITOR=true GIT_MERGE_AUTOEDIT=no PAGER=cat MANPAGER=cat GIT_PAGER=cat GH_PAGER=cat AWS_PAGER= SYSTEMD_PAGER=cat\nexport GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=/bin/false SSH_ASKPASS=/bin/false SSH_ASKPASS_REQUIRE=never GCM_INTERACTIVE=never GH_PROMPT_DISABLED=1 DEBIAN_FRONTEND=noninteractive PIP_NO_INPUT=1 npm_config_yes=true",
+
   "extensions": [
     "-builtin:mcp",
     "-builtin:codemode",

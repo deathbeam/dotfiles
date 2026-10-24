@@ -15,12 +15,16 @@
   "warnings": {
     "anthropicExtraUsage": false
   },
+
+  "shellCommandPrefix": "export EDITOR=true VISUAL=true GIT_EDITOR=true GIT_SEQUENCE_EDITOR=true GIT_MERGE_AUTOEDIT=no PAGER=cat MANPAGER=cat GIT_PAGER=cat GH_PAGER=cat AWS_PAGER= SYSTEMD_PAGER=cat\nexport GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=/bin/false SSH_ASKPASS=/bin/false SSH_ASKPASS_REQUIRE=never GCM_INTERACTIVE=never GH_PROMPT_DISABLED=1 DEBIAN_FRONTEND=noninteractive PIP_NO_INPUT=1 npm_config_yes=true",
+
   "extensions": [
     "-builtin:mcp",
     "-builtin:codemode",
     "-builtin:tool-search",
     "-builtin:llama.cpp"
   ],
+
   "packages": [
     "npm:pi-free",
     "npm:pi-context-view",
@@ -35,6 +39,7 @@
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
+
   "enabledModels": [
     "inferhub/deepseek-v4.1-flash-1017",
     "inferhub/glm-5.3",
@@ -46,6 +51,7 @@
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-opus-5-5"
   ],
+
   "delegate": {
     "models": {
       "cheap": "anthropic/claude-haiku-5-5:low",
@@ -53,10 +59,12 @@
       "strong": "inferhub/glm-5.3:high"
     }
   },
+
   "images": {
     "vision": "opencode-free/deepseek-v4.1-flash-free",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
+
   "archive": {
     "compaction": "opencode-free/deepseek-v4.1-flash-free:high"
   }
