@@ -23,56 +23,29 @@ indent_size = 8
 max_line_length = 0
 trim_trailing_whitespace = false
 
+[COMMIT_EDITMSG]
+max_line_length = 0
+
+# Layout belongs to CSharpier (it reads indent and max_line_length above), so no csharp_* spacing/newline options here.
 [*.cs]
 dotnet_sort_system_directives_first = true
-dotnet_separate_import_directive_groups = true
 
-# Using directives
+# CSharpier joins using groups, a blank line between them would flip-flop with dotnet format
+dotnet_separate_import_directive_groups = false
+
+# Formatting diagnostics would flag CSharpier's layout
+dotnet_diagnostic.IDE0055.severity = none
+
+# Namespace does not match file path crashes dotnet format
+dotnet_diagnostic.IDE0130.severity = none
+
+# Unnecessary using
 dotnet_diagnostic.IDE0005.severity = error
 
 # Name can be simplified
 dotnet_diagnostic.IDE0001.severity = error
 
-# Braces everywhere
-csharp_new_line_before_open_brace = all
-
-# Indentation
-csharp_indent_case_contents = true
-csharp_indent_switch_labels = true
-csharp_indent_labels = flush_left
-csharp_indent_block_contents = true
-csharp_indent_braces = false
-csharp_indent_case_contents_when_block = false
-
-# Spacing (minimal, no extra spaces in parens)
-csharp_space_after_cast = false
-csharp_space_after_keywords_in_control_flow_statements = true
-csharp_space_between_parentheses = false
-csharp_space_before_colon_in_inheritance_clause = true
-csharp_space_after_colon_in_inheritance_clause = true
-csharp_space_around_binary_operators = before_and_after
-csharp_space_between_method_declaration_parameter_list_parentheses = false
-csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
-csharp_space_between_method_declaration_name_and_open_parenthesis = false
-csharp_space_between_method_call_parameter_list_parentheses = false
-csharp_space_between_method_call_empty_parameter_list_parentheses = false
-csharp_space_between_method_call_name_and_opening_parenthesis = false
-csharp_space_after_comma = true
-csharp_space_before_comma = false
-csharp_space_after_dot = false
-csharp_space_before_dot = false
-csharp_space_after_semicolon_in_for_statement = true
-csharp_space_before_semicolon_in_for_statement = false
-csharp_space_around_declaration_statements = false
-csharp_space_before_open_square_brackets = false
-csharp_space_between_empty_square_brackets = false
-csharp_space_between_square_brackets = false
-
-# Wrap
-csharp_preserve_single_line_statements = false
-csharp_preserve_single_line_blocks = false
-
-# Roslynator
+# Roslynator: everything enabled by default becomes a warning, minus these
 dotnet_analyzer_diagnostic.category-roslynator.severity = warning
 dotnet_diagnostic.RCS1130.severity = none
 dotnet_diagnostic.RCS1138.severity = none
@@ -80,5 +53,10 @@ dotnet_diagnostic.RCS1139.severity = none
 dotnet_diagnostic.RCS1141.severity = none
 dotnet_diagnostic.RCS1142.severity = none
 
-[COMMIT_EDITMSG]
-max_line_length = 0
+# Autofixes that break or fight conventions under dotnet format --severity info
+# Fix moves files between folders, dotnet format aborts
+dotnet_diagnostic.IDE0130.severity = none
+# Fix marks methods static but misses instance call sites
+dotnet_diagnostic.CA1822.severity = none
+# Fix invents PascalCase locals from tuple names
+dotnet_diagnostic.IDE0042.severity = none
