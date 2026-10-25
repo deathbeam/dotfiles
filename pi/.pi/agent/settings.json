@@ -54,7 +54,7 @@
 
   "delegate": {
     "models": {
-      "cheap": "anthropic/claude-haiku-5-5:low",
+      "cheap": "inferhub/deepseek-v4.1-flash-1017:low",
       "balanced": "inferhub/deepseek-v4.1-flash-1017:high",
       "strong": "inferhub/glm-5.3:high"
     }
