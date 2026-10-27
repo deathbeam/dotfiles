@@ -43,10 +43,8 @@
   "enabledModels": [
     "inferhub/deepseek-v4.1-flash-1017",
     "inferhub/glm-5.3",
+    "inferhub/kimi-k3.1-pro",
     "inferhub/claude-opus-5.5",
-    "surplus/deepseek-v4.1-flash-1017",
-    "surplus/glm-5.3",
-    "surplus/claude-opus-5.5",
     "anthropic/claude-haiku-5-5",
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-opus-5-5"
@@ -55,8 +53,8 @@
   "delegate": {
     "models": {
       "cheap": "inferhub/deepseek-v4.1-flash-1017:low",
-      "balanced": "inferhub/deepseek-v4.1-flash-1017:high",
-      "strong": "inferhub/glm-5.3:high"
+      "balanced": "inferhub/glm-5.3:high",
+      "strong": "inferhub/kimi-k3.1-pro:high"
     }
   },
 
