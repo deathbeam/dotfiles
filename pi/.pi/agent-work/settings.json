@@ -29,8 +29,6 @@
     "npm:pi-free",
     "npm:pi-context-view",
     "npm:@dietrichgebert/ponytail",
-    "npm:@deathbeam/pi-inferhub",
-    "npm:@deathbeam/pi-surplus",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
