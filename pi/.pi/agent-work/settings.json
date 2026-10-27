@@ -26,7 +26,6 @@
   ],
 
   "packages": [
-    "npm:pi-free",
     "npm:pi-context-view",
     "npm:@dietrichgebert/ponytail",
     "npm:@deathbeam/pi-keenable",

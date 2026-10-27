@@ -170,10 +170,11 @@
 | alias | `fsh-alias` | `fast-theme`
 | alias | `g` | `git`
 | alias | `g..` | `cd $(git-root \|\| print .)`
-| alias | `gCO` | `gCo $(gCl)`
-| alias | `gCT` | `gCt $(gCl)`
-| alias | `gCa` | `git add $(gCl)`
-| alias | `gCe` | `git mergetool $(gCl)`
+| alias | `gCE` | `git-edit-unmerged`
+| alias | `gCO` | `git -C $(git-root) checkout --ours -- ${(f)$(gCl 2>/dev/null)}`
+| alias | `gCT` | `git -C $(git-root) checkout --theirs -- ${(f)$(gCl 2>/dev/null)}`
+| alias | `gCa` | `git -C $(git-root) add ${(f)$(gCl 2>/dev/null)}`
+| alias | `gCe` | `git -C $(git-root) mergetool ${(f)$(gCl 2>/dev/null)}`
 | alias | `gCl` | `git --no-pager diff --name-only --diff-filter=U`
 | alias | `gCo` | `git checkout --ours --`
 | alias | `gCt` | `git checkout --theirs --`
@@ -271,8 +272,8 @@
 | alias | `glG` | `git log --date-order --graph --pretty=format:${_git_log_oneline_medium_format}`
 | alias | `glO` | `git log --date-order --pretty=format:${_git_log_oneline_medium_format}`
 | alias | `glc` | `git shortlog --summary --numbered --no-merges`
-| alias | `gld` | `git log --date-order --stat --patch --pretty=format:${_git_log_fuller_format}`
-| alias | `glf` | `git log --date-order --stat --patch --follow --pretty=format:${_git_log_fuller_format}`
+| alias | `gld` | `git log --date-order --stat --patch --cc --pretty=format:${_git_log_fuller_format}`
+| alias | `glf` | `git log --date-order --stat --patch --cc --follow --pretty=format:${_git_log_fuller_format}`
 | alias | `glg` | `git log --date-order --graph --pretty=format:${_git_log_oneline_format}`
 | alias | `glo` | `git log --date-order --pretty=format:${_git_log_oneline_format}`
 | alias | `glr` | `git reflog`
@@ -292,7 +293,7 @@
 | alias | `gpF` | `git push --force`
 | alias | `gpa` | `git push --all`
 | alias | `gpc` | `git push --set-upstream origin $(git-branch-current 2>/dev/null)`
-| alias | `gpf` | `git push --force-with-lease`
+| alias | `gpf` | `git push --force-with-lease --force-if-includes`
 | alias | `gpp` | `git pull origin $(git-branch-current 2>/dev/null) && git push origin $(git-branch-current 2>/dev/null)`
 | alias | `gpt` | `git push --tags`
 | alias | `gr` | `git rebase`
@@ -303,23 +304,27 @@
 | alias | `gri` | `git rebase --interactive --autosquash`
 | alias | `grs` | `git rebase --skip`
 | alias | `gs` | `git stash`
-| alias | `gsS` | `git stash save --patch --no-keep-index`
+| alias | `gsS` | `git stash push --patch --no-keep-index`
 | alias | `gsX` | `git-stash-clear-interactive`
 | alias | `gsa` | `git stash apply`
-| alias | `gsd` | `git stash show --stat --patch`
+| alias | `gsd` | `git stash show --stat --patch --include-untracked`
 | alias | `gsi` | `git stash push --staged`
 | alias | `gsl` | `git stash list`
 | alias | `gsp` | `git stash pop`
 | alias | `gsr` | `git-stash-recover`
-| alias | `gss` | `git stash save --include-untracked`
+| alias | `gss` | `git stash push --include-untracked`
 | alias | `gsu` | `git stash show --patch \| git apply --reverse`
-| alias | `gsw` | `git stash save --include-untracked --keep-index`
+| alias | `gsw` | `git stash push --include-untracked --keep-index`
 | alias | `gsx` | `git stash drop`
 | alias | `gt` | `git tag`
 | alias | `gtl` | `git tag --list --sort=-committerdate`
 | alias | `gts` | `git tag --sign`
 | alias | `gtv` | `git verify-tag`
 | alias | `gtx` | `git tag --delete`
+| alias | `gu` | `git restore`
+| alias | `gua` | `git restore --staged --worktree`
+| alias | `gui` | `git restore --staged`
+| alias | `gus` | `git restore --source`
 | alias | `gwC` | `git clean -d --force`
 | alias | `gwD` | `git diff --no-ext-diff --word-diff`
 | alias | `gwM` | `git mv -f`
@@ -328,6 +333,7 @@
 | alias | `gwX` | `git rm -rf`
 | alias | `gwc` | `git clean --dry-run`
 | alias | `gwd` | `git diff --no-ext-diff`
+| alias | `gwk` | `git reset --keep`
 | alias | `gwm` | `git mv`
 | alias | `gwr` | `git reset --soft`
 | alias | `gws` | `git status --short --branch`
@@ -335,6 +341,7 @@
 | alias | `gy` | `git switch`
 | alias | `gyc` | `git switch --create`
 | alias | `gyd` | `git switch --detach`
+| alias | `gym` | `git switch $(git-default-branch 2>/dev/null)`
 | alias | `l` | `ll -A`
 | alias | `lc` | `lt -c`
 | alias | `lk` | `ll -Sr`

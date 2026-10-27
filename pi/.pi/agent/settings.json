@@ -26,7 +26,6 @@
   ],
 
   "packages": [
-    "npm:pi-free",
     "npm:pi-context-view",
     "npm:@dietrichgebert/ponytail",
     "npm:@gotgenes/pi-anthropic-auth",
@@ -59,7 +58,7 @@
   },
 
   "images": {
-    "vision": "opencode-free/deepseek-v4.1-flash-free",
+    "vision": "inferhub/deepseek-v4.1-flash-1017",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
 
