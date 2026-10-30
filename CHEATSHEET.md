@@ -250,6 +250,7 @@
 | alias | `gfm` | `git pull --no-rebase`
 | alias | `gfp` | `git fetch --all --prune`
 | alias | `gfr` | `git pull --rebase`
+| alias | `gfs` | `git-sync`
 | alias | `gfu` | `git pull --ff-only --all --prune`
 | alias | `gg` | `git grep`
 | alias | `ggL` | `git grep --files-without-match`
@@ -341,7 +342,7 @@
 | alias | `gy` | `git switch`
 | alias | `gyc` | `git switch --create`
 | alias | `gyd` | `git switch --detach`
-| alias | `gym` | `git switch $(git-default-branch 2>/dev/null)`
+| alias | `gym` | `git switch $(git-branch-default 2>/dev/null)`
 | alias | `l` | `ll -A`
 | alias | `lc` | `lt -c`
 | alias | `lk` | `ll -Sr`
