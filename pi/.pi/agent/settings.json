@@ -56,7 +56,7 @@
     "models": {
       "cheap": "mistral/deepseek-v4-1-flash-1017:low",
       "balanced": "mistral/deepseek-v4-1-flash-1017:high",
-      "strong": "inferhub/kimi-k3.1-pro:max"
+      "strong": "mistral/deepseek-v4-1-flash-1017:max"
     }
   },
 
