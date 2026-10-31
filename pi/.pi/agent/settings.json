@@ -45,8 +45,8 @@
     "inferhub/kimi-k3.1-pro",
     "inferhub/claude-opus-5.5",
     "mistral/deepseek-v4-1-flash-1017",
-    "mistral/glm-5.3-flash",
-    "mistral/glm-5.3",
+    "mistral/zai-glm-5-3-flash",
+    "mistral/zai-glm-5-3",
     "anthropic/claude-haiku-5-5",
     "anthropic/claude-sonnet-5-5",
     "anthropic/claude-opus-5-5"
