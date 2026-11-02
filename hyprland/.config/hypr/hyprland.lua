@@ -176,7 +176,6 @@ hl.workspace_rule({ workspace = "special:docker",    on_created_empty = "overlay
 --------------------
 
 hl.bind("switch:Lid Switch", hl.dsp.exec_cmd("swaylock -f -i $WALLPAPER"), { locked = true, description = "lock screen" })
--- hl.bind("Print", hl.dsp.exec_cmd("sleep 1 && grim -t ppm - | satty -f - -o \"$HOME/Pictures/Screenshots/%Y-%m-%d_%H:%M:%S.png\""))
 hl.bind("Print",            hl.dsp.exec_cmd("quickshell -c screenshot -n"), { description = "screenshot" })
 hl.bind("SUPER + Print",    hl.dsp.exec_cmd("screenrecorder"), { description = "screen recorder" })
 hl.bind("XF86AudioRaiseVolume",   hl.dsp.exec_cmd("amixer -q set Master 5%+ on"), { description = "volume up" })
