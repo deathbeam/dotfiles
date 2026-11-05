@@ -62,6 +62,7 @@
     "compaction": "mistral/deepseek-v4-1-flash-1017:high"
   },
   "extensionChangelogVersions": {
-    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4"
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.4.4",
+    "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.8.3"
   }
 }
