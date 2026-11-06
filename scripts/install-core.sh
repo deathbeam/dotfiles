@@ -21,7 +21,7 @@ packages=(
     tree-sitter-git tree-sitter-cli-git neovim-nightly-bin fswatch ctags less bat lynx # neovim/text stuff
     asciinema asciinema-agg-bin # terminal recording
     btop # system monitor
-    glow # markdown viewer
+    glow mermaid-ascii-git # markdown viewer
     fastfetch # system information
     witr-bin # why is this running
     cloudflare-warp-bin # cloudflare warp client

@@ -1,0 +1,49 @@
+#!/bin/bash
+# glowm - glow with ```mermaid blocks rendered as ASCII by mermaid-ascii
+# Usage: glowm [glow flags] [file|-]   (reads stdin when the last arg is not a file)
+# Blocks that mermaid-ascii cannot render (or if it is missing) stay as source.
+set -euo pipefail
+
+render_mermaid() {
+  local line fence= close= block= body out
+  while IFS= read -r line || [[ -n $line ]]; do
+    if [[ -z $fence ]]; then
+      if [[ $line =~ ^(\`{3,}|~{3,})(.*)$ ]]; then
+        fence=${BASH_REMATCH[1]}
+        close="^[${fence:0:1}]{${#fence},}[[:space:]]*$"
+        if [[ ${BASH_REMATCH[2]} =~ ^[[:space:]]*mermaid[[:space:]]*$ ]]; then
+          block=$line$'\n'
+          continue
+        fi
+        block=
+      fi
+      printf '%s\n' "$line"
+    elif [[ -z $block ]]; then
+      # inside a non-mermaid code block: pass through untouched
+      [[ $line =~ $close ]] && fence=
+      printf '%s\n' "$line"
+    elif [[ $line =~ $close ]]; then
+      body=${block#*$'\n'}
+      # drop ---config--- frontmatter, mermaid-ascii can't parse it
+      [[ $body == $'---\n'* ]] && body=${body#$'---\n'*$'\n---\n'}
+      if out=$(printf '%s' "$body" | mermaid-ascii -f - 2>/dev/null) && [[ -n $out ]]; then
+        printf '```\n%s\n```\n' "$out"
+      else
+        printf '%s%s\n' "$block" "$line"
+      fi
+      fence= block=
+    else
+      block+=$line$'\n'
+    fi
+  done
+  # unterminated mermaid block: emit as-is
+  printf '%s' "$block"
+}
+
+args=("$@") input=-
+if (( $# )) && [[ ${!#} == - || -f ${!#} ]]; then
+  input=${!#}
+  args=("${@:1:$#-1}")
+fi
+
+if [[ $input == - ]]; then cat; else cat -- "$input"; fi | render_mermaid | glow "${args[@]}" -
