@@ -12,7 +12,7 @@ ShellRoot {
     property bool panelVisible: true
     property bool hintsVisible: false
 
-    readonly property real sideMargin: Config.anchorX === "left" || Config.anchorX === "right" ? Config.margin : Math.max(0, Math.round(((Config.targetScreen ? Config.targetScreen.width : 0) - Config.width) / 2))
+    readonly property int sideMargin: Config.anchorX === "center" ? Math.max(0, Math.round(((Config.targetScreen ? Config.targetScreen.width : 0) - Config.width) / 2)) : Config.margin
 
     function send(command) {
         if (parser.running)
@@ -22,22 +22,18 @@ ShellRoot {
     function applyState(data) {
         try {
             const message = JSON.parse(data);
-            if (message.tick) {
-                root.timerText = message.timer;
-                root.actTimerText = message.act_timer;
-                return;
+            if (!message.tick) {
+                root.state = message;
+                restartTimer.interval = 1000; // a full state means the parser is healthy again
             }
-            root.state = message;
-            root.timerText = message.timer ?? "";
-            root.actTimerText = message.act_timer ?? "";
+            root.timerText = message.timer;
+            root.actTimerText = message.act_timer;
         } catch (error) {
             console.error("poe-leveling: bad state line", data, error);
         }
     }
 
     WlrLayershell {
-        id: panelLayer
-
         visible: root.panelVisible
         layer: WlrLayer.Overlay
         screen: Config.targetScreen
@@ -73,8 +69,6 @@ ShellRoot {
     }
 
     WlrLayershell {
-        id: hintLayer
-
         visible: root.hintsVisible && (root.state.hints ?? []).length > 0
         layer: WlrLayer.Overlay
         screen: Config.targetScreen
@@ -113,14 +107,15 @@ ShellRoot {
 
         onExited: (code, status) => {
             console.warn("poe-leveling: parser exited with", code, "- restarting");
-            restartTimer.start();
+            restartTimer.interval = Math.min(restartTimer.interval * 2, 30000);
+            restartTimer.restart();
         }
     }
 
     Timer {
         id: restartTimer
 
-        interval: 3000
+        interval: 1000
         onTriggered: parser.running = true
     }
 

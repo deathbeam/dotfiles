@@ -10,7 +10,7 @@ Item {
 
     readonly property var steps: state.lines ?? []
     readonly property var nextSteps: state.next_lines ?? []
-    readonly property var hints: state.hints ?? []
+    readonly property bool hasHints: (state.hints ?? []).length > 0
     readonly property bool ready: (state.zone_name ?? "") !== ""
 
     readonly property string headerText: {
@@ -29,7 +29,6 @@ Item {
 
     readonly property string pageText: root.ready ? (root.state.page + 1) + "/" + root.state.pages : ""
 
-    implicitWidth: Config.width
     implicitHeight: card.height
 
     Rectangle {
@@ -94,7 +93,8 @@ Item {
                 }
 
                 Text {
-                    text: root.hints.length > 0 ? "◧" : ""
+                    visible: root.hasHints
+                    text: "◧"
                     color: Config.accent
                     font.family: Config.fontFamily
                     font.pixelSize: Config.fontSize
@@ -140,7 +140,7 @@ Item {
             Text {
                 Layout.fillWidth: true
                 visible: root.nextSteps.length > 0
-                text: root.nextSteps.length > 0 ? "next: " + root.nextSteps[0] : ""
+                text: "next: " + (root.nextSteps[0] ?? "")
                 textFormat: Text.RichText
                 color: Config.foregroundDim
                 font.family: Config.fontFamily

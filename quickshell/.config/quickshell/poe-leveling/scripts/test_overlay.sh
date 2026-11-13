@@ -1,44 +1,33 @@
 #!/bin/bash
-# Run the overlay against a fake Client.txt and feed it zone changes.
+# Feed a fake Client.txt through the parser and print the state it emits.
 # Usage: ./scripts/test_overlay.sh
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 PROJECT_DIR="$(dirname "$SCRIPT_DIR")"
-TEST_LOG="${POE_LOG_PATH:-/tmp/poe_test_client.txt}"
-export POE_LOG_PATH="$TEST_LOG"
+TMP_DIR="$(mktemp -d)"
 
-: >"$TEST_LOG"
+LOG="$TMP_DIR/Client.txt"
+: >"$LOG"
+echo "fake log: $LOG"
 
-echo "fake log: $TEST_LOG"
-echo "starting quickshell (Ctrl+C to stop)..."
-quickshell -p "$PROJECT_DIR" -n &
-QUICKSHELL_PID=$!
-trap 'kill $QUICKSHELL_PID 2>/dev/null || true' EXIT
-
-sleep 2
-if ! kill -0 "$QUICKSHELL_PID" 2>/dev/null; then
-    echo "quickshell failed to start" >&2
-    exit 1
-fi
+mkfifo "$TMP_DIR/state"
+python3 "$SCRIPT_DIR/poe_parser.py" --log "$LOG" --data "$PROJECT_DIR/data" --state "$TMP_DIR/state.json" >"$TMP_DIR/state" &
+PARSER_PID=$!
+grep --line-buffered -v '^{"tick": true' "$TMP_DIR/state" &
+FILTER_PID=$!
+trap 'kill "$PARSER_PID" "$FILTER_PID" 2>/dev/null || true; rm -rf "$TMP_DIR"' EXIT
 
 log() {
-    echo "2026/01/01 12:00:00 123456789 abc [INFO Client 1234] $1" >>"$TEST_LOG"
+    echo "2026/01/01 12:00:00 123456789 abc [INFO Client 1234] $1" >>"$LOG"
     echo "  $1"
 }
 
 log ": TestChar (Witch) is now level 2"
 for zone in "1_1_1:1" "1_1_town:1" "1_1_2:2" "1_1_4_1:4" "1_2_1:10"; do
     log "Generating level ${zone##*:} area \"${zone%%:*}\" with seed 1"
-    sleep 5
+    sleep 2
 done
 
 echo ""
-echo "IPC commands (also available from Hyprland):"
-echo "  qs ipc -p $PROJECT_DIR call leveling next"
-echo "  qs ipc -p $PROJECT_DIR call leveling prev"
-echo "  qs ipc -p $PROJECT_DIR call leveling toggle"
-echo "  qs ipc -p $PROJECT_DIR call leveling hints"
-echo ""
-echo "Ctrl+C to stop."
-while true; do sleep 1; done
+echo "In a running overlay: qs ipc -c poe-leveling call leveling next|prev|reset|toggle|hints"

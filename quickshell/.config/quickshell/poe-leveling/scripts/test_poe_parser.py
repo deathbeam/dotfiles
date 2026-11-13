@@ -9,20 +9,21 @@ from pathlib import Path
 import poe_parser as parser
 
 AREAS = {
-    "1_1_1": {"name": "Twilight Strand", "act": 1, "level": 1, "recipe": ""},
-    "1_1_town": {"name": "Lioneye's Watch", "act": 1, "level": 0, "recipe": ""},
-    "1_1_2": {"name": "The Coast", "act": 1, "level": 2, "recipe": ""},
-    "1_1_2a": {"name": "Tidal Island", "act": 1, "level": 3, "recipe": ""},
-    "1_2_1": {"name": "The Forest", "act": 2, "level": 10, "recipe": "Movement Speed I"},
+    "1_1_1": {"name": "Twilight Strand", "act": 1, "recipe": ""},
+    "1_1_town": {"name": "Lioneye's Watch", "act": 1, "recipe": ""},
+    "1_1_2": {"name": "The Coast", "act": 1, "recipe": ""},
+    "1_1_2a": {"name": "Tidal Island", "act": 1, "recipe": ""},
+    "1_2_1": {"name": "The Forest", "act": 2, "recipe": "Movement Speed I"},
+    "1_3_1": {"name": "City of Sarn", "act": 3, "recipe": ""},
 }
 
 
 def page(*lines):
-    return {"act": 1, "lines": list(lines), "condition": None}
+    return {"lines": list(lines), "condition": None}
 
 
 def conditional(condition, *lines):
-    return {"act": 1, "lines": list(lines), "condition": condition}
+    return {"lines": list(lines), "condition": condition}
 
 
 class PageTest(unittest.TestCase):
@@ -82,10 +83,30 @@ class TrackerTest(unittest.TestCase):
         self.assertEqual(self.tracker.page, 3)
 
     def test_manual_step_skips_condition(self):
-        self.tracker.next_page()
+        self.tracker.step(1)
         self.assertEqual(self.tracker.page, 2)
-        self.tracker.prev_page()
+        self.tracker.step(-1)
         self.assertEqual(self.tracker.page, 0)
+
+    def test_replay_does_not_advance(self):
+        self.tracker.enter_area("1_1_town", 0, advance=False)
+        self.assertEqual(self.tracker.page, 0)
+
+    def test_saved_page_filtered_by_condition_moves_forward(self):
+        self.tracker.page = 1  # league-start page, skipped by the current settings
+        self.tracker.save_state()
+        reloaded = parser.Tracker(AREAS, self.pages, self.tracker.renderer, self.state, False, "none")
+        self.assertEqual(reloaded.page, 2)
+
+    def test_act_timer_banks_only_on_forward_act_change(self):
+        self.tracker.enter_area("1_2_1", 10)  # act 1 -> 2
+        self.assertEqual(self.tracker.timer["act_number"], 2)
+        self.tracker.timer["act"] = 60.0
+        self.tracker.enter_area("1_1_2", 2)  # back to act 1: keep the act timer
+        self.tracker.enter_area("1_2_1", 10)  # same act again: nothing to bank
+        self.assertEqual((self.tracker.timer["act"], self.tracker.timer["act_number"]), (60.0, 2))
+        self.tracker.enter_area("1_3_1", 20)  # act 3: bank the act timer into the total
+        self.assertEqual((self.tracker.timer["act"], self.tracker.timer["total"], self.tracker.timer["act_number"]), (0.0, 60.0, 3))
 
     def test_progress_persists(self):
         self.tracker.page = 2

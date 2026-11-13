@@ -23,8 +23,8 @@ Hides or shows the panel. Starts `quickshell -c poe-leveling` when it is not run
 
 ## test_overlay.sh
 
-Runs the shell against a fake log (`/tmp/poe_test_client.txt`) and appends zone
-changes. Set `POE_LOG_PATH` to use another path.
+Feeds a temporary fake `Client.txt` through the parser and prints the state it
+emits, so the guide logic can be checked without a display.
 
 ```bash
 ./scripts/test_overlay.sh
@@ -33,7 +33,7 @@ changes. Set `POE_LOG_PATH` to use another path.
 ## Tests
 
 ```bash
-python3 -m unittest discover -s scripts -v
+python3 -m unittest discover -s scripts
 ```
 
 ## Keybinds
