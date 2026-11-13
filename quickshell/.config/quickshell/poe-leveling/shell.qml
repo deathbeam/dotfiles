@@ -1,128 +1,150 @@
 import QtQuick
 import Quickshell
-import Quickshell.Wayland
 import Quickshell.Io
+import Quickshell.Wayland
 
 ShellRoot {
     id: root
 
-    property var currentHints: []
+    property var state: ({})
+    property string timerText: ""
+    property string actTimerText: ""
+    property bool panelVisible: true
+    property bool hintsVisible: false
 
-    WlrLayershell {
-        id: overlay
+    readonly property real sideMargin: Config.anchorX === "left" || Config.anchorX === "right" ? Config.margin : Math.max(0, Math.round(((Config.targetScreen ? Config.targetScreen.width : 0) - Config.width) / 2))
 
-        layer: WlrLayer.Overlay
-        anchors {
-            top: true
-            left: true
-            right: true
-            bottom: false
+    function send(command) {
+        if (parser.running)
+            parser.write(command + "\n");
+    }
+
+    function applyState(data) {
+        try {
+            const message = JSON.parse(data);
+            if (message.tick) {
+                root.timerText = message.timer;
+                root.actTimerText = message.act_timer;
+                return;
+            }
+            root.state = message;
+            root.timerText = message.timer ?? "";
+            root.actTimerText = message.act_timer ?? "";
+        } catch (error) {
+            console.error("poe-leveling: bad state line", data, error);
         }
-
-        margins {
-            top: -20
-            left: (screen.width - Config.panelWidth) / 2
-            right: (screen.width - Config.panelWidth) / 2
-        }
-
-        exclusiveZone: 0
-        keyboardFocus: WlrKeyboardFocus.None
-        screen: Quickshell.screens[0]
-
-        implicitWidth: Config.panelWidth
-        implicitHeight: Config.panelHeight
-        color: "transparent"
-
-        LevelingPanel {
-            id: panel
-            anchors.fill: parent
-        }
-
-        visible: true
     }
 
     WlrLayershell {
-        id: hintOverlay
+        id: panelLayer
 
+        visible: root.panelVisible
         layer: WlrLayer.Overlay
+        screen: Config.targetScreen
+        exclusiveZone: 0
+        keyboardFocus: WlrKeyboardFocus.None
+        color: "transparent"
+        mask: Region {} // click-through
+
+        anchors.top: Config.anchorY !== "bottom"
+        anchors.bottom: Config.anchorY === "bottom"
+        anchors.left: Config.anchorX !== "right"
+        anchors.right: Config.anchorX !== "left"
+
+        margins {
+            top: Config.anchorY === "bottom" ? 0 : Config.margin
+            bottom: Config.anchorY === "bottom" ? Config.margin : 0
+            left: root.sideMargin
+            right: root.sideMargin
+        }
+
+        implicitWidth: Config.width
+        implicitHeight: panel.implicitHeight
+
+        Panel {
+            id: panel
+
+            anchors.top: parent.top
+            width: parent.width
+            state: root.state
+            timerText: root.timerText
+            actTimerText: root.actTimerText
+        }
+    }
+
+    WlrLayershell {
+        id: hintLayer
+
+        visible: root.hintsVisible && (root.state.hints ?? []).length > 0
+        layer: WlrLayer.Overlay
+        screen: Config.targetScreen
+        exclusiveZone: 0
+        keyboardFocus: WlrKeyboardFocus.None
+        color: "transparent"
+        mask: Region {} // click-through
+
         anchors {
             top: true
             bottom: true
+            left: true
             right: true
         }
 
-        exclusiveZone: 0
-        keyboardFocus: WlrKeyboardFocus.None
-        screen: Quickshell.screens[0]
-
-        implicitWidth: 700
-        implicitHeight: screen.height
-        color: "transparent"
-
         HintOverlay {
             anchors.fill: parent
-            hints: currentHints
+            hints: root.state.hints ?? []
         }
-
-        visible: false
     }
 
     Process {
         id: parser
 
-        command: ["python3", Config.scriptsDir + "/poe_parser.py", Config.logPath || "/tmp/poe_test_client.txt", Config.dataDir + "/guide.json", Config.dataDir + "/areas.json", Config.dataDir + "/gems.json"]
-
+        command: ["python3", Config.scriptsDir + "/poe_parser.py", "--log", Config.logPath, "--data", Config.dataDir, "--state", Config.statePath, "--league-start", Config.leagueStart ? "yes" : "no", "--bandit", Config.bandit, "--character", Config.characterName]
+        stdinEnabled: true
         running: true
 
         stdout: SplitParser {
-            splitMarker: "\n"
-
-            onRead: data => {
-                try {
-                    const state = JSON.parse(data);
-                    console.log("Zone changed to:", state.zone_name);
-                    panel.updateState(state);
-                    currentHints = state.hints || [];
-                } catch (e) {
-                    console.error("Failed to parse JSON:", data, e);
-                }
-            }
+            onRead: data => root.applyState(data)
         }
 
         stderr: SplitParser {
-            splitMarker: "\n"
-            onRead: data => console.error("Parser stderr:", data)
+            onRead: data => console.warn("poe-leveling:", data)
         }
 
         onExited: (code, status) => {
-            console.error("Parser exited with code:", code);
+            console.warn("poe-leveling: parser exited with", code, "- restarting");
+            restartTimer.start();
         }
     }
 
-    SocketServer {
-        id: ipcServer
+    Timer {
+        id: restartTimer
 
-        path: "/tmp/poe-leveling.sock"
-        active: true
+        interval: 3000
+        onTriggered: parser.running = true
+    }
 
-        handler: Socket {
-            parser: SplitParser {
-                splitMarker: "\n"
+    IpcHandler {
+        target: "leveling"
 
-                onRead: data => {
-                    const cmd = data.trim();
+        function next() {
+            root.send("next");
+        }
 
-                    if (cmd === "next") {
-                        panel.nextPage();
-                    } else if (cmd === "prev") {
-                        panel.prevPage();
-                    } else if (cmd === "hints") {
-                        hintOverlay.visible = !hintOverlay.visible;
-                    }
+        function prev() {
+            root.send("prev");
+        }
 
-                    connected = false;
-                }
-            }
+        function reset() {
+            root.send("reset");
+        }
+
+        function toggle() {
+            root.panelVisible = !root.panelVisible;
+        }
+
+        function hints() {
+            root.hintsVisible = !root.hintsVisible;
         }
     }
 }

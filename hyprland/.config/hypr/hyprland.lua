@@ -156,9 +156,10 @@ hl.bind("SUPER + a", hl.dsp.exec_cmd("menu-wifi -p \"wifi\""), { description = "
 
 -- PoE Leveling Overlay
 hl.bind("SUPER + z",         hl.dsp.exec_cmd("~/.config/quickshell/poe-leveling/scripts/toggle.sh"), { description = "poe leveling toggle" })
-hl.bind("SUPER + Left",      hl.dsp.exec_cmd("echo 'prev' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock"), { description = "poe previous" })
-hl.bind("SUPER + Right",     hl.dsp.exec_cmd("echo 'next' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock"), { description = "poe next" })
-hl.bind("SUPER + SHIFT + z", hl.dsp.exec_cmd("echo 'hints' | socat - UNIX-CONNECT:/tmp/poe-leveling.sock"), { description = "poe hints" })
+hl.bind("SUPER + Left",      hl.dsp.exec_cmd("qs ipc -c poe-leveling call leveling prev"), { description = "poe previous" })
+hl.bind("SUPER + Right",     hl.dsp.exec_cmd("qs ipc -c poe-leveling call leveling next"), { description = "poe next" })
+hl.bind("SUPER + SHIFT + Left", hl.dsp.exec_cmd("qs ipc -c poe-leveling call leveling reset"), { description = "poe reset" })
+hl.bind("SUPER + SHIFT + z", hl.dsp.exec_cmd("qs ipc -c poe-leveling call leveling hints"), { description = "poe hints" })
 
 ----------------------
 -- WORKSPACE RULES  --

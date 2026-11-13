@@ -1,128 +1,35 @@
 #!/usr/bin/env bash
-# Import leveling tracker data from Exile-UI directory
+# Import PoE1 leveling data from an Exile-UI checkout into ./data.
+# Usage: ./scripts/import_exile_data.sh [path-to-Exile-UI]
+set -euo pipefail
 
-set -e
+EXILE_UI_DIR="${1:-$HOME/git/Exile-UI}"
+DATA_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)/data"
 
-# Colors for output
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-NC='\033[0m' # No Color
+AREAS="$EXILE_UI_DIR/data/english/[leveltracker] areas.json"
+GUIDE="$EXILE_UI_DIR/data/english/[leveltracker] default guide.json"
+HINTS="$EXILE_UI_DIR/img/GUI/leveling tracker/hints"
+ICONS="$EXILE_UI_DIR/img/GUI/leveling tracker"
 
-print_info() {
-    echo -e "${GREEN}[INFO]${NC} $1"
-}
+for file in "$AREAS" "$GUIDE"; do
+    if [ ! -f "$file" ]; then
+        echo "missing: $file" >&2
+        exit 1
+    fi
+done
 
-print_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
+# Replace instead of merge so removed hints and icons do not linger.
+rm -rf "${DATA_DIR:?}/hints" "${DATA_DIR:?}/icons"
+mkdir -p "$DATA_DIR/hints" "$DATA_DIR/icons"
 
-print_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
+cp -f "$AREAS" "$DATA_DIR/areas.json"
+cp -f "$GUIDE" "$DATA_DIR/guide.json"
+cp -f "$HINTS"/*.jpg "$HINTS"/*.png "$DATA_DIR/hints/" 2>/dev/null || true
+# inline icons for "(img:<name>)"
+cp -f "$ICONS"/*.png "$DATA_DIR/icons/" 2>/dev/null || true
+cp -f "$EXILE_UI_DIR/img/GUI/help.png" "$DATA_DIR/icons/help.png" 2>/dev/null || true
 
-# Check arguments
-if [ $# -lt 1 ] || [ $# -gt 2 ]; then
-    echo "Usage: $0 <exile-ui-directory> [poe-version]"
-    echo ""
-    echo "Arguments:"
-    echo "  exile-ui-directory  Path to Exile-UI directory"
-    echo "  poe-version         Optional: '1' for PoE1, '2' for PoE2 (default: 1)"
-    echo ""
-    echo "Example:"
-    echo "  $0 /home/user/git/Exile-UI 1     # Import PoE1 data"
-    echo "  $0 /home/user/git/Exile-UI 2     # Import PoE2 data"
-    exit 1
-fi
-
-EXILE_UI_DIR="$1"
-POE_VERSION="${2:-1}"  # Default to PoE1
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-POE_LEVELING_DIR="$(dirname "$SCRIPT_DIR")"
-DATA_DIR="$POE_LEVELING_DIR/data"
-HINTS_DIR="$DATA_DIR/hints"
-
-# Validate Exile-UI directory
-if [ ! -d "$EXILE_UI_DIR" ]; then
-    print_error "Directory does not exist: $EXILE_UI_DIR"
-    exit 1
-fi
-
-print_info "Exile-UI directory: $EXILE_UI_DIR"
-print_info "PoE version: $POE_VERSION"
-print_info "Output directory: $DATA_DIR"
-echo ""
-
-# Find the required files based on version
-print_info "Searching for PoE${POE_VERSION} leveltracker data files..."
-
-if [ "$POE_VERSION" = "1" ]; then
-    AREAS_FILE=$(find "$EXILE_UI_DIR/data" -name "*areas.json" | grep leveltracker | grep -v " 2.json" | head -1)
-    GUIDE_FILE=$(find "$EXILE_UI_DIR/data" -name "*default guide.json" | grep leveltracker | grep -v " 2.json" | head -1)
-    GEMS_FILE=$(find "$EXILE_UI_DIR/data" -name "*gems.json" | grep leveltracker | grep -v " 2.json" | head -1)
-    HINTS_SOURCE_DIR=$(find "$EXILE_UI_DIR/img" -type d -name "hints" | grep "leveling tracker" | grep -v "hints 2" | head -1)
-else
-    AREAS_FILE=$(find "$EXILE_UI_DIR/data" -name "*areas 2.json" | grep leveltracker | head -1)
-    GUIDE_FILE=$(find "$EXILE_UI_DIR/data" -name "*default guide 2.json" | grep leveltracker | head -1)
-    GEMS_FILE=$(find "$EXILE_UI_DIR/data" -name "*gems 2.json" | grep leveltracker | head -1)
-    HINTS_SOURCE_DIR=$(find "$EXILE_UI_DIR/img" -type d -name "hints 2" | grep "leveling tracker" | head -1)
-fi
-
-# Validate files found
-if [ -z "$AREAS_FILE" ]; then
-    print_error "Could not find areas JSON file in $EXILE_UI_DIR"
-    exit 1
-fi
-
-if [ -z "$GUIDE_FILE" ]; then
-    print_error "Could not find default guide JSON file in $EXILE_UI_DIR"
-    exit 1
-fi
-
-if [ -z "$GEMS_FILE" ]; then
-    print_error "Could not find gems JSON file in $EXILE_UI_DIR"
-    exit 1
-fi
-
-if [ -z "$HINTS_SOURCE_DIR" ]; then
-    print_warn "Could not find hints directory, will skip copying hint images"
-else
-    print_info "Found hints directory: $HINTS_SOURCE_DIR"
-fi
-
-print_info "Found areas file: $AREAS_FILE"
-print_info "Found guide file: $GUIDE_FILE"
-print_info "Found gems file: $GEMS_FILE"
-echo ""
-
-# Create data directories
-mkdir -p "$DATA_DIR"
-mkdir -p "$HINTS_DIR"
-
-# Just copy the files directly - no conversion needed!
-print_info "Copying data files..."
-cp "$AREAS_FILE" "$DATA_DIR/areas.json"
-cp "$GUIDE_FILE" "$DATA_DIR/guide.json"
-cp "$GEMS_FILE" "$DATA_DIR/gems.json"
-print_info "  → Copied areas.json, guide.json, and gems.json"
-
-# Copy hint images if available
-if [ -n "$HINTS_SOURCE_DIR" ] && [ -d "$HINTS_SOURCE_DIR" ]; then
-    print_info "Copying hint images..."
-    
-    # Copy all images
-    cp -v "$HINTS_SOURCE_DIR"/*.{jpg,jpeg,png,JPG,JPEG,PNG} "$HINTS_DIR/" 2>/dev/null || true
-    
-    # Count copied images
-    IMAGE_COUNT=$(find "$HINTS_DIR" -type f | wc -l)
-    
-    print_info "  → Copied hint images to $HINTS_DIR (total: $IMAGE_COUNT files)"
-fi
-
-echo ""
-print_info "Import complete!"
-print_info "Data directory: $DATA_DIR"
-print_info ""
-print_info "To use this overlay, run:"
-echo "  cd $POE_LEVELING_DIR"
-echo "  quickshell -c shell.qml"
+echo "areas: $(basename "$AREAS")"
+echo "guide: $(basename "$GUIDE")"
+echo "hints: $(find "$DATA_DIR/hints" -type f | wc -l) images"
+echo "icons: $(find "$DATA_DIR/icons" -type f | wc -l) images"

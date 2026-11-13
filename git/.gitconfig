@@ -40,6 +40,9 @@
 [difftool "nvim_difftool"]
     cmd = nvim -c \"packadd nvim.difftool\" -d \"$LOCAL\" \"$REMOTE\"
 
+[difftool "nvim_unified"]
+    cmd = nvim -c \"packadd nvim.difftool\" -c \"lua require('difftool').open(vim.v.argf[1], vim.v.argf[2], { layout = 'unified' })\" -c \"%argdelete\" \"$LOCAL\" \"$REMOTE\"
+
 [merge]
     log = true
     tool = nvimdiff1
@@ -74,10 +77,10 @@
 # [credential]
 # helper = store
 [credential "https://github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 [credential "https://gist.github.com"]
-	helper = 
+	helper =
 	helper = !/usr/bin/gh auth git-credential
 
 [http]

@@ -1,9 +1,11 @@
 #!/bin/bash
+# Toggle the PoE leveling panel; start the shell if it is not running.
+set -u
 
-if pgrep -f "quickshell -c poe-leveling" > /dev/null; then
-    pkill -f "quickshell -c poe-leveling"
-    notify-send "PoE Overlay" "Stopped" -t 2000
-else
-    quickshell -c poe-leveling -n &
-    notify-send "PoE Overlay" "Started" -t 2000
+CONFIG="poe-leveling"
+
+if qs ipc -c "$CONFIG" call leveling toggle >/dev/null 2>&1; then
+    exit 0
 fi
+
+quickshell -c "$CONFIG" -n -d
