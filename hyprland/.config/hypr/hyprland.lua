@@ -168,7 +168,7 @@ hl.bind("SUPER + SHIFT + z", hl.dsp.exec_cmd("qs ipc -c poe-leveling call leveli
 hl.workspace_rule({ workspace = "special:cheatsheet", on_created_empty = "overlay -t \"Cheatsheet\" glow -w 0 --pager ~/git/dotfiles/CHEATSHEET.md" })
 hl.workspace_rule({ workspace = "special:btop",      on_created_empty = "overlay -t \"System\" btop" })
 hl.workspace_rule({ workspace = "special:discord",    on_created_empty = "vesktop" })
-hl.workspace_rule({ workspace = "special:youtubemusic", on_created_empty = "youtube-music" })
+hl.workspace_rule({ workspace = "special:youtubemusic", on_created_empty = "limusic-app" })
 hl.workspace_rule({ workspace = "special:kubernetes", on_created_empty = "overlay -t \"Kubernetes\" k9s" })
 hl.workspace_rule({ workspace = "special:docker",    on_created_empty = "overlay -t \"Docker\" lazydocker" })
 

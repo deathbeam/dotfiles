@@ -23,6 +23,7 @@
 | `SUPER+z` | poe leveling toggle |
 | `SUPER+Left` | poe previous |
 | `SUPER+Right` | poe next |
+| `SUPER+SHIFT+Left` | poe reset |
 | `SUPER+SHIFT+z` | poe hints |
 | `switch:Lid Switch` | lock screen |
 | `Print` | screenshot |
