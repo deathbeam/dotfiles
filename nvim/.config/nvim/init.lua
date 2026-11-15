@@ -1,3 +1,5 @@
+vim.loader.enable()
+
 -- Load existing vimrc
 vim.cmd([[
   set runtimepath^=~/.vim runtimepath+=~/.vim/after
