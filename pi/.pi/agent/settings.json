@@ -32,6 +32,7 @@
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
+    "npm:@deathbeam/pi-rtk",
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
