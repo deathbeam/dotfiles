@@ -90,7 +90,11 @@ alias why='witr'
 
 # Pi
 alias pis='sandbox pi'
+alias pisc='pis --continue'
+alias pisr='pis --resume'
 alias piw='PI_CODING_AGENT_DIR=~/.pi/agent-work sandbox pi'
+alias piwc='piw --continue'
+alias piwr='piw --resume'
 
 # Arch aliases
 # Show unnecessary packages
