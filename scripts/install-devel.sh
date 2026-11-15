@@ -11,6 +11,7 @@ packages=(
     jq yq jnv # json/yaml processors
     quicktype # json converter to types
     github-cli
+    rtk-bin
     docker docker-buildx docker-compose bubblewrap lazydocker # container and isolation
     azure-cli kubectl k9s azure-kubelogin temporal-cli
 )
@@ -29,7 +30,6 @@ packages=(
 install_python_pkgs "${packages[@]}"
 
 packages=(
-    rtk
     cargo-update
 )
 install_cargo_pkgs "${packages[@]}"

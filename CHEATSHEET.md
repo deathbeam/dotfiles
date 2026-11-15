@@ -376,13 +376,193 @@
 | alias | `why` | `witr`
 
 # Useful Commands
-_No tldr entry_
+## yay
 
-_No tldr entry_
+> Yet Another Yogurt: build and install packages from the Arch User Repository.
+> See also: `pacman`.
+> More information: <https://github.com/Jguer/yay#first-use>.
 
-_No tldr entry_
+- Interactively search and install packages from the repos and AUR:
 
-_No tldr entry_
+`yay {{package_name|search_term}}`
 
-_No tldr entry_
+- Synchronize and update all packages from the repos and AUR:
+
+`yay`
+
+- Install a new package from the repos and AUR and do not ask to confirm transactions:
+
+`yay -S {{package}} --noconfirm`
+
+- Remove an installed package and both its dependencies and configuration files:
+
+`yay -Rns {{package}}`
+
+- Search the package database for a keyword from the repos and AUR:
+
+`yay -Ss {{keyword}}`
+
+- Remove orphaned packages (installed as dependencies but not required by any package):
+
+`yay -Yc`
+
+- Clean `pacman` and `yay` caches (old package versions kept for rollback and downgrade purposes):
+
+`yay -Scc`
+
+- Show statistics for installed packages and system health:
+
+`yay -Ps`
+
+## git
+
+> Distributed version control system.
+> Some subcommands such as `commit`, `add`, `branch`, `switch`, `push`, etc. have their own usage documentation.
+> More information: <https://git-scm.com/docs/git>.
+
+- Create an empty Git repository:
+
+`git init`
+
+- Clone a remote Git repository from the internet:
+
+`git clone {{https://example.com/repo.git}}`
+
+- View the status of the local repository:
+
+`git status`
+
+- Stage all changes for a commit:
+
+`git add {{[-A|--all]}}`
+
+- Commit changes to version history:
+
+`git commit {{[-m|--message]}} {{message_text}}`
+
+- Push local commits to a remote repository:
+
+`git push`
+
+- Pull any changes made to a remote:
+
+`git pull`
+
+- Reset everything the way it was in the latest commit:
+
+`git reset --hard; git clean {{[-f|--force]}}`
+
+## docker
+
+> Manage Docker containers and images.
+> Some subcommands such as `container`, `image`, etc. have their own usage documentation.
+> More information: <https://docs.docker.com/reference/cli/docker/>.
+
+- List all Docker containers (running and stopped):
+
+`docker {{[ps|container ls]}} {{[-a|--all]}}`
+
+- Start a container from an image, with a custom name:
+
+`docker {{[run|container run]}} --name {{container_name}} {{image}}`
+
+- Start or stop an existing container:
+
+`docker container {{start|stop}} {{container_name}}`
+
+- Pull an image from a Docker registry:
+
+`docker {{[pull|image pull]}} {{image}}`
+
+- Display the list of already downloaded images:
+
+`docker {{[images|image ls]}}`
+
+- Open an interactive tty with Bourne shell (`sh`) inside a running container:
+
+`docker {{[exec|container exec]}} {{[-it|--interactive --tty]}} {{container_name}} {{sh}}`
+
+- Remove stopped containers:
+
+`docker {{[rm|container rm]}} {{container1 container2 ...}}`
+
+- Fetch and follow the logs of a container:
+
+`docker {{[logs|container logs]}} {{[-f|--follow]}} {{container_name}}`
+
+## rg
+
+> Ripgrep, a recursive line-oriented search tool.
+> Aims to be a faster alternative to `grep`.
+> More information: <https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md>.
+
+- Recursively search current directory for a pattern (`regex`):
+
+`rg {{pattern}}`
+
+- Recursively search for a pattern in a file or directory:
+
+`rg {{pattern}} {{path/to/file_or_directory}}`
+
+- Search for a literal string pattern:
+
+`rg {{[-F|--fixed-strings]}} -- {{string}}`
+
+- Include hidden files and entries listed in `.gitignore`:
+
+`rg {{[-.|--hidden]}} --no-ignore {{pattern}}`
+
+- Only search the files matching the `glob` pattern(s) (e.g. `README.*`, use `!filename_pattern` to exclude instead):
+
+`rg {{pattern}} {{[-g|--glob]}} '{{filename_glob_pattern}}'`
+
+- Recursively list filenames in the current directory and highlight ones that match a pattern:
+
+`rg --files | rg {{[--passthru|--passthrough]}} {{pattern}}`
+
+- Only list matched files (useful when piping to other commands):
+
+`rg {{[-l|--files-with-matches]}} {{pattern}}`
+
+- Show lines that do not match the pattern:
+
+`rg {{[-v|--invert-match]}} {{pattern}}`
+
+## kubectl
+
+> Run commands against Kubernetes clusters.
+> Some subcommands such as `run` have their own usage documentation.
+> More information: <https://kubernetes.io/docs/reference/kubectl/>.
+
+- List information about a resource with more details:
+
+`kubectl get {{pods|service|deployment|ingress|...}} {{[-o|--output]}} wide`
+
+- Update specified pod with the label `unhealthy` and the value `true`:
+
+`kubectl label pods {{name}} unhealthy=true`
+
+- List all resources with different types:
+
+`kubectl get all`
+
+- Display resource (CPU/Memory/Storage) usage of nodes or pods:
+
+`kubectl top {{pods|nodes}}`
+
+- Print the address of the master and cluster services:
+
+`kubectl cluster-info`
+
+- Display an explanation of a specific field:
+
+`kubectl explain {{pods.spec.containers}}`
+
+- Print the logs for a container in a pod or specified resource:
+
+`kubectl logs {{pod_name}}`
+
+- Run command in an existing pod:
+
+`kubectl exec {{pod_name}} -- {{ls /}}`
 
