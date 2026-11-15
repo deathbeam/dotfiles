@@ -28,6 +28,12 @@ packages=(
 )
 install_python_pkgs "${packages[@]}"
 
+packages=(
+    rtk
+    cargo-update
+)
+install_cargo_pkgs "${packages[@]}"
+
 log "Configuring development environment"
 services=(
     docker

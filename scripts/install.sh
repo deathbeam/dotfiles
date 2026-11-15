@@ -76,6 +76,18 @@ install_asdf_pkgs() {
   done
 }
 
+install_cargo_pkgs() {
+  if ! command -v cargo &> /dev/null; then
+    install_pkgs rustup
+    rustup default stable
+  fi
+  for pkg in "$@"; do
+    if ! cargo install --list | grep -q "^$pkg "; then
+      cargo install "$pkg"
+    fi
+  done
+}
+
 enable_services() {
   sudo systemctl enable --now "${@}"
 }
