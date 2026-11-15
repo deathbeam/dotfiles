@@ -32,7 +32,7 @@
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:@deathbeam/pi-rtk",
+    "npm:@deathbeam/pi-context",
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
@@ -59,7 +59,7 @@
     "vision": "mistral/deepseek-v4-1-flash-1017",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
-  "archive": {
+  "context": {
     "compaction": "mistral/deepseek-v4-1-flash-1017:high"
   },
   "extensionChangelogVersions": {

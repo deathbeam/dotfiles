@@ -26,7 +26,7 @@
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
     "npm:@deathbeam/pi-hashline",
-    "npm:@deathbeam/pi-rtk",
+    "npm:@deathbeam/pi-context",
     "npm:@deathbeam/pi-images",
     "npm:@deathbeam/pi-usage"
   ],
@@ -43,5 +43,8 @@
       "balanced": "github-copilot/gpt-6.1-terra:high",
       "strong": "github-copilot/gpt-6.1-sol:high"
     }
+  },
+  "context": {
+    "compaction": "github-copilot/claude-haiku-5.5:high"
   }
 }
