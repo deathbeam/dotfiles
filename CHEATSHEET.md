@@ -365,7 +365,11 @@
 | alias | `pau` | `yay -Syu`
 | alias | `pauu` | `yay -Syu --noconfirm`
 | alias | `pis` | `sandbox pi`
+| alias | `pisc` | `pis --continue`
+| alias | `pisr` | `pis --resume`
 | alias | `piw` | `PI_CODING_AGENT_DIR=~/.pi/agent-work sandbox pi`
+| alias | `piwc` | `piw --continue`
+| alias | `piwr` | `piw --resume`
 | alias | `reset` | `command reset   && [ -f /home/deathbeam/.config/tinted-theming/base16_shell_theme ]   && . /home/deathbeam/.config/tinted-theming/base16_shell_theme`
 | alias | `run-help` | `man`
 | alias | `vim` | `nvim`

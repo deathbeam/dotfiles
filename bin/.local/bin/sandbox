@@ -24,6 +24,7 @@ bwrap_args=(
 
     # Tool state: everything visible and writable, writes persist
     --bind "$HOME/.pi" "$HOME/.pi"
+    --bind "$HOME/.local/share/rtk" "$HOME/.local/share/rtk"
 
     # Destkop: clipboard/screenshot access
     --bind "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
