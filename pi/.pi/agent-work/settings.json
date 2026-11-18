@@ -22,6 +22,7 @@
   "packages": [
     "npm:pi-context-view",
     "npm:@dietrichgebert/ponytail",
+    "npm:@deathbeam/pi-combos",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",

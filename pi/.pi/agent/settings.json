@@ -1,6 +1,6 @@
 {
-  "defaultModel": "claude-opus-5-5",
-  "defaultProvider": "anthropic",
+  "defaultModel": "expensive",
+  "defaultProvider": "combo",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.5.2",
   "defaultThinkingLevel": "high",
@@ -26,8 +26,10 @@
     "npm:pi-context-view",
     "npm:@dietrichgebert/ponytail",
     "npm:@gotgenes/pi-anthropic-auth",
+    "npm:@deathbeam/pi-combos",
     "npm:@deathbeam/pi-inferhub",
     "npm:@deathbeam/pi-surplus",
+    "npm:@deathbeam/pi-opencode",
     "npm:@deathbeam/pi-keenable",
     "npm:@deathbeam/pi-archive",
     "npm:@deathbeam/pi-delegate",
@@ -37,22 +39,32 @@
     "npm:@deathbeam/pi-usage"
   ],
   "enabledModels": [
-    "inferhub/combo/deepseek",
-    "inferhub/glm-5.3",
-    "inferhub/kimi-k3.1-pro",
-    "inferhub/claude-opus-5.5",
-    "mistral/deepseek-v4-1-flash-1017",
-    "mistral/zai-glm-5-3-flash",
-    "mistral/zai-glm-5-3",
-    "anthropic/claude-haiku-5-5",
-    "anthropic/claude-sonnet-5-5",
-    "anthropic/claude-opus-5-5"
+    "combo/cheap",
+    "combo/balanced",
+    "combo/expensive"
   ],
+  "combos": {
+    "cheap": [
+      "mistral/deepseek-v4-1-flash-1017",
+      "opencode-go/deepseek-v4.1-flash",
+      "anthropic/claude-haiku-5-5",
+      "inferhub/deepseek-v4.1-flash-1017"
+    ],
+    "balanced": [
+      "opencode-go/glm-5.3",
+      "mistral/zai-glm-5-3",
+      "inferhub/glm-5.3"
+    ],
+    "expensive": [
+      "anthropic/claude-opus-5-5",
+      "inferhub/claude-opus-5.5"
+    ]
+  },
   "delegate": {
     "models": {
-      "cheap": "mistral/deepseek-v4-1-flash-1017:low",
-      "balanced": "mistral/deepseek-v4-1-flash-1017:high",
-      "strong": "mistral/deepseek-v4-1-flash-1017:max"
+      "cheap": "combo/cheap:low",
+      "balanced": "combo/cheap:high",
+      "strong": "combo/cheap:max"
     }
   },
   "images": {
