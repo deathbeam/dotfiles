@@ -22,12 +22,9 @@ bwrap_args=(
     --tmpfs "$HOME/.ssh"
     --tmpfs "$HOME/.gnupg"
 
-    # Tool state: everything visible and writable, writes persist
-    --bind "$HOME/.pi" "$HOME/.pi"
-    --bind "$HOME/.local/share/rtk" "$HOME/.local/share/rtk"
-
-    # Destkop: clipboard/screenshot access
-    --bind "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY"
+    # Tool state: visible and writable, writes persist
+    --bind-try "$HOME/.pi" "$HOME/.pi"
+    --bind-try "$HOME/.local/share/rtk" "$HOME/.local/share/rtk"
 
     # Project: everything visible and writable, writes persist
     --bind "$HERE" "$HERE"
@@ -46,6 +43,14 @@ bwrap_args=(
 
     --setenv PS1 "sandbox$ "
 )
+
+# Desktop: clipboard/screenshot access, only for the display server that is running
+if [[ -n ${XDG_RUNTIME_DIR:-} && -n ${WAYLAND_DISPLAY:-} ]]; then
+    bwrap_args+=(--bind-try "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY" "$XDG_RUNTIME_DIR/$WAYLAND_DISPLAY")
+elif [[ -n ${DISPLAY:-} ]]; then
+    bwrap_args+=(--ro-bind-try /tmp/.X11-unix /tmp/.X11-unix)
+    [[ -z ${XAUTHORITY:-} ]] || bwrap_args+=(--ro-bind-try "$XAUTHORITY" "$XAUTHORITY")
+fi
 
 if [[ ${1:-} == --check ]]; then
     exec bwrap "${bwrap_args[@]}" bash -c '
