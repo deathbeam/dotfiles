@@ -36,13 +36,13 @@
     "github-copilot/claude-sonnet-5.5",
     "github-copilot/claude-opus-5.5",
     "github-copilot/gpt-6.1-terra",
-    "github-copilot/gpt-6.1-sol"
+    "github-copilot/gpt-6.2-sol"
   ],
   "delegate": {
     "models": {
       "cheap": "github-copilot/claude-haiku-5.5:low",
       "balanced": "github-copilot/gpt-6.1-terra:high",
-      "strong": "github-copilot/gpt-6.1-sol:high"
+      "strong": "github-copilot/gpt-6.2-sol:high"
     }
   },
   "context": {
