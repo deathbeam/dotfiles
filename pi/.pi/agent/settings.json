@@ -68,11 +68,11 @@
     }
   },
   "images": {
-    "vision": "mistral/deepseek-v4-1-flash-1017",
+    "vision": "combo/cheap",
     "generate": "inferhub/gemini-3.1-flash-image"
   },
   "context": {
-    "compaction": "mistral/deepseek-v4-1-flash-1017:high"
+    "compaction": "combo/cheap:high"
   },
   "extensionChangelogVersions": {
     "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.6.0",
