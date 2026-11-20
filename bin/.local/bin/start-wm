@@ -23,6 +23,7 @@ export EGL_PLATFORM="wayland"
 export ELECTRON_OZONE_PLATFORM_HINT="auto"
 export PROTON_ENABLE_WAYLAND="1"
 export PROTON_USE_NTSYNC="1"
+export PROTONPATH=GE-Proton
 
 # QT specific (override QT_AUTO_SCREEN_SCALE_FACTOR=0 from .profile).
 export QT_WAYLAND_DISABLE_WINDOWDECORATION="1"
