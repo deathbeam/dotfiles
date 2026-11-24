@@ -50,9 +50,7 @@
       "inferhub/deepseek-v4.1-flash-1017"
     ],
     "balanced": [
-      "opencode-go/glm-5.3",
-      "mistral/zai-glm-5-3",
-      "inferhub/glm-5.3"
+      "inferhub/glm-5.4"
     ],
     "expensive": [
       "anthropic/claude-opus-5-5",
@@ -63,7 +61,7 @@
     "models": {
       "cheap": "combo/cheap:low",
       "balanced": "combo/cheap:high",
-      "strong": "combo/cheap:max"
+      "strong": "combo/balanced:high"
     }
   },
   "images": {
