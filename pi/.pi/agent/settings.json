@@ -45,12 +45,10 @@
   "combos": {
     "cheap": [
       "mistral/deepseek-v4-1-flash-1017",
-      "opencode-go/deepseek-v4.1-flash",
-      "anthropic/claude-haiku-5-5",
-      "inferhub/deepseek-v4.1-flash-1017"
+      "opencode-go/deepseek-v4.1-flash"
     ],
     "balanced": [
-      "inferhub/glm-5.4"
+      "inferhub/zai/glm-5.4"
     ],
     "expensive": [
       "anthropic/claude-opus-5-5",
@@ -61,7 +59,7 @@
     "models": {
       "cheap": "combo/cheap:low",
       "balanced": "combo/cheap:high",
-      "strong": "combo/balanced:high"
+      "strong": "combo/balanced:max"
     }
   },
   "images": {
