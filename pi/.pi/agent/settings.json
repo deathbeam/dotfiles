@@ -39,7 +39,8 @@
     "npm:@deathbeam/pi-hashline",
     "npm:@deathbeam/pi-context",
     "npm:@deathbeam/pi-images",
-    "npm:@deathbeam/pi-usage"
+    "npm:@deathbeam/pi-usage",
+    "npm:@deathbeam/pi-plan"
   ],
   "enabledModels": [
     "combo/cheap",
@@ -72,5 +73,9 @@
   },
   "context": {
     "compaction": "combo/cheap:high"
+  },
+  "extensionChangelogVersions": {
+    "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.8.4",
+    "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.7.0"
   }
 }

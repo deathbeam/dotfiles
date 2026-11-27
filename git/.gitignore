@@ -1,5 +1,6 @@
-# Worktrees
+# Local stuff
 worktrees/
+plans/
 
 # Compiled Python files
 *.pyc

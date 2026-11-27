@@ -33,7 +33,8 @@
     "npm:@deathbeam/pi-hashline",
     "npm:@deathbeam/pi-context",
     "npm:@deathbeam/pi-images",
-    "npm:@deathbeam/pi-usage"
+    "npm:@deathbeam/pi-usage",
+    "npm:@deathbeam/pi-plan"
   ],
   "enabledModels": [
     "github-copilot/claude-haiku-5.5",
