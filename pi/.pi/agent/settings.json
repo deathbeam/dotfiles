@@ -1,5 +1,5 @@
 {
-  "defaultModel": "balanced",
+  "defaultModel": "expensive",
   "defaultProvider": "combo",
   "enableInstallTelemetry": false,
   "lastChangelogVersion": "1.6.1",
@@ -58,13 +58,17 @@
     "expensive": [
       "anthropic/claude-opus-5-5",
       "inferhub/claude-opus-5.5"
+    ],
+    "creative-writer": [
+      "inferhub/kimi-k3.1-pro"
     ]
   },
   "delegate": {
     "models": {
       "cheap": "combo/cheap:low",
       "balanced": "combo/cheap:high",
-      "strong": "combo/balanced:high"
+      "strong": "combo/balanced:high",
+      "creative-writer": "combo/creative-writer:high"
     }
   },
   "images": {
