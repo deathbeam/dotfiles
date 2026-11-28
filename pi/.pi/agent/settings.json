@@ -1,8 +1,8 @@
 {
-  "defaultModel": "expensive",
+  "defaultModel": "balanced",
   "defaultProvider": "combo",
   "enableInstallTelemetry": false,
-  "lastChangelogVersion": "1.6.1",
+  "lastChangelogVersion": "1.7.0",
   "defaultThinkingLevel": "high",
   "steeringMode": "all",
   "followUpMode": "all",
@@ -79,7 +79,7 @@
     "compaction": "combo/cheap:high"
   },
   "extensionChangelogVersions": {
-    "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.8.4",
+    "{\"source\":\"npm:pi-context-view\",\"scope\":\"user\"}": "0.9.0",
     "{\"source\":\"npm:@gotgenes/pi-anthropic-auth\",\"scope\":\"user\"}": "3.7.0"
   }
 }
